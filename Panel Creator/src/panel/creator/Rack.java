@@ -8,7 +8,7 @@ package panel.creator;
 import java.util.ArrayList;
 
 /**
- *
+ * Rack class holds information about the rack
  * @author EricGummerson
  */
 public class Rack {
