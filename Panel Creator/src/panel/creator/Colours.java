@@ -8,7 +8,8 @@ package panel.creator;
 import java.awt.Color;
 
 /**
- *
+ * Colours is a quick enumerated class to define custom colours used on the 
+ * backgrounds
  * @author EricGummerson
  */
 public enum Colours {

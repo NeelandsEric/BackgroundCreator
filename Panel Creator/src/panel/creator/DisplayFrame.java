@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 /**
- *
+ * The main display frame
  * @author EricGummerson
  */
 public class DisplayFrame extends javax.swing.JFrame {
