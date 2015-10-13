@@ -8,7 +8,7 @@ package panel.creator;
 import java.util.ArrayList;
 
 /**
- *
+ * Rack class holds information about the rack
  * @author EricGummerson
  */
 public class Rack {
@@ -100,6 +100,15 @@ public class Rack {
         this.maxSuctionGroups = maxSuctionGroups;
     }
     
+    public String getSuctionGroupNameIndex(int index){
+        String name;
+        if(this.suctionGroup.get(index) != null){
+            name = this.suctionGroup.get(index).getName();
+        }else {
+            name = "Name not found";
+        }
+        return name;
+    }
     public String [] getSuctionGroupNames(){
         String [] names = new String[this.numSuctionGroups];
         

@@ -8,7 +8,7 @@ package panel.creator;
 import java.util.ArrayList;
 
 /**
- *
+ * Suction group contains suction group info
  * @author EricGummerson
  */
 public class SuctionGroup {
