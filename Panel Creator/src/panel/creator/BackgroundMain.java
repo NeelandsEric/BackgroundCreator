@@ -891,7 +891,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         label.setFont(font);
         panel.add(label, c);
         // KW
-        label = new JLabel("  KW  ");
+        label = new JLabel(" KW ");
         label.setOpaque(true);
         label.setBackground(Colours.DarkerBlue.getCol());
         label.setBorder(border);
