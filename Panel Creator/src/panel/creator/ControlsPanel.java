@@ -734,6 +734,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         // Retrieve the settings for the rack
         _Label_RackSelected.setText(_ComboBox_Racks.getSelectedItem() + " Options");
+        _ComboBox_SuctionGroups.setSelectedIndex(0);
         //System.out.println(_ComboBox_Racks.getSelectedIndex()); // index
         //System.out.println(_ComboBox_Racks.getSelectedItem()); // text
         this.loadRackOptions(_ComboBox_Racks.getSelectedIndex());

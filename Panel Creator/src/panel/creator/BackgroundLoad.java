@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,16 +26,14 @@ import javax.swing.border.Border;
  */
 public class BackgroundLoad extends javax.swing.JPanel {
 
-     public int numRacks;
-    public Rack [] racks;
+    public int numRacks;
+    public Rack[] racks;
     public Font font;
     public Border border;
     public String img;
     public String storeName;
     public int rackNum;
-   
-    
-    
+
     /**
      * Creates new form BackgroundLoads
      */
@@ -42,13 +41,12 @@ public class BackgroundLoad extends javax.swing.JPanel {
         initComponents();
         this.img = "";
     }
-    
-    
+
     public void updateRackNum(int rackNum) {
         this.rackNum = rackNum;
     }
 
-    public void updateRacks(Rack [] racks, int numRacks, Font font, Border border, String img, String storeName) {
+    public void updateRacks(Rack[] racks, int numRacks, Font font, Border border, String img, String storeName) {
 
         this.racks = racks;
         this.numRacks = numRacks;
@@ -121,7 +119,6 @@ public class BackgroundLoad extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
     // remove int i to be the called function
     public void updateView() {
 
@@ -159,9 +156,21 @@ public class BackgroundLoad extends javax.swing.JPanel {
         panel = panelTop(img, storeName);
         _Panel_MainPanel.add(panel, c);
 
-        
+        gridXPos = 0;
+        gridYPos += gridHeight;
+        gridHeight = 15;
         // Main Area
-        
+        c.fill = GridBagConstraints.BOTH;
+        c.gridx = gridXPos;
+        c.gridy = gridYPos;
+        c.weightx = 1;
+        c.weighty = 1;
+        c.gridwidth = 30;
+        c.gridheight = gridHeight;
+
+        panel = panelLoads();
+
+        _Panel_MainPanel.add(panel, c);
 
         //==============================================================
         // make labels white
@@ -182,7 +191,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         c.gridy = gridYPos;
 
         c.gridwidth = gridWidth;
-        c.gridheight = 1;
+        c.gridheight = 5;
         //c.ipady = 100;
         //c.ipady = 0;                  
         // We dont setup next position because we are adding suction groups still
@@ -212,14 +221,126 @@ public class BackgroundLoad extends javax.swing.JPanel {
 
     }
 
-    
-    public JPanel panelLoads(){
-        
-        
-        
-        return new JPanel();
+    public JPanel panelLoads() {
+
+        Rack r;
+        SuctionGroup sg;
+        JLabel label;        
+        GridBagLayout gbl = new GridBagLayout();
+        JPanel panel = new JPanel(gbl);
+        GridBagConstraints c = new GridBagConstraints();
+
+        //===========================================================
+        // Constraints        
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.weighty = 1; // No space between bottom and below row?                
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+        //c.ipady = 100;
+        //c.ipady = 0;                  
+        // We dont setup next position because we are adding suction groups still        
+        // End of Constraints
+        //===========================================================
+
+        label = new JLabel("");
+        label.setOpaque(true);
+        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBorder(border);
+        label.setFont(font);
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panel.add(label, c);
+
+        String[] titles = new String[]{" SETPOINT ", "TEMPERATURE", " EEPR% ", "PREDICTED EEPR%",
+            "EEPR% DIFFERENCE", "CAPACITY", "    KW    ", "KW DIFFERENCE",
+            "COST DIFFERENCE", " FAULT "};
+
+        c.gridx += 1;
+        for (int i = 0; i < titles.length; i++) {
+
+            label = new JLabel(titles[i]);
+            label.setOpaque(true);
+            // Set the colours
+            if (i == 8) {
+                label.setBackground(Colours.DarkerGreen.getCol());
+            } else {
+                label.setBackground(Colours.DarkerBlue.getCol());
+            }
+
+            label.setBorder(border);
+            label.setFont(font);
+            label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            panel.add(label, c);
+            c.gridx += 1;
+        }
+
+        int numSystems = 0;
+        ArrayList<String> systemNames = new ArrayList<>();
+        for (int i = 0; i < numRacks; i++) {
+            for (int j = 0; j < racks[i].getNumSuctionGroups(); j++) {
+                sg = racks[i].getSuctionGroupIndex(j);
+                numSystems += sg.getNumSystems();
+                for (int k = 0; k < sg.getNumSystems(); k++) {
+                    systemNames.add(sg.getSystemNameIndex(k));
+                }
+
+            }
+        }
+        //System.out.println("Num systems " + numSystems);
+        //System.out.println("System names\n" + systemNames);
+        c.gridx = 0;
+        c.gridy = 1;
+        c.fill = GridBagConstraints.BOTH;
+        for (int i = 0; i < numSystems; i++) {
+
+            // add the system name
+            label = new JLabel(" " + systemNames.get(i) + " ");
+            label.setOpaque(true);
+            if (i % 2 == 0) {
+                label.setBackground(Colours.LighterBlue.getCol());
+            } else {
+                label.setBackground(Colours.LightestBlue.getCol());
+            }
+
+            label.setBorder(border);
+            label.setFont(font);
+            label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            panel.add(label, c);
+
+            c.gridx += 1;
+
+            for (int j = 0; j < 10; j++) {
+                label = new JLabel("");
+                label.setOpaque(true);
+                if (j == 8) {
+                    if (i % 2 == 0) {
+                        label.setBackground(Colours.LighterGreen.getCol());
+                    } else {
+                        label.setBackground(Colours.LightestGreen.getCol());
+                    }
+                } else {
+                    if (i % 2 == 0) {
+                        label.setBackground(Colours.LighterBlue.getCol());
+                    } else {
+                        label.setBackground(Colours.LightestBlue.getCol());
+                    }
+                }
+                label.setBorder(border);
+                label.setFont(font);
+                panel.add(label, c);
+                c.gridx += 1;
+
+            }
+
+            c.gridx = 0;
+            c.gridy += 1;
+        }
+
+        panel.setBackground(Color.black);
+        return panel;
     }
-        
 
     public JPanel panelBottom(int numRacks) {
 
@@ -295,10 +416,6 @@ public class BackgroundLoad extends javax.swing.JPanel {
             button = new JButton(racks[i].getName());
             button.setFont(new Font("Arial", Font.BOLD, 14));
             button.setAlignmentX((Component.CENTER_ALIGNMENT));
-
-            if (rackNum == i) {
-                button.setEnabled(false);
-            }
             panel.add(button, c);
         }
 
@@ -319,6 +436,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         button = new JButton("Loads");
         button.setFont(new Font("Arial", Font.BOLD, 14));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
+        button.setEnabled(false);
         panel.add(button, c);
 
         //===========================================================
