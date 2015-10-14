@@ -21,6 +21,7 @@ public class DisplayFrame extends javax.swing.JFrame {
     // Loads panel
     public MainFrame mf;
     public ArrayList<BackgroundRack> rackTabs;
+    public BackgroundLoad bgl;
     public int numRacks;
 
     /**
@@ -40,7 +41,9 @@ public class DisplayFrame extends javax.swing.JFrame {
             _TabbedPane_Tabs.add("Rack " + i, br);
             rackTabs.add(br);
         }
-        _TabbedPane_Tabs.add("Loads", new JPanel());
+        
+        bgl = new BackgroundLoad();
+        _TabbedPane_Tabs.add("Loads", bgl);
 
     }
 
@@ -96,10 +99,12 @@ public class DisplayFrame extends javax.swing.JFrame {
     public void updateDisplays(Rack[] racks, int numRacks, Font f, Border b, String img, String sn, String[] rackNames) {
 
         int selected = _TabbedPane_Tabs.getSelectedIndex();
+        int nt = _TabbedPane_Tabs.getTabCount();
+        
         // update the main
         bg.updateRacks(racks, numRacks, f, b, img, sn);
 
-        int nt = _TabbedPane_Tabs.getTabCount();
+        
         for (int i = nt - 2; i > numRacks; i--) {
             _TabbedPane_Tabs.remove(i);
         }
@@ -112,8 +117,19 @@ public class DisplayFrame extends javax.swing.JFrame {
             }
         }
 
-        this.pack();
+        bgl.updateRacks(racks, numRacks, f, b, img, sn);
+        
+        if(selected == (nt -1)){
+            selected --; // loads tab selected
+        }else if(selected < (_TabbedPane_Tabs.getTabCount()-1)){
+            // good
+        }else if(selected >= (_TabbedPane_Tabs.getTabCount()-1)){
+            selected --;
+        }
         _TabbedPane_Tabs.setSelectedIndex(selected);
+        this.pack();
+        
+        
 
     }
 

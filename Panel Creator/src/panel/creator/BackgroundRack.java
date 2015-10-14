@@ -172,7 +172,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         gridWidth = 15;
         gridHeight = 5;
         // Constraints               
-        c.fill = GridBagConstraints.VERTICAL;
+        c.fill = GridBagConstraints.BOTH;
         c.weightx = 0;
         c.weighty = 0; // No space between bottom and below row?        
         c.gridx = gridXPos;
@@ -206,7 +206,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         //c.ipady = 0;                
         // End of Constraints
         //=========================================================== 
-        label = new JLabel("");
+        label = new JLabel("                                              ");
         //label.setBorder(border);
         panel.add(label);
 
@@ -246,7 +246,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         JPanel p1 = new JPanel();
         p1.setPreferredSize(new Dimension(panel.getWidth(), 225));
         p1.setBackground(Color.black);
-        p1.setBorder(border);
+        //p1.setBorder(border);
         panel.add(p1, c);
         
         //=========================================================== 
@@ -329,11 +329,11 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridy = gridYPos;
         c.gridwidth = 20;   
         c.gridheight = gridHeight;  
-        c.ipady = 50;
+        c.ipady = 150;
         JPanel p = new JPanel();
         p.setPreferredSize(new Dimension(panel.getWidth(), 225));
         p.setBackground(Color.black);
-        p.setBorder(border);
+        //p.setBorder(border);
         panel.add(p, c);
         
         //=========================================================== 
@@ -1255,7 +1255,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         //label.setBorder(border);
         label.setFont(new Font("Arial", Font.BOLD, 14));
         label.setAlignmentX((Component.LEFT_ALIGNMENT));
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         panel.add(label, c);
         //===========================================================
         // Constraints        
