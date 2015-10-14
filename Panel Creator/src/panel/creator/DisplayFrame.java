@@ -21,6 +21,7 @@ public class DisplayFrame extends javax.swing.JFrame {
     // Loads panel
     public MainFrame mf;
     public ArrayList<BackgroundRack> rackTabs;
+    public BackgroundLoad bgl;
     public int numRacks;
 
     /**
@@ -40,7 +41,9 @@ public class DisplayFrame extends javax.swing.JFrame {
             _TabbedPane_Tabs.add("Rack " + i, br);
             rackTabs.add(br);
         }
-        _TabbedPane_Tabs.add("Loads", new JPanel());
+        
+        bgl = new BackgroundLoad();
+        _TabbedPane_Tabs.add("Loads", bgl);
 
     }
 
@@ -112,6 +115,9 @@ public class DisplayFrame extends javax.swing.JFrame {
             }
         }
 
+        bgl.updateRacks(racks, numRacks, f, b, img, sn);
+        
+        
         this.pack();
         _TabbedPane_Tabs.setSelectedIndex(selected);
 

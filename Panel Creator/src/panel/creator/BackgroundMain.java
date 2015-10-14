@@ -1050,7 +1050,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         //label.setBorder(border);
         label.setFont(new Font("Arial", Font.BOLD, 14));
         label.setAlignmentX((Component.LEFT_ALIGNMENT));
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         panel.add(label, c);
         //===========================================================
         // Constraints        
