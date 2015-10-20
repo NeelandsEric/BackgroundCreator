@@ -311,7 +311,7 @@ public class BackgroundMain extends javax.swing.JPanel {
             //===========================================================            
             // Constraints        
             //c.fill = GridBagConstraints.BOTH;        
-            //c.weightx = 1;
+            c.weightx = 1;
             c.weighty = 0; // No space between bottom and below row?        
             c.gridx = gridXPos;
             c.gridy = gridYPos;
@@ -335,7 +335,7 @@ public class BackgroundMain extends javax.swing.JPanel {
                 //===========================================================            
                 // Constraints        
                 //c.fill = GridBagConstraints.BOTH;        
-                //c.weightx = 1;
+                c.weightx = 1;
                 c.weighty = 1; // No space between bottom and below row?        
                 c.gridx = gridXPos;
                 c.gridy = gridYPos + gridHeight;
@@ -818,14 +818,9 @@ public class BackgroundMain extends javax.swing.JPanel {
         //==========================================================
         for (int i = 1; i <= numComp; i++) {
             String text = sg.getCompressorNameIndex(i - 1);
-            String spaces;
-
             label = new JLabel(text);
-            //label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);           
-            label.setFont(font);
-            //label.setBorder(border);
-            //panel.add(label, c);
-            label.setAlignmentX((Component.LEFT_ALIGNMENT));
+            label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);           
+            label.setFont(font);            
             panel.add(label);
         }
 
@@ -854,12 +849,9 @@ public class BackgroundMain extends javax.swing.JPanel {
 
         for (int i = 1; i <= numSys; i++) {
             String text = sg.getSystemNameIndex(i - 1);
-            String spaces;
             label = new JLabel(text);
             label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             label.setFont(font);
-            //label.setBorder(border);
-            label.setAlignmentX((Component.LEFT_ALIGNMENT));
             panel.add(label);
         }
         panel.setBorder(border);

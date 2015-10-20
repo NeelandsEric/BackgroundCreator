@@ -8,11 +8,13 @@ package panel.creator;
 import java.awt.Component;
 import java.awt.Font;
 import java.util.ArrayList;
-import javax.swing.JPanel;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
 /**
  * The main display frame
+ *
  * @author EricGummerson
  */
 public class DisplayFrame extends javax.swing.JFrame {
@@ -41,7 +43,7 @@ public class DisplayFrame extends javax.swing.JFrame {
             _TabbedPane_Tabs.add("Rack " + i, br);
             rackTabs.add(br);
         }
-        
+
         bgl = new BackgroundLoad();
         _TabbedPane_Tabs.add("Loads", bgl);
 
@@ -98,38 +100,45 @@ public class DisplayFrame extends javax.swing.JFrame {
 
     public void updateDisplays(Rack[] racks, int numRacks, Font f, Border b, String img, String sn, String[] rackNames) {
 
-        int selected = _TabbedPane_Tabs.getSelectedIndex();
-        int nt = _TabbedPane_Tabs.getTabCount();
-        
-        // update the main
-        bg.updateRacks(racks, numRacks, f, b, img, sn);
+        JFrame t = this;
+        SwingUtilities.invokeLater(new Runnable() {
 
-        
-        for (int i = nt - 2; i > numRacks; i--) {
-            _TabbedPane_Tabs.remove(i);
-        }
+            @Override
+            public void run() {
+                int selected = _TabbedPane_Tabs.getSelectedIndex();
+                int nt = _TabbedPane_Tabs.getTabCount();
 
-        for (int i = 0; i < numRacks; i++) {
-            if (rackTabs.get(i) != null) {
-                rackTabs.get(i).updateRacks(racks[i], numRacks, f, b, img, sn, rackNames);
-                _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
-                _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);
+                // update the main
+                bg.updateRacks(racks, numRacks, f, b, img, sn);
+
+                for (int i = nt - 2; i > numRacks; i--) {
+                    _TabbedPane_Tabs.remove(i);
+                }
+
+                for (int i = 0; i < numRacks; i++) {
+                    if (rackTabs.get(i) != null) {
+                        rackTabs.get(i).updateRacks(racks[i], numRacks, f, b, img, sn, rackNames);
+                        _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
+                        _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);
+                    }
+                }
+
+                bgl.updateRacks(racks, numRacks, f, b, img, sn);
+
+                if (selected == (nt - 1)) {
+                    if (_TabbedPane_Tabs.getTabCount() != nt) {
+                        selected--; // loads tab selected
+                    }
+                } else if (selected < (_TabbedPane_Tabs.getTabCount() - 1)) {
+                    // good
+                } else if (selected >= (_TabbedPane_Tabs.getTabCount() - 1)) {
+                    selected--;
+                }
+                _TabbedPane_Tabs.setSelectedIndex(selected);
+                t.pack();
+
             }
-        }
-
-        bgl.updateRacks(racks, numRacks, f, b, img, sn);
-        
-        if(selected == (nt -1)){
-            selected --; // loads tab selected
-        }else if(selected < (_TabbedPane_Tabs.getTabCount()-1)){
-            // good
-        }else if(selected >= (_TabbedPane_Tabs.getTabCount()-1)){
-            selected --;
-        }
-        _TabbedPane_Tabs.setSelectedIndex(selected);
-        this.pack();
-        
-        
+        });
 
     }
 
