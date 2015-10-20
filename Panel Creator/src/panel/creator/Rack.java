@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author EricGummerson
  */
-public class Rack {
+public class Rack implements java.io.Serializable{
 
     public String name;
     public int numSuctionGroups;

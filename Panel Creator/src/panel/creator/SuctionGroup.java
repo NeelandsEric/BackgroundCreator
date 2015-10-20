@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Suction group contains suction group info
  * @author EricGummerson
  */
-public class SuctionGroup {
+public class SuctionGroup implements java.io.Serializable {
     
     public String   name;
     public int      numCompressors;

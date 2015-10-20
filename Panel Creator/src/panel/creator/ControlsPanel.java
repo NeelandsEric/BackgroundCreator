@@ -1080,6 +1080,14 @@ public final class ControlsPanel extends javax.swing.JPanel {
         
     }
     
+    public void updateSliderSettings(int maxRacks, int maxFans, int maxSG, int maxComp, int maxSystems){
+        _Slider_NumRacks.setMaximum(maxRacks);
+        _Slider_CondenserFans.setMaximum(maxFans);
+        _Slider_SuctionGroups.setMaximum(maxSG);
+        _Slider_Compressors.setMaximum(maxComp);
+        _Slider_Systems.setMaximum(maxSystems);
+    }
+    
     public void updateStoreLogo(){        
         _Label_StoreLogo.setIcon(null);
         _Label_StoreLogo.setText("Store Logo");

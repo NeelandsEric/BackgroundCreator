@@ -819,8 +819,11 @@ public class BackgroundMain extends javax.swing.JPanel {
         for (int i = 1; i <= numComp; i++) {
             String text = sg.getCompressorNameIndex(i - 1);
             label = new JLabel(text);
-            label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);           
-            label.setFont(font);            
+            label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+            label.setFont(font);
+
+            Border paddingBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+            label.setBorder(paddingBorder);
             panel.add(label);
         }
 

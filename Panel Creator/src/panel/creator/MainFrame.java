@@ -28,6 +28,7 @@ public class MainFrame extends JFrame {
     public DisplayFrame displayFrame;
     public SettingsFrame settingsFrame;
     public ControlsPanel controlPanel;
+    public RackSettingsFrame rackSettingsFrame;
     public String img;
 
     /**
@@ -47,6 +48,7 @@ public class MainFrame extends JFrame {
         controlPanel = new ControlsPanel(this);
         displayFrame = new DisplayFrame(this);
         settingsFrame = new SettingsFrame(this);
+        rackSettingsFrame = new RackSettingsFrame(controlPanel);
 
         // Load the main panel        
         controlPanel.setVisible(true);
@@ -94,6 +96,15 @@ public class MainFrame extends JFrame {
             settingsFrame.setVisible(false);
         }
     }
+    
+    public void displaySliderSettings(){
+        if (!rackSettingsFrame.isVisible()) {
+            rackSettingsFrame.setVisible(true);
+        } else {
+            rackSettingsFrame.setVisible(false);
+        }
+        
+    }
 
     public void hideSettings() {
         settingsFrame.setVisible(false);
@@ -122,6 +133,7 @@ public class MainFrame extends JFrame {
         _MenuItem_Close = new javax.swing.JMenuItem();
         _Menu_Settings = new javax.swing.JMenu();
         _MenuItem_Settings = new javax.swing.JMenuItem();
+        _MenuItem_SliderSettings = new javax.swing.JMenuItem();
         _Menu_View = new javax.swing.JMenu();
         _MenuItem_ViewPanel = new javax.swing.JMenuItem();
         _Menu_Image = new javax.swing.JMenu();
@@ -174,11 +186,20 @@ public class MainFrame extends JFrame {
         });
         _Menu_Settings.add(_MenuItem_Settings);
 
+        _MenuItem_SliderSettings.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_SliderSettings.setText("Slider Settings");
+        _MenuItem_SliderSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _MenuItem_SliderSettingsActionPerformed(evt);
+            }
+        });
+        _Menu_Settings.add(_MenuItem_SliderSettings);
+
         _MenuBar_Menus.add(_Menu_Settings);
 
         _Menu_View.setText("View");
 
-        _MenuItem_ViewPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_ViewPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
         _MenuItem_ViewPanel.setText("View Panels");
         _MenuItem_ViewPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,6 +316,11 @@ public class MainFrame extends JFrame {
 
     }//GEN-LAST:event__MenuItem_RemoveImageActionPerformed
 
+    private void _MenuItem_SliderSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SliderSettingsActionPerformed
+        // TODO add your handling code here:
+        displaySliderSettings();
+    }//GEN-LAST:event__MenuItem_SliderSettingsActionPerformed
+
     //================================================================
     //================================================================
     //                      Functions
@@ -310,6 +336,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem _MenuItem_RemoveImage;
     private javax.swing.JMenuItem _MenuItem_Save;
     private javax.swing.JMenuItem _MenuItem_Settings;
+    private javax.swing.JMenuItem _MenuItem_SliderSettings;
     private javax.swing.JMenuItem _MenuItem_ViewPanel;
     private javax.swing.JMenu _Menu_File;
     private javax.swing.JMenu _Menu_Image;
