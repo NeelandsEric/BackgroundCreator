@@ -18,7 +18,7 @@ import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- *
+ * Main frame is the main frame containing links to all other frames
  * @author EricGummerson
  */
 public class MainFrame extends JFrame {
