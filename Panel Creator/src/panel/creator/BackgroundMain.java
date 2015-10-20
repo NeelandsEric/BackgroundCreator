@@ -11,6 +11,7 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -26,7 +27,7 @@ import javax.swing.border.Border;
 public class BackgroundMain extends javax.swing.JPanel {
 
     public int numRacks;
-    public Rack[] racks;
+    public ArrayList<Rack> racks;
     public Font font;
     public Border border;
     public String img;
@@ -40,7 +41,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         this.img = "";
     }
 
-    public void updateRacks(Rack[] racks, int numRacks, Font font, Border border, String img, String storeName) {
+    public void updateRacks(ArrayList<Rack> racks, int numRacks, Font font, Border border, String img, String storeName) {
         this.racks = racks;
         this.numRacks = numRacks;
         this.font = font;
@@ -124,7 +125,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         int[] rackGridWidth = new int[5];
         int sum = 2;
         for (int i = 0; i < this.numRacks; i++) {
-            rackGridWidth[i] = 3 * racks[i].numSuctionGroups;
+            rackGridWidth[i] = 3 * racks.get(i).numSuctionGroups;
             sum += rackGridWidth[i];
         }
 
@@ -194,7 +195,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         // rack names + SEI, they have their own panels, incase we want borders
         for (int i = 0; i < this.numRacks; i++) {
 
-            r = racks[i];
+            r = racks.get(i);
             // Number of suction groups for the rack          
 
             panel = panelRackName(r.getName());
@@ -301,7 +302,7 @@ public class BackgroundMain extends javax.swing.JPanel {
 
         // Add condensers
         for (int i = 0; i < this.numRacks; i++) {
-            r = racks[i];
+            r = racks.get(i);
             // Number of suction groups for the rack
             //===========================
             // RACK CONDENSER
@@ -802,7 +803,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         JLabel label;
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        SuctionGroup sg = racks[rackIndex].getSuctionGroupIndex(sgIndex);
+        SuctionGroup sg = racks.get(rackIndex).getSuctionGroupIndex(sgIndex);
         int numComp = sg.getNumCompressors();
         //===========================
         // RACK COMPRESSOR
@@ -837,7 +838,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         JLabel label;
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        SuctionGroup sg = racks[rackIndex].getSuctionGroupIndex(sgIndex);
+        SuctionGroup sg = racks.get(rackIndex).getSuctionGroupIndex(sgIndex);
         int numSys = sg.getNumSystems();
         //==========================================================
         // SYSTEMS
@@ -1087,7 +1088,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         // Rack buttons
         for (int i = 0; i < numRacks; i++) {
             c.gridx += 1;
-            button = new JButton(racks[i].getName());
+            button = new JButton(racks.get(i).getName());
             button.setFont(new Font("Arial", Font.BOLD, 14));
             button.setAlignmentX((Component.CENTER_ALIGNMENT));
             panel.add(button, c);
