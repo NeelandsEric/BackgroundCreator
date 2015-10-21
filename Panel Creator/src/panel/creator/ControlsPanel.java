@@ -92,6 +92,8 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _Label_SystemSave = new javax.swing.JLabel();
         _Label_StoreLogo = new javax.swing.JLabel();
 
+        setMinimumSize(new java.awt.Dimension(1045, 629));
+
         _Label_Site.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         _Label_Site.setText("Name of Site");
 
@@ -214,47 +216,50 @@ public final class ControlsPanel extends javax.swing.JPanel {
                     .addGroup(_Panel_ControlsLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_ControlsLayout.createSequentialGroup()
-                                .addGap(61, 61, 61)
-                                .addComponent(_Label_Site, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(72, 72, 72)
-                                .addComponent(_TextField_SiteName, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(99, 99, 99))
                             .addGroup(_Panel_ControlsLayout.createSequentialGroup()
                                 .addComponent(_Label_SuctionGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(_Label_SGSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(_TextField_SuctionGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                                .addComponent(_Label_SuctionGroupOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_ComboBox_SuctionGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                                .addComponent(_Label_NumberRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(_FormattedTF_NumRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(_ComboBox_Racks, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_ControlsLayout.createSequentialGroup()
+                                .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(_Panel_ControlsLayout.createSequentialGroup()
+                                        .addComponent(_Label_NumberRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, Short.MAX_VALUE)
+                                        .addComponent(_FormattedTF_NumRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(_Panel_ControlsLayout.createSequentialGroup()
+                                        .addGap(61, 61, 61)
+                                        .addComponent(_Label_Site, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(66, 66, 66)
+                                .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_ControlsLayout.createSequentialGroup()
+                                        .addComponent(_TextField_SiteName, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(99, 99, 99))
+                                    .addComponent(_ComboBox_Racks, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(_FormattedTF_NumSG, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(_Panel_ControlsLayout.createSequentialGroup()
+                                    .addComponent(_Label_SuctionGroupOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(_ComboBox_SuctionGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(_Panel_ControlsLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(_Panel_ControlsLayout.createSequentialGroup()
                                 .addComponent(_Label_CondenserFans, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(_FormattedTF_NumFans, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(_Label_NumberSuctionGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(_FormattedTF_NumSG, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_FormattedTF_NumFans, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(63, 63, 63)
+                                .addComponent(_Label_NumberSuctionGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                                .addComponent(_Label_Compressors, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(_FormattedTF_NumComp, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(70, 70, 70)
+                                .addComponent(_Label_Compressors, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_FormattedTF_NumComp, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(91, 91, 91)
                                 .addComponent(_Label_NumberSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(_FormattedTF_NumSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_FormattedTF_NumSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(_Panel_ControlsLayout.createSequentialGroup()
                         .addGap(131, 131, 131)
@@ -266,6 +271,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
                 .addComponent(_Label_RackSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        _Panel_ControlsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_FormattedTF_NumComp, _FormattedTF_NumFans, _FormattedTF_NumRacks, _FormattedTF_NumSG, _FormattedTF_NumSystems});
+
         _Panel_ControlsLayout.setVerticalGroup(
             _Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(_Panel_ControlsLayout.createSequentialGroup()
@@ -278,7 +286,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
                 .addGap(26, 26, 26)
                 .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_Label_NumberRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_FormattedTF_NumRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_FormattedTF_NumRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(_ComboBox_Racks, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addComponent(_Label_RackSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -286,9 +294,10 @@ public final class ControlsPanel extends javax.swing.JPanel {
                 .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(_Label_CondenserFans, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(_FormattedTF_NumFans, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(_Label_NumberSuctionGroups, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(_FormattedTF_NumSG))
+                        .addComponent(_FormattedTF_NumFans, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(_Label_NumberSuctionGroups, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(_FormattedTF_NumSG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_Label_SuctionGroupOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,12 +310,14 @@ public final class ControlsPanel extends javax.swing.JPanel {
                 .addComponent(_Label_SGSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_Label_Compressors, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_FormattedTF_NumComp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Label_NumberSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_FormattedTF_NumSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addComponent(_Label_Compressors, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_FormattedTF_NumComp, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_Label_NumberSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_FormattedTF_NumSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        _Panel_ControlsLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_FormattedTF_NumComp, _FormattedTF_NumFans, _FormattedTF_NumRacks, _FormattedTF_NumSG, _FormattedTF_NumSystems});
 
         _ComboBox_RackNumber.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Rack 1" }));
         _ComboBox_RackNumber.addActionListener(new java.awt.event.ActionListener() {
@@ -317,6 +328,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         _Label_RackNumber.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         _Label_RackNumber.setText("Rack Number      ");
+        _Label_RackNumber.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         _Label_RackName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         _Label_RackName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -341,6 +353,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         _Label_CompressorNumber.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         _Label_CompressorNumber.setText("Compressor Number");
+        _Label_CompressorNumber.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         _ComboBox_CompressorNumber.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Compressor 1" }));
         _ComboBox_CompressorNumber.addActionListener(new java.awt.event.ActionListener() {
@@ -372,6 +385,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         _Label_SystemNumber.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         _Label_SystemNumber.setText("System Number");
+        _Label_SystemNumber.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         _TextField_SystemName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         _TextField_SystemName.setText("System 1");
@@ -410,54 +424,45 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _Panel_NamePanelLayout.setHorizontalGroup(
             _Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(_Label_SystemNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(_ComboBox_Systems, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(_Label_SystemName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_NamePanelLayout.createSequentialGroup()
-                        .addGap(0, 18, Short.MAX_VALUE)
-                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(_Label_SystemSave, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                                    .addComponent(_Button_Prev, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(_Button_Next, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(_TextField_SystemName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())))
-            .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
                         .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(_ComboBox_RackNumber, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(_Label_RackNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                            .addComponent(_Label_SystemNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                            .addComponent(_ComboBox_Systems, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(_Label_SystemSave, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
+                                .addComponent(_Button_Prev, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(_Button_Next, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(_TextField_SystemName, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(_Label_SystemName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
+                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(_Label_RackNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(_ComboBox_RackNumber, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(_Label_RackName, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                                        .addComponent(_Button_RackPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(_Button_RackNext, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(_TextField_RackName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(_Label_RackName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
+                                    .addComponent(_Button_RackPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(_Button_RackNext, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(_TextField_RackName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_NamePanelLayout.createSequentialGroup()
-                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(_ComboBox_CompressorNumber, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(_Label_CompressorNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(28, 28, 28)
+                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
+                                .addGap(0, 3, Short.MAX_VALUE)
+                                .addComponent(_Label_CompressorNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, _Panel_NamePanelLayout.createSequentialGroup()
+                                .addComponent(_ComboBox_CompressorNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
                                 .addComponent(_Button_Prev2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -472,6 +477,8 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         _Panel_NamePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_Button_Prev, _Button_Prev2});
 
+        _Panel_NamePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_ComboBox_CompressorNumber, _ComboBox_RackNumber, _Label_CompressorNumber, _Label_RackNumber});
+
         _Panel_NamePanelLayout.setVerticalGroup(
             _Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
@@ -480,14 +487,15 @@ public final class ControlsPanel extends javax.swing.JPanel {
                     .addComponent(_Label_RackNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(_Label_RackName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_TextField_RackName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_ComboBox_RackNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(_ComboBox_RackNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
+                        .addComponent(_TextField_RackName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(_Button_RackPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Button_RackNext, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_Button_RackPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Button_RackNext, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_Label_CompressorNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(_Label_CompressorName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -499,7 +507,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
                 .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_Button_Prev2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(_Button_Next2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_Label_SystemNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(_Label_SystemName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -532,27 +540,24 @@ public final class ControlsPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(_Panel_Controls, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
+                        .addComponent(_Panel_Controls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(_Panel_NamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
+                        .addGap(99, 99, 99)
                         .addComponent(_Label_StoreLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(_Panel_NamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(130, 130, 130))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(_Panel_Controls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(_Label_StoreLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                    .addComponent(_Panel_NamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_Panel_Controls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(_Label_StoreLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -584,132 +589,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // Done updating display frame
     }//GEN-LAST:event__ComboBox_SuctionGroupsActionPerformed
 
-    private void _ComboBox_SystemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_SystemsActionPerformed
-        // TODO add your handling code here:
-        // Update the text        
-        int sysIndex = _ComboBox_Systems.getSelectedIndex();        
-        this.updateSystemNames(sysIndex);        
-        // Update the display frame
-        this.updateDisplay();
-        // Done updating display frame        
-    }//GEN-LAST:event__ComboBox_SystemsActionPerformed
-
-    private void _Button_PrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_PrevActionPerformed
-        // TODO add your handling code here:
-        // Save the field
-        int rackIndex = _ComboBox_Racks.getSelectedIndex();
-        int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
-        int sysIndex = _ComboBox_Systems.getSelectedIndex();
-        String name = _TextField_SystemName.getText();
-        Rack r = racks.get(rackIndex);
-        SuctionGroup sg = r.getSuctionGroup().get(sgIndex);
-        sg.replaceSystemName(name, sysIndex);
-        
-        // Select previous name
-        if(sysIndex > 0){
-            _ComboBox_Systems.setSelectedIndex(sysIndex - 1);
-            _TextField_SystemName.setText(sg.getSystemNameIndex(sysIndex-1));
-        }
-        
-        // Update the display frame
-        //System.out.println("button prev update");
-        this.updateDisplay();
-        // Done updating display frame
-        // Highlight the text field
-        this._TextField_SystemName.requestFocus();
-        this._TextField_SystemName.selectAll();
-    }//GEN-LAST:event__Button_PrevActionPerformed
-
-    private void _Button_NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_NextActionPerformed
-        // TODO add your handling code here:
-        int rackIndex = _ComboBox_Racks.getSelectedIndex();
-        int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
-        int sysIndex = _ComboBox_Systems.getSelectedIndex();
-        String name = _TextField_SystemName.getText();
-        Rack r = racks.get(rackIndex);
-        SuctionGroup sg = r.getSuctionGroup().get(sgIndex);
-        sg.replaceSystemName(name, sysIndex);
-        // Select previous name
-        if(sysIndex < sg.getNumSystems()-1){
-            _ComboBox_Systems.setSelectedIndex(sysIndex + 1);
-            _TextField_SystemName.setText(sg.getSystemNameIndex(sysIndex+1));
-        }
-        
-        // Update the display frame
-        //System.out.println("button next update");
-        this.updateDisplay();
-        // Done updating display frame
-        // Highlight the text field
-        this._TextField_SystemName.requestFocus();
-        this._TextField_SystemName.selectAll();
-    }//GEN-LAST:event__Button_NextActionPerformed
-
     private void _TextField_SiteNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event__TextField_SiteNameFocusLost
         // TODO add your handling code here:
         storeName = _TextField_SiteName.getText();   
         updateDisplay();
     }//GEN-LAST:event__TextField_SiteNameFocusLost
-
-    private void _ComboBox_CompressorNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_CompressorNumberActionPerformed
-        // TODO add your handling code here:
-        // Update the text        
-        int compIndex = _ComboBox_CompressorNumber.getSelectedIndex();        
-        this.updateCompressorNames(compIndex);                
-        this.updateDisplay();
-        // Done updating display frame       
-    }//GEN-LAST:event__ComboBox_CompressorNumberActionPerformed
-
-    private void _Button_Prev2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_Prev2ActionPerformed
-        // TODO add your handling code here:
-        // Save the field
-        int rackIndex = _ComboBox_Racks.getSelectedIndex();
-        int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
-        int compIndex = _ComboBox_CompressorNumber.getSelectedIndex();
-        String name = _TextField_CompressorName.getText();
-        Rack r = racks.get(rackIndex);
-        SuctionGroup sg = r.getSuctionGroup().get(sgIndex);
-        sg.replaceCompressorName(name, compIndex);
-        
-        // Select previous name
-        if(compIndex > 0){
-            _ComboBox_CompressorNumber.setSelectedIndex(compIndex - 1);
-            _TextField_CompressorName.setText(sg.getCompressorNameIndex(compIndex-1));
-        }
-        
-        // Update the display frame
-        //System.out.println("button prev update");
-        this.updateDisplay();
-        // Done updating display frame
-        // Highlight the text field
-        this._TextField_CompressorName.requestFocus();
-        this._TextField_CompressorName.selectAll();
-    }//GEN-LAST:event__Button_Prev2ActionPerformed
-
-    private void _Button_Next2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_Next2ActionPerformed
-        // TODO add your handling code here:
-        // Save the field
-        int rackIndex = _ComboBox_Racks.getSelectedIndex();
-        int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
-        int compIndex = _ComboBox_CompressorNumber.getSelectedIndex();
-        String name = _TextField_CompressorName.getText();
-        Rack r = racks.get(rackIndex);
-        SuctionGroup sg = r.getSuctionGroup().get(sgIndex);
-        sg.replaceCompressorName(name, compIndex);
-        
-        // Select previous name
-        if(compIndex < sg.getNumCompressors()-1){
-            _ComboBox_CompressorNumber.setSelectedIndex(compIndex + 1);
-            _TextField_CompressorName.setText(sg.getCompressorNameIndex(compIndex+1));
-        }
-        
-        // Update the display frame
-        //System.out.println("button prev update");
-        this.updateDisplay();
-        // Done updating display frame
-        // Highlight the text field
-        this._TextField_CompressorName.requestFocus();
-        this._TextField_CompressorName.selectAll();
-    }//GEN-LAST:event__Button_Next2ActionPerformed
 
     private void _TextField_SuctionGroupNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event__TextField_SuctionGroupNameFocusLost
         // TODO add your handling code here:
@@ -725,7 +609,8 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         this.updateRackCount();
         addRacks();
-        
+        int rackIndex = _ComboBox_Racks.getSelectedIndex();
+        this.updateRackNames(rackIndex); 
         this.loadComboBoxRacks(_ComboBox_Racks.getSelectedIndex());
 
         // Update the display frame
@@ -796,43 +681,67 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // Done updating display frame
     }//GEN-LAST:event__FormattedTF_NumSystemsPropertyChange
 
-    private void _ComboBox_RackNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_RackNumberActionPerformed
+    private void _ComboBox_SystemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_SystemsActionPerformed
         // TODO add your handling code here:
-         // Update the text        
-        int rackIndex = _ComboBox_RackNumber.getSelectedIndex();        
-        this.updateRackNames(rackIndex);         
-        // Update the display frame        
+        // Update the text
+        int sysIndex = _ComboBox_Systems.getSelectedIndex();
+        this.updateSystemNames(sysIndex);
+        // Update the display frame
         this.updateDisplay();
-        // Done updating display frame       
-    }//GEN-LAST:event__ComboBox_RackNumberActionPerformed
+        // Done updating display frame
+    }//GEN-LAST:event__ComboBox_SystemsActionPerformed
 
-    private void _Button_RackPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_RackPrevActionPerformed
+    private void _Button_PrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_PrevActionPerformed
         // TODO add your handling code here:
-         // Save the field
+        // Save the field
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
         int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
-        int compIndex = _ComboBox_CompressorNumber.getSelectedIndex();
-        String name = _TextField_CompressorName.getText();
+        int sysIndex = _ComboBox_Systems.getSelectedIndex();
+        String name = _TextField_SystemName.getText();
         Rack r = racks.get(rackIndex);
         SuctionGroup sg = r.getSuctionGroup().get(sgIndex);
-        sg.replaceCompressorName(name, compIndex);
-        
+        sg.replaceSystemName(name, sysIndex);
+
         // Select previous name
-        if(compIndex > 0){
-            _ComboBox_CompressorNumber.setSelectedIndex(compIndex - 1);
-            _TextField_CompressorName.setText(sg.getCompressorNameIndex(compIndex-1));
+        if(sysIndex > 0){
+            _ComboBox_Systems.setSelectedIndex(sysIndex - 1);
+            _TextField_SystemName.setText(sg.getSystemNameIndex(sysIndex-1));
         }
-        
+
         // Update the display frame
         //System.out.println("button prev update");
         this.updateDisplay();
         // Done updating display frame
         // Highlight the text field
-        this._TextField_CompressorName.requestFocus();
-        this._TextField_CompressorName.selectAll();
-    }//GEN-LAST:event__Button_RackPrevActionPerformed
+        this._TextField_SystemName.requestFocus();
+        this._TextField_SystemName.selectAll();
+    }//GEN-LAST:event__Button_PrevActionPerformed
 
-    private void _Button_RackNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_RackNextActionPerformed
+    private void _Button_NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_NextActionPerformed
+        // TODO add your handling code here:
+        int rackIndex = _ComboBox_Racks.getSelectedIndex();
+        int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
+        int sysIndex = _ComboBox_Systems.getSelectedIndex();
+        String name = _TextField_SystemName.getText();
+        Rack r = racks.get(rackIndex);
+        SuctionGroup sg = r.getSuctionGroup().get(sgIndex);
+        sg.replaceSystemName(name, sysIndex);
+        // Select previous name
+        if(sysIndex < sg.getNumSystems()-1){
+            _ComboBox_Systems.setSelectedIndex(sysIndex + 1);
+            _TextField_SystemName.setText(sg.getSystemNameIndex(sysIndex+1));
+        }
+
+        // Update the display frame
+        //System.out.println("button next update");
+        this.updateDisplay();
+        // Done updating display frame
+        // Highlight the text field
+        this._TextField_SystemName.requestFocus();
+        this._TextField_SystemName.selectAll();
+    }//GEN-LAST:event__Button_NextActionPerformed
+
+    private void _Button_Next2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_Next2ActionPerformed
         // TODO add your handling code here:
         // Save the field
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
@@ -842,13 +751,13 @@ public final class ControlsPanel extends javax.swing.JPanel {
         Rack r = racks.get(rackIndex);
         SuctionGroup sg = r.getSuctionGroup().get(sgIndex);
         sg.replaceCompressorName(name, compIndex);
-        
+
         // Select previous name
         if(compIndex < sg.getNumCompressors()-1){
             _ComboBox_CompressorNumber.setSelectedIndex(compIndex + 1);
             _TextField_CompressorName.setText(sg.getCompressorNameIndex(compIndex+1));
         }
-        
+
         // Update the display frame
         //System.out.println("button prev update");
         this.updateDisplay();
@@ -856,7 +765,100 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // Highlight the text field
         this._TextField_CompressorName.requestFocus();
         this._TextField_CompressorName.selectAll();
+    }//GEN-LAST:event__Button_Next2ActionPerformed
+
+    private void _Button_Prev2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_Prev2ActionPerformed
+        // TODO add your handling code here:
+        // Save the field
+        int rackIndex = _ComboBox_Racks.getSelectedIndex();
+        int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
+        int compIndex = _ComboBox_CompressorNumber.getSelectedIndex();
+        String name = _TextField_CompressorName.getText();
+        Rack r = racks.get(rackIndex);
+        SuctionGroup sg = r.getSuctionGroup().get(sgIndex);
+        sg.replaceCompressorName(name, compIndex);
+
+        // Select previous name
+        if(compIndex > 0){
+            _ComboBox_CompressorNumber.setSelectedIndex(compIndex - 1);
+            _TextField_CompressorName.setText(sg.getCompressorNameIndex(compIndex-1));
+        }
+
+        // Update the display frame
+        //System.out.println("button prev update");
+        this.updateDisplay();
+        // Done updating display frame
+        // Highlight the text field
+        this._TextField_CompressorName.requestFocus();
+        this._TextField_CompressorName.selectAll();
+    }//GEN-LAST:event__Button_Prev2ActionPerformed
+
+    private void _ComboBox_CompressorNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_CompressorNumberActionPerformed
+        // TODO add your handling code here:
+        // Update the text
+        int compIndex = _ComboBox_CompressorNumber.getSelectedIndex();
+        this.updateCompressorNames(compIndex);
+        this.updateDisplay();
+        // Done updating display frame
+    }//GEN-LAST:event__ComboBox_CompressorNumberActionPerformed
+
+    private void _Button_RackNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_RackNextActionPerformed
+        // TODO add your handling code here:
+        // Save the field
+        int rackIndex = _ComboBox_Racks.getSelectedIndex();
+        String name = _TextField_RackName.getText();
+        Rack r = racks.get(rackIndex);
+        r.setName(name);
+
+        // Select previous name
+        if(rackIndex < numRacks-1){
+            _ComboBox_RackNumber.setSelectedIndex(rackIndex + 1);
+            _TextField_RackName.setText(racks.get(rackIndex+1).getName());
+        }
+
+        // Update the display frame
+        //System.out.println("button prev update");
+        this.updateDisplay();
+        // Done updating display frame
+        // Highlight the text field
+        this._TextField_RackName.requestFocus();
+        this._TextField_RackName.selectAll();
     }//GEN-LAST:event__Button_RackNextActionPerformed
+
+    private void _Button_RackPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_RackPrevActionPerformed
+        // TODO add your handling code here:
+        // Save the field
+        int rackIndex = _ComboBox_RackNumber.getSelectedIndex();
+        
+        String name = _TextField_RackName.getText();
+        Rack r = racks.get(rackIndex);
+        r.setName(name);
+        
+
+        // Select previous name
+        if(rackIndex > 0){
+            _ComboBox_RackNumber.setSelectedIndex(rackIndex - 1);
+            _TextField_RackName.setText(racks.get(rackIndex-1).getName());
+        }
+
+        // Update the display frame
+        //System.out.println("button prev update");
+        this.updateDisplay();
+        // Done updating display frame
+        // Highlight the text field
+        this._TextField_RackName.requestFocus();
+        this._TextField_RackName.selectAll();
+    }//GEN-LAST:event__Button_RackPrevActionPerformed
+
+    private void _ComboBox_RackNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_RackNumberActionPerformed
+        // TODO add your handling code here:
+        // Update the text
+        int rackIndex = _ComboBox_RackNumber.getSelectedIndex();
+        this.updateRackNames(rackIndex);
+        // Update the display frame
+        this.updateDisplay();
+        // Done updating display frame
+    }//GEN-LAST:event__ComboBox_RackNumberActionPerformed
 
     public void loadComboBoxRacks(int prevSelectedIndex) {
 
@@ -955,11 +957,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
     public void updateRackNames(int prevSelectedIndex){
         // first update the combo box indicating what system names can be edited
                 
-        String[] sys = new String[numRacks];
+        String[] rk = new String[numRacks];
         for (int i = 0; i < numRacks; i++) {
-            sys[i] = "Rack " + (i + 1);
+            rk[i] = "Rack " + (i + 1);
         }
-        _ComboBox_RackNumber.setModel(new javax.swing.DefaultComboBoxModel(sys));
+        _ComboBox_RackNumber.setModel(new javax.swing.DefaultComboBoxModel(rk));
         if (prevSelectedIndex <= numRacks - 1) {
             _ComboBox_RackNumber.setSelectedIndex(prevSelectedIndex);
         }
@@ -968,7 +970,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         addRacks();
         // System drop box is set now update the text field 
 
-        _TextField_RackName.setText(racks.get(_ComboBox_Racks.getSelectedIndex()).getName());
+        _TextField_RackName.setText(racks.get(_ComboBox_RackNumber.getSelectedIndex()).getName());
         
     }
     
@@ -1024,8 +1026,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
     
     
     public String[] getRackNames(){
-        String [] names = new String[numRacks];
-        System.out.println("Num racks: " + numRacks);
+        String [] names = new String[numRacks];        
         for(int i = 0; i < numRacks; i++){            
             names[i] = racks.get(i).getName();
         }
