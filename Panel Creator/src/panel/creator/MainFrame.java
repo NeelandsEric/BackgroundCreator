@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.border.Border;
@@ -110,7 +111,7 @@ public class MainFrame extends JFrame {
         settingsFrame.setVisible(false);
     }
 
-    public void updateDisplay(Rack[] racks, int numRacks, String sn, String[] rn) {
+    public void updateDisplay(ArrayList<Rack> racks, int numRacks, String sn, String[] rn) {
         Font f = settingsFrame.getFontData();
         Border b = settingsFrame.getBorder();
         displayFrame.updateDisplays(racks, numRacks, f, b, img, sn, rn);
@@ -152,6 +153,7 @@ public class MainFrame extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Image Creator");
+        setMinimumSize(new java.awt.Dimension(1045, 629));
         setResizable(false);
 
         _Menu_File.setText("File");
@@ -238,11 +240,11 @@ public class MainFrame extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 912, Short.MAX_VALUE)
+            .addGap(0, 1045, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 820, Short.MAX_VALUE)
+            .addGap(0, 608, Short.MAX_VALUE)
         );
 
         pack();

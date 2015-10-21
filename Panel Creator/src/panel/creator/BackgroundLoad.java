@@ -27,7 +27,7 @@ import javax.swing.border.Border;
 public class BackgroundLoad extends javax.swing.JPanel {
 
     public int numRacks;
-    public Rack[] racks;
+    public ArrayList<Rack> racks;
     public Font font;
     public Border border;
     public String img;
@@ -39,6 +39,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
      */
     public BackgroundLoad() {
         initComponents();
+        racks = new ArrayList<>();
         this.img = "";
     }
 
@@ -46,7 +47,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         this.rackNum = rackNum;
     }
 
-    public void updateRacks(Rack[] racks, int numRacks, Font font, Border border, String img, String storeName) {
+    public void updateRacks(ArrayList<Rack> racks, int numRacks, Font font, Border border, String img, String storeName) {
 
         this.racks = racks;
         this.numRacks = numRacks;
@@ -279,8 +280,8 @@ public class BackgroundLoad extends javax.swing.JPanel {
         int numSystems = 0;
         ArrayList<String> systemNames = new ArrayList<>();
         for (int i = 0; i < numRacks; i++) {
-            for (int j = 0; j < racks[i].getNumSuctionGroups(); j++) {
-                sg = racks[i].getSuctionGroupIndex(j);
+            for (int j = 0; j < racks.get(i).getNumSuctionGroups(); j++) {
+                sg = racks.get(i).getSuctionGroupIndex(j);
                 numSystems += sg.getNumSystems();
                 for (int k = 0; k < sg.getNumSystems(); k++) {
                     systemNames.add(sg.getSystemNameIndex(k));
@@ -413,7 +414,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         // Rack buttons
         for (int i = 0; i < numRacks; i++) {
             c.gridx += 1;
-            button = new JButton(racks[i].getName());
+            button = new JButton(racks.get(i).getName());
             button.setFont(new Font("Arial", Font.BOLD, 14));
             button.setAlignmentX((Component.CENTER_ALIGNMENT));
             panel.add(button, c);

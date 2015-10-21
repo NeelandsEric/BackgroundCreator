@@ -98,7 +98,7 @@ public class DisplayFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event__TabbedPane_TabsComponentResized
 
-    public void updateDisplays(Rack[] racks, int numRacks, Font f, Border b, String img, String sn, String[] rackNames) {
+    public void updateDisplays(ArrayList<Rack> racks, int numRacks, Font f, Border b, String img, String sn, String[] rackNames) {
 
         JFrame t = this;
         SwingUtilities.invokeLater(new Runnable() {
@@ -117,7 +117,7 @@ public class DisplayFrame extends javax.swing.JFrame {
 
                 for (int i = 0; i < numRacks; i++) {
                     if (rackTabs.get(i) != null) {
-                        rackTabs.get(i).updateRacks(racks[i], numRacks, f, b, img, sn, rackNames);
+                        rackTabs.get(i).updateRacks(racks.get(i), numRacks, f, b, img, sn, rackNames);
                         _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
                         _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);
                     }

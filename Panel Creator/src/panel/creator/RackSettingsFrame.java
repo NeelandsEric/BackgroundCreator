@@ -220,8 +220,7 @@ public class RackSettingsFrame extends javax.swing.JFrame {
         if(maxSystems > 100){
             maxSystems = 100;
         }
-        
-        cp.updateSliderSettings(maxRacks, maxFans, maxSG, maxComp, maxSystems);
+               
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
