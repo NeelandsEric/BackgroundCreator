@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class SuctionGroup implements java.io.Serializable {
     
+    private static final long serialVersionUID = 122L;
     public String   name;
     public int      numCompressors;
     public int      numSystems;
@@ -28,6 +29,13 @@ public class SuctionGroup implements java.io.Serializable {
         this.systemNames.add("System 1");
         this.compressorNames = new ArrayList<>();
         this.compressorNames.add("Comp 1");
+    }
+
+    @Override
+    public String toString() {
+        return "SuctionGroup{" + "name=" + name + ", numCompressors=" + numCompressors
+                + "\nnumSystems=" + numSystems + "\nsystemNames=" +
+                systemNames + "\ncompressorNames=" + compressorNames + '}';
     }
     
     

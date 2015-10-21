@@ -12,13 +12,14 @@ import java.util.ArrayList;
  *
  * @author EricGummerson
  */
-public class Rack implements java.io.Serializable{
+public class Rack implements java.io.Serializable {
 
+    private static final long serialVersionUID = 022L;
     public String name;
     public int numSuctionGroups;
     public int numCondenserFans;
-    public ArrayList<SuctionGroup> suctionGroup;
     public int maxSuctionGroups;
+    public ArrayList<SuctionGroup> suctionGroup;
 
     public Rack() {
     }
@@ -30,6 +31,14 @@ public class Rack implements java.io.Serializable{
         this.suctionGroup = new ArrayList<>();
         this.suctionGroup.add(new SuctionGroup("Suction Group 1"));
 
+    }
+
+    @Override
+    public String toString() {
+        return "Rack{" + "name=" + name + ", numSuctionGroups=" + numSuctionGroups
+                + ", numCondenserFans=" + numCondenserFans + 
+                ", maxSuctionGroups=" + maxSuctionGroups + 
+                "\nsuctionGroup=" + suctionGroup + '}';
     }
 
     //===================================================

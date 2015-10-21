@@ -749,7 +749,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         GridBagConstraints c = new GridBagConstraints();
         // Return a panel containing condenser labels
         JPanel panel = new JPanel(gbl);
-        int numCols = numSg + 1;
+        int numCols = numSg + 3;
         double numPerCol = Math.ceil((double) numCond / numCols);
         //System.out.println("Ceil of " + numCond + "/" + numCols + "=" + numPerCol);
 
@@ -795,6 +795,7 @@ public class BackgroundMain extends javax.swing.JPanel {
                 label.setBackground(Colours.RedLight.getCol());
             }
             //label.setBorder(border);
+            c.ipady = 5;
             c.fill = GridBagConstraints.BOTH;
             label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             panel.add(label, c);

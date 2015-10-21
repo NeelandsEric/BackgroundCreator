@@ -11,7 +11,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -19,8 +23,8 @@ import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- * Main frame is the main frame containing links to all other frames
- * w
+ * Main frame is the main frame containing links to all other frames w
+ *
  * @author EricGummerson
  */
 public class MainFrame extends JFrame {
@@ -97,14 +101,14 @@ public class MainFrame extends JFrame {
             settingsFrame.setVisible(false);
         }
     }
-    
-    public void displaySliderSettings(){
+
+    public void displaySliderSettings() {
         if (!rackSettingsFrame.isVisible()) {
             rackSettingsFrame.setVisible(true);
         } else {
             rackSettingsFrame.setVisible(false);
         }
-        
+
     }
 
     public void hideSettings() {
@@ -126,11 +130,15 @@ public class MainFrame extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        _FileChooser_Img = new javax.swing.JFileChooser();
-        _FileChooser_Save = new javax.swing.JFileChooser();
+        _FileChooser_LoadLogo = new javax.swing.JFileChooser();
+        _FileChooser_SavePicture = new javax.swing.JFileChooser();
+        _FileChooser_SaveStore = new javax.swing.JFileChooser();
+        _FileChooser_LoadStore = new javax.swing.JFileChooser();
         _MenuBar_Menus = new javax.swing.JMenuBar();
         _Menu_File = new javax.swing.JMenu();
-        _MenuItem_Save = new javax.swing.JMenuItem();
+        _MenuItem_SavePicture = new javax.swing.JMenuItem();
+        _MenuItem_SaveStore = new javax.swing.JMenuItem();
+        _MenuItem_OpenStore = new javax.swing.JMenuItem();
         _MenuItem_Close = new javax.swing.JMenuItem();
         _Menu_Settings = new javax.swing.JMenu();
         _MenuItem_Settings = new javax.swing.JMenuItem();
@@ -141,32 +149,61 @@ public class MainFrame extends JFrame {
         _MenuItem_OpenImage = new javax.swing.JMenuItem();
         _MenuItem_RemoveImage = new javax.swing.JMenuItem();
 
-        _FileChooser_Img.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
-        _FileChooser_Img.setApproveButtonText("Save");
-        _FileChooser_Img.setApproveButtonToolTipText("Saves the file");
-        _FileChooser_Img.setDialogTitle("Open image file for the store logo");
-        _FileChooser_Img.setFileFilter(new ImageFilter());
+        _FileChooser_LoadLogo.setApproveButtonToolTipText("Saves the file");
+        _FileChooser_LoadLogo.setCurrentDirectory(null);
+        _FileChooser_LoadLogo.setDialogTitle("Open image file for the store logo");
+        _FileChooser_LoadLogo.setFileFilter(new panel.creator.FilterImage());
 
-        _FileChooser_Save.setApproveButtonText("Save");
-        _FileChooser_Save.setDialogTitle("Directory to save");
-        _FileChooser_Save.setFileFilter(new FileNameExtensionFilter("Image files (.png, .jpg, .gif)", new String[]{"jpg", "gif", "png"}));
+        _FileChooser_SavePicture.setApproveButtonText("Save");
+        _FileChooser_SavePicture.setCurrentDirectory(null);
+        _FileChooser_SavePicture.setDialogTitle("Directory to save a picture");
+        _FileChooser_SavePicture.setFileFilter(new FileNameExtensionFilter("Image files (.png, .jpg, .gif)", new String[]{"jpg", "gif", "png"}));
+
+        _FileChooser_SaveStore.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+        _FileChooser_SaveStore.setApproveButtonText("Save");
+        _FileChooser_SaveStore.setCurrentDirectory(null);
+        _FileChooser_SaveStore.setDialogTitle("Directory to save store");
+        _FileChooser_SaveStore.setFileFilter(new FileNameExtensionFilter("Store file .sto", new String[]{"sto"}));
+
+        _FileChooser_LoadStore.setApproveButtonText("Load Store");
+        _FileChooser_LoadStore.setApproveButtonToolTipText("");
+        _FileChooser_LoadStore.setCurrentDirectory(null);
+        _FileChooser_LoadStore.setDialogTitle("Directory to open Store file");
+        _FileChooser_LoadStore.setFileFilter(new panel.creator.FilterStore());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Image Creator");
         setMinimumSize(new java.awt.Dimension(1045, 629));
-        setPreferredSize(new java.awt.Dimension(969, 629));
         setResizable(false);
 
         _Menu_File.setText("File");
 
-        _MenuItem_Save.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        _MenuItem_Save.setText("Save display as Picture");
-        _MenuItem_Save.addActionListener(new java.awt.event.ActionListener() {
+        _MenuItem_SavePicture.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_SavePicture.setText("Save display as Picture");
+        _MenuItem_SavePicture.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _MenuItem_SaveActionPerformed(evt);
+                _MenuItem_SavePictureActionPerformed(evt);
             }
         });
-        _Menu_File.add(_MenuItem_Save);
+        _Menu_File.add(_MenuItem_SavePicture);
+
+        _MenuItem_SaveStore.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_SaveStore.setText("Save Store");
+        _MenuItem_SaveStore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _MenuItem_SaveStoreActionPerformed(evt);
+            }
+        });
+        _Menu_File.add(_MenuItem_SaveStore);
+
+        _MenuItem_OpenStore.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_OpenStore.setText("Open Store");
+        _MenuItem_OpenStore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _MenuItem_OpenStoreActionPerformed(evt);
+            }
+        });
+        _Menu_File.add(_MenuItem_OpenStore);
 
         _MenuItem_Close.setText("Exit");
         _MenuItem_Close.addActionListener(new java.awt.event.ActionListener() {
@@ -266,12 +303,9 @@ public class MainFrame extends JFrame {
 
     private void _MenuItem_OpenImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_OpenImageActionPerformed
         // TODO add your handling code here:
-        int returnVal = _FileChooser_Img.showOpenDialog(this);
+        int returnVal = _FileChooser_LoadLogo.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = _FileChooser_Img.getSelectedFile();
-
-            // What to do with the file, e.g. display it in a TextArea
-            System.out.println("File: " + file.getAbsolutePath());
+            File file = _FileChooser_LoadLogo.getSelectedFile();            
             img = file.getAbsolutePath();
             displayFrame.updateLogo(img);
             controlPanel.updateStoreLogo(img);
@@ -286,12 +320,12 @@ public class MainFrame extends JFrame {
         main.close();
     }//GEN-LAST:event__MenuItem_CloseActionPerformed
 
-    private void _MenuItem_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveActionPerformed
+    private void _MenuItem_SavePictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SavePictureActionPerformed
         // TODO add your handling code here:
 
-        int returnVal = _FileChooser_Save.showOpenDialog(this);
+        int returnVal = _FileChooser_SavePicture.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            String fn = _FileChooser_Save.getSelectedFile().toString();
+            String fn = _FileChooser_SavePicture.getSelectedFile().toString();
             if (!fn.endsWith(".png") || !fn.endsWith(".jpg") || !fn.endsWith(".gif")) {
                 fn += ".png";
             }
@@ -309,13 +343,13 @@ public class MainFrame extends JFrame {
             System.out.println("File access cancelled by user.");
         }
 
-    }//GEN-LAST:event__MenuItem_SaveActionPerformed
+    }//GEN-LAST:event__MenuItem_SavePictureActionPerformed
 
     private void _MenuItem_RemoveImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_RemoveImageActionPerformed
         // TODO add your handling code here:
 
         displayFrame.updateLogo();
-        controlPanel.updateStoreLogo();
+        controlPanel.removeStoreLogo();
 
     }//GEN-LAST:event__MenuItem_RemoveImageActionPerformed
 
@@ -324,6 +358,76 @@ public class MainFrame extends JFrame {
         displaySliderSettings();
     }//GEN-LAST:event__MenuItem_SliderSettingsActionPerformed
 
+    private void _MenuItem_SaveStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveStoreActionPerformed
+        // TODO add your handling code here:
+        int returnVal = _FileChooser_SaveStore.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            String fn = _FileChooser_SaveStore.getSelectedFile().toString();
+            if (!fn.endsWith(".sto")) {
+                fn += ".sto";
+            }
+            // What to do with the file, e.g. display it in a TextArea
+
+            try {
+                FileOutputStream fos = new FileOutputStream(fn);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(controlPanel.racks);
+                oos.writeObject(controlPanel.storeName);
+                oos.writeObject(controlPanel.logoString);
+                oos.writeObject(controlPanel.numRacks);
+                oos.close();
+                fos.close();
+                System.out.println("Store saved");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+
+
+    }//GEN-LAST:event__MenuItem_SaveStoreActionPerformed
+
+    private void _MenuItem_OpenStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_OpenStoreActionPerformed
+
+        int returnVal = _FileChooser_LoadStore.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            
+            File file = _FileChooser_LoadStore.getSelectedFile();
+
+            // What to do with the file, e.g. display it in a TextArea
+            System.out.println("File: " + file.getAbsolutePath());
+            String filePath = file.getAbsolutePath();
+            
+            try {
+                FileInputStream fis = new FileInputStream(filePath);
+                ObjectInputStream ois = new ObjectInputStream(fis);                
+                ArrayList<Rack> rs = (ArrayList<Rack>) ois.readObject();
+                String sn = (String) ois.readObject();
+                String imgstr = (String) ois.readObject();
+                int numR = (int) ois.readObject();
+                controlPanel.loadStore(rs, sn, imgstr, numR);
+                ois.close();
+                fis.close();
+                System.out.println("Store read properly");
+                controlPanel.updateRackDisplay();
+
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            } catch (ClassNotFoundException c) {
+                System.out.println("Class not found");
+                c.printStackTrace();
+            }
+            System.out.println("num racks " + controlPanel.racks.size());
+            for (Rack r : controlPanel.racks) {
+                System.out.println(r);
+            }
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+    }//GEN-LAST:event__MenuItem_OpenStoreActionPerformed
+
     //================================================================
     //================================================================
     //                      Functions
@@ -331,13 +435,17 @@ public class MainFrame extends JFrame {
     //================================================================
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFileChooser _FileChooser_Img;
-    private javax.swing.JFileChooser _FileChooser_Save;
+    private javax.swing.JFileChooser _FileChooser_LoadLogo;
+    private javax.swing.JFileChooser _FileChooser_LoadStore;
+    private javax.swing.JFileChooser _FileChooser_SavePicture;
+    private javax.swing.JFileChooser _FileChooser_SaveStore;
     private javax.swing.JMenuBar _MenuBar_Menus;
     private javax.swing.JMenuItem _MenuItem_Close;
     private javax.swing.JMenuItem _MenuItem_OpenImage;
+    private javax.swing.JMenuItem _MenuItem_OpenStore;
     private javax.swing.JMenuItem _MenuItem_RemoveImage;
-    private javax.swing.JMenuItem _MenuItem_Save;
+    private javax.swing.JMenuItem _MenuItem_SavePicture;
+    private javax.swing.JMenuItem _MenuItem_SaveStore;
     private javax.swing.JMenuItem _MenuItem_Settings;
     private javax.swing.JMenuItem _MenuItem_SliderSettings;
     private javax.swing.JMenuItem _MenuItem_ViewPanel;
