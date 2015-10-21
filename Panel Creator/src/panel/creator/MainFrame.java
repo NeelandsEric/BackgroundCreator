@@ -154,6 +154,7 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Image Creator");
         setMinimumSize(new java.awt.Dimension(1045, 629));
+        setPreferredSize(new java.awt.Dimension(969, 629));
         setResizable(false);
 
         _Menu_File.setText("File");
@@ -240,7 +241,7 @@ public class MainFrame extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1045, Short.MAX_VALUE)
+            .addGap(0, 969, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

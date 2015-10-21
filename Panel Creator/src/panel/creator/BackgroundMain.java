@@ -166,7 +166,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         label.setFont(font);
         panel = new JPanel();
         panel.add(label);
-        panel.setBackground(Colours.DarkerBlue.getCol());
+        panel.setBackground(Colours.BlueDark.getCol());
         panel.setBorder(border);
         //===========================================================
         // Positioning
@@ -176,7 +176,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         gridHeight = 5;
         // Constraints               
         c.fill = GridBagConstraints.BOTH;
-        c.weightx = 1;
+        c.weightx = 0;
         c.weighty = 0; // No space between bottom and below row?        
         c.gridx = gridXPos;
         c.gridy = gridYPos;
@@ -206,7 +206,7 @@ public class BackgroundMain extends javax.swing.JPanel {
             //===========================================================            
             // Constraints        
             //c.fill = GridBagConstraints.BOTH;        
-            //c.weightx = 1;
+            c.weightx = 1;
             //c.weighty = 0; // No space between bottom and below row?        
             c.gridx = gridXPos;
             c.gridy = gridYPos;
@@ -233,7 +233,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         gridHeight = 10;
         // Constraints        
         c.fill = GridBagConstraints.BOTH;
-        c.weightx = 1;
+        c.weightx = 0;
         c.weighty = 1; // No space between bottom and below row?        
         c.gridx = gridXPos;
         c.gridy = gridYPos;
@@ -297,7 +297,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         //panel.add(label, c1);
 
         panel.setBorder(border);
-        panel.setBackground(Colours.LightestBlue.getCol());
+        panel.setBackground(Colours.BlueLightest.getCol());
         _Panel_MainPanel.add(panel, c);
 
         // Add condensers
@@ -324,6 +324,7 @@ public class BackgroundMain extends javax.swing.JPanel {
             //gridYPos += gridHeight;
             // End of Constraints
             //===========================================================
+            panel.setBackground(Colours.RedDark.getCol());
             _Panel_MainPanel.add(panel, c);
 
             // Suction Groups - Compressors then Systems   
@@ -332,12 +333,12 @@ public class BackgroundMain extends javax.swing.JPanel {
                 sg = r.getSuctionGroupIndex(j);
 
                 // Compressor
-                panel = panelCompressor(i, j);
+                panel = panelCompressor(i, j, r.getNumSuctionGroups());
                 //===========================================================            
                 // Constraints        
                 //c.fill = GridBagConstraints.BOTH;        
                 c.weightx = 1;
-                c.weighty = 1; // No space between bottom and below row?        
+                c.weighty = 0; // No space between bottom and below row?        
                 c.gridx = gridXPos;
                 c.gridy = gridYPos + gridHeight;
                 c.gridwidth = 1;
@@ -349,7 +350,7 @@ public class BackgroundMain extends javax.swing.JPanel {
                 //gridYPos += gridHeight;
                 // End of Constraints
                 //===========================================================
-                panel.setBackground(Colours.LightestBlue.getCol());
+                panel.setBackground(Colours.OrangeDark.getCol());
                 _Panel_MainPanel.add(panel, c);
                 //c.gridx = gridXPos;
                 //c.fill = GridBagConstraints.HORIZONTAL;
@@ -358,7 +359,7 @@ public class BackgroundMain extends javax.swing.JPanel {
                 //c.gridwidth = gridWidth;
                 //gridXPos += gridWidth;
                 // System
-                panel = panelSystems(i, j);
+                panel = panelSystems(i, j, r.getNumSuctionGroups());
                 //===========================================================            
                 // Constraints        
                 //c.fill = GridBagConstraints.BOTH;        
@@ -375,7 +376,7 @@ public class BackgroundMain extends javax.swing.JPanel {
                 //gridYPos += gridHeight;
                 // End of Constraints
                 //===========================================================
-                panel.setBackground(Colours.LightestBlue.getCol());
+                panel.setBackground(Colours.OrangeDark.getCol());
                 _Panel_MainPanel.add(panel, c);
             }
         }
@@ -387,8 +388,8 @@ public class BackgroundMain extends javax.swing.JPanel {
         // Constraints     
         gridYPos += (gridHeight * 2);
         //c.fill = GridBagConstraints.BOTH;        
-        //c.weightx = 1;
-        //c.weighty = 0; // No space between bottom and below row?        
+        c.weightx = 0;
+        c.weighty = 1; // No space between bottom and below row?        
         c.gridx = 0;
         c.gridy = gridYPos; // Set new position based off previous component
         gridHeight = 20; // 5 per row for performance
@@ -423,7 +424,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         // Rack status
         label = new JLabel("Performance");
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         label.setFont(font);
         label.setBorder(border);
         panel.add(label, c2);
@@ -433,7 +434,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         //=========================================
         label = new JLabel("Predicted");
         label.setOpaque(true);
-        label.setBackground(Colours.LighterBlue.getCol());
+        label.setBackground(Colours.BlueLight.getCol());
         label.setFont(font);
         label.setBorder(border);
         panel.add(label, c2);
@@ -443,7 +444,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         //=========================================
         label = new JLabel("Actual");
         label.setOpaque(true);
-        label.setBackground(Colours.LightestBlue.getCol());
+        label.setBackground(Colours.BlueLightest.getCol());
         label.setFont(font);
         label.setBorder(border);
         panel.add(label, c2);
@@ -453,7 +454,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         //=========================================
         label = new JLabel("Difference");
         label.setOpaque(true);
-        label.setBackground(Colours.LighterBlue.getCol());
+        label.setBackground(Colours.BlueLight.getCol());
         label.setFont(font);
         label.setBorder(border);
         panel.add(label, c2);
@@ -489,7 +490,7 @@ public class BackgroundMain extends javax.swing.JPanel {
             //===========================================================            
             // Constraints        
             //c.fill = GridBagConstraints.BOTH;        
-            //c.weightx = 1;
+            c.weightx = 1;
             //c.weighty = 0; // No space between bottom and below row?        
             c.gridx = gridXPos;
             c.gridy = gridYPos;
@@ -513,7 +514,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         gridYPos += gridHeight;
         gridXPos = 0;
         //c.fill = GridBagConstraints.BOTH;        
-        //c.weightx = 1;
+        c.weightx = 0;
         //c.weighty = 0; // No space between bottom and below row?        
         c.gridx = gridXPos;
         c.gridy = gridYPos; // Set new position based off previous component
@@ -549,7 +550,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         // Rack status
         label = new JLabel("Operating");
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerGreen.getCol());
+        label.setBackground(Colours.GreenDark.getCol());
         label.setFont(font);
         label.setBorder(border);
         panel.add(label, c3);
@@ -562,7 +563,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         //=========================================
         label = new JLabel("<html>Operating<br>Cost<br>Rate ¢</html>");
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerGreen.getCol());
+        label.setBackground(Colours.GreenDark.getCol());
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setFont(font);
         label.setBorder(border);
@@ -575,7 +576,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         //=========================================
         label = new JLabel("Day");
         label.setOpaque(true);
-        label.setBackground(Colours.LighterGreen.getCol());
+        label.setBackground(Colours.GreenLight.getCol());
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setFont(font);
         label.setBorder(border);
@@ -586,7 +587,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         //=========================================
         label = new JLabel("Month");
         label.setOpaque(true);
-        label.setBackground(Colours.LightestGreen.getCol());
+        label.setBackground(Colours.GreenLightest.getCol());
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setFont(font);
         label.setBorder(border);
@@ -597,7 +598,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         //=========================================
         label = new JLabel("Year");
         label.setOpaque(true);
-        label.setBackground(Colours.LighterGreen.getCol());
+        label.setBackground(Colours.GreenLight.getCol());
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setFont(font);
         label.setBorder(border);
@@ -631,7 +632,7 @@ public class BackgroundMain extends javax.swing.JPanel {
             //===========================================================            
             // Constraints        
             //c.fill = GridBagConstraints.BOTH;        
-            //c.weightx = 1;
+            c.weightx = 1;
             //c.weighty = 0; // No space between bottom and below row?        
             c.gridx = gridXPos;
             c.gridy = gridYPos;
@@ -655,7 +656,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         //===========================================================
         // Constraints        
         //c.fill = GridBagConstraints.BOTH;        
-        //c.weightx = 1;
+        c.weightx = 1;
         c.weighty = 0; // No space between bottom and below row?          
         gridXPos = 0;
         c.gridx = gridXPos;
@@ -736,7 +737,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         c.ipady = 75;
         panel.add(new JLabel(), c);
         panel.setBorder(border);
-        panel.setBackground(Colours.DarkerBlue.getCol());
+        panel.setBackground(Colours.BlueDark.getCol());
         return panel;
     }
 
@@ -768,7 +769,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         //panel.add(label, c);
 
         int colIndex = 0;
-        int rowIndex = 2;
+        int rowIndex = 0;
 
         for (int i = 1; i <= numCond; i++) {
 
@@ -779,88 +780,185 @@ public class BackgroundMain extends javax.swing.JPanel {
             } else {
                 numAdded = 1;
                 colIndex++;
-                rowIndex = 2;
+                rowIndex = 0;
                 c.gridx = colIndex;
                 c.gridy = rowIndex++;
             }
 
             label = new JLabel("Fan " + i);
             label.setFont(font);
+            if (numAdded % 2 == 0) {
+                label.setOpaque(true);
+                label.setBackground(Colours.RedLightest.getCol());
+            } else {
+                label.setOpaque(true);
+                label.setBackground(Colours.RedLight.getCol());
+            }
             //label.setBorder(border);
-            c.fill = GridBagConstraints.HORIZONTAL;
+            c.fill = GridBagConstraints.BOTH;
             label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             panel.add(label, c);
         }
 
-        panel.setBackground(Colours.LightestBlue.getCol());
+        panel.setBackground(Colours.BlueLightest.getCol());
         panel.setBorder(border);
         return panel;
     }
 
-    public JPanel panelCompressor(int rackIndex, int sgIndex) {
+    public JPanel panelCompressor(int rackIndex, int sgIndex, int numSg) {
 
         // Condenser Panel will list the condensers 
         JLabel label;
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        GridBagLayout gbl = new GridBagLayout();
+        GridBagConstraints c = new GridBagConstraints();
+        // Return a panel containing condenser labels
+        JPanel panel = new JPanel(gbl);
         SuctionGroup sg = racks.get(rackIndex).getSuctionGroupIndex(sgIndex);
         int numComp = sg.getNumCompressors();
+        int numCols = numSg + 1;
+        double numPerCol = Math.ceil((double) numComp / numCols);
+        //System.out.println("Ceil of " + numCond + "/" + numCols + "=" + numPerCol);
+        //System.out.println("Num compressors in bg: " + numComp);
+
+        int numAdded = 0;
+
         //===========================
-        // RACK COMPRESSOR
+        // RACK SUCTION GROUP NAME
         //===========================
         label = new JLabel(sg.getName());
-        //label.setBorder(border);
+        c.gridwidth = 2;
+        c.weightx = 1;
+        c.weighty = 0;
+        c.gridx = 0;
+        c.gridy = 0;        
         label.setFont(font);
-        //label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);          
-        panel.add(label);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label.setOpaque(true);
+        label.setBackground(Colours.OrangeDark.getCol());
+        panel.add(label, c);
 
-        //==========================================================
-        //                  Compressors
-        //==========================================================
+        c.gridy = 1;
+        c.weightx = 1;
+        c.weighty = 1;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+
+        int colIndex = 0;
+        int rowIndex = 1;
+
         for (int i = 1; i <= numComp; i++) {
+
+            if (numAdded < numPerCol) {
+                c.gridx = colIndex;
+                c.gridy = rowIndex++;
+                numAdded++;
+            } else {
+                numAdded = 1;
+                colIndex++;
+                rowIndex = 1;
+                c.gridx = colIndex;
+                c.gridy = rowIndex++;
+            }
+
             String text = sg.getCompressorNameIndex(i - 1);
             label = new JLabel(text);
-            label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             label.setFont(font);
-
-            Border paddingBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-            label.setBorder(paddingBorder);
-            panel.add(label);
+            //label.setBorder(border);
+            if (numAdded % 2 == 0) {
+                label.setOpaque(true);
+                label.setBackground(Colours.OrangeLightest.getCol());
+            } else {
+                label.setOpaque(true);
+                label.setBackground(Colours.OrangeLight.getCol());
+            }
+            c.fill = GridBagConstraints.BOTH;
+            label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+            panel.add(label, c);
         }
 
+        //panel.setBackground(Colours.LightestBlue.getCol());
         panel.setBorder(border);
         return panel;
+        
     }
 
-    public JPanel panelSystems(int rackIndex, int sgIndex) {
+    public JPanel panelSystems(int rackIndex, int sgIndex, int numSg) {
 
         // Condenser Panel will list the condensers 
         JLabel label;
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        SuctionGroup sg = racks.get(rackIndex).getSuctionGroupIndex(sgIndex);
+        GridBagLayout gbl = new GridBagLayout();
+        GridBagConstraints c = new GridBagConstraints();
+        // Return a panel containing condenser labels
+        JPanel panel = new JPanel(gbl);
+        SuctionGroup sg = racks.get(rackIndex).getSuctionGroupIndex(sgIndex);        
         int numSys = sg.getNumSystems();
-        //==========================================================
-        // SYSTEMS
-        //==========================================================
+          int numCols = numSg + 1;
+        double numPerCol = Math.ceil((double) numSys / numCols);
+        //System.out.println("Ceil of " + numCond + "/" + numCols + "=" + numPerCol);
+        //System.out.println("Num compressors in bg: " + numComp);
+
+        int numAdded = 0;
+
+        //===========================
+        // RACK SUCTION GROUP NAME
+        //===========================
         label = new JLabel(sg.getName());
-        //label.setBorder(border);
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        c.gridwidth = 2;
+        c.weightx = 1;
+        c.weighty = 0;
+        c.gridx = 0;
+        c.gridy = 0;        
         label.setFont(font);
-        panel.add(label);
-        //c.gridheight = 8;
-        //c.fill = GridBagConstraints.BOTH;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label.setOpaque(true);
+        label.setBackground(Colours.OrangeDark.getCol());
+        panel.add(label, c);
+
+        c.gridy = 1;
+        c.weightx = 1;
+        c.weighty = 1;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+
+        int colIndex = 0;
+        int rowIndex = 1;
 
         for (int i = 1; i <= numSys; i++) {
+
+            if (numAdded < numPerCol) {
+                c.gridx = colIndex;
+                c.gridy = rowIndex++;
+                numAdded++;
+            } else {
+                numAdded = 1;
+                colIndex++;
+                rowIndex = 1;
+                c.gridx = colIndex;
+                c.gridy = rowIndex++;
+            }
+
             String text = sg.getSystemNameIndex(i - 1);
             label = new JLabel(text);
-            label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             label.setFont(font);
-            panel.add(label);
+            //label.setBorder(border);
+            if (numAdded % 2 == 0) {
+                label.setOpaque(true);
+                label.setBackground(Colours.OrangeLightest.getCol());
+            } else {
+                label.setOpaque(true);
+                label.setBackground(Colours.OrangeLight.getCol());
+            }
+            c.fill = GridBagConstraints.BOTH;
+            label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+            panel.add(label, c);
         }
-        panel.setBorder(border);
 
+        //panel.setBackground(Colours.LightestBlue.getCol());
+        panel.setBorder(border);
         return panel;
+        
     }
 
     public JPanel panelPerformance() {
@@ -873,7 +971,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         // Cost
         label = new JLabel("Cost");
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerGreen.getCol());
+        label.setBackground(Colours.GreenDark.getCol());
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         c.fill = GridBagConstraints.BOTH;
@@ -889,7 +987,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         // KW
         label = new JLabel("  KW  ");
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         c.fill = GridBagConstraints.BOTH;
@@ -916,20 +1014,20 @@ public class BackgroundMain extends javax.swing.JPanel {
                     switch (i) {
                         case 1:
                         case 3:
-                            label.setBackground(Colours.LighterGreen.getCol());
+                            label.setBackground(Colours.GreenLight.getCol());
                             break;
                         case 2:
-                            label.setBackground(Colours.LightestGreen.getCol());
+                            label.setBackground(Colours.GreenLightest.getCol());
                             break;
                     }
                 } else {
                     switch (i) {
                         case 1:
                         case 3:
-                            label.setBackground(Colours.LighterBlue.getCol());
+                            label.setBackground(Colours.BlueLight.getCol());
                             break;
                         case 2:
-                            label.setBackground(Colours.LightestBlue.getCol());
+                            label.setBackground(Colours.BlueLightest.getCol());
                             break;
                     }
                 }
@@ -956,7 +1054,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         // Cost
         label = new JLabel("Current Year");
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerGreen.getCol());
+        label.setBackground(Colours.GreenDark.getCol());
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         c.fill = GridBagConstraints.BOTH;
@@ -972,7 +1070,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         // KW
         label = new JLabel("Previous Year");
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerGreen.getCol());
+        label.setBackground(Colours.GreenDark.getCol());
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         c.fill = GridBagConstraints.BOTH;
@@ -997,10 +1095,10 @@ public class BackgroundMain extends javax.swing.JPanel {
                 switch (i) {
                     case 1:
                     case 3:
-                        label.setBackground(Colours.LighterGreen.getCol());
+                        label.setBackground(Colours.GreenLight.getCol());
                         break;
                     case 2:
-                        label.setBackground(Colours.LightestGreen.getCol());
+                        label.setBackground(Colours.GreenLightest.getCol());
                         break;
                 }
                 panel.add(label, c);
