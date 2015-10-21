@@ -14,14 +14,28 @@ import java.awt.Color;
  */
 public enum Colours {
 
-    DarkerBlue(0, 69, 134),
-    LighterBlue(0, 102, 255),
-    LightestBlue(51, 153, 255),
-    DarkerGreen(0,153,51),
-    LighterGreen(0,204,51),
-    LightestGreen(1,255,102),
+    BlueDark(0, 69, 134),
+    BlueLight(0, 102, 255),
+    BlueLightest(51, 153, 255),
+    
+    GreenDark(0,153,51),
+    GreenLight(0,204,51),
+    GreenLightest(1,255,102),
+    
+    OrangeDark(204,109,0),
+    OrangeLight(255,140,8),
+    OrangeLightest(255,169,47),
+    
+    RedDark(223,0,0),
+    RedLight(251,17,17),
+    RedLightest(255,55,55),
+    
+    
     Gray(159,162,167),
-    White(255,255,255);
+    White(255,255,255),
+    
+    
+    ;
 
     private Colours(int red, int green, int blue) {
         this.red = red;

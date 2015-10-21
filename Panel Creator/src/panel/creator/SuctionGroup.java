@@ -82,11 +82,15 @@ public class SuctionGroup implements java.io.Serializable {
         int size = this.systemNames.size();
         int toAdd = num - size;        
         
-        for(int i = 0; i < toAdd; i++){
-            //System.out.println("Adding System " + (size + i+1));
-            this.systemNames.add("System " + (size + i+1));
-            this.numSystems++;
-        }        
+        if(toAdd > 0){
+            for(int i = 0; i < toAdd; i++){
+                //System.out.println("Adding System " + (size + i+1));
+                this.systemNames.add("System " + (size + i+1));
+                this.numSystems++;
+            }   
+        }else {
+            this.numSystems = num;
+        }
         
     }    
                 
@@ -115,12 +119,15 @@ public class SuctionGroup implements java.io.Serializable {
     public void addCompressorNames(int num){
         int size = this.compressorNames.size();
         int toAdd = num - size;        
-        
-        for(int i = 0; i < toAdd; i++){
-            //System.out.println("Adding System " + (size + i+1));
-            this.compressorNames.add("Comp " + (size + i+1));
-            this.numCompressors++;
-        }        
+        if(toAdd > 0){
+            for(int i = 0; i < toAdd; i++){
+                //System.out.println("Adding System " + (size + i+1));
+                this.compressorNames.add("Comp " + (size + i+1));
+                this.numCompressors++;
+            }    
+        }else {
+            this.numCompressors = num;
+        }
         
     }
     

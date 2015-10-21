@@ -443,7 +443,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridheight = 2;
         c.ipady = 10;
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         panel.add(label, c);
         //==================================================================
 
@@ -458,7 +458,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridwidth = 2;
         c.gridheight = 1;
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         panel.add(label, c);
         //==================================================================
 
@@ -472,7 +472,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridy = 1;
         c.gridwidth = 1;
         label.setOpaque(true);
-        label.setBackground(Colours.LighterBlue.getCol());
+        label.setBackground(Colours.BlueLight.getCol());
         panel.add(label, c);
         //==================================================================
 
@@ -485,7 +485,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridx = 2;
         c.gridy = 1;
         label.setOpaque(true);
-        label.setBackground(Colours.LighterBlue.getCol());
+        label.setBackground(Colours.BlueLight.getCol());
         panel.add(label, c);
         //==================================================================
 
@@ -500,7 +500,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridwidth = 1;
         c.gridheight = 2;
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         panel.add(label, c);
         //==================================================================
 
@@ -513,7 +513,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridx = 4;
         c.gridy = 0;
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         panel.add(label, c);
         //==================================================================
 
@@ -527,7 +527,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridy = 0;
         //c.ipady = 100;        
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         panel.add(label, c);
         //==================================================================
 
@@ -546,7 +546,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridheight = 1;
         //c.ipady = 100;        
         label.setOpaque(true);
-        label.setBackground(Colours.LightestBlue.getCol());
+        label.setBackground(Colours.BlueLightest.getCol());
         panel.add(label, c);
         //==================================================================
         //==================================================================
@@ -558,7 +558,7 @@ public class BackgroundRack extends javax.swing.JPanel {
             label.setBorder(border);
             label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             label.setOpaque(true);
-            label.setBackground(Colours.LightestBlue.getCol());
+            label.setBackground(Colours.BlueLightest.getCol());
             panel.add(label, c);
         }
         //==================================================================
@@ -572,7 +572,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridx = 0;
         c.gridy = 3;
         label.setOpaque(true);
-        label.setBackground(Colours.LighterBlue.getCol());
+        label.setBackground(Colours.BlueLight.getCol());
         panel.add(label, c);
         //==================================================================
 
@@ -586,7 +586,7 @@ public class BackgroundRack extends javax.swing.JPanel {
             label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             label.setOpaque(true);
 
-            label.setBackground(Colours.LighterBlue.getCol());
+            label.setBackground(Colours.BlueLight.getCol());
             panel.add(label, c);
         }
         //==================================================================
@@ -602,9 +602,9 @@ public class BackgroundRack extends javax.swing.JPanel {
             label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             label.setOpaque(true);
             if (i % 2 == 0) {
-                label.setBackground(Colours.LightestBlue.getCol());
+                label.setBackground(Colours.BlueLightest.getCol());
             } else {
-                label.setBackground(Colours.LighterBlue.getCol());
+                label.setBackground(Colours.BlueLight.getCol());
             }
             panel.add(label, c);
 
@@ -616,9 +616,9 @@ public class BackgroundRack extends javax.swing.JPanel {
                 label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                 label.setOpaque(true);
                 if (i % 2 == 0) {
-                    label.setBackground(Colours.LightestBlue.getCol());
+                    label.setBackground(Colours.BlueLightest.getCol());
                 } else {
-                    label.setBackground(Colours.LighterBlue.getCol());
+                    label.setBackground(Colours.BlueLight.getCol());
                 }
                 panel.add(label, c);
             }
@@ -665,7 +665,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         label = new JLabel("Fan # ");
         label.setFont(font);
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         label.setBorder(border);
         panel.add(label, c);
 
@@ -676,7 +676,7 @@ public class BackgroundRack extends javax.swing.JPanel {
             label = new JLabel("Fan " + i + " ");
             label.setFont(font);
             label.setOpaque(true);
-            label.setBackground(Colours.DarkerBlue.getCol());
+            label.setBackground(Colours.BlueDark.getCol());
             label.setBorder(border);
 
             label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -687,7 +687,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         label = new JLabel("Fan Amps");
         label.setFont(font);
         label.setOpaque(true);
-        label.setBackground(Colours.LighterBlue.getCol());
+        label.setBackground(Colours.BlueLight.getCol());
         label.setBorder(border);
         c.gridy = 2;
         c.gridx = 0;
@@ -696,7 +696,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         label = new JLabel("Fault Detect ");
         label.setFont(font);
         label.setOpaque(true);
-        label.setBackground(Colours.LightestBlue.getCol());
+        label.setBackground(Colours.BlueLightest.getCol());
         label.setBorder(border);
         c.gridy = 3;
         c.gridx = 0;
@@ -709,7 +709,7 @@ public class BackgroundRack extends javax.swing.JPanel {
             label = new JLabel("");
             c.gridx = i;
             label.setOpaque(true);
-            label.setBackground(Colours.LighterBlue.getCol());
+            label.setBackground(Colours.BlueLight.getCol());
             label.setBorder(border);
             panel.add(label, c);
         }
@@ -720,7 +720,7 @@ public class BackgroundRack extends javax.swing.JPanel {
             label = new JLabel("");
             c.gridx = i;
             label.setOpaque(true);
-            label.setBackground(Colours.LightestBlue.getCol());
+            label.setBackground(Colours.BlueLightest.getCol());
             label.setBorder(border);
             panel.add(label, c);
         }
@@ -776,7 +776,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         label.setFont(font);
         label.setOpaque(true);
         label.setBorder(border);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel.add(label, c);
 
@@ -786,7 +786,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         label.setFont(font);
         label.setOpaque(true);
         label.setBorder(border);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         panel.add(label, c);
         //==========================================================
         //                  Suction groups + compressors
@@ -803,7 +803,7 @@ public class BackgroundRack extends javax.swing.JPanel {
             label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             label.setFont(font);
             label.setOpaque(true);
-            label.setBackground(Colours.DarkerBlue.getCol());
+            label.setBackground(Colours.BlueDark.getCol());
             label.setBorder(border);
             panel.add(label, c);
 
@@ -816,7 +816,7 @@ public class BackgroundRack extends javax.swing.JPanel {
                 label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                 label.setFont(font);
                 label.setOpaque(true);
-                label.setBackground(Colours.DarkerBlue.getCol());
+                label.setBackground(Colours.BlueDark.getCol());
                 label.setBorder(border);
                 panel.add(label, c);
                 c.gridx += 1;
@@ -840,7 +840,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         label.setFont(font);
         label.setOpaque(true);
         label.setBorder(border);
-        label.setBackground(Colours.LighterBlue.getCol());
+        label.setBackground(Colours.BlueLight.getCol());
         panel.add(label, c);
         //===========================
         // Add columns
@@ -854,7 +854,7 @@ public class BackgroundRack extends javax.swing.JPanel {
                 label.setFont(font);
                 label.setOpaque(true);
                 label.setBorder(border);
-                label.setBackground(Colours.LighterBlue.getCol());
+                label.setBackground(Colours.BlueLight.getCol());
                 panel.add(label, c);
                 c.gridx += 1;
             }
@@ -872,7 +872,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         label.setFont(font);
         label.setOpaque(true);
         label.setBorder(border);
-        label.setBackground(Colours.LightestBlue.getCol());
+        label.setBackground(Colours.BlueLightest.getCol());
         panel.add(label, c);
 
         //===========================
@@ -887,7 +887,7 @@ public class BackgroundRack extends javax.swing.JPanel {
                 label.setFont(font);
                 label.setOpaque(true);
                 label.setBorder(border);
-                label.setBackground(Colours.LightestBlue.getCol());
+                label.setBackground(Colours.BlueLightest.getCol());
                 panel.add(label, c);
                 c.gridx += 1;
             }
@@ -904,7 +904,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         label.setFont(font);
         label.setOpaque(true);
         label.setBorder(border);
-        label.setBackground(Colours.LighterBlue.getCol());
+        label.setBackground(Colours.BlueLight.getCol());
         panel.add(label, c);
 
         //===========================
@@ -919,7 +919,7 @@ public class BackgroundRack extends javax.swing.JPanel {
                 label.setFont(font);
                 label.setOpaque(true);
                 label.setBorder(border);
-                label.setBackground(Colours.LighterBlue.getCol());
+                label.setBackground(Colours.BlueLight.getCol());
                 panel.add(label, c);
                 c.gridx += 1;
             }
@@ -936,7 +936,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         label.setFont(font);
         label.setOpaque(true);
         label.setBorder(border);
-        label.setBackground(Colours.LightestBlue.getCol());
+        label.setBackground(Colours.BlueLightest.getCol());
         panel.add(label, c);
 
         //===========================
@@ -951,7 +951,7 @@ public class BackgroundRack extends javax.swing.JPanel {
                 label.setFont(font);
                 label.setOpaque(true);
                 label.setBorder(border);
-                label.setBackground(Colours.LightestBlue.getCol());
+                label.setBackground(Colours.BlueLightest.getCol());
                 panel.add(label, c);
                 c.gridx += 1;
             }
@@ -991,7 +991,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         // first title
         label = new JLabel(" Cooling Load ");
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         c.fill = GridBagConstraints.BOTH;
@@ -1005,7 +1005,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         // empty tab
         label = new JLabel();
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         //c.fill = GridBagConstraints.BOTH;
@@ -1018,7 +1018,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         // second title
         label = new JLabel("COP");
         label.setOpaque(true);
-        label.setBackground(Colours.LighterBlue.getCol());
+        label.setBackground(Colours.BlueLight.getCol());
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         c.fill = GridBagConstraints.BOTH;
@@ -1033,7 +1033,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         // empty tab
         label = new JLabel();
         label.setOpaque(true);
-        label.setBackground(Colours.LighterBlue.getCol());
+        label.setBackground(Colours.BlueLight.getCol());
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         //c.fill = GridBagConstraints.BOTH;
@@ -1072,7 +1072,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridheight = 2;
         c.ipady = 10;
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         panel.add(label, c);
         //==================================================================
 
@@ -1085,7 +1085,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridx = 1;
         c.gridy = 0;
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         panel.add(label, c);
         //==================================================================
 
@@ -1098,7 +1098,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridx = 2;
         c.gridy = 0;
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         panel.add(label, c);
         //==================================================================
 
@@ -1117,7 +1117,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridheight = 1;
         //c.ipady = 100;        
         label.setOpaque(true);
-        label.setBackground(Colours.LighterGreen.getCol());
+        label.setBackground(Colours.GreenLight.getCol());
         panel.add(label, c);
         //==================================================================
         //==================================================================
@@ -1130,7 +1130,7 @@ public class BackgroundRack extends javax.swing.JPanel {
             label.setBorder(border);
             label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             label.setOpaque(true);
-            label.setBackground(Colours.LighterGreen.getCol());
+            label.setBackground(Colours.GreenLight.getCol());
             panel.add(label, c);
         }
         //==================================================================
@@ -1144,7 +1144,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridx = 0;
         c.gridy = 3;
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         panel.add(label, c);
         //==================================================================
 
@@ -1158,7 +1158,7 @@ public class BackgroundRack extends javax.swing.JPanel {
             label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             label.setOpaque(true);
 
-            label.setBackground(Colours.DarkerBlue.getCol());
+            label.setBackground(Colours.BlueDark.getCol());
             panel.add(label, c);
         }
         //==================================================================
@@ -1172,7 +1172,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridx = 0;
         c.gridy = 4;
         label.setOpaque(true);
-        label.setBackground(Colours.LighterBlue.getCol());
+        label.setBackground(Colours.BlueLight.getCol());
         panel.add(label, c);
         //==================================================================
 
@@ -1186,7 +1186,7 @@ public class BackgroundRack extends javax.swing.JPanel {
             label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             label.setOpaque(true);
 
-            label.setBackground(Colours.LighterBlue.getCol());
+            label.setBackground(Colours.BlueLight.getCol());
             panel.add(label, c);
         }
         //==================================================================
@@ -1200,7 +1200,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridx = 0;
         c.gridy = 5;
         label.setOpaque(true);
-        label.setBackground(Colours.LightestBlue.getCol());
+        label.setBackground(Colours.BlueLightest.getCol());
         panel.add(label, c);
         //==================================================================
 
@@ -1214,7 +1214,7 @@ public class BackgroundRack extends javax.swing.JPanel {
             label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             label.setOpaque(true);
 
-            label.setBackground(Colours.LightestBlue.getCol());
+            label.setBackground(Colours.BlueLightest.getCol());
             panel.add(label, c);
         }
         //==================================================================

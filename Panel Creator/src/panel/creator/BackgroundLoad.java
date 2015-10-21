@@ -248,7 +248,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
 
         label = new JLabel("");
         label.setOpaque(true);
-        label.setBackground(Colours.DarkerBlue.getCol());
+        label.setBackground(Colours.BlueDark.getCol());
         label.setBorder(border);
         label.setFont(font);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -265,9 +265,9 @@ public class BackgroundLoad extends javax.swing.JPanel {
             label.setOpaque(true);
             // Set the colours
             if (i == 8) {
-                label.setBackground(Colours.DarkerGreen.getCol());
+                label.setBackground(Colours.GreenDark.getCol());
             } else {
-                label.setBackground(Colours.DarkerBlue.getCol());
+                label.setBackground(Colours.BlueDark.getCol());
             }
 
             label.setBorder(border);
@@ -300,9 +300,9 @@ public class BackgroundLoad extends javax.swing.JPanel {
             label = new JLabel(" " + systemNames.get(i) + " ");
             label.setOpaque(true);
             if (i % 2 == 0) {
-                label.setBackground(Colours.LighterBlue.getCol());
+                label.setBackground(Colours.BlueLight.getCol());
             } else {
-                label.setBackground(Colours.LightestBlue.getCol());
+                label.setBackground(Colours.BlueLightest.getCol());
             }
 
             label.setBorder(border);
@@ -317,15 +317,15 @@ public class BackgroundLoad extends javax.swing.JPanel {
                 label.setOpaque(true);
                 if (j == 8) {
                     if (i % 2 == 0) {
-                        label.setBackground(Colours.LighterGreen.getCol());
+                        label.setBackground(Colours.GreenLight.getCol());
                     } else {
-                        label.setBackground(Colours.LightestGreen.getCol());
+                        label.setBackground(Colours.GreenLightest.getCol());
                     }
                 } else {
                     if (i % 2 == 0) {
-                        label.setBackground(Colours.LighterBlue.getCol());
+                        label.setBackground(Colours.BlueLight.getCol());
                     } else {
-                        label.setBackground(Colours.LightestBlue.getCol());
+                        label.setBackground(Colours.BlueLightest.getCol());
                     }
                 }
                 label.setBorder(border);
