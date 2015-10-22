@@ -102,9 +102,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _TextField_SiteName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         _TextField_SiteName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         _TextField_SiteName.setText("Site Name");
-        _TextField_SiteName.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                _TextField_SiteNameFocusLost(evt);
+        _TextField_SiteName.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                _TextField_SiteNamePropertyChange(evt);
             }
         });
 
@@ -586,12 +586,6 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // Done updating display frame
     }//GEN-LAST:event__ComboBox_SuctionGroupsActionPerformed
 
-    private void _TextField_SiteNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event__TextField_SiteNameFocusLost
-        // TODO add your handling code here:
-        storeName = _TextField_SiteName.getText();
-        updateDisplay();
-    }//GEN-LAST:event__TextField_SiteNameFocusLost
-
     private void _TextField_SuctionGroupNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event__TextField_SuctionGroupNameFocusLost
         // TODO add your handling code here:
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
@@ -868,6 +862,12 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // Done updating display frame
     }//GEN-LAST:event__ComboBox_RackNumberActionPerformed
 
+    private void _TextField_SiteNamePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__TextField_SiteNamePropertyChange
+        
+        storeName = _TextField_SiteName.getText();
+        updateDisplay();
+    }//GEN-LAST:event__TextField_SiteNamePropertyChange
+
     public void loadComboBoxRacks(int prevSelectedIndex) {
 
         // Update the combo box
@@ -875,7 +875,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         if (prevSelectedIndex <= numRacks - 1) {
             _ComboBox_Racks.setSelectedIndex(prevSelectedIndex);
-        }else {
+        } else {
             _ComboBox_Racks.setSelectedIndex(0);
         }
 
@@ -909,7 +909,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         if (prevSelectedIndex <= sgNum - 1) {
             _ComboBox_SuctionGroups.setSelectedIndex(prevSelectedIndex);
-        }else {
+        } else {
             _ComboBox_SuctionGroups.setSelectedIndex(0);
         }
 
@@ -929,7 +929,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         numComp = sg.getNumCompressors();
         numSystems = sg.getNumSystems();
         _FormattedTF_NumComp.setText("" + numComp);
-        _FormattedTF_NumSG.setText("" + numSG);
+        _FormattedTF_NumSystems.setText("" + numSystems);
 
         this.updateCompressorNames(_ComboBox_CompressorNumber.getSelectedIndex());
         this.updateSystemNames(_ComboBox_Systems.getSelectedIndex());
@@ -950,7 +950,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _ComboBox_CompressorNumber.setModel(new javax.swing.DefaultComboBoxModel(cmp));
         if (prevSelectedIndex <= numComp - 1) {
             _ComboBox_CompressorNumber.setSelectedIndex(prevSelectedIndex);
-        }else {
+        } else {
             _ComboBox_CompressorNumber.setSelectedIndex(0);
         }
 
@@ -972,10 +972,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _ComboBox_RackNumber.setModel(new javax.swing.DefaultComboBoxModel(rk));
         if (prevSelectedIndex <= numRacks - 1) {
             _ComboBox_RackNumber.setSelectedIndex(prevSelectedIndex);
-        }else {
+        } else {
             _ComboBox_RackNumber.setSelectedIndex(0);
         }
-        
 
         // Combo box updated, now add any rack that need to be added
         addRacks();
@@ -1008,7 +1007,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _ComboBox_Systems.setModel(new javax.swing.DefaultComboBoxModel(sys));
         if (prevSelectedIndex <= numSystems - 1) {
             _ComboBox_Systems.setSelectedIndex(prevSelectedIndex);
-        }else {
+        } else {
             _ComboBox_Systems.setSelectedIndex(0);
         }
 
@@ -1120,7 +1119,10 @@ public final class ControlsPanel extends javax.swing.JPanel {
     }
 
     public void updateRackDisplay() {
-        
+
+        _TextField_SiteName.setText(this.storeName);
+        this.updateRackNames(0);
+        this.loadComboBoxRacks(0);
         loadRackOptions(0);
     }
 
