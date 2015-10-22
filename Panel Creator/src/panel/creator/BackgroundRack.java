@@ -99,141 +99,20 @@ public class BackgroundRack extends javax.swing.JPanel {
     private void initComponents() {
 
         _Panel_MainPanel = new javax.swing.JPanel();
-        _Panel_Top = new javax.swing.JPanel();
-        _Panel_PT = new javax.swing.JPanel();
-        _Panel_Cond = new javax.swing.JPanel();
-        _Panel_Comp = new javax.swing.JPanel();
-        _Panel_Perf = new javax.swing.JPanel();
-        _Panel_LE = new javax.swing.JPanel();
-        _Panel_Bot = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(1000, 800));
 
         _Panel_MainPanel.setBackground(new java.awt.Color(0, 0, 0));
 
-        javax.swing.GroupLayout _Panel_TopLayout = new javax.swing.GroupLayout(_Panel_Top);
-        _Panel_Top.setLayout(_Panel_TopLayout);
-        _Panel_TopLayout.setHorizontalGroup(
-            _Panel_TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
-        );
-        _Panel_TopLayout.setVerticalGroup(
-            _Panel_TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout _Panel_PTLayout = new javax.swing.GroupLayout(_Panel_PT);
-        _Panel_PT.setLayout(_Panel_PTLayout);
-        _Panel_PTLayout.setHorizontalGroup(
-            _Panel_PTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        _Panel_PTLayout.setVerticalGroup(
-            _Panel_PTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 31, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout _Panel_CondLayout = new javax.swing.GroupLayout(_Panel_Cond);
-        _Panel_Cond.setLayout(_Panel_CondLayout);
-        _Panel_CondLayout.setHorizontalGroup(
-            _Panel_CondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        _Panel_CondLayout.setVerticalGroup(
-            _Panel_CondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 31, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout _Panel_CompLayout = new javax.swing.GroupLayout(_Panel_Comp);
-        _Panel_Comp.setLayout(_Panel_CompLayout);
-        _Panel_CompLayout.setHorizontalGroup(
-            _Panel_CompLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        _Panel_CompLayout.setVerticalGroup(
-            _Panel_CompLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 31, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout _Panel_PerfLayout = new javax.swing.GroupLayout(_Panel_Perf);
-        _Panel_Perf.setLayout(_Panel_PerfLayout);
-        _Panel_PerfLayout.setHorizontalGroup(
-            _Panel_PerfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        _Panel_PerfLayout.setVerticalGroup(
-            _Panel_PerfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 31, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout _Panel_LELayout = new javax.swing.GroupLayout(_Panel_LE);
-        _Panel_LE.setLayout(_Panel_LELayout);
-        _Panel_LELayout.setHorizontalGroup(
-            _Panel_LELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        _Panel_LELayout.setVerticalGroup(
-            _Panel_LELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 31, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout _Panel_BotLayout = new javax.swing.GroupLayout(_Panel_Bot);
-        _Panel_Bot.setLayout(_Panel_BotLayout);
-        _Panel_BotLayout.setHorizontalGroup(
-            _Panel_BotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
-        );
-        _Panel_BotLayout.setVerticalGroup(
-            _Panel_BotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 53, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout _Panel_MainPanelLayout = new javax.swing.GroupLayout(_Panel_MainPanel);
         _Panel_MainPanel.setLayout(_Panel_MainPanelLayout);
         _Panel_MainPanelLayout.setHorizontalGroup(
             _Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(_Panel_MainPanelLayout.createSequentialGroup()
-                .addGroup(_Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(_Panel_MainPanelLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(_Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(_Panel_Comp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(_Panel_MainPanelLayout.createSequentialGroup()
-                                .addGroup(_Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(_Panel_Cond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(_Panel_PT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(_Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(_Panel_LE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(_Panel_Perf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(_Panel_MainPanelLayout.createSequentialGroup()
-                        .addGap(434, 434, 434)
-                        .addGroup(_Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(_Panel_Bot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_Panel_Top, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 207, Short.MAX_VALUE)))
-                .addGap(219, 219, 219))
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
         _Panel_MainPanelLayout.setVerticalGroup(
             _Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(_Panel_MainPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(_Panel_Top, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addGroup(_Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(_Panel_MainPanelLayout.createSequentialGroup()
-                        .addComponent(_Panel_PT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(207, 207, 207)
-                        .addComponent(_Panel_Cond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(_Panel_MainPanelLayout.createSequentialGroup()
-                        .addComponent(_Panel_Perf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(207, 207, 207)
-                        .addComponent(_Panel_LE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(124, 124, 124)
-                .addComponent(_Panel_Comp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(_Panel_Bot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(184, Short.MAX_VALUE))
+            .addGap(0, 800, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -253,279 +132,197 @@ public class BackgroundRack extends javax.swing.JPanel {
 
         int gridXPos, gridYPos, gridWidth, gridHeight;
         int maxGridWidth = 30;
-        Rack r;
-        SuctionGroup sg;
         JLabel label;
         JPanel panel;
-        
         GridBagLayout gbl = new GridBagLayout();
-        GridBagConstraints c = new GridBagConstraints();
 
         _Panel_MainPanel.setLayout(gbl);
         _Panel_MainPanel.removeAll();
 
-        // Store panel info at top
+
         //===========================================================
-        // Positioning
+        // Store panel info at top
+        // Positioning & Constraints
         gridXPos = 0;
         gridYPos = 0;
         gridWidth = maxGridWidth;
         gridHeight = 5;
-        // Constraints               
-        c.fill = GridBagConstraints.BOTH;
-        c.weightx = 1;
-        c.weighty = 0; // No space between bottom and below row?        
-        c.gridx = gridXPos;
-        c.gridy = gridYPos;
-        c.gridwidth = gridWidth;
-        c.gridheight = gridHeight;
-        //c.ipady = 100;
-        //c.ipady = 0;                
-        // End of Constraints
-        //===========================================================  
-        panel = panelTop(img, storeName);
-        _Panel_MainPanel.add(panel, c);        
 
-        // Pressure/temp
+        // End of Constraints
+        panel = panelTop(img, storeName);
+        //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+        this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 0);
+        //===========================================================  
+
         //===========================================================
-        // Positioning
+        // Pressure/temp
+        // Positioning & Constraints
         gridXPos = 0;
         gridYPos += gridHeight;
+
         gridWidth = 15;
-        gridHeight = 5;
-        // Constraints               
-        c.fill = GridBagConstraints.BOTH;
-        c.weightx = 0;
-        c.weighty = 0; // No space between bottom and below row?        
-        c.gridx = gridXPos;
-        c.gridy = gridYPos;
-        c.gridwidth = gridWidth;
-        c.gridheight = gridHeight;
-        //c.ipady = 100;
-        //c.ipady = 0;                
-        // End of Constraints
-        //=========================================================== 
+        gridHeight = 5 + this.rack.getNumSuctionGroups();
 
+        // End of Constraints
         panel = panelPressureTemps();
-        _Panel_MainPanel.add(panel, c);
-        
+        //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+        this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 0, 0, GridBagConstraints.BOTH, 0, 0);
+        //=========================================================== 
 
+        //===========================================================
         // SEI blank
-        //===========================================================
-        // Positioning
+        // Positioning & Constraints
         gridXPos += gridWidth;
-        //gridYPos = gridHeight;  
         gridWidth = 5;
-        gridHeight = 5;
-        // Constraints               
-        c.fill = GridBagConstraints.BOTH;
-        c.weightx = 1;
-        c.weighty = 0; // No space between bottom and below row?        
-        c.gridx = gridXPos;
-        c.gridy = gridYPos;
-        c.gridwidth = gridWidth;
-        c.gridheight = gridHeight;
-        //c.ipady = 100;
-        //c.ipady = 0;                
-        // End of Constraints
-        //=========================================================== 
-        label = new JLabel("                                              ");
-        label.setBorder(border);
-        panel.add(label);
-
-        // performance
-        //===========================================================
-        // Positioning
-        gridXPos += gridWidth;
-        //gridYPos += gridHeight;
-        gridWidth = 10;
-        gridHeight = 10;
-        // Constraints               
-        //c.fill = GridBagConstraints.BOTH;
-        c.weightx = 1;
-        c.weighty = 0; // No space between bottom and below row?        
-        c.gridx = gridXPos;
-        c.gridy = gridYPos;
-        c.gridwidth = gridWidth;
-        c.gridheight = gridHeight;
-        //c.ipady = 100;
-        //c.ipady = 0;                
-        // End of Constraints
-        //=========================================================== 
-
-        panel = panelPerformance();
-        _Panel_MainPanel.add(panel, c);
         
+        // End of Constraints
+        panel = new JPanel();
+        label = new JLabel("                ");
+        label.setOpaque(true);
+        label.setBackground(Color.black);
+        panel.setBackground(Color.black);
+        //panel.setBorder(border);
+        panel.add(label);
+        //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+        this.addPanel(panel, gridXPos, gridYPos, gridWidth, 5, 0, 0, GridBagConstraints.BOTH, 20, 20);
+        //=========================================================== 
+
+        //===========================================================
+        // Performance
+        // Positioning & Constraints
+        gridXPos += gridWidth;
+        gridWidth = 10;
+        
+        // End of Constraints
+        panel = panelPerformance();
+        //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+        this.addPanel(panel, gridXPos, gridYPos, gridWidth, 10, 1, 0, GridBagConstraints.BOTH, 0, 0);
+        //=========================================================== 
+
         //=========================================================== 
         // Filler area
-        
+        gridXPos = 0;
         gridYPos += gridHeight;
-        gridHeight = 10;
-        c.gridx = 0;
-        c.gridy = gridYPos;
-        c.gridwidth = 20;   
-        c.gridheight = gridHeight;    
-        c.ipady = 50;
-        JPanel p1 = new JPanel();
-        p1.setPreferredSize(new Dimension(panel.getWidth(), 225));
-        p1.setBackground(Color.black);
-        p1.setBorder(border);
-        panel.add(p1, c);
-        
+        gridHeight = 5;
+        gridWidth = maxGridWidth;
+        panel = new JPanel();
+        panel.setPreferredSize(new Dimension(5, 100));
+        panel.setBackground(Color.black);    
+        //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+        this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 50);
         //=========================================================== 
 
-        // Condenser
         //===========================================================
-        // Positioning
+        // Condenser
+        // Positioning & Constraints
         gridXPos = 0;
         gridYPos += gridHeight;
         gridWidth = 20;
         gridHeight = 5;
-        c.ipady = 0;
-        // Constraints               
-        //c.fill = GridBagConstraints.BOTH;
-        c.weightx = 1;
-        c.weighty = 0; // No space between bottom and below row?        
-        c.gridx = gridXPos;
-        c.gridy = gridYPos;
-        c.gridwidth = gridWidth;
-        c.gridheight = gridHeight;
-        //c.ipady = 100;
-        //c.ipady = 0;                
         // End of Constraints
-        //=========================================================== 
         panel = panelCondenser();
-        _Panel_MainPanel.add(panel, c);
-        
+        //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+        this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 0);
+        //=========================================================== 
 
-        // Fan images - blanks
         //===========================================================
-        // Positioning
+        // Fan images - blanks
+        // Positioning & Constraints
         gridXPos += gridWidth;
         //gridYPos = gridHeight;  
-        gridWidth = 2;
-        gridHeight = 5;
-        // Constraints               
-        //c.fill = GridBagConstraints.BOTH;
-        c.weightx = 1;
-        c.weighty = 0; // No space between bottom and below row?        
-        c.gridx = gridXPos;
-        c.gridy = gridYPos;
-        c.gridwidth = gridWidth;
-        c.gridheight = gridHeight;
-        //c.ipady = 100;
-        //c.ipady = 0;                
+        gridWidth = 2;        
         // End of Constraints
         //=========================================================== 
-        //label = new JLabel("");
-        //label.setBorder(border);
-        //panel.add(label);
-
-        //_Panel_MainPanel.add(label, c);
-        // Load and efficiency
+        panel = new JPanel();
+        label = new JLabel("          ");
+        label.setOpaque(true);
+        label.setBackground(Color.black);
+        panel.setBackground(Color.black);
+        //panel.setBorder(border);
+        panel.add(label);
+        //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+        this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 0);
         //===========================================================
-        // Positioning
+
+        //===========================================================
+        // Load and efficiency
+        // Positioning Constraints
         gridXPos += gridWidth;
-        //gridYPos = gridHeight;  
         gridWidth = 8;
         gridHeight = 10;
-        // Constraints               
-        //c.fill = GridBagConstraints.BOTH;
-        c.weightx = 1;
-        c.weighty = 0; // No space between bottom and below row?        
-        c.gridx = gridXPos;
-        c.gridy = gridYPos;
-        c.gridwidth = gridWidth;
-        c.gridheight = gridHeight;
-        //c.ipady = 100;
-        //c.ipady = 0;                
         // End of Constraints
-        //=========================================================== 
         panel = panelLE();
-        _Panel_MainPanel.add(panel, c);
-                
+        //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+        this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 0);
+        //=========================================================== 
+
         //=========================================================== 
         // Filler area
+        gridXPos = 0;
         gridYPos += gridHeight;
+        gridWidth = maxGridWidth;
         gridHeight = 10;
-        c.gridx = 0;
-        c.gridy = gridYPos;
-        c.gridwidth = 20;   
-        c.gridheight = gridHeight;  
-        c.ipady = 150;
-        JPanel p = new JPanel();
-        p.setPreferredSize(new Dimension(panel.getWidth(), 225));
-        p.setBackground(Color.black);
-        p.setBorder(border);
-        panel.add(p, c);
-        
+        // End of Constraints
+        panel = new JPanel();
+        panel.setPreferredSize(new Dimension(5, 100));
+        panel.setBackground(Color.black);
+        //panel.setBorder(border);
+        //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+        this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 150);
         //=========================================================== 
         
-        // Compressor status
         //===========================================================
-        // Positioning
+        // Compressor status
+        // Positioning & Constraints
         gridXPos = 0;
         gridYPos += gridHeight;
         gridWidth = 15;
         gridHeight = 7;
-        // Constraints               
-        //c.fill = GridBagConstraints.BOTH;
-        c.weightx = 1;
-        c.weighty = 1; // No space between bottom and below row?        
-        c.gridx = gridXPos;
-        c.gridy = gridYPos;
-        c.gridwidth = gridWidth;
-        c.gridheight = gridHeight;
-        c.ipady = 0;
-        //c.ipady = 0;                
         // End of Constraints
-        //=========================================================== 
         panel = panelCompressor();
-        _Panel_MainPanel.add(panel, c);
-        
+        //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+        this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 1, GridBagConstraints.BOTH, 0, 0);
+        //=========================================================== 
+
         //==============================================================
         // make labels white
         setLabels(_Panel_MainPanel, Colours.White.getCol());
         // do it before last panel
+        //==============================================================
 
         // Bottom Panel
         //===========================================================
-        // Constraints        
-        c.fill = GridBagConstraints.BOTH;
-        //c.weightx = 1;
-        c.weighty = 0; // No space between bottom and below row?          
+        // Constraints  
         gridXPos = 0;
         gridYPos += gridHeight;
         gridWidth = maxGridWidth;
-        gridHeight = 5; // 5 per row for performance 
-        c.gridx = gridXPos;
-        c.gridy = gridYPos;
-
-        c.gridwidth = gridWidth;
-        c.gridheight = 1;
-        //c.ipady = 100;
-        //c.ipady = 0;                  
-        // We dont setup next position because we are adding suction groups still
-
-        //gridYPos += gridHeight;
+        gridHeight = 5; // 5 per row for performance
         // End of Constraints
-        //===========================================================
         panel = panelBottom(this.numRacks);
-        _Panel_MainPanel.add(panel, c);
-  
-        
+        //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+        this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 0);
+        //===========================================================
+
         _Panel_MainPanel.revalidate();
         _Panel_MainPanel.repaint();
 
     }
-    
-    
-    
-    public void addPanel(JPanel newPanel, int x, int y, int gwid, int ghei, int wx, int wy, int fill, int padx, int pady){
+
+    //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+    public void addPanel(JPanel newPanel, int x, int y, int gwid, int ghei, double wx, double wy, int fill, int padx, int pady) {
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = x;
         c.gridy = y;
-        
+        c.gridwidth = gwid;
+        c.gridheight = ghei;
+        c.weightx = wx;
+        c.weighty = wy;
+        c.fill = fill;
+        c.ipadx = padx;
+        c.ipady = pady;
+
+        _Panel_MainPanel.add(newPanel, c);
+
     }
 
     public void setLabels(Container p1, Color c) {
@@ -571,7 +368,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.fill = GridBagConstraints.BOTH;
         c.gridx = 0;
         c.gridy = 0;
-        c.weightx = 1;
+        c.weightx = 0;
         c.weighty = 0;
         c.gridwidth = 1;
         c.gridheight = 2;
@@ -772,7 +569,6 @@ public class BackgroundRack extends javax.swing.JPanel {
         // Return a panel containing condenser labels
         JPanel panel = new JPanel(gbl);
 
-        
         //===========================
         // RACK CONDENSER
         //===========================
@@ -788,7 +584,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridheight = 1;
         c.gridwidth = 3;
         panel.add(label, c);
-        
+
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.weightx = 1;
@@ -889,7 +685,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         label.setOpaque(true);
         label.setBackground(Color.black);
         label.setFont(font);
-        label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);        
+        label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         c.gridx = 0;
         c.weightx = 0;
         c.weighty = 0;
@@ -898,11 +694,10 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridwidth = 3;
         panel.add(label, c);
 
-        
         // Row 2
         c.gridy = 1;
         c.weightx = 0;
-        
+
         c.gridheight = 1;
         c.gridwidth = 2;
         c.fill = GridBagConstraints.BOTH;
@@ -1065,7 +860,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridx = 0;
         c.gridy = 7;
         c.gridwidth = 2;
-        c.weightx = 0;        
+        c.weightx = 0;
         label = new JLabel("Fault Detect");
         label.setFont(font);
         label.setOpaque(true);
@@ -1078,7 +873,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         //===========================
         c.gridx += 2;
         c.gridwidth = 1;
-        c.weightx = 1;        
+        c.weightx = 1;
         for (int i = 0; i < numSg; i++) {
             for (int j = 0; j < comp[i]; j++) {
                 label = new JLabel("");
@@ -1096,7 +891,6 @@ public class BackgroundRack extends javax.swing.JPanel {
         return panel;
     }
 
-   
     public JPanel panelLE() {
         // Condenser Panel will list the condensers 
         JLabel label;
@@ -1572,13 +1366,6 @@ public class BackgroundRack extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel _Panel_Bot;
-    private javax.swing.JPanel _Panel_Comp;
-    private javax.swing.JPanel _Panel_Cond;
-    private javax.swing.JPanel _Panel_LE;
     private javax.swing.JPanel _Panel_MainPanel;
-    private javax.swing.JPanel _Panel_PT;
-    private javax.swing.JPanel _Panel_Perf;
-    private javax.swing.JPanel _Panel_Top;
     // End of variables declaration//GEN-END:variables
 }

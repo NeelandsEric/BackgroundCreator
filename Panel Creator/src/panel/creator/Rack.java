@@ -143,4 +143,20 @@ public class Rack implements java.io.Serializable {
         }
     }
 
+    public int getNumCompressors() {
+        int numComp = 0;
+        for(int i = 0; i < this.numSuctionGroups; i++){
+            numComp += this.getSuctionGroupIndex(i).getNumCompressors();
+        }
+        return numComp;
+    }
+    
+     public int getNumSystems() {
+        int numSys = 0;
+        for(int i = 0; i < this.numSuctionGroups; i++){
+            numSys += this.getSuctionGroupIndex(i).getNumSystems();
+        }
+        return numSys;
+    }
+
 }

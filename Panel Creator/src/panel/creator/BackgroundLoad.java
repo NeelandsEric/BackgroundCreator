@@ -8,7 +8,6 @@ package panel.creator;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -235,7 +234,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         // Constraints        
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 1;
-        c.weighty = 1; // No space between bottom and below row?                
+        c.weighty = 0; // No space between bottom and below row?                
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 1;
@@ -279,20 +278,23 @@ public class BackgroundLoad extends javax.swing.JPanel {
 
         int numSystems = 0;
         ArrayList<String> systemNames = new ArrayList<>();
+        String sgName;
         for (int i = 0; i < numRacks; i++) {
             for (int j = 0; j < racks.get(i).getNumSuctionGroups(); j++) {
                 sg = racks.get(i).getSuctionGroupIndex(j);
+                sgName = sg.getName();
                 numSystems += sg.getNumSystems();
                 for (int k = 0; k < sg.getNumSystems(); k++) {
-                    systemNames.add(sg.getSystemNameIndex(k));
+                    systemNames.add(sgName + ": " + sg.getSystemNameIndex(k));
                 }
-
             }
         }
+        
         //System.out.println("Num systems " + numSystems);
         //System.out.println("System names\n" + systemNames);
         c.gridx = 0;
         c.gridy = 1;
+        c.weighty = 1;
         c.fill = GridBagConstraints.BOTH;
         for (int i = 0; i < numSystems; i++) {
 
