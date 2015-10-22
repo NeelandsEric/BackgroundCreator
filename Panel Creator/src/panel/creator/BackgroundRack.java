@@ -534,6 +534,13 @@ public class BackgroundRack extends javax.swing.JPanel {
     }
     
     
+    
+    public void addPanel(JPanel newPanel, int x, int y, int gwid, int ghei, int wx, int wy, int fill, int padx, int pady){
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = x;
+        c.gridy = y;
+        
+    }
 
     public void setLabels(Container p1, Color c) {
 
