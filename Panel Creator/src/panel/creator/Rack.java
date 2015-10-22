@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  * Rack class holds information about the rack
- *
+ * update
  * @author EricGummerson
  */
 public class Rack implements java.io.Serializable {
