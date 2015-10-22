@@ -32,8 +32,7 @@ public class MainFrame extends JFrame {
     private final PanelCreator main;
     public DisplayFrame displayFrame;
     public SettingsFrame settingsFrame;
-    public ControlsPanel controlPanel;
-    public RackSettingsFrame rackSettingsFrame;
+    public ControlsPanel controlPanel;    
     public String img;
 
     /**
@@ -52,9 +51,7 @@ public class MainFrame extends JFrame {
 
         controlPanel = new ControlsPanel(this);
         displayFrame = new DisplayFrame(this);
-        settingsFrame = new SettingsFrame(this);
-        rackSettingsFrame = new RackSettingsFrame(controlPanel);
-
+        settingsFrame = new SettingsFrame(this);        
         // Load the main panel        
         controlPanel.setVisible(true);
         displayFrame.setVisible(true);
@@ -102,16 +99,7 @@ public class MainFrame extends JFrame {
         }
     }
 
-    public void displaySliderSettings() {
-        if (!rackSettingsFrame.isVisible()) {
-            rackSettingsFrame.setVisible(true);
-        } else {
-            rackSettingsFrame.setVisible(false);
-        }
-
-    }
-
-    public void hideSettings() {
+        public void hideSettings() {
         settingsFrame.setVisible(false);
     }
 
@@ -142,7 +130,6 @@ public class MainFrame extends JFrame {
         _MenuItem_Close = new javax.swing.JMenuItem();
         _Menu_Settings = new javax.swing.JMenu();
         _MenuItem_Settings = new javax.swing.JMenuItem();
-        _MenuItem_SliderSettings = new javax.swing.JMenuItem();
         _Menu_View = new javax.swing.JMenu();
         _MenuItem_ViewPanel = new javax.swing.JMenuItem();
         _Menu_Image = new javax.swing.JMenu();
@@ -178,7 +165,7 @@ public class MainFrame extends JFrame {
 
         _Menu_File.setText("File");
 
-        _MenuItem_SavePicture.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_SavePicture.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         _MenuItem_SavePicture.setText("Save display as Picture");
         _MenuItem_SavePicture.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,7 +183,7 @@ public class MainFrame extends JFrame {
         });
         _Menu_File.add(_MenuItem_SaveStore);
 
-        _MenuItem_OpenStore.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_OpenStore.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         _MenuItem_OpenStore.setText("Open Store");
         _MenuItem_OpenStore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,15 +212,6 @@ public class MainFrame extends JFrame {
             }
         });
         _Menu_Settings.add(_MenuItem_Settings);
-
-        _MenuItem_SliderSettings.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        _MenuItem_SliderSettings.setText("Slider Settings");
-        _MenuItem_SliderSettings.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _MenuItem_SliderSettingsActionPerformed(evt);
-            }
-        });
-        _Menu_Settings.add(_MenuItem_SliderSettings);
 
         _MenuBar_Menus.add(_Menu_Settings);
 
@@ -353,11 +331,6 @@ public class MainFrame extends JFrame {
 
     }//GEN-LAST:event__MenuItem_RemoveImageActionPerformed
 
-    private void _MenuItem_SliderSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SliderSettingsActionPerformed
-        // TODO add your handling code here:
-        displaySliderSettings();
-    }//GEN-LAST:event__MenuItem_SliderSettingsActionPerformed
-
     private void _MenuItem_SaveStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveStoreActionPerformed
         // TODO add your handling code here:
         int returnVal = _FileChooser_SaveStore.showSaveDialog(this);
@@ -447,7 +420,6 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem _MenuItem_SavePicture;
     private javax.swing.JMenuItem _MenuItem_SaveStore;
     private javax.swing.JMenuItem _MenuItem_Settings;
-    private javax.swing.JMenuItem _MenuItem_SliderSettings;
     private javax.swing.JMenuItem _MenuItem_ViewPanel;
     private javax.swing.JMenu _Menu_File;
     private javax.swing.JMenu _Menu_Image;
