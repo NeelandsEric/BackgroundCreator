@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  * Rack class holds information about the rack
- *
+ * update
  * @author EricGummerson
  */
 public class Rack implements java.io.Serializable {
@@ -141,6 +141,22 @@ public class Rack implements java.io.Serializable {
             //System.out.println("Adding Suction Group " + (size + i+1));
             this.suctionGroup.add(new SuctionGroup("Suction Group " + (size + i + 1)));
         }
+    }
+
+    public int getNumCompressors() {
+        int numComp = 0;
+        for(int i = 0; i < this.numSuctionGroups; i++){
+            numComp += this.getSuctionGroupIndex(i).getNumCompressors();
+        }
+        return numComp;
+    }
+    
+     public int getNumSystems() {
+        int numSys = 0;
+        for(int i = 0; i < this.numSuctionGroups; i++){
+            numSys += this.getSuctionGroupIndex(i).getNumSystems();
+        }
+        return numSys;
     }
 
 }

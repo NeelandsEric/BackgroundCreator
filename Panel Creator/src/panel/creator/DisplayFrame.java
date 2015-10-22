@@ -125,14 +125,16 @@ public class DisplayFrame extends javax.swing.JFrame {
 
                 bgl.updateRacks(racks, numRacks, f, b, img, sn);
 
-                if (selected == (nt - 1)) {
-                    if (_TabbedPane_Tabs.getTabCount() != nt) {
+                if (selected == (nt - 1)) {                    
+                    if (_TabbedPane_Tabs.getTabCount() < nt) {
                         selected--; // loads tab selected
+                    }else {
+                        selected = _TabbedPane_Tabs.getTabCount()-1;
                     }
                 } else if (selected < (_TabbedPane_Tabs.getTabCount() - 1)) {
-                    // good
+                    // good                    
                 } else if (selected >= (_TabbedPane_Tabs.getTabCount() - 1)) {
-                    selected--;
+                    selected--;                    
                 }
                 _TabbedPane_Tabs.setSelectedIndex(selected);
                 t.pack();
