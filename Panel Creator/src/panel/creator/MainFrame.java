@@ -346,7 +346,7 @@ public class MainFrame extends JFrame {
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(controlPanel.racks);
                 oos.writeObject(controlPanel.storeName);
-                oos.writeObject(controlPanel.logoString);
+                oos.writeObject(controlPanel.imgStr);
                 oos.writeObject(controlPanel.numRacks);
                 oos.close();
                 fos.close();
@@ -370,7 +370,7 @@ public class MainFrame extends JFrame {
             File file = _FileChooser_LoadStore.getSelectedFile();
 
             // What to do with the file, e.g. display it in a TextArea
-            System.out.println("File: " + file.getAbsolutePath());
+            //System.out.println("File: " + file.getAbsolutePath());
             String filePath = file.getAbsolutePath();
             
             try {
@@ -379,12 +379,14 @@ public class MainFrame extends JFrame {
                 ArrayList<Rack> rs = (ArrayList<Rack>) ois.readObject();
                 String sn = (String) ois.readObject();
                 String imgstr = (String) ois.readObject();
-                int numR = (int) ois.readObject();
-                controlPanel.loadStore(rs, sn, imgstr, numR);
+                int numR = (int) ois.readObject();                
                 ois.close();
                 fis.close();
+                System.out.println("logo: " + imgstr);
                 System.out.println("Store read properly");
+                controlPanel.loadStore(rs, sn, imgstr, numR);
                 controlPanel.updateRackDisplay();
+                
 
             } catch (IOException ioe) {
                 ioe.printStackTrace();
@@ -392,7 +394,7 @@ public class MainFrame extends JFrame {
                 System.out.println("Class not found");
                 c.printStackTrace();
             }
-            System.out.println("num racks " + controlPanel.racks.size());
+            System.out.println("Store Load Debug\nRack count: " + controlPanel.racks.size());
             for (Rack r : controlPanel.racks) {
                 System.out.println(r);
             }

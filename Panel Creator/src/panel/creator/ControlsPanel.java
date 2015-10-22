@@ -24,7 +24,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
     public JLabel[] rackLabel;
     public ArrayList<Rack> racks;
     public String storeName;
-    public String logoString;
+    public String imgStr;
 
     /**
      * Creates new form MainPanel
@@ -1020,29 +1020,29 @@ public final class ControlsPanel extends javax.swing.JPanel {
     }
 
     public void removeStoreLogo() {
-        logoString = "";
+        imgStr = "";
         _Label_StoreLogo.setIcon(null);
         _Label_StoreLogo.setText("Store Logo");
     }
 
     public void updateStoreLogo() {
         try {
-            ImageIcon icon = new ImageIcon(logoString);
+            ImageIcon icon = new ImageIcon(imgStr);
             _Label_StoreLogo.setText("");
             _Label_StoreLogo.setIcon(icon);
         } catch (Exception e) {
-            _Label_StoreLogo.setText("Problem loading file: " + logoString);
+            _Label_StoreLogo.setText("Problem loading file: " + imgStr);
         }
     }
 
     public void updateStoreLogo(String img) {
         try {
-            logoString = img;
-            ImageIcon icon = new ImageIcon(logoString);
+            imgStr = img;
+            ImageIcon icon = new ImageIcon(imgStr);
             _Label_StoreLogo.setText("");
             _Label_StoreLogo.setIcon(icon);
         } catch (Exception e) {
-            _Label_StoreLogo.setText("Problem loading file: " + logoString);
+            _Label_StoreLogo.setText("Problem loading file: " + imgStr);
         }
     }
 
@@ -1111,19 +1111,21 @@ public final class ControlsPanel extends javax.swing.JPanel {
         }
     }
 
-    public void loadStore(ArrayList<Rack> r, String sn, String fn, int numRacks) {
+    public void loadStore(ArrayList<Rack> r, String storeName, String imgStr, int numRacks) {
         this.racks = r;
-        this.storeName = sn;
-        this.logoString = fn;
+        this.storeName = storeName;
+        this.imgStr = imgStr;
         this.numRacks = numRacks;
     }
 
     public void updateRackDisplay() {
 
         _TextField_SiteName.setText(this.storeName);
+        this.updateStoreLogo();
         this.updateRackNames(0);
         this.loadComboBoxRacks(0);
         loadRackOptions(0);
+        this.updateDisplay();
     }
 
 
