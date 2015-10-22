@@ -261,8 +261,8 @@ public class BackgroundRack extends javax.swing.JPanel {
         GridBagLayout gbl = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
 
-        //_Panel_MainPanel.setLayout(gbl);
-        //_Panel_MainPanel.removeAll();
+        _Panel_MainPanel.setLayout(gbl);
+        _Panel_MainPanel.removeAll();
 
         // Store panel info at top
         //===========================================================
@@ -284,9 +284,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         // End of Constraints
         //===========================================================  
         panel = panelTop(img, storeName);
-        //_Panel_MainPanel.add(panel, c);
-        // new attempt for rack panel
-        _Panel_Top = panel;
+        _Panel_MainPanel.add(panel, c);        
 
         // Pressure/temp
         //===========================================================
@@ -309,9 +307,8 @@ public class BackgroundRack extends javax.swing.JPanel {
         //=========================================================== 
 
         panel = panelPressureTemps();
-        //_Panel_MainPanel.add(panel, c);
-        // new attempt for rack panel
-        _Panel_PT = panel;
+        _Panel_MainPanel.add(panel, c);
+        
 
         // SEI blank
         //===========================================================
@@ -332,9 +329,9 @@ public class BackgroundRack extends javax.swing.JPanel {
         //c.ipady = 0;                
         // End of Constraints
         //=========================================================== 
-        //label = new JLabel("                                              ");
-        //label.setBorder(border);
-        //panel.add(label);
+        label = new JLabel("                                              ");
+        label.setBorder(border);
+        panel.add(label);
 
         // performance
         //===========================================================
@@ -357,9 +354,8 @@ public class BackgroundRack extends javax.swing.JPanel {
         //=========================================================== 
 
         panel = panelPerformance();
-        //_Panel_MainPanel.add(panel, c);
-        // new attempt for rack panel
-        _Panel_Perf = panel;
+        _Panel_MainPanel.add(panel, c);
+        
         //=========================================================== 
         // Filler area
         
@@ -373,8 +369,8 @@ public class BackgroundRack extends javax.swing.JPanel {
         JPanel p1 = new JPanel();
         p1.setPreferredSize(new Dimension(panel.getWidth(), 225));
         p1.setBackground(Color.black);
-        //p1.setBorder(border);
-        //panel.add(p1, c);
+        p1.setBorder(border);
+        panel.add(p1, c);
         
         //=========================================================== 
 
@@ -399,9 +395,8 @@ public class BackgroundRack extends javax.swing.JPanel {
         // End of Constraints
         //=========================================================== 
         panel = panelCondenser();
-        //_Panel_MainPanel.add(panel, c);
-        // new attempt for rack panel
-        _Panel_Cond = panel;
+        _Panel_MainPanel.add(panel, c);
+        
 
         // Fan images - blanks
         //===========================================================
@@ -447,10 +442,8 @@ public class BackgroundRack extends javax.swing.JPanel {
         // End of Constraints
         //=========================================================== 
         panel = panelLE();
-        //_Panel_MainPanel.add(panel, c);
-        // new attempt for rack panel
-        _Panel_LE = panel;
-        
+        _Panel_MainPanel.add(panel, c);
+                
         //=========================================================== 
         // Filler area
         gridYPos += gridHeight;
@@ -460,11 +453,11 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridwidth = 20;   
         c.gridheight = gridHeight;  
         c.ipady = 150;
-        //JPanel p = new JPanel();
-        //p.setPreferredSize(new Dimension(panel.getWidth(), 225));
-        //p.setBackground(Color.black);
-        //p.setBorder(border);
-        //panel.add(p, c);
+        JPanel p = new JPanel();
+        p.setPreferredSize(new Dimension(panel.getWidth(), 225));
+        p.setBackground(Color.black);
+        p.setBorder(border);
+        panel.add(p, c);
         
         //=========================================================== 
         
@@ -488,9 +481,8 @@ public class BackgroundRack extends javax.swing.JPanel {
         // End of Constraints
         //=========================================================== 
         panel = panelCompressor();
-        //_Panel_MainPanel.add(panel, c);
-        // new attempt for rack panel
-        _Panel_Comp = panel;
+        _Panel_MainPanel.add(panel, c);
+        
         //==============================================================
         // make labels white
         setLabels(_Panel_MainPanel, Colours.White.getCol());
@@ -519,14 +511,8 @@ public class BackgroundRack extends javax.swing.JPanel {
         // End of Constraints
         //===========================================================
         panel = panelBottom(this.numRacks);
-        _Panel_MainPanel.add(panel);
-        //_Panel_MainPanel.add(panel, c);
-        // new attempt for rack panel
-        _Panel_Bot.setPreferredSize(panel.getPreferredSize());
-        _Panel_Bot.setLayout(new GridLayout());
-        _Panel_Bot = panel;
-        _Panel_Bot.revalidate();
-        _Panel_Bot.repaint();
+        _Panel_MainPanel.add(panel, c);
+  
         
         _Panel_MainPanel.revalidate();
         _Panel_MainPanel.repaint();
