@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -98,20 +99,141 @@ public class BackgroundRack extends javax.swing.JPanel {
     private void initComponents() {
 
         _Panel_MainPanel = new javax.swing.JPanel();
+        _Panel_Top = new javax.swing.JPanel();
+        _Panel_PT = new javax.swing.JPanel();
+        _Panel_Cond = new javax.swing.JPanel();
+        _Panel_Comp = new javax.swing.JPanel();
+        _Panel_Perf = new javax.swing.JPanel();
+        _Panel_LE = new javax.swing.JPanel();
+        _Panel_Bot = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(1000, 800));
 
         _Panel_MainPanel.setBackground(new java.awt.Color(0, 0, 0));
 
+        javax.swing.GroupLayout _Panel_TopLayout = new javax.swing.GroupLayout(_Panel_Top);
+        _Panel_Top.setLayout(_Panel_TopLayout);
+        _Panel_TopLayout.setHorizontalGroup(
+            _Panel_TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        _Panel_TopLayout.setVerticalGroup(
+            _Panel_TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 75, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout _Panel_PTLayout = new javax.swing.GroupLayout(_Panel_PT);
+        _Panel_PT.setLayout(_Panel_PTLayout);
+        _Panel_PTLayout.setHorizontalGroup(
+            _Panel_PTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        _Panel_PTLayout.setVerticalGroup(
+            _Panel_PTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 31, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout _Panel_CondLayout = new javax.swing.GroupLayout(_Panel_Cond);
+        _Panel_Cond.setLayout(_Panel_CondLayout);
+        _Panel_CondLayout.setHorizontalGroup(
+            _Panel_CondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        _Panel_CondLayout.setVerticalGroup(
+            _Panel_CondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 31, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout _Panel_CompLayout = new javax.swing.GroupLayout(_Panel_Comp);
+        _Panel_Comp.setLayout(_Panel_CompLayout);
+        _Panel_CompLayout.setHorizontalGroup(
+            _Panel_CompLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        _Panel_CompLayout.setVerticalGroup(
+            _Panel_CompLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 31, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout _Panel_PerfLayout = new javax.swing.GroupLayout(_Panel_Perf);
+        _Panel_Perf.setLayout(_Panel_PerfLayout);
+        _Panel_PerfLayout.setHorizontalGroup(
+            _Panel_PerfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        _Panel_PerfLayout.setVerticalGroup(
+            _Panel_PerfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 31, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout _Panel_LELayout = new javax.swing.GroupLayout(_Panel_LE);
+        _Panel_LE.setLayout(_Panel_LELayout);
+        _Panel_LELayout.setHorizontalGroup(
+            _Panel_LELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        _Panel_LELayout.setVerticalGroup(
+            _Panel_LELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 31, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout _Panel_BotLayout = new javax.swing.GroupLayout(_Panel_Bot);
+        _Panel_Bot.setLayout(_Panel_BotLayout);
+        _Panel_BotLayout.setHorizontalGroup(
+            _Panel_BotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 120, Short.MAX_VALUE)
+        );
+        _Panel_BotLayout.setVerticalGroup(
+            _Panel_BotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 53, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout _Panel_MainPanelLayout = new javax.swing.GroupLayout(_Panel_MainPanel);
         _Panel_MainPanel.setLayout(_Panel_MainPanelLayout);
         _Panel_MainPanelLayout.setHorizontalGroup(
             _Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGroup(_Panel_MainPanelLayout.createSequentialGroup()
+                .addGroup(_Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(_Panel_MainPanelLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(_Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(_Panel_Comp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(_Panel_MainPanelLayout.createSequentialGroup()
+                                .addGroup(_Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(_Panel_Cond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(_Panel_PT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(_Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(_Panel_LE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(_Panel_Perf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(_Panel_MainPanelLayout.createSequentialGroup()
+                        .addGap(434, 434, 434)
+                        .addGroup(_Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(_Panel_Bot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Panel_Top, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 207, Short.MAX_VALUE)))
+                .addGap(219, 219, 219))
         );
         _Panel_MainPanelLayout.setVerticalGroup(
             _Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(_Panel_MainPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(_Panel_Top, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addGroup(_Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(_Panel_MainPanelLayout.createSequentialGroup()
+                        .addComponent(_Panel_PT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(207, 207, 207)
+                        .addComponent(_Panel_Cond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(_Panel_MainPanelLayout.createSequentialGroup()
+                        .addComponent(_Panel_Perf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(207, 207, 207)
+                        .addComponent(_Panel_LE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(124, 124, 124)
+                .addComponent(_Panel_Comp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(_Panel_Bot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -135,11 +257,12 @@ public class BackgroundRack extends javax.swing.JPanel {
         SuctionGroup sg;
         JLabel label;
         JPanel panel;
+        
         GridBagLayout gbl = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
 
-        _Panel_MainPanel.setLayout(gbl);
-        _Panel_MainPanel.removeAll();
+        //_Panel_MainPanel.setLayout(gbl);
+        //_Panel_MainPanel.removeAll();
 
         // Store panel info at top
         //===========================================================
@@ -161,7 +284,9 @@ public class BackgroundRack extends javax.swing.JPanel {
         // End of Constraints
         //===========================================================  
         panel = panelTop(img, storeName);
-        _Panel_MainPanel.add(panel, c);
+        //_Panel_MainPanel.add(panel, c);
+        // new attempt for rack panel
+        _Panel_Top = panel;
 
         // Pressure/temp
         //===========================================================
@@ -184,7 +309,9 @@ public class BackgroundRack extends javax.swing.JPanel {
         //=========================================================== 
 
         panel = panelPressureTemps();
-        _Panel_MainPanel.add(panel, c);
+        //_Panel_MainPanel.add(panel, c);
+        // new attempt for rack panel
+        _Panel_PT = panel;
 
         // SEI blank
         //===========================================================
@@ -205,9 +332,9 @@ public class BackgroundRack extends javax.swing.JPanel {
         //c.ipady = 0;                
         // End of Constraints
         //=========================================================== 
-        label = new JLabel("                                              ");
+        //label = new JLabel("                                              ");
         //label.setBorder(border);
-        panel.add(label);
+        //panel.add(label);
 
         // performance
         //===========================================================
@@ -230,8 +357,9 @@ public class BackgroundRack extends javax.swing.JPanel {
         //=========================================================== 
 
         panel = panelPerformance();
-        _Panel_MainPanel.add(panel, c);
-        
+        //_Panel_MainPanel.add(panel, c);
+        // new attempt for rack panel
+        _Panel_Perf = panel;
         //=========================================================== 
         // Filler area
         
@@ -246,7 +374,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         p1.setPreferredSize(new Dimension(panel.getWidth(), 225));
         p1.setBackground(Color.black);
         //p1.setBorder(border);
-        panel.add(p1, c);
+        //panel.add(p1, c);
         
         //=========================================================== 
 
@@ -271,7 +399,9 @@ public class BackgroundRack extends javax.swing.JPanel {
         // End of Constraints
         //=========================================================== 
         panel = panelCondenser();
-        _Panel_MainPanel.add(panel, c);
+        //_Panel_MainPanel.add(panel, c);
+        // new attempt for rack panel
+        _Panel_Cond = panel;
 
         // Fan images - blanks
         //===========================================================
@@ -292,11 +422,11 @@ public class BackgroundRack extends javax.swing.JPanel {
         //c.ipady = 0;                
         // End of Constraints
         //=========================================================== 
-        label = new JLabel("");
+        //label = new JLabel("");
         //label.setBorder(border);
-        panel.add(label);
+        //panel.add(label);
 
-        _Panel_MainPanel.add(label, c);
+        //_Panel_MainPanel.add(label, c);
         // Load and efficiency
         //===========================================================
         // Positioning
@@ -317,8 +447,9 @@ public class BackgroundRack extends javax.swing.JPanel {
         // End of Constraints
         //=========================================================== 
         panel = panelLE();
-        _Panel_MainPanel.add(panel, c);
-        
+        //_Panel_MainPanel.add(panel, c);
+        // new attempt for rack panel
+        _Panel_LE = panel;
         
         //=========================================================== 
         // Filler area
@@ -329,11 +460,11 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridwidth = 20;   
         c.gridheight = gridHeight;  
         c.ipady = 150;
-        JPanel p = new JPanel();
-        p.setPreferredSize(new Dimension(panel.getWidth(), 225));
-        p.setBackground(Color.black);
+        //JPanel p = new JPanel();
+        //p.setPreferredSize(new Dimension(panel.getWidth(), 225));
+        //p.setBackground(Color.black);
         //p.setBorder(border);
-        panel.add(p, c);
+        //panel.add(p, c);
         
         //=========================================================== 
         
@@ -357,8 +488,9 @@ public class BackgroundRack extends javax.swing.JPanel {
         // End of Constraints
         //=========================================================== 
         panel = panelCompressor();
-        _Panel_MainPanel.add(panel, c);
-
+        //_Panel_MainPanel.add(panel, c);
+        // new attempt for rack panel
+        _Panel_Comp = panel;
         //==============================================================
         // make labels white
         setLabels(_Panel_MainPanel, Colours.White.getCol());
@@ -387,12 +519,21 @@ public class BackgroundRack extends javax.swing.JPanel {
         // End of Constraints
         //===========================================================
         panel = panelBottom(this.numRacks);
-        _Panel_MainPanel.add(panel, c);
-
+        _Panel_MainPanel.add(panel);
+        //_Panel_MainPanel.add(panel, c);
+        // new attempt for rack panel
+        _Panel_Bot.setPreferredSize(panel.getPreferredSize());
+        _Panel_Bot.setLayout(new GridLayout());
+        _Panel_Bot = panel;
+        _Panel_Bot.revalidate();
+        _Panel_Bot.repaint();
+        
         _Panel_MainPanel.revalidate();
         _Panel_MainPanel.repaint();
 
     }
+    
+    
 
     public void setLabels(Container p1, Color c) {
 
@@ -1438,6 +1579,13 @@ public class BackgroundRack extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel _Panel_Bot;
+    private javax.swing.JPanel _Panel_Comp;
+    private javax.swing.JPanel _Panel_Cond;
+    private javax.swing.JPanel _Panel_LE;
     private javax.swing.JPanel _Panel_MainPanel;
+    private javax.swing.JPanel _Panel_PT;
+    private javax.swing.JPanel _Panel_Perf;
+    private javax.swing.JPanel _Panel_Top;
     // End of variables declaration//GEN-END:variables
 }
