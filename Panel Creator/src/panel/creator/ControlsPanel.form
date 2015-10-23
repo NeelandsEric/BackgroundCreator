@@ -204,7 +204,7 @@
             <Property name="text" type="java.lang.String" value="Site Name"/>
           </Properties>
           <Events>
-            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="_TextField_SiteNamePropertyChange"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="_TextField_SiteNameFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="_Label_NumberRacks">
@@ -412,9 +412,9 @@
                                   <Component id="_Label_SystemSave" min="-2" pref="180" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="_Button_Prev" linkSize="8" min="-2" pref="99" max="-2" attributes="0"/>
+                                  <Component id="_Button_SysPrev" linkSize="8" min="-2" pref="99" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="_Button_Next" min="-2" pref="91" max="-2" attributes="0"/>
+                                  <Component id="_Button_SysNext" min="-2" pref="91" max="-2" attributes="0"/>
                               </Group>
                               <Component id="_TextField_SystemName" linkSize="6" pref="200" max="32767" attributes="0"/>
                               <Component id="_Label_SystemName" max="32767" attributes="0"/>
@@ -452,9 +452,9 @@
                           </Group>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="_Button_Prev2" linkSize="8" min="-2" pref="101" max="-2" attributes="0"/>
+                                  <Component id="_Button_CompPrev" linkSize="8" min="-2" pref="101" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="_Button_Next2" min="-2" pref="93" max="-2" attributes="0"/>
+                                  <Component id="_Button_CompNext" min="-2" pref="93" max="-2" attributes="0"/>
                               </Group>
                               <Component id="_Label_CompressorName" max="32767" attributes="0"/>
                               <Component id="_TextField_CompressorName" linkSize="6" min="-2" pref="172" max="-2" attributes="0"/>
@@ -497,8 +497,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="_Button_Prev2" linkSize="5" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="_Button_Next2" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="_Button_CompPrev" linkSize="5" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="_Button_CompNext" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -512,8 +512,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="_Button_Prev" linkSize="5" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="_Button_Next" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="_Button_SysPrev" linkSize="5" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="_Button_SysNext" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="_Label_SystemSave" min="-2" pref="26" max="-2" attributes="0"/>
@@ -615,20 +615,20 @@
             <Property name="text" type="java.lang.String" value="Compressor 1"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="_Button_Prev2">
+        <Component class="javax.swing.JButton" name="_Button_CompPrev">
           <Properties>
             <Property name="text" type="java.lang.String" value="Previous"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_Prev2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_CompPrevActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="_Button_Next2">
+        <Component class="javax.swing.JButton" name="_Button_CompNext">
           <Properties>
             <Property name="text" type="java.lang.String" value="Next"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_Next2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_CompNextActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="_Label_SystemNumber">
@@ -648,20 +648,20 @@
             <Property name="text" type="java.lang.String" value="System 1"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="_Button_Next">
+        <Component class="javax.swing.JButton" name="_Button_SysNext">
           <Properties>
             <Property name="text" type="java.lang.String" value="Next"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_NextActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_SysNextActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="_Button_Prev">
+        <Component class="javax.swing.JButton" name="_Button_SysPrev">
           <Properties>
             <Property name="text" type="java.lang.String" value="Previous"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_PrevActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_SysPrevActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="_ComboBox_Systems">

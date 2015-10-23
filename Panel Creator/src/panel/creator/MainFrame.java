@@ -103,10 +103,11 @@ public class MainFrame extends JFrame {
         settingsFrame.setVisible(false);
     }
 
-    public void updateDisplay(ArrayList<Rack> racks, int numRacks, String sn, String[] rn) {
+    public void updateDisplay(ArrayList<Rack> racks, int numRacks, String storeName, String[] rackNames, String imgStr) {
         Font f = settingsFrame.getFontData();
         Border b = settingsFrame.getBorder();
-        displayFrame.updateDisplays(racks, numRacks, f, b, img, sn, rn);
+        this.img = imgStr;
+        displayFrame.updateDisplays(racks, numRacks, storeName, rackNames, img, f, b);
     }
 
     /**

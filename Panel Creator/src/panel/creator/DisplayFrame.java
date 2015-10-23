@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package panel.creator;
 
 import java.awt.Component;
@@ -13,7 +8,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
 /**
- * The main display frame
+ * The display frame which shows the different backgrounds
  *
  * @author EricGummerson
  */
@@ -87,18 +82,31 @@ public class DisplayFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * resize the display
+     *
+     * @param evt
+     */
     private void _TabbedPane_TabsComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event__TabbedPane_TabsComponentResized
         // TODO add your handling code her
         if (mf != null) {
             mf.updateDisplaySize(this.getSize());
             this.setPreferredSize(this.getSize());
         }
-
-
     }//GEN-LAST:event__TabbedPane_TabsComponentResized
 
-    public void updateDisplays(ArrayList<Rack> racks, int numRacks, Font f, Border b, String img, String sn, String[] rackNames) {
+    /**
+     * Updates the form with the right information
+     *
+     * @param racks rack list
+     * @param numRacks number of racks to read from the list
+     * @param storeName global string for the store name
+     * @param rackNames names of the racks
+     * @param img global img string for the logo
+     * @param f global font
+     * @param b global border
+     */
+    public void updateDisplays(ArrayList<Rack> racks, int numRacks, String storeName, String[] rackNames, String img, Font f, Border b) {
 
         JFrame t = this;
         SwingUtilities.invokeLater(new Runnable() {
@@ -109,7 +117,7 @@ public class DisplayFrame extends javax.swing.JFrame {
                 int nt = _TabbedPane_Tabs.getTabCount();
 
                 // update the main
-                bg.updateRacks(racks, numRacks, f, b, img, sn);
+                bg.updateRacks(racks, numRacks, f, b, img, storeName);
 
                 for (int i = nt - 2; i > numRacks; i--) {
                     _TabbedPane_Tabs.remove(i);
@@ -117,24 +125,24 @@ public class DisplayFrame extends javax.swing.JFrame {
 
                 for (int i = 0; i < numRacks; i++) {
                     if (rackTabs.get(i) != null) {
-                        rackTabs.get(i).updateRacks(racks.get(i), numRacks, f, b, img, sn, rackNames);
+                        rackTabs.get(i).updateRacks(racks.get(i), numRacks, f, b, img, storeName, rackNames);
                         _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
                         _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);
                     }
                 }
 
-                bgl.updateRacks(racks, numRacks, f, b, img, sn);
+                bgl.updateRacks(racks, numRacks, f, b, img, storeName);
 
-                if (selected == (nt - 1)) {                    
+                if (selected == (nt - 1)) {
                     if (_TabbedPane_Tabs.getTabCount() < nt) {
                         selected--; // loads tab selected
-                    }else {
-                        selected = _TabbedPane_Tabs.getTabCount()-1;
+                    } else {
+                        selected = _TabbedPane_Tabs.getTabCount() - 1;
                     }
                 } else if (selected < (_TabbedPane_Tabs.getTabCount() - 1)) {
                     // good                    
                 } else if (selected >= (_TabbedPane_Tabs.getTabCount() - 1)) {
-                    selected--;                    
+                    selected--;
                 }
                 _TabbedPane_Tabs.setSelectedIndex(selected);
                 t.pack();
@@ -144,6 +152,11 @@ public class DisplayFrame extends javax.swing.JFrame {
 
     }
 
+    /**
+     * update the font
+     *
+     * @param f Font
+     */
     public void updateFont(Font f) {
         bg.updateFont(f);
         for (int i = 0; i < numRacks; i++) {
@@ -153,6 +166,11 @@ public class DisplayFrame extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Update the border
+     *
+     * @param b Border
+     */
     public void updateBorder(Border b) {
         bg.updateBorder(b);
         for (int i = 0; i < numRacks; i++) {
@@ -162,6 +180,9 @@ public class DisplayFrame extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * update the logo
+     */
     public void updateLogo() {
         bg.updateImageURL("");
         for (int i = 0; i < numRacks; i++) {
@@ -171,6 +192,11 @@ public class DisplayFrame extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * update the logo
+     *
+     * @param img String file path
+     */
     public void updateLogo(String img) {
         bg.updateImageURL(img);
         for (int i = 0; i < numRacks; i++) {
@@ -180,11 +206,22 @@ public class DisplayFrame extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * sets the size of the display frame
+     *
+     * @param width the width of the frame
+     * @param height the height of the frame
+     */
     public void setNewSize(int width, int height) {
         this.setSize(width, height);
 
     }
 
+    /**
+     * gets the selected panel on the tabbed pane
+     *
+     * @return component
+     */
     public Component getCurrentPane() {
         return _TabbedPane_Tabs.getSelectedComponent();
     }

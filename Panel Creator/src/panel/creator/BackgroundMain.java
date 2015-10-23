@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package panel.creator;
 
 import java.awt.Color;
@@ -20,17 +15,20 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 /**
+ * Creates the main background which is the first page of the of the stores
+ * Contains information all all compressors, systems, condensers, suction groups
+ * price points, electricity usage and previous history numbers
  *
  * @author EricGummerson
  */
 public class BackgroundMain extends javax.swing.JPanel {
 
-    public int numRacks;
-    public ArrayList<Rack> racks;
-    public Font font;
-    public Border border;
-    public String img;
-    public String storeName;
+    public int numRacks;            // number of racks
+    public ArrayList<Rack> racks;   // list of racks
+    public Font font;               // global fonts
+    public Border border;           // global border
+    public String img;              // global string of the logo file path
+    public String storeName;        // store name
 
     /**
      * Creates new form BackgroundMain
@@ -40,6 +38,16 @@ public class BackgroundMain extends javax.swing.JPanel {
         this.img = "";
     }
 
+    /**
+     * Updates the form with the right information
+     *
+     * @param racks rack list
+     * @param numRacks number of racks to read from the list
+     * @param font global font
+     * @param border global border
+     * @param img global img string for the logo
+     * @param storeName global string for the store name
+     */
     public void updateRacks(ArrayList<Rack> racks, int numRacks, Font font, Border border, String img, String storeName) {
         this.racks = racks;
         this.numRacks = numRacks;
@@ -50,26 +58,52 @@ public class BackgroundMain extends javax.swing.JPanel {
         this.updateView();
     }
 
+    /**
+     * updates the storename
+     *
+     * @param storeName string of the store name
+     */
     public void updateStoreName(String storeName) {
         this.storeName = storeName;
         this.updateView();
     }
 
+    /**
+     * updates the image url for the logo
+     *
+     * @param img string file path of the logo
+     */
     public void updateImageURL(String img) {
         this.img = img;
         this.updateView();
     }
 
+    /**
+     * updates the font selected from the settings panel
+     *
+     * @param font Font
+     */
     public void updateFont(Font font) {
         this.font = font;
         this.updateView();
     }
 
+    /**
+     * Updates the border
+     *
+     * @param border Border
+     */
     public void updateBorder(Border border) {
         this.border = border;
         this.updateView();
     }
 
+    /**
+     * Updates the font and bother
+     *
+     * @param font Font
+     * @param border Border
+     */
     public void updateFontBorder(Font font, Border border) {
         this.font = font;
         this.border = border;
@@ -117,7 +151,9 @@ public class BackgroundMain extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    // remove int i to be the called function
+    /**
+     * update the panel
+     */
     public void updateView() {
 
         // Vars used        
@@ -679,6 +715,12 @@ public class BackgroundMain extends javax.swing.JPanel {
 
     }
 
+    /**
+     * sets all the labels to a certain color
+     *
+     * @param p1 container
+     * @param c colour
+     */
     public void setLabels(Container p1, Color c) {
 
         for (Component p : p1.getComponents()) {
@@ -693,6 +735,12 @@ public class BackgroundMain extends javax.swing.JPanel {
 
     }
 
+    /**
+     * The rack names at the top
+     *
+     * @param rackName String of name
+     * @return JPanel
+     */
     public JPanel panelRackName(String rackName) {
 
         JLabel label;
@@ -740,6 +788,13 @@ public class BackgroundMain extends javax.swing.JPanel {
         return panel;
     }
 
+    /**
+     * Makes the condenser panel
+     *
+     * @param numCond number of condensers
+     * @param numSg number of suction groups
+     * @return JPanel
+     */
     public JPanel panelCondenser(int numCond, int numSg) {
 
         // Condenser Panel will list the condensers 
@@ -771,7 +826,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         int rowIndex = 0;
 
         int numSpots = numCols * (int) numPerCol;
-        for (int i = 1; i <= numSpots; i++) {            
+        for (int i = 1; i <= numSpots; i++) {
             if (numAdded < numPerCol) {
                 c.gridx = colIndex;
                 c.gridy = rowIndex++;
@@ -809,6 +864,14 @@ public class BackgroundMain extends javax.swing.JPanel {
         return panel;
     }
 
+    /**
+     * Creates a panel for the compressors
+     *
+     * @param rackIndex the current rack, used to retrieve info from the list
+     * @param sgIndex similar to the rack, but for suctiongroup list
+     * @param numSg number of suction groups
+     * @return JPanel
+     */
     public JPanel panelCompressor(int rackIndex, int sgIndex, int numSg) {
 
         // Condenser Panel will list the condensers 
@@ -890,6 +953,14 @@ public class BackgroundMain extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Creates the panel of systems
+     *
+     * @param rackIndex the current rack, used to retrieve info from the list
+     * @param sgIndex similar to the rack, but for suctiongroup list
+     * @param numSg number of suction groups
+     * @return JPanel
+     */
     public JPanel panelSystems(int rackIndex, int sgIndex, int numSg) {
 
         // Condenser Panel will list the condensers 
@@ -933,7 +1004,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         int rowIndex = 1;
         int numSpots = numCols * (int) numPerCol;
         for (int i = 1; i <= numSpots; i++) {
-            
+
             if (numAdded < numPerCol) {
                 c.gridx = colIndex;
                 c.gridy = rowIndex++;
@@ -953,7 +1024,7 @@ public class BackgroundMain extends javax.swing.JPanel {
             } else {
                 label = new JLabel();
             }
-            
+
             //label.setBorder(border);
             if (numAdded % 2 == 0) {
                 label.setOpaque(true);
@@ -973,6 +1044,11 @@ public class BackgroundMain extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Creates a panel for the performance
+     *
+     * @return JPanel
+     */
     public JPanel panelPerformance() {
         // Condenser Panel will list the condensers 
         JLabel label;
@@ -1056,6 +1132,11 @@ public class BackgroundMain extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Creates the operating panel
+     *
+     * @return JPanel
+     */
     public JPanel panelOperating() {
         // Condenser Panel will list the condensers 
         JLabel label;
@@ -1126,6 +1207,12 @@ public class BackgroundMain extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Creates the bottom panel
+     *
+     * @param numRacks number of racks to determine how many buttons to add
+     * @return JPanel
+     */
     public JPanel panelBottom(int numRacks) {
 
         JButton button;
@@ -1250,6 +1337,13 @@ public class BackgroundMain extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Top panel
+     *
+     * @param imgUrl file path for the image url
+     * @param storeName string store name
+     * @return JPanel
+     */
     public JPanel panelTop(String imgUrl, String storeName) {
 
         JLabel label;
