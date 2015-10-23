@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package panel.creator;
 
 import java.awt.Color;
@@ -20,21 +15,25 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 /**
+ * BackgroundLoad is the JPanel which is a simple table which has 10 columns
+ * plus the one column for the system names. It has X many rows, where x is the
+ * number of systems found over all racks
  *
  * @author EricGummerson
  */
 public class BackgroundLoad extends javax.swing.JPanel {
 
-    public int numRacks;
-    public ArrayList<Rack> racks;
-    public Font font;
-    public Border border;
-    public String img;
-    public String storeName;
-    public int rackNum;
+    public int numRacks;            // num of racks
+    public ArrayList<Rack> racks;   // the list of racks
+    public Font font;               // global font
+    public Border border;           // global border
+    public String img;              // global img string for the logo
+    public String storeName;        // global string for the store name
 
     /**
-     * Creates new form BackgroundLoads
+     * Creates new form BackgroundLoads Initalizes the arraylist to avoid null
+     * pointer exceptions, as well as the logo
+     *
      */
     public BackgroundLoad() {
         initComponents();
@@ -42,10 +41,16 @@ public class BackgroundLoad extends javax.swing.JPanel {
         this.img = "";
     }
 
-    public void updateRackNum(int rackNum) {
-        this.rackNum = rackNum;
-    }
-
+    /**
+     * Updates the form with the right information
+     *
+     * @param racks rack list
+     * @param numRacks number of racks to read from the list
+     * @param font global font
+     * @param border global border
+     * @param img global img string for the logo
+     * @param storeName global string for the store name
+     */
     public void updateRacks(ArrayList<Rack> racks, int numRacks, Font font, Border border, String img, String storeName) {
 
         this.racks = racks;
@@ -57,26 +62,52 @@ public class BackgroundLoad extends javax.swing.JPanel {
         this.updateView();
     }
 
+    /**
+     * updates the storename
+     *
+     * @param storeName string of the store name
+     */
     public void updateStoreName(String storeName) {
         this.storeName = storeName;
         this.updateView();
     }
 
+    /**
+     * updates the image url for the logo
+     *
+     * @param img string file path of the logo
+     */
     public void updateImageURL(String img) {
         this.img = img;
         this.updateView();
     }
 
+    /**
+     * updates the font selected from the settings panel
+     *
+     * @param font Font
+     */
     public void updateFont(Font font) {
         this.font = font;
         this.updateView();
     }
 
+    /**
+     * Updates the border
+     *
+     * @param border Border
+     */
     public void updateBorder(Border border) {
         this.border = border;
         this.updateView();
     }
 
+    /**
+     * Updates the font and bother
+     *
+     * @param font Font
+     * @param border Border
+     */
     public void updateFontBorder(Font font, Border border) {
         this.font = font;
         this.border = border;
@@ -119,20 +150,21 @@ public class BackgroundLoad extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    // remove int i to be the called function
+    /**
+     * update the view of the panel
+     */
     public void updateView() {
 
         int gridXPos, gridYPos, gridWidth, gridHeight;
+        // Used to keep track of the panels positions                                                       
         int maxGridWidth = 30;
-        Rack r;
-        SuctionGroup sg;
-        JLabel label;
         JPanel panel;
         GridBagLayout gbl = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
 
-        _Panel_MainPanel.setLayout(gbl);
+        // Make sure to remove all components from previous
         _Panel_MainPanel.removeAll();
+        _Panel_MainPanel.setLayout(gbl);
 
         // Store panel info at top
         //===========================================================
@@ -207,6 +239,12 @@ public class BackgroundLoad extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Makes the labels a certain colour
+     *
+     * @param p1 the container to change
+     * @param c colour to change to
+     */
     public void setLabels(Container p1, Color c) {
 
         for (Component p : p1.getComponents()) {
@@ -218,14 +256,18 @@ public class BackgroundLoad extends javax.swing.JPanel {
                 }
             }
         }
-
     }
 
+    /**
+     * Creates the loads panel
+     *
+     * @return JPanel
+     */
     public JPanel panelLoads() {
 
         Rack r;
         SuctionGroup sg;
-        JLabel label;        
+        JLabel label;
         GridBagLayout gbl = new GridBagLayout();
         JPanel panel = new JPanel(gbl);
         GridBagConstraints c = new GridBagConstraints();
@@ -289,7 +331,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
                 }
             }
         }
-        
+
         //System.out.println("Num systems " + numSystems);
         //System.out.println("System names\n" + systemNames);
         c.gridx = 0;
@@ -345,6 +387,13 @@ public class BackgroundLoad extends javax.swing.JPanel {
         return panel;
     }
 
+    /**
+     * Creates the bottom panel
+     *
+     * @param numRacks needs to know how many rack buttons will be listed on the
+     * buttons
+     * @return JPanel
+     */
     public JPanel panelBottom(int numRacks) {
 
         JButton button;
@@ -469,6 +518,13 @@ public class BackgroundLoad extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Top panel
+     *
+     * @param imgUrl string location of the picture to be used as a logo
+     * @param storeName name of the store
+     * @return JPanel
+     */
     public JPanel panelTop(String imgUrl, String storeName) {
 
         JLabel label;
@@ -495,7 +551,8 @@ public class BackgroundLoad extends javax.swing.JPanel {
         //===========================       
         label = new JLabel();
         if (!"".equals(imgUrl)) {
-            ImageIcon icon = new ImageIcon(imgUrl);
+            ImageIcon icon = new ImageIcon(imgUrl);            
+            label.setText("");            
             label.setIcon(icon);
         } else {
             label.setText("NO LOGO SELECTED");

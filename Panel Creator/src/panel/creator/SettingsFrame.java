@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package panel.creator;
 
 import java.awt.Color;
@@ -16,7 +11,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- *
+ * Settings frame controls the font, font size, font color, border style, border
+ * color, as well as display sizes
  * @author EricGummerson
  */
 public class SettingsFrame extends javax.swing.JFrame implements ChangeListener {
@@ -67,6 +63,10 @@ public class SettingsFrame extends javax.swing.JFrame implements ChangeListener 
         _Panel_BorderPanel.setBorder(border);
     }
 
+    /**
+     * sets the dimensions of the frame
+     * @param d dimension
+     */
     public void setDim(Dimension d) {
         displayWidth = (int) d.getWidth();
         _FormattedTextField_Width.setText(String.valueOf(displayWidth));

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package panel.creator;
 
 import java.awt.Color;
@@ -12,7 +7,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 /**
+ * Background rack is the backgrounds found after the main panels, and before
+ * the loads panels
  *
  * @author EricGummerson
  */
@@ -47,10 +43,17 @@ public class BackgroundRack extends javax.swing.JPanel {
         this.rackNum = rackNum;
     }
 
-    public void updateRackNum(int rackNum) {
-        this.rackNum = rackNum;
-    }
-
+    /**
+     * Updates the form with the right information
+     *
+     * @param rack rack list
+     * @param numRacks number of racks to read from the list
+     * @param font global font
+     * @param border global border
+     * @param img global img string for the logo
+     * @param storeName global string for the store name
+     * @param rackNames rack names as string array
+     */
     public void updateRacks(Rack rack, int numRacks, Font font, Border border, String img, String storeName, String[] rackNames) {
 
         this.rack = rack;
@@ -63,26 +66,61 @@ public class BackgroundRack extends javax.swing.JPanel {
         this.updateView();
     }
 
+    /**
+     * updates the rack number
+     *
+     * @param rackNum
+     */
+    public void updateRackNum(int rackNum) {
+        this.rackNum = rackNum;
+    }
+
+    /**
+     * updates the storename
+     *
+     * @param storeName string of the store name
+     */
     public void updateStoreName(String storeName) {
         this.storeName = storeName;
         this.updateView();
     }
 
+    /**
+     * updates the image url for the logo
+     *
+     * @param img string file path of the logo
+     */
     public void updateImageURL(String img) {
         this.img = img;
         this.updateView();
     }
 
+    /**
+     * updates the font selected from the settings panel
+     *
+     * @param font Font
+     */
     public void updateFont(Font font) {
         this.font = font;
         this.updateView();
     }
 
+    /**
+     * Updates the border
+     *
+     * @param border Border
+     */
     public void updateBorder(Border border) {
         this.border = border;
         this.updateView();
     }
 
+    /**
+     * Updates the font and bother
+     *
+     * @param font Font
+     * @param border Border
+     */
     public void updateFontBorder(Font font, Border border) {
         this.font = font;
         this.border = border;
@@ -127,7 +165,9 @@ public class BackgroundRack extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    // remove int i to be the called function
+    /**
+     * updates the panel
+     */
     public void updateView() {
 
         int gridXPos, gridYPos, gridWidth, gridHeight;
@@ -138,7 +178,6 @@ public class BackgroundRack extends javax.swing.JPanel {
 
         _Panel_MainPanel.setLayout(gbl);
         _Panel_MainPanel.removeAll();
-
 
         //===========================================================
         // Store panel info at top
@@ -174,7 +213,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         // Positioning & Constraints
         gridXPos += gridWidth;
         gridWidth = 5;
-        
+
         // End of Constraints
         panel = new JPanel();
         label = new JLabel("                ");
@@ -192,7 +231,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         // Positioning & Constraints
         gridXPos += gridWidth;
         gridWidth = 10;
-        
+
         // End of Constraints
         panel = panelPerformance();
         //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
@@ -207,7 +246,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         gridWidth = maxGridWidth;
         panel = new JPanel();
         panel.setPreferredSize(new Dimension(5, 100));
-        panel.setBackground(Color.black);    
+        panel.setBackground(Color.black);
         //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
         this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 50);
         //=========================================================== 
@@ -230,7 +269,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         // Positioning & Constraints
         gridXPos += gridWidth;
         //gridYPos = gridHeight;  
-        gridWidth = 2;        
+        gridWidth = 2;
         // End of Constraints
         //=========================================================== 
         panel = new JPanel();
@@ -270,7 +309,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
         this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 150);
         //=========================================================== 
-        
+
         //===========================================================
         // Compressor status
         // Positioning & Constraints
@@ -309,6 +348,21 @@ public class BackgroundRack extends javax.swing.JPanel {
     }
 
     //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+    /**
+     * adds a panel, with all the settings needed for the gridbagconstraint
+     * variable
+     *
+     * @param newPanel JPanel
+     * @param x gridx
+     * @param y gridy
+     * @param gwid gridwidth
+     * @param ghei gridheight
+     * @param wx weightx
+     * @param wy weighty
+     * @param fill fill
+     * @param padx ipadx
+     * @param pady ipady
+     */
     public void addPanel(JPanel newPanel, int x, int y, int gwid, int ghei, double wx, double wy, int fill, int padx, int pady) {
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = x;
@@ -325,6 +379,12 @@ public class BackgroundRack extends javax.swing.JPanel {
 
     }
 
+    /**
+     * sets the labels in the container to a colour
+     *
+     * @param p1 container
+     * @param c colour
+     */
     public void setLabels(Container p1, Color c) {
 
         for (Component p : p1.getComponents()) {
@@ -339,6 +399,11 @@ public class BackgroundRack extends javax.swing.JPanel {
 
     }
 
+    /**
+     * creates a pressure temp panel
+     *
+     * @return JPanel
+     */
     public JPanel panelPressureTemps() {
 
         JLabel label;
@@ -560,6 +625,11 @@ public class BackgroundRack extends javax.swing.JPanel {
         return panel;
     }
 
+    /**
+     * Creates a panel condenser panel
+     *
+     * @return JPanel
+     */
     public JPanel panelCondenser() {
 
         // Condenser Panel will list the condensers 
@@ -659,6 +729,11 @@ public class BackgroundRack extends javax.swing.JPanel {
         return panel;
     }
 
+    /**
+     * Creates a panel compressor panel
+     *
+     * @return JPanel
+     */
     public JPanel panelCompressor() {
 
         // Condenser Panel will list the condensers 
@@ -891,6 +966,11 @@ public class BackgroundRack extends javax.swing.JPanel {
         return panel;
     }
 
+    /**
+     * Creates a load and efficiency panel
+     *
+     * @return JPanel
+     */
     public JPanel panelLE() {
         // Condenser Panel will list the condensers 
         JLabel label;
@@ -975,6 +1055,11 @@ public class BackgroundRack extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Creates a performance panel
+     *
+     * @return JPanel
+     */
     public JPanel panelPerformance() {
         JLabel label;
         GridBagLayout gbl = new GridBagLayout();
@@ -1152,6 +1237,12 @@ public class BackgroundRack extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Creates the bottom panel
+     *
+     * @param numRacks number of racks
+     * @return Jpanel
+     */
     public JPanel panelBottom(int numRacks) {
 
         JButton button;
@@ -1279,6 +1370,13 @@ public class BackgroundRack extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Creates the top panel
+     *
+     * @param imgUrl String of img file location
+     * @param storeName String of store name
+     * @return Jpanel
+     */
     public JPanel panelTop(String imgUrl, String storeName) {
 
         JLabel label;

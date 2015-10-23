@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package panel.creator;
 
 /**
- *
+ * Main 
  * @author EricGummerson
  */
 public class PanelCreator {
@@ -20,12 +15,12 @@ public class PanelCreator {
         // TODO code application logic here
 
         PanelCreator pc = new PanelCreator();
-        pc.start();
-
-        
+        pc.start();        
     }
 
-    
+    /**
+     * Starts the program
+     */
     private void start() {
 
         mf = new MainFrame(this);
@@ -34,6 +29,9 @@ public class PanelCreator {
 
     }
 
+    /**
+     * Closes the program
+     */
     public void close() {
         mf.dispose();
         System.exit(0);

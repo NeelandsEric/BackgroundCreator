@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package panel.creator;
 
 import java.util.ArrayList;
@@ -10,6 +5,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**
+ * Controls panel controls all the variables that the user can change
  *
  * @author EricGummerson
  */
@@ -83,12 +79,12 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _ComboBox_CompressorNumber = new javax.swing.JComboBox();
         _Label_CompressorName = new javax.swing.JLabel();
         _TextField_CompressorName = new javax.swing.JTextField();
-        _Button_Prev2 = new javax.swing.JButton();
-        _Button_Next2 = new javax.swing.JButton();
+        _Button_CompPrev = new javax.swing.JButton();
+        _Button_CompNext = new javax.swing.JButton();
         _Label_SystemNumber = new javax.swing.JLabel();
         _TextField_SystemName = new javax.swing.JTextField();
-        _Button_Next = new javax.swing.JButton();
-        _Button_Prev = new javax.swing.JButton();
+        _Button_SysNext = new javax.swing.JButton();
+        _Button_SysPrev = new javax.swing.JButton();
         _ComboBox_Systems = new javax.swing.JComboBox();
         _Label_SystemName = new javax.swing.JLabel();
         _Label_SystemSave = new javax.swing.JLabel();
@@ -102,9 +98,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _TextField_SiteName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         _TextField_SiteName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         _TextField_SiteName.setText("Site Name");
-        _TextField_SiteName.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                _TextField_SiteNamePropertyChange(evt);
+        _TextField_SiteName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                _TextField_SiteNameFocusLost(evt);
             }
         });
 
@@ -366,17 +362,17 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _TextField_CompressorName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         _TextField_CompressorName.setText("Compressor 1");
 
-        _Button_Prev2.setText("Previous");
-        _Button_Prev2.addActionListener(new java.awt.event.ActionListener() {
+        _Button_CompPrev.setText("Previous");
+        _Button_CompPrev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _Button_Prev2ActionPerformed(evt);
+                _Button_CompPrevActionPerformed(evt);
             }
         });
 
-        _Button_Next2.setText("Next");
-        _Button_Next2.addActionListener(new java.awt.event.ActionListener() {
+        _Button_CompNext.setText("Next");
+        _Button_CompNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _Button_Next2ActionPerformed(evt);
+                _Button_CompNextActionPerformed(evt);
             }
         });
 
@@ -387,17 +383,17 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _TextField_SystemName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         _TextField_SystemName.setText("System 1");
 
-        _Button_Next.setText("Next");
-        _Button_Next.addActionListener(new java.awt.event.ActionListener() {
+        _Button_SysNext.setText("Next");
+        _Button_SysNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _Button_NextActionPerformed(evt);
+                _Button_SysNextActionPerformed(evt);
             }
         });
 
-        _Button_Prev.setText("Previous");
-        _Button_Prev.addActionListener(new java.awt.event.ActionListener() {
+        _Button_SysPrev.setText("Previous");
+        _Button_SysPrev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _Button_PrevActionPerformed(evt);
+                _Button_SysPrevActionPerformed(evt);
             }
         });
 
@@ -433,9 +429,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
                                 .addGap(10, 10, 10)
                                 .addComponent(_Label_SystemSave, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                                .addComponent(_Button_Prev, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(_Button_SysPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(_Button_Next, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(_Button_SysNext, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(_TextField_SystemName, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                             .addComponent(_Label_SystemName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
@@ -462,9 +458,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                                .addComponent(_Button_Prev2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(_Button_CompPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_Button_Next2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(_Button_CompNext, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(_Label_CompressorName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(_TextField_CompressorName, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
@@ -472,7 +468,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         _Panel_NamePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_TextField_CompressorName, _TextField_SystemName});
 
-        _Panel_NamePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_Button_Prev, _Button_Prev2});
+        _Panel_NamePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_Button_CompPrev, _Button_SysPrev});
 
         _Panel_NamePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_ComboBox_CompressorNumber, _ComboBox_RackNumber, _Label_CompressorNumber, _Label_RackNumber});
 
@@ -502,8 +498,8 @@ public final class ControlsPanel extends javax.swing.JPanel {
                     .addComponent(_TextField_CompressorName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_Button_Prev2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Button_Next2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(_Button_CompPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_Button_CompNext, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_Label_SystemNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -514,14 +510,14 @@ public final class ControlsPanel extends javax.swing.JPanel {
                     .addComponent(_TextField_SystemName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_Button_Prev, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Button_Next, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(_Button_SysPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_Button_SysNext, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(_Label_SystemSave, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
 
-        _Panel_NamePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_Button_Prev, _Button_Prev2, _Button_RackNext, _Button_RackPrev});
+        _Panel_NamePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_Button_CompPrev, _Button_RackNext, _Button_RackPrev, _Button_SysPrev});
 
         _Panel_NamePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_TextField_CompressorName, _TextField_RackName, _TextField_SystemName});
 
@@ -558,6 +554,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * combo box for racks event
+     *
+     * @param evt
+     */
     private void _ComboBox_RacksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_RacksActionPerformed
         // TODO add your handling code here:
         // Retrieve the settings for the rack
@@ -573,6 +574,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // Done updating display frame
     }//GEN-LAST:event__ComboBox_RacksActionPerformed
 
+    /**
+     * combo box for suction group event
+     *
+     * @param evt
+     */
     private void _ComboBox_SuctionGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_SuctionGroupsActionPerformed
         // TODO add your handling code here:
         // Update suction settings
@@ -586,6 +592,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // Done updating display frame
     }//GEN-LAST:event__ComboBox_SuctionGroupsActionPerformed
 
+    /**
+     * textfield for suctiongroup focus lost
+     *
+     * @param evt
+     */
     private void _TextField_SuctionGroupNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event__TextField_SuctionGroupNameFocusLost
         // TODO add your handling code here:
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
@@ -596,6 +607,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         updateDisplay();
     }//GEN-LAST:event__TextField_SuctionGroupNameFocusLost
 
+    /**
+     * number of racks formatted text field property changed
+     *
+     * @param evt
+     */
     private void _FormattedTF_NumRacksPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__FormattedTF_NumRacksPropertyChange
 
         try {
@@ -614,6 +630,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event__FormattedTF_NumRacksPropertyChange
 
+    /**
+     * number of fans formatted text field property changed
+     *
+     * @param evt
+     */
     private void _FormattedTF_NumFansPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__FormattedTF_NumFansPropertyChange
         try {
             // update the current rack
@@ -630,6 +651,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event__FormattedTF_NumFansPropertyChange
 
+    /**
+     * number of suctiongroups formatted text field property changed
+     *
+     * @param evt
+     */
     private void _FormattedTF_NumSGPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__FormattedTF_NumSGPropertyChange
         // TODO add your handling code here:
         // Suction groups -> update combo box
@@ -651,6 +677,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event__FormattedTF_NumSGPropertyChange
 
+    /**
+     * number of comp formatted text field property changed
+     *
+     * @param evt
+     */
     private void _FormattedTF_NumCompPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__FormattedTF_NumCompPropertyChange
 
         try {
@@ -666,6 +697,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event__FormattedTF_NumCompPropertyChange
 
+    /**
+     * number of systems formatted text field property changed
+     *
+     * @param evt
+     */
     private void _FormattedTF_NumSystemsPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__FormattedTF_NumSystemsPropertyChange
 
         try {
@@ -682,6 +718,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event__FormattedTF_NumSystemsPropertyChange
 
+    /**
+     * combo box systems event
+     *
+     * @param evt
+     */
     private void _ComboBox_SystemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_SystemsActionPerformed
         // TODO add your handling code here:
         // Update the text
@@ -692,7 +733,12 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // Done updating display frame
     }//GEN-LAST:event__ComboBox_SystemsActionPerformed
 
-    private void _Button_PrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_PrevActionPerformed
+    /**
+     * previous system button click
+     *
+     * @param evt
+     */
+    private void _Button_SysPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SysPrevActionPerformed
         // TODO add your handling code here:
         // Save the field
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
@@ -716,9 +762,14 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // Highlight the text field
         this._TextField_SystemName.requestFocus();
         this._TextField_SystemName.selectAll();
-    }//GEN-LAST:event__Button_PrevActionPerformed
+    }//GEN-LAST:event__Button_SysPrevActionPerformed
 
-    private void _Button_NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_NextActionPerformed
+    /**
+     * next system button click
+     *
+     * @param evt
+     */
+    private void _Button_SysNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SysNextActionPerformed
         // TODO add your handling code here:
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
         int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
@@ -740,9 +791,14 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // Highlight the text field
         this._TextField_SystemName.requestFocus();
         this._TextField_SystemName.selectAll();
-    }//GEN-LAST:event__Button_NextActionPerformed
+    }//GEN-LAST:event__Button_SysNextActionPerformed
 
-    private void _Button_Next2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_Next2ActionPerformed
+    /**
+     * next comp button click
+     *
+     * @param evt
+     */
+    private void _Button_CompNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CompNextActionPerformed
         // TODO add your handling code here:
         // Save the field
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
@@ -766,9 +822,14 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // Highlight the text field
         this._TextField_CompressorName.requestFocus();
         this._TextField_CompressorName.selectAll();
-    }//GEN-LAST:event__Button_Next2ActionPerformed
+    }//GEN-LAST:event__Button_CompNextActionPerformed
 
-    private void _Button_Prev2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_Prev2ActionPerformed
+    /**
+     * prev comp button click
+     *
+     * @param evt
+     */
+    private void _Button_CompPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CompPrevActionPerformed
         // TODO add your handling code here:
         // Save the field
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
@@ -792,8 +853,13 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // Highlight the text field
         this._TextField_CompressorName.requestFocus();
         this._TextField_CompressorName.selectAll();
-    }//GEN-LAST:event__Button_Prev2ActionPerformed
+    }//GEN-LAST:event__Button_CompPrevActionPerformed
 
+    /**
+     * combo box compressor event
+     *
+     * @param evt
+     */
     private void _ComboBox_CompressorNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_CompressorNumberActionPerformed
         // TODO add your handling code here:
         // Update the text
@@ -803,6 +869,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // Done updating display frame
     }//GEN-LAST:event__ComboBox_CompressorNumberActionPerformed
 
+    /**
+     * next rack button click
+     *
+     * @param evt
+     */
     private void _Button_RackNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_RackNextActionPerformed
         // TODO add your handling code here:
         // Save the field
@@ -827,6 +898,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         this._TextField_RackName.selectAll();
     }//GEN-LAST:event__Button_RackNextActionPerformed
 
+    /**
+     * prev rack button click
+     *
+     * @param evt
+     */
     private void _Button_RackPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_RackPrevActionPerformed
         // TODO add your handling code here:
         // Save the field
@@ -852,6 +928,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         this._TextField_RackName.selectAll();
     }//GEN-LAST:event__Button_RackPrevActionPerformed
 
+    /**
+     * combo box rack event
+     *
+     * @param evt
+     */
     private void _ComboBox_RackNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_RackNumberActionPerformed
         // TODO add your handling code here:
         // Update the text
@@ -862,12 +943,17 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // Done updating display frame
     }//GEN-LAST:event__ComboBox_RackNumberActionPerformed
 
-    private void _TextField_SiteNamePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__TextField_SiteNamePropertyChange
-        
+    private void _TextField_SiteNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event__TextField_SiteNameFocusLost
+        // TODO add your handling code here:
         storeName = _TextField_SiteName.getText();
-        updateDisplay();
-    }//GEN-LAST:event__TextField_SiteNamePropertyChange
+        this.updateDisplay();
+    }//GEN-LAST:event__TextField_SiteNameFocusLost
 
+    /**
+     * loads the combo box for racks
+     *
+     * @param prevSelectedIndex the previously selected index of the combo box
+     */
     public void loadComboBoxRacks(int prevSelectedIndex) {
 
         // Update the combo box
@@ -885,6 +971,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
     }
 
+    /**
+     * loads the options for racks
+     *
+     * @param index the previously selected index of the combo box
+     */
     public void loadRackOptions(int index) {
 
         // Load all the options for the index'd rack
@@ -897,6 +988,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         this.loadComboBoxSuctionGroups(0);
     }
 
+    /**
+     * loads the combo box for suction groups
+     *
+     * @param prevSelectedIndex the previously selected index of the combo box
+     */
     public void loadComboBoxSuctionGroups(int prevSelectedIndex) {
 
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
@@ -919,6 +1015,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
     }
 
+    /**
+     * loads the options for suction group
+     *
+     * @param index the previously selected index of the combo box
+     */
     public void loadSuctionGroupOptions(int index) {
 
         // Load the suction group 
@@ -935,6 +1036,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         this.updateSystemNames(_ComboBox_Systems.getSelectedIndex());
     }
 
+    /**
+     * updates the compressor names
+     *
+     * @param prevSelectedIndex previously selected index of the combo box
+     */
     public void updateCompressorNames(int prevSelectedIndex) {
         // first update the combo box indicating what system names can be edited
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
@@ -962,6 +1068,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
     }
 
+    /**
+     * updates the rack names
+     *
+     * @param prevSelectedIndex previously selected index of the combo box
+     */
     public void updateRackNames(int prevSelectedIndex) {
         // first update the combo box indicating what system names can be edited
 
@@ -984,6 +1095,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
     }
 
+    /**
+     * adds racks if needed to
+     */
     public void addRacks() {
         int size = racks.size();
         int toAdd = numRacks - size;
@@ -994,6 +1108,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
     }
 
+    /**
+     * updates the system names
+     *
+     * @param prevSelectedIndex previously selected index of the combo box
+     */
     public void updateSystemNames(int prevSelectedIndex) {
         // first update the combo box indicating what system names can be edited
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
@@ -1019,12 +1138,18 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
     }
 
+    /**
+     * removes the string of the store logo
+     */
     public void removeStoreLogo() {
         imgStr = "";
         _Label_StoreLogo.setIcon(null);
         _Label_StoreLogo.setText("Store Logo");
     }
 
+    /**
+     * updaetes the store logo based on the string stored
+     */
     public void updateStoreLogo() {
         try {
             ImageIcon icon = new ImageIcon(imgStr);
@@ -1035,6 +1160,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * updates the store logo
+     *
+     * @param img file path of the logo
+     */
     public void updateStoreLogo(String img) {
         try {
             imgStr = img;
@@ -1046,6 +1176,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * gets the rack names from the array list
+     *
+     * @return string array of the rack names
+     */
     public String[] getRackNames() {
         String[] names = new String[numRacks];
         for (int i = 0; i < numRacks; i++) {
@@ -1054,78 +1189,114 @@ public final class ControlsPanel extends javax.swing.JPanel {
         return names;
     }
 
+    /**
+     * updates the main frame display with the stored information
+     */
     public void updateDisplay() {
         String[] rackNames = getRackNames();
-        mf.updateDisplay(racks, numRacks, storeName, rackNames);
+        mf.updateDisplay(racks, numRacks, storeName, rackNames, imgStr);
     }
 
+    /**
+     * update the rack count based on the text field
+     *
+     * @throws NumberFormatException for badly formatted text fields
+     */
     public void updateRackCount() throws NumberFormatException {
 
         numRacks = Math.abs(Integer.parseInt(_FormattedTF_NumRacks.getText()));
         if (numRacks > 15) {
             numRacks = 15;
             _FormattedTF_NumRacks.setValue(new Integer("15"));
-        } else if(numRacks == 0){
+        } else if (numRacks == 0) {
             _FormattedTF_NumRacks.setValue(1);
             _FormattedTF_NumRacks.setValue(new Integer("1"));
-        }else {
+        } else {
             _FormattedTF_NumRacks.setValue(numRacks);
         }
 
     }
 
+    /**
+     * update the fan count based on the text field
+     *
+     * @throws NumberFormatException for badly formatted text fields
+     */
     public void updateFanCount() throws NumberFormatException {
         numFans = Math.abs(Integer.parseInt(_FormattedTF_NumFans.getText()));
         if (numFans > 100) {
             numFans = 100;
             _FormattedTF_NumFans.setValue(new Integer("100"));
-        } else if(numFans == 0){
+        } else if (numFans == 0) {
             _FormattedTF_NumFans.setValue(1);
             _FormattedTF_NumFans.setValue(new Integer("1"));
-        }else {
+        } else {
             _FormattedTF_NumFans.setValue(numFans);
         }
     }
 
+    /**
+     * update the suction group count based on the text field
+     *
+     * @throws NumberFormatException for badly formatted text fields
+     */
     public void updateSGCount() throws NumberFormatException {
         numSG = Math.abs(Integer.parseInt(_FormattedTF_NumSG.getText()));
         if (numSG > 15) {
             numSG = 15;
             _FormattedTF_NumSG.setValue(new Integer("15"));
-        } else if(numSG == 0){
+        } else if (numSG == 0) {
             _FormattedTF_NumSG.setValue(1);
             _FormattedTF_NumSG.setValue(new Integer("1"));
-        }else {
+        } else {
             _FormattedTF_NumSG.setValue(numSG);
         }
     }
 
+    /**
+     * update the comp count based on the text field
+     *
+     * @throws NumberFormatException for badly formatted text fields
+     */
     public void updateCompCount() throws NumberFormatException {
         numComp = Math.abs(Integer.parseInt(_FormattedTF_NumComp.getText()));
         if (numComp > 100) {
             numComp = 100;
             _FormattedTF_NumComp.setValue(new Integer("100"));
-        } else if(numComp == 0){
+        } else if (numComp == 0) {
             _FormattedTF_NumComp.setValue(1);
             _FormattedTF_NumComp.setValue(new Integer("1"));
-        }else {
+        } else {
             _FormattedTF_NumComp.setValue(numComp);
         }
     }
 
+    /**
+     * update the system count based on the text field
+     *
+     * @throws NumberFormatException for badly formatted text fields
+     */
     public void updateSystemCount() throws NumberFormatException {
         numSystems = Math.abs(Integer.parseInt(_FormattedTF_NumSystems.getText()));
         if (numSystems > 100) {
             numSystems = 100;
             _FormattedTF_NumSystems.setValue(new Integer("100"));
-        } else if(numSystems == 0){
+        } else if (numSystems == 0) {
             _FormattedTF_NumSystems.setValue(1);
             _FormattedTF_NumSystems.setValue(new Integer("1"));
-        }else {
+        } else {
             _FormattedTF_NumSystems.setValue(numSystems);
         }
     }
 
+    /**
+     * Loads the store from the menu
+     *
+     * @param r rack list
+     * @param storeName store name
+     * @param imgStr file path for the logo
+     * @param numRacks number of racks
+     */
     public void loadStore(ArrayList<Rack> r, String storeName, String imgStr, int numRacks) {
         this.racks = r;
         this.storeName = storeName;
@@ -1133,6 +1304,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
         this.numRacks = numRacks;
     }
 
+    /**
+     * updates the rack display
+     */
     public void updateRackDisplay() {
 
         _TextField_SiteName.setText(this.storeName);
@@ -1145,12 +1319,12 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton _Button_Next;
-    private javax.swing.JButton _Button_Next2;
-    private javax.swing.JButton _Button_Prev;
-    private javax.swing.JButton _Button_Prev2;
+    private javax.swing.JButton _Button_CompNext;
+    private javax.swing.JButton _Button_CompPrev;
     private javax.swing.JButton _Button_RackNext;
     private javax.swing.JButton _Button_RackPrev;
+    private javax.swing.JButton _Button_SysNext;
+    private javax.swing.JButton _Button_SysPrev;
     private javax.swing.JComboBox _ComboBox_CompressorNumber;
     private javax.swing.JComboBox _ComboBox_RackNumber;
     private javax.swing.JComboBox _ComboBox_Racks;
