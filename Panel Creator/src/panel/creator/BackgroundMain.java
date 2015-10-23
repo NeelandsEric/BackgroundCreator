@@ -13,7 +13,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -324,7 +323,7 @@ public class BackgroundMain extends javax.swing.JPanel {
             //gridYPos += gridHeight;
             // End of Constraints
             //===========================================================
-            panel.setBackground(Colours.RedDark.getCol());
+            panel.setBackground(Colours.GreyLight.getCol());
             _Panel_MainPanel.add(panel, c);
 
             // Suction Groups - Compressors then Systems   
@@ -771,8 +770,8 @@ public class BackgroundMain extends javax.swing.JPanel {
         int colIndex = 0;
         int rowIndex = 0;
 
-        for (int i = 1; i <= numCond; i++) {
-
+        int numSpots = numCols * (int) numPerCol;
+        for (int i = 1; i <= numSpots; i++) {            
             if (numAdded < numPerCol) {
                 c.gridx = colIndex;
                 c.gridy = rowIndex++;
@@ -785,14 +784,18 @@ public class BackgroundMain extends javax.swing.JPanel {
                 c.gridy = rowIndex++;
             }
 
-            label = new JLabel("Fan " + i);
-            label.setFont(font);
+            if (i <= numCond) {
+                label = new JLabel("Fan " + i);
+                label.setFont(font);
+            } else {
+                label = new JLabel();
+            }
             if (numAdded % 2 == 0) {
                 label.setOpaque(true);
-                label.setBackground(Colours.RedLightest.getCol());
+                label.setBackground(Colours.GreyLightest.getCol());
             } else {
                 label.setOpaque(true);
-                label.setBackground(Colours.RedLight.getCol());
+                label.setBackground(Colours.GreyLight.getCol());
             }
             //label.setBorder(border);
             c.ipady = 5;
@@ -831,7 +834,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         c.weightx = 1;
         c.weighty = 0;
         c.gridx = 0;
-        c.gridy = 0;        
+        c.gridy = 0;
         label.setFont(font);
         c.fill = GridBagConstraints.HORIZONTAL;
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -847,9 +850,8 @@ public class BackgroundMain extends javax.swing.JPanel {
 
         int colIndex = 0;
         int rowIndex = 1;
-
-        for (int i = 1; i <= numComp; i++) {
-
+        int numSpots = numCols * (int) numPerCol;
+        for (int i = 1; i <= numSpots; i++) {
             if (numAdded < numPerCol) {
                 c.gridx = colIndex;
                 c.gridy = rowIndex++;
@@ -862,9 +864,14 @@ public class BackgroundMain extends javax.swing.JPanel {
                 c.gridy = rowIndex++;
             }
 
-            String text = sg.getCompressorNameIndex(i - 1);
-            label = new JLabel(text);
-            label.setFont(font);
+            if (i <= numComp) {
+                String text = sg.getCompressorNameIndex(i - 1);
+                label = new JLabel(text);
+                label.setFont(font);
+            } else {
+                label = new JLabel();
+            }
+
             //label.setBorder(border);
             if (numAdded % 2 == 0) {
                 label.setOpaque(true);
@@ -878,10 +885,9 @@ public class BackgroundMain extends javax.swing.JPanel {
             panel.add(label, c);
         }
 
-        //panel.setBackground(Colours.LightestBlue.getCol());
         panel.setBorder(border);
         return panel;
-        
+
     }
 
     public JPanel panelSystems(int rackIndex, int sgIndex, int numSg) {
@@ -892,9 +898,9 @@ public class BackgroundMain extends javax.swing.JPanel {
         GridBagConstraints c = new GridBagConstraints();
         // Return a panel containing condenser labels
         JPanel panel = new JPanel(gbl);
-        SuctionGroup sg = racks.get(rackIndex).getSuctionGroupIndex(sgIndex);        
+        SuctionGroup sg = racks.get(rackIndex).getSuctionGroupIndex(sgIndex);
         int numSys = sg.getNumSystems();
-          int numCols = numSg + 1;
+        int numCols = numSg + 1;
         double numPerCol = Math.ceil((double) numSys / numCols);
         //System.out.println("Ceil of " + numCond + "/" + numCols + "=" + numPerCol);
         //System.out.println("Num compressors in bg: " + numComp);
@@ -909,7 +915,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         c.weightx = 1;
         c.weighty = 0;
         c.gridx = 0;
-        c.gridy = 0;        
+        c.gridy = 0;
         label.setFont(font);
         c.fill = GridBagConstraints.HORIZONTAL;
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -925,9 +931,9 @@ public class BackgroundMain extends javax.swing.JPanel {
 
         int colIndex = 0;
         int rowIndex = 1;
-
-        for (int i = 1; i <= numSys; i++) {
-
+        int numSpots = numCols * (int) numPerCol;
+        for (int i = 1; i <= numSpots; i++) {
+            
             if (numAdded < numPerCol) {
                 c.gridx = colIndex;
                 c.gridy = rowIndex++;
@@ -940,9 +946,14 @@ public class BackgroundMain extends javax.swing.JPanel {
                 c.gridy = rowIndex++;
             }
 
-            String text = sg.getSystemNameIndex(i - 1);
-            label = new JLabel(text);
-            label.setFont(font);
+            if (i <= numSys) {
+                String text = sg.getSystemNameIndex(i - 1);
+                label = new JLabel(text);
+                label.setFont(font);
+            } else {
+                label = new JLabel();
+            }
+            
             //label.setBorder(border);
             if (numAdded % 2 == 0) {
                 label.setOpaque(true);
@@ -959,7 +970,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         //panel.setBackground(Colours.LightestBlue.getCol());
         panel.setBorder(border);
         return panel;
-        
+
     }
 
     public JPanel panelPerformance() {

@@ -1065,7 +1065,10 @@ public final class ControlsPanel extends javax.swing.JPanel {
         if (numRacks > 15) {
             numRacks = 15;
             _FormattedTF_NumRacks.setValue(new Integer("15"));
-        } else {
+        } else if(numRacks == 0){
+            _FormattedTF_NumRacks.setValue(1);
+            _FormattedTF_NumRacks.setValue(new Integer("1"));
+        }else {
             _FormattedTF_NumRacks.setValue(numRacks);
         }
 
@@ -1076,7 +1079,10 @@ public final class ControlsPanel extends javax.swing.JPanel {
         if (numFans > 100) {
             numFans = 100;
             _FormattedTF_NumFans.setValue(new Integer("100"));
-        } else {
+        } else if(numFans == 0){
+            _FormattedTF_NumFans.setValue(1);
+            _FormattedTF_NumFans.setValue(new Integer("1"));
+        }else {
             _FormattedTF_NumFans.setValue(numFans);
         }
     }
@@ -1086,7 +1092,10 @@ public final class ControlsPanel extends javax.swing.JPanel {
         if (numSG > 15) {
             numSG = 15;
             _FormattedTF_NumSG.setValue(new Integer("15"));
-        } else {
+        } else if(numSG == 0){
+            _FormattedTF_NumSG.setValue(1);
+            _FormattedTF_NumSG.setValue(new Integer("1"));
+        }else {
             _FormattedTF_NumSG.setValue(numSG);
         }
     }
@@ -1096,7 +1105,10 @@ public final class ControlsPanel extends javax.swing.JPanel {
         if (numComp > 100) {
             numComp = 100;
             _FormattedTF_NumComp.setValue(new Integer("100"));
-        } else {
+        } else if(numComp == 0){
+            _FormattedTF_NumComp.setValue(1);
+            _FormattedTF_NumComp.setValue(new Integer("1"));
+        }else {
             _FormattedTF_NumComp.setValue(numComp);
         }
     }
@@ -1106,7 +1118,10 @@ public final class ControlsPanel extends javax.swing.JPanel {
         if (numSystems > 100) {
             numSystems = 100;
             _FormattedTF_NumSystems.setValue(new Integer("100"));
-        } else {
+        } else if(numSystems == 0){
+            _FormattedTF_NumSystems.setValue(1);
+            _FormattedTF_NumSystems.setValue(new Integer("1"));
+        }else {
             _FormattedTF_NumSystems.setValue(numSystems);
         }
     }

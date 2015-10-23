@@ -26,9 +26,9 @@ public enum Colours {
     OrangeLight(255,140,8),
     OrangeLightest(255,169,47),
     
-    RedDark(223,0,0),
-    RedLight(251,17,17),
-    RedLightest(255,55,55),
+    GreyDark(46,46,46),
+    GreyLight(110,110,110),
+    GreyLightest(180,180,180),
     
     
     Gray(159,162,167),
