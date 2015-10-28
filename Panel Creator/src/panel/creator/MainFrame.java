@@ -7,6 +7,7 @@ package panel.creator;
 
 import java.awt.AWTException;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
@@ -111,40 +112,55 @@ public class MainFrame extends JFrame {
         _FileChooser_SavePicture = new javax.swing.JFileChooser();
         _FileChooser_SaveStore = new javax.swing.JFileChooser();
         _FileChooser_LoadStore = new javax.swing.JFileChooser();
+        _FileChooser_SaveIntoFolder = new javax.swing.JFileChooser();
         _TabbedPane_Tabs = new javax.swing.JTabbedPane();
         _MenuBar_Menus = new javax.swing.JMenuBar();
         _Menu_File = new javax.swing.JMenu();
-        _MenuItem_SavePicture = new javax.swing.JMenuItem();
+        _MenuItem_SaveCurrentDisplay = new javax.swing.JMenuItem();
+        _MenuItem_SaveAllDisplays = new javax.swing.JMenuItem();
         _MenuItem_SaveStore = new javax.swing.JMenuItem();
         _MenuItem_OpenStore = new javax.swing.JMenuItem();
         _MenuItem_Close = new javax.swing.JMenuItem();
         _Menu_View = new javax.swing.JMenu();
         _MenuItem_ViewPanel = new javax.swing.JMenuItem();
+        _MenuItem_changedisplay = new javax.swing.JMenuItem();
         _Menu_Image = new javax.swing.JMenu();
         _MenuItem_OpenImage = new javax.swing.JMenuItem();
         _MenuItem_RemoveImage = new javax.swing.JMenuItem();
 
-        _FileChooser_LoadLogo.setApproveButtonToolTipText("Saves the file");
+        _FileChooser_LoadLogo.setApproveButtonText("Open");
+        _FileChooser_LoadLogo.setApproveButtonToolTipText("Open the logo file");
         _FileChooser_LoadLogo.setCurrentDirectory(null);
         _FileChooser_LoadLogo.setDialogTitle("Open image file for the store logo");
         _FileChooser_LoadLogo.setFileFilter(new panel.creator.FilterImage());
 
+        _FileChooser_SavePicture.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         _FileChooser_SavePicture.setApproveButtonText("Save");
+        _FileChooser_SavePicture.setApproveButtonToolTipText("Save Picture");
         _FileChooser_SavePicture.setCurrentDirectory(null);
         _FileChooser_SavePicture.setDialogTitle("Directory to save a picture");
         _FileChooser_SavePicture.setFileFilter(new FileNameExtensionFilter("Image files (.png, .jpg, .gif)", new String[]{"jpg", "gif", "png"}));
 
         _FileChooser_SaveStore.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         _FileChooser_SaveStore.setApproveButtonText("Save");
+        _FileChooser_SaveStore.setApproveButtonToolTipText("Save Store");
         _FileChooser_SaveStore.setCurrentDirectory(null);
         _FileChooser_SaveStore.setDialogTitle("Directory to save store");
         _FileChooser_SaveStore.setFileFilter(new FileNameExtensionFilter("Store file .sto", new String[]{"sto"}));
 
-        _FileChooser_LoadStore.setApproveButtonText("Load Store");
-        _FileChooser_LoadStore.setApproveButtonToolTipText("");
+        _FileChooser_LoadStore.setApproveButtonText("Open Store");
+        _FileChooser_LoadStore.setApproveButtonToolTipText("Loads the store file");
         _FileChooser_LoadStore.setCurrentDirectory(null);
         _FileChooser_LoadStore.setDialogTitle("Directory to open Store file");
         _FileChooser_LoadStore.setFileFilter(new panel.creator.FilterStore());
+
+        _FileChooser_SaveIntoFolder.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+        _FileChooser_SaveIntoFolder.setApproveButtonText("Save Here");
+        _FileChooser_SaveIntoFolder.setApproveButtonToolTipText("Saves the displays into this directory");
+        _FileChooser_SaveIntoFolder.setCurrentDirectory(null);
+        _FileChooser_SaveIntoFolder.setDialogTitle("Directory to save pictures");
+        _FileChooser_SaveIntoFolder.setFileFilter(new panel.creator.FilterFolder());
+        _FileChooser_SaveIntoFolder.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Image Creator");
@@ -153,14 +169,23 @@ public class MainFrame extends JFrame {
 
         _Menu_File.setText("File");
 
-        _MenuItem_SavePicture.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        _MenuItem_SavePicture.setText("Save display as Picture");
-        _MenuItem_SavePicture.addActionListener(new java.awt.event.ActionListener() {
+        _MenuItem_SaveCurrentDisplay.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_SaveCurrentDisplay.setText("Save Current Display");
+        _MenuItem_SaveCurrentDisplay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _MenuItem_SavePictureActionPerformed(evt);
+                _MenuItem_SaveCurrentDisplayActionPerformed(evt);
             }
         });
-        _Menu_File.add(_MenuItem_SavePicture);
+        _Menu_File.add(_MenuItem_SaveCurrentDisplay);
+
+        _MenuItem_SaveAllDisplays.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_SaveAllDisplays.setText("Save All Displays");
+        _MenuItem_SaveAllDisplays.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _MenuItem_SaveAllDisplaysActionPerformed(evt);
+            }
+        });
+        _Menu_File.add(_MenuItem_SaveAllDisplays);
 
         _MenuItem_SaveStore.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         _MenuItem_SaveStore.setText("Save Store");
@@ -200,6 +225,15 @@ public class MainFrame extends JFrame {
             }
         });
         _Menu_View.add(_MenuItem_ViewPanel);
+
+        _MenuItem_changedisplay.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_changedisplay.setText("Change display tab");
+        _MenuItem_changedisplay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _MenuItem_changedisplayActionPerformed(evt);
+            }
+        });
+        _Menu_View.add(_MenuItem_changedisplay);
 
         _MenuBar_Menus.add(_Menu_View);
 
@@ -267,7 +301,7 @@ public class MainFrame extends JFrame {
         main.close();
     }//GEN-LAST:event__MenuItem_CloseActionPerformed
 
-    private void _MenuItem_SavePictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SavePictureActionPerformed
+    private void _MenuItem_SaveCurrentDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveCurrentDisplayActionPerformed
         // TODO add your handling code here:
 
         int returnVal = _FileChooser_SavePicture.showSaveDialog(this);
@@ -290,7 +324,7 @@ public class MainFrame extends JFrame {
             System.out.println("File access cancelled by user.");
         }
 
-    }//GEN-LAST:event__MenuItem_SavePictureActionPerformed
+    }//GEN-LAST:event__MenuItem_SaveCurrentDisplayActionPerformed
 
     private void _MenuItem_RemoveImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_RemoveImageActionPerformed
         // TODO add your handling code here:
@@ -371,6 +405,52 @@ public class MainFrame extends JFrame {
         }
     }//GEN-LAST:event__MenuItem_OpenStoreActionPerformed
 
+    private void _MenuItem_SaveAllDisplaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveAllDisplaysActionPerformed
+        // TODO add your handling code here:
+
+        int sIndex = displayFrame.getTabSelection();
+
+        int returnVal = _FileChooser_SaveIntoFolder.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            String filePath = _FileChooser_SaveIntoFolder.getSelectedFile().toString() + "\\";
+            //System.out.println("FP: " + filePath);
+            String[] fileNames = controlPanel.getFileNames(filePath, displayFrame.bg.getSize());
+            int numDisplays = displayFrame.getTabCount();
+
+            BufferedImage bi;
+            
+            for (int i = 0; i < numDisplays; i++) {
+                System.out.println(i + ": " + fileNames[i]);
+                try {
+                    if(i == 0){
+                        bi = ScreenImage.createImage(displayFrame.bg);
+                    }else if(i == (numDisplays-1)){
+                        bi = ScreenImage.createImage(displayFrame.bgl);
+                    }else {
+                        bi = ScreenImage.createImage(displayFrame.rackTabs.get(i-1));
+                    }
+                    
+                    ScreenImage.writeImage(bi, fileNames[i]);
+                    //ScreenImage.createImage();
+                } catch (IOException e) {
+                    System.out.println("Error " + e.getMessage());
+                }
+            }
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+       
+    }//GEN-LAST:event__MenuItem_SaveAllDisplaysActionPerformed
+
+    private void _MenuItem_changedisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_changedisplayActionPerformed
+        // TODO add your handling code here:
+        int d = displayFrame.getTabCount();
+        int r = (int) (Math.random() * (d));
+        displayFrame.changeTab(r);
+        System.out.println("Changed to " + r);
+    }//GEN-LAST:event__MenuItem_changedisplayActionPerformed
+
     //================================================================
     //================================================================
     //                      Functions
@@ -380,6 +460,7 @@ public class MainFrame extends JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser _FileChooser_LoadLogo;
     private javax.swing.JFileChooser _FileChooser_LoadStore;
+    private javax.swing.JFileChooser _FileChooser_SaveIntoFolder;
     private javax.swing.JFileChooser _FileChooser_SavePicture;
     private javax.swing.JFileChooser _FileChooser_SaveStore;
     private javax.swing.JMenuBar _MenuBar_Menus;
@@ -387,9 +468,11 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem _MenuItem_OpenImage;
     private javax.swing.JMenuItem _MenuItem_OpenStore;
     private javax.swing.JMenuItem _MenuItem_RemoveImage;
-    private javax.swing.JMenuItem _MenuItem_SavePicture;
+    private javax.swing.JMenuItem _MenuItem_SaveAllDisplays;
+    private javax.swing.JMenuItem _MenuItem_SaveCurrentDisplay;
     private javax.swing.JMenuItem _MenuItem_SaveStore;
     private javax.swing.JMenuItem _MenuItem_ViewPanel;
+    private javax.swing.JMenuItem _MenuItem_changedisplay;
     private javax.swing.JMenu _Menu_File;
     private javax.swing.JMenu _Menu_Image;
     private javax.swing.JMenu _Menu_View;

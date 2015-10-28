@@ -4,7 +4,8 @@
   <NonVisualComponents>
     <Component class="javax.swing.JFileChooser" name="_FileChooser_LoadLogo">
       <Properties>
-        <Property name="approveButtonToolTipText" type="java.lang.String" value="Saves the file"/>
+        <Property name="approveButtonText" type="java.lang.String" value="Open"/>
+        <Property name="approveButtonToolTipText" type="java.lang.String" value="Open the logo file"/>
         <Property name="currentDirectory" type="java.io.File" value="null"/>
         <Property name="dialogTitle" type="java.lang.String" value="Open image file for the store logo"/>
         <Property name="fileFilter" type="javax.swing.filechooser.FileFilter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -14,7 +15,9 @@
     </Component>
     <Component class="javax.swing.JFileChooser" name="_FileChooser_SavePicture">
       <Properties>
+        <Property name="dialogType" type="int" value="1"/>
         <Property name="approveButtonText" type="java.lang.String" value="Save"/>
+        <Property name="approveButtonToolTipText" type="java.lang.String" value="Save Picture"/>
         <Property name="currentDirectory" type="java.io.File" value="null"/>
         <Property name="dialogTitle" type="java.lang.String" value="Directory to save a picture"/>
         <Property name="fileFilter" type="javax.swing.filechooser.FileFilter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -26,6 +29,7 @@
       <Properties>
         <Property name="dialogType" type="int" value="1"/>
         <Property name="approveButtonText" type="java.lang.String" value="Save"/>
+        <Property name="approveButtonToolTipText" type="java.lang.String" value="Save Store"/>
         <Property name="currentDirectory" type="java.io.File" value="null"/>
         <Property name="dialogTitle" type="java.lang.String" value="Directory to save store"/>
         <Property name="fileFilter" type="javax.swing.filechooser.FileFilter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -35,13 +39,26 @@
     </Component>
     <Component class="javax.swing.JFileChooser" name="_FileChooser_LoadStore">
       <Properties>
-        <Property name="approveButtonText" type="java.lang.String" value="Load Store"/>
-        <Property name="approveButtonToolTipText" type="java.lang.String" value=""/>
+        <Property name="approveButtonText" type="java.lang.String" value="Open Store"/>
+        <Property name="approveButtonToolTipText" type="java.lang.String" value="Loads the store file"/>
         <Property name="currentDirectory" type="java.io.File" value="null"/>
         <Property name="dialogTitle" type="java.lang.String" value="Directory to open Store file"/>
         <Property name="fileFilter" type="javax.swing.filechooser.FileFilter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="new panel.creator.FilterStore()" type="code"/>
         </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JFileChooser" name="_FileChooser_SaveIntoFolder">
+      <Properties>
+        <Property name="dialogType" type="int" value="1"/>
+        <Property name="approveButtonText" type="java.lang.String" value="Save Here"/>
+        <Property name="approveButtonToolTipText" type="java.lang.String" value="Saves the displays into this directory"/>
+        <Property name="currentDirectory" type="java.io.File" value="null"/>
+        <Property name="dialogTitle" type="java.lang.String" value="Directory to save pictures"/>
+        <Property name="fileFilter" type="javax.swing.filechooser.FileFilter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new panel.creator.FilterFolder()" type="code"/>
+        </Property>
+        <Property name="fileSelectionMode" type="int" value="1"/>
       </Properties>
     </Component>
     <Menu class="javax.swing.JMenuBar" name="_MenuBar_Menus">
@@ -51,15 +68,26 @@
             <Property name="text" type="java.lang.String" value="File"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_SavePicture">
+            <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_SaveCurrentDisplay">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Shift+Ctrl+S"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Save display as Picture"/>
+                <Property name="text" type="java.lang.String" value="Save Current Display"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_SavePictureActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_SaveCurrentDisplayActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_SaveAllDisplays">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+A"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Save All Displays"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_SaveAllDisplaysActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_SaveStore">
@@ -108,6 +136,17 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_ViewPanelActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_changedisplay">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+Y"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Change display tab"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_changedisplayActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

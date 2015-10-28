@@ -226,6 +226,51 @@ public class DisplayFrame extends javax.swing.JFrame {
         return _TabbedPane_Tabs.getSelectedComponent();
     }
 
+    public Component[] getPanelPictures() {
+        Component[] c = new Component[numRacks + 2];
+
+        c[0] = bg;
+
+        for (int i = 1; i <= numRacks; i++) {
+            c[i] = rackTabs.get(i - 1);
+        }
+
+        c[c.length - 1] = bgl;
+
+        return c;
+
+    }
+
+    /**
+     * Gets the number of tabs being displayed
+     *
+     * @return number of tabs
+     */
+    public int getTabCount() {
+        return _TabbedPane_Tabs.getTabCount();
+    }
+
+    /**
+     * Changes the selected index of the tabbed pane
+     *
+     * @param index int index to switch to 0 - (tab count - 1)
+     */
+    public void changeTab(int index) {
+        System.out.println("Changing tab to " + index);
+        _TabbedPane_Tabs.setSelectedIndex(index);
+
+    }
+
+    /**
+     * Gets the current tab selection of the tabbed pane
+     *
+     * @return int index of the selected index
+     */
+    public int getTabSelection() {
+        return _TabbedPane_Tabs.getSelectedIndex();
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane _TabbedPane_Tabs;
     // End of variables declaration//GEN-END:variables

@@ -1,5 +1,6 @@
 package panel.creator;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -36,6 +37,27 @@ public final class ControlsPanel extends javax.swing.JPanel {
         racks.add(r);
         numRacks = 1;
 
+    }
+    
+    /**
+     * Gets the file names for the displays
+     * Format: StoreName Tab WidthxHeight.png 
+     * @param filePath  path of the folder to save in
+     * @param d         dimension size of the panel
+     * @return array of strings, file names used to save all the files
+     */
+    public String[] getFileNames(String filePath, Dimension d){
+        String [] fn = new String[numRacks+2];
+        
+        fn[0] = filePath + storeName + " Main - " + + d.width + "x" + d.height + ".png";
+        
+        for(int i = 1; i <= numRacks; i++){
+            fn[i] = filePath + storeName + " " + racks.get(i-1).getName() 
+                             + " - " + d.width + "x" + d.height + ".png";
+        }
+        fn[fn.length-1] = filePath + storeName + " Loads - " + + d.width + "x" + d.height + ".png";
+        
+        return fn;
     }
 
     /**
