@@ -15,7 +15,7 @@ import javax.swing.event.ChangeListener;
  * color, as well as display sizes
  * @author EricGummerson
  */
-public class SettingsFrame extends javax.swing.JFrame implements ChangeListener {
+public class SettingsPanel extends javax.swing.JPanel implements ChangeListener {
 
     private final MainFrame mf;
     public int displayWidth;
@@ -37,7 +37,7 @@ public class SettingsFrame extends javax.swing.JFrame implements ChangeListener 
      *
      * @param mf
      */
-    public SettingsFrame(MainFrame mf) {
+    public SettingsPanel(MainFrame mf) {
         initComponents();
         this.mf = mf;
         displayWidth = 1200;
@@ -83,7 +83,6 @@ public class SettingsFrame extends javax.swing.JFrame implements ChangeListener 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        _Panel_Settings = new javax.swing.JPanel();
         _Label_DisplayWidth = new javax.swing.JLabel();
         _Label_DisplayHeight = new javax.swing.JLabel();
         _Button_DefaultSettings = new javax.swing.JButton();
@@ -92,7 +91,6 @@ public class SettingsFrame extends javax.swing.JFrame implements ChangeListener 
         _ComboBox_Fonts = new javax.swing.JComboBox();
         _Label_FontSize = new javax.swing.JLabel();
         _ComboBox_FontSize = new javax.swing.JComboBox();
-        _Button_SaveClose = new javax.swing.JButton();
         _CheckBox_Bold = new javax.swing.JCheckBox();
         _CheckBox_Italic = new javax.swing.JCheckBox();
         _FormattedTextField_Width = new javax.swing.JFormattedTextField();
@@ -104,10 +102,6 @@ public class SettingsFrame extends javax.swing.JFrame implements ChangeListener 
         _ColorChooser_Color = new javax.swing.JColorChooser();
         _ComboBox_BorderSize = new javax.swing.JComboBox();
         _Label_BorderSize = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Display Settings");
-        setResizable(false);
 
         _Label_DisplayWidth.setText("Display Width");
 
@@ -140,13 +134,6 @@ public class SettingsFrame extends javax.swing.JFrame implements ChangeListener 
         _ComboBox_FontSize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _ComboBox_FontSizeActionPerformed(evt);
-            }
-        });
-
-        _Button_SaveClose.setText("Save & Close");
-        _Button_SaveClose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _Button_SaveCloseActionPerformed(evt);
             }
         });
 
@@ -239,118 +226,92 @@ public class SettingsFrame extends javax.swing.JFrame implements ChangeListener 
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout _Panel_SettingsLayout = new javax.swing.GroupLayout(_Panel_Settings);
-        _Panel_Settings.setLayout(_Panel_SettingsLayout);
-        _Panel_SettingsLayout.setHorizontalGroup(
-            _Panel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(_Panel_SettingsLayout.createSequentialGroup()
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(_Panel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(_Panel_BorderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(_Panel_SettingsLayout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(_Label_DisplaySettings, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(_Panel_SettingsLayout.createSequentialGroup()
-                        .addGroup(_Panel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(_Panel_SettingsLayout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(_Label_DisplayWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(_FormattedTextField_Width, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
-                                .addGroup(_Panel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(_Panel_SettingsLayout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(_Label_FontSize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(_ComboBox_FontSize, 0, 165, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(_CheckBox_Italic, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(_Panel_SettingsLayout.createSequentialGroup()
+                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(_Label_FontType, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(_ComboBox_Fonts, 0, 165, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(_CheckBox_Bold, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(_Panel_SettingsLayout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(_Label_DisplayHeight, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_FormattedTextField_Height, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(_FormattedTextField_Height, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(133, 133, 133)
+                                .addComponent(_Label_DisplaySettings, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(_Label_Font, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(_Panel_SettingsLayout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(_Button_SaveClose, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(_Button_DefaultSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(_Label_Font, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Button_DefaultSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(33, 263, Short.MAX_VALUE))
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_ComboBox_FontSize, _ComboBox_Fonts});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_Label_FontSize, _Label_FontType});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_CheckBox_Bold, _CheckBox_Italic});
+
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(_Label_DisplaySettings, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(_Label_DisplayWidth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(_FormattedTextField_Width)
+                            .addComponent(_Label_FontType, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_ComboBox_Fonts, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_CheckBox_Bold))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(_Label_DisplayHeight, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_FormattedTextField_Height)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(_Label_FontSize, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_ComboBox_FontSize, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_CheckBox_Italic)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(_Button_DefaultSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_Label_Font, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(_Panel_BorderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        _Panel_SettingsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_ComboBox_FontSize, _ComboBox_Fonts});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_FormattedTextField_Height, _FormattedTextField_Width, _Label_DisplayHeight, _Label_DisplayWidth});
 
-        _Panel_SettingsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_Label_FontSize, _Label_FontType});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_CheckBox_Bold, _CheckBox_Italic});
 
-        _Panel_SettingsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_CheckBox_Bold, _CheckBox_Italic});
-
-        _Panel_SettingsLayout.setVerticalGroup(
-            _Panel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(_Panel_SettingsLayout.createSequentialGroup()
-                .addGroup(_Panel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(_Panel_SettingsLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(_Panel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(_Panel_SettingsLayout.createSequentialGroup()
-                                .addComponent(_Label_DisplaySettings, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addGroup(_Panel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(_Label_DisplayWidth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(_FormattedTextField_Width)
-                                    .addComponent(_Label_FontType, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(_ComboBox_Fonts, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(_CheckBox_Bold))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(_Panel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(_Label_DisplayHeight, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(_FormattedTextField_Height)))
-                            .addGroup(_Panel_SettingsLayout.createSequentialGroup()
-                                .addGap(96, 96, 96)
-                                .addGroup(_Panel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(_Label_FontSize, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(_ComboBox_FontSize, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(_CheckBox_Italic)))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_SettingsLayout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(_Label_Font, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(_Panel_BorderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(_Panel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_Button_SaveClose, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Button_DefaultSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
-
-        _Panel_SettingsLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_FormattedTextField_Height, _FormattedTextField_Width, _Label_DisplayHeight, _Label_DisplayWidth});
-
-        _Panel_SettingsLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_CheckBox_Bold, _CheckBox_Italic});
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(_Panel_Settings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(_Panel_Settings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void _Button_SaveCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SaveCloseActionPerformed
-        // TODO add your handling code here:
-
-        mf.hideSettings();
-    }//GEN-LAST:event__Button_SaveCloseActionPerformed
 
     private void _CheckBox_ItalicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__CheckBox_ItalicActionPerformed
         // TODO add your handling code here:
@@ -534,7 +495,6 @@ public class SettingsFrame extends javax.swing.JFrame implements ChangeListener 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton _Button_DefaultSettings;
-    private javax.swing.JButton _Button_SaveClose;
     private javax.swing.JCheckBox _CheckBox_Bold;
     private javax.swing.JCheckBox _CheckBox_Italic;
     private javax.swing.JColorChooser _ColorChooser_Color;
@@ -553,7 +513,6 @@ public class SettingsFrame extends javax.swing.JFrame implements ChangeListener 
     private javax.swing.JLabel _Label_FontSize;
     private javax.swing.JLabel _Label_FontType;
     private javax.swing.JPanel _Panel_BorderPanel;
-    private javax.swing.JPanel _Panel_Settings;
     // End of variables declaration//GEN-END:variables
 
     @Override

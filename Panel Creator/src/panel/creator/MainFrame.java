@@ -31,8 +31,8 @@ public class MainFrame extends JFrame {
 
     private final PanelCreator main;
     public DisplayFrame displayFrame;
-    public SettingsFrame settingsFrame;
-    public ControlsPanel controlPanel;    
+    public SettingsPanel settingsPanel;
+    public ControlsPanel controlPanel;
     public String img;
 
     /**
@@ -51,20 +51,20 @@ public class MainFrame extends JFrame {
 
         controlPanel = new ControlsPanel(this);
         displayFrame = new DisplayFrame(this);
-        settingsFrame = new SettingsFrame(this);        
+        settingsPanel = new SettingsPanel(this);
         // Load the main panel        
         controlPanel.setVisible(true);
         displayFrame.setVisible(true);
         controlPanel.updateDisplay();
-        // add it to the frame   
-        this.setLayout(new BorderLayout());
-        this.add(controlPanel, BorderLayout.CENTER);
+        // add it to the frame           
+        _TabbedPane_Tabs.add("Controls", controlPanel);
+        _TabbedPane_Tabs.add("Settings", settingsPanel);
 
     }
 
     public void updateDisplaySize(Dimension d) {
-        if (settingsFrame != null) {
-            settingsFrame.setDim(d);
+        if (settingsPanel != null) {
+            settingsPanel.setDim(d);
         }
     }
 
@@ -91,21 +91,9 @@ public class MainFrame extends JFrame {
         }
     }
 
-    public void displaySettings() {
-        if (!settingsFrame.isVisible()) {
-            settingsFrame.setVisible(true);
-        } else {
-            settingsFrame.setVisible(false);
-        }
-    }
-
-        public void hideSettings() {
-        settingsFrame.setVisible(false);
-    }
-
     public void updateDisplay(ArrayList<Rack> racks, int numRacks, String storeName, String[] rackNames, String imgStr) {
-        Font f = settingsFrame.getFontData();
-        Border b = settingsFrame.getBorder();
+        Font f = settingsPanel.getFontData();
+        Border b = settingsPanel.getBorder();
         this.img = imgStr;
         displayFrame.updateDisplays(racks, numRacks, storeName, rackNames, img, f, b);
     }
@@ -123,14 +111,13 @@ public class MainFrame extends JFrame {
         _FileChooser_SavePicture = new javax.swing.JFileChooser();
         _FileChooser_SaveStore = new javax.swing.JFileChooser();
         _FileChooser_LoadStore = new javax.swing.JFileChooser();
+        _TabbedPane_Tabs = new javax.swing.JTabbedPane();
         _MenuBar_Menus = new javax.swing.JMenuBar();
         _Menu_File = new javax.swing.JMenu();
         _MenuItem_SavePicture = new javax.swing.JMenuItem();
         _MenuItem_SaveStore = new javax.swing.JMenuItem();
         _MenuItem_OpenStore = new javax.swing.JMenuItem();
         _MenuItem_Close = new javax.swing.JMenuItem();
-        _Menu_Settings = new javax.swing.JMenu();
-        _MenuItem_Settings = new javax.swing.JMenuItem();
         _Menu_View = new javax.swing.JMenu();
         _MenuItem_ViewPanel = new javax.swing.JMenuItem();
         _Menu_Image = new javax.swing.JMenu();
@@ -203,19 +190,6 @@ public class MainFrame extends JFrame {
 
         _MenuBar_Menus.add(_Menu_File);
 
-        _Menu_Settings.setText("Settings");
-
-        _MenuItem_Settings.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        _MenuItem_Settings.setText("Display Settings");
-        _MenuItem_Settings.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _MenuItem_SettingsActionPerformed(evt);
-            }
-        });
-        _Menu_Settings.add(_MenuItem_Settings);
-
-        _MenuBar_Menus.add(_Menu_Settings);
-
         _Menu_View.setText("View");
 
         _MenuItem_ViewPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
@@ -257,11 +231,11 @@ public class MainFrame extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 969, Short.MAX_VALUE)
+            .addComponent(_TabbedPane_Tabs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 969, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 608, Short.MAX_VALUE)
+            .addComponent(_TabbedPane_Tabs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
         );
 
         pack();
@@ -269,22 +243,16 @@ public class MainFrame extends JFrame {
 
     private void _MenuItem_ViewPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_ViewPanelActionPerformed
         // TODO add your handling code here:
-        int width = settingsFrame.getDisplayWidth();
-        int height = settingsFrame.getDisplayHeight();
+        int width = settingsPanel.getDisplayWidth();
+        int height = settingsPanel.getDisplayHeight();
         displayPanel(width, height);
     }//GEN-LAST:event__MenuItem_ViewPanelActionPerformed
-
-    private void _MenuItem_SettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SettingsActionPerformed
-        // TODO add your handling code here:
-        // Open settings
-        displaySettings();
-    }//GEN-LAST:event__MenuItem_SettingsActionPerformed
 
     private void _MenuItem_OpenImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_OpenImageActionPerformed
         // TODO add your handling code here:
         int returnVal = _FileChooser_LoadLogo.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = _FileChooser_LoadLogo.getSelectedFile();            
+            File file = _FileChooser_LoadLogo.getSelectedFile();
             img = file.getAbsolutePath();
             displayFrame.updateLogo(img);
             controlPanel.updateStoreLogo(img);
@@ -367,27 +335,26 @@ public class MainFrame extends JFrame {
 
         int returnVal = _FileChooser_LoadStore.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            
+
             File file = _FileChooser_LoadStore.getSelectedFile();
 
             // What to do with the file, e.g. display it in a TextArea
             //System.out.println("File: " + file.getAbsolutePath());
             String filePath = file.getAbsolutePath();
-            
+
             try {
                 FileInputStream fis = new FileInputStream(filePath);
-                ObjectInputStream ois = new ObjectInputStream(fis);                
+                ObjectInputStream ois = new ObjectInputStream(fis);
                 ArrayList<Rack> rs = (ArrayList<Rack>) ois.readObject();
                 String sn = (String) ois.readObject();
                 String imgstr = (String) ois.readObject();
-                int numR = (int) ois.readObject();                
+                int numR = (int) ois.readObject();
                 ois.close();
                 fis.close();
                 System.out.println("logo: " + imgstr);
                 System.out.println("Store read properly");
                 controlPanel.loadStore(rs, sn, imgstr, numR);
                 controlPanel.updateRackDisplay();
-                
 
             } catch (IOException ioe) {
                 ioe.printStackTrace();
@@ -422,11 +389,10 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem _MenuItem_RemoveImage;
     private javax.swing.JMenuItem _MenuItem_SavePicture;
     private javax.swing.JMenuItem _MenuItem_SaveStore;
-    private javax.swing.JMenuItem _MenuItem_Settings;
     private javax.swing.JMenuItem _MenuItem_ViewPanel;
     private javax.swing.JMenu _Menu_File;
     private javax.swing.JMenu _Menu_Image;
-    private javax.swing.JMenu _Menu_Settings;
     private javax.swing.JMenu _Menu_View;
+    private javax.swing.JTabbedPane _TabbedPane_Tabs;
     // End of variables declaration//GEN-END:variables
 }
