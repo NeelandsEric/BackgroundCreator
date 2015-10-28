@@ -137,12 +137,13 @@ public class ScreenImage
 	public static BufferedImage createImage(Component component)
 		throws AWTException
 	{
-		Point p = new Point(0, 0);
+                Point p = new Point(0, 0);
 		SwingUtilities.convertPointToScreen(p, component);
 		Rectangle region = component.getBounds();
 		region.x = p.x;
-		region.y = p.y;
+		region.y = p.y;                
 		return ScreenImage.createImage(region);
+                
 	}
 
 	/**
