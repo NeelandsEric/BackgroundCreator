@@ -34,7 +34,7 @@ public class MainFrame extends JFrame {
     public DisplayFrame displayFrame;
     public SettingsPanel settingsPanel;
     public ControlsPanel controlPanel;
-    public String img;
+    public Store store;
 
     /**
      * Creates new form MainFrame
@@ -43,15 +43,16 @@ public class MainFrame extends JFrame {
      */
     public MainFrame(PanelCreator main) {
         this.main = main;
+        store = new Store();
         initComponents();
         initPanels();
-        img = "";
+        
     }
 
     private void initPanels() {
 
-        controlPanel = new ControlsPanel(this);
-        displayFrame = new DisplayFrame(this);
+        controlPanel = new ControlsPanel(this, store);
+        displayFrame = new DisplayFrame(this, store);
         settingsPanel = new SettingsPanel(this);
         // Load the main panel        
         controlPanel.setVisible(true);
@@ -92,11 +93,10 @@ public class MainFrame extends JFrame {
         }
     }
 
-    public void updateDisplay(ArrayList<Rack> racks, int numRacks, String storeName, String[] rackNames, String imgStr) {
+    public void updateDisplay(Store store) {
         Font f = settingsPanel.getFontData();
-        Border b = settingsPanel.getBorder();
-        this.img = imgStr;
-        displayFrame.updateDisplays(racks, numRacks, storeName, rackNames, img, f, b);
+        Border b = settingsPanel.getBorder();        
+        displayFrame.updateDisplays(store, f, b);
     }
 
     /**
@@ -287,9 +287,9 @@ public class MainFrame extends JFrame {
         int returnVal = _FileChooser_LoadLogo.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = _FileChooser_LoadLogo.getSelectedFile();
-            img = file.getAbsolutePath();
-            displayFrame.updateLogo(img);
-            controlPanel.updateStoreLogo(img);
+            store.setImgStr(file.getAbsolutePath());
+            displayFrame.updateLogo(store.getImgStr());
+            controlPanel.updateStoreLogo(store.getImgStr());
 
         } else {
             System.out.println("File access cancelled by user.");
@@ -347,10 +347,7 @@ public class MainFrame extends JFrame {
             try {
                 FileOutputStream fos = new FileOutputStream(fn);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
-                oos.writeObject(controlPanel.racks);
-                oos.writeObject(controlPanel.storeName);
-                oos.writeObject(controlPanel.imgStr);
-                oos.writeObject(controlPanel.numRacks);
+                oos.writeObject(controlPanel.store); 
                 oos.close();
                 fos.close();
                 System.out.println("Store saved");
@@ -379,15 +376,11 @@ public class MainFrame extends JFrame {
             try {
                 FileInputStream fis = new FileInputStream(filePath);
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                ArrayList<Rack> rs = (ArrayList<Rack>) ois.readObject();
-                String sn = (String) ois.readObject();
-                String imgstr = (String) ois.readObject();
-                int numR = (int) ois.readObject();
+                Store store = (Store) ois.readObject();                
                 ois.close();
-                fis.close();
-                System.out.println("logo: " + imgstr);
+                fis.close();                
                 System.out.println("Store read properly");
-                controlPanel.loadStore(rs, sn, imgstr, numR);
+                controlPanel.loadStore(store);
                 controlPanel.updateRackDisplay();
 
             } catch (IOException ioe) {
@@ -396,8 +389,8 @@ public class MainFrame extends JFrame {
                 System.out.println("Class not found");
                 c.printStackTrace();
             }
-            System.out.println("Store Load Debug\nRack count: " + controlPanel.racks.size());
-            for (Rack r : controlPanel.racks) {
+            System.out.println("Store Load Debug\nRack count: " + controlPanel.store.getNumRacks());
+            for (Rack r : controlPanel.store.getRacks()) {
                 System.out.println(r);
             }
         } else {

@@ -13,30 +13,23 @@ import javax.swing.JLabel;
 public final class ControlsPanel extends javax.swing.JPanel {
 
     public MainFrame mf;
+    public Store store;    
     public int numRacks;
     public int numFans;
     public int numSG;
     public int numComp;
     public int numSystems;
-    public JLabel[] rackLabel;
-    public ArrayList<Rack> racks;
-    public String storeName;
-    public String imgStr;
+    
 
     /**
      * Creates new form MainPanel
      *
      * @param mf
      */
-    public ControlsPanel(MainFrame mf) {
+    public ControlsPanel(MainFrame mf, Store store) {
         this.mf = mf;
         initComponents();
-        storeName = _TextField_SiteName.getText();
-        racks = new ArrayList<>();
-        Rack r = new Rack("Rack 1");
-        racks.add(r);
-        numRacks = 1;
-
+        this.store = store;
     }
     
     /**
@@ -48,11 +41,12 @@ public final class ControlsPanel extends javax.swing.JPanel {
      */
     public String[] getFileNames(String filePath, Dimension d){
         String [] fn = new String[numRacks+2];
+        String storeName = store.getStoreName();
         
         fn[0] = filePath + storeName + " Main - " + + d.width + "x" + d.height + ".png";
         
         for(int i = 1; i <= numRacks; i++){
-            fn[i] = filePath + storeName + " " + racks.get(i-1).getName() 
+            fn[i] = filePath + storeName + " " + store.getRackName(i-1)
                              + " - " + d.width + "x" + d.height + ".png";
         }
         fn[fn.length-1] = filePath + storeName + " Loads - " + + d.width + "x" + d.height + ".png";
@@ -624,7 +618,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
         int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
         String name = _TextField_SuctionGroupName.getText();
-        racks.get(rackIndex).getSuctionGroupIndex(sgIndex).setName(name);
+        store.getRackIndex(rackIndex).getSuctionGroupIndex(sgIndex).setName(name);
         this.loadComboBoxSuctionGroups(_ComboBox_SuctionGroups.getSelectedIndex());
         updateDisplay();
     }//GEN-LAST:event__TextField_SuctionGroupNameFocusLost
@@ -662,7 +656,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
             // update the current rack
             int rackIndex = _ComboBox_Racks.getSelectedIndex();
             this.updateFanCount();
-            racks.get(rackIndex).setNumCondenserFans(numFans);
+            store.getRackIndex(rackIndex).setNumCondenserFans(numFans);
 
             // Update the display frame
             //System.out.println("slider condenser update");
@@ -686,8 +680,8 @@ public final class ControlsPanel extends javax.swing.JPanel {
             this.updateSGCount();
             int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
             String name = _TextField_SuctionGroupName.getText();
-            racks.get(rackIndex).getSuctionGroupIndex(sgIndex).setName(name);
-            racks.get(rackIndex).setNumSuctionGroups(numSG);
+            store.getRackIndex(rackIndex).getSuctionGroupIndex(sgIndex).setName(name);
+            store.getRackIndex(rackIndex).setNumSuctionGroups(numSG);
             this.loadComboBoxSuctionGroups(_ComboBox_SuctionGroups.getSelectedIndex());
 
             // Update the display frame
@@ -767,7 +761,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
         int sysIndex = _ComboBox_Systems.getSelectedIndex();
         String name = _TextField_SystemName.getText();
-        Rack r = racks.get(rackIndex);
+        Rack r = store.getRackIndex(rackIndex);
         SuctionGroup sg = r.getSuctionGroup().get(sgIndex);
         sg.replaceSystemName(name, sysIndex);
 
@@ -797,7 +791,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
         int sysIndex = _ComboBox_Systems.getSelectedIndex();
         String name = _TextField_SystemName.getText();
-        Rack r = racks.get(rackIndex);
+        Rack r = store.getRackIndex(rackIndex);
         SuctionGroup sg = r.getSuctionGroup().get(sgIndex);
         sg.replaceSystemName(name, sysIndex);
         // Select previous name
@@ -827,7 +821,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
         int compIndex = _ComboBox_CompressorNumber.getSelectedIndex();
         String name = _TextField_CompressorName.getText();
-        Rack r = racks.get(rackIndex);
+        Rack r = store.getRackIndex(rackIndex);
         SuctionGroup sg = r.getSuctionGroup().get(sgIndex);
         sg.replaceCompressorName(name, compIndex);
 
@@ -858,7 +852,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
         int compIndex = _ComboBox_CompressorNumber.getSelectedIndex();
         String name = _TextField_CompressorName.getText();
-        Rack r = racks.get(rackIndex);
+        Rack r = store.getRackIndex(rackIndex);
         SuctionGroup sg = r.getSuctionGroup().get(sgIndex);
         sg.replaceCompressorName(name, compIndex);
 
@@ -901,13 +895,13 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // Save the field
         int rackIndex = _ComboBox_RackNumber.getSelectedIndex();
         String name = _TextField_RackName.getText();
-        Rack r = racks.get(rackIndex);
+        Rack r = store.getRackIndex(rackIndex);
         r.setName(name);
 
         // Select previous name
         if (rackIndex < numRacks - 1) {
             _ComboBox_RackNumber.setSelectedIndex(rackIndex + 1);
-            _TextField_RackName.setText(racks.get(rackIndex + 1).getName());
+            _TextField_RackName.setText(store.getRackIndex(rackIndex+1).getName());
         }
 
         // Update the display frame
@@ -931,13 +925,13 @@ public final class ControlsPanel extends javax.swing.JPanel {
         int rackIndex = _ComboBox_RackNumber.getSelectedIndex();
 
         String name = _TextField_RackName.getText();
-        Rack r = racks.get(rackIndex);
+        Rack r = store.getRackIndex(rackIndex);
         r.setName(name);
 
         // Select previous name
         if (rackIndex > 0) {
             _ComboBox_RackNumber.setSelectedIndex(rackIndex - 1);
-            _TextField_RackName.setText(racks.get(rackIndex - 1).getName());
+            _TextField_RackName.setText(store.getRackIndex(rackIndex - 1).getName());
         }
 
         // Update the display frame
@@ -967,7 +961,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
     private void _TextField_SiteNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event__TextField_SiteNameFocusLost
         // TODO add your handling code here:
-        storeName = _TextField_SiteName.getText();
+        store.setStoreName(_TextField_SiteName.getText());
         this.updateDisplay();
     }//GEN-LAST:event__TextField_SiteNameFocusLost
 
@@ -1001,7 +995,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
     public void loadRackOptions(int index) {
 
         // Load all the options for the index'd rack
-        Rack cr = racks.get(index);
+        Rack cr = store.getRackIndex(index);
 
         numFans = cr.getNumCondenserFans();
         numSG = cr.getNumSuctionGroups();
@@ -1018,9 +1012,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
     public void loadComboBoxSuctionGroups(int prevSelectedIndex) {
 
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
-        int sgNum = racks.get(rackIndex).getNumSuctionGroups();
+        int sgNum = store.getRackIndex(rackIndex).getNumSuctionGroups();
 
-        String[] sgNames = racks.get(rackIndex).getSuctionGroupNames();
+        String[] sgNames = store.getRackIndex(rackIndex).getSuctionGroupNames();
 
         // Update the combo box
         _ComboBox_SuctionGroups.setModel(new javax.swing.DefaultComboBoxModel(sgNames));
@@ -1048,7 +1042,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
         int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
 
-        SuctionGroup sg = racks.get(rackIndex).getSuctionGroupIndex(sgIndex);
+        SuctionGroup sg = store.getRackIndex(rackIndex).getSuctionGroupIndex(sgIndex);
         numComp = sg.getNumCompressors();
         numSystems = sg.getNumSystems();
         _FormattedTF_NumComp.setText("" + numComp);
@@ -1069,7 +1063,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
         int compIndex = _ComboBox_CompressorNumber.getSelectedIndex();
 
-        SuctionGroup sg = racks.get(rackIndex).getSuctionGroupIndex(sgIndex);
+        SuctionGroup sg = store.getRackIndex(rackIndex).getSuctionGroupIndex(sgIndex);
 
         String[] cmp = new String[numComp];
         for (int i = 0; i < numComp; i++) {
@@ -1113,7 +1107,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         addRacks();
         // System drop box is set now update the text field 
 
-        _TextField_RackName.setText(racks.get(_ComboBox_RackNumber.getSelectedIndex()).getName());
+        _TextField_RackName.setText(store.getRackIndex(_ComboBox_RackNumber.getSelectedIndex()).getName());
 
     }
 
@@ -1121,11 +1115,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * adds racks if needed to
      */
     public void addRacks() {
-        int size = racks.size();
+        int size = store.getRacks().size();
         int toAdd = numRacks - size;
 
         for (int i = 0; i < toAdd; i++) {
-            racks.add(new Rack("Rack " + (size + i + 1)));
+            store.addRack(new Rack("Rack " + (size + i + 1)));
         }
 
     }
@@ -1140,7 +1134,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
         int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
         int systemIndex = _ComboBox_Systems.getSelectedIndex();
-        SuctionGroup sg = racks.get(rackIndex).getSuctionGroupIndex(sgIndex);
+        SuctionGroup sg = store.getRackIndex(rackIndex).getSuctionGroupIndex(sgIndex);
         String[] sys = new String[numSystems];
         for (int i = 0; i < numSystems; i++) {
             sys[i] = "System " + (i + 1);
@@ -1164,7 +1158,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * removes the string of the store logo
      */
     public void removeStoreLogo() {
-        imgStr = "";
+        store.setImgStr("");
         _Label_StoreLogo.setIcon(null);
         _Label_StoreLogo.setText("Store Logo");
     }
@@ -1174,11 +1168,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
      */
     public void updateStoreLogo() {
         try {
-            ImageIcon icon = new ImageIcon(imgStr);
+            ImageIcon icon = new ImageIcon(store.getImgStr());
             _Label_StoreLogo.setText("");
             _Label_StoreLogo.setIcon(icon);
         } catch (Exception e) {
-            _Label_StoreLogo.setText("Problem loading file: " + imgStr);
+            _Label_StoreLogo.setText("Problem loading file: " + store.getImgStr());
         }
     }
 
@@ -1189,12 +1183,12 @@ public final class ControlsPanel extends javax.swing.JPanel {
      */
     public void updateStoreLogo(String img) {
         try {
-            imgStr = img;
-            ImageIcon icon = new ImageIcon(imgStr);
+            store.setImgStr(img);
+            ImageIcon icon = new ImageIcon(store.getImgStr());
             _Label_StoreLogo.setText("");
             _Label_StoreLogo.setIcon(icon);
         } catch (Exception e) {
-            _Label_StoreLogo.setText("Problem loading file: " + imgStr);
+            _Label_StoreLogo.setText("Problem loading file: " + store.getImgStr());
         }
     }
 
@@ -1206,7 +1200,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
     public String[] getRackNames() {
         String[] names = new String[numRacks];
         for (int i = 0; i < numRacks; i++) {
-            names[i] = racks.get(i).getName();
+            names[i] = store.getRackIndex(i).getName();
         }
         return names;
     }
@@ -1214,9 +1208,8 @@ public final class ControlsPanel extends javax.swing.JPanel {
     /**
      * updates the main frame display with the stored information
      */
-    public void updateDisplay() {
-        String[] rackNames = getRackNames();
-        mf.updateDisplay(racks, numRacks, storeName, rackNames, imgStr);
+    public void updateDisplay() {        
+        mf.updateDisplay(store);
     }
 
     /**
@@ -1236,6 +1229,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         } else {
             _FormattedTF_NumRacks.setValue(numRacks);
         }
+        store.setNumRacks(numRacks);
 
     }
 
@@ -1255,6 +1249,8 @@ public final class ControlsPanel extends javax.swing.JPanel {
         } else {
             _FormattedTF_NumFans.setValue(numFans);
         }
+        store.getRackIndex(_ComboBox_Racks.getSelectedIndex()).setNumCondenserFans(numFans);
+        
     }
 
     /**
@@ -1273,6 +1269,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         } else {
             _FormattedTF_NumSG.setValue(numSG);
         }
+        store.getRackIndex(_ComboBox_Racks.getSelectedIndex()).setNumSuctionGroups(numSG);
     }
 
     /**
@@ -1291,6 +1288,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         } else {
             _FormattedTF_NumComp.setValue(numComp);
         }
+        store.getRackIndex(_ComboBox_Racks.getSelectedIndex()).getSuctionGroupIndex(_ComboBox_SuctionGroups.getSelectedIndex()).setNumCompressors(numComp);
     }
 
     /**
@@ -1309,21 +1307,19 @@ public final class ControlsPanel extends javax.swing.JPanel {
         } else {
             _FormattedTF_NumSystems.setValue(numSystems);
         }
+        store.getRackIndex(_ComboBox_Racks.getSelectedIndex()).getSuctionGroupIndex(_ComboBox_SuctionGroups.getSelectedIndex()).setNumSystems(numSystems);
+    }
+
+    /**_ComboBox_SuctionGroups.getSelectedIndex()).setNumSystems(numSystems);
     }
 
     /**
      * Loads the store from the menu
      *
-     * @param r rack list
-     * @param storeName store name
-     * @param imgStr file path for the logo
-     * @param numRacks number of racks
+     * @param store store
      */
-    public void loadStore(ArrayList<Rack> r, String storeName, String imgStr, int numRacks) {
-        this.racks = r;
-        this.storeName = storeName;
-        this.imgStr = imgStr;
-        this.numRacks = numRacks;
+    public void loadStore(Store store) {
+        this.store = store;
     }
 
     /**
@@ -1331,7 +1327,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      */
     public void updateRackDisplay() {
 
-        _TextField_SiteName.setText(this.storeName);
+        _TextField_SiteName.setText(this.store.getStoreName());
         this.updateStoreLogo();
         this.updateRackNames(0);
         this.loadComboBoxRacks(0);

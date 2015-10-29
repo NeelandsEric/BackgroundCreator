@@ -19,21 +19,22 @@ public class DisplayFrame extends javax.swing.JFrame {
     public MainFrame mf;
     public ArrayList<BackgroundRack> rackTabs;
     public BackgroundLoad bgl;
-    public int numRacks;
+    public Store store;
 
     /**
      * Creates new form DisplayFrame
      *
      * @param mf
+     * @param store
      */
-    public DisplayFrame(MainFrame mf) {
+    public DisplayFrame(MainFrame mf, Store store) {
         initComponents();
         this.mf = mf;
         rackTabs = new ArrayList<>();
         bg = new BackgroundMain();
-        numRacks = 5;
+        this.store = store;
         _TabbedPane_Tabs.add("Main", bg);
-        for (int i = 1; i <= numRacks; i++) {
+        for (int i = 1; i <= store.getNumRacks(); i++) {
             BackgroundRack br = new BackgroundRack((i - 1));
             _TabbedPane_Tabs.add("Rack " + i, br);
             rackTabs.add(br);
@@ -98,15 +99,11 @@ public class DisplayFrame extends javax.swing.JFrame {
     /**
      * Updates the form with the right information
      *
-     * @param racks rack list
-     * @param numRacks number of racks to read from the list
-     * @param storeName global string for the store name
-     * @param rackNames names of the racks
-     * @param img global img string for the logo
+     * @param store store
      * @param f global font
      * @param b global border
      */
-    public void updateDisplays(ArrayList<Rack> racks, int numRacks, String storeName, String[] rackNames, String img, Font f, Border b) {
+    public void updateDisplays(Store store, Font f, Border b) {
 
         JFrame t = this;
         SwingUtilities.invokeLater(new Runnable() {
@@ -117,21 +114,32 @@ public class DisplayFrame extends javax.swing.JFrame {
                 int nt = _TabbedPane_Tabs.getTabCount();
 
                 // update the main
-                bg.updateRacks(racks, numRacks, f, b, img, storeName);
+                bg.updateRacks(store.getRacks(), store.getNumRacks(), f, b,
+                        store.getImgStr(), store.getStoreName());
 
-                for (int i = nt - 2; i > numRacks; i--) {
+                for (int i = nt - 2; i > store.getNumRacks(); i--) {
                     _TabbedPane_Tabs.remove(i);
                 }
 
-                for (int i = 0; i < numRacks; i++) {
-                    if (rackTabs.get(i) != null) {
-                        rackTabs.get(i).updateRacks(racks.get(i), numRacks, f, b, img, storeName, rackNames);
+                String[] rackNames = store.getRackNames();
+                for (int i = 0; i < store.getNumRacks(); i++) {
+                    if (rackTabs.size() > i) {
+                        System.out.println("INSIDE Rack tabs size: " + rackTabs.size() + "\tNum racks: " + store.getNumRacks());
+                        if (rackTabs.get(i) != null) {
+                            rackTabs.get(i).updateRacks(store.getRackIndex(i), store.getNumRacks(), f, b, store.getImgStr(), store.getStoreName(), rackNames);
+                            _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
+                            _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);
+                        }
+                    } else {
+                        rackTabs.add(new BackgroundRack(i));
+                        rackTabs.get(i).updateRacks(store.getRackIndex(i), store.getNumRacks(), f, b, store.getImgStr(), store.getStoreName(), rackNames);
                         _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
                         _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);
+                        System.out.println("OUTSIDE Rack tabs size: " + rackTabs.size() + "\tNum racks: " + store.getNumRacks());
                     }
                 }
 
-                bgl.updateRacks(racks, numRacks, f, b, img, storeName);
+                bgl.updateRacks(store.getRacks(), store.getNumRacks(), f, b, store.getImgStr(), store.getStoreName());
 
                 if (selected == (nt - 1)) {
                     if (_TabbedPane_Tabs.getTabCount() < nt) {
@@ -159,7 +167,7 @@ public class DisplayFrame extends javax.swing.JFrame {
      */
     public void updateFont(Font f) {
         bg.updateFont(f);
-        for (int i = 0; i < numRacks; i++) {
+        for (int i = 0; i < store.getNumRacks(); i++) {
             if (rackTabs.get(i) != null) {
                 rackTabs.get(i).updateFont(f);
             }
@@ -173,7 +181,7 @@ public class DisplayFrame extends javax.swing.JFrame {
      */
     public void updateBorder(Border b) {
         bg.updateBorder(b);
-        for (int i = 0; i < numRacks; i++) {
+        for (int i = 0; i < store.getNumRacks(); i++) {
             if (rackTabs.get(i) != null) {
                 rackTabs.get(i).updateBorder(b);
             }
@@ -185,7 +193,7 @@ public class DisplayFrame extends javax.swing.JFrame {
      */
     public void updateLogo() {
         bg.updateImageURL("");
-        for (int i = 0; i < numRacks; i++) {
+        for (int i = 0; i < store.getNumRacks(); i++) {
             if (rackTabs.get(i) != null) {
                 rackTabs.get(i).updateImageURL("");
             }
@@ -199,7 +207,7 @@ public class DisplayFrame extends javax.swing.JFrame {
      */
     public void updateLogo(String img) {
         bg.updateImageURL(img);
-        for (int i = 0; i < numRacks; i++) {
+        for (int i = 0; i < store.getNumRacks(); i++) {
             if (rackTabs.get(i) != null) {
                 rackTabs.get(i).updateImageURL(img);
             }
@@ -227,11 +235,11 @@ public class DisplayFrame extends javax.swing.JFrame {
     }
 
     public Component[] getPanelPictures() {
-        Component[] c = new Component[numRacks + 2];
+        Component[] c = new Component[store.getNumRacks() + 2];
 
         c[0] = bg;
 
-        for (int i = 1; i <= numRacks; i++) {
+        for (int i = 1; i <= store.getNumRacks(); i++) {
             c[i] = rackTabs.get(i - 1);
         }
 
