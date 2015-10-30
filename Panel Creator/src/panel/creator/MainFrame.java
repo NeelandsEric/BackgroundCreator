@@ -6,8 +6,6 @@
 package panel.creator;
 
 import java.awt.AWTException;
-import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
@@ -17,7 +15,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.border.Border;
@@ -31,9 +28,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class MainFrame extends JFrame {
 
     private final PanelCreator main;
-    public DisplayFrame displayFrame;
-    public SettingsPanel settingsPanel;
+    public DisplayFrame displayFrame;    
     public ControlsPanel controlPanel;
+    public SettingsPanel settingsPanel;
+    public NameGeneratorPanel ngPanel;
     public Store store;
 
     /**
@@ -43,7 +41,7 @@ public class MainFrame extends JFrame {
      */
     public MainFrame(PanelCreator main) {
         this.main = main;
-        store = new Store();
+        store = new Store("Store");
         initComponents();
         initPanels();
         
@@ -54,13 +52,17 @@ public class MainFrame extends JFrame {
         controlPanel = new ControlsPanel(this, store);
         displayFrame = new DisplayFrame(this, store);
         settingsPanel = new SettingsPanel(this);
+        ngPanel = new NameGeneratorPanel(this, store);
+        
         // Load the main panel        
-        controlPanel.setVisible(true);
+        //controlPanel.setVisible(true);
         displayFrame.setVisible(true);
         controlPanel.updateDisplay();
+        ngPanel.loadGroups();
         // add it to the frame           
         _TabbedPane_Tabs.add("Controls", controlPanel);
         _TabbedPane_Tabs.add("Settings", settingsPanel);
+        _TabbedPane_Tabs.add("Name Generator", ngPanel);
 
     }
 
@@ -401,8 +403,7 @@ public class MainFrame extends JFrame {
     private void _MenuItem_SaveAllDisplaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveAllDisplaysActionPerformed
         // TODO add your handling code here:
 
-        int sIndex = displayFrame.getTabSelection();
-
+        
         int returnVal = _FileChooser_SaveIntoFolder.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
@@ -414,7 +415,7 @@ public class MainFrame extends JFrame {
             BufferedImage bi;
             
             for (int i = 0; i < numDisplays; i++) {
-                System.out.println(i + ": " + fileNames[i]);
+                //System.out.println(i + ": " + fileNames[i]);
                 try {
                     if(i == 0){
                         bi = ScreenImage.createImage(displayFrame.bg);

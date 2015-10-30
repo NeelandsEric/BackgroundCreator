@@ -1,0 +1,76 @@
+`Store`
+Cents/kWh
+Outside Air Temp
+`Racks`
+Cond Out Pressure Temp `%rackname`
+Cond Out Pressure Actual `%rackname`
+Cond Pressure Setpoint `%rackname`
+Cond Saturation `%rackname`
+Cond Out Pres Subcooling `%rackname`
+Cost Actual `%rackname`
+Cost Difference `%rackname`
+Cost Predicted `%rackname`
+KW Actual `%rackname`
+KW Difference `%rackname`
+KW Predicted `%rackname`
+Op Cost Current Year Day `%rackname`
+Op Cost Current Year Month `%rackname`
+Op Cost Current Year Year `%rackname`
+Op Cost Previous Year Day `%rackname`
+Op Cost Previous Year Month `%rackname`
+Op Cost Previous Year Year `%rackname`
+LE Cooling Load `%rackname`
+LE COP `%rackname`
+Performance $/ton `%rackname`
+Performance $/ton Difference `%rackname`
+Performance kW Current `%rackname`
+Performance kW Current Difference `%rackname`
+Performance kW Month `%rackname`
+Performance kW Month Difference `%rackname`
+Performance kW Today `%rackname`
+Performance kW Today Difference `%rackname`
+SEI `%rackname`
+`Condenser Fans`
+Cond Fan Fault `%rackname` `%fannum`
+Cond Fan Amps `%rackname` `%fannum`
+Cond Fan Status `%rackname` `%fannum`
+Cond Fan RUN `%rackname` `%fannum`
+`Suction Groups`
+Discharge Temp `%rackname` `%sgname`	
+Discharge Pressure Actual `%rackname` `%sgname`
+Discharge Pressure Setpoint `%rackname` `%sgname`
+Discharge Saturation `%rackname` `%sgname`
+Discharge Superheat `%rackname` `%sgname`
+Suction Temp `%rackname` `%sgname`
+Suction Pressure Actual `%rackname` `%sgname`
+Suction Pressure Setpoint `%rackname` `%sgname`
+Suction Saturation `%rackname` `%sgname`
+Suction Superheat `%rackname` `%sgname`
+Liquid Temp `%rackname` `%sgname`
+Liquid Pressure Actual `%rackname` `%sgname`
+Liquid Pressure Setpoint `%rackname` `%sgname`
+Liquid Saturation `%rackname` `%sgname`
+Liquid Subcooling `%rackname` `%sgname`
+`Systems`
+Loads Capacity `%sysname`
+Loads Cost Difference `%sysname`
+Loads EEPR `%sysname`
+Loads EEPR Difference `%sysname`
+Loads EEPR Predicted `%sysname`
+Loads kW `%sysname`
+Loads kW Difference `%sysname`
+Loads Setpoint `%sysname`
+Loads Temp `%sysname`
+Loads kW Difference `%sysname`
+Loads kW Difference `%sysname`
+System Status `%sysname`
+`Compressors`
+Comp Amps `%compname`
+Comp Discharge Temp `%compname`
+Comp Fault `%compname`
+Comp kWh Today `%compname`
+Comp Status `%compname`
+Comp SLA `%rackname` `%sgname` `%compname`
+Comp RUN `%rackname` `%sgname` `%compname`
+Comp Discharge Limit `%rackname` `%compname`
+Comp Amp Limit `%rackname` `%compname`

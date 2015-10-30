@@ -123,8 +123,7 @@ public class DisplayFrame extends javax.swing.JFrame {
 
                 String[] rackNames = store.getRackNames();
                 for (int i = 0; i < store.getNumRacks(); i++) {
-                    if (rackTabs.size() > i) {
-                        System.out.println("INSIDE Rack tabs size: " + rackTabs.size() + "\tNum racks: " + store.getNumRacks());
+                    if (rackTabs.size() > i) {                        
                         if (rackTabs.get(i) != null) {
                             rackTabs.get(i).updateRacks(store.getRackIndex(i), store.getNumRacks(), f, b, store.getImgStr(), store.getStoreName(), rackNames);
                             _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
@@ -134,8 +133,7 @@ public class DisplayFrame extends javax.swing.JFrame {
                         rackTabs.add(new BackgroundRack(i));
                         rackTabs.get(i).updateRacks(store.getRackIndex(i), store.getNumRacks(), f, b, store.getImgStr(), store.getStoreName(), rackNames);
                         _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
-                        _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);
-                        System.out.println("OUTSIDE Rack tabs size: " + rackTabs.size() + "\tNum racks: " + store.getNumRacks());
+                        _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);                        
                     }
                 }
 
