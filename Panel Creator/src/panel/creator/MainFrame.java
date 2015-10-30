@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.border.Border;
@@ -52,7 +53,7 @@ public class MainFrame extends JFrame {
         controlPanel = new ControlsPanel(this, store);
         displayFrame = new DisplayFrame(this, store);
         settingsPanel = new SettingsPanel(this);
-        ngPanel = new NameGeneratorPanel(this, store);
+        ngPanel = new NameGeneratorPanel(this);
         
         // Load the main panel        
         //controlPanel.setVisible(true);
@@ -100,6 +101,23 @@ public class MainFrame extends JFrame {
         Border b = settingsPanel.getBorder();        
         displayFrame.updateDisplays(store, f, b);
     }
+    
+    
+    public void updateVarNames(ArrayList<String> storeStr, ArrayList<String> rackStr,
+                                ArrayList<String> condStr, ArrayList<String> sgStr,
+                                ArrayList<String> compStr, ArrayList<String>  sysStr,
+                                ArrayList<String> extraStr){
+        store.setStoreStr(storeStr);
+        store.setRackStr(rackStr);
+        store.setCondStr(condStr);
+        store.setSgStr(sgStr);
+        store.setCompStr(compStr);
+        store.setSysStr(sysStr);
+        store.setExtraStr(extraStr);
+        
+        
+    }
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -115,13 +133,16 @@ public class MainFrame extends JFrame {
         _FileChooser_SaveStore = new javax.swing.JFileChooser();
         _FileChooser_LoadStore = new javax.swing.JFileChooser();
         _FileChooser_SaveIntoFolder = new javax.swing.JFileChooser();
+        _FileChooser_SaveCSV = new javax.swing.JFileChooser();
         _TabbedPane_Tabs = new javax.swing.JTabbedPane();
         _MenuBar_Menus = new javax.swing.JMenuBar();
         _Menu_File = new javax.swing.JMenu();
         _MenuItem_SaveCurrentDisplay = new javax.swing.JMenuItem();
         _MenuItem_SaveAllDisplays = new javax.swing.JMenuItem();
-        _MenuItem_SaveStore = new javax.swing.JMenuItem();
+        _MenuItem_PrintVarNames = new javax.swing.JMenuItem();
         _MenuItem_OpenStore = new javax.swing.JMenuItem();
+        _MenuItem_SaveStore = new javax.swing.JMenuItem();
+        _MenuItem_NewStore = new javax.swing.JMenuItem();
         _MenuItem_Close = new javax.swing.JMenuItem();
         _Menu_View = new javax.swing.JMenu();
         _MenuItem_ViewPanel = new javax.swing.JMenuItem();
@@ -164,6 +185,13 @@ public class MainFrame extends JFrame {
         _FileChooser_SaveIntoFolder.setFileFilter(new panel.creator.FilterFolder());
         _FileChooser_SaveIntoFolder.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
+        _FileChooser_SaveCSV.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+        _FileChooser_SaveCSV.setApproveButtonText("Save");
+        _FileChooser_SaveCSV.setApproveButtonToolTipText("Save CSV");
+        _FileChooser_SaveCSV.setCurrentDirectory(null);
+        _FileChooser_SaveCSV.setDialogTitle("Directory to save a picture");
+        _FileChooser_SaveCSV.setFileFilter(new FileNameExtensionFilter("CSV (.csv)", new String[]{"csv"}));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Image Creator");
         setMinimumSize(new java.awt.Dimension(1045, 629));
@@ -180,7 +208,7 @@ public class MainFrame extends JFrame {
         });
         _Menu_File.add(_MenuItem_SaveCurrentDisplay);
 
-        _MenuItem_SaveAllDisplays.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_SaveAllDisplays.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
         _MenuItem_SaveAllDisplays.setText("Save All Displays");
         _MenuItem_SaveAllDisplays.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,14 +217,14 @@ public class MainFrame extends JFrame {
         });
         _Menu_File.add(_MenuItem_SaveAllDisplays);
 
-        _MenuItem_SaveStore.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        _MenuItem_SaveStore.setText("Save Store");
-        _MenuItem_SaveStore.addActionListener(new java.awt.event.ActionListener() {
+        _MenuItem_PrintVarNames.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_PrintVarNames.setText("Print Variable Names");
+        _MenuItem_PrintVarNames.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _MenuItem_SaveStoreActionPerformed(evt);
+                _MenuItem_PrintVarNamesActionPerformed(evt);
             }
         });
-        _Menu_File.add(_MenuItem_SaveStore);
+        _Menu_File.add(_MenuItem_PrintVarNames);
 
         _MenuItem_OpenStore.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         _MenuItem_OpenStore.setText("Open Store");
@@ -207,6 +235,25 @@ public class MainFrame extends JFrame {
         });
         _Menu_File.add(_MenuItem_OpenStore);
 
+        _MenuItem_SaveStore.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_SaveStore.setText("Save Store");
+        _MenuItem_SaveStore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _MenuItem_SaveStoreActionPerformed(evt);
+            }
+        });
+        _Menu_File.add(_MenuItem_SaveStore);
+
+        _MenuItem_NewStore.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_NewStore.setText("New Store");
+        _MenuItem_NewStore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _MenuItem_NewStoreActionPerformed(evt);
+            }
+        });
+        _Menu_File.add(_MenuItem_NewStore);
+
+        _MenuItem_Close.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         _MenuItem_Close.setText("Exit");
         _MenuItem_Close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -378,23 +425,26 @@ public class MainFrame extends JFrame {
             try {
                 FileInputStream fis = new FileInputStream(filePath);
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                Store store = (Store) ois.readObject();                
+                this.store = (Store) ois.readObject();                
                 ois.close();
                 fis.close();                
                 System.out.println("Store read properly");
                 controlPanel.loadStore(store);
                 controlPanel.updateRackDisplay();
+                ngPanel.loadStore(store);
 
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             } catch (ClassNotFoundException c) {
                 System.out.println("Class not found");
                 c.printStackTrace();
-            }
+            } 
+            /*
             System.out.println("Store Load Debug\nRack count: " + controlPanel.store.getNumRacks());
             for (Rack r : controlPanel.store.getRacks()) {
                 System.out.println(r);
-            }
+            }*/
+            
         } else {
             System.out.println("File access cancelled by user.");
         }
@@ -445,22 +495,48 @@ public class MainFrame extends JFrame {
         System.out.println("Changed to " + r);
     }//GEN-LAST:event__MenuItem_changedisplayActionPerformed
 
-    //================================================================
-    //================================================================
-    //                      Functions
-    //================================================================
-    //================================================================
+    private void _MenuItem_NewStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_NewStoreActionPerformed
+        // TODO add your handling code here:
+        displayFrame.dispose();
+        _TabbedPane_Tabs.removeAll();
+        this.store = new Store("New Store");
+        initPanels();
+        
+        
+    }//GEN-LAST:event__MenuItem_NewStoreActionPerformed
+
+    private void _MenuItem_PrintVarNamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintVarNamesActionPerformed
+        // TODO add your handling code here:
+        int returnVal = _FileChooser_SaveCSV.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            File file = _FileChooser_SaveCSV.getSelectedFile();            
+            //System.out.println("File: " + file.getAbsolutePath());
+            String filePath = file.getAbsolutePath();
+            
+            //this.store.writeCSV(filePath);
+           this.store.formatStrings();
+           
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+        
+    }//GEN-LAST:event__MenuItem_PrintVarNamesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser _FileChooser_LoadLogo;
     private javax.swing.JFileChooser _FileChooser_LoadStore;
+    private javax.swing.JFileChooser _FileChooser_SaveCSV;
     private javax.swing.JFileChooser _FileChooser_SaveIntoFolder;
     private javax.swing.JFileChooser _FileChooser_SavePicture;
     private javax.swing.JFileChooser _FileChooser_SaveStore;
     private javax.swing.JMenuBar _MenuBar_Menus;
     private javax.swing.JMenuItem _MenuItem_Close;
+    private javax.swing.JMenuItem _MenuItem_NewStore;
     private javax.swing.JMenuItem _MenuItem_OpenImage;
     private javax.swing.JMenuItem _MenuItem_OpenStore;
+    private javax.swing.JMenuItem _MenuItem_PrintVarNames;
     private javax.swing.JMenuItem _MenuItem_RemoveImage;
     private javax.swing.JMenuItem _MenuItem_SaveAllDisplays;
     private javax.swing.JMenuItem _MenuItem_SaveCurrentDisplay;

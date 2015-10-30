@@ -61,6 +61,18 @@
         <Property name="fileSelectionMode" type="int" value="1"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.JFileChooser" name="_FileChooser_SaveCSV">
+      <Properties>
+        <Property name="dialogType" type="int" value="1"/>
+        <Property name="approveButtonText" type="java.lang.String" value="Save"/>
+        <Property name="approveButtonToolTipText" type="java.lang.String" value="Save CSV"/>
+        <Property name="currentDirectory" type="java.io.File" value="null"/>
+        <Property name="dialogTitle" type="java.lang.String" value="Directory to save a picture"/>
+        <Property name="fileFilter" type="javax.swing.filechooser.FileFilter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new FileNameExtensionFilter(&quot;CSV (.csv)&quot;, new String[]{&quot;csv&quot;})" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="_MenuBar_Menus">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="_Menu_File">
@@ -82,7 +94,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_SaveAllDisplays">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Shift+Ctrl+A"/>
+                  <KeyStroke key="Ctrl+D"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Save All Displays"/>
               </Properties>
@@ -90,15 +102,15 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_SaveAllDisplaysActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_SaveStore">
+            <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_PrintVarNames">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+S"/>
+                  <KeyStroke key="Ctrl+P"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Save Store"/>
+                <Property name="text" type="java.lang.String" value="Print Variable Names"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_SaveStoreActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_PrintVarNamesActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_OpenStore">
@@ -112,8 +124,33 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_OpenStoreActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_SaveStore">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+S"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Save Store"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_SaveStoreActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_NewStore">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+N"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="New Store"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_NewStoreActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_Close">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+X"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>
               <Events>
