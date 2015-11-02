@@ -1162,7 +1162,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
     }
 
     /**
-     * updaetes the store logo based on the string stored
+     * updates the store logo based on the string stored
      */
     public void updateStoreLogo() {
         try {
