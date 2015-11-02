@@ -413,7 +413,7 @@ public class MainFrame extends JFrame {
 
     private void _MenuItem_OpenStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_OpenStoreActionPerformed
 
-        int returnVal = _FileChooser_LoadStore.showSaveDialog(this);
+        int returnVal = _FileChooser_LoadStore.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
             File file = _FileChooser_LoadStore.getSelectedFile();
@@ -429,8 +429,7 @@ public class MainFrame extends JFrame {
                 ois.close();
                 fis.close();                
                 System.out.println("Store read properly");
-                controlPanel.loadStore(store);
-                controlPanel.updateRackDisplay();
+                controlPanel.loadStore(store);                
                 ngPanel.loadStore(store);
 
             } catch (IOException ioe) {
@@ -461,8 +460,9 @@ public class MainFrame extends JFrame {
             //System.out.println("FP: " + filePath);
             String[] fileNames = controlPanel.getFileNames(filePath, displayFrame.bg.getSize());
             int numDisplays = displayFrame.getTabCount();
-
+            this.store.writeCSV(filePath + " " + store.getStoreName() + "-IO Names.csv");
             BufferedImage bi;
+            System.out.println("Num displays: " + numDisplays + "\tfilenames length: " + fileNames.length);
             
             for (int i = 0; i < numDisplays; i++) {
                 //System.out.println(i + ": " + fileNames[i]);
@@ -477,6 +477,7 @@ public class MainFrame extends JFrame {
                     
                     ScreenImage.writeImage(bi, fileNames[i]);
                     //ScreenImage.createImage();
+                    
                 } catch (IOException e) {
                     System.out.println("Error " + e.getMessage());
                 }

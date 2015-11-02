@@ -994,8 +994,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
     public void loadRackOptions(int index) {
 
         // Load all the options for the index'd rack
-        Rack cr = store.getRackIndex(index);
-
+        Rack cr = store.getRackIndex(index);       
         numFans = cr.getNumCondenserFans();
         numSG = cr.getNumSuctionGroups();
         _FormattedTF_NumFans.setText("" + numFans);
@@ -1167,6 +1166,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      */
     public void updateStoreLogo() {
         try {
+            System.out.println("Image path: " + store.getImgStr());
             ImageIcon icon = new ImageIcon(store.getImgStr());
             _Label_StoreLogo.setText("");
             _Label_StoreLogo.setIcon(icon);
@@ -1319,6 +1319,8 @@ public final class ControlsPanel extends javax.swing.JPanel {
      */
     public void loadStore(Store store) {
         this.store = store;
+        this.updateRackDisplay();
+        
     }
 
     /**
@@ -1327,10 +1329,12 @@ public final class ControlsPanel extends javax.swing.JPanel {
     public void updateRackDisplay() {
 
         _TextField_SiteName.setText(this.store.getStoreName());
+        numRacks = this.store.getNumRacks();
+        _FormattedTF_NumRacks.setText(String.valueOf(numRacks));
         this.updateStoreLogo();
         this.updateRackNames(0);
         this.loadComboBoxRacks(0);
-        loadRackOptions(0);
+        this.loadRackOptions(0);
         this.updateDisplay();
     }
 

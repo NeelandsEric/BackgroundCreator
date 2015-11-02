@@ -257,6 +257,7 @@ public class Store implements java.io.Serializable {
         SuctionGroup sucG;
         String compName, sysName;
 
+        
         for (int i = 0; i < numRacks; i++) {
             // do all racks
             r = this.getRackIndex(i);
@@ -266,19 +267,6 @@ public class Store implements java.io.Serializable {
             sucG = r.getSuctionGroupIndex(0);
             compName = sucG.getCompressorNameIndex(0);
             sysName = sucG.getSystemNameIndex(0);
-
-            for (String s : rackStr) {
-                newString = new String[1];
-                newString[0] = s
-                        .replace("`%rackname`", rName)
-                        .replace("`%fannum`", fannum)
-                        .replace("`%sgname`", sgName)
-                        .replace("`%compname`", compName)
-                        .replace("`%sysname`", sysName);
-
-                System.out.println("New string: " + newString[0] + "\tFrom old string: " + s);
-                vars.add(newString);
-            }
 
             // CONDENSERS
             numfans = r.getNumCondenserFans();
@@ -294,7 +282,7 @@ public class Store implements java.io.Serializable {
                             .replace("`%compname`", compName)
                             .replace("`%sysname`", sysName);
 
-                    System.out.println("New string: " + newString[0] + "\tFrom old string: " + s);
+                    //System.out.println("New string: " + newString[0] + "\tFrom old string: " + s);
                     vars.add(newString);
                 }
 
@@ -314,7 +302,7 @@ public class Store implements java.io.Serializable {
                             .replace("`%compname`", compName)
                             .replace("`%sysname`", sysName);
 
-                    System.out.println("New string: " + newString[0] + "\tFrom old string: " + s);
+                    //System.out.println("New string: " + newString[0] + "\tFrom old string: " + s);
                     vars.add(newString);
                 }
 
@@ -333,7 +321,7 @@ public class Store implements java.io.Serializable {
                                 .replace("`%compname`", compName)
                                 .replace("`%sysname`", sysName);
 
-                        System.out.println("New string: " + newString[0] + "\tFrom old string: " + s);
+                        //System.out.println("New string: " + newString[0] + "\tFrom old string: " + s);
                         vars.add(newString);
                     }
                 }
@@ -352,13 +340,29 @@ public class Store implements java.io.Serializable {
                                 .replace("`%compname`", compName)
                                 .replace("`%sysname`", sysName);
 
-                        System.out.println("New string: " + newString[0] + "\tFrom old string: " + s);
+                        //System.out.println("New string: " + newString[0] + "\tFrom old string: " + s);
                         vars.add(newString);
                     }
 
                 }
 
             }
+        }
+
+        for (String s : storeStr) {
+            newString = new String[1];
+            newString[0] = s;
+
+            //System.out.println("New string: " + newString[0] + "\tFrom old string: " + s);
+            vars.add(newString);
+        }
+
+        for (String s : extraStr) {
+            newString = new String[1];
+            newString[0] = s;
+
+            //System.out.println("New string: " + newString[0] + "\tFrom old string: " + s);
+            vars.add(newString);
         }
 
         end = System.currentTimeMillis();
