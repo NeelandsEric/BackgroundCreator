@@ -1165,8 +1165,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * updates the store logo based on the string stored
      */
     public void updateStoreLogo() {
-        try {
-            System.out.println("Image path: " + store.getImgStr());
+        try {            
             ImageIcon icon = new ImageIcon(store.getImgStr());
             _Label_StoreLogo.setText("");
             _Label_StoreLogo.setIcon(icon);

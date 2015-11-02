@@ -1,11 +1,9 @@
 package panel.creator;
 
 import java.awt.Component;
-import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
 
 /**
  * The display frame which shows the different backgrounds
@@ -102,8 +100,6 @@ public class DisplayFrame extends javax.swing.JFrame {
      * Updates the form with the right information
      *
      * @param store store
-     * @param f global font
-     * @param b global border
      */
     public void updateDisplays(Store store) {
 
@@ -159,35 +155,24 @@ public class DisplayFrame extends javax.swing.JFrame {
         });
 
     }
-
-    /**
-     * update the font
-     *
-     * @param f Font
-     */
-    public void updateFont(Font f) {
-        bg.updateFont(f);
+    
+    public void updateSettings(DisplaySettings ds){
+        this.store.setDs(ds);
+        
+        bg.updateFont(ds.getFont());
+        bg.updateBorder(ds.getBorder());
         for (int i = 0; i < store.getNumRacks(); i++) {
             if (rackTabs.get(i) != null) {
-                rackTabs.get(i).updateFont(f);
+                rackTabs.get(i).updateFont(ds.getFont());
+                rackTabs.get(i).updateBorder(ds.getBorder());
             }
         }
+        bgl.updateFont(ds.getFont());
+        bgl.updateBorder(ds.getBorder());
+        
     }
 
-    /**
-     * Update the border
-     *
-     * @param b Border
-     */
-    public void updateBorder(Border b) {
-        bg.updateBorder(b);
-        for (int i = 0; i < store.getNumRacks(); i++) {
-            if (rackTabs.get(i) != null) {
-                rackTabs.get(i).updateBorder(b);
-            }
-        }
-    }
-
+    
     /**
      * update the logo
      */

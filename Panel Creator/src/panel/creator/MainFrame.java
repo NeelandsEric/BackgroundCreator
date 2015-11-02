@@ -78,20 +78,16 @@ public class MainFrame extends JFrame {
 
     public void updateDisplaySize(DisplaySettings ds) {
         //displayFrame.setNewSize(width, height);
-        store.setDs(ds);
+        this.store.setDs(ds);
         displayFrame.setSize(ds.getDisplayWidth(), ds.getDisplayHeight());
     }
 
        
-    public void updateFont(DisplaySettings ds) {
-        store.setDs(ds);
-        displayFrame.updateFont(ds.getFont());
+    public void updateSettings(DisplaySettings ds) {
+        this.store.setDs(ds);
+        displayFrame.updateSettings(ds);
     }
 
-    public void updateBorder(DisplaySettings ds) {
-        store.setDs(ds);
-        displayFrame.updateBorder(ds.getBorder());
-    }
 
     public void displayPanel(int width, int height) {
         displayFrame.setNewSize(width, height);
@@ -399,11 +395,15 @@ public class MainFrame extends JFrame {
             // What to do with the file, e.g. display it in a TextArea
 
             try {
+                Store s = controlPanel.store;
+                s.setDs(this.store.getDs());
+                System.out.println(s.getDs().getColor());
                 FileOutputStream fos = new FileOutputStream(fn);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
-                oos.writeObject(controlPanel.store); 
+                oos.writeObject(s); 
                 oos.close();
                 fos.close();
+                
                 System.out.println("Store saved");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -432,17 +432,13 @@ public class MainFrame extends JFrame {
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 this.store = (Store) ois.readObject();                
                 ois.close();
-                fis.close();                
+                fis.close();    
+                settingsPanel.loadSettings(this.store.getDs());
+                controlPanel.loadStore(this.store);                
+                ngPanel.loadStore(this.store);
                 System.out.println("Store read properly");
-                settingsPanel.loadSettings(store.getDs());
-                controlPanel.loadStore(store);                
-                ngPanel.loadStore(store);
-
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-            } catch (ClassNotFoundException c) {
-                System.out.println("Class not found");
-                c.printStackTrace();
+            } catch (Exception e) {
+                System.out.println("Error with open store: " + e.getMessage());
             } 
             /*
             System.out.println("Store Load Debug\nRack count: " + controlPanel.store.getNumRacks());

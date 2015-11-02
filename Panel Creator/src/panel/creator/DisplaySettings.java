@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package panel.creator;
 
 import java.awt.Color;
@@ -10,29 +5,31 @@ import java.awt.Font;
 import javax.swing.border.Border;
 
 /**
- *
+ * 
  * @author EricGummerson
  */
-public class DisplaySettings implements java.io.Serializable{
+public class DisplaySettings implements java.io.Serializable {
+
     
+    private static final long serialVersionUID = 422L;
     public int displayWidth;
     public int displayHeight;
-    public Font font;   
+    public Font font;
     public Border border;
     public int borderSize;
     public int fontTypeSel, fontSizeSel, borderTypeSel, borderSizeSel;
-    public Color color;
+    public boolean bold, italic;
+    public String colorStr;
 
     public DisplaySettings() {
         this.displayWidth = 1200;
         this.displayHeight = 900;
-        
+
     }
-    
-    
-    public DisplaySettings(int displayWidth, int displayHeight, Font font, 
+
+    public DisplaySettings(int displayWidth, int displayHeight, Font font,
             Border border, int borderSize, int fontTypeSel, int fontSizeSel,
-            int borderTypeSel, int borderSizeSel, Color color) {
+            int borderTypeSel, int borderSizeSel, boolean bold, boolean italic, Color color) {
         this.displayWidth = displayWidth;
         this.displayHeight = displayHeight;
         this.font = font;
@@ -42,7 +39,9 @@ public class DisplaySettings implements java.io.Serializable{
         this.fontSizeSel = fontSizeSel;
         this.borderTypeSel = borderTypeSel;
         this.borderSizeSel = borderSizeSel;
-        this.color = color;
+        this.bold = bold;
+        this.italic = italic;        
+        this.colorStr = String.valueOf(color.getRGB());
     }
 
     public int getDisplayWidth() {
@@ -117,17 +116,28 @@ public class DisplaySettings implements java.io.Serializable{
         this.borderSizeSel = borderSizeSel;
     }
 
+    public boolean isBold() {
+        return bold;
+    }
+
+    public void setBold(boolean bold) {
+        this.bold = bold;
+    }
+
+    public boolean isItalic() {
+        return italic;
+    }
+
+    public void setItalic(boolean italic) {
+        this.italic = italic;
+    }
+
     public Color getColor() {
-        return color;
+        return new Color(Integer.parseInt(colorStr));
     }
 
-    public void setColor(Color color) {
-        this.color = color;
+    public void setColor(Color color) {        
+        this.colorStr = String.valueOf(color.getRGB());
     }
 
-    
-    
-    
-    
-    
 }
