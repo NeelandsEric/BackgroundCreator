@@ -1153,7 +1153,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
     }
 
     /**
-     * removes the string of the store logo
+     * removes the string of the store logo 
      */
     public void removeStoreLogo() {
         store.setImgStr("");
