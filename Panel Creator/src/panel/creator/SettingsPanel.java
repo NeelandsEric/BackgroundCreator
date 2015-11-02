@@ -13,10 +13,12 @@ import javax.swing.event.ChangeListener;
 /**
  * Settings frame controls the font, font size, font color, border style, border
  * color, as well as display sizes
+ *
  * @author EricGummerson
  */
 public class SettingsPanel extends javax.swing.JPanel implements ChangeListener {
 
+    private DisplaySettings ds;
     private final MainFrame mf;
     public int displayWidth;
     public int displayHeight;
@@ -28,8 +30,6 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
     public String[] fonts;
     public String[] fontSizes;
 
-    public Color background;
-    public Color background2;
     public GraphicsEnvironment ge;
 
     /**
@@ -40,6 +40,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
     public SettingsPanel(MainFrame mf) {
         initComponents();
         this.mf = mf;
+        ds = new DisplaySettings();
         displayWidth = 1200;
         displayHeight = 900;
 
@@ -58,13 +59,19 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
 
         _ColorChooser_Color.getSelectionModel().addChangeListener(this);
         color = Color.WHITE;
+        _ComboBox_Borders.setSelectedIndex(0);
+        _ComboBox_BorderSize.setSelectedIndex(1);
         borderSize = 1;
         border = BorderFactory.createLineBorder(color);
         _Panel_BorderPanel.setBorder(border);
+
+        ds = new DisplaySettings(displayWidth, displayHeight, font, border, borderSize, 11, 6, 0, 1, color);
+
     }
 
     /**
      * sets the dimensions of the frame
+     *
      * @param d dimension
      */
     public void setDim(Dimension d) {
@@ -72,6 +79,9 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
         _FormattedTextField_Width.setText(String.valueOf(displayWidth));
         displayHeight = (int) d.getHeight();
         _FormattedTextField_Height.setText(String.valueOf(displayHeight));
+
+        ds.setDisplayWidth(displayWidth);
+        ds.setDisplayHeight(displayHeight);
     }
 
     /**
@@ -341,11 +351,11 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
             int val = Integer.parseInt(_FormattedTextField_Width.getText());
             val = Math.abs(val);
             displayWidth = val;
+            ds.setDisplayWidth(displayWidth);
             String sVal = String.valueOf(val);
-
             _FormattedTextField_Width.setText(sVal);
         }
-        mf.updateDisplaySize(displayWidth, displayHeight);
+        mf.updateDisplaySize(ds);
     }//GEN-LAST:event__FormattedTextField_WidthFocusLost
 
     private void _FormattedTextField_HeightFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event__FormattedTextField_HeightFocusLost
@@ -356,11 +366,11 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
             int val = Integer.parseInt(_FormattedTextField_Height.getText());
             val = Math.abs(val);
             displayHeight = val;
+            ds.setDisplayHeight(displayHeight);
             String sVal = String.valueOf(val);
-
             _FormattedTextField_Height.setText(sVal);
         }
-        mf.updateDisplaySize(displayWidth, displayHeight);
+        mf.updateDisplaySize(ds);
     }//GEN-LAST:event__FormattedTextField_HeightFocusLost
 
     private void _Button_DefaultSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_DefaultSettingsActionPerformed
@@ -373,7 +383,11 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
         _CheckBox_Bold.setEnabled(false);
         _CheckBox_Italic.setEnabled(false);
         _ComboBox_Fonts.setSelectedIndex(11);
-        _ComboBox_FontSize.setSelectedIndex(12);
+        _ComboBox_FontSize.setSelectedIndex(6);
+        _ComboBox_Borders.setSelectedIndex(0);
+        _ComboBox_BorderSize.setSelectedIndex(1);
+        ds = new DisplaySettings(displayWidth, displayHeight, font, border, borderSize, 11, 6, 0, 1, color);
+        
         updateFontLabel();
     }//GEN-LAST:event__Button_DefaultSettingsActionPerformed
 
@@ -381,6 +395,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
         // TODO add your handling code here:
         // Update the border
         int index = _ComboBox_Borders.getSelectedIndex();
+        int bIndex = index;
         color = _ColorChooser_Color.getColor();
         switch (index) {
 
@@ -410,16 +425,21 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
                 break;
         }
 
+        ds.setColor(color);
+        ds.setBorder(border);
+        ds.setBorderSize(borderSize);
+        ds.setBorderTypeSel(bIndex);
+        ds.setBorderSizeSel(_ComboBox_BorderSize.getSelectedIndex());
         _Panel_BorderPanel.setBorder(border);
-        mf.updateBorder(border);
+        mf.updateBorder(ds);
 
     }//GEN-LAST:event__ComboBox_BordersActionPerformed
 
     private void _ComboBox_BorderSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_BorderSizeActionPerformed
         // TODO add your handling code here:
         borderSize = Integer.parseInt((String) _ComboBox_BorderSize.getSelectedItem());
-
         int index = _ComboBox_Borders.getSelectedIndex();
+        int bIndex = index;
         color = _ColorChooser_Color.getColor();
         switch (index) {
 
@@ -448,9 +468,13 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
                 border = BorderFactory.createEmptyBorder();
                 break;
         }
-
+        ds.setColor(color);
+        ds.setBorder(border);
+        ds.setBorderSize(borderSize);
+        ds.setBorderTypeSel(bIndex);
+        ds.setBorderSizeSel(_ComboBox_BorderSize.getSelectedIndex());
         _Panel_BorderPanel.setBorder(border);
-        mf.updateBorder(border);
+        mf.updateBorder(ds);
     }//GEN-LAST:event__ComboBox_BorderSizeActionPerformed
 
     private void updateFontLabel() {
@@ -471,17 +495,43 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
 
         Font f = new Font(name, style, size);
         font = f;
+        ds.setFont(font);
+        ds.setFontTypeSel(_ComboBox_Fonts.getSelectedIndex());
+        ds.setFontSizeSel(_ComboBox_FontSize.getSelectedIndex());
         _Label_Font.setFont(f);
 
-        mf.updateFont(f);
+        mf.updateFont(ds);
     }
 
-    public Font getFontData() {
+    public Font getCustomFont() {
         return font;
     }
 
-    public Border getBorder() {
+    public Border getCustomBorder() {
         return border;
+    }
+
+    public void setCustomFont(Font font) {
+        this.font = font;
+    }
+
+    public void setCustomBorder(Border border) {
+        this.border = border;
+    }
+
+    public void loadSettings(DisplaySettings ds) {
+        this.ds = ds;        
+        displayWidth = ds.getDisplayWidth();
+        displayHeight = ds.getDisplayHeight();
+        _FormattedTextField_Width.setText(String.valueOf(displayWidth));
+        _FormattedTextField_Height.setText(String.valueOf(displayHeight));
+        _CheckBox_Bold.setEnabled(false);
+        _CheckBox_Italic.setEnabled(false);
+        _ComboBox_Fonts.setSelectedIndex(ds.getFontTypeSel());
+        _ComboBox_FontSize.setSelectedIndex(ds.getFontSizeSel());
+        _ComboBox_Borders.setSelectedIndex(ds.getBorderTypeSel());
+        _ComboBox_BorderSize.setSelectedIndex(ds.getBorderSizeSel());
+
     }
 
     public int getDisplayWidth() {
@@ -490,6 +540,10 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
 
     public int getDisplayHeight() {
         return displayHeight;
+    }
+    
+    public DisplaySettings getDS(){
+        return ds;
     }
 
 
@@ -521,6 +575,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
         color = _ColorChooser_Color.getColor();
         System.out.println("");
         int index = _ComboBox_Borders.getSelectedIndex();
+        int bIndex = index;
         if (index < 3) {
             switch (index) {
                 case 0:
@@ -539,7 +594,13 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
             }
 
         }
-        _Panel_BorderPanel.setBorder(border);
-        mf.updateBorder(border);
+        
+        ds.setColor(color);
+        ds.setBorder(border);
+        ds.setBorderSize(borderSize);
+        ds.setBorderTypeSel(bIndex);
+        ds.setBorderSizeSel(_ComboBox_BorderSize.getSelectedIndex());
+         _Panel_BorderPanel.setBorder(border);
+        mf.updateBorder(ds);
     }
 }

@@ -2,11 +2,13 @@ package panel.creator;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import java.awt.Font;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.border.Border;
 
 /**
  * Store will contain all information for the store
@@ -20,14 +22,14 @@ public class Store implements java.io.Serializable {
     public String imgStr;
     public int numRacks;
     public ArrayList<Rack> racks;
-
-    ArrayList<String> storeStr;
-    ArrayList<String> rackStr;
-    ArrayList<String> condStr;
-    ArrayList<String> sgStr;
-    ArrayList<String> compStr;
-    ArrayList<String> sysStr;
-    ArrayList<String> extraStr;
+    private ArrayList<String> storeStr;
+    private ArrayList<String> rackStr;
+    private ArrayList<String> condStr;
+    private ArrayList<String> sgStr;
+    private ArrayList<String> compStr;
+    private ArrayList<String> sysStr;
+    private ArrayList<String> extraStr;
+    public DisplaySettings ds;
 
     public Store() {
         this.storeName = "";
@@ -190,6 +192,22 @@ public class Store implements java.io.Serializable {
         this.extraStr = extraStr;
     }
 
+    public DisplaySettings getDs() {
+        return ds;
+    }
+
+    public void setDs(DisplaySettings ds) {
+        this.ds = ds;
+    }
+
+    public Font getCustomFont() {
+        return ds.getFont();
+    }
+    
+    public Border getCustomBorder(){
+        return ds.getBorder();
+    }
+
     public String getSgNameIndex(int rackIndex, int sgIndex) {
         return this.racks.get(rackIndex).getSuctionGroupNameIndex(sgIndex);
     }
@@ -257,7 +275,6 @@ public class Store implements java.io.Serializable {
         SuctionGroup sucG;
         String compName, sysName;
 
-        
         for (int i = 0; i < numRacks; i++) {
             // do all racks
             r = this.getRackIndex(i);

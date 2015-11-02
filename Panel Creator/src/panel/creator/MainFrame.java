@@ -34,7 +34,8 @@ public class MainFrame extends JFrame {
     public SettingsPanel settingsPanel;
     public NameGeneratorPanel ngPanel;
     public Store store;
-
+    public DisplaySettings ds;
+    
     /**
      * Creates new form MainFrame
      *
@@ -54,7 +55,9 @@ public class MainFrame extends JFrame {
         displayFrame = new DisplayFrame(this, store);
         settingsPanel = new SettingsPanel(this);
         ngPanel = new NameGeneratorPanel(this);
+        ds = settingsPanel.getDS();
         
+        store.setDs(ds);
         // Load the main panel        
         //controlPanel.setVisible(true);
         displayFrame.setVisible(true);
@@ -73,17 +76,21 @@ public class MainFrame extends JFrame {
         }
     }
 
-    public void updateDisplaySize(int width, int height) {
+    public void updateDisplaySize(DisplaySettings ds) {
         //displayFrame.setNewSize(width, height);
-        displayFrame.setSize(width, height);
+        store.setDs(ds);
+        displayFrame.setSize(ds.getDisplayWidth(), ds.getDisplayHeight());
     }
 
-    public void updateFont(Font f) {
-        displayFrame.updateFont(f);
+       
+    public void updateFont(DisplaySettings ds) {
+        store.setDs(ds);
+        displayFrame.updateFont(ds.getFont());
     }
 
-    public void updateBorder(Border b) {
-        displayFrame.updateBorder(b);
+    public void updateBorder(DisplaySettings ds) {
+        store.setDs(ds);
+        displayFrame.updateBorder(ds.getBorder());
     }
 
     public void displayPanel(int width, int height) {
@@ -96,10 +103,8 @@ public class MainFrame extends JFrame {
         }
     }
 
-    public void updateDisplay(Store store) {
-        Font f = settingsPanel.getFontData();
-        Border b = settingsPanel.getBorder();        
-        displayFrame.updateDisplays(store, f, b);
+    public void updateDisplay(Store store) {               
+        displayFrame.updateDisplays(store);
     }
     
     
@@ -429,6 +434,7 @@ public class MainFrame extends JFrame {
                 ois.close();
                 fis.close();                
                 System.out.println("Store read properly");
+                settingsPanel.loadSettings(store.getDs());
                 controlPanel.loadStore(store);                
                 ngPanel.loadStore(store);
 
