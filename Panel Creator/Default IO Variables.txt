@@ -1,7 +1,7 @@
 `Store`
 Cents/kWh
 Outside Air Temp
-`Racks`
+`Rack`
 Cond Out Pressure Temp `%rackname`
 Cond Out Pressure Actual `%rackname`
 Cond Pressure Setpoint `%rackname`
@@ -35,7 +35,7 @@ Cond Fan Fault `%rackname` `%fannum`
 Cond Fan Amps `%rackname` `%fannum`
 Cond Fan Status `%rackname` `%fannum`
 Cond Fan RUN `%rackname` `%fannum`
-`Suction Groups`
+`Suction Group`
 Discharge Temp `%rackname` `%sgname`	
 Discharge Pressure Actual `%rackname` `%sgname`
 Discharge Pressure Setpoint `%rackname` `%sgname`
@@ -51,7 +51,7 @@ Liquid Pressure Actual `%rackname` `%sgname`
 Liquid Pressure Setpoint `%rackname` `%sgname`
 Liquid Saturation `%rackname` `%sgname`
 Liquid Subcooling `%rackname` `%sgname`
-`Systems`
+`System`
 Loads Capacity `%sysname`
 Loads Cost Difference `%sysname`
 Loads EEPR `%sysname`
@@ -64,7 +64,7 @@ Loads Temp `%sysname`
 Loads kW Difference `%sysname`
 Loads kW Difference `%sysname`
 System Status `%sysname`
-`Compressors`
+`Compressor`
 Comp Amps `%compname`
 Comp Discharge Temp `%compname`
 Comp Fault `%compname`

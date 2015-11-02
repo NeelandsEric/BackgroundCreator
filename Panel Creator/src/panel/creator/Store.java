@@ -2,15 +2,11 @@ package panel.creator;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Store will contain all information for the store
@@ -24,7 +20,7 @@ public class Store implements java.io.Serializable {
     public String imgStr;
     public int numRacks;
     public ArrayList<Rack> racks;
-    
+
     ArrayList<String> storeStr;
     ArrayList<String> rackStr;
     ArrayList<String> condStr;
@@ -40,7 +36,7 @@ public class Store implements java.io.Serializable {
         numRacks = 1;
         imgStr = "";
         storeName = "";
-        
+
         storeStr = new ArrayList<>();
         rackStr = new ArrayList<>();
         condStr = new ArrayList<>();
@@ -57,7 +53,7 @@ public class Store implements java.io.Serializable {
         numRacks = 1;
         imgStr = "";
         storeName = "";
-        
+
         storeStr = new ArrayList<>();
         rackStr = new ArrayList<>();
         condStr = new ArrayList<>();
@@ -72,7 +68,7 @@ public class Store implements java.io.Serializable {
         this.imgStr = imgStr;
         this.numRacks = numRacks;
         this.racks = racks;
-        
+
         storeStr = new ArrayList<>();
         rackStr = new ArrayList<>();
         condStr = new ArrayList<>();
@@ -194,19 +190,18 @@ public class Store implements java.io.Serializable {
         this.extraStr = extraStr;
     }
 
-    
-    public String getSgNameIndex(int rackIndex, int sgIndex){
+    public String getSgNameIndex(int rackIndex, int sgIndex) {
         return this.racks.get(rackIndex).getSuctionGroupNameIndex(sgIndex);
     }
-    
-    public String getCompNameIndex(int rackIndex, int sgIndex, int compIndex){
+
+    public String getCompNameIndex(int rackIndex, int sgIndex, int compIndex) {
         return this.racks.get(rackIndex).getSuctionGroupIndex(sgIndex).getCompressorNameIndex(compIndex);
     }
-    
-     public String getSysNameIndex(int rackIndex, int sgIndex, int sysIndex){
+
+    public String getSysNameIndex(int rackIndex, int sgIndex, int sysIndex) {
         return this.racks.get(rackIndex).getSuctionGroupIndex(sgIndex).getSystemNameIndex(sysIndex);
     }
-    
+
     /**
      * gets the rack names from the array list
      *
@@ -229,10 +224,8 @@ public class Store implements java.io.Serializable {
                 // nextLine[] is an array of values from the line
                 System.out.println(nextLine[0] + nextLine[1] + "etc...");
             }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Store.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Store.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            System.out.println("Read csv error with " + filepath + " : " + ex.getMessage());
         }
 
     }
@@ -242,75 +235,137 @@ public class Store implements java.io.Serializable {
         CSVWriter writer;
         try {
             writer = new CSVWriter(new FileWriter(filepath), ',');
-            // feed in your array (or convert your data to an array)           
-            
+            // feed in your array (or convert your data to an array)          
+
             writer.writeAll(formatStrings());
             writer.close();
         } catch (IOException ex) {
-            Logger.getLogger(Store.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Read csv error with " + filepath + " : " + ex.getMessage());
         }
 
     }
-    
-    
-    
-    public List<String []> formatStrings(){
-        
-        List<String []> vars = new ArrayList<String[]>() {};
+
+    public List<String[]> formatStrings() {
+
+        long start = System.currentTimeMillis(), end;
+        List<String[]> vars = new ArrayList<String[]>() {
+        };
         int numfans, numsg, numcomp, numsys;
-        String [] newString;
-        String rName, sgName, compName, sysName;
-        
-        for(int i = 0; i < numRacks; i++){
+        String[] newString;
+        Rack r;
+        String rName, sgName, fannum = "1";
+        SuctionGroup sucG;
+        String compName, sysName;
+
+        for (int i = 0; i < numRacks; i++) {
             // do all racks
-            rName = racks.get(i).getName();
-            
-            for(String s: rackStr){
-                newString = new String[1];                
-                s = s.replaceAll("`%rackname`", rName);
-                newString[0] = s;
-                System.out.println(newString[0]);
+            r = this.getRackIndex(i);
+            rName = r.getName();
+            sgName = r.getSuctionGroupNameIndex(0);
+            fannum = "1";
+            sucG = r.getSuctionGroupIndex(0);
+            compName = sucG.getCompressorNameIndex(0);
+            sysName = sucG.getSystemNameIndex(0);
+
+            for (String s : rackStr) {
+                newString = new String[1];
+                newString[0] = s
+                        .replace("`%rackname`", rName)
+                        .replace("`%fannum`", fannum)
+                        .replace("`%sgname`", sgName)
+                        .replace("`%compname`", compName)
+                        .replace("`%sysname`", sysName);
+
+                System.out.println("New string: " + newString[0] + "\tFrom old string: " + s);
                 vars.add(newString);
             }
-            
-            
-            
+
             // CONDENSERS
-            numfans = this.racks.get(i).getNumCondenserFans();
-            for(int nf = 0; nf < numfans; nf++){
-                
-                // do all condenser                
-                
+            numfans = r.getNumCondenserFans();
+            for (int nf = 0; nf < numfans; nf++) {
+                fannum = String.valueOf(nf);
+                // do all condenser     
+                for (String s : condStr) {
+                    newString = new String[1];
+                    newString[0] = s
+                            .replace("`%rackname`", rName)
+                            .replace("`%fannum`", fannum)
+                            .replace("`%sgname`", sgName)
+                            .replace("`%compname`", compName)
+                            .replace("`%sysname`", sysName);
+
+                    System.out.println("New string: " + newString[0] + "\tFrom old string: " + s);
+                    vars.add(newString);
+                }
+
             }
-            
+
             // SUCTION GROUPS
-            
-            numsg = this.racks.get(i).getNumSuctionGroups();
-            for(int sg = 0; sg < numsg; sg++){
-                
+            numsg = r.getNumSuctionGroups();
+            for (int sg = 0; sg < numsg; sg++) {
+                sucG = r.getSuctionGroupIndex(sg);
+
+                for (String s : sgStr) {
+                    newString = new String[1];
+                    newString[0] = s
+                            .replace("`%rackname`", rName)
+                            .replace("`%fannum`", fannum)
+                            .replace("`%sgname`", sgName)
+                            .replace("`%compname`", compName)
+                            .replace("`%sysname`", sysName);
+
+                    System.out.println("New string: " + newString[0] + "\tFrom old string: " + s);
+                    vars.add(newString);
+                }
+
                 // do all suction groups
-                
-                
                 // COMPRESSORS
-                numcomp = this.racks.get(i).getSuctionGroupIndex(i).getNumCompressors();                
-                for(int nc = 0; nc < numcomp; nc++){
-                    
+                numcomp = sucG.getNumCompressors();
+                for (int nc = 0; nc < numcomp; nc++) {
+                    compName = sucG.getCompressorNameIndex(nc);
                     // do all compressors
+                    for (String s : compStr) {
+                        newString = new String[1];
+                        newString[0] = s
+                                .replace("`%rackname`", rName)
+                                .replace("`%fannum`", fannum)
+                                .replace("`%sgname`", sgName)
+                                .replace("`%compname`", compName)
+                                .replace("`%sysname`", sysName);
+
+                        System.out.println("New string: " + newString[0] + "\tFrom old string: " + s);
+                        vars.add(newString);
+                    }
                 }
-                
+
                 // SYSTEMS
-                numsys = this.racks.get(i).getSuctionGroupIndex(i).getNumSystems();                
-                for(int ns = 0; ns < numsys; ns++){
-                    
+                numsys = sucG.getNumSystems();
+                for (int ns = 0; ns < numsys; ns++) {
+                    sysName = sucG.getSystemNameIndex(ns);
                     // do all systems
-                    
+                    for (String s : sysStr) {
+                        newString = new String[1];
+                        newString[0] = s
+                                .replace("`%rackname`", rName)
+                                .replace("`%fannum`", fannum)
+                                .replace("`%sgname`", sgName)
+                                .replace("`%compname`", compName)
+                                .replace("`%sysname`", sysName);
+
+                        System.out.println("New string: " + newString[0] + "\tFrom old string: " + s);
+                        vars.add(newString);
+                    }
+
                 }
-                
+
             }
         }
-        
+
+        end = System.currentTimeMillis();
+
+        System.out.println("Format strings took " + ((end - start)) + " ms");
         return vars;
-        
+
     }
-    
+
 }

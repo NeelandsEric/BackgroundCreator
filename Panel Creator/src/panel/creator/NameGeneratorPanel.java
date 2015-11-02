@@ -260,7 +260,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                 } else if (line.startsWith("`gn")) {
                     groupName = line.substring(3).toLowerCase();
                     //System.out.println("Grouping name: " + groupName);
-                } else {
+                } else {                    
                     switch (groupName) {
                         case "":
                             //System.out.println("No groupname line = " + line);
@@ -300,12 +300,12 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         } catch (FileNotFoundException e) {
             System.out.println("File not found " + filename);
         } finally {
-            // update the fields
-            update();
+                       
             if (scan != null) {
                 scan.close();
             }
-            
+            // update the fields
+            update();
             mf.updateVarNames(storeStr, rackStr, condStr, sgStr, compStr, sysStr, extraStr);
         }
 

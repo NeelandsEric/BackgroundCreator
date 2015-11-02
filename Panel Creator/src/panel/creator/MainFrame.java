@@ -507,6 +507,8 @@ public class MainFrame extends JFrame {
 
     private void _MenuItem_PrintVarNamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintVarNamesActionPerformed
         // TODO add your handling code here:
+        
+                       
         int returnVal = _FileChooser_SaveCSV.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
@@ -514,8 +516,13 @@ public class MainFrame extends JFrame {
             //System.out.println("File: " + file.getAbsolutePath());
             String filePath = file.getAbsolutePath();
             
-            //this.store.writeCSV(filePath);
-           this.store.formatStrings();
+            if (!filePath.endsWith(".csv")) {
+                filePath += ".csv";
+            }
+            
+            
+            this.store.writeCSV(filePath);
+           
            
         } else {
             System.out.println("File access cancelled by user.");
