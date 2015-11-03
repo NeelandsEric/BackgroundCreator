@@ -24,7 +24,8 @@ public class DisplaySettings implements java.io.Serializable {
     public DisplaySettings() {
         this.displayWidth = 1200;
         this.displayHeight = 900;
-
+        this.colorStr = String.valueOf(Color.red);
+        this.bold = this.italic = true;
     }
 
     public DisplaySettings(int displayWidth, int displayHeight, Font font,
@@ -43,6 +44,19 @@ public class DisplaySettings implements java.io.Serializable {
         this.italic = italic;        
         this.colorStr = String.valueOf(color.getRGB());
     }
+
+    @Override
+    public String toString() {
+        return "DisplaySettings{" + "displayWidth=" + displayWidth + 
+                ", displayHeight=" + displayHeight + "\nfont=" + font + 
+                "\nborder=" + border + ", borderSize=" + borderSize + 
+                "\nfontTypeSel=" + fontTypeSel + ", fontSizeSel=" + fontSizeSel 
+                + "\nborderTypeSel=" + borderTypeSel + ", borderSizeSel=" + 
+                borderSizeSel + ", bold=" + bold + ", italic=" + italic + 
+                "\ncolorStr=" + colorStr + '}';
+    }
+    
+    
 
     public int getDisplayWidth() {
         return displayWidth;
@@ -133,7 +147,8 @@ public class DisplaySettings implements java.io.Serializable {
     }
 
     public Color getColor() {
-        return new Color(Integer.parseInt(colorStr));
+        System.out.println("get color: " + colorStr);
+        return new Color(Integer.parseInt(colorStr));        
     }
 
     public void setColor(Color color) {        

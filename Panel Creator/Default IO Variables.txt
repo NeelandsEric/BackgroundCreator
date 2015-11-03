@@ -10,9 +10,23 @@ Cond Out Pres Subcooling `%rackname`
 Cost Actual `%rackname`
 Cost Difference `%rackname`
 Cost Predicted `%rackname`
-KW Actual `%rackname`
-KW Difference `%rackname`
-KW Predicted `%rackname`
+kW Actual `%rackname`
+kW Difference `%rackname`
+kW Predicted `%rackname`
+kWh Actual `%rackname`
+kW Peak Demand `%rackname`
+kW Avg Demand `%rackname`
+kW Max `%rackname`
+kW Min `%rackname`
+kVAR System `%rackname`
+kVA System `%rackname`
+PF `%rackname`
+Amp Avg `%rackname`
+Volts Line to Line Avg `%rackname`
+Volts Line to Neutral Avg `%rackname`
+Volts L1 to L2 `%rackname`
+Volts L2 to L3 `%rackname`
+Volts L1 to L3 `%rackname`
 Op Cost Current Year Day `%rackname`
 Op Cost Current Year Month `%rackname`
 Op Cost Current Year Year `%rackname`
@@ -30,7 +44,24 @@ Performance kW Month Difference `%rackname`
 Performance kW Today `%rackname`
 Performance kW Today Difference `%rackname`
 SEI `%rackname`
-`Condenser Fans`
+Cond kW Actual `%rackname`
+Cond kW Difference `%rackname`
+Cond kW Predicted `%rackname`
+Cond kWh Actual `%rackname`
+Cond kW Peak Demand `%rackname`
+Cond kW Avg Demand `%rackname`
+Cond kW Max `%rackname`
+Cond kW Min `%rackname`
+Cond kVAR System `%rackname`
+Cond kVA System `%rackname`
+Cond PF `%rackname`
+Cond Amp Avg `%rackname`
+Cond Volts Line to Line Avg `%rackname`
+Cond Volts Line to Neutral Avg `%rackname`
+Cond Volts L1 to L2 `%rackname`
+Cond Volts L2 to L3 `%rackname`
+Cond Volts L1 to L3 `%rackname`
+`Condenser`
 Cond Fan Fault `%rackname` `%fannum`
 Cond Fan Amps `%rackname` `%fannum`
 Cond Fan Status `%rackname` `%fannum`
@@ -61,16 +92,16 @@ Loads kW `%rackname` `%sgname` `%sysname`
 Loads kW Difference `%rackname` `%sgname` `%sysname`
 Loads Setpoint `%rackname` `%sgname` `%sysname`
 Loads Temp `%rackname` `%sgname` `%sysname`
-Loads kW Difference `%rackname` `%sgname` `%sysname`
-Loads kW Difference `%rackname` `%sgname` `%sysname`
 System Status `%rackname` `%sgname` `%sysname`
 `Compressor`
 Comp Amps `%rackname` `%sgname` `%compname`
+Comp Amp Limit `%rackname` `%sgname` `%compname`
 Comp Discharge Temp `%rackname` `%sgname` `%compname`
+Comp Discharge Limit `%rackname` `%sgname` `%compname`
 Comp Fault `%rackname` `%sgname` `%compname`
 Comp kWh Today `%rackname` `%sgname` `%compname`
 Comp Status `%rackname` `%sgname` `%compname`
 Comp SLA `%rackname` `%sgname` `%compname`
 Comp RUN `%rackname` `%sgname` `%compname`
-Comp Discharge Limit `%rackname` `%compname`
-Comp Amp Limit `%rackname` `%sgname` `%compname`
+Comp kW `%rackname` `%sgname` `%compname`
+Comp kWh `%rackname` `%sgname` `%compname`

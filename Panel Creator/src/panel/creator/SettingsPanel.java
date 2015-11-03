@@ -32,6 +32,8 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
 
     public GraphicsEnvironment ge;
 
+    public boolean loading;
+
     /**
      * Creates new form SettingsFrame
      *
@@ -40,6 +42,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
     public SettingsPanel(MainFrame mf) {
         initComponents();
         this.mf = mf;
+        loading = false;
         ds = new DisplaySettings();
         displayWidth = 1200;
         displayHeight = 900;
@@ -383,115 +386,120 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
     private void _ComboBox_BordersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_BordersActionPerformed
         // TODO add your handling code here:
         // Update the border
-        int index = _ComboBox_Borders.getSelectedIndex();
-        int bIndex = index;
-        color = _ColorChooser_Color.getColor();
-        switch (index) {
+        if (!loading) {
+            int index = _ComboBox_Borders.getSelectedIndex();
+            int bIndex = index;
+            color = _ColorChooser_Color.getColor();
+            switch (index) {
 
-            case 0:
-                //Line Border
-                border = BorderFactory.createLineBorder(color, borderSize);
-                break;
-            case 1:
-                //Raised Etched Border
-                border = BorderFactory.createEtchedBorder(EtchedBorder.RAISED, color, Color.GRAY);
-                break;
-            case 2:
-                //Lowered Etched Border
-                border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED, color, Color.GRAY);
-                break;
-            case 3:
-                //Raised Bevel Border
-                border = BorderFactory.createRaisedBevelBorder();
-                break;
-            case 4:
-                //Lowered Bevel Border
-                border = BorderFactory.createLoweredBevelBorder();
-                break;
-            case 5:
-                //No Border
-                border = BorderFactory.createEmptyBorder();
-                break;
+                case 0:
+                    //Line Border
+                    border = BorderFactory.createLineBorder(color, borderSize);
+                    break;
+                case 1:
+                    //Raised Etched Border
+                    border = BorderFactory.createEtchedBorder(EtchedBorder.RAISED, color, Color.GRAY);
+                    break;
+                case 2:
+                    //Lowered Etched Border
+                    border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED, color, Color.GRAY);
+                    break;
+                case 3:
+                    //Raised Bevel Border
+                    border = BorderFactory.createRaisedBevelBorder();
+                    break;
+                case 4:
+                    //Lowered Bevel Border
+                    border = BorderFactory.createLoweredBevelBorder();
+                    break;
+                case 5:
+                    //No Border
+                    border = BorderFactory.createEmptyBorder();
+                    break;
+            }
+
+            ds.setColor(color);
+            ds.setBorder(border);
+            ds.setBorderSize(borderSize);
+            ds.setBorderTypeSel(bIndex);
+            ds.setBorderSizeSel(_ComboBox_BorderSize.getSelectedIndex());
+            _Panel_BorderPanel.setBorder(border);
+            mf.updateSettings(ds);
         }
-
-        ds.setColor(color);
-        ds.setBorder(border);
-        ds.setBorderSize(borderSize);
-        ds.setBorderTypeSel(bIndex);
-        ds.setBorderSizeSel(_ComboBox_BorderSize.getSelectedIndex());
-        _Panel_BorderPanel.setBorder(border);
-        mf.updateSettings(ds);
 
     }//GEN-LAST:event__ComboBox_BordersActionPerformed
 
     private void _ComboBox_BorderSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_BorderSizeActionPerformed
         // TODO add your handling code here:
-        borderSize = Integer.parseInt((String) _ComboBox_BorderSize.getSelectedItem());
-        int index = _ComboBox_Borders.getSelectedIndex();
-        int bIndex = index;
-        color = _ColorChooser_Color.getColor();
-        switch (index) {
+        if (!loading) {
+            borderSize = Integer.parseInt((String) _ComboBox_BorderSize.getSelectedItem());
+            int index = _ComboBox_Borders.getSelectedIndex();
+            int bIndex = index;
+            color = _ColorChooser_Color.getColor();
+            switch (index) {
 
-            case 0:
-                //Line Border
-                border = BorderFactory.createLineBorder(color, borderSize);
-                break;
-            case 1:
-                //Raised Etched Border
-                border = BorderFactory.createEtchedBorder(EtchedBorder.RAISED, color, Color.GRAY);
-                break;
-            case 2:
-                //Lowered Etched Border
-                border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED, color, Color.GRAY);
-                break;
-            case 3:
-                //Raised Bevel Border
-                border = BorderFactory.createRaisedBevelBorder();
-                break;
-            case 4:
-                //Lowered Bevel Border
-                border = BorderFactory.createLoweredBevelBorder();
-                break;
-            case 5:
-                //No Border
-                border = BorderFactory.createEmptyBorder();
-                break;
+                case 0:
+                    //Line Border
+                    border = BorderFactory.createLineBorder(color, borderSize);
+                    break;
+                case 1:
+                    //Raised Etched Border
+                    border = BorderFactory.createEtchedBorder(EtchedBorder.RAISED, color, Color.GRAY);
+                    break;
+                case 2:
+                    //Lowered Etched Border
+                    border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED, color, Color.GRAY);
+                    break;
+                case 3:
+                    //Raised Bevel Border
+                    border = BorderFactory.createRaisedBevelBorder();
+                    break;
+                case 4:
+                    //Lowered Bevel Border
+                    border = BorderFactory.createLoweredBevelBorder();
+                    break;
+                case 5:
+                    //No Border
+                    border = BorderFactory.createEmptyBorder();
+                    break;
+            }
+            ds.setColor(color);
+            ds.setBorder(border);
+            ds.setBorderSize(borderSize);
+            ds.setBorderTypeSel(bIndex);
+            ds.setBorderSizeSel(_ComboBox_BorderSize.getSelectedIndex());
+            _Panel_BorderPanel.setBorder(border);
+            mf.updateSettings(ds);
         }
-        ds.setColor(color);
-        ds.setBorder(border);
-        ds.setBorderSize(borderSize);
-        ds.setBorderTypeSel(bIndex);
-        ds.setBorderSizeSel(_ComboBox_BorderSize.getSelectedIndex());
-        _Panel_BorderPanel.setBorder(border);
-        mf.updateSettings(ds);
     }//GEN-LAST:event__ComboBox_BorderSizeActionPerformed
 
     private void updateFontLabel() {
+        if (!loading) {
+            String name = (String) _ComboBox_Fonts.getSelectedItem();
+            int size = Integer.parseInt((String) _ComboBox_FontSize.getSelectedItem());
+            int style;
 
-        String name = (String) _ComboBox_Fonts.getSelectedItem();
-        int size = Integer.parseInt((String) _ComboBox_FontSize.getSelectedItem());
-        int style;
+            if (_CheckBox_Bold.isSelected() && _CheckBox_Italic.isSelected()) {
+                style = Font.BOLD | Font.ITALIC;
+            } else if (_CheckBox_Bold.isSelected()) {
+                style = Font.BOLD;
+            } else if (_CheckBox_Italic.isSelected()) {
+                style = Font.ITALIC;
+            } else {
+                style = Font.PLAIN;
+            }
 
-        if (_CheckBox_Bold.isSelected() && _CheckBox_Italic.isSelected()) {
-            style = Font.BOLD | Font.ITALIC;
-        } else if (_CheckBox_Bold.isSelected()) {
-            style = Font.BOLD;
-        } else if (_CheckBox_Italic.isSelected()) {
-            style = Font.ITALIC;
-        } else {
-            style = Font.PLAIN;
+            Font f = new Font(name, style, size);
+            font = f;
+            ds.setFont(font);
+            ds.setBold(_CheckBox_Bold.isSelected());
+            ds.setItalic(_CheckBox_Italic.isSelected());
+            ds.setFontTypeSel(_ComboBox_Fonts.getSelectedIndex());
+            ds.setFontSizeSel(_ComboBox_FontSize.getSelectedIndex());
+            _Label_Font.setFont(f);
+
+            mf.updateSettings(ds);
         }
-
-        Font f = new Font(name, style, size);
-        font = f;
-        ds.setFont(font);
-        ds.setBold(_CheckBox_Bold.isSelected());
-        ds.setItalic(_CheckBox_Italic.isSelected());
-        ds.setFontTypeSel(_ComboBox_Fonts.getSelectedIndex());
-        ds.setFontSizeSel(_ComboBox_FontSize.getSelectedIndex());
-        _Label_Font.setFont(f);
-
-        mf.updateSettings(ds);
     }
 
     public Font getCustomFont() {
@@ -509,8 +517,9 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
     public void setCustomBorder(Border border) {
         this.border = border;
     }
-    
-    public void defaultSettings(){
+
+    public void defaultSettings() {
+        loading = true;
         displayWidth = 1200;
         displayHeight = 900;
         _FormattedTextField_Width.setText(String.valueOf(displayWidth));
@@ -527,26 +536,30 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
         System.out.println("Default settings: white");
         _ColorChooser_Color.setColor(color);
         ds = new DisplaySettings(displayWidth, displayHeight, font, border, borderSize, 11, 6, 0, 1, false, false, color);
-        
+        loading = false;
+
     }
 
-    public void loadSettings(DisplaySettings ds) {
-        this.ds = ds;        
+    public void loadSettings(DisplaySettings dds) {
+        loading = true;
+        System.out.println("Load param\n" + dds);
+        this.ds = dds;
         displayWidth = ds.getDisplayWidth();
         displayHeight = ds.getDisplayHeight();
+        font = ds.getFont();
+        border = ds.getBorder();
+        color = ds.getColor();
+        _ColorChooser_Color.setColor(color);
+        borderSize = ds.getBorderSize();
         _FormattedTextField_Width.setText(String.valueOf(displayWidth));
         _FormattedTextField_Height.setText(String.valueOf(displayHeight));
-        _CheckBox_Bold.setSelected(false);
-        _CheckBox_Italic.setSelected(false);
         _ComboBox_Fonts.setSelectedIndex(ds.getFontTypeSel());
         _ComboBox_FontSize.setSelectedIndex(ds.getFontSizeSel());
         _ComboBox_Borders.setSelectedIndex(ds.getBorderTypeSel());
         _ComboBox_BorderSize.setSelectedIndex(ds.getBorderSizeSel());
         _CheckBox_Bold.setSelected(ds.isBold());
         _CheckBox_Italic.setSelected(ds.isItalic());
-        System.out.println("Load settings Color " + this.ds.getColor());
-        _ColorChooser_Color.setColor(this.ds.getColor());
-        
+        loading = false;
 
     }
 
@@ -557,8 +570,8 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
     public int getDisplayHeight() {
         return displayHeight;
     }
-    
-    public DisplaySettings getDS(){
+
+    public DisplaySettings getDS() {
         return ds;
     }
 
@@ -588,35 +601,37 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
     @Override
     public void stateChanged(ChangeEvent e) {
 
-        color = _ColorChooser_Color.getColor();
-        System.out.println("color changed to " + color);
-        int index = _ComboBox_Borders.getSelectedIndex();
-        int bIndex = index;
-        if (index < 3) {
-            switch (index) {
-                case 0:
-                    //Line Border
-                    border = BorderFactory.createLineBorder(color, borderSize);
-                    break;
-                case 1:
-                    //Raised Etched Border
-                    border = BorderFactory.createEtchedBorder(EtchedBorder.RAISED, color, Color.GRAY);
-                    break;
-                case 2:
-                    //Lowered Etched Border
-                    border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED, color, Color.GRAY);
-                    break;
+        if (!loading) {
+            color = _ColorChooser_Color.getColor();
+            System.out.println("color changed to " + color);
+            int index = _ComboBox_Borders.getSelectedIndex();
+            int bIndex = index;
+            if (index < 3) {
+                switch (index) {
+                    case 0:
+                        //Line Border
+                        border = BorderFactory.createLineBorder(color, borderSize);
+                        break;
+                    case 1:
+                        //Raised Etched Border
+                        border = BorderFactory.createEtchedBorder(EtchedBorder.RAISED, color, Color.GRAY);
+                        break;
+                    case 2:
+                        //Lowered Etched Border
+                        border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED, color, Color.GRAY);
+                        break;
+
+                }
 
             }
 
+            ds.setColor(color);
+            ds.setBorder(border);
+            ds.setBorderSize(borderSize);
+            ds.setBorderTypeSel(bIndex);
+            ds.setBorderSizeSel(_ComboBox_BorderSize.getSelectedIndex());
+            _Panel_BorderPanel.setBorder(border);
+            mf.updateSettings(ds);
         }
-        
-        ds.setColor(color);
-        ds.setBorder(border);
-        ds.setBorderSize(borderSize);
-        ds.setBorderTypeSel(bIndex);
-        ds.setBorderSizeSel(_ComboBox_BorderSize.getSelectedIndex());
-         _Panel_BorderPanel.setBorder(border);
-        mf.updateSettings(ds);
     }
 }

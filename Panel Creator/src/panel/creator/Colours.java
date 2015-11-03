@@ -22,6 +22,9 @@ public enum Colours {
     GreyDark(46, 46, 46),
     GreyLight(110, 110, 110),
     GreyLightest(180, 180, 180),
+    BrownDark(80, 57, 1),
+    BrownLight(166, 117, 2),
+    BrownLightest(200, 153, 45),
     Gray(159, 162, 167),
     White(255, 255, 255),;
 

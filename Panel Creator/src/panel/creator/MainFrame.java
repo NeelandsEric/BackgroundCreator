@@ -397,7 +397,7 @@ public class MainFrame extends JFrame {
             try {
                 Store s = controlPanel.store;
                 s.setDs(this.store.getDs());
-                System.out.println(s.getDs().getColor());
+                System.out.println(s.getDs());
                 FileOutputStream fos = new FileOutputStream(fn);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(s); 
@@ -406,7 +406,7 @@ public class MainFrame extends JFrame {
                 
                 System.out.println("Store saved");
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
 
         } else {
@@ -433,6 +433,7 @@ public class MainFrame extends JFrame {
                 this.store = (Store) ois.readObject();                
                 ois.close();
                 fis.close();    
+                System.out.println(this.store.getDs());
                 settingsPanel.loadSettings(this.store.getDs());
                 controlPanel.loadStore(this.store);                
                 ngPanel.loadStore(this.store);
@@ -521,11 +522,9 @@ public class MainFrame extends JFrame {
             
             if (!filePath.endsWith(".csv")) {
                 filePath += ".csv";
-            }
+            }            
             
-            
-            this.store.writeCSV(filePath);
-           
+            this.store.writeCSV(filePath);           
            
         } else {
             System.out.println("File access cancelled by user.");
