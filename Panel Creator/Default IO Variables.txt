@@ -1,107 +1,107 @@
 `Store`
-Cents/kWh
-Outside Air Temp
+Cents/kWh,1,1,A,1,0,0,0,0,0
+Outside Air Temp,1,1,F,1.8,-32,0,0,0,0
 `Rack`
-Cond Out Pressure Temp `%rackname`
-Cond Out Pressure Actual `%rackname`
-Cond Pressure Setpoint `%rackname`
-Cond Saturation `%rackname`
-Cond Out Pres Subcooling `%rackname`
-Cost Actual `%rackname`
-Cost Difference `%rackname`
-Cost Predicted `%rackname`
-kW Actual `%rackname`
-kW Difference `%rackname`
-kW Predicted `%rackname`
-kWh Actual `%rackname`
-kW Peak Demand `%rackname`
-kW Avg Demand `%rackname`
-kW Max `%rackname`
-kW Min `%rackname`
-kVAR System `%rackname`
-kVA System `%rackname`
-PF `%rackname`
-Amp Avg `%rackname`
-Volts Line to Line Avg `%rackname`
-Volts Line to Neutral Avg `%rackname`
-Volts L1 to L2 `%rackname`
-Volts L2 to L3 `%rackname`
-Volts L1 to L3 `%rackname`
-Op Cost Current Year Day `%rackname`
-Op Cost Current Year Month `%rackname`
-Op Cost Current Year Year `%rackname`
-Op Cost Previous Year Day `%rackname`
-Op Cost Previous Year Month `%rackname`
-Op Cost Previous Year Year `%rackname`
-LE Cooling Load `%rackname`
-LE COP `%rackname`
-Performance $/ton `%rackname`
-Performance $/ton Difference `%rackname`
-Performance kW Current `%rackname`
-Performance kW Current Difference `%rackname`
-Performance kW Month `%rackname`
-Performance kW Month Difference `%rackname`
-Performance kW Today `%rackname`
-Performance kW Today Difference `%rackname`
-SEI `%rackname`
-Cond kW Actual `%rackname`
-Cond kW Difference `%rackname`
-Cond kW Predicted `%rackname`
-Cond kWh Actual `%rackname`
-Cond kW Peak Demand `%rackname`
-Cond kW Avg Demand `%rackname`
-Cond kW Max `%rackname`
-Cond kW Min `%rackname`
-Cond kVAR System `%rackname`
-Cond kVA System `%rackname`
-Cond PF `%rackname`
-Cond Amp Avg `%rackname`
-Cond Volts Line to Line Avg `%rackname`
-Cond Volts Line to Neutral Avg `%rackname`
-Cond Volts L1 to L2 `%rackname`
-Cond Volts L2 to L3 `%rackname`
-Cond Volts L1 to L3 `%rackname`
+Cond Out Pressure `%rackname`,1,1,F,1.8,-32,0,1,0,0
+Cond Out Pressure Actual `%rackname`,1,1,Psig,0.145,0,0,1,0,0
+Cond Pressure Setpoint `%rackname`,1,1,Psig,0.145,0,0,1,0,0
+Cond Saturation `%rackname`,1,1,F,1.8,-32,0,0,0,0
+Cond Out Subcooling `%rackname`,1,1,F,1.8,-32,0,1,0,0
+Cost Actual `%rackname`,1,1,$,1,0,0,0,0,0
+Cost Difference `%rackname`,1,1,$,1,0,0,0,0,0
+Cost Predicted `%rackname`,1,1,$,1,0,0,0,0,0
+kW Actual `%rackname`,1,1,kW,1,0,0,0,0,0
+kW Difference `%rackname`,1,1,kW,1,0,0,0,0,0
+kW Predicted `%rackname`,1,1,kW,1,0,0,0,0,0
+kWh Actual `%rackname`,1,1,kWh,1,0,0,0,0,0
+kW Peak Demand `%rackname`,1,1,kW,1,0,0,0,0,0
+kW Avg Demand `%rackname`,1,1,kW,1,0,0,0,0,0
+kW Max `%rackname`,1,1,kW,1,0,0,0,0,0
+kW Min `%rackname`,1,1,kW,1,0,0,0,0,0
+kVAR System `%rackname`,1,1,kVAR,1,0,0,0,0,0
+kVA System `%rackname`,1,1,kVA,1,0,0,0,0,0
+PF `%rackname`,1,1,PF,1,0,0,0,0,0
+Amp Avg `%rackname`,1,1,A,1,0,0,0,0,0
+Volts Line to Line Avg `%rackname`,1,1,V,1,0,0,0,0,0
+Volts Line to Neutral Avg `%rackname`,1,1,V,1,0,0,0,0,0
+Volts L1 to L2 `%rackname`,1,1,V,1,0,0,0,0,0
+Volts L2 to L3 `%rackname`,1,1,V,1,0,0,0,0,0
+Volts L1 to L3 `%rackname`,1,1,V,1,0,0,0,0,0
+Op Cost Current Year Day `%rackname`,1,1,$,1,0,0,0,0,0
+Op Cost Current Year Month `%rackname`,1,1,$,1,0,0,0,0,0
+Op Cost Current Year Year `%rackname`,1,1,$,1,0,0,0,0,0
+Op Cost Previous Year Day `%rackname`,1,1,$,1,0,0,0,0,0
+Op Cost Previous Year Month `%rackname`,1,1,$,1,0,0,0,0,0
+Op Cost Previous Year Year `%rackname`,1,1,$,1,0,0,0,0,0
+LE Cooling Load `%rackname`,1,1,BTU/H,1,0,0,0,0,0
+LE COP `%rackname`,1,1,COP,1,0,0,0,0,0
+Performance $/ton `%rackname`,1,1,$,1,0,0,0,0,0
+Performance $/ton Difference `%rackname`,1,1,$,1,0,0,0,0,0
+Performance kW Current `%rackname`,1,1,kW,1,0,0,0,0,0
+Performance kW Current Difference `%rackname`,1,1,kW,1,0,0,0,0,0
+Performance kW Month `%rackname`,1,1,kW,1,0,0,0,0,0
+Performance kW Month Difference `%rackname`,1,1,kW,1,0,0,0,0,0
+Performance kW Today `%rackname`,1,1,kW,1,0,0,0,0,0
+Performance kW Today Difference `%rackname`,1,1,kW,1,0,0,0,0,0
+SEI `%rackname`,1,1,%,1,0,0,1,0,0
+Cond kW Actual `%rackname`,1,1,kW,1,0,0,0,0,0
+Cond kW Difference `%rackname`,1,1,kW,1,0,0,0,0,0
+Cond kW Predicted `%rackname`,1,1,kW,1,0,0,0,0,0
+Cond kWh Actual `%rackname`,1,1,kWh,1,0,0,0,0,0
+Cond kW Peak Demand `%rackname`,1,1,kW,1,0,0,0,0,0
+Cond kW Avg Demand `%rackname`,1,1,kW,1,0,0,0,0,0
+Cond kW Max `%rackname`,1,1,kW,1,0,0,0,0,0
+Cond kW Min `%rackname`,1,1,kW,1,0,0,0,0,0
+Cond kVAR System `%rackname`,1,1,kVAR,1,0,0,0,0,0
+Cond kVA System `%rackname`,1,1,kVA,1,0,0,0,0,0
+Cond PF `%rackname`,1,1,PF,1,0,0,0,0,0
+Cond Amp Avg `%rackname`,1,1,A,1,0,0,0,0,0
+Cond Volts Line to Line Avg `%rackname`,1,1,V,1,0,0,0,0,0
+Cond Volts Line to Neutral Avg `%rackname`,1,1,V,1,0,0,0,0,0
+Cond Volts L1 to L2 `%rackname`,1,1,V,1,0,0,0,0,0
+Cond Volts L2 to L3 `%rackname`,1,1,V,1,0,0,0,0,0
+Cond Volts L1 to L3 `%rackname`,1,1,V,1,0,0,0,0,0
 `Condenser`
-Cond Fan Fault `%rackname` `%fannum`
-Cond Fan Amps `%rackname` `%fannum`
-Cond Fan Status `%rackname` `%fannum`
-Cond Fan RUN `%rackname` `%fannum`
+Cond Fan Fault `%rackname` `%fannum`,0
+Cond Fan Amps `%rackname` `%fannum`,1,1,A,1,0,0,0,0,0
+Cond Fan Status `%rackname` `%fannum`,0
+Cond Fan RUN `%rackname` `%fannum`,0
 `Suction Group`
-Discharge Temp `%rackname` `%sgname`
-Discharge Pressure Actual `%rackname` `%sgname`
-Discharge Pressure Setpoint `%rackname` `%sgname`
-Discharge Saturation `%rackname` `%sgname`
-Discharge Superheat `%rackname` `%sgname`
-Suction Temp `%rackname` `%sgname`
-Suction Pressure Actual `%rackname` `%sgname`
-Suction Pressure Setpoint `%rackname` `%sgname`
-Suction Saturation `%rackname` `%sgname`
-Suction Superheat `%rackname` `%sgname`
-Liquid Temp `%rackname` `%sgname`
-Liquid Pressure Actual `%rackname` `%sgname`
-Liquid Pressure Setpoint `%rackname` `%sgname`
-Liquid Saturation `%rackname` `%sgname`
-Liquid Subcooling `%rackname` `%sgname`
+Discharge Temp `%rackname` `%sgname`,1,1,F,1.8,-32,0,0,0,0
+Discharge Pressure Actual `%rackname` `%sgname`,1,1,Psig,0.145,0,0,1,0,0
+Discharge Pressure Setpoint `%rackname` `%sgname`,1,1,Psig,0.145,0,0,1,0,0
+Discharge Saturation `%rackname` `%sgname`,1,1,F,1.8,-32,0,0,0,0
+Discharge Superheat `%rackname` `%sgname`,1,1,F,1.8,-32,0,0,0,0
+Suction Temp `%rackname` `%sgname`,1,1,F,1.8,-32,0,0,0,0
+Suction Pressure Actual `%rackname` `%sgname`,1,1,Psig,0.145,0,0,1,0,0
+Suction Pressure Setpoint `%rackname` `%sgname`,1,1,Psig,0.145,0,0,1,0,0
+Suction Saturation `%rackname` `%sgname`,1,1,F,1.8,-32,0,0,0,0
+Suction Superheat `%rackname` `%sgname`,1,1,F,1.8,-32,0,0,0,0
+Liquid Temp `%rackname` `%sgname`,1,1,F,1.8,-32,0,0,0,0
+Liquid Pressure Actual `%rackname` `%sgname`,1,1,Psig,0.145,0,0,1,0,0
+Liquid Pressure Setpoint `%rackname` `%sgname`,1,1,Psig,0.145,0,0,1,0,0
+Liquid Saturation `%rackname` `%sgname`,1,1,F,1.8,-32,0,0,0,0
+Liquid Subcooling `%rackname` `%sgname`,1,1,F,1.8,-32,0,0,0,0
 `System`
-Loads Capacity `%rackname` `%sgname` `%sysname`
-Loads Cost Difference `%rackname` `%sgname` `%sysname`
-Loads EEPR `%rackname` `%sgname` `%sysname`
-Loads EEPR Difference `%rackname` `%sgname` `%sysname`
-Loads EEPR Predicted `%rackname` `%sgname` `%sysname`
-Loads kW `%rackname` `%sgname` `%sysname`
-Loads kW Difference `%rackname` `%sgname` `%sysname`
-Loads Setpoint `%rackname` `%sgname` `%sysname`
-Loads Temp `%rackname` `%sgname` `%sysname`
-System Status `%rackname` `%sgname` `%sysname`
+Loads Capacity `%rackname` `%sgname` `%sysname`,1,1,BTU/H,1,0,0,1,0,0
+Loads Cost Difference `%rackname` `%sgname` `%sysname`,1,1,$,1,0,0,0,0,0
+Loads EEPR `%rackname` `%sgname` `%sysname`,1,1,%,1,0,0,0,0,0
+Loads EEPR Difference `%rackname` `%sgname` `%sysname`,1,1,%,1,0,0,1,0,0
+Loads EEPR Predicted `%rackname` `%sgname` `%sysname`,1,1,%,1,0,0,0,0,0
+Loads kW `%rackname` `%sgname` `%sysname`,1,1,kW,1,0,0,0,0,0
+Loads kW Difference `%rackname` `%sgname` `%sysname`,1,1,kW,1,0,0,0,0,0
+Loads Setpoint `%rackname` `%sgname` `%sysname`,1,1,F,1.8,-32,0,0,0,0
+Loads Temp `%rackname` `%sgname` `%sysname`,1,1,F,1.8,-32,0,0,0,0
+System Status `%rackname` `%sgname` `%sysname`,0
 `Compressor`
-Comp Amps `%rackname` `%sgname` `%compname`
-Comp Amp Limit `%rackname` `%sgname` `%compname`
-Comp Discharge Temp `%rackname` `%sgname` `%compname`
-Comp Discharge Limit `%rackname` `%sgname` `%compname`
-Comp Fault `%rackname` `%sgname` `%compname`
-Comp kWh Today `%rackname` `%sgname` `%compname`
-Comp Status `%rackname` `%sgname` `%compname`
-Comp SLA `%rackname` `%sgname` `%compname`
-Comp RUN `%rackname` `%sgname` `%compname`
-Comp kW `%rackname` `%sgname` `%compname`
-Comp kWh `%rackname` `%sgname` `%compname`
+Comp Amps `%rackname` `%sgname` `%compname`,1,1,A,1,0,0,1,0,0
+Comp Amp Limit `%rackname` `%sgname` `%compname`,1,1,A,1,0,0,0,0,0
+Comp Discharge Temp `%rackname` `%sgname` `%compname`,1,1,F,1.8,-32,0,0,0,0
+Comp Discharge Limit `%rackname` `%sgname` `%compname`,1,1,F,1.8,-32,0,0,0,0
+Comp Fault `%rackname` `%sgname` `%compname`,0
+Comp kWh Today `%rackname` `%sgname` `%compname`,1,1,kWh,1,0,0,0,0,0
+Comp Status `%rackname` `%sgname` `%compname`,0
+Comp SLA `%rackname` `%sgname` `%compname`,0
+Comp RUN `%rackname` `%sgname` `%compname`,0
+Comp kW `%rackname` `%sgname` `%compname`,1,1,kW,1,0,0,0,0,0
+Comp kWh `%rackname` `%sgname` `%compname`,1,1,kWh,1,0,0,0,0,0

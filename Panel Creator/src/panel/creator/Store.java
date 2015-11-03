@@ -258,7 +258,7 @@ public class Store implements java.io.Serializable {
             writer.writeAll(formatStrings());
             writer.close();
         } catch (IOException ex) {
-            System.out.println("Read csv error with " + filepath + " : " + ex.getMessage());
+            System.out.println("Write csv error with " + filepath + " : " + ex.getMessage());
         }
 
     }
@@ -288,8 +288,8 @@ public class Store implements java.io.Serializable {
             // RACKS
             // do all condenser     
             for (String s : rackStr) {
-                newString = new String[1];
-                newString[0] = s
+                newString = s.split(",");
+                newString[0] = newString[0]
                         .replace("`%rackname`", rName)
                         .replace("`%fannum`", fannum)
                         .replace("`%sgname`", sgName)
@@ -313,8 +313,8 @@ public class Store implements java.io.Serializable {
 
                 // do all condenser     
                 for (String s : condStr) {
-                    newString = new String[1];
-                    newString[0] = s
+                    newString = s.split(",");
+                    newString[0] = newString[0]
                             .replace("`%rackname`", rName)
                             .replace("`%fannum`", fannum)
                             .replace("`%sgname`", sgName)
@@ -332,8 +332,8 @@ public class Store implements java.io.Serializable {
                 sucG = r.getSuctionGroupIndex(sg);
                 sgName = sucG.getName();
                 for (String s : sgStr) {
-                    newString = new String[1];
-                    newString[0] = s
+                    newString = s.split(",");
+                    newString[0] = newString[0]
                             .replace("`%rackname`", rName)
                             .replace("`%fannum`", fannum)
                             .replace("`%sgname`", sgName)
@@ -351,8 +351,8 @@ public class Store implements java.io.Serializable {
                     compName = sucG.getCompressorNameIndex(nc);
                     // do all compressors
                     for (String s : compStr) {
-                        newString = new String[1];
-                        newString[0] = s
+                        newString = s.split(",");
+                        newString[0] = newString[0]
                                 .replace("`%rackname`", rName)
                                 .replace("`%fannum`", fannum)
                                 .replace("`%sgname`", sgName)
@@ -370,8 +370,8 @@ public class Store implements java.io.Serializable {
                     sysName = sucG.getSystemNameIndex(ns);
                     // do all systems
                     for (String s : sysStr) {
-                        newString = new String[1];
-                        newString[0] = s
+                        newString = s.split(",");
+                        newString[0] = newString[0]
                                 .replace("`%rackname`", rName)
                                 .replace("`%fannum`", fannum)
                                 .replace("`%sgname`", sgName)
@@ -388,16 +388,14 @@ public class Store implements java.io.Serializable {
         }
 
         for (String s : storeStr) {
-            newString = new String[1];
-            newString[0] = s;
+            newString = s.split(",");            
 
             //System.out.println("STORE - New string: " + newString[0] + "\tFrom old string: " + s);
             vars.add(newString);
         }
 
         for (String s : extraStr) {
-            newString = new String[1];
-            newString[0] = s;
+            newString = s.split(",");            
 
             //System.out.println("EXTRA - New string: " + newString[0] + "\tFrom old string: " + s);
             vars.add(newString);
@@ -406,6 +404,76 @@ public class Store implements java.io.Serializable {
         end = System.currentTimeMillis();
 
         System.out.println("Format strings took " + ((end - start)) + " ms");
+        return vars;
+
+    }
+
+    public void writeText(String filepath) {
+
+        CSVWriter writer;
+        try {
+            writer = new CSVWriter(new FileWriter(filepath), ',', CSVWriter.NO_QUOTE_CHARACTER);
+            // feed in your array (or convert your data to an array)          
+
+            writer.writeAll(unformattedStrings());
+            writer.close();
+        } catch (IOException ex) {
+            System.out.println("Write text error with " + filepath + " : " + ex.getMessage());
+        }
+
+    }
+
+    public List<String[]> unformattedStrings() {
+
+        List<String[]> vars = new ArrayList<String[]>() {
+        };
+
+        // Store
+        vars.add(new String[]{"`Store`"});
+        for (String s : storeStr) {
+            vars.add(s.split(","));
+        }
+
+        // Racks
+        vars.add(new String[]{"`Rack`"});
+        for (String s : rackStr) {
+            vars.add(s.split(","));
+        }
+
+        // Cond
+        vars.add(new String[]{"`Condenser`"});
+        for (String s : condStr) {
+            vars.add(s.split(","));
+        }
+
+        
+        // Suction Group
+        vars.add(new String[]{"`Suction Group`"});
+        for (String s : sgStr) {
+            vars.add(s.split(","));
+        }
+
+        // System
+        vars.add(new String[]{"`System`"});
+        for (String s : sysStr) {
+            vars.add(s.split(","));
+        }
+
+        // Compressor
+        vars.add(new String[]{"`Compressor`"});
+        for (String s : compStr) {
+            vars.add(s.split(","));
+        }
+
+        // Extra
+        if (!extraStr.isEmpty()) {
+            vars.add(new String[]{"`Extra`"});
+            for (String s : extraStr) {
+                vars.add(s.split(","));
+            }
+        }
+        
+        
         return vars;
 
     }

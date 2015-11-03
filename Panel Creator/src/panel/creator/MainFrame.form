@@ -73,6 +73,18 @@
         </Property>
       </Properties>
     </Component>
+    <Component class="javax.swing.JFileChooser" name="_FileChooser_SaveText">
+      <Properties>
+        <Property name="dialogType" type="int" value="1"/>
+        <Property name="approveButtonText" type="java.lang.String" value="Save"/>
+        <Property name="approveButtonToolTipText" type="java.lang.String" value="Save Text"/>
+        <Property name="currentDirectory" type="java.io.File" value="null"/>
+        <Property name="dialogTitle" type="java.lang.String" value="Directory to save a picture"/>
+        <Property name="fileFilter" type="javax.swing.filechooser.FileFilter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new FileNameExtensionFilter(&quot;Txt files (.txt)&quot;, new String[]{&quot;txt&quot;})" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="_MenuBar_Menus">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="_Menu_File">
@@ -102,15 +114,26 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_SaveAllDisplaysActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_PrintVarNames">
+            <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_PrintVarNamesCsv">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+P"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Print Variable Names"/>
+                <Property name="text" type="java.lang.String" value="Print Variable Names to .csv"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_PrintVarNamesActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_PrintVarNamesCsvActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_PrintVarNamesText">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+P"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Print Variable Names to .txt"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_PrintVarNamesTextActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_OpenStore">

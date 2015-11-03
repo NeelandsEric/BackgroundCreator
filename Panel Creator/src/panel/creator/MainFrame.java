@@ -135,12 +135,14 @@ public class MainFrame extends JFrame {
         _FileChooser_LoadStore = new javax.swing.JFileChooser();
         _FileChooser_SaveIntoFolder = new javax.swing.JFileChooser();
         _FileChooser_SaveCSV = new javax.swing.JFileChooser();
+        _FileChooser_SaveText = new javax.swing.JFileChooser();
         _TabbedPane_Tabs = new javax.swing.JTabbedPane();
         _MenuBar_Menus = new javax.swing.JMenuBar();
         _Menu_File = new javax.swing.JMenu();
         _MenuItem_SaveCurrentDisplay = new javax.swing.JMenuItem();
         _MenuItem_SaveAllDisplays = new javax.swing.JMenuItem();
-        _MenuItem_PrintVarNames = new javax.swing.JMenuItem();
+        _MenuItem_PrintVarNamesCsv = new javax.swing.JMenuItem();
+        _MenuItem_PrintVarNamesText = new javax.swing.JMenuItem();
         _MenuItem_OpenStore = new javax.swing.JMenuItem();
         _MenuItem_SaveStore = new javax.swing.JMenuItem();
         _MenuItem_NewStore = new javax.swing.JMenuItem();
@@ -193,6 +195,13 @@ public class MainFrame extends JFrame {
         _FileChooser_SaveCSV.setDialogTitle("Directory to save a picture");
         _FileChooser_SaveCSV.setFileFilter(new FileNameExtensionFilter("CSV (.csv)", new String[]{"csv"}));
 
+        _FileChooser_SaveText.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+        _FileChooser_SaveText.setApproveButtonText("Save");
+        _FileChooser_SaveText.setApproveButtonToolTipText("Save Text");
+        _FileChooser_SaveText.setCurrentDirectory(null);
+        _FileChooser_SaveText.setDialogTitle("Directory to save a picture");
+        _FileChooser_SaveText.setFileFilter(new FileNameExtensionFilter("Txt files (.txt)", new String[]{"txt"}));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Image Creator");
         setMinimumSize(new java.awt.Dimension(1045, 629));
@@ -218,14 +227,23 @@ public class MainFrame extends JFrame {
         });
         _Menu_File.add(_MenuItem_SaveAllDisplays);
 
-        _MenuItem_PrintVarNames.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        _MenuItem_PrintVarNames.setText("Print Variable Names");
-        _MenuItem_PrintVarNames.addActionListener(new java.awt.event.ActionListener() {
+        _MenuItem_PrintVarNamesCsv.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_PrintVarNamesCsv.setText("Print Variable Names to .csv");
+        _MenuItem_PrintVarNamesCsv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _MenuItem_PrintVarNamesActionPerformed(evt);
+                _MenuItem_PrintVarNamesCsvActionPerformed(evt);
             }
         });
-        _Menu_File.add(_MenuItem_PrintVarNames);
+        _Menu_File.add(_MenuItem_PrintVarNamesCsv);
+
+        _MenuItem_PrintVarNamesText.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_PrintVarNamesText.setText("Print Variable Names to .txt");
+        _MenuItem_PrintVarNamesText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _MenuItem_PrintVarNamesTextActionPerformed(evt);
+            }
+        });
+        _Menu_File.add(_MenuItem_PrintVarNamesText);
 
         _MenuItem_OpenStore.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         _MenuItem_OpenStore.setText("Open Store");
@@ -509,7 +527,7 @@ public class MainFrame extends JFrame {
         
     }//GEN-LAST:event__MenuItem_NewStoreActionPerformed
 
-    private void _MenuItem_PrintVarNamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintVarNamesActionPerformed
+    private void _MenuItem_PrintVarNamesCsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintVarNamesCsvActionPerformed
         // TODO add your handling code here:
         
                        
@@ -530,7 +548,27 @@ public class MainFrame extends JFrame {
             System.out.println("File access cancelled by user.");
         }
         
-    }//GEN-LAST:event__MenuItem_PrintVarNamesActionPerformed
+    }//GEN-LAST:event__MenuItem_PrintVarNamesCsvActionPerformed
+
+    private void _MenuItem_PrintVarNamesTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintVarNamesTextActionPerformed
+        // TODO add your handling code here:
+        int returnVal = _FileChooser_SaveText.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            File file = _FileChooser_SaveText.getSelectedFile();            
+            //System.out.println("File: " + file.getAbsolutePath());
+            String filePath = file.getAbsolutePath();
+            
+            if (!filePath.endsWith(".txt")) {
+                filePath += ".txt";
+            }            
+            
+            this.store.writeText(filePath);           
+           
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+    }//GEN-LAST:event__MenuItem_PrintVarNamesTextActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -540,12 +578,14 @@ public class MainFrame extends JFrame {
     private javax.swing.JFileChooser _FileChooser_SaveIntoFolder;
     private javax.swing.JFileChooser _FileChooser_SavePicture;
     private javax.swing.JFileChooser _FileChooser_SaveStore;
+    private javax.swing.JFileChooser _FileChooser_SaveText;
     private javax.swing.JMenuBar _MenuBar_Menus;
     private javax.swing.JMenuItem _MenuItem_Close;
     private javax.swing.JMenuItem _MenuItem_NewStore;
     private javax.swing.JMenuItem _MenuItem_OpenImage;
     private javax.swing.JMenuItem _MenuItem_OpenStore;
-    private javax.swing.JMenuItem _MenuItem_PrintVarNames;
+    private javax.swing.JMenuItem _MenuItem_PrintVarNamesCsv;
+    private javax.swing.JMenuItem _MenuItem_PrintVarNamesText;
     private javax.swing.JMenuItem _MenuItem_RemoveImage;
     private javax.swing.JMenuItem _MenuItem_SaveAllDisplays;
     private javax.swing.JMenuItem _MenuItem_SaveCurrentDisplay;

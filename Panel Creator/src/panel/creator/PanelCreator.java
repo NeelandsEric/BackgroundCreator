@@ -21,8 +21,8 @@ public class PanelCreator {
     /**
      * Starts the program
      */
-    private void start() {
-
+    private void start() {        
+        
         mf = new MainFrame(this);
         mf.setVisible(true);
         // Show the main panel

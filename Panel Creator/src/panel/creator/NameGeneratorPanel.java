@@ -64,6 +64,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         _ComboBox_Groups = new javax.swing.JComboBox();
         _Button_Save = new javax.swing.JButton();
+        _Button_Defaults = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -165,6 +166,14 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             }
         });
 
+        _Button_Defaults.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Button_Defaults.setText("Default Variables");
+        _Button_Defaults.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_DefaultsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,7 +187,9 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(_Panel_Rack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(225, 225, 225)
+                        .addGap(55, 55, 55)
+                        .addComponent(_Button_Defaults, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(_ComboBox_Groups, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,9 +205,10 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                 .addGap(77, 77, 77)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(_Button_Save, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(_ComboBox_Groups, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)))
+                    .addComponent(jLabel4)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(_ComboBox_Groups, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                        .addComponent(_Button_Defaults, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(_Panel_Rack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -213,7 +225,19 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
     private void _Button_CheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CheckActionPerformed
         // TODO add your handling code here:
-        System.out.println("check formats");
+        System.out.println("TODO: check formats");
+        
+        parseVarNames();
+        
+        for(String s: storeStr){
+            String [] ns = s.split(",");
+            System.out.println("NS len: " + ns.length);
+            for(int i = 0; i < ns.length; i++){
+                System.out.println(i + ": " + ns[i]);
+            }
+        }
+        
+        
 
     }//GEN-LAST:event__Button_CheckActionPerformed
 
@@ -224,6 +248,11 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         mf.updateVarNames(storeStr, rackStr, condStr, sgStr, compStr, sysStr, extraStr);
         
     }//GEN-LAST:event__Button_SaveActionPerformed
+
+    private void _Button_DefaultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_DefaultsActionPerformed
+        // TODO add your handling code here:
+        loadGroups();
+    }//GEN-LAST:event__Button_DefaultsActionPerformed
 
     public void loadStore(Store store){
         storeStr = store.getStoreStr();
@@ -607,6 +636,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton _Button_Check;
+    private javax.swing.JButton _Button_Defaults;
     private javax.swing.JButton _Button_Save;
     private javax.swing.JComboBox _ComboBox_Groups;
     private javax.swing.JLabel _Label_CheckStatus;
