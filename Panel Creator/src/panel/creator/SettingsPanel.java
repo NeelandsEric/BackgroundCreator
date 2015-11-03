@@ -533,7 +533,6 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
         _CheckBox_Bold.setSelected(false);
         _CheckBox_Italic.setSelected(false);
         color = Color.white;
-        System.out.println("Default settings: white");
         _ColorChooser_Color.setColor(color);
         ds = new DisplaySettings(displayWidth, displayHeight, font, border, borderSize, 11, 6, 0, 1, false, false, color);
         loading = false;
@@ -542,7 +541,6 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
 
     public void loadSettings(DisplaySettings dds) {
         loading = true;
-        System.out.println("Load param\n" + dds);
         this.ds = dds;
         displayWidth = ds.getDisplayWidth();
         displayHeight = ds.getDisplayHeight();
@@ -602,8 +600,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
     public void stateChanged(ChangeEvent e) {
 
         if (!loading) {
-            color = _ColorChooser_Color.getColor();
-            System.out.println("color changed to " + color);
+            color = _ColorChooser_Color.getColor();            
             int index = _ComboBox_Borders.getSelectedIndex();
             int bIndex = index;
             if (index < 3) {

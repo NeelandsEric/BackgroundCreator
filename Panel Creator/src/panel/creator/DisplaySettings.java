@@ -146,8 +146,7 @@ public class DisplaySettings implements java.io.Serializable {
         this.italic = italic;
     }
 
-    public Color getColor() {
-        System.out.println("get color: " + colorStr);
+    public Color getColor() {        
         return new Color(Integer.parseInt(colorStr));        
     }
 
