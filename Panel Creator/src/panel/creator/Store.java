@@ -268,6 +268,16 @@ public class Store implements java.io.Serializable {
         long start = System.currentTimeMillis(), end;
         List<String[]> vars = new ArrayList<String[]>() {
         };
+        
+        // Add header
+        String[] headers = new String[]{"io_name", "io_type", "io_unit_of_measure",
+                                        "io_constant", "io_offset", "io_float_digits",
+                                        "io_alert", "io_alert_range_low", "io_alert_range_high",
+                                        "rest modbus"
+                                    };
+        vars.add(headers);
+        
+        
         int numfans, numsg, numcomp, numsys;
         String[] newString;
         Rack r;
@@ -428,6 +438,13 @@ public class Store implements java.io.Serializable {
         List<String[]> vars = new ArrayList<String[]>() {
         };
 
+        // Add header
+        String[] headers = new String[]{"io_name", "io_type", "io_unit_of_measure",
+                                        "io_constant", "io_offset", "io_float_digits",
+                                        "io_alert", "io_alert_range_low", "io_alert_range_high",
+                                        "rest modbus"
+                                    };
+        vars.add(headers);
         // Store
         vars.add(new String[]{"`Store`"});
         for (String s : storeStr) {
