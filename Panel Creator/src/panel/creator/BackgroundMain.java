@@ -1439,7 +1439,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         label.setFont(new Font("Arial", Font.BOLD, 18));
         label.setAlignmentX((Component.RIGHT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setBorder(BorderFactory.createRaisedBevelBorder());
+        label.setBorder(BorderFactory.createLoweredBevelBorder());
         panel.add(label, c);
 
         panel.setBackground(Colours.Gray.getCol());

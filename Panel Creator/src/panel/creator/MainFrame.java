@@ -285,7 +285,7 @@ public class MainFrame extends JFrame {
 
         _Menu_View.setText("View");
 
-        _MenuItem_ViewPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_ViewPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         _MenuItem_ViewPanel.setText("View Panels");
         _MenuItem_ViewPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,7 +295,7 @@ public class MainFrame extends JFrame {
         _Menu_View.add(_MenuItem_ViewPanel);
 
         _MenuItem_changedisplay.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
-        _MenuItem_changedisplay.setText("Change display tab");
+        _MenuItem_changedisplay.setText("Next Display Tab");
         _MenuItem_changedisplay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _MenuItem_changedisplayActionPerformed(evt);
@@ -307,7 +307,7 @@ public class MainFrame extends JFrame {
 
         _Menu_Image.setText("Image");
 
-        _MenuItem_OpenImage.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_OpenImage.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         _MenuItem_OpenImage.setText("Open Image File");
         _MenuItem_OpenImage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -414,15 +414,14 @@ public class MainFrame extends JFrame {
 
             try {
                 Store s = controlPanel.store;
-                s.setDs(this.store.getDs());
-                System.out.println(s.getDs());
+                s.setDs(this.store.getDs());                
                 FileOutputStream fos = new FileOutputStream(fn);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(s); 
                 oos.close();
                 fos.close();
                 
-                System.out.println("Store saved");
+                System.out.println("Store " + this.store.getStoreName() + " saved");
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -450,14 +449,13 @@ public class MainFrame extends JFrame {
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 this.store = (Store) ois.readObject();                
                 ois.close();
-                fis.close();    
-                System.out.println(this.store.getDs());
+                fis.close();                
                 settingsPanel.loadSettings(this.store.getDs());
                 controlPanel.loadStore(this.store);                
                 ngPanel.loadStore(this.store);
-                System.out.println("Store read properly");
+                System.out.println("Store " + this.store.getStoreName() + " read properly");
             } catch (Exception e) {
-                System.out.println("Error with open store: " + e.getMessage());
+                System.out.println("Error with opening store: " + e.getMessage());
             } 
             /*
             System.out.println("Store Load Debug\nRack count: " + controlPanel.store.getNumRacks());
@@ -481,9 +479,12 @@ public class MainFrame extends JFrame {
             //System.out.println("FP: " + filePath);
             String[] fileNames = controlPanel.getFileNames(filePath, displayFrame.bg.getSize());
             int numDisplays = displayFrame.getTabCount();
-            this.store.writeCSV(filePath + " " + store.getStoreName() + "-IO Names.csv");
-            BufferedImage bi;
-            System.out.println("Num displays: " + numDisplays + "\tfilenames length: " + fileNames.length);
+            try{
+                this.store.writeCSV(filePath + " " + store.getStoreName() + "-IO Names.csv");
+            }catch(Exception e){
+                System.out.println("Problem writing csv file to " + filePath + " " + store.getStoreName() + "-IO Names.csv");
+            }
+            BufferedImage bi;            
             
             for (int i = 0; i < numDisplays; i++) {
                 //System.out.println(i + ": " + fileNames[i]);
@@ -511,10 +512,14 @@ public class MainFrame extends JFrame {
 
     private void _MenuItem_changedisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_changedisplayActionPerformed
         // TODO add your handling code here:
-        int d = displayFrame.getTabCount();
-        int r = (int) (Math.random() * (d));
-        displayFrame.changeTab(r);
-        System.out.println("Changed to " + r);
+        int count = displayFrame.getTabCount();
+        int curr = displayFrame.getTabSelection();
+        if((curr + 1) < count){
+            curr+=1;
+        }else {
+            curr = 0;
+        }
+        displayFrame.changeTab(curr);        
     }//GEN-LAST:event__MenuItem_changedisplayActionPerformed
 
     private void _MenuItem_NewStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_NewStoreActionPerformed

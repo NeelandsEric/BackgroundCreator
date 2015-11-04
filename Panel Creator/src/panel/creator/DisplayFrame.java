@@ -248,10 +248,8 @@ public class DisplayFrame extends javax.swing.JFrame {
      *
      * @param index int index to switch to 0 - (tab count - 1)
      */
-    public void changeTab(int index) {
-        System.out.println("Changing tab to " + index);
+    public void changeTab(int index) {        
         _TabbedPane_Tabs.setSelectedIndex(index);
-
     }
 
     /**
