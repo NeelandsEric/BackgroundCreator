@@ -610,7 +610,7 @@ public class MainFrame extends JFrame {
 
                 for (String[] r : list) {
                     // Create a row and put some cells in it. Rows are 0 based.
-                    Row row = sheet.createRow((short) rowNum);
+                    Row row = sheet.createRow(rowNum);
                     // Create a cell and put a value in it.
                     for (int i = 0; i < r.length; i++) {
                         Cell cell = row.createCell(i);

@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -26,6 +27,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     private ArrayList<String> compStr;
     private ArrayList<String> sysStr;
     private ArrayList<String> extraStr;
+    private DefaultListModel listModel;
 
     /**
      * Creates new form NameGeneratorPanel
@@ -36,6 +38,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     public NameGeneratorPanel(MainFrame mf) {
         this.mf = mf;
         comboBoxIndex = 0;
+        listModel = new DefaultListModel();
         initComponents();
 
     }
@@ -52,19 +55,35 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        _Panel_Rack = new javax.swing.JPanel();
-        _Label_GroupName = new javax.swing.JLabel();
-        _Button_Check = new javax.swing.JToggleButton();
-        _Label_CheckStatus = new javax.swing.JLabel();
-        _ScrollPane_CommandsRack = new javax.swing.JScrollPane();
-        _TextArea_VarNames = new javax.swing.JTextArea();
-        _ScrollPane_InfoRacks = new javax.swing.JScrollPane();
-        _TextArea_Info = new javax.swing.JTextArea();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        _Label_Title = new javax.swing.JLabel();
         _ComboBox_Groups = new javax.swing.JComboBox();
         _Button_Save = new javax.swing.JButton();
         _Button_Defaults = new javax.swing.JButton();
+        _Label_GroupName = new javax.swing.JLabel();
+        _Button_Check = new javax.swing.JToggleButton();
+        _ScrollPane_InfoRacks = new javax.swing.JScrollPane();
+        _TextArea_Info = new javax.swing.JTextArea();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        _List_Variables = new javax.swing.JList();
+        _Panel_SelectedItemInfo = new javax.swing.JPanel();
+        _Textfield_Name = new javax.swing.JTextField();
+        _Label_name = new javax.swing.JLabel();
+        _Label_type = new javax.swing.JLabel();
+        _FTF_DisplayedValue = new javax.swing.JFormattedTextField();
+        _ComboBox_Type = new javax.swing.JComboBox();
+        _Label_type1 = new javax.swing.JLabel();
+        _Label_uom = new javax.swing.JLabel();
+        _TextField_UoM = new javax.swing.JTextField();
+        _Label_constant = new javax.swing.JLabel();
+        _FTF_Constant = new javax.swing.JFormattedTextField();
+        _Label_offset = new javax.swing.JLabel();
+        _FTF_Offset = new javax.swing.JFormattedTextField();
+        _Label_constant1 = new javax.swing.JLabel();
+        _FTF_TempLow = new javax.swing.JFormattedTextField();
+        _Label_offset1 = new javax.swing.JLabel();
+        _FTF_TempHigh = new javax.swing.JFormattedTextField();
+        _Label_constant2 = new javax.swing.JLabel();
+        _CheckBox_Alert = new javax.swing.JCheckBox();
 
         jLabel1.setText("jLabel1");
 
@@ -74,80 +93,9 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
         setMinimumSize(new java.awt.Dimension(972, 555));
 
-        _Label_GroupName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _Label_GroupName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        _Label_GroupName.setText("Group Name");
-
-        _Button_Check.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _Button_Check.setText("Check Formatting");
-        _Button_Check.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _Button_CheckActionPerformed(evt);
-            }
-        });
-
-        _Label_CheckStatus.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _Label_CheckStatus.setText("Status: ");
-
-        _TextArea_VarNames.setColumns(20);
-        _TextArea_VarNames.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        _TextArea_VarNames.setLineWrap(true);
-        _TextArea_VarNames.setRows(5);
-        _TextArea_VarNames.setWrapStyleWord(true);
-        _ScrollPane_CommandsRack.setViewportView(_TextArea_VarNames);
-
-        _TextArea_Info.setEditable(false);
-        _TextArea_Info.setColumns(20);
-        _TextArea_Info.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        _TextArea_Info.setLineWrap(true);
-        _TextArea_Info.setRows(5);
-        _TextArea_Info.setWrapStyleWord(true);
-        _ScrollPane_InfoRacks.setViewportView(_TextArea_Info);
-
-        javax.swing.GroupLayout _Panel_RackLayout = new javax.swing.GroupLayout(_Panel_Rack);
-        _Panel_Rack.setLayout(_Panel_RackLayout);
-        _Panel_RackLayout.setHorizontalGroup(
-            _Panel_RackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(_Panel_RackLayout.createSequentialGroup()
-                .addGroup(_Panel_RackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(_Panel_RackLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(_ScrollPane_InfoRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_RackLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(_Label_GroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(_Panel_RackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(_Label_CheckStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(_Button_Check, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))))
-                .addGap(18, 18, 18)
-                .addComponent(_ScrollPane_CommandsRack, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        _Panel_RackLayout.setVerticalGroup(
-            _Panel_RackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(_Panel_RackLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(_Panel_RackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(_ScrollPane_CommandsRack)
-                    .addGroup(_Panel_RackLayout.createSequentialGroup()
-                        .addGroup(_Panel_RackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(_Label_GroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_Button_Check, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(_Label_CheckStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                        .addComponent(_ScrollPane_InfoRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("IO Variable Name Generator");
-
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Grouping");
+        _Label_Title.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        _Label_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _Label_Title.setText("IO Variable Name Generator");
 
         _ComboBox_Groups.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _ComboBox_Groups.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Store", "Rack", "Condenser", "Suction Group", "Compressor", "System", "Other" }));
@@ -174,6 +122,207 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             }
         });
 
+        _Label_GroupName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Label_GroupName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _Label_GroupName.setText("Group Name");
+
+        _Button_Check.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Button_Check.setText("Check Formatting");
+        _Button_Check.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_CheckActionPerformed(evt);
+            }
+        });
+
+        _TextArea_Info.setEditable(false);
+        _TextArea_Info.setColumns(20);
+        _TextArea_Info.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _TextArea_Info.setLineWrap(true);
+        _TextArea_Info.setRows(5);
+        _TextArea_Info.setWrapStyleWord(true);
+        _ScrollPane_InfoRacks.setViewportView(_TextArea_Info);
+
+        _List_Variables.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _List_Variables.setModel(listModel);
+        _List_Variables.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        _List_Variables.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                _List_VariablesValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(_List_Variables);
+
+        _Textfield_Name.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Textfield_Name.setText("IO Name");
+
+        _Label_name.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Label_name.setText("io_name");
+
+        _Label_type.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Label_type.setText("io_type");
+
+        _FTF_DisplayedValue.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        _FTF_DisplayedValue.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        _FTF_DisplayedValue.setText("1");
+        _FTF_DisplayedValue.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _FTF_DisplayedValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _FTF_DisplayedValueActionPerformed(evt);
+            }
+        });
+
+        _ComboBox_Type.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _ComboBox_Type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Digital Input", "Analog Input", "Digital Output", "Analog Output" }));
+
+        _Label_type1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Label_type1.setText("io_value_displayed");
+
+        _Label_uom.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Label_uom.setText("io_unit_of_measure");
+
+        _TextField_UoM.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _TextField_UoM.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        _TextField_UoM.setText("A");
+
+        _Label_constant.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Label_constant.setText("io_constant");
+
+        _FTF_Constant.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        _FTF_Constant.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        _FTF_Constant.setText("1");
+        _FTF_Constant.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _FTF_Constant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _FTF_ConstantActionPerformed(evt);
+            }
+        });
+
+        _Label_offset.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Label_offset.setText("io_offset");
+
+        _FTF_Offset.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        _FTF_Offset.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        _FTF_Offset.setText("0");
+        _FTF_Offset.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _FTF_Offset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _FTF_OffsetActionPerformed(evt);
+            }
+        });
+
+        _Label_constant1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Label_constant1.setText("io_alert_range_low");
+
+        _FTF_TempLow.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        _FTF_TempLow.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        _FTF_TempLow.setText("0");
+        _FTF_TempLow.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _FTF_TempLow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _FTF_TempLowActionPerformed(evt);
+            }
+        });
+
+        _Label_offset1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Label_offset1.setText("io_alert_range_high");
+
+        _FTF_TempHigh.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        _FTF_TempHigh.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        _FTF_TempHigh.setText("0");
+        _FTF_TempHigh.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _FTF_TempHigh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _FTF_TempHighActionPerformed(evt);
+            }
+        });
+
+        _Label_constant2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Label_constant2.setText("io_alert");
+
+        _CheckBox_Alert.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _CheckBox_Alert.setText("No");
+
+        javax.swing.GroupLayout _Panel_SelectedItemInfoLayout = new javax.swing.GroupLayout(_Panel_SelectedItemInfo);
+        _Panel_SelectedItemInfo.setLayout(_Panel_SelectedItemInfoLayout);
+        _Panel_SelectedItemInfoLayout.setHorizontalGroup(
+            _Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
+                        .addComponent(_Label_name, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_Textfield_Name))
+                    .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
+                        .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
+                                .addComponent(_Label_type, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_ComboBox_Type, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(_Label_type1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_FTF_DisplayedValue, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
+                                .addComponent(_Label_uom, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(_TextField_UoM, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(_Label_constant, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_FTF_Constant, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(_Label_offset, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_FTF_Offset, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
+                                .addComponent(_Label_constant2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_CheckBox_Alert)
+                                .addGap(18, 18, 18)
+                                .addComponent(_Label_constant1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_FTF_TempLow, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(_Label_offset1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_FTF_TempHigh, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 44, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        _Panel_SelectedItemInfoLayout.setVerticalGroup(
+            _Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(_Textfield_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_Label_name, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(_Label_type, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(_ComboBox_Type, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(_Label_type1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(_FTF_DisplayedValue))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(_Label_uom, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_TextField_UoM, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_Label_constant, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_FTF_Constant, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_Label_offset, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_FTF_Offset, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(_Label_constant1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_FTF_TempLow, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_Label_offset1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_FTF_TempHigh, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_Label_constant2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_CheckBox_Alert))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,37 +330,65 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(304, 304, 304)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(_Panel_Rack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(_Button_Defaults, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(_ComboBox_Groups, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(_Button_Save, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(103, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(_Button_Defaults, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(_Button_Check, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(_ScrollPane_InfoRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(_Panel_SelectedItemInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(_Button_Save, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(_ComboBox_Groups, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(222, 222, 222)
+                            .addComponent(_Label_GroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(8, 8, 8))))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(352, 352, 352)
+                .addComponent(_Label_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_Button_Check, _Button_Defaults});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel3)
-                .addGap(77, 77, 77)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(_Button_Save, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addComponent(jLabel4)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(_ComboBox_Groups, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                        .addComponent(_Button_Defaults, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(_Label_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(_Label_GroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(_Panel_Rack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(_ComboBox_Groups, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 39, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(_Panel_SelectedItemInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(_ScrollPane_InfoRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(_Button_Defaults, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(_Button_Check, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(_Button_Save, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -226,19 +403,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     private void _Button_CheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CheckActionPerformed
         // TODO add your handling code here:
         System.out.println("TODO: check formats");
-        
         parseVarNames();
-        
-        for(String s: storeStr){
-            String [] ns = s.split(",");
-            System.out.println("NS len: " + ns.length);
-            for(int i = 0; i < ns.length; i++){
-                System.out.println(i + ": " + ns[i]);
-            }
-        }
-        
-        
-
     }//GEN-LAST:event__Button_CheckActionPerformed
 
     private void _Button_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SaveActionPerformed
@@ -246,7 +411,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         // Parse the fields
         parseVarNames();
         mf.updateVarNames(storeStr, rackStr, condStr, sgStr, compStr, sysStr, extraStr);
-        
+
     }//GEN-LAST:event__Button_SaveActionPerformed
 
     private void _Button_DefaultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_DefaultsActionPerformed
@@ -254,7 +419,67 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         loadGroups();
     }//GEN-LAST:event__Button_DefaultsActionPerformed
 
-    public void loadStore(Store store){
+    private void _FTF_DisplayedValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__FTF_DisplayedValueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event__FTF_DisplayedValueActionPerformed
+
+    private void _FTF_ConstantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__FTF_ConstantActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event__FTF_ConstantActionPerformed
+
+    private void _FTF_OffsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__FTF_OffsetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event__FTF_OffsetActionPerformed
+
+    private void _FTF_TempLowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__FTF_TempLowActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event__FTF_TempLowActionPerformed
+
+    private void _FTF_TempHighActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__FTF_TempHighActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event__FTF_TempHighActionPerformed
+
+    private void _List_VariablesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event__List_VariablesValueChanged
+        // TODO add your handling code here:
+        // Load the item that has been clicked
+        if (!evt.getValueIsAdjusting()) {
+            String item = (String) _List_Variables.getSelectedValue();
+            if (item != null) {
+                loadItem(item.split(","));
+            }
+
+        }
+
+    }//GEN-LAST:event__List_VariablesValueChanged
+
+    public void loadItem(String[] values) {
+        if (values.length > 8) {
+            _Textfield_Name.setText(values[0]);
+            _ComboBox_Type.setSelectedIndex(Integer.parseInt(values[1]));
+            _FTF_DisplayedValue.setText(values[2]);
+            _TextField_UoM.setText(values[3]);
+            _FTF_Constant.setText(values[4]);
+            _FTF_Offset.setText(values[5]);
+            
+            if(values[6].equals("1")){
+                _CheckBox_Alert.setSelected(true);
+                _CheckBox_Alert.setText("Yes");
+            }else {
+                _CheckBox_Alert.setSelected(false);
+                _CheckBox_Alert.setText("No");
+            }            
+            _FTF_TempLow.setText(values[7]);
+            _FTF_TempHigh.setText(values[8]);
+        } else if (values.length == 2) {
+            _Textfield_Name.setText(values[0]);
+            _ComboBox_Type.setSelectedIndex(Integer.parseInt(values[1]));
+        } else {
+            System.out.println("Not enough fields for " + values[0]);
+        }
+
+    }
+
+    public void loadStore(Store store) {
         storeStr = store.getStoreStr();
         rackStr = store.getRackStr();
         condStr = store.getCondStr();
@@ -264,7 +489,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         extraStr = store.getExtraStr();
         update();
     }
-    
+
     public void loadGroups() {
 
         storeStr = new ArrayList<>();
@@ -289,7 +514,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                 } else if (line.startsWith("`gn")) {
                     groupName = line.substring(3).toLowerCase();
                     //System.out.println("Grouping name: " + groupName);
-                } else {                    
+                } else {
                     switch (groupName) {
                         case "":
                             //System.out.println("No groupname line = " + line);
@@ -309,7 +534,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                         case "suction group":
                             //System.out.println("Added to SuctionGroup: " + line);
                             sgStr.add(line);
-                            break;                        
+                            break;
                         case "compressor":
                             //System.out.println("Added to Compressor: " + line);
                             compStr.add(line);
@@ -329,7 +554,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         } catch (FileNotFoundException e) {
             System.out.println("File not found " + filename);
         } finally {
-                       
+
             if (scan != null) {
                 scan.close();
             }
@@ -344,10 +569,9 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
      * parse var names in the text field
      */
     public void parseVarNames() {
-        String tfString = _TextArea_VarNames.getText();
+        ArrayList<String> varNames = getVarsFromList();
         String line = "";
-    
-        scan = new Scanner(tfString);
+
         switch (comboBoxIndex) {
             case 0:
                 storeStr.clear();
@@ -362,7 +586,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                 sgStr.clear();
                 break;
             case 4:
-                compStr.clear();                
+                compStr.clear();
                 break;
             case 5:
                 sysStr.clear();
@@ -372,9 +596,8 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                 break;
         }
 
-        while (scan.hasNextLine()) {
-            line = scan.nextLine();
-            line = formatVarString(line);
+        for(String s: varNames){           
+            line = formatVarString(s);
             switch (comboBoxIndex) {
                 case 0:
                     //System.out.println("Added to Store: " + line);
@@ -394,7 +617,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                     break;
                 case 4:
                     //System.out.println("Added to Compressor: " + line);
-                    compStr.add(line);                    
+                    compStr.add(line);
                     break;
                 case 5:
                     //System.out.println("Added to System: " + line);
@@ -415,62 +638,84 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
      */
     public void update() {
         String info = "";
-        String vars = "";
+        ArrayList<String> vars = new ArrayList<>();
         switch (_ComboBox_Groups.getSelectedIndex()) {
             case 0: // store
                 info = getVarInfoStore();
                 for (String s : storeStr) {
-                    vars += s;
-                    vars += "\n";
+                    vars.add(s + "\n");
                 }
                 break;
             case 1:
                 info = getVarInfoRack();
                 for (String s : rackStr) {
-                    vars += s;
-                    vars += "\n";
+                    vars.add(s + "\n");
+
                 }
                 break;
             case 2:
                 info = getVarInfoCond();
                 for (String s : condStr) {
-                    vars += s;
-                    vars += "\n";
+                    vars.add(s + "\n");
                 }
                 break;
             case 3:
                 info = getVarInfoSG();
                 for (String s : sgStr) {
-                    vars += s;
-                    vars += "\n";
+                    vars.add(s + "\n");
                 }
                 break;
             case 4:
                 info = getVarInfoComp();
                 for (String s : compStr) {
-                    vars += s;
-                    vars += "\n";
+                    vars.add(s + "\n");
                 }
                 break;
             case 5:
                 info = getVarInfoSys();
                 for (String s : sysStr) {
-                    vars += s;
-                    vars += "\n";
+                    vars.add(s + "\n");
                 }
                 break;
             case 6:
                 info = getVarInfoExtra();
                 for (String s : extraStr) {
-                    vars += s;
-                    vars += "\n";
+                    vars.add(s + "\n");
                 }
                 break;
         }
 
-        _Label_GroupName.setText(_ComboBox_Groups.getSelectedItem().toString());
+        _Label_GroupName.setText(_ComboBox_Groups.getSelectedItem().toString() + " Var Names");
         _TextArea_Info.setText(info);
-        _TextArea_VarNames.setText(vars);
+        addVarsToList(vars);
+    }
+    
+    
+    public ArrayList<String> getVarsFromList(){
+        ArrayList<String> vars = new ArrayList<>();
+        for(int i = 0; i < listModel.getSize(); i++){
+            vars.add((String) listModel.get(i));
+        }
+        return vars;
+    }
+
+    public void addVarsToList(ArrayList<String> vars) {
+
+        listModel.removeAllElements();
+        for (String s : vars) {
+            listModel.addElement(s);
+        }
+
+    }
+
+    public String getStringFromList() {
+        String vars = "";
+
+        for (int i = 0; i < _List_Variables.getModel().getSize(); i++) {
+            vars += (String) _List_Variables.getModel().getElementAt(i);
+            //vars += "\n";
+        }
+        return vars;
     }
 
     /**
@@ -542,114 +787,122 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
     }
 
-    
-    public String getVarInfoStore(){
+    public String getVarInfoStore() {
         String info = "";
-        
+
         info += "Add store variables to your string by wrapping the variable name"
                 + "in the grave character '`'. Ex.\nOutside Air Temp `%storename`"
                 + "\n\nStore variables include:\n\n"
-                + "%storename";        
-        
-        return info;       
-        
+                + "%storename";
+
+        return info;
+
     }
-    
-    
-    public String getVarInfoRack(){
+
+    public String getVarInfoRack() {
         String info = "";
-        
+
         info += "Add rack variables to your string by wrapping the variable name"
                 + "in the grave character '`'. Ex.\nRack Status `%rackname`"
                 + "\n\nRack variables include:\n\n"
-                + "%storename\n%rackname\n";        
-        
-        return info;       
-        
+                + "%storename\n%rackname\n";
+
+        return info;
+
     }
-    
-    
-    
-    public String getVarInfoCond(){
+
+    public String getVarInfoCond() {
         String info = "";
-        
+
         info += "Add condenser variables to your string by wrapping the variable name"
                 + "in the grave character '`'. Ex.\nCondenser Fan `%rackname` `%fannum`"
                 + "\n\nCondenser variables include:\n\n"
-                + "%storename\n%rackname\n%fannum\n";        
-        
-        return info;      
-        
+                + "%storename\n%rackname\n%fannum\n";
+
+        return info;
+
     }
-    
-    public String getVarInfoSG(){
+
+    public String getVarInfoSG() {
         String info = "";
-        
+
         info += "Add suction group variables to your string by wrapping the variable name"
                 + "in the grave character '`'. Ex.\nLiquid Pressure `%rackname` `%sgname`"
                 + "\n\nCondenser variables include:\n\n"
-                + "%storename\n%rackname\n%sgname\n";        
-        
-        return info;      
-        
+                + "%storename\n%rackname\n%sgname\n";
+
+        return info;
+
     }
-    
-    public String getVarInfoSys(){
+
+    public String getVarInfoSys() {
         String info = "";
-        
+
         info += "Add system variables to your string by wrapping the variable name"
                 + "in the grave character '`'. Ex.\nSystem Status `%rackname` `%sysname`"
                 + "\n\nSystem variables include:\n\n"
-                + "%storename\n%rackname\n%sgname\n%sysname\n";        
-        
-        return info;      
-        
+                + "%storename\n%rackname\n%sgname\n%sysname\n";
+
+        return info;
+
     }
-    
-     public String getVarInfoComp(){
+
+    public String getVarInfoComp() {
         String info = "";
-        
+
         info += "Add compressor variables to your string by wrapping the variable name"
                 + "in the grave character '`'. Ex.\nComp Status `%rackname` `%compname`"
                 + "\n\nCompressor variables include:\n\n"
-                + "%storename\n%rackname\n%sgname\n%compname\n";        
-        
-        return info;      
-        
+                + "%storename\n%rackname\n%sgname\n%compname\n";
+
+        return info;
+
     }
-     
-     
-     public String getVarInfoExtra(){
+
+    public String getVarInfoExtra() {
         String info = "";
-        
+
         info += "Add variables to your string by wrapping the variable name"
                 + "in the grave character '`'.\nAll variables in other groups can"
                 + " be used in any group";
-        
-        return info;      
-        
+
+        return info;
+
     }
-    
-    
-    
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton _Button_Check;
     private javax.swing.JButton _Button_Defaults;
     private javax.swing.JButton _Button_Save;
+    private javax.swing.JCheckBox _CheckBox_Alert;
     private javax.swing.JComboBox _ComboBox_Groups;
-    private javax.swing.JLabel _Label_CheckStatus;
+    private javax.swing.JComboBox _ComboBox_Type;
+    private javax.swing.JFormattedTextField _FTF_Constant;
+    private javax.swing.JFormattedTextField _FTF_DisplayedValue;
+    private javax.swing.JFormattedTextField _FTF_Offset;
+    private javax.swing.JFormattedTextField _FTF_TempHigh;
+    private javax.swing.JFormattedTextField _FTF_TempLow;
     private javax.swing.JLabel _Label_GroupName;
-    private javax.swing.JPanel _Panel_Rack;
-    private javax.swing.JScrollPane _ScrollPane_CommandsRack;
+    private javax.swing.JLabel _Label_Title;
+    private javax.swing.JLabel _Label_constant;
+    private javax.swing.JLabel _Label_constant1;
+    private javax.swing.JLabel _Label_constant2;
+    private javax.swing.JLabel _Label_name;
+    private javax.swing.JLabel _Label_offset;
+    private javax.swing.JLabel _Label_offset1;
+    private javax.swing.JLabel _Label_type;
+    private javax.swing.JLabel _Label_type1;
+    private javax.swing.JLabel _Label_uom;
+    private javax.swing.JList _List_Variables;
+    private javax.swing.JPanel _Panel_SelectedItemInfo;
     private javax.swing.JScrollPane _ScrollPane_InfoRacks;
     private javax.swing.JTextArea _TextArea_Info;
-    private javax.swing.JTextArea _TextArea_VarNames;
+    private javax.swing.JTextField _TextField_UoM;
+    private javax.swing.JTextField _Textfield_Name;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
