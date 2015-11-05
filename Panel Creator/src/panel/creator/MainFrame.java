@@ -38,6 +38,7 @@ public class MainFrame extends JFrame {
     public ControlsPanel controlPanel;
     public SettingsPanel settingsPanel;
     public NameGeneratorPanel ngPanel;
+    public ModbusPanel mbPanel;
     public Store store;
     public DisplaySettings ds;
 
@@ -60,7 +61,9 @@ public class MainFrame extends JFrame {
         displayFrame = new DisplayFrame(this, store);
         settingsPanel = new SettingsPanel(this);
         ngPanel = new NameGeneratorPanel(this);
+        mbPanel = new ModbusPanel(this, store);
         ds = settingsPanel.getDS();
+        mbPanel.updateModel();
 
         store.setDs(ds);
         // Load the main panel        
@@ -72,6 +75,7 @@ public class MainFrame extends JFrame {
         _TabbedPane_Tabs.add("Controls", controlPanel);
         _TabbedPane_Tabs.add("Settings", settingsPanel);
         _TabbedPane_Tabs.add("Name Generator", ngPanel);
+        _TabbedPane_Tabs.add("Modbus Generator", mbPanel);
 
     }
 
@@ -104,6 +108,7 @@ public class MainFrame extends JFrame {
 
     public void updateDisplay(Store store) {
         displayFrame.updateDisplays(store);
+        mbPanel.loadStore(store);
     }
 
     public void updateVarNames(ArrayList<String> storeStr, ArrayList<String> rackStr,
@@ -471,6 +476,7 @@ public class MainFrame extends JFrame {
                 settingsPanel.loadSettings(this.store.getDs());
                 controlPanel.loadStore(this.store);
                 ngPanel.loadStore(this.store);
+                mbPanel.loadStore(this.store);
                 System.out.println("Store " + this.store.getStoreName() + " read properly");
             } catch (Exception e) {
                 System.out.println("Error with opening store: " + e.getMessage());

@@ -233,6 +233,10 @@ public class Store implements java.io.Serializable {
         return names;
     }
 
+    /**
+     * reads a csv file
+     * @param filepath filepath to the file
+     */
     public void readCSV(String filepath) {
 
         try {
@@ -248,6 +252,7 @@ public class Store implements java.io.Serializable {
 
     }
 
+    
     public void writeCSV(String filepath) {
 
         CSVWriter writer;
@@ -558,6 +563,28 @@ public class Store implements java.io.Serializable {
 
         return vars;
 
+    }
+    
+    
+    public ArrayList<String> getModbusOptions(){
+        ArrayList<String> list = new ArrayList<>();
+        Rack r;
+        SuctionGroup sg;
+        for(int i = 0; i < numRacks; i++){
+            r = racks.get(i);
+            list.add(r.getName());
+            list.add(r.getName() + " Condenser");
+            for(int j = 0; j < r.getNumSuctionGroups(); j++){
+                sg = r.getSuctionGroupIndex(j);
+                for(int k = 0; k < sg.getNumCompressors(); k++){
+                    String name = r.getName() + " " + sg.getName() + " " + sg.getCompressorNameIndex(k);
+                    list.add(name);
+                }
+            }
+            
+        }
+        
+        return list;
     }
 
 }
