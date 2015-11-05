@@ -252,7 +252,7 @@ public class Store implements java.io.Serializable {
 
         CSVWriter writer;
         try {
-            writer = new CSVWriter(new FileWriter(filepath), ',');
+            writer = new CSVWriter(new FileWriter(filepath), ',', CSVWriter.NO_QUOTE_CHARACTER);
             // feed in your array (or convert your data to an array)          
 
             writer.writeAll(formatStrings());

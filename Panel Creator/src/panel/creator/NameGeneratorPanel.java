@@ -173,6 +173,11 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
         _ComboBox_Type.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _ComboBox_Type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Digital Input", "Analog Input", "Digital Output", "Analog Output" }));
+        _ComboBox_Type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _ComboBox_TypeActionPerformed(evt);
+            }
+        });
 
         _Label_type1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Label_type1.setText("io_value_displayed");
@@ -452,6 +457,41 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event__List_VariablesValueChanged
 
+    private void _ComboBox_TypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_TypeActionPerformed
+        // TODO add your handling code here:
+        if (!_List_Variables.isSelectionEmpty()) {
+            int selIndex = _List_Variables.getSelectedIndex();
+            String s;
+            switch (_ComboBox_Groups.getSelectedIndex()) {
+                case 0:
+                    s = storeStr.get(selIndex);
+                    break;
+                case 1:
+                    s = rackStr.get(selIndex);
+                    break;
+                case 2:
+                    s = condStr.get(selIndex);
+                    break;
+                case 3:
+                    s = sgStr.get(selIndex);
+                    break;
+                case 4:
+                    s = compStr.get(selIndex);
+                    break;
+                case 5:
+                    s = sysStr.get(selIndex);
+                    break;
+                case 6:
+                    s = extraStr.get(selIndex);
+                    break;
+                    
+            }
+            
+            
+            
+        }
+    }//GEN-LAST:event__ComboBox_TypeActionPerformed
+
     public void loadItem(String[] values) {
         if (values.length > 8) {
             _Textfield_Name.setText(values[0]);
@@ -460,19 +500,32 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             _TextField_UoM.setText(values[3]);
             _FTF_Constant.setText(values[4]);
             _FTF_Offset.setText(values[5]);
-            
-            if(values[6].equals("1")){
+            _CheckBox_Alert.setEnabled(true);
+            if (values[6].equals("1")) {
                 _CheckBox_Alert.setSelected(true);
                 _CheckBox_Alert.setText("Yes");
-            }else {
+            } else {
                 _CheckBox_Alert.setSelected(false);
                 _CheckBox_Alert.setText("No");
-            }            
+            }
             _FTF_TempLow.setText(values[7]);
             _FTF_TempHigh.setText(values[8]);
         } else if (values.length == 2) {
             _Textfield_Name.setText(values[0]);
             _ComboBox_Type.setSelectedIndex(Integer.parseInt(values[1]));
+
+            // Rest empty
+            _FTF_DisplayedValue.setText("");
+            _TextField_UoM.setText("");
+            _FTF_Constant.setText("");
+            _FTF_Offset.setText("");
+
+            _CheckBox_Alert.setSelected(false);
+            _CheckBox_Alert.setText("Not Used");
+            _CheckBox_Alert.setEnabled(false);
+
+            _FTF_TempLow.setText("");
+            _FTF_TempHigh.setText("");
         } else {
             System.out.println("Not enough fields for " + values[0]);
         }
@@ -596,7 +649,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                 break;
         }
 
-        for(String s: varNames){           
+        for (String s : varNames) {
             line = formatVarString(s);
             switch (comboBoxIndex) {
                 case 0:
@@ -643,44 +696,44 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             case 0: // store
                 info = getVarInfoStore();
                 for (String s : storeStr) {
-                    vars.add(s + "\n");
+                    vars.add(s);
                 }
                 break;
             case 1:
                 info = getVarInfoRack();
                 for (String s : rackStr) {
-                    vars.add(s + "\n");
+                    vars.add(s);
 
                 }
                 break;
             case 2:
                 info = getVarInfoCond();
                 for (String s : condStr) {
-                    vars.add(s + "\n");
+                    vars.add(s);
                 }
                 break;
             case 3:
                 info = getVarInfoSG();
                 for (String s : sgStr) {
-                    vars.add(s + "\n");
+                    vars.add(s);
                 }
                 break;
             case 4:
                 info = getVarInfoComp();
                 for (String s : compStr) {
-                    vars.add(s + "\n");
+                    vars.add(s);
                 }
                 break;
             case 5:
                 info = getVarInfoSys();
                 for (String s : sysStr) {
-                    vars.add(s + "\n");
+                    vars.add(s);
                 }
                 break;
             case 6:
                 info = getVarInfoExtra();
                 for (String s : extraStr) {
-                    vars.add(s + "\n");
+                    vars.add(s);
                 }
                 break;
         }
@@ -689,11 +742,10 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         _TextArea_Info.setText(info);
         addVarsToList(vars);
     }
-    
-    
-    public ArrayList<String> getVarsFromList(){
+
+    public ArrayList<String> getVarsFromList() {
         ArrayList<String> vars = new ArrayList<>();
-        for(int i = 0; i < listModel.getSize(); i++){
+        for (int i = 0; i < listModel.getSize(); i++) {
             vars.add((String) listModel.get(i));
         }
         return vars;

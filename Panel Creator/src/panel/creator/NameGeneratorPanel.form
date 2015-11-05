@@ -390,6 +390,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_ComboBox_TypeActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="_Label_type1">
           <Properties>
