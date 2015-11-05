@@ -263,21 +263,35 @@ public class Store implements java.io.Serializable {
 
     }
 
+    public void writeNames(String filepath) {
+
+        CSVWriter writer;
+        try {
+            writer = new CSVWriter(new FileWriter(filepath), ',', CSVWriter.NO_QUOTE_CHARACTER);
+            // feed in your array (or convert your data to an array)          
+
+            writer.writeAll(nameStrings());
+            writer.close();
+        } catch (IOException ex) {
+            System.out.println("Write csv error with " + filepath + " : " + ex.getMessage());
+        }
+
+    }
+
     public List<String[]> formatStrings() {
 
         long start = System.currentTimeMillis(), end;
         List<String[]> vars = new ArrayList<String[]>() {
         };
-        
+
         // Add header
         String[] headers = new String[]{"io_name", "io_type", "io_unit_of_measure",
-                                        "io_constant", "io_offset", "io_float_digits",
-                                        "io_alert", "io_alert_range_low", "io_alert_range_high",
-                                        "rest modbus"
-                                    };
+            "io_constant", "io_offset", "io_float_digits",
+            "io_alert", "io_alert_range_low", "io_alert_range_high",
+            "rest modbus"
+        };
         vars.add(headers);
-        
-        
+
         int numfans, numsg, numcomp, numsys;
         String[] newString;
         Rack r;
@@ -398,14 +412,14 @@ public class Store implements java.io.Serializable {
         }
 
         for (String s : storeStr) {
-            newString = s.split(",");            
+            newString = s.split(",");
 
             //System.out.println("STORE - New string: " + newString[0] + "\tFrom old string: " + s);
             vars.add(newString);
         }
 
         for (String s : extraStr) {
-            newString = s.split(",");            
+            newString = s.split(",");
 
             //System.out.println("EXTRA - New string: " + newString[0] + "\tFrom old string: " + s);
             vars.add(newString);
@@ -440,10 +454,10 @@ public class Store implements java.io.Serializable {
 
         // Add header
         String[] headers = new String[]{"io_name", "io_type", "io_unit_of_measure",
-                                        "io_constant", "io_offset", "io_float_digits",
-                                        "io_alert", "io_alert_range_low", "io_alert_range_high",
-                                        "rest modbus"
-                                    };
+            "io_constant", "io_offset", "io_float_digits",
+            "io_alert", "io_alert_range_low", "io_alert_range_high",
+            "rest modbus"
+        };
         vars.add(headers);
         // Store
         vars.add(new String[]{"`Store`"});
@@ -463,7 +477,6 @@ public class Store implements java.io.Serializable {
             vars.add(s.split(","));
         }
 
-        
         // Suction Group
         vars.add(new String[]{"`Suction Group`"});
         for (String s : sgStr) {
@@ -489,8 +502,60 @@ public class Store implements java.io.Serializable {
                 vars.add(s.split(","));
             }
         }
-        
-        
+
+        return vars;
+
+    }
+
+    public List<String[]> nameStrings() {
+
+        List<String[]> vars = new ArrayList<String[]>() {
+        };
+
+        // Store
+        vars.add(new String[]{"`Store`"});
+        for (String s : storeStr) {
+            vars.add(new String[]{s.split(",")[0]});
+        }
+
+        // Racks
+        vars.add(new String[]{"`Rack`"});
+        for (String s : rackStr) {
+            vars.add(new String[]{s.split(",")[0]});
+        }
+
+        // Cond
+        vars.add(new String[]{"`Condenser`"});
+        for (String s : condStr) {
+            vars.add(new String[]{s.split(",")[0]});
+        }
+
+        // Suction Group
+        vars.add(new String[]{"`Suction Group`"});
+        for (String s : sgStr) {
+            vars.add(new String[]{s.split(",")[0]});
+        }
+
+        // System
+        vars.add(new String[]{"`System`"});
+        for (String s : sysStr) {
+            vars.add(new String[]{s.split(",")[0]});
+        }
+
+        // Compressor
+        vars.add(new String[]{"`Compressor`"});
+        for (String s : compStr) {
+            vars.add(new String[]{s.split(",")[0]});
+        }
+
+        // Extra
+        if (!extraStr.isEmpty()) {
+            vars.add(new String[]{"`Extra`"});
+            for (String s : extraStr) {
+                vars.add(new String[]{s.split(",")[0]});
+            }
+        }
+
         return vars;
 
     }

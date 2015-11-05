@@ -577,11 +577,16 @@ public class MainFrame extends JFrame {
             File file = _FileChooser_SaveText.getSelectedFile();
             //System.out.println("File: " + file.getAbsolutePath());
             String filePath = file.getAbsolutePath();
+            String fp = filePath + "OnlyNames";
             if (!filePath.endsWith(".txt")) {
                 filePath += ".txt";
             }
+            if (!fp.endsWith(".txt")) {
+                fp += ".txt";
+            }
             this.store.writeCSV(filePath);
-
+            this.store.writeNames(fp);
+            
         } else {
             System.out.println("File access cancelled by user.");
         }
