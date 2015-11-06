@@ -30,6 +30,7 @@ public class Store implements java.io.Serializable {
     private ArrayList<String> sysStr;
     private ArrayList<String> extraStr;
     public DisplaySettings ds;
+    public ModbusSettings mb;
 
     public Store() {
         this.storeName = "";
@@ -191,6 +192,16 @@ public class Store implements java.io.Serializable {
     public void setExtraStr(ArrayList<String> extraStr) {
         this.extraStr = extraStr;
     }
+
+    public ModbusSettings getMb() {
+        return mb;
+    }
+
+    public void setMb(ModbusSettings mb) {
+        this.mb = mb;
+    }
+    
+    
 
     public DisplaySettings getDs() {
         return ds;

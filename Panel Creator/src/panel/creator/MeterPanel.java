@@ -5,19 +5,25 @@
  */
 package panel.creator;
 
-import javafx.scene.control.ComboBox;
 import javax.swing.ComboBoxModel;
+import javax.swing.DefaultListModel;
 
 /**
  *
  * @author EricGummerson
  */
-public class MeterPanel extends javax.swing.JPanel {
+public class MeterPanel extends javax.swing.JPanel implements java.io.Serializable {
 
+    private static final long serialVersionUID = 672L;
     public ModbusPanel mp;
     public String name;
+    public int slaveNumber;
     public int type;
     public Slave slave;
+    public ComboBoxModel[] cm;
+    public boolean[] itemSelected;
+    public String[] selectedItem;
+    public boolean loading;
 
     /**
      * Creates new form MeterPanel
@@ -26,27 +32,66 @@ public class MeterPanel extends javax.swing.JPanel {
      * @param slaveNumber
      * @param type
      */
-    public MeterPanel(ModbusPanel mp, int slaveNumber, int type) {        
+    public MeterPanel(ModbusPanel mp, int slaveNumber, int type) {
         initComponents();
+        loading = true;
+
         this.mp = mp;
-        this.name = "Slave " + slaveNumber;
+        this.slaveNumber = slaveNumber;
+        this.name = "Slave " + (slaveNumber + 1);
         _Label_Slave1.setText(this.name);
         this.type = type;
         // 3 phase
         if (type == 1) {
-            slave = new Slave(1, name);            
+            slave = new Slave(1, name);
         } else {
             // 1 phase
             slave = new Slave(2, name);
             _ComboBox_Reg2.setEnabled(false);
             _ComboBox_Reg3.setEnabled(false);
         }
+        cm = new ComboBoxModel[3];
+        itemSelected = new boolean[]{false, false, false};
+        selectedItem = new String[]{"No Selection", "No Selection", "No Selection"};
+        loading = false;
     }
-    
-    public void updateModelList(ComboBoxModel cm){
-        _ComboBox_Reg1.setModel(cm);
-        _ComboBox_Reg2.setModel(cm);
-        _ComboBox_Reg3.setModel(cm);
+
+    public void updateModelList(DefaultListModel df) {
+        loading = true;
+        if (itemSelected[0]) {
+            DefaultListModel df1 = df;
+            df1.set(1, selectedItem[0]);
+            cm[0] = new ListAdapterComboBoxModel(df1);
+            _ComboBox_Reg1.setSelectedIndex(1); // no selection option            
+        } else {
+            cm[0] = new ListAdapterComboBoxModel(df);
+            _ComboBox_Reg1.setModel(cm[0]);
+            _ComboBox_Reg1.setSelectedIndex(1); // no selection option
+        }
+
+        if (itemSelected[1]) {
+            DefaultListModel df1 = df;
+            df1.set(1, selectedItem[1]);
+            cm[1] = new ListAdapterComboBoxModel(df1);            
+            _ComboBox_Reg2.setSelectedIndex(1); // no selection option            
+        } else {
+            cm[1] = new ListAdapterComboBoxModel(df);
+            _ComboBox_Reg2.setModel(cm[1]);
+            _ComboBox_Reg2.setSelectedIndex(1); // no selection option
+        }
+
+        if (itemSelected[2]) {
+            DefaultListModel df1 = df;
+            df1.set(1, selectedItem[2]);
+            cm[2] = new ListAdapterComboBoxModel(df1);
+            _ComboBox_Reg3.setSelectedIndex(1); // no selection option            
+        } else {
+            cm[2] = new ListAdapterComboBoxModel(df);
+            _ComboBox_Reg3.setModel(cm[2]);
+            _ComboBox_Reg3.setSelectedIndex(1); // no selection option
+        }
+
+        loading = false;
     }
 
     public String getMeterName() {
@@ -55,6 +100,7 @@ public class MeterPanel extends javax.swing.JPanel {
 
     public void setMeterName(String name) {
         this.name = name;
+        this._Label_Slave1.setText(name);
     }
 
     public int getType() {
@@ -65,7 +111,13 @@ public class MeterPanel extends javax.swing.JPanel {
         this.type = type;
     }
 
-   
+    public int getSlaveNumber() {
+        return slaveNumber;
+    }
+
+    public void setSlaveNumber(int slaveNumber) {
+        this.slaveNumber = slaveNumber;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -86,6 +138,9 @@ public class MeterPanel extends javax.swing.JPanel {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        _Panel_Slave1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        _Panel_Slave1.setPreferredSize(new java.awt.Dimension(318, 120));
+
         _Label_Slave1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         _Label_Slave1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _Label_Slave1.setText("Slave 1");
@@ -100,12 +155,27 @@ public class MeterPanel extends javax.swing.JPanel {
 
         _ComboBox_Reg1.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         _ComboBox_Reg1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Empty" }));
+        _ComboBox_Reg1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _ComboBox_Reg1ActionPerformed(evt);
+            }
+        });
 
         _ComboBox_Reg2.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         _ComboBox_Reg2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Empty" }));
+        _ComboBox_Reg2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _ComboBox_Reg2ActionPerformed(evt);
+            }
+        });
 
         _ComboBox_Reg3.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         _ComboBox_Reg3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Empty" }));
+        _ComboBox_Reg3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _ComboBox_Reg3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout _Panel_Slave1Layout = new javax.swing.GroupLayout(_Panel_Slave1);
         _Panel_Slave1.setLayout(_Panel_Slave1Layout);
@@ -115,30 +185,33 @@ public class MeterPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(_Panel_Slave1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(_Label_Slave1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(_ComboBox_Slave1, 0, 99, Short.MAX_VALUE))
+                    .addComponent(_ComboBox_Slave1, 0, 97, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(_Panel_Slave1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_Slave1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(_ComboBox_Reg2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(_ComboBox_Reg3, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(_ComboBox_Reg1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(_Panel_Slave1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(_ComboBox_Reg2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(_ComboBox_Reg1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(_ComboBox_Reg3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         _Panel_Slave1Layout.setVerticalGroup(
             _Panel_Slave1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(_Panel_Slave1Layout.createSequentialGroup()
-                .addGroup(_Panel_Slave1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(_ComboBox_Reg1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(_Panel_Slave1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(_Label_Slave1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(13, 13, 13)
+                .addComponent(_Label_Slave1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(_Panel_Slave1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(_ComboBox_Slave1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                    .addComponent(_ComboBox_Reg2))
+                .addComponent(_ComboBox_Slave1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(_Panel_Slave1Layout.createSequentialGroup()
+                .addComponent(_ComboBox_Reg1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(_ComboBox_Reg3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(_ComboBox_Reg2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(_ComboBox_Reg3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        _Panel_Slave1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_ComboBox_Reg1, _ComboBox_Reg2, _ComboBox_Reg3});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -148,24 +221,54 @@ public class MeterPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(_Panel_Slave1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(_Panel_Slave1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void _ComboBox_Slave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_Slave1ActionPerformed
         // TODO add your handling code here:
-        if(_ComboBox_Slave1.getSelectedIndex() == 0){
-            _ComboBox_Reg1.setEnabled(true);
+
+        if (_ComboBox_Slave1.getSelectedIndex() == 0) {
             _ComboBox_Reg2.setEnabled(true);
             _ComboBox_Reg3.setEnabled(true);
             this.type = 1;
-        }else {
-            _ComboBox_Reg1.setEnabled(false);
+        } else {
             _ComboBox_Reg2.setEnabled(false);
             _ComboBox_Reg3.setEnabled(false);
             this.type = 2;
         }
     }//GEN-LAST:event__ComboBox_Slave1ActionPerformed
+
+    private void _ComboBox_Reg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_Reg1ActionPerformed
+
+        
+        if(!loading){
+            String n = (String) _ComboBox_Reg1.getSelectedItem();
+            if(n.equals("Remove Item")){
+                n = selectedItem[0];
+                itemSelected[0] = false;
+            }else {
+                selectedItem[0] = n;
+                itemSelected[0] = true;
+            }
+            boolean b = _ComboBox_Reg1.getSelectedIndex() > 1;            
+            System.out.println("New item selected -> " + n);
+            
+            mp.itemUsed(n, b, slaveNumber, 0);
+            //String n 
+            //mp.itemUsed(name, loading);
+        }
+
+    }//GEN-LAST:event__ComboBox_Reg1ActionPerformed
+
+    private void _ComboBox_Reg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_Reg2ActionPerformed
+
+    }//GEN-LAST:event__ComboBox_Reg2ActionPerformed
+
+    private void _ComboBox_Reg3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_Reg3ActionPerformed
+
+
+    }//GEN-LAST:event__ComboBox_Reg3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

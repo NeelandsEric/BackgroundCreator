@@ -4,8 +4,9 @@ package panel.creator;
  *
  * @author EricGummerson
  */
-public class Slave {
+public class Slave implements java.io.Serializable{
 
+    private static final long serialVersionUID = 522L;
     public int type;
     public String name;
     public String[] register;

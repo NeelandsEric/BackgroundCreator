@@ -62,15 +62,16 @@ public class MainFrame extends JFrame {
         settingsPanel = new SettingsPanel(this);
         ngPanel = new NameGeneratorPanel(this);
         mbPanel = new ModbusPanel(this, store);
-        ds = settingsPanel.getDS();
-        mbPanel.updateModel();
-
+        ds = settingsPanel.getDS();        
+        
+        store.setMb(mbPanel.getMb());
         store.setDs(ds);
         // Load the main panel        
         //controlPanel.setVisible(true);
         displayFrame.setVisible(true);
         controlPanel.updateDisplay();
         ngPanel.loadGroups();
+        mbPanel.initalizeMeters();
         // add it to the frame           
         _TabbedPane_Tabs.add("Controls", controlPanel);
         _TabbedPane_Tabs.add("Settings", settingsPanel);
@@ -107,8 +108,7 @@ public class MainFrame extends JFrame {
     }
 
     public void updateDisplay(Store store) {
-        displayFrame.updateDisplays(store);
-        mbPanel.loadStore(store);
+        displayFrame.updateDisplays(store);        
     }
 
     public void updateVarNames(ArrayList<String> storeStr, ArrayList<String> rackStr,
@@ -220,6 +220,12 @@ public class MainFrame extends JFrame {
         setTitle("Image Creator");
         setMinimumSize(new java.awt.Dimension(1045, 629));
         setResizable(false);
+
+        _TabbedPane_Tabs.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                _TabbedPane_TabsStateChanged(evt);
+            }
+        });
 
         _Menu_File.setText("File");
 
@@ -477,6 +483,7 @@ public class MainFrame extends JFrame {
                 controlPanel.loadStore(this.store);
                 ngPanel.loadStore(this.store);
                 mbPanel.loadStore(this.store);
+                mbPanel.initalizeMeters();
                 System.out.println("Store " + this.store.getStoreName() + " read properly");
             } catch (Exception e) {
                 System.out.println("Error with opening store: " + e.getMessage());
@@ -649,6 +656,13 @@ public class MainFrame extends JFrame {
             System.out.println("File access cancelled by user.");
         }
     }//GEN-LAST:event__MenuItem_PrintVarNamesXActionPerformed
+
+    private void _TabbedPane_TabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event__TabbedPane_TabsStateChanged
+        // TODO add your handling code here:
+        if(_TabbedPane_Tabs.getSelectedIndex() == 3){
+            mbPanel.loadStore(this.store);
+        }
+    }//GEN-LAST:event__TabbedPane_TabsStateChanged
 
     public static boolean isStringNumeric(String str) {
         DecimalFormatSymbols currentLocaleSymbols = DecimalFormatSymbols.getInstance();
