@@ -59,10 +59,14 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
     public void updateModelList(DefaultListModel df) {
         loading = true;
         if (itemSelected[0]) {
-            DefaultListModel df1 = df;
+            DefaultListModel df1 = new DefaultListModel();
+            for(Object e: df.toArray()){
+                df1.addElement(e);
+            }
             df1.set(1, selectedItem[0]);
             cm[0] = new ListAdapterComboBoxModel(df1);
-            _ComboBox_Reg1.setSelectedIndex(1); // no selection option            
+            _ComboBox_Reg1.setModel(cm[0]);
+            _ComboBox_Reg1.setSelectedIndex(1); // no selection option              
         } else {
             cm[0] = new ListAdapterComboBoxModel(df);
             _ComboBox_Reg1.setModel(cm[0]);
@@ -70,9 +74,13 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
         }
 
         if (itemSelected[1]) {
-            DefaultListModel df1 = df;
+            DefaultListModel df1 = new DefaultListModel();
+            for(Object e: df.toArray()){
+                df1.addElement(e);
+            }
             df1.set(1, selectedItem[1]);
-            cm[1] = new ListAdapterComboBoxModel(df1);            
+            cm[1] = new ListAdapterComboBoxModel(df1);       
+            _ComboBox_Reg1.setModel(cm[1]);
             _ComboBox_Reg2.setSelectedIndex(1); // no selection option            
         } else {
             cm[1] = new ListAdapterComboBoxModel(df);
@@ -81,9 +89,13 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
         }
 
         if (itemSelected[2]) {
-            DefaultListModel df1 = df;
+            DefaultListModel df1 = new DefaultListModel();
+            for(Object e: df.toArray()){
+                df1.addElement(e);
+            }
             df1.set(1, selectedItem[2]);
             cm[2] = new ListAdapterComboBoxModel(df1);
+            _ComboBox_Reg3.setModel(cm[2]);
             _ComboBox_Reg3.setSelectedIndex(1); // no selection option            
         } else {
             cm[2] = new ListAdapterComboBoxModel(df);
@@ -262,11 +274,41 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
     }//GEN-LAST:event__ComboBox_Reg1ActionPerformed
 
     private void _ComboBox_Reg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_Reg2ActionPerformed
-
+        if(!loading){
+            String n = (String) _ComboBox_Reg2.getSelectedItem();
+            if(n.equals("Remove Item")){
+                n = selectedItem[1];
+                itemSelected[1] = false;
+            }else {
+                selectedItem[1] = n;
+                itemSelected[1] = true;
+            }
+            boolean b = _ComboBox_Reg2.getSelectedIndex() > 1;            
+            System.out.println("New item selected -> " + n);
+            
+            mp.itemUsed(n, b, slaveNumber, 1);
+            //String n 
+            //mp.itemUsed(name, loading);
+        }
     }//GEN-LAST:event__ComboBox_Reg2ActionPerformed
 
     private void _ComboBox_Reg3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_Reg3ActionPerformed
-
+        if(!loading){
+            String n = (String) _ComboBox_Reg3.getSelectedItem();
+            if(n.equals("Remove Item")){
+                n = selectedItem[2];
+                itemSelected[2] = false;
+            }else {
+                selectedItem[2] = n;
+                itemSelected[2] = true;
+            }
+            boolean b = _ComboBox_Reg3.getSelectedIndex() > 1;            
+            System.out.println("New item selected -> " + n);
+            
+            mp.itemUsed(n, b, slaveNumber, 2);
+            //String n 
+            //mp.itemUsed(name, loading);
+        }
 
     }//GEN-LAST:event__ComboBox_Reg3ActionPerformed
 
