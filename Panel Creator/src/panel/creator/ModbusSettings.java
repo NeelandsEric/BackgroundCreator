@@ -2,7 +2,6 @@ package panel.creator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import javax.swing.DefaultListModel;
 
@@ -66,12 +65,21 @@ public class ModbusSettings implements java.io.Serializable {
     public void removeKey(String key, Boolean used, int meter, int slave, int register) {
 
         if (!items.isEmpty()) {
-            System.out.println("Removed " + key + " from "
+           
+
+            if(items.replace(key, used)){
+                 System.out.println("Removed " + key + " from "
                     + String.valueOf(items.get(key))
                     + " to " + String.valueOf(used));
-
-            items.replace(key, used);
-            itemPosition[meter][slave][register] = key;
+                 
+                 itemPosition[meter][slave][register] = key;
+            }else {
+                System.out.println("Attempted to remove " + key + " from "
+                    + String.valueOf(items.get(key))
+                    + " to " + String.valueOf(used) + 
+                        " but failed.");
+            }
+            
             
         }
     }

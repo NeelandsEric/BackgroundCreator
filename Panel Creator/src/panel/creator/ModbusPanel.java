@@ -124,7 +124,7 @@ public class ModbusPanel extends javax.swing.JPanel {
         }else if(key.equals("Remove Item")){
             mb.removeKey(key, used, _ComboBox_Meters.getSelectedIndex(), slave, register);
         }else {
-            System.out.println("item used empty else");
+            System.out.println("item used empty else, key: " + key);
         }
         
         loadModels();
