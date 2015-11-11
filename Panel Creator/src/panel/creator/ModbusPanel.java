@@ -10,13 +10,11 @@ import java.util.ArrayList;
  */
 public class ModbusPanel extends javax.swing.JPanel {
 
-    
     public MainFrame mf;
     public Store store;
     public ModbusSettings mb;
     public ArrayList<MeterPanel>[] powerScoutPanels;
     public ArrayList<MeterPanel> singleLoadPanels;
-    
 
     /**
      * Creates new form ModbusPanel
@@ -25,7 +23,7 @@ public class ModbusPanel extends javax.swing.JPanel {
      * @param store
      */
     public ModbusPanel(MainFrame mf, Store store) {
-        initComponents();        
+        initComponents();
         this.mf = mf;
         this.store = store;
         this.mb = new ModbusSettings();
@@ -35,10 +33,26 @@ public class ModbusPanel extends javax.swing.JPanel {
 
     public void loadStore(Store s) {
         this.store = s;
-        this.mb = s.getMb();
+        this.mb = s.getMb();        
+        
+        _FTF_NumPowerScouts.setText(String.valueOf(mb.getNumPowerScouts()));
+        powerScoutPanels = (ArrayList<MeterPanel>[]) new ArrayList[10];
+        for (int i = 0; i < 10; i++) {
+            powerScoutPanels[i] = new ArrayList<>();
+            for (int j = 0; j < 8; j++) {
+                powerScoutPanels[i].add(new MeterPanel(this, j, 1));
+            }
+        }
+        
+        _FTF_NumPowerScouts.setText(String.valueOf(mb.getNumSingleLoads()));
+        singleLoadPanels = new ArrayList<>();
+        for(int i = 0; i < mb.getNumSingleLoads(); i++){
+            singleLoadPanels.add(new MeterPanel(this, i, 1));
+        }
+        this.updatePanels();
+        this.loadModels();
+        
     }
-
-    
 
     public void initalizeMeters() {
 
@@ -52,12 +66,11 @@ public class ModbusPanel extends javax.swing.JPanel {
         }
         mb.setNumSingleLoads(1);
         singleLoadPanels = new ArrayList<>();
-        singleLoadPanels.add(new MeterPanel(this, 1, 1));
+        singleLoadPanels.add(new MeterPanel(this, 0, 1));
         this.updatePanels();
         this.loadModels();
     }
 
-    
     public void checkSingleMeters() {
         int num = mb.getNumSingleLoads() - singleLoadPanels.size();
 
@@ -70,8 +83,6 @@ public class ModbusPanel extends javax.swing.JPanel {
     public void updatePanels() {
 
         // Display the right panels
-        
-        
         int powerIndex = _ComboBox_Meters.getSelectedIndex();
         int singleIndex = _ComboBox_SingleMeters.getSelectedIndex();
 
@@ -97,41 +108,59 @@ public class ModbusPanel extends javax.swing.JPanel {
         }
 
         _Panel_SingleLoads.removeAll();
-        _Panel_SingleLoads.add(singleLoadPanels.get(singleIndex));
+        _Panel_SingleLoads.setLayout(gbl);
+        _Panel_SingleLoads.add(singleLoadPanels.get(singleIndex), c);
 
+        _Panel_PowerScout.revalidate();
+        _Panel_SingleLoads.revalidate();
+        _Panel_PowerScout.repaint();
+        _Panel_SingleLoads.repaint();
     }
 
     public void loadModels() {
-        
+
         // Load the models
         int powerIndex = _ComboBox_Meters.getSelectedIndex();
         int singleIndex = _ComboBox_SingleMeters.getSelectedIndex();
         mb.updateModel();
-        
+
         for (int i = 0; i < 8; i++) {
             powerScoutPanels[powerIndex].get(i).updateModelList(mb.getCm());
-        }        
+        }
         singleLoadPanels.get(singleIndex).updateModelList(mb.getCm());
     }
-    
-    
-    
-    public void itemUsed(String key, boolean used, int slave, int register){
+
+    public void itemUsed(String key, boolean used, int slave, int register) {
         System.out.println("Key: " + key);
-        
-        if(!key.equals("No Selection")){
-            mb.updateKey(key, used, _ComboBox_Meters.getSelectedIndex(), slave, register);            
-        }else if(key.equals("Remove Item")){
-            mb.removeKey(key, used, _ComboBox_Meters.getSelectedIndex(), slave, register);
-        }else {
+
+        if (!key.equals("No Selection")) {
+            mb.updateKey(key, used, _ComboBox_Meters.getSelectedIndex(), slave, register);
+        } else if (key.equals("Remove Item")) {
+            mb.removeKey(key);
+        } else {
             System.out.println("item used empty else, key: " + key);
         }
+
+        loadModels();
+    }
+    
+    public void changeTableType(int slave, int type, String a, String b){
         
+        int table = _ComboBox_Meters.getSelectedIndex();
+        mb.updateTableType(table, slave, type);
+        if(!a.equals("No Selection")){
+            mb.removeKey(a);
+        }
+        if(!b.equals("No Selection")){
+            mb.removeKey(b);
+        }
+        updatePanels();
         loadModels();
         
+        
     }
-
     
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -172,6 +201,11 @@ public class ModbusPanel extends javax.swing.JPanel {
 
         _ComboBox_Meters.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _ComboBox_Meters.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Meter 1" }));
+        _ComboBox_Meters.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _ComboBox_MetersActionPerformed(evt);
+            }
+        });
 
         _Panel_SingleLoads.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         _Panel_SingleLoads.setPreferredSize(new java.awt.Dimension(318, 480));
@@ -211,6 +245,11 @@ public class ModbusPanel extends javax.swing.JPanel {
 
         _ComboBox_SingleMeters.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _ComboBox_SingleMeters.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Meter 1" }));
+        _ComboBox_SingleMeters.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _ComboBox_SingleMetersActionPerformed(evt);
+            }
+        });
 
         _FTF_NumSingleLoads.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         _FTF_NumSingleLoads.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -235,6 +274,11 @@ public class ModbusPanel extends javax.swing.JPanel {
 
         _TF_PowerScoutIP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         _TF_PowerScoutIP.setText("192.0.1.1");
+        _TF_PowerScoutIP.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                _TF_PowerScoutIPPropertyChange(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -354,6 +398,23 @@ public class ModbusPanel extends javax.swing.JPanel {
         this.checkSingleMeters();
     }//GEN-LAST:event__FTF_NumSingleLoadsPropertyChange
 
+    private void _ComboBox_MetersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_MetersActionPerformed
+
+        updatePanels();
+        loadModels();
+    }//GEN-LAST:event__ComboBox_MetersActionPerformed
+
+    private void _ComboBox_SingleMetersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_SingleMetersActionPerformed
+
+        updatePanels();
+        loadModels();
+    }//GEN-LAST:event__ComboBox_SingleMetersActionPerformed
+
+    private void _TF_PowerScoutIPPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__TF_PowerScoutIPPropertyChange
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event__TF_PowerScoutIPPropertyChange
+
     public ModbusSettings getMb() {
         return mb;
     }
@@ -362,52 +423,7 @@ public class ModbusPanel extends javax.swing.JPanel {
         this.mb = mb;
     }
 
-    
-    
-    /*
-    
-     public Slave[] getSlave() {
-     return slave;
-     }
-
-     public Slave getSlaveIndex(int index) {
-     return slave[index];
-     }
-
-     public void setSlave(Slave[] slave) {
-     this.slave = slave;
-     }
-
-     public void setSlave(Slave slave, int index) {
-     this.slave[index] = slave;
-     }
-
-     public void setSlaveTypeIndex(int type, int index) {
-     this.slave[index].setType(type);
-     }
-
-     public int getSlaveTypeIndex(int index) {
-     return this.slave[index].getType();
-     }
-
-     public void setSlaveNameIndex(String name, int index) {
-     this.slave[index].setName(name);
-     }
-
-     public String getSlaveNameIndex(int index) {
-     return this.slave[index].getName();
-     }
-
-     public void setSlaveRegisterIndex(String name, int slaveIndex, int registerIndex) {
-     this.slave[slaveIndex].setRegisterIndex(name, registerIndex);
-     }
-
-     public String getSlaveRegisterIndex(int slaveIndex, int registerIndex) {
-     return this.slave[slaveIndex].getRegisterIndex(registerIndex);
-     }
-    
-     */
-
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox _ComboBox_Meters;
     private javax.swing.JComboBox _ComboBox_SingleMeters;

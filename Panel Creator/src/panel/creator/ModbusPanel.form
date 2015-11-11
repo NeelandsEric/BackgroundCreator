@@ -138,6 +138,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_ComboBox_MetersActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="_Panel_SingleLoads">
       <Properties>
@@ -220,6 +223,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_ComboBox_SingleMetersActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="_FTF_NumSingleLoads">
       <Properties>
@@ -272,6 +278,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="192.0.1.1"/>
       </Properties>
+      <Events>
+        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="_TF_PowerScoutIPPropertyChange"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

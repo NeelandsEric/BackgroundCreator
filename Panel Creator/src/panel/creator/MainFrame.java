@@ -483,7 +483,7 @@ public class MainFrame extends JFrame {
                 controlPanel.loadStore(this.store);
                 ngPanel.loadStore(this.store);
                 mbPanel.loadStore(this.store);
-                mbPanel.initalizeMeters();
+                
                 System.out.println("Store " + this.store.getStoreName() + " read properly");
             } catch (Exception e) {
                 System.out.println("Error with opening store: " + e.getMessage());

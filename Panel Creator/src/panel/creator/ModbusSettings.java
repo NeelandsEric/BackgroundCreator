@@ -16,20 +16,12 @@ public class ModbusSettings implements java.io.Serializable {
     public DefaultListModel cm;
     public int numPowerScouts;
     public int numSingleLoads;
-    public Map<String, Boolean> items;
-    public String [][][] itemPosition;
+    public int [][] panelType;
+    public Map<String, Sensor> items;
 
     public ModbusSettings() {
-        itemPosition = new String[10][8][3];
-        for(int i = 0; i < itemPosition.length; i++){
-            for(int j = 0; j < itemPosition[i].length; j++){
-                for(int k = 0; k < itemPosition[i][j].length; k++){
-                    itemPosition[i][j][k] = "";
-                    //System.out.printf("[%d][%d][%d] -> %s\n", i, j, k, itemPosition[i][j][k]);
-                }
-            }
-            //itemPosition[i] = new String[8][3];
-        }
+        panelType = new int [10][8];
+        
     }
 
     public void updateModbusSettings(Store s) {
@@ -43,7 +35,7 @@ public class ModbusSettings implements java.io.Serializable {
 
         if (!list.isEmpty()) {
             for (String st : list) {
-                items.put(st, false);
+                items.put(st, new Sensor());
             }
         }
 
@@ -52,66 +44,68 @@ public class ModbusSettings implements java.io.Serializable {
     public void updateKey(String key, Boolean used, int meter, int slave, int register) {
 
         if (!items.isEmpty()) {
-            System.out.println("Updated " + key + " from "
-                    + String.valueOf(items.get(key))
-                    + " to " + String.valueOf(used));
+            if (items.containsKey(key)) {
+                Sensor s = items.get(key);
 
-            items.replace(key, used);
-            itemPosition[meter][slave][register] = key;
-            
+                System.out.println("Updated " + key + " from "
+                        + s.isUsed() + " to " + used);
+                s.updateKey(meter, slave, register, used);
+                items.replace(key, s);
+
+            } else {
+                System.out.println("Key: " + key + " not found!");
+            }
+        }
+    }
+
+    public void removeKey(String key) {
+
+        if (!items.isEmpty()) {
+            if (items.containsKey(key)) {
+                Sensor s = items.get(key);
+
+                System.out.println("Removed " + key + " from "
+                        + s.isUsed() + " to false");
+                s.removeKey();
+                items.replace(key, s);
+
+            } else {
+                System.out.println("Key: " + key + " not found!");
+            }
         }
     }
     
-    public void removeKey(String key, Boolean used, int meter, int slave, int register) {
-
-        if (!items.isEmpty()) {
-           
-
-            if(items.replace(key, used)){
-                 System.out.println("Removed " + key + " from "
-                    + String.valueOf(items.get(key))
-                    + " to " + String.valueOf(used));
-                 
-                 itemPosition[meter][slave][register] = key;
-            }else {
-                System.out.println("Attempted to remove " + key + " from "
-                    + String.valueOf(items.get(key))
-                    + " to " + String.valueOf(used) + 
-                        " but failed.");
-            }
-            
-            
-        }
+    public void updateTableType(int meter, int slave, int type){
+        panelType[meter][slave] = type;
     }
 
-    public boolean checkKey(String key) {        
-        return (boolean) items.get(key);
+    public boolean checkKey(String key) {
+        return items.get(key).isUsed();
     }
 
     public int numUnusedKeys() {
         int n = 0;
-        
-        if(!items.isEmpty()){
-            for(Boolean b: items.values()){
-                if(!b){
+
+        if (!items.isEmpty()) {
+            for (Sensor s : items.values()) {
+                if (!s.isUsed()) {
                     n++;
                 }
             }
         }
-        
+
         return n;
 
     }
 
     public void updateModel() {
 
-        
         cm = new DefaultListModel();
         cm.addElement("Remove Item");
         cm.addElement("No Selection");
-        if(!items.isEmpty()){
-            for(Map.Entry<String, Boolean> entry: items.entrySet()){
-                if(!entry.getValue()){
+        if (!items.isEmpty()) {
+            for (Map.Entry<String, Sensor> entry : items.entrySet()) {
+                if (!entry.getValue().isUsed()) {
                     cm.addElement(entry.getKey());
                 }
             }
@@ -119,7 +113,6 @@ public class ModbusSettings implements java.io.Serializable {
 
     }
 
-    
     public DefaultListModel getCm() {
         return cm;
     }

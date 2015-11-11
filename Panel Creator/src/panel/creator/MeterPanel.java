@@ -116,7 +116,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
         } else {
 
             DefaultListModel df1 = new DefaultListModel();
-            df1.addElement("None");
+            df1.addElement("No Selection");
             cm[1] = new ListAdapterComboBoxModel(df1);
             _ComboBox_Reg2.setModel(cm[1]);
             _ComboBox_Reg2.setSelectedIndex(0); // no selection option
@@ -164,15 +164,12 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox();
         _Panel_Slave1 = new javax.swing.JPanel();
         _Label_Slave1 = new javax.swing.JLabel();
         _ComboBox_Slave1 = new javax.swing.JComboBox();
         _ComboBox_Reg1 = new javax.swing.JComboBox();
         _ComboBox_Reg2 = new javax.swing.JComboBox();
         _ComboBox_Reg3 = new javax.swing.JComboBox();
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         _Panel_Slave1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         _Panel_Slave1.setPreferredSize(new java.awt.Dimension(318, 120));
@@ -264,11 +261,19 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
     private void _ComboBox_Slave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_Slave1ActionPerformed
         // TODO add your handling code here:
 
-        if (_ComboBox_Slave1.getSelectedIndex() == 0) {
+        if (_ComboBox_Slave1.getSelectedIndex() == 0 && this.type != 1) {
+
+            this.type = 1;
             _ComboBox_Reg2.setEnabled(true);
             _ComboBox_Reg3.setEnabled(true);
-            this.type = 1;
-        } else {
+
+        } else if (this.type == 1) {
+            // change the type and remove the items that have been selected
+            itemSelected[1] = itemSelected[2] = false;
+            mp.changeTableType(slaveNumber, type, selectedItem[1], selectedItem[2]);
+            selectedItem[1] = selectedItem[2] = "No Selection";
+            
+            
             _ComboBox_Reg2.setEnabled(false);
             _ComboBox_Reg3.setEnabled(false);
             this.type = 2;
@@ -346,6 +351,5 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
     private javax.swing.JComboBox _ComboBox_Slave1;
     private javax.swing.JLabel _Label_Slave1;
     private javax.swing.JPanel _Panel_Slave1;
-    private javax.swing.JComboBox jComboBox1;
     // End of variables declaration//GEN-END:variables
 }
