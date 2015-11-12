@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class ModbusPanel extends javax.swing.JPanel {
 
     public MainFrame mf;
-    public Store store;
     public ModbusSettings mb;
     public ArrayList<MeterPanel>[] powerScoutPanels;
     public ArrayList<MeterPanel> singleLoadPanels;
@@ -20,22 +19,21 @@ public class ModbusPanel extends javax.swing.JPanel {
      * Creates new form ModbusPanel
      *
      * @param mf
-     * @param store
+     * @param mb
      */
-    public ModbusPanel(MainFrame mf, Store store) {
+    public ModbusPanel(MainFrame mf, ModbusSettings mb) {
         initComponents();
         this.mf = mf;
-        this.store = store;
-        this.mb = new ModbusSettings();
-        mb.updateModbusSettings(store);
+        this.mb = mb;
+        
+        mb.updateModbusSettings(mf.getStore().getCs());
 
     }
 
-    public Store loadStore(Store s) {
+    public void loadStore(ModbusSettings mb) {
 
-       
-        this.store = s;
-        this.mb = s.getMb();
+        
+        this.mb = mb;
         int panelType;
         _FTF_NumPowerScouts.setText(String.valueOf(mb.getNumPowerScouts()));
         powerScoutPanels = (ArrayList<MeterPanel>[]) new ArrayList[10];
@@ -55,8 +53,6 @@ public class ModbusPanel extends javax.swing.JPanel {
         this.updatePanels();
         this.loadModels();
         this.loadSettings();
-        
-        return this.store;
 
     }
 

@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.DecimalFormatSymbols;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -33,7 +32,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class MainFrame extends JFrame {
 
-    String ggg;
     private final PanelCreator main;
     public DisplayFrame displayFrame;
     public ControlsPanel controlPanel;
@@ -41,8 +39,7 @@ public class MainFrame extends JFrame {
     public NameGeneratorPanel ngPanel;
     public ModbusPanel mbPanel;
     public Store store;
-    public DisplaySettings ds;
-
+    
     /**
      * Creates new form MainFrame
      *
@@ -50,23 +47,20 @@ public class MainFrame extends JFrame {
      */
     public MainFrame(PanelCreator main) {
         this.main = main;
-        store = new Store("Store");
+        store = new Store();
         initComponents();
         initPanels();
-        ggg = "ee";
+        
     }
 
     private void initPanels() {
 
-        controlPanel = new ControlsPanel(this, store);
-        displayFrame = new DisplayFrame(this, store);
-        settingsPanel = new SettingsPanel(this);
-        ngPanel = new NameGeneratorPanel(this);
-        mbPanel = new ModbusPanel(this, store);
-        ds = settingsPanel.getDS();
-
-        store.setMb(mbPanel.getMb());
-        store.setDs(ds);
+        controlPanel = new ControlsPanel(this, store.getCs());        
+        settingsPanel = new SettingsPanel(this, store.getDs());
+        ngPanel = new NameGeneratorPanel(this, store.getIoNames());
+        mbPanel = new ModbusPanel(this, store.getMb());
+        displayFrame = new DisplayFrame(this, store.getCs(), store.getDs());
+       
         // Load the main panel        
         //controlPanel.setVisible(true);
         displayFrame.setVisible(true);
@@ -80,6 +74,16 @@ public class MainFrame extends JFrame {
         _TabbedPane_Tabs.add("Modbus Generator", mbPanel);
 
     }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+    
+    
     
     public void updateModbusSettings(ModbusSettings mb){
         this.store.setMb(mb);
@@ -112,22 +116,13 @@ public class MainFrame extends JFrame {
         }
     }
 
-    public void updateDisplay(Store store) {
-        displayFrame.updateDisplays(store);
+    public void updateDisplay(ControlSettings cs) {
+        this.store.setCs(cs);
+        displayFrame.updateDisplays(this.store.getCs(), this.store.getDs());
     }
 
-    public void updateVarNames(ArrayList<String> storeStr, ArrayList<String> rackStr,
-            ArrayList<String> condStr, ArrayList<String> sgStr,
-            ArrayList<String> compStr, ArrayList<String> sysStr,
-            ArrayList<String> extraStr) {
-        store.setStoreStr(storeStr);
-        store.setRackStr(rackStr);
-        store.setCondStr(condStr);
-        store.setSgStr(sgStr);
-        store.setCompStr(compStr);
-        store.setSysStr(sysStr);
-        store.setExtraStr(extraStr);
-
+    public void updateVarNames(IoNames ioNames) {
+        store.setIoNames(ioNames);
     }
 
     /**
@@ -379,8 +374,8 @@ public class MainFrame extends JFrame {
 
     private void _MenuItem_ViewPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_ViewPanelActionPerformed
         // TODO add your handling code here:
-        int width = settingsPanel.getDisplayWidth();
-        int height = settingsPanel.getDisplayHeight();
+        int width = store.getDs().getDisplayWidth();
+        int height = store.getDs().getDisplayHeight();
         displayPanel(width, height);
     }//GEN-LAST:event__MenuItem_ViewPanelActionPerformed
 
@@ -389,9 +384,8 @@ public class MainFrame extends JFrame {
         int returnVal = _FileChooser_LoadLogo.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = _FileChooser_LoadLogo.getSelectedFile();
-            store.setImgStr(file.getAbsolutePath());
-            displayFrame.updateLogo(store.getImgStr());
-            controlPanel.updateStoreLogo(store.getImgStr());
+            store.getCs().setImgStr(file.getAbsolutePath());            
+            controlPanel.updateStoreLogo(store.getCs().getImgStr());
 
         } else {
             System.out.println("File access cancelled by user.");
@@ -429,9 +423,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_SaveCurrentDisplayActionPerformed
 
     private void _MenuItem_RemoveImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_RemoveImageActionPerformed
-        // TODO add your handling code here:
-
-        displayFrame.updateLogo();
+        // TODO add your handling code here:        
         controlPanel.removeStoreLogo();
 
     }//GEN-LAST:event__MenuItem_RemoveImageActionPerformed
@@ -447,19 +439,14 @@ public class MainFrame extends JFrame {
             // What to do with the file, e.g. display it in a TextArea
 
             try {
-                Store s = controlPanel.store;
-                s.setDs(this.store.getDs());
-                s.setMb(mbPanel.getMb());
+                
+               
                 FileOutputStream fos = new FileOutputStream(fn);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
-                oos.writeObject(s);
+                oos.writeObject(this.store);
                 oos.close();
                 fos.close();
-
-                System.out.println("Store " + this.store.getStoreName() + " saved");
-                for (Sensor ss : s.getMb().getItems().values()) {
-                    System.out.println(ss);
-                }
+                System.out.println("Store " + this.store.getStoreName() + " saved");                
 
             } catch (IOException e) {
                 System.out.println(e.getMessage());
@@ -495,9 +482,9 @@ public class MainFrame extends JFrame {
                 }
 
                 settingsPanel.loadSettings(this.store.getDs());
-                controlPanel.loadStore(this.store);
-                ngPanel.loadStore(this.store);
-                mbPanel.loadStore(this.store);
+                controlPanel.loadControlSettings(store.getCs());
+                ngPanel.loadStore(this.store.getIoNames());
+                mbPanel.loadStore(this.store.getMb());
 
                 System.out.println("Store " + this.store.getStoreName() + " read properly");
             } catch (Exception e) {
@@ -571,7 +558,7 @@ public class MainFrame extends JFrame {
         // TODO add your handling code here:
         displayFrame.dispose();
         _TabbedPane_Tabs.removeAll();
-        this.store = new Store("New Store");
+        this.store = new Store();
         initPanels();
 
 
@@ -675,7 +662,7 @@ public class MainFrame extends JFrame {
     private void _TabbedPane_TabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event__TabbedPane_TabsStateChanged
         // TODO add your handling code here:
         if (_TabbedPane_Tabs.getSelectedIndex() == 3) {
-            this.store = mbPanel.loadStore(this.store);
+            mbPanel.loadStore(store.getMb());
         }
     }//GEN-LAST:event__TabbedPane_TabsStateChanged
 

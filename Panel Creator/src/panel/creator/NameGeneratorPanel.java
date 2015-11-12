@@ -20,28 +20,33 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     public MainFrame mf;
     private Scanner scan;
     private int comboBoxIndex;
-    private ArrayList<String> storeStr;
-    private ArrayList<String> rackStr;
-    private ArrayList<String> condStr;
-    private ArrayList<String> sgStr;
-    private ArrayList<String> compStr;
-    private ArrayList<String> sysStr;
-    private ArrayList<String> extraStr;
+    public IoNames ioNames;
     private DefaultListModel listModel;
 
     /**
      * Creates new form NameGeneratorPanel
      *
-     * @param mf
-     * @param store
+     * @param mf     
+     * @param ioNames     
      */
-    public NameGeneratorPanel(MainFrame mf) {
+    public NameGeneratorPanel(MainFrame mf, IoNames ioNames) {
         this.mf = mf;
+        this.ioNames = ioNames;        
         comboBoxIndex = 0;
         listModel = new DefaultListModel();
         initComponents();
 
     }
+
+    public IoNames getIoNames() {
+        return ioNames;
+    }
+
+    public void setIoNames(IoNames ioNames) {
+        this.ioNames = ioNames;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -304,10 +309,11 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                     .addComponent(_Label_name, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(_Label_type, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(_ComboBox_Type, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(_Label_type1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(_ComboBox_Type, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(_Label_type, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Label_type1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(_FTF_DisplayedValue))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -409,7 +415,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         // Parse the fields
         parseVarNames();
-        mf.updateVarNames(storeStr, rackStr, condStr, sgStr, compStr, sysStr, extraStr);
+        mf.updateVarNames(ioNames);
 
     }//GEN-LAST:event__Button_SaveActionPerformed
 
@@ -458,25 +464,25 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             String s;
             switch (_ComboBox_Groups.getSelectedIndex()) {
                 case 0:
-                    s = storeStr.get(selIndex);
+                    s = ioNames.getStoreStr().get(selIndex);
                     break;
                 case 1:
-                    s = rackStr.get(selIndex);
+                    s = ioNames.getRackStr().get(selIndex);
                     break;
                 case 2:
-                    s = condStr.get(selIndex);
+                    s = ioNames.getCondStr().get(selIndex);
                     break;
                 case 3:
-                    s = sgStr.get(selIndex);
+                    s = ioNames.getSgStr().get(selIndex);
                     break;
                 case 4:
-                    s = compStr.get(selIndex);
+                    s = ioNames.getCompStr().get(selIndex);
                     break;
                 case 5:
-                    s = sysStr.get(selIndex);
+                    s = ioNames.getSysStr().get(selIndex);
                     break;
                 case 6:
-                    s = extraStr.get(selIndex);
+                    s = ioNames.getExtraStr().get(selIndex);
                     break;
                     
             }
@@ -526,26 +532,14 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
     }
 
-    public void loadStore(Store store) {
-        storeStr = store.getStoreStr();
-        rackStr = store.getRackStr();
-        condStr = store.getCondStr();
-        sgStr = store.getSgStr();
-        compStr = store.getCompStr();
-        sysStr = store.getSysStr();
-        extraStr = store.getExtraStr();
+    public void loadStore(IoNames ioNames) {
+        this.ioNames = ioNames;
         update();
     }
 
     public void loadGroups() {
 
-        storeStr = new ArrayList<>();
-        rackStr = new ArrayList<>();
-        condStr = new ArrayList<>();
-        sgStr = new ArrayList<>();
-        compStr = new ArrayList<>();
-        sysStr = new ArrayList<>();
-        extraStr = new ArrayList<>();
+        ioNames = new IoNames();
 
         String filename = "Default IO Variables.txt";
         try {
@@ -568,31 +562,31 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                             break;
                         case "store":
                             //System.out.println("Added to Store: " + line);
-                            storeStr.add(line);
+                            ioNames.getStoreStr().add(line);
                             break;
                         case "rack":
                             //System.out.println("Added to Rack: " + line);
-                            rackStr.add(line);
+                            ioNames.getRackStr().add(line);
                             break;
                         case "condenser":
                             //System.out.println("Added to Condenser: " + line);
-                            condStr.add(line);
+                            ioNames.getCondStr().add(line);
                             break;
                         case "suction group":
                             //System.out.println("Added to SuctionGroup: " + line);
-                            sgStr.add(line);
+                            ioNames.getSgStr().add(line);
                             break;
                         case "compressor":
                             //System.out.println("Added to Compressor: " + line);
-                            compStr.add(line);
+                            ioNames.getCompStr().add(line);
                             break;
                         case "system":
                             //System.out.println("Added to System: " + line);
-                            sysStr.add(line);
+                            ioNames.getSysStr().add(line);
                             break;
                         default:
                             //System.out.println("Unknown groupname, added to extra" + line);
-                            extraStr.add(line);
+                            ioNames.getExtraStr().add(line);
                             break;
                     }
                 }
@@ -607,7 +601,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             }
             // update the fields
             update();
-            mf.updateVarNames(storeStr, rackStr, condStr, sgStr, compStr, sysStr, extraStr);
+            mf.updateVarNames(ioNames);
         }
 
     }
@@ -621,25 +615,25 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
         switch (comboBoxIndex) {
             case 0:
-                storeStr.clear();
+                ioNames.getStoreStr().clear();
                 break;
             case 1:
-                rackStr.clear();
+                ioNames.getRackStr().clear();
                 break;
             case 2:
-                condStr.clear();
+                ioNames.getCondStr().clear();
                 break;
             case 3:
-                sgStr.clear();
+                ioNames.getSgStr().clear();
                 break;
             case 4:
-                compStr.clear();
+                ioNames.getCompStr().clear();
                 break;
             case 5:
-                sysStr.clear();
+                ioNames.getSysStr().clear();
                 break;
             default:
-                extraStr.clear();
+                ioNames.getExtraStr().clear();
                 break;
         }
 
@@ -648,31 +642,31 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             switch (comboBoxIndex) {
                 case 0:
                     //System.out.println("Added to Store: " + line);
-                    storeStr.add(line);
+                    ioNames.getStoreStr().add(line);
                     break;
                 case 1:
                     //System.out.println("Added to Rack: " + line);
-                    rackStr.add(line);
+                    ioNames.getRackStr().add(line);
                     break;
                 case 2:
                     //System.out.println("Added to Condenser: " + line);
-                    condStr.add(line);
+                    ioNames.getCondStr().add(line);
                     break;
                 case 3:
                     //System.out.println("Added to SuctionGroup: " + line);
-                    sgStr.add(line);
+                    ioNames.getSgStr().add(line);
                     break;
                 case 4:
                     //System.out.println("Added to Compressor: " + line);
-                    compStr.add(line);
+                    ioNames.getCompStr().add(line);
                     break;
                 case 5:
                     //System.out.println("Added to System: " + line);
-                    sysStr.add(line);
+                    ioNames.getSysStr().add(line);
                     break;
                 default:
                     //System.out.println("Unknown groupname, added to extra" + line);
-                    extraStr.add(line);
+                    ioNames.getExtraStr().add(line);
                     break;
             }
 
@@ -689,44 +683,44 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         switch (_ComboBox_Groups.getSelectedIndex()) {
             case 0: // store
                 info = getVarInfoStore();
-                for (String s : storeStr) {
+                for (String s : ioNames.getStoreStr()) {
                     vars.add(s);
                 }
                 break;
             case 1:
                 info = getVarInfoRack();
-                for (String s : rackStr) {
+                for (String s : ioNames.getRackStr()) {
                     vars.add(s);
 
                 }
                 break;
             case 2:
                 info = getVarInfoCond();
-                for (String s : condStr) {
+                for (String s : ioNames.getCondStr()) {
                     vars.add(s);
                 }
                 break;
             case 3:
                 info = getVarInfoSG();
-                for (String s : sgStr) {
+                for (String s : ioNames.getSgStr()) {
                     vars.add(s);
                 }
                 break;
             case 4:
                 info = getVarInfoComp();
-                for (String s : compStr) {
+                for (String s : ioNames.getCompStr()) {
                     vars.add(s);
                 }
                 break;
             case 5:
                 info = getVarInfoSys();
-                for (String s : sysStr) {
+                for (String s : ioNames.getSysStr()) {
                     vars.add(s);
                 }
                 break;
             case 6:
                 info = getVarInfoExtra();
-                for (String s : extraStr) {
+                for (String s : ioNames.getExtraStr()) {
                     vars.add(s);
                 }
                 break;
