@@ -1,6 +1,7 @@
 package panel.creator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.DefaultListModel;
@@ -16,11 +17,15 @@ public class ModbusSettings implements java.io.Serializable {
     public DefaultListModel cm;
     public int numPowerScouts;
     public int numSingleLoads;
-    public int [][] panelType;
+    public int [][] powerScoutsPanelType;    
+    public int [] singlePanelType;    
     public Map<String, Sensor> items;
 
     public ModbusSettings() {
-        panelType = new int [10][8];
+        powerScoutsPanelType = new int [10][8];
+        for(int i = 0; i < powerScoutsPanelType.length; i++){
+            Arrays.fill(powerScoutsPanelType[i], 1);
+        }
         
     }
 
@@ -47,15 +52,16 @@ public class ModbusSettings implements java.io.Serializable {
             if (items.containsKey(key)) {
                 Sensor s = items.get(key);
 
-                System.out.println("Updated " + key + " from "
-                        + s.isUsed() + " to " + used);
-                s.updateKey(meter, slave, register, used);
+                //System.out.println("Updated " + key + " from "
+                        //+ s.isUsed() + " to " + used);
+                s.updateKey(key, meter, slave, register, used);
                 items.replace(key, s);
 
             } else {
                 System.out.println("Key: " + key + " not found!");
             }
         }
+        
     }
 
     public void removeKey(String key) {
@@ -64,8 +70,8 @@ public class ModbusSettings implements java.io.Serializable {
             if (items.containsKey(key)) {
                 Sensor s = items.get(key);
 
-                System.out.println("Removed " + key + " from "
-                        + s.isUsed() + " to false");
+                //System.out.println("Removed " + key + " from "
+                        //+ s.isUsed() + " to false");
                 s.removeKey();
                 items.replace(key, s);
 
@@ -76,7 +82,7 @@ public class ModbusSettings implements java.io.Serializable {
     }
     
     public void updateTableType(int meter, int slave, int type){
-        panelType[meter][slave] = type;
+        powerScoutsPanelType[meter][slave] = type;
     }
 
     public boolean checkKey(String key) {
@@ -113,6 +119,36 @@ public class ModbusSettings implements java.io.Serializable {
 
     }
 
+    public ArrayList<String> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<String> list) {
+        this.list = list;
+    }
+
+    public int[][] getPanelType() {
+        return powerScoutsPanelType;
+    }
+    
+    public int getPanelType(int i, int j){
+        return powerScoutsPanelType[i][j];
+    }
+
+    public void setPanelType(int[][] panelType) {
+        this.powerScoutsPanelType = panelType;
+    }
+
+    public Map<String, Sensor> getItems() {
+        return items;
+    }
+
+    public void setItems(Map<String, Sensor> items) {
+        this.items = items;
+    }
+
+    
+    
     public DefaultListModel getCm() {
         return cm;
     }

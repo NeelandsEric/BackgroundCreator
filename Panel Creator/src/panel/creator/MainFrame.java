@@ -33,6 +33,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class MainFrame extends JFrame {
 
+    String ggg;
     private final PanelCreator main;
     public DisplayFrame displayFrame;
     public ControlsPanel controlPanel;
@@ -52,7 +53,7 @@ public class MainFrame extends JFrame {
         store = new Store("Store");
         initComponents();
         initPanels();
-
+        ggg = "ee";
     }
 
     private void initPanels() {
@@ -62,8 +63,8 @@ public class MainFrame extends JFrame {
         settingsPanel = new SettingsPanel(this);
         ngPanel = new NameGeneratorPanel(this);
         mbPanel = new ModbusPanel(this, store);
-        ds = settingsPanel.getDS();        
-        
+        ds = settingsPanel.getDS();
+
         store.setMb(mbPanel.getMb());
         store.setDs(ds);
         // Load the main panel        
@@ -78,6 +79,10 @@ public class MainFrame extends JFrame {
         _TabbedPane_Tabs.add("Name Generator", ngPanel);
         _TabbedPane_Tabs.add("Modbus Generator", mbPanel);
 
+    }
+    
+    public void updateModbusSettings(ModbusSettings mb){
+        this.store.setMb(mb);
     }
 
     public void updateDisplaySize(Dimension d) {
@@ -108,7 +113,7 @@ public class MainFrame extends JFrame {
     }
 
     public void updateDisplay(Store store) {
-        displayFrame.updateDisplays(store);        
+        displayFrame.updateDisplays(store);
     }
 
     public void updateVarNames(ArrayList<String> storeStr, ArrayList<String> rackStr,
@@ -444,6 +449,7 @@ public class MainFrame extends JFrame {
             try {
                 Store s = controlPanel.store;
                 s.setDs(this.store.getDs());
+                s.setMb(mbPanel.getMb());
                 FileOutputStream fos = new FileOutputStream(fn);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(s);
@@ -451,6 +457,10 @@ public class MainFrame extends JFrame {
                 fos.close();
 
                 System.out.println("Store " + this.store.getStoreName() + " saved");
+                for (Sensor ss : s.getMb().getItems().values()) {
+                    System.out.println(ss);
+                }
+
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -479,11 +489,16 @@ public class MainFrame extends JFrame {
                 this.store = (Store) ois.readObject();
                 ois.close();
                 fis.close();
+
+                for (Sensor ss : store.getMb().getItems().values()) {
+                    System.out.println(ss);
+                }
+
                 settingsPanel.loadSettings(this.store.getDs());
                 controlPanel.loadStore(this.store);
                 ngPanel.loadStore(this.store);
                 mbPanel.loadStore(this.store);
-                
+
                 System.out.println("Store " + this.store.getStoreName() + " read properly");
             } catch (Exception e) {
                 System.out.println("Error with opening store: " + e.getMessage());
@@ -599,7 +614,7 @@ public class MainFrame extends JFrame {
             }
             this.store.writeCSV(filePath);
             this.store.writeNames(fp);
-            
+
         } else {
             System.out.println("File access cancelled by user.");
         }
@@ -632,14 +647,14 @@ public class MainFrame extends JFrame {
                     // Create a cell and put a value in it.
                     for (int i = 0; i < r.length; i++) {
                         Cell cell = row.createCell(i);
-                        
+
                         // If the string is a number, write it as a number
                         if (isStringNumeric(r[i])) {
-                            cell.setCellValue(Double.parseDouble(r[i].replace("\"", "")));                            
+                            cell.setCellValue(Double.parseDouble(r[i].replace("\"", "")));
                         } else {
                             cell.setCellValue(r[i]);
                         }
-                        
+
                     }
 
                     rowNum++;
@@ -659,8 +674,8 @@ public class MainFrame extends JFrame {
 
     private void _TabbedPane_TabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event__TabbedPane_TabsStateChanged
         // TODO add your handling code here:
-        if(_TabbedPane_Tabs.getSelectedIndex() == 3){
-            mbPanel.loadStore(this.store);
+        if (_TabbedPane_Tabs.getSelectedIndex() == 3) {
+            this.store = mbPanel.loadStore(this.store);
         }
     }//GEN-LAST:event__TabbedPane_TabsStateChanged
 

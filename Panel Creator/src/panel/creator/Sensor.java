@@ -18,6 +18,12 @@ public class Sensor implements java.io.Serializable {
         this.key = "";
         this.used = false;
     }
+
+    @Override
+    public String toString() {
+        return "Sensor{" + "key=" + key + ", meter=" + meter + ", slave=" + slave + ", register=" + register + ", used=" + used + '}';
+    }
+    
     
     
     public Sensor(String key, int meter, int slave, int register, boolean used) {
@@ -35,7 +41,8 @@ public class Sensor implements java.io.Serializable {
         this.used = false;
     }
     
-    public void updateKey(int meter, int slave, int register, boolean used){
+    public void updateKey(String key, int meter, int slave, int register, boolean used){
+        this.key = key;
         this.meter = meter;
         this.slave = slave;
         this.register = register;

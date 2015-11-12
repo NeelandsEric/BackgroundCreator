@@ -31,27 +31,50 @@ public class ModbusPanel extends javax.swing.JPanel {
 
     }
 
-    public void loadStore(Store s) {
+    public Store loadStore(Store s) {
+
+       
         this.store = s;
-        this.mb = s.getMb();        
-        
+        this.mb = s.getMb();
+        int panelType;
         _FTF_NumPowerScouts.setText(String.valueOf(mb.getNumPowerScouts()));
         powerScoutPanels = (ArrayList<MeterPanel>[]) new ArrayList[10];
         for (int i = 0; i < 10; i++) {
             powerScoutPanels[i] = new ArrayList<>();
             for (int j = 0; j < 8; j++) {
-                powerScoutPanels[i].add(new MeterPanel(this, j, 1));
+                panelType = mb.getPanelType(i, j);
+                powerScoutPanels[i].add(new MeterPanel(this, j, panelType));
             }
         }
-        
+
         _FTF_NumPowerScouts.setText(String.valueOf(mb.getNumSingleLoads()));
         singleLoadPanels = new ArrayList<>();
-        for(int i = 0; i < mb.getNumSingleLoads(); i++){
+        for (int i = 0; i < mb.getNumSingleLoads(); i++) {
             singleLoadPanels.add(new MeterPanel(this, i, 1));
         }
         this.updatePanels();
         this.loadModels();
+        this.loadSettings();
         
+        return this.store;
+
+    }
+
+    public void loadSettings() {
+        int meterIndex, slaveIndex, registerIndex;
+        String key;
+        for (Sensor sensor : mb.getItems().values()) {
+            System.out.println("Load Settings MB: sensor -> " + sensor);
+            if (sensor.isUsed()) {
+                meterIndex = sensor.getMeter();
+                slaveIndex = sensor.getSlave();
+                registerIndex = sensor.getRegister();
+                key = sensor.getKey();
+                System.out.println("Key in load: " + key);
+                powerScoutPanels[meterIndex].get(slaveIndex).loadSensor(registerIndex, key);
+            }
+        }
+
     }
 
     public void initalizeMeters() {
@@ -141,25 +164,24 @@ public class ModbusPanel extends javax.swing.JPanel {
             System.out.println("item used empty else, key: " + key);
         }
 
+        mf.updateModbusSettings(mb);
         loadModels();
     }
-    
-    public void changeTableType(int slave, int type, String a, String b){
-        
+
+    public void changeTableType(int slave, int type, String a, String b) {
+
         int table = _ComboBox_Meters.getSelectedIndex();
         mb.updateTableType(table, slave, type);
-        if(!a.equals("No Selection")){
+        if (!a.equals("No Selection")) {
             mb.removeKey(a);
         }
-        if(!b.equals("No Selection")){
+        if (!b.equals("No Selection")) {
             mb.removeKey(b);
         }
         updatePanels();
         loadModels();
-        
-        
+
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -399,7 +421,7 @@ public class ModbusPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__FTF_NumSingleLoadsPropertyChange
 
     private void _ComboBox_MetersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_MetersActionPerformed
-
+       
         updatePanels();
         loadModels();
     }//GEN-LAST:event__ComboBox_MetersActionPerformed
@@ -412,7 +434,7 @@ public class ModbusPanel extends javax.swing.JPanel {
 
     private void _TF_PowerScoutIPPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__TF_PowerScoutIPPropertyChange
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event__TF_PowerScoutIPPropertyChange
 
     public ModbusSettings getMb() {
@@ -423,7 +445,7 @@ public class ModbusPanel extends javax.swing.JPanel {
         this.mb = mb;
     }
 
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox _ComboBox_Meters;
     private javax.swing.JComboBox _ComboBox_SingleMeters;

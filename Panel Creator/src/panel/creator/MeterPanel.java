@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package panel.creator;
 
 import javax.swing.ComboBoxModel;
@@ -19,6 +14,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
     public String name;
     public int slaveNumber;
     public int type;
+    public DefaultListModel dm;
     public ComboBoxModel[] cm;
     public boolean[] itemSelected;
     public String[] selectedItem;
@@ -52,8 +48,48 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
         loading = false;
     }
 
-    public void updateModelList(DefaultListModel df) {
+    public void loadSensor(int register, String key) {
+        loading = true;
+        // Make a new model
+        DefaultListModel df = new DefaultListModel();
+        for (Object e : dm.toArray()) {
+            df.addElement(e);
+        }
+        
+        switch (register) {
+            case 0: // reg 1
+                selectedItem[0] = key;
+                itemSelected[0] = true;
+                //System.out.println("[0] " + df1.get(1) + " replaced with " + selectedItem[0]);
+                df.set(1, selectedItem[0]);
+                cm[0] = new ListAdapterComboBoxModel(df);
+                _ComboBox_Reg1.setModel(cm[0]);
+                _ComboBox_Reg1.setSelectedIndex(1); // no selection option
+                break;
+            case 1:
+                selectedItem[1] = key;
+                itemSelected[1] = true;
+                //System.out.println("[0] " + df1.get(1) + " replaced with " + selectedItem[0]);
+                df.set(1, selectedItem[0]);
+                cm[1] = new ListAdapterComboBoxModel(df);
+                _ComboBox_Reg2.setModel(cm[1]);
+                _ComboBox_Reg2.setSelectedIndex(1); // no selection option
+                break;
+            case 2:
+                selectedItem[2] = key;
+                itemSelected[2] = true;
+                //System.out.println("[0] " + df1.get(1) + " replaced with " + selectedItem[0]);
+                df.set(1, selectedItem[2]);
+                cm[2] = new ListAdapterComboBoxModel(df);
+                _ComboBox_Reg3.setModel(cm[2]);
+                _ComboBox_Reg3.setSelectedIndex(1); // no selection option
+                break;
+        }
+        loading = false;
+    }
 
+    public void updateModelList(DefaultListModel df) {
+        this.dm = df;
         loading = true;
         if (itemSelected[0]) {
             DefaultListModel df1 = new DefaultListModel();
@@ -272,8 +308,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
             itemSelected[1] = itemSelected[2] = false;
             mp.changeTableType(slaveNumber, type, selectedItem[1], selectedItem[2]);
             selectedItem[1] = selectedItem[2] = "No Selection";
-            
-            
+
             _ComboBox_Reg2.setEnabled(false);
             _ComboBox_Reg3.setEnabled(false);
             this.type = 2;
@@ -293,7 +328,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
                 itemSelected[0] = true;
             }
             boolean b = _ComboBox_Reg1.getSelectedIndex() > 1;
-            System.out.println("[0] New item selected -> " + n);
+            //System.out.println("[0] New item selected -> " + n);
 
             mp.itemUsed(n, b, slaveNumber, 0);
             //String n 
@@ -314,7 +349,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
                 itemSelected[1] = true;
             }
             boolean b = _ComboBox_Reg2.getSelectedIndex() > 1;
-            System.out.println("[1] New item selected -> " + n);
+            //System.out.println("[1] New item selected -> " + n);
 
             mp.itemUsed(n, b, slaveNumber, 1);
             //String n 
@@ -334,7 +369,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
                 itemSelected[2] = true;
             }
             boolean b = _ComboBox_Reg3.getSelectedIndex() > 1;
-            System.out.println("[2] New item selected -> " + n);
+            //System.out.println("[2] New item selected -> " + n);
 
             mp.itemUsed(n, b, slaveNumber, 2);
             //String n 
