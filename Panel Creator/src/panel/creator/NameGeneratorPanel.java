@@ -580,6 +580,40 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
     private void _Button_NewNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_NewNameActionPerformed
         // TODO add your handling code here:
+        
+        if (!_List_Variables.isSelectionEmpty()) {
+            int selIndex = _List_Variables.getSelectedIndex();
+            String s;
+            switch (_ComboBox_Groups.getSelectedIndex()) {
+                case 0:
+                    // ADD STRINGS HERE
+                    s = "";
+                    break;
+                case 1:
+                    s = ioNames.getRackStr().get(selIndex);
+                    break;
+                case 2:
+                    s = ioNames.getCondStr().get(selIndex);
+                    break;
+                case 3:
+                    s = ioNames.getSgStr().get(selIndex);
+                    break;
+                case 4:
+                    s = ioNames.getCompStr().get(selIndex);
+                    break;
+                case 5:
+                    s = ioNames.getSysStr().get(selIndex);
+                    break;
+                case 6:
+                    s = ioNames.getExtraStr().get(selIndex);
+                    break;  
+                default:
+                    s = "Noo ting";
+                    break;
+            } 
+            System.out.println("Type switch for: " + s);
+        }
+        
     }//GEN-LAST:event__Button_NewNameActionPerformed
 
     public void loadItem(String[] values) {

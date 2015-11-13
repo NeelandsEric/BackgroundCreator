@@ -23,6 +23,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * Creates new form MainPanel
      *
      * @param mf
+     * @param cs
      */
     public ControlsPanel(MainFrame mf, ControlSettings cs) {
         this.mf = mf;

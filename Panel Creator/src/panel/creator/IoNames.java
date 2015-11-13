@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author EricGummerson
  */
-public class IoNames implements java.io.Serializable{
+public class IoNames implements java.io.Serializable {
 
     private ArrayList<String> storeStr;
     private ArrayList<String> rackStr;
@@ -32,8 +32,7 @@ public class IoNames implements java.io.Serializable{
         extraStr = new ArrayList<>();
 
     }
-    
-    
+
     public ArrayList<String> getStoreStr() {
         return storeStr;
     }
@@ -89,8 +88,40 @@ public class IoNames implements java.io.Serializable{
     public void setExtraStr(ArrayList<String> extraStr) {
         this.extraStr = extraStr;
     }
+
     
-    
+    public void addString(int listIndex, String string) {
+
+        switch (listIndex) {
+            case 0:
+                storeStr.add(string);
+                break;
+            case 1:
+                rackStr.add(string);
+                break;
+            case 2:
+                condStr.add(string);
+                break;
+            case 3:
+                sgStr.add(string);
+                break;
+            case 4:
+                compStr.add(string);
+                break;
+            case 5:
+                sysStr.add(string);
+                break;
+            case 6:
+                extraStr.add(string);
+                ;
+                break;
+            default:
+                System.out.println("Didnt add " + string);
+                break;
+        }
+
+    }
+
     public List<String[]> formatStrings(ControlSettings cs) {
 
         long start = System.currentTimeMillis(), end;
@@ -244,8 +275,7 @@ public class IoNames implements java.io.Serializable{
         return vars;
 
     }
-    
-    
+
     public List<String[]> unformattedStrings() {
 
         List<String[]> vars = new ArrayList<String[]>() {
