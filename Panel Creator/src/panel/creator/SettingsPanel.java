@@ -56,8 +56,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
         }
         _ComboBox_FontSize.setModel(new javax.swing.DefaultComboBoxModel(fontSizes));
         _ComboBox_Fonts.setSelectedIndex(11);
-        _ComboBox_FontSize.setSelectedIndex(6);
-        updateFontLabel();
+        _ComboBox_FontSize.setSelectedIndex(6);        
 
         _ColorChooser_Color.getSelectionModel().addChangeListener(this);
         ds.setColor(Color.WHITE);
@@ -68,7 +67,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
         _ComboBox_BorderSize.setSelectedIndex(1);
         ds.setBorder(BorderFactory.createLineBorder(ds.getColor()));
         _Panel_BorderPanel.setBorder(ds.getBorder());
-
+        
         loading = false;
 
     }
@@ -378,11 +377,70 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
     }//GEN-LAST:event__FormattedTextField_HeightFocusLost
 
     private void _Button_DefaultSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_DefaultSettingsActionPerformed
-        // TODO add your handling code here:
-
         defaultSettings();
-        updateFontLabel();
     }//GEN-LAST:event__Button_DefaultSettingsActionPerformed
+
+    public void updateLoad() {
+        // Update the border
+
+        int index = ds.getBorderTypeSel();
+
+        Color color = ds.getColor();
+        Border border;
+        switch (index) {
+
+            case 0:
+                //Line Border
+                border = BorderFactory.createLineBorder(color, ds.getBorderSize());
+                break;
+            case 1:
+                //Raised Etched Border
+                border = BorderFactory.createEtchedBorder(EtchedBorder.RAISED, color, Color.GRAY);
+                break;
+            case 2:
+                //Lowered Etched Border
+                border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED, color, Color.GRAY);
+                break;
+            case 3:
+                //Raised Bevel Border
+                border = BorderFactory.createRaisedBevelBorder();
+                break;
+            case 4:
+                //Lowered Bevel Border
+                border = BorderFactory.createLoweredBevelBorder();
+                break;
+            case 5:
+                //No Border
+                border = BorderFactory.createEmptyBorder();
+                break;
+            default:
+                border = BorderFactory.createEmptyBorder();
+                break;
+        }
+
+        ds.setBorder(border);
+        _Panel_BorderPanel.setBorder(border);
+
+        String name = (String) _ComboBox_Fonts.getSelectedItem();
+        int size = Integer.parseInt((String) _ComboBox_FontSize.getSelectedItem());
+        int style;
+
+        if (_CheckBox_Bold.isSelected() && _CheckBox_Italic.isSelected()) {
+            style = Font.BOLD | Font.ITALIC;
+        } else if (_CheckBox_Bold.isSelected()) {
+            style = Font.BOLD;
+        } else if (_CheckBox_Italic.isSelected()) {
+            style = Font.ITALIC;
+        } else {
+            style = Font.PLAIN;
+        }
+
+        Font f = new Font(name, style, size);
+        ds.setFont(f);        
+        _Label_Font.setFont(f);   
+        mf.updateSettings(ds);
+
+    }
 
     private void _ComboBox_BordersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_BordersActionPerformed
         // TODO add your handling code here:
@@ -513,18 +571,18 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
         loading = true;
         ds = new DisplaySettings();
 
-        _FormattedTextField_Width.setText("1200");
-        _FormattedTextField_Height.setText(String.valueOf("900"));
-        _CheckBox_Bold.setSelected(false);
-        _CheckBox_Italic.setSelected(false);
-        _ComboBox_Fonts.setSelectedIndex(11);
-        _ComboBox_FontSize.setSelectedIndex(6);
-        _ComboBox_Borders.setSelectedIndex(0);
-        _ComboBox_BorderSize.setSelectedIndex(1);
-        _CheckBox_Bold.setSelected(false);
-        _CheckBox_Italic.setSelected(false);
+    
+        _FormattedTextField_Width.setText(String.valueOf(ds.getDisplayWidth()));
+        _FormattedTextField_Height.setText(String.valueOf(ds.getDisplayHeight()));
         _ColorChooser_Color.setColor(ds.getColor());
-
+        _ComboBox_Fonts.setSelectedIndex(ds.getFontTypeSel());
+        _ComboBox_FontSize.setSelectedIndex(ds.getFontSizeSel());
+        _ComboBox_Borders.setSelectedIndex(ds.getBorderTypeSel());
+        _ComboBox_BorderSize.setSelectedIndex(ds.getBorderSizeSel());
+        _CheckBox_Bold.setSelected(ds.isBold());
+        _CheckBox_Italic.setSelected(ds.isItalic());
+           
+        this.updateLoad();
         loading = false;
 
     }
@@ -532,18 +590,18 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
     public void loadSettings(DisplaySettings dds) {
         loading = true;
         this.ds = dds;
-        int displayWidth = ds.getDisplayWidth();
-        int displayHeight = ds.getDisplayHeight();
+
         _ColorChooser_Color.setColor(ds.getColor());
-        _FormattedTextField_Width.setText(String.valueOf(displayWidth));
-        _FormattedTextField_Height.setText(String.valueOf(displayHeight));
+        _FormattedTextField_Width.setText(String.valueOf(ds.getDisplayWidth()));
+        _FormattedTextField_Height.setText(String.valueOf(ds.getDisplayHeight()));
         _ComboBox_Fonts.setSelectedIndex(ds.getFontTypeSel());
         _ComboBox_FontSize.setSelectedIndex(ds.getFontSizeSel());
         _ComboBox_Borders.setSelectedIndex(ds.getBorderTypeSel());
         _ComboBox_BorderSize.setSelectedIndex(ds.getBorderSizeSel());
         _CheckBox_Bold.setSelected(ds.isBold());
         _CheckBox_Italic.setSelected(ds.isItalic());
-        this.updateFontLabel();
+        
+        this.updateLoad();
         loading = false;
 
     }

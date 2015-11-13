@@ -63,9 +63,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         _Label_Title = new javax.swing.JLabel();
         _ComboBox_Groups = new javax.swing.JComboBox();
         _Button_Save = new javax.swing.JButton();
-        _Button_Defaults = new javax.swing.JButton();
         _Label_GroupName = new javax.swing.JLabel();
-        _Button_Check = new javax.swing.JToggleButton();
         _ScrollPane_InfoRacks = new javax.swing.JScrollPane();
         _TextArea_Info = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -76,7 +74,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         _Label_type = new javax.swing.JLabel();
         _FTF_DisplayedValue = new javax.swing.JFormattedTextField();
         _ComboBox_Type = new javax.swing.JComboBox();
-        _Label_type1 = new javax.swing.JLabel();
+        _Label_valueDisplayed = new javax.swing.JLabel();
         _Label_uom = new javax.swing.JLabel();
         _TextField_UoM = new javax.swing.JTextField();
         _Label_constant = new javax.swing.JLabel();
@@ -87,9 +85,12 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         _FTF_TempLow = new javax.swing.JFormattedTextField();
         _Label_alertHigh = new javax.swing.JLabel();
         _FTF_TempHigh = new javax.swing.JFormattedTextField();
-        _Label_constant2 = new javax.swing.JLabel();
+        _Label_Alert = new javax.swing.JLabel();
         _CheckBox_Alert = new javax.swing.JCheckBox();
-        _Button_SaveSelected = new javax.swing.JToggleButton();
+        _Button_SaveSelected = new javax.swing.JButton();
+        _Button_Check = new javax.swing.JButton();
+        _Button_Defaults = new javax.swing.JButton();
+        _Button_NewName = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -120,25 +121,9 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             }
         });
 
-        _Button_Defaults.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _Button_Defaults.setText("Default Variables");
-        _Button_Defaults.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _Button_DefaultsActionPerformed(evt);
-            }
-        });
-
         _Label_GroupName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         _Label_GroupName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _Label_GroupName.setText("Group Name");
-
-        _Button_Check.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _Button_Check.setText("Check Formatting");
-        _Button_Check.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _Button_CheckActionPerformed(evt);
-            }
-        });
 
         _TextArea_Info.setEditable(false);
         _TextArea_Info.setColumns(20);
@@ -188,8 +173,8 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             }
         });
 
-        _Label_type1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _Label_type1.setText("Value Displayed");
+        _Label_valueDisplayed.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Label_valueDisplayed.setText("Value Displayed");
 
         _Label_uom.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Label_uom.setText("UoM");
@@ -255,8 +240,8 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             }
         });
 
-        _Label_constant2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _Label_constant2.setText("Alert");
+        _Label_Alert.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Label_Alert.setText("Alert");
 
         _CheckBox_Alert.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _CheckBox_Alert.setText("No");
@@ -264,6 +249,38 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         _CheckBox_Alert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _CheckBox_AlertActionPerformed(evt);
+            }
+        });
+
+        _Button_SaveSelected.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Button_SaveSelected.setText("Save");
+        _Button_SaveSelected.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_SaveSelectedActionPerformed(evt);
+            }
+        });
+
+        _Button_Check.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Button_Check.setText("Check Formatting");
+        _Button_Check.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_CheckActionPerformed(evt);
+            }
+        });
+
+        _Button_Defaults.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Button_Defaults.setText("Default Variables");
+        _Button_Defaults.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_DefaultsActionPerformed(evt);
+            }
+        });
+
+        _Button_NewName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Button_NewName.setText("New");
+        _Button_NewName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_NewNameActionPerformed(evt);
             }
         });
 
@@ -279,87 +296,102 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(_Textfield_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
-                        .addComponent(_Label_type, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(_ComboBox_Type, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
-                        .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(_Label_constant1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(_Label_alertHigh, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(_Label_type1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(_Label_constant2, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
                         .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
-                                .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(_FTF_TempHigh, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                                    .addComponent(_FTF_TempLow, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                                    .addComponent(_CheckBox_Alert, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(_Label_type, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_ComboBox_Type, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
+                                .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(_Label_constant1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(_Label_alertHigh, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                                    .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(_Label_valueDisplayed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(_Label_Alert, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
+                                        .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(_FTF_TempHigh, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                                            .addComponent(_FTF_TempLow, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                                            .addComponent(_CheckBox_Alert, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(_Label_constant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(_Label_offset, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(_Label_uom, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(_FTF_DisplayedValue, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(_Label_constant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(_Label_offset, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(_Label_uom, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(_FTF_DisplayedValue, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(_FTF_Constant)
+                                    .addComponent(_FTF_Offset, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(_TextField_UoM, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(_FTF_Constant)
-                            .addComponent(_FTF_Offset, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_TextField_UoM, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(45, Short.MAX_VALUE))
+                        .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(_Button_Check, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(_Button_Defaults, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Button_SaveSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Button_NewName, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        _Panel_SelectedItemInfoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_FTF_DisplayedValue, _FTF_TempHigh, _FTF_TempLow});
+        _Panel_SelectedItemInfoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_CheckBox_Alert, _FTF_Constant, _FTF_DisplayedValue, _FTF_Offset, _FTF_TempHigh, _FTF_TempLow, _TextField_UoM});
 
-        _Panel_SelectedItemInfoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_Label_alertHigh, _Label_constant1, _Label_constant2});
+        _Panel_SelectedItemInfoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_Label_Alert, _Label_alertHigh, _Label_constant1});
+
+        _Panel_SelectedItemInfoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_Button_Check, _Button_Defaults, _Button_SaveSelected});
 
         _Panel_SelectedItemInfoLayout.setVerticalGroup(
             _Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_Label_name, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Textfield_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_Label_type, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_ComboBox_Type, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
                 .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
-                        .addComponent(_Label_type1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(_Label_constant2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_CheckBox_Alert, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_Label_uom, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_TextField_UoM, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(_Label_constant1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_FTF_TempLow, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_Label_constant, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_FTF_Constant, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
+                                .addGap(108, 108, 108)
+                                .addComponent(_Label_valueDisplayed, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(_Label_Alert, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(_CheckBox_Alert, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(_Label_uom, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(_TextField_UoM, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(_Label_constant1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(_FTF_TempLow, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(_Label_constant, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(_FTF_Constant, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addComponent(_Button_NewName, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_Button_SaveSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_Button_Check, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_Button_Defaults, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(_Label_alertHigh, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(_FTF_TempHigh, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(_Label_offset, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(_FTF_Offset, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(_FTF_DisplayedValue, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(_Label_name, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Textfield_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(_Label_type, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_ComboBox_Type, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12)
+                        .addComponent(_FTF_DisplayedValue, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        _Panel_SelectedItemInfoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_CheckBox_Alert, _FTF_Constant, _FTF_DisplayedValue, _FTF_Offset, _FTF_TempHigh, _FTF_TempLow, _Label_alertHigh, _Label_constant, _Label_constant1, _Label_constant2, _Label_offset, _Label_type1, _Label_uom, _TextField_UoM});
-
-        _Button_SaveSelected.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _Button_SaveSelected.setText("Save");
-        _Button_SaveSelected.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _Button_SaveSelectedActionPerformed(evt);
-            }
-        });
+        _Panel_SelectedItemInfoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_CheckBox_Alert, _FTF_Constant, _FTF_DisplayedValue, _FTF_Offset, _FTF_TempHigh, _FTF_TempLow, _Label_Alert, _Label_alertHigh, _Label_constant, _Label_constant1, _Label_offset, _Label_uom, _Label_valueDisplayed, _TextField_UoM});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -368,16 +400,9 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(_Panel_SelectedItemInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(_Button_Check, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(_Button_Defaults, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(_Button_SaveSelected, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)))
-                    .addComponent(_ScrollPane_InfoRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                    .addComponent(_ScrollPane_InfoRacks)
+                    .addComponent(_Panel_SelectedItemInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,7 +423,11 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(_Label_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(_Panel_SelectedItemInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(_ScrollPane_InfoRacks))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(_Label_GroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -406,22 +435,8 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                             .addComponent(_Button_Save, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(_ComboBox_Groups, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(_Panel_SelectedItemInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(_ScrollPane_InfoRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(145, 145, 145)
-                                .addComponent(_Button_SaveSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_Button_Check, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_Button_Defaults, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(31, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 53, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -511,22 +526,61 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                     break;
                 case 6:
                     s = ioNames.getExtraStr().get(selIndex);
-                    break;
-                    
-            }
-            
-            
-            
+                    break;  
+                default:
+                    s = "Noo ting";
+            } 
+            System.out.println("Type switch for: " + s);
         }
     }//GEN-LAST:event__ComboBox_TypeActionPerformed
 
     private void _CheckBox_AlertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__CheckBox_AlertActionPerformed
         // TODO add your handling code here:
+        if(_CheckBox_Alert.isSelected()){
+            _CheckBox_Alert.setText("Yes");
+        }else {
+            _CheckBox_Alert.setText("No");
+        }
     }//GEN-LAST:event__CheckBox_AlertActionPerformed
 
     private void _Button_SaveSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SaveSelectedActionPerformed
         // TODO add your handling code here:
+        if (!_List_Variables.isSelectionEmpty()) {
+            int selIndex = _List_Variables.getSelectedIndex();
+            String s;
+            switch (_ComboBox_Groups.getSelectedIndex()) {
+                case 0:
+                    s = ioNames.getStoreStr().get(selIndex);
+                    break;
+                case 1:
+                    s = ioNames.getRackStr().get(selIndex);
+                    break;
+                case 2:
+                    s = ioNames.getCondStr().get(selIndex);
+                    break;
+                case 3:
+                    s = ioNames.getSgStr().get(selIndex);
+                    break;
+                case 4:
+                    s = ioNames.getCompStr().get(selIndex);
+                    break;
+                case 5:
+                    s = ioNames.getSysStr().get(selIndex);
+                    break;
+                case 6:
+                    s = ioNames.getExtraStr().get(selIndex);
+                    break;  
+                default:
+                    s = "Noo ting";
+            } 
+            System.out.println("Type switch for: " + s);
+        }
+        
     }//GEN-LAST:event__Button_SaveSelectedActionPerformed
+
+    private void _Button_NewNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_NewNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event__Button_NewNameActionPerformed
 
     public void loadItem(String[] values) {
         if (values.length > 8) {
@@ -948,10 +1002,11 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton _Button_Check;
+    private javax.swing.JButton _Button_Check;
     private javax.swing.JButton _Button_Defaults;
+    private javax.swing.JButton _Button_NewName;
     private javax.swing.JButton _Button_Save;
-    private javax.swing.JToggleButton _Button_SaveSelected;
+    private javax.swing.JButton _Button_SaveSelected;
     private javax.swing.JCheckBox _CheckBox_Alert;
     private javax.swing.JComboBox _ComboBox_Groups;
     private javax.swing.JComboBox _ComboBox_Type;
@@ -960,17 +1015,17 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField _FTF_Offset;
     private javax.swing.JFormattedTextField _FTF_TempHigh;
     private javax.swing.JFormattedTextField _FTF_TempLow;
+    private javax.swing.JLabel _Label_Alert;
     private javax.swing.JLabel _Label_GroupName;
     private javax.swing.JLabel _Label_Title;
     private javax.swing.JLabel _Label_alertHigh;
     private javax.swing.JLabel _Label_constant;
     private javax.swing.JLabel _Label_constant1;
-    private javax.swing.JLabel _Label_constant2;
     private javax.swing.JLabel _Label_name;
     private javax.swing.JLabel _Label_offset;
     private javax.swing.JLabel _Label_type;
-    private javax.swing.JLabel _Label_type1;
     private javax.swing.JLabel _Label_uom;
+    private javax.swing.JLabel _Label_valueDisplayed;
     private javax.swing.JList _List_Variables;
     private javax.swing.JPanel _Panel_SelectedItemInfo;
     private javax.swing.JScrollPane _ScrollPane_InfoRacks;
