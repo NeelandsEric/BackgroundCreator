@@ -29,10 +29,10 @@ public class ModbusSettings implements java.io.Serializable {
         
     }
 
-    public void updateModbusSettings(Store s) {
+    public void updateModbusSettings(ControlSettings cs) {
 
         // Find all the possible strings from the store
-        list = s.getModbusOptions();
+        list = cs.getModbusOptions();
 
         // With the current list we now update the Map
         // To default, all items will be false
