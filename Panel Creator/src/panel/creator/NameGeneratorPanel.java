@@ -608,15 +608,15 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         } else if (full.equals("New IO to be changed")) {
             _Textfield_Name.setText("New IO Name");
             _ComboBox_Type.setSelectedIndex(0);
-            _FTF_DisplayedValue.setText("1");
+            _FTF_DisplayedValue.setText("");
             _TextField_UoM.setText("");
-            _FTF_Constant.setText("1");
+            _FTF_Constant.setText("");
             _FTF_Offset.setText("0");
 
             _CheckBox_Alert.setSelected(false);
             _CheckBox_Alert.setText("No");
-            _FTF_AlertLow.setText("0");
-            _FTF_AlertHigh.setText("1");
+            _FTF_AlertLow.setText("");
+            _FTF_AlertHigh.setText("");
 
         } else {
             System.out.println("Not enough fields for " + values[0] + " - " + values.length);
