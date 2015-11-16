@@ -94,7 +94,7 @@
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Component id="_Label_MeterName4" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="_Panel_SingleLoads" min="-2" pref="149" max="-2" attributes="0"/>
+                      <Component id="_Panel_SingleLoads" min="-2" pref="122" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
@@ -162,7 +162,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="145" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="118" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

@@ -32,6 +32,7 @@ public class ModbusPanel extends javax.swing.JPanel {
 
     public void loadStore(ModbusSettings mb) {
 
+        System.out.println("ps: " + mb.getNumPowerScouts());
         this.mb = mb;
         int panelType;
         _FTF_NumPowerScouts.setText(String.valueOf(mb.getNumPowerScouts()));
@@ -43,12 +44,27 @@ public class ModbusPanel extends javax.swing.JPanel {
                 powerScoutPanels[i].add(new MeterPanel(this, j, panelType));
             }
         }
+        
+        String[] names = new String[mb.getNumPowerScouts()];
+        for (int i = 0; i < names.length; i++) {
+            names[i] = "Meter " + (i + 1);
+        }
+        _ComboBox_Meters.setModel(new javax.swing.DefaultComboBoxModel(names));
+        
 
-        _FTF_NumPowerScouts.setText(String.valueOf(mb.getNumSingleLoads()));
+        _FTF_NumSingleLoads.setValue(mb.getNumSingleLoads());
         singleLoadPanels = new ArrayList<>();
         for (int i = 0; i < mb.getNumSingleLoads(); i++) {
             singleLoadPanels.add(new MeterPanel(this, i, 1));
         }
+        
+        names = new String[mb.getNumSingleLoads()];
+        for (int i = 0; i < mb.getNumSingleLoads(); i++) {
+            names[i] = "Meter " + (i + 1);
+        }
+        _ComboBox_SingleMeters.setModel(new javax.swing.DefaultComboBoxModel(names));
+        
+        
         this.updatePanels();
         this.loadModels();
         this.loadSettings();
@@ -66,8 +82,8 @@ public class ModbusPanel extends javax.swing.JPanel {
                 registerIndex = sensor.getRegister();
                 key = sensor.getKey();
                 System.out.println("Sensor -> " + sensor);
-                System.out.println("Key in load: " + key);
                 powerScoutPanels[meterIndex].get(slaveIndex).loadSensor(registerIndex, key);
+
             }
         }
 
@@ -138,15 +154,17 @@ public class ModbusPanel extends javax.swing.JPanel {
 
     public void loadModels() {
 
-        // Load the models
-        int powerIndex = _ComboBox_Meters.getSelectedIndex();
-        int singleIndex = _ComboBox_SingleMeters.getSelectedIndex();
         mb.updateModel();
-
-        for (int i = 0; i < 8; i++) {
-            powerScoutPanels[powerIndex].get(i).updateModelList(mb.getCm(), mb.getRemovedItems());
+        for (int j = 0; j < 10; j++) {
+            for (int i = 0; i < 8; i++) {
+                powerScoutPanels[j].get(i).updateModelList(mb.getCm(), mb.getRemovedItems());
+            }
         }
-        singleLoadPanels.get(singleIndex).updateModelList(mb.getCm(), mb.getRemovedItems());
+        
+        for (int i = 0; i < mb.getNumSingleLoads(); i++) {
+            singleLoadPanels.get(i).updateModelList(mb.getCm(), mb.getRemovedItems());
+
+        }
 
     }
 
@@ -238,7 +256,7 @@ public class ModbusPanel extends javax.swing.JPanel {
         );
         _Panel_SingleLoadsLayout.setVerticalGroup(
             _Panel_SingleLoadsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 145, Short.MAX_VALUE)
+            .addGap(0, 118, Short.MAX_VALUE)
         );
 
         _Label_MeterName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -369,7 +387,7 @@ public class ModbusPanel extends javax.swing.JPanel {
                         .addGap(22, 22, 22)
                         .addComponent(_Label_MeterName4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
-                        .addComponent(_Panel_SingleLoads, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(_Panel_SingleLoads, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(_Panel_PowerScout, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -379,6 +397,7 @@ public class ModbusPanel extends javax.swing.JPanel {
 
     private void _FTF_NumPowerScoutsPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__FTF_NumPowerScoutsPropertyChange
         // TODO add your handling code here:
+
         if (Integer.parseInt(_FTF_NumPowerScouts.getText()) > 10) {
             _FTF_NumPowerScouts.setText("10");
             mb.setNumPowerScouts(10);
@@ -409,6 +428,7 @@ public class ModbusPanel extends javax.swing.JPanel {
             mb.setNumSingleLoads(Math.abs(Integer.parseInt(_FTF_NumSingleLoads.getText())));
         }
 
+        
         String[] names = new String[mb.getNumSingleLoads()];
         for (int i = 0; i < mb.getNumSingleLoads(); i++) {
             names[i] = "Meter " + (i + 1);

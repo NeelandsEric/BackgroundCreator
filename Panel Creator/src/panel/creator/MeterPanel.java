@@ -53,6 +53,9 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
         loading = true;
         // Make a new model
         DefaultListModel df = new DefaultListModel();
+        if(dm == null){
+            System.out.println("dm null");
+        }
         for (Object e : dm.toArray()) {
             df.addElement(e);
         }
@@ -90,6 +93,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
     }
 
     public void updateModelList(DefaultListModel df, ArrayList<String> removedItems) {
+        
         this.dm = df;
         loading = true;
         

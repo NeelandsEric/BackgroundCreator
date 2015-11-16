@@ -1257,7 +1257,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
             numFans = 100;
             _FormattedTF_NumFans.setValue(new Integer("100"));
         } else if (numFans == 0) {
-            _FormattedTF_NumFans.setValue(1);
+            numFans = 1;
             _FormattedTF_NumFans.setValue(new Integer("1"));
         } else {
             _FormattedTF_NumFans.setValue(numFans);
@@ -1277,7 +1277,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
             numSG = 15;
             _FormattedTF_NumSG.setValue(new Integer("15"));
         } else if (numSG == 0) {
-            _FormattedTF_NumSG.setValue(1);
+            numSG = 1;
             _FormattedTF_NumSG.setValue(new Integer("1"));
         } else {
             _FormattedTF_NumSG.setValue(numSG);
@@ -1295,8 +1295,8 @@ public final class ControlsPanel extends javax.swing.JPanel {
         if (numComp > 100) {
             numComp = 100;
             _FormattedTF_NumComp.setValue(new Integer("100"));
-        } else if (numComp == 0) {
-            _FormattedTF_NumComp.setValue(1);
+        } else if (numComp == 0) {            
+            numComp = 1;
             _FormattedTF_NumComp.setValue(new Integer("1"));
         } else {
             _FormattedTF_NumComp.setValue(numComp);
@@ -1314,8 +1314,8 @@ public final class ControlsPanel extends javax.swing.JPanel {
         if (numSystems > 100) {
             numSystems = 100;
             _FormattedTF_NumSystems.setValue(new Integer("100"));
-        } else if (numSystems == 0) {
-            _FormattedTF_NumSystems.setValue(1);
+        } else if (numSystems == 0) {       
+            numSystems = 1;
             _FormattedTF_NumSystems.setValue(new Integer("1"));
         } else {
             _FormattedTF_NumSystems.setValue(numSystems);

@@ -29,6 +29,7 @@ public class ModbusSettings implements java.io.Serializable {
             Arrays.fill(powerScoutsPanelType[i], 1);
         }
         items = new HashMap<>();
+        removedItems = new ArrayList<>();        
 
     }
 
