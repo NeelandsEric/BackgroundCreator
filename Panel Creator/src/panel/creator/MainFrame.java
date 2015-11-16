@@ -636,7 +636,10 @@ public class MainFrame extends JFrame {
                         Cell cell = row.createCell(i);
 
                         // If the string is a number, write it as a number
-                        if (isStringNumeric(r[i])) {
+                        if (r[i].equals("")){
+                            // Empty field, do nothing
+                            
+                        }else if (isStringNumeric(r[i])) {
                             cell.setCellValue(Double.parseDouble(r[i].replace("\"", "")));
                         } else {
                             cell.setCellValue(r[i]);

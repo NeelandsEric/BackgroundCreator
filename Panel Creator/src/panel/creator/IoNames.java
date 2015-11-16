@@ -89,7 +89,6 @@ public class IoNames implements java.io.Serializable {
         this.extraStr = extraStr;
     }
 
-    
     public void addString(int listIndex, String string) {
 
         switch (listIndex) {
@@ -113,13 +112,44 @@ public class IoNames implements java.io.Serializable {
                 break;
             case 6:
                 extraStr.add(string);
-                ;
                 break;
             default:
                 System.out.println("Didnt add " + string);
                 break;
         }
 
+    }
+
+    public void replaceString(int listIndex, int arrayIndex, String string) {
+        String replaced;
+        switch (listIndex) {
+            case 0:
+                replaced = storeStr.set(arrayIndex, string);
+                break;
+            case 1:
+                replaced = rackStr.set(arrayIndex, string);
+                break;
+            case 2:
+                replaced = condStr.set(arrayIndex, string);
+                break;
+            case 3:
+                replaced = sgStr.set(arrayIndex, string);
+                break;
+            case 4:
+                replaced = compStr.set(arrayIndex, string);
+                break;
+            case 5:
+                replaced = sysStr.set(arrayIndex, string);
+                break;
+            case 6:
+                replaced = extraStr.set(arrayIndex, string);
+                break;
+            default:
+                System.out.println("Didnt add " + string);
+                replaced = "None";
+                break;
+        }
+        System.out.println("Replaced {" + replaced + "} with {" + string + "}.");
     }
 
     public List<String[]> formatStrings(ControlSettings cs) {
@@ -284,8 +314,7 @@ public class IoNames implements java.io.Serializable {
         // Add header
         String[] headers = new String[]{"io_name", "io_type", "io_unit_of_measure",
             "io_constant", "io_offset", "io_float_digits",
-            "io_alert", "io_alert_range_low", "io_alert_range_high",
-            "rest modbus"
+            "io_alert", "io_alert_range_low", "io_alert_range_high"            
         };
         vars.add(headers);
         // Store
