@@ -1,5 +1,6 @@
 package panel.creator;
 
+import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultListModel;
 
@@ -88,9 +89,24 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
         loading = false;
     }
 
-    public void updateModelList(DefaultListModel df) {
+    public void updateModelList(DefaultListModel df, ArrayList<String> removedItems) {
         this.dm = df;
         loading = true;
+        
+        if(removedItems.contains(selectedItem[0])){
+            selectedItem[0] = "No Selection";
+            itemSelected[0] = false;            
+        }
+        if(removedItems.contains(selectedItem[1])){
+            selectedItem[1] = "No Selection";
+            itemSelected[1] = false;            
+        }
+        if(removedItems.contains(selectedItem[2])){
+            selectedItem[2] = "No Selection";
+            itemSelected[2] = false;            
+        }
+        
+        
         if (itemSelected[0]) {
             DefaultListModel df1 = new DefaultListModel();
             for (Object e : df.toArray()) {

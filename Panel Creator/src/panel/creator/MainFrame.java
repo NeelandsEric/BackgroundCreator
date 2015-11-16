@@ -64,9 +64,10 @@ public class MainFrame extends JFrame {
         // Load the main panel        
         //controlPanel.setVisible(true);
         displayFrame.setVisible(true);
+        mbPanel.initalizeMeters();
         controlPanel.updateDisplay();
         ngPanel.loadGroups();
-        mbPanel.initalizeMeters();
+        
         // add it to the frame           
         _TabbedPane_Tabs.add("Controls", controlPanel);
         _TabbedPane_Tabs.add("Settings", settingsPanel);
@@ -118,6 +119,8 @@ public class MainFrame extends JFrame {
 
     public void updateDisplay(ControlSettings cs) {
         this.store.setCs(cs);
+        store.getMb().updateModbusSettings(cs);
+        mbPanel.loadModels();
         displayFrame.updateDisplays(this.store.getCs(), this.store.getDs());
     }
 
@@ -220,12 +223,6 @@ public class MainFrame extends JFrame {
         setTitle("Image Creator");
         setMinimumSize(new java.awt.Dimension(1045, 629));
         setResizable(false);
-
-        _TabbedPane_Tabs.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                _TabbedPane_TabsStateChanged(evt);
-            }
-        });
 
         _Menu_File.setText("File");
 
@@ -661,13 +658,6 @@ public class MainFrame extends JFrame {
             System.out.println("File access cancelled by user.");
         }
     }//GEN-LAST:event__MenuItem_PrintVarNamesXActionPerformed
-
-    private void _TabbedPane_TabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event__TabbedPane_TabsStateChanged
-        // TODO add your handling code here:
-        if (_TabbedPane_Tabs.getSelectedIndex() == 3) {
-            mbPanel.loadStore(store.getMb());
-        }
-    }//GEN-LAST:event__TabbedPane_TabsStateChanged
 
     public static boolean isStringNumeric(String str) {
         DecimalFormatSymbols currentLocaleSymbols = DecimalFormatSymbols.getInstance();

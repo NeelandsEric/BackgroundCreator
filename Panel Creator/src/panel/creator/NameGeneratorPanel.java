@@ -611,7 +611,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             _FTF_DisplayedValue.setText("");
             _TextField_UoM.setText("");
             _FTF_Constant.setText("");
-            _FTF_Offset.setText("0");
+            _FTF_Offset.setText("");
 
             _CheckBox_Alert.setSelected(false);
             _CheckBox_Alert.setText("No");
@@ -926,8 +926,8 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         String info = "";
 
         info += "Add store variables to your string by wrapping the variable name"
-                + "in the grave character '`'.\nEx.\nOutside Air Temp `%storename`"
-                + "\n\nStore variables include:\n\n"
+                + "in the grave character '`'.\nEx. Outside Air Temp `%storename`"
+                + "\nStore variables include:\n"
                 + "%storename";
 
         return info;
@@ -938,8 +938,8 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         String info = "";
 
         info += "Add rack variables to your string by wrapping the variable name"
-                + "in the grave character '`'.\nEx.\nRack Status `%rackname`"
-                + "\n\nRack variables include:\n\n"
+                + "in the grave character '`'.\nEx. Rack Status `%rackname`"
+                + "\nRack variables include:\n"
                 + "%storename\n%rackname\n";
 
         return info;
@@ -950,8 +950,8 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         String info = "";
 
         info += "Add condenser variables to your string by wrapping the variable name"
-                + "in the grave character '`'.\nEx.\nCondenser Fan `%rackname` `%fannum`"
-                + "\n\nCondenser variables include:\n\n"
+                + "in the grave character '`'.\nEx. Condenser Fan `%rackname` `%fannum`"
+                + "\nCondenser variables include:\n"
                 + "%storename\n%rackname\n%fannum\n";
 
         return info;
@@ -962,8 +962,8 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         String info = "";
 
         info += "Add suction group variables to your string by wrapping the variable name"
-                + "in the grave character '`'.\nEx.\nLiquid Pressure `%rackname` `%sgname`"
-                + "\n\nCondenser variables include:\n\n"
+                + "in the grave character '`'.\nEx. Liquid Pressure `%rackname` `%sgname`"
+                + "\nCondenser variables include:\n"
                 + "%storename\n%rackname\n%sgname\n";
 
         return info;
@@ -974,8 +974,8 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         String info = "";
 
         info += "Add system variables to your string by wrapping the variable name"
-                + "in the grave character '`'.\nEx.\nSystem Status `%rackname` `%sysname`"
-                + "\n\nSystem variables include:\n\n"
+                + "in the grave character '`'.\nEx. System Status `%rackname` `%sysname`"
+                + "\nSystem variables include:\n"
                 + "%storename\n%rackname\n%sgname\n%sysname\n";
 
         return info;
@@ -986,8 +986,8 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         String info = "";
 
         info += "Add compressor variables to your string by wrapping the variable name"
-                + "in the grave character '`'.\nEx.\nComp Status `%rackname` `%compname`"
-                + "\n\nCompressor variables include:\n\n"
+                + "in the grave character '`'.\nEx. Comp Status `%rackname` `%compname`"
+                + "\nCompressor variables include:\n"
                 + "%storename\n%rackname\n%sgname\n%compname\n";
 
         return info;

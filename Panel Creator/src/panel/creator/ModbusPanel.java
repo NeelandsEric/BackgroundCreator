@@ -25,14 +25,13 @@ public class ModbusPanel extends javax.swing.JPanel {
         initComponents();
         this.mf = mf;
         this.mb = mb;
-        
+
         mb.updateModbusSettings(mf.getStore().getCs());
 
     }
 
     public void loadStore(ModbusSettings mb) {
 
-        
         this.mb = mb;
         int panelType;
         _FTF_NumPowerScouts.setText(String.valueOf(mb.getNumPowerScouts()));
@@ -60,12 +59,13 @@ public class ModbusPanel extends javax.swing.JPanel {
         int meterIndex, slaveIndex, registerIndex;
         String key;
         for (Sensor sensor : mb.getItems().values()) {
-            System.out.println("Load Settings MB: sensor -> " + sensor);
+
             if (sensor.isUsed()) {
                 meterIndex = sensor.getMeter();
                 slaveIndex = sensor.getSlave();
                 registerIndex = sensor.getRegister();
                 key = sensor.getKey();
+                System.out.println("Sensor -> " + sensor);
                 System.out.println("Key in load: " + key);
                 powerScoutPanels[meterIndex].get(slaveIndex).loadSensor(registerIndex, key);
             }
@@ -144,24 +144,26 @@ public class ModbusPanel extends javax.swing.JPanel {
         mb.updateModel();
 
         for (int i = 0; i < 8; i++) {
-            powerScoutPanels[powerIndex].get(i).updateModelList(mb.getCm());
+            powerScoutPanels[powerIndex].get(i).updateModelList(mb.getCm(), mb.getRemovedItems());
         }
-        singleLoadPanels.get(singleIndex).updateModelList(mb.getCm());
+        singleLoadPanels.get(singleIndex).updateModelList(mb.getCm(), mb.getRemovedItems());
+
     }
 
     public void itemUsed(String key, boolean used, int slave, int register) {
-        System.out.println("Key: " + key);
+        //System.out.println("Key: " + key);
 
         if (!key.equals("No Selection")) {
             mb.updateKey(key, used, _ComboBox_Meters.getSelectedIndex(), slave, register);
         } else if (key.equals("Remove Item")) {
             mb.removeKey(key);
         } else {
-            System.out.println("item used empty else, key: " + key);
+            //System.out.println("item used empty else, key: " + key);
         }
 
-        mf.updateModbusSettings(mb);
         loadModels();
+        mf.updateModbusSettings(mb);
+
     }
 
     public void changeTableType(int slave, int type, String a, String b) {
@@ -417,7 +419,7 @@ public class ModbusPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__FTF_NumSingleLoadsPropertyChange
 
     private void _ComboBox_MetersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_MetersActionPerformed
-       
+
         updatePanels();
         loadModels();
     }//GEN-LAST:event__ComboBox_MetersActionPerformed
