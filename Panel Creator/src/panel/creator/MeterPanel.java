@@ -20,6 +20,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
     public boolean[] itemSelected;
     public String[] selectedItem;
     public boolean loading;
+    public boolean powerScout;
 
     /**
      * Creates new form MeterPanel
@@ -27,14 +28,16 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
      * @param mp
      * @param slaveNumber
      * @param type
+     * @param powerScout
      */
-    public MeterPanel(ModbusPanel mp, int slaveNumber, int type) {
+    public MeterPanel(ModbusPanel mp, int slaveNumber, int type, boolean powerScout) {
         initComponents();
         loading = true;
 
         this.mp = mp;
         this.slaveNumber = slaveNumber;
         this.name = "Slave " + (slaveNumber + 1);
+        this.powerScout = powerScout;
         _Label_Slave1.setText(this.name);
         this.type = type;
         // 3 phase
@@ -350,7 +353,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
             boolean b = _ComboBox_Reg1.getSelectedIndex() > 1;
             //System.out.println("[0] New item selected -> " + n);
 
-            mp.itemUsed(n, b, slaveNumber, 0);
+            mp.itemUsed(n, b, slaveNumber, 0, powerScout);
             //String n 
             //mp.itemUsed(name, loading);
         }
@@ -371,7 +374,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
             boolean b = _ComboBox_Reg2.getSelectedIndex() > 1;
             //System.out.println("[1] New item selected -> " + n);
 
-            mp.itemUsed(n, b, slaveNumber, 1);
+            mp.itemUsed(n, b, slaveNumber, 1, powerScout);
             //String n 
             //mp.itemUsed(name, loading);
         }
@@ -391,7 +394,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
             boolean b = _ComboBox_Reg3.getSelectedIndex() > 1;
             //System.out.println("[2] New item selected -> " + n);
 
-            mp.itemUsed(n, b, slaveNumber, 2);
+            mp.itemUsed(n, b, slaveNumber, 2, powerScout);
             //String n 
             //mp.itemUsed(name, loading);
         }

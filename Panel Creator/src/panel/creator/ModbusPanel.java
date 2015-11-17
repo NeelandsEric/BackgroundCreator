@@ -25,9 +25,34 @@ public class ModbusPanel extends javax.swing.JPanel {
         initComponents();
         this.mf = mf;
         this.mb = mb;
-
         mb.updateModbusSettings(mf.getStore().getCs());
+    }
 
+    public ModbusSettings getMb() {
+        return mb;
+    }
+
+    public void setMb(ModbusSettings mb) {
+        this.mb = mb;
+    }
+
+    public void initalizeMeters() {
+
+        mb.setNumPowerScouts(1);
+        powerScoutPanels = (ArrayList<MeterPanel>[]) new ArrayList[10];
+        for (int i = 0; i < 10; i++) {
+            powerScoutPanels[i] = new ArrayList<>();
+            for (int j = 0; j < 8; j++) {
+                powerScoutPanels[i].add(new MeterPanel(this, j, 1, true));
+            }
+        }
+        mb.setNumSingleLoads(1);
+        singleLoadPanels = new ArrayList<>();
+        for (int i = 0; i < 15; i++) {
+            singleLoadPanels.add(new MeterPanel(this, 0, 1, false));
+        }
+        this.updatePanels();
+        this.loadModels();
     }
 
     public void loadStore(ModbusSettings mb) {
@@ -41,77 +66,50 @@ public class ModbusPanel extends javax.swing.JPanel {
             powerScoutPanels[i] = new ArrayList<>();
             for (int j = 0; j < 8; j++) {
                 panelType = mb.getPanelType(i, j);
-                powerScoutPanels[i].add(new MeterPanel(this, j, panelType));
+                powerScoutPanels[i].add(new MeterPanel(this, j, panelType, true));
             }
         }
-        
+
         String[] names = new String[mb.getNumPowerScouts()];
         for (int i = 0; i < names.length; i++) {
             names[i] = "Meter " + (i + 1);
         }
         _ComboBox_Meters.setModel(new javax.swing.DefaultComboBoxModel(names));
-        
 
         _FTF_NumSingleLoads.setValue(mb.getNumSingleLoads());
         singleLoadPanels = new ArrayList<>();
-        for (int i = 0; i < mb.getNumSingleLoads(); i++) {
-            singleLoadPanels.add(new MeterPanel(this, i, 1));
+        for (int i = 0; i < 15; i++) {
+            panelType = mb.getPanelType(i);
+            singleLoadPanels.add(new MeterPanel(this, i, panelType, false));
         }
-        
+
         names = new String[mb.getNumSingleLoads()];
         for (int i = 0; i < mb.getNumSingleLoads(); i++) {
-            names[i] = "Meter " + (i + 1);
+            names[i] = "Meter " + (mb.getNumPowerScouts() + (i + 1));
         }
         _ComboBox_SingleMeters.setModel(new javax.swing.DefaultComboBoxModel(names));
-        
-        
+
+        this.updatePowerIP();
+        this.updateSingleIP();
+
         this.updatePanels();
         this.loadModels();
         this.loadSettings();
 
     }
 
-    public void loadSettings() {
-        int meterIndex, slaveIndex, registerIndex;
-        String key;
-        for (Sensor sensor : mb.getItems().values()) {
-
-            if (sensor.isUsed()) {
-                meterIndex = sensor.getMeter();
-                slaveIndex = sensor.getSlave();
-                registerIndex = sensor.getRegister();
-                key = sensor.getKey();
-                System.out.println("Sensor -> " + sensor);
-                powerScoutPanels[meterIndex].get(slaveIndex).loadSensor(registerIndex, key);
-
-            }
-        }
-
+    public void updatePowerIP() {
+        String ip = mb.getPowerScoutIPIndex(_ComboBox_Meters.getSelectedIndex());
+        _FTF_PowerScoutIP.setText(ip);
+        String s = _ComboBox_Meters.getSelectedItem() + " IP - " + ip;
+        _Label_PowerScout.setText(s);
     }
 
-    public void initalizeMeters() {
-
-        mb.setNumPowerScouts(10);
-        powerScoutPanels = (ArrayList<MeterPanel>[]) new ArrayList[10];
-        for (int i = 0; i < 10; i++) {
-            powerScoutPanels[i] = new ArrayList<>();
-            for (int j = 0; j < 8; j++) {
-                powerScoutPanels[i].add(new MeterPanel(this, j, 1));
-            }
-        }
-        mb.setNumSingleLoads(1);
-        singleLoadPanels = new ArrayList<>();
-        singleLoadPanels.add(new MeterPanel(this, 0, 1));
-        this.updatePanels();
-        this.loadModels();
-    }
-
-    public void checkSingleMeters() {
-        int num = mb.getNumSingleLoads() - singleLoadPanels.size();
-
-        for (int i = 0; i < num; i++) {
-            singleLoadPanels.add(new MeterPanel(this, singleLoadPanels.size(), 1));
-        }
+    public void updateSingleIP() {
+        String ip = mb.getSingleLoadIPIndex(_ComboBox_SingleMeters.getSelectedIndex());
+        _FTF_SingleLoadIP.setText(ip);
+        String s = _ComboBox_SingleMeters.getSelectedItem() + " IP - " + ip;
+        _Label_Single.setText(s);
 
     }
 
@@ -160,19 +158,47 @@ public class ModbusPanel extends javax.swing.JPanel {
                 powerScoutPanels[j].get(i).updateModelList(mb.getCm(), mb.getRemovedItems());
             }
         }
-        
-        for (int i = 0; i < mb.getNumSingleLoads(); i++) {
+
+        for (int i = 0; i <  15; i++) {
             singleLoadPanels.get(i).updateModelList(mb.getCm(), mb.getRemovedItems());
 
         }
 
     }
 
-    public void itemUsed(String key, boolean used, int slave, int register) {
+    public void loadSettings() {
+        int meterIndex, slaveIndex, registerIndex;
+        String key;
+        for (Sensor sensor : mb.getItems().values()) {
+
+            if (sensor.isUsed()) {
+                meterIndex = sensor.getMeter();
+                slaveIndex = sensor.getSlave();
+                registerIndex = sensor.getRegister();
+                key = sensor.getKey();
+                System.out.println("Sensor -> " + sensor);
+                if(sensor.isPowerScout()){
+                    powerScoutPanels[meterIndex].get(slaveIndex).loadSensor(registerIndex, key);
+                }else {
+                    singleLoadPanels.get(meterIndex).loadSensor(registerIndex, key);
+                }
+
+            }
+        }
+
+    }
+
+    public void itemUsed(String key, boolean used, int slave, int register, boolean powerScout) {
         //System.out.println("Key: " + key);
 
+        System.out.println("Item used: " + key + ", slave: " + slave + 
+                        ", register: " + register + ", powerScout: " + powerScout);
         if (!key.equals("No Selection")) {
-            mb.updateKey(key, used, _ComboBox_Meters.getSelectedIndex(), slave, register);
+            if(powerScout){
+                mb.updateKey(key, used, _ComboBox_Meters.getSelectedIndex(), slave, register, powerScout);
+            }else {
+                mb.updateKey(key, used, _ComboBox_SingleMeters.getSelectedIndex(), slave, register, powerScout);
+            }
         } else if (key.equals("Remove Item")) {
             mb.removeKey(key);
         } else {
@@ -211,18 +237,18 @@ public class ModbusPanel extends javax.swing.JPanel {
         _Panel_PowerScout = new javax.swing.JPanel();
         _ComboBox_Meters = new javax.swing.JComboBox();
         _Panel_SingleLoads = new javax.swing.JPanel();
-        _Label_MeterName = new javax.swing.JLabel();
-        _Label_MeterName1 = new javax.swing.JLabel();
+        _Label_PowerScout = new javax.swing.JLabel();
+        _Label_NumPowerScouts = new javax.swing.JLabel();
         _FTF_NumPowerScouts = new javax.swing.JFormattedTextField();
-        _Label_MeterName2 = new javax.swing.JLabel();
+        _Label_Title = new javax.swing.JLabel();
         _Label_SingleIP = new javax.swing.JLabel();
         _ComboBox_SingleMeters = new javax.swing.JComboBox();
         _FTF_NumSingleLoads = new javax.swing.JFormattedTextField();
-        _Label_MeterName4 = new javax.swing.JLabel();
-        _TF_SingleIP = new javax.swing.JTextField();
-        _Label_MeterName5 = new javax.swing.JLabel();
+        _Label_Single = new javax.swing.JLabel();
+        _Label_NumSingle = new javax.swing.JLabel();
         _Label_PowerScoutIP = new javax.swing.JLabel();
-        _TF_PowerScoutIP = new javax.swing.JTextField();
+        _FTF_PowerScoutIP = new javax.swing.JFormattedTextField(new IPAddressFormatter());
+        _FTF_SingleLoadIP = new javax.swing.JFormattedTextField(new IPAddressFormatter());
 
         _Panel_PowerScout.setPreferredSize(new java.awt.Dimension(636, 480));
 
@@ -256,14 +282,14 @@ public class ModbusPanel extends javax.swing.JPanel {
         );
         _Panel_SingleLoadsLayout.setVerticalGroup(
             _Panel_SingleLoadsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 118, Short.MAX_VALUE)
+            .addGap(0, 89, Short.MAX_VALUE)
         );
 
-        _Label_MeterName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        _Label_MeterName.setText("Meter #1 - IP - ");
+        _Label_PowerScout.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _Label_PowerScout.setText("Meter #1 IP - ");
 
-        _Label_MeterName1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        _Label_MeterName1.setText("Number of Powerscout 24's");
+        _Label_NumPowerScouts.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _Label_NumPowerScouts.setText("Number of Powerscout 24's");
 
         _FTF_NumPowerScouts.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         _FTF_NumPowerScouts.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -274,15 +300,15 @@ public class ModbusPanel extends javax.swing.JPanel {
             }
         });
 
-        _Label_MeterName2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        _Label_MeterName2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        _Label_MeterName2.setText("Modbus Generator");
+        _Label_Title.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        _Label_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _Label_Title.setText("Modbus Generator");
 
         _Label_SingleIP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         _Label_SingleIP.setText("IP Address");
 
         _ComboBox_SingleMeters.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _ComboBox_SingleMeters.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Meter 1" }));
+        _ComboBox_SingleMeters.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Meter 2" }));
         _ComboBox_SingleMeters.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _ComboBox_SingleMetersActionPerformed(evt);
@@ -298,23 +324,30 @@ public class ModbusPanel extends javax.swing.JPanel {
             }
         });
 
-        _Label_MeterName4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        _Label_MeterName4.setText("Meter #1 - IP - ");
+        _Label_Single.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _Label_Single.setText("Meter #2 IP - ");
 
-        _TF_SingleIP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        _TF_SingleIP.setText("192.0.1.1");
-
-        _Label_MeterName5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        _Label_MeterName5.setText("Number of Single Load Meters");
+        _Label_NumSingle.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _Label_NumSingle.setText("Number of Single Load Meters");
 
         _Label_PowerScoutIP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         _Label_PowerScoutIP.setText("IP Address");
 
-        _TF_PowerScoutIP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        _TF_PowerScoutIP.setText("192.0.1.1");
-        _TF_PowerScoutIP.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        _FTF_PowerScoutIP.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        _FTF_PowerScoutIP.setText("192.168.0.20");
+        _FTF_PowerScoutIP.setToolTipText("IP Address");
+        _FTF_PowerScoutIP.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                _TF_PowerScoutIPPropertyChange(evt);
+                _FTF_PowerScoutIPPropertyChange(evt);
+            }
+        });
+
+        _FTF_SingleLoadIP.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        _FTF_SingleLoadIP.setText("192.168.0.30");
+        _FTF_SingleLoadIP.setToolTipText("IP Address");
+        _FTF_SingleLoadIP.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                _FTF_SingleLoadIPPropertyChange(evt);
             }
         });
 
@@ -326,68 +359,71 @@ public class ModbusPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(_Panel_PowerScout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(_ComboBox_Meters, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(_Label_MeterName, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(_Label_MeterName1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(_FTF_NumPowerScouts, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(65, 65, 65)
-                        .addComponent(_Label_PowerScoutIP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(_TF_PowerScoutIP, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(_ComboBox_Meters, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(_Label_PowerScout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(_Label_NumPowerScouts, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(30, 30, 30)
+                            .addComponent(_FTF_NumPowerScouts, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(_Label_PowerScoutIP, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(_FTF_PowerScoutIP, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(_Panel_SingleLoads, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                    .addComponent(_Label_MeterName4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(_Label_SingleIP, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 11, Short.MAX_VALUE)
-                        .addComponent(_TF_SingleIP, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(_Label_Single, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(_ComboBox_SingleMeters, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(_Label_MeterName5, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(_FTF_NumSingleLoads, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(_Label_NumSingle, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(_FTF_NumSingleLoads, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(_Label_SingleIP, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_FTF_SingleLoadIP, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 4, Short.MAX_VALUE)))
                 .addGap(12, 12, 12))
             .addGroup(layout.createSequentialGroup()
                 .addGap(417, 417, 417)
-                .addComponent(_Label_MeterName2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(_Label_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(_Label_MeterName2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(_Label_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_Label_MeterName1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_Label_NumPowerScouts, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(_FTF_NumPowerScouts, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_TF_PowerScoutIP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Label_PowerScoutIP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(_Label_PowerScoutIP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_FTF_PowerScoutIP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_ComboBox_Meters, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Label_MeterName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(_Label_PowerScout, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(_Label_MeterName5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Label_NumSingle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(_FTF_NumSingleLoads, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(_ComboBox_SingleMeters, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(_TF_SingleIP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_Label_SingleIP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(_Label_SingleIP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_FTF_SingleLoadIP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(22, 22, 22)
-                        .addComponent(_Label_MeterName4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(_Label_Single, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
-                        .addComponent(_Panel_SingleLoads, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(_Panel_SingleLoads, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(_Panel_PowerScout, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -413,6 +449,12 @@ public class ModbusPanel extends javax.swing.JPanel {
         }
         _ComboBox_Meters.setModel(new javax.swing.DefaultComboBoxModel(names));
 
+        names = new String[mb.getNumSingleLoads()];
+        for (int i = 0; i < mb.getNumSingleLoads(); i++) {
+            names[i] = "Meter " + (mb.getNumPowerScouts() + (i + 1));
+        }
+        _ComboBox_SingleMeters.setModel(new javax.swing.DefaultComboBoxModel(names));
+
     }//GEN-LAST:event__FTF_NumPowerScoutsPropertyChange
 
     private void _FTF_NumSingleLoadsPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__FTF_NumSingleLoadsPropertyChange
@@ -428,40 +470,39 @@ public class ModbusPanel extends javax.swing.JPanel {
             mb.setNumSingleLoads(Math.abs(Integer.parseInt(_FTF_NumSingleLoads.getText())));
         }
 
-        
         String[] names = new String[mb.getNumSingleLoads()];
         for (int i = 0; i < mb.getNumSingleLoads(); i++) {
-            names[i] = "Meter " + (i + 1);
+            names[i] = "Meter " + (mb.getNumPowerScouts() + (i + 1));
         }
         _ComboBox_SingleMeters.setModel(new javax.swing.DefaultComboBoxModel(names));
 
-        this.checkSingleMeters();
     }//GEN-LAST:event__FTF_NumSingleLoadsPropertyChange
 
     private void _ComboBox_MetersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_MetersActionPerformed
-
+        updatePowerIP();
         updatePanels();
         loadModels();
     }//GEN-LAST:event__ComboBox_MetersActionPerformed
 
     private void _ComboBox_SingleMetersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_SingleMetersActionPerformed
-
+        updateSingleIP();
         updatePanels();
         loadModels();
     }//GEN-LAST:event__ComboBox_SingleMetersActionPerformed
 
-    private void _TF_PowerScoutIPPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__TF_PowerScoutIPPropertyChange
+    private void _FTF_PowerScoutIPPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__FTF_PowerScoutIPPropertyChange
         // TODO add your handling code here:
+        int powerIndex = _ComboBox_Meters.getSelectedIndex();
+        mb.setPowerScoutIP(_FTF_PowerScoutIP.getText(), powerIndex);
+        updatePowerIP();
+    }//GEN-LAST:event__FTF_PowerScoutIPPropertyChange
 
-    }//GEN-LAST:event__TF_PowerScoutIPPropertyChange
-
-    public ModbusSettings getMb() {
-        return mb;
-    }
-
-    public void setMb(ModbusSettings mb) {
-        this.mb = mb;
-    }
+    private void _FTF_SingleLoadIPPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__FTF_SingleLoadIPPropertyChange
+        // TODO add your handling code here:
+        int singleIndex = _ComboBox_SingleMeters.getSelectedIndex();
+        mb.setSingleLoadIP(_FTF_SingleLoadIP.getText(), singleIndex);
+        updateSingleIP();
+    }//GEN-LAST:event__FTF_SingleLoadIPPropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -469,16 +510,16 @@ public class ModbusPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox _ComboBox_SingleMeters;
     private javax.swing.JFormattedTextField _FTF_NumPowerScouts;
     private javax.swing.JFormattedTextField _FTF_NumSingleLoads;
-    private javax.swing.JLabel _Label_MeterName;
-    private javax.swing.JLabel _Label_MeterName1;
-    private javax.swing.JLabel _Label_MeterName2;
-    private javax.swing.JLabel _Label_MeterName4;
-    private javax.swing.JLabel _Label_MeterName5;
+    private javax.swing.JFormattedTextField _FTF_PowerScoutIP;
+    private javax.swing.JFormattedTextField _FTF_SingleLoadIP;
+    private javax.swing.JLabel _Label_NumPowerScouts;
+    private javax.swing.JLabel _Label_NumSingle;
+    private javax.swing.JLabel _Label_PowerScout;
     private javax.swing.JLabel _Label_PowerScoutIP;
+    private javax.swing.JLabel _Label_Single;
     private javax.swing.JLabel _Label_SingleIP;
+    private javax.swing.JLabel _Label_Title;
     private javax.swing.JPanel _Panel_PowerScout;
     private javax.swing.JPanel _Panel_SingleLoads;
-    private javax.swing.JTextField _TF_PowerScoutIP;
-    private javax.swing.JTextField _TF_SingleIP;
     // End of variables declaration//GEN-END:variables
 }
