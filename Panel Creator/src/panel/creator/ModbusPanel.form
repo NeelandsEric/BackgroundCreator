@@ -19,27 +19,31 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="_Panel_PowerScout" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="_ComboBox_Meters" min="-2" pref="208" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="_Label_NumPowerScouts" min="-2" pref="186" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="_FTF_NumPowerScouts" min="-2" pref="48" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="_ComboBox_Meters" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="_Label_PowerScoutIP" min="-2" pref="93" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="_FTF_PowerScoutIP" min="-2" pref="205" max="-2" attributes="0"/>
+                          </Group>
                           <Component id="_Label_PowerScout" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="_Label_NumPowerScouts" min="-2" pref="186" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="_FTF_NumPowerScouts" min="-2" pref="48" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="_Label_PowerScoutIP" min="-2" pref="93" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="_FTF_PowerScoutIP" min="-2" pref="205" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
+                  <Component id="_Button_ClearMeter" alignment="0" min="-2" pref="181" max="-2" attributes="0"/>
+                  <Component id="_Panel_PowerScout" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="_Panel_SingleLoads" pref="305" max="32767" attributes="0"/>
+                  <Component id="_Panel_SingleLoads" pref="301" max="32767" attributes="0"/>
                   <Component id="_Label_Single" alignment="0" max="32767" attributes="0"/>
                   <Component id="_ComboBox_SingleMeters" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
@@ -55,7 +59,7 @@
                               <Component id="_FTF_SingleLoadIP" min="-2" pref="205" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
@@ -72,20 +76,8 @@
           <Group type="102" attributes="0">
               <Component id="_Label_Title" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="_Label_NumPowerScouts" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="_FTF_NumPowerScouts" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="_Label_PowerScoutIP" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="_FTF_PowerScoutIP" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="_ComboBox_Meters" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="_Label_PowerScout" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-              </Group>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="_Label_NumSingle" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="_FTF_NumSingleLoads" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -99,15 +91,28 @@
                       </Group>
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Component id="_Label_Single" min="-2" pref="30" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="_Panel_SingleLoads" min="-2" pref="93" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="_Panel_SingleLoads" min="-2" pref="99" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="_Label_NumPowerScouts" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="_FTF_NumPowerScouts" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="_Label_PowerScoutIP" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="_FTF_PowerScoutIP" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="_ComboBox_Meters" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="_Label_PowerScout" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="_Button_ClearMeter" min="-2" pref="33" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="_Panel_PowerScout" min="-2" pref="373" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="58" max="32767" attributes="0"/>
+              <EmptySpace min="37" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -168,7 +173,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="89" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="95" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -294,6 +299,11 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(new IPAddressFormatter());"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="_Button_ClearMeter">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Clear Meter"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
