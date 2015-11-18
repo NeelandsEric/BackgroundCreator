@@ -36,21 +36,6 @@ public class DisplaySettings implements java.io.Serializable {
     }
         
 
-    public DisplaySettings(Font f, Border b) {
-        this.displayWidth = 1200;
-        this.displayHeight = 900;        
-        this.colorStr = String.valueOf(Color.white.getRGB());
-        this.bold = this.italic = false;        
-        this.font = f;
-        this.border = b;
-        this.fontTypeSel = 11;
-        this.borderTypeSel = 0;
-        this.borderSizeSel = 1;
-        this.borderSize = 1;
-
-    
-        
-    }
 
     public DisplaySettings(int displayWidth, int displayHeight, Font font,
             Border border, int borderSize, int fontTypeSel, int fontSizeSel,

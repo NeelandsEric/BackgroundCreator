@@ -192,7 +192,7 @@ public class ModbusPanel extends javax.swing.JPanel {
                 slaveIndex = sensor.getSlave();
                 registerIndex = sensor.getRegister();
                 key = sensor.getKey();
-                System.out.println("Sensor -> " + sensor);
+                //System.out.println("Sensor -> " + sensor);
                 if (sensor.isPowerScout()) {
                     powerScoutPanels[meterIndex].get(slaveIndex).loadSensor(registerIndex, key);
                 } else {

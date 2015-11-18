@@ -90,16 +90,14 @@ public class MainFrame extends JFrame {
         this.store.setMb(mb);
     }
 
-    public void updateDisplaySize(Dimension d) {
+    public void updateDisplaySettingsSize(Dimension d) {
         if (settingsPanel != null) {
             settingsPanel.setDim(d);
         }
     }
 
-    public void updateDisplaySize(DisplaySettings ds) {
-        //displayFrame.setNewSize(width, height);
-        this.store.setDs(ds);
-        displayFrame.setSize(ds.getDisplayWidth(), ds.getDisplayHeight());
+    public void updateDisplaySize(int width, int height) {
+        displayFrame.setNewSize(width, height);        
     }
 
     public void updateSettings(DisplaySettings ds) {
@@ -474,12 +472,9 @@ public class MainFrame extends JFrame {
                 ois.close();
                 fis.close();
 
-                for (Sensor ss : store.getMb().getItems().values()) {
-                    System.out.println(ss);
-                }
-
+                displayFrame.updateSettings(this.store.getDs());
                 settingsPanel.loadSettings(this.store.getDs());
-                controlPanel.loadControlSettings(store.getCs());
+                controlPanel.loadControlSettings(this.store.getCs());
                 ngPanel.loadStore(this.store.getIoNames());
                 mbPanel.loadStore(this.store.getMb());
 
