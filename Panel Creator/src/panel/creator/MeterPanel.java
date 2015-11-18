@@ -188,6 +188,17 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
 
         loading = false;
     }
+    
+    public String [] clearRegisters(){
+        itemSelected[0] = itemSelected[1] = itemSelected[2] = false;
+        String [] removedItems = new String [3];
+        for(int i = 0; i < 3; i++){
+            removedItems[i] = selectedItem[i];
+            selectedItem[i] = "No Selection";
+            //System.out.println("Removed items " + i + ": " + removedItems[i]);
+        }        
+        return removedItems;
+    }
 
     public String getMeterName() {
         return name;
@@ -401,6 +412,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
 
     }//GEN-LAST:event__ComboBox_Reg3ActionPerformed
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox _ComboBox_Reg1;

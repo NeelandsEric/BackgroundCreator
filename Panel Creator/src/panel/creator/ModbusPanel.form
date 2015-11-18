@@ -26,7 +26,7 @@
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="_FTF_NumPowerScouts" min="-2" pref="48" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="_ComboBox_Meters" max="32767" attributes="0"/>
+                          <Component id="_ComboBox_PowerMeter" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -39,26 +39,34 @@
                       </Group>
                   </Group>
                   <Component id="_Panel_PowerScout" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="_Button_ClearMeter" alignment="0" min="-2" pref="181" max="-2" attributes="0"/>
+                  <Component id="_Button_ClearMeterPower" alignment="0" min="-2" pref="181" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="_Panel_SingleLoads" pref="301" max="32767" attributes="0"/>
-                  <Component id="_Label_Single" alignment="0" max="32767" attributes="0"/>
-                  <Component id="_ComboBox_SingleMeters" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="_Label_NumSingle" min="-2" pref="207" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="_FTF_NumSingleLoads" min="-2" pref="48" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="28" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="_Panel_SingleLoads" pref="301" max="32767" attributes="0"/>
+                          <Component id="_Label_Single" alignment="0" max="32767" attributes="0"/>
+                          <Component id="_ComboBox_SingleMeter" alignment="1" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="_Label_NumSingle" min="-2" pref="207" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="_FTF_NumSingleLoads" min="-2" pref="48" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="28" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="_Label_SingleIP" min="-2" pref="92" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="_TF_SingleLoadIP" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="_Label_SingleIP" min="-2" pref="92" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="_TF_SingleLoadIP" max="32767" attributes="0"/>
+                      <Component id="_Button_ClearMeterSingle" min="-2" pref="181" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="417" max="-2" attributes="0"/>
@@ -79,7 +87,7 @@
                           <Component id="_FTF_NumSingleLoads" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="_ComboBox_SingleMeters" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="_ComboBox_SingleMeter" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="_Label_SingleIP" min="-2" pref="30" max="-2" attributes="0"/>
@@ -88,6 +96,8 @@
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="_Label_Single" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="_Button_ClearMeterSingle" min="-2" pref="33" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="_Panel_SingleLoads" min="-2" pref="99" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -99,11 +109,11 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="_ComboBox_Meters" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="_ComboBox_PowerMeter" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="_Label_PowerScout" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="_Button_ClearMeter" min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="_Button_ClearMeterPower" min="-2" pref="33" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="_Panel_PowerScout" min="-2" pref="373" max="-2" attributes="0"/>
                   </Group>
@@ -134,7 +144,7 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Component class="javax.swing.JComboBox" name="_ComboBox_Meters">
+    <Component class="javax.swing.JComboBox" name="_ComboBox_PowerMeter">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="0"/>
@@ -146,7 +156,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_ComboBox_MetersActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_ComboBox_PowerMeterActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="_Panel_SingleLoads">
@@ -219,7 +229,7 @@
         <Property name="text" type="java.lang.String" value="IP Address"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="_ComboBox_SingleMeters">
+    <Component class="javax.swing.JComboBox" name="_ComboBox_SingleMeter">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="0"/>
@@ -231,7 +241,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_ComboBox_SingleMetersActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_ComboBox_SingleMeterActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="_FTF_NumSingleLoads">
@@ -270,10 +280,13 @@
         <Property name="text" type="java.lang.String" value="IP Address"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="_Button_ClearMeter">
+    <Component class="javax.swing.JButton" name="_Button_ClearMeterPower">
       <Properties>
         <Property name="text" type="java.lang.String" value="Clear Meter"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_ClearMeterPowerActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="_TF_PowerScoutIP">
       <Properties>
@@ -299,6 +312,14 @@
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="_TF_SingleLoadIPFocusLost"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_TF_SingleLoadIPActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="_Button_ClearMeterSingle">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Clear Meter"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_ClearMeterSingleActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
