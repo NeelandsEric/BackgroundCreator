@@ -591,8 +591,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
     public void loadSettings(DisplaySettings dds) {
         loading = true;
         this.ds = dds;
-
-        System.out.println("load 1st " + ds.getDisplayWidth());
+       
         _ColorChooser_Color.setColor(ds.getColor());        
         _ComboBox_Fonts.setSelectedIndex(ds.getFontTypeSel());
         _ComboBox_FontSize.setSelectedIndex(ds.getFontSizeSel());

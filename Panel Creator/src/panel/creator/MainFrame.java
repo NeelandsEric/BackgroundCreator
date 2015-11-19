@@ -408,7 +408,7 @@ public class MainFrame extends JFrame {
                 ScreenImage.writeImage(bi, fn);
                 //ScreenImage.createImage();
             } catch (AWTException | IOException e) {
-                System.out.println("Error " + e.getMessage());
+                controlPanel.writeToLog("Error saving current display as a picture" + e.getMessage());
             }
 
         } else {
@@ -441,10 +441,10 @@ public class MainFrame extends JFrame {
                 oos.writeObject(this.store);
                 oos.close();
                 fos.close();
-                System.out.println("Store " + this.store.getStoreName() + " saved");                
+                controlPanel.writeToLog("Store " + this.store.getStoreName() + " saved");                
 
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                controlPanel.writeToLog("Error when saving the store " + e.getMessage());
             }
 
         } else {
@@ -478,9 +478,9 @@ public class MainFrame extends JFrame {
                 ngPanel.loadStore(this.store.getIoNames());
                 mbPanel.loadStore(this.store.getMb());
 
-                System.out.println("Store " + this.store.getStoreName() + " read properly");
+                controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
             } catch (Exception e) {
-                System.out.println("Error with opening store: " + e.getMessage());
+                controlPanel.writeToLog("Error with opening store: " + e.getMessage());
             }
             /*
              System.out.println("Store Load Debug\nRack count: " + controlPanel.store.getNumRacks());
@@ -506,7 +506,7 @@ public class MainFrame extends JFrame {
             try {
                 this.store.writeCSV(filePath + " " + store.getStoreName() + "-IO Names.csv");
             } catch (Exception e) {
-                System.out.println("Problem writing csv file to " + filePath + " " + store.getStoreName() + "-IO Names.csv");
+                controlPanel.writeToLog("Problem writing csv file to " + filePath + " " + store.getStoreName() + "-IO Names.csv");
             }
             BufferedImage bi;
 
@@ -525,7 +525,7 @@ public class MainFrame extends JFrame {
                     //ScreenImage.createImage();
 
                 } catch (IOException e) {
-                    System.out.println("Error " + e.getMessage());
+                   controlPanel.writeToLog("Error writing csv file" + e.getMessage());
                 }
             }
         } else {
@@ -646,7 +646,7 @@ public class MainFrame extends JFrame {
                 wb.write(fileOut);
                 fileOut.close();
             } catch (Exception e) {
-                System.out.println("Error with workbook " + e.getMessage());
+                controlPanel.writeToLog("Error with creating excel file " + e.getMessage());
             }
 
         } else {
