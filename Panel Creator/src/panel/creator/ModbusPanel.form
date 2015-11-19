@@ -19,44 +19,58 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="_Panel_PowerScout" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="_ComboBox_Meters" min="-2" pref="208" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="_Label_NumPowerScouts" min="-2" pref="186" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="_FTF_NumPowerScouts" min="-2" pref="48" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="_ComboBox_PowerMeter" max="32767" attributes="0"/>
+                      </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="_Label_MeterName" min="-2" pref="228" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="_Label_PowerScoutIP" min="-2" pref="93" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="_TF_PowerScoutIP" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="_Label_PowerScout" min="-2" pref="302" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="_Label_MeterName1" min="-2" pref="186" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="_FTF_NumPowerScouts" min="-2" pref="48" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                      <Component id="_Label_PowerScoutIP" max="32767" attributes="0"/>
-                      <EmptySpace type="unrelated" max="32767" attributes="0"/>
-                      <Component id="_TF_PowerScoutIP" min="-2" pref="208" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="_Panel_PowerScout" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="_Button_ClearMeterPower" alignment="0" min="-2" pref="181" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="_Panel_SingleLoads" pref="305" max="32767" attributes="0"/>
-                  <Component id="_Label_MeterName4" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="_Label_SingleIP" pref="86" max="32767" attributes="0"/>
-                      <EmptySpace type="unrelated" pref="11" max="32767" attributes="0"/>
-                      <Component id="_TF_SingleIP" min="-2" pref="208" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="_Panel_SingleLoads" pref="301" max="32767" attributes="0"/>
+                          <Component id="_Label_Single" alignment="0" max="32767" attributes="0"/>
+                          <Component id="_ComboBox_SingleMeter" alignment="1" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="_Label_NumSingle" min="-2" pref="207" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="_FTF_NumSingleLoads" min="-2" pref="48" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="28" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="_Label_SingleIP" min="-2" pref="92" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="_TF_SingleLoadIP" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="_ComboBox_SingleMeters" alignment="1" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="_Label_MeterName5" min="-2" pref="207" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="_FTF_NumSingleLoads" min="-2" pref="48" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="_Button_ClearMeterSingle" min="-2" pref="181" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="417" max="-2" attributes="0"/>
-              <Component id="_Label_MeterName2" min="-2" pref="187" max="-2" attributes="0"/>
+              <Component id="_Label_Title" min="-2" pref="187" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -64,44 +78,47 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Component id="_Label_MeterName2" min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="_Label_Title" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="_Label_MeterName1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="_FTF_NumPowerScouts" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="_TF_PowerScoutIP" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="_Label_PowerScoutIP" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="_ComboBox_Meters" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="_Label_MeterName" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-              </Group>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="_Label_MeterName5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="_Label_NumSingle" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="_FTF_NumSingleLoads" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="_ComboBox_SingleMeters" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="_ComboBox_SingleMeter" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="_TF_SingleIP" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="_Label_SingleIP" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="_Label_SingleIP" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="_TF_SingleLoadIP" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="_Label_MeterName4" min="-2" pref="30" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="_Panel_SingleLoads" min="-2" pref="149" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Component id="_Label_Single" min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="_Button_ClearMeterSingle" min="-2" pref="33" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="_Panel_SingleLoads" min="-2" pref="99" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="_Label_NumPowerScouts" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="_FTF_NumPowerScouts" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="_Label_PowerScoutIP" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="_TF_PowerScoutIP" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="_ComboBox_PowerMeter" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="_Label_PowerScout" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="_Button_ClearMeterPower" min="-2" pref="33" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="_Panel_PowerScout" min="-2" pref="373" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="58" max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -127,7 +144,7 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Component class="javax.swing.JComboBox" name="_ComboBox_Meters">
+    <Component class="javax.swing.JComboBox" name="_ComboBox_PowerMeter">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="0"/>
@@ -139,7 +156,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_ComboBox_MetersActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_ComboBox_PowerMeterActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="_Panel_SingleLoads">
@@ -162,20 +179,20 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="145" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="95" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
     </Container>
-    <Component class="javax.swing.JLabel" name="_Label_MeterName">
+    <Component class="javax.swing.JLabel" name="_Label_PowerScout">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Meter #1 - IP - "/>
+        <Property name="text" type="java.lang.String" value="Meter #1 IP - "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="_Label_MeterName1">
+    <Component class="javax.swing.JLabel" name="_Label_NumPowerScouts">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="0"/>
@@ -195,7 +212,7 @@
         <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="_FTF_NumPowerScoutsPropertyChange"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="_Label_MeterName2">
+    <Component class="javax.swing.JLabel" name="_Label_Title">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="18" style="0"/>
@@ -212,19 +229,19 @@
         <Property name="text" type="java.lang.String" value="IP Address"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="_ComboBox_SingleMeters">
+    <Component class="javax.swing.JComboBox" name="_ComboBox_SingleMeter">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="1">
-            <StringItem index="0" value="Meter 1"/>
+            <StringItem index="0" value="Meter 2"/>
           </StringArray>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_ComboBox_SingleMetersActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_ComboBox_SingleMeterActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="_FTF_NumSingleLoads">
@@ -239,23 +256,15 @@
         <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="_FTF_NumSingleLoadsPropertyChange"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="_Label_MeterName4">
+    <Component class="javax.swing.JLabel" name="_Label_Single">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Meter #1 - IP - "/>
+        <Property name="text" type="java.lang.String" value="Meter #2 IP - "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="_TF_SingleIP">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="14" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="192.0.1.1"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="_Label_MeterName5">
+    <Component class="javax.swing.JLabel" name="_Label_NumSingle">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="0"/>
@@ -271,15 +280,46 @@
         <Property name="text" type="java.lang.String" value="IP Address"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.JButton" name="_Button_ClearMeterPower">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Clear Meter"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_ClearMeterPowerActionPerformed"/>
+      </Events>
+    </Component>
     <Component class="javax.swing.JTextField" name="_TF_PowerScoutIP">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="14" style="0"/>
+          <Font name="Arial" size="12" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="192.0.1.1"/>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="192.168.0.30"/>
       </Properties>
       <Events>
-        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="_TF_PowerScoutIPPropertyChange"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="_TF_PowerScoutIPFocusLost"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_TF_PowerScoutIPActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="_TF_SingleLoadIP">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Arial" size="12" style="0"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="192.168.0.30"/>
+      </Properties>
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="_TF_SingleLoadIPFocusLost"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_TF_SingleLoadIPActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="_Button_ClearMeterSingle">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Clear Meter"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_ClearMeterSingleActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

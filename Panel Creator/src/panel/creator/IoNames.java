@@ -159,10 +159,10 @@ public class IoNames implements java.io.Serializable {
         };
 
         // Add header
-        String[] headers = new String[]{"io_name", "io_type", "io_unit_of_measure",
-            "io_constant", "io_offset", "io_float_digits",
-            "io_alert", "io_alert_range_low", "io_alert_range_high",
-            "rest modbus"
+        // Add header
+        String[] headers = new String[]{"io_name", "io_type", "io_value_displayed", 
+            "io_unit_of_measure", "io_constant", "io_offset", "io_float_digits",
+            "io_alert", "io_alert_range_low", "io_alert_range_high"            
         };
         vars.add(headers);
 
@@ -312,8 +312,8 @@ public class IoNames implements java.io.Serializable {
         };
 
         // Add header
-        String[] headers = new String[]{"io_name", "io_type", "io_unit_of_measure",
-            "io_constant", "io_offset", "io_float_digits",
+         String[] headers = new String[]{"io_name", "io_type", "io_value_displayed", 
+            "io_unit_of_measure", "io_constant", "io_offset", "io_float_digits",
             "io_alert", "io_alert_range_low", "io_alert_range_high"            
         };
         vars.add(headers);

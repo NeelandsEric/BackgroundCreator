@@ -1,5 +1,6 @@
 package panel.creator;
 
+import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultListModel;
 
@@ -19,6 +20,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
     public boolean[] itemSelected;
     public String[] selectedItem;
     public boolean loading;
+    public boolean powerScout;
 
     /**
      * Creates new form MeterPanel
@@ -26,14 +28,16 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
      * @param mp
      * @param slaveNumber
      * @param type
+     * @param powerScout
      */
-    public MeterPanel(ModbusPanel mp, int slaveNumber, int type) {
+    public MeterPanel(ModbusPanel mp, int slaveNumber, int type, boolean powerScout) {
         initComponents();
         loading = true;
 
         this.mp = mp;
         this.slaveNumber = slaveNumber;
         this.name = "Slave " + (slaveNumber + 1);
+        this.powerScout = powerScout;
         _Label_Slave1.setText(this.name);
         this.type = type;
         // 3 phase
@@ -52,6 +56,9 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
         loading = true;
         // Make a new model
         DefaultListModel df = new DefaultListModel();
+        if(dm == null){
+            System.out.println("dm null");
+        }
         for (Object e : dm.toArray()) {
             df.addElement(e);
         }
@@ -88,9 +95,25 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
         loading = false;
     }
 
-    public void updateModelList(DefaultListModel df) {
+    public void updateModelList(DefaultListModel df, ArrayList<String> removedItems) {
+        
         this.dm = df;
         loading = true;
+        
+        if(removedItems.contains(selectedItem[0])){
+            selectedItem[0] = "No Selection";
+            itemSelected[0] = false;            
+        }
+        if(removedItems.contains(selectedItem[1])){
+            selectedItem[1] = "No Selection";
+            itemSelected[1] = false;            
+        }
+        if(removedItems.contains(selectedItem[2])){
+            selectedItem[2] = "No Selection";
+            itemSelected[2] = false;            
+        }
+        
+        
         if (itemSelected[0]) {
             DefaultListModel df1 = new DefaultListModel();
             for (Object e : df.toArray()) {
@@ -164,6 +187,17 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
         }
 
         loading = false;
+    }
+    
+    public String [] clearRegisters(){
+        itemSelected[0] = itemSelected[1] = itemSelected[2] = false;
+        String [] removedItems = new String [3];
+        for(int i = 0; i < 3; i++){
+            removedItems[i] = selectedItem[i];
+            selectedItem[i] = "No Selection";
+            //System.out.println("Removed items " + i + ": " + removedItems[i]);
+        }        
+        return removedItems;
     }
 
     public String getMeterName() {
@@ -330,7 +364,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
             boolean b = _ComboBox_Reg1.getSelectedIndex() > 1;
             //System.out.println("[0] New item selected -> " + n);
 
-            mp.itemUsed(n, b, slaveNumber, 0);
+            mp.itemUsed(n, b, slaveNumber, 0, powerScout);
             //String n 
             //mp.itemUsed(name, loading);
         }
@@ -351,7 +385,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
             boolean b = _ComboBox_Reg2.getSelectedIndex() > 1;
             //System.out.println("[1] New item selected -> " + n);
 
-            mp.itemUsed(n, b, slaveNumber, 1);
+            mp.itemUsed(n, b, slaveNumber, 1, powerScout);
             //String n 
             //mp.itemUsed(name, loading);
         }
@@ -371,13 +405,14 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
             boolean b = _ComboBox_Reg3.getSelectedIndex() > 1;
             //System.out.println("[2] New item selected -> " + n);
 
-            mp.itemUsed(n, b, slaveNumber, 2);
+            mp.itemUsed(n, b, slaveNumber, 2, powerScout);
             //String n 
             //mp.itemUsed(name, loading);
         }
 
     }//GEN-LAST:event__ComboBox_Reg3ActionPerformed
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox _ComboBox_Reg1;

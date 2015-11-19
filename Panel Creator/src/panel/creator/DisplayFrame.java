@@ -1,6 +1,7 @@
 package panel.creator;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -33,7 +34,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         this.cs = css;
         this.ds = dss;
         rackTabs = new ArrayList<>();
-        bg = new BackgroundMain();        
+        bg = new BackgroundMain();
         _TabbedPane_Tabs.add("Main", bg);
         for (int i = 1; i <= this.cs.getNumRacks(); i++) {
             BackgroundRack br = new BackgroundRack((i - 1));
@@ -92,18 +93,23 @@ public class DisplayFrame extends javax.swing.JFrame {
     private void _TabbedPane_TabsComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event__TabbedPane_TabsComponentResized
         // TODO add your handling code her
         if (mf != null) {
-            mf.updateDisplaySize(this.getSize());
+                        
+            mf.updateDisplaySettingsSize(this.getSize());
             this.setPreferredSize(this.getSize());
+            if (bg != null) {
+                int w = bg.getWidth();
+                int h = bg.getHeight();
+                this.setTitle("Customized Backgrounds " + w + "x" + h);
+            }
+
         }
     }//GEN-LAST:event__TabbedPane_TabsComponentResized
 
-    
-    
     /**
      * Updates the form with the right information
      *
      * @param css
-     * @param dss 
+     * @param dss
      */
     public void updateDisplays(ControlSettings css, DisplaySettings dss) {
         this.cs = css;
@@ -127,9 +133,9 @@ public class DisplayFrame extends javax.swing.JFrame {
 
                 String[] rackNames = cs.getRackNames();
                 for (int i = 0; i < cs.getNumRacks(); i++) {
-                    if (rackTabs.size() > i) {                        
+                    if (rackTabs.size() > i) {
                         if (rackTabs.get(i) != null) {
-                            rackTabs.get(i).updateRacks(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(),ds.getBorder(), cs.getImgStr(), cs.getStoreName(), rackNames);
+                            rackTabs.get(i).updateRacks(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), rackNames);
                             _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
                             _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);
                         }
@@ -137,7 +143,7 @@ public class DisplayFrame extends javax.swing.JFrame {
                         rackTabs.add(new BackgroundRack(i));
                         rackTabs.get(i).updateRacks(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), rackNames);
                         _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
-                        _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);                        
+                        _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);
                     }
                 }
 
@@ -156,15 +162,20 @@ public class DisplayFrame extends javax.swing.JFrame {
                 }
                 _TabbedPane_Tabs.setSelectedIndex(selected);
                 t.pack();
+                int w = bg.getWidth();
+                int h = bg.getHeight();
+                t.setTitle("Customized Backgrounds " + w + "x" + h);
 
             }
+
         });
 
     }
-    
-    public void updateSettings(DisplaySettings dss){
+
+    public void updateSettings(DisplaySettings dss) {
         this.ds = dss;
-        
+
+        setNewSize(ds.getDisplayWidth(), ds.getDisplayHeight());
         bg.updateFont(ds.getFont());
         bg.updateBorder(ds.getBorder());
         for (int i = 0; i < cs.getNumRacks(); i++) {
@@ -175,10 +186,9 @@ public class DisplayFrame extends javax.swing.JFrame {
         }
         bgl.updateFont(ds.getFont());
         bgl.updateBorder(ds.getBorder());
-        
+
     }
 
-    
     /**
      * update the logo
      */
@@ -213,6 +223,7 @@ public class DisplayFrame extends javax.swing.JFrame {
      */
     public void setNewSize(int width, int height) {
         this.setSize(width, height);
+        this.setPreferredSize(new Dimension(width, height));
 
     }
 
@@ -254,7 +265,7 @@ public class DisplayFrame extends javax.swing.JFrame {
      *
      * @param index int index to switch to 0 - (tab count - 1)
      */
-    public void changeTab(int index) {        
+    public void changeTab(int index) {
         _TabbedPane_Tabs.setSelectedIndex(index);
     }
 

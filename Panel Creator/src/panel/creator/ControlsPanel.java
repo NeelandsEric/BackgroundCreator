@@ -115,8 +115,12 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _Label_SystemName = new javax.swing.JLabel();
         _Label_SystemSave = new javax.swing.JLabel();
         _Label_StoreLogo = new javax.swing.JLabel();
+        _ScrollPane_Log = new javax.swing.JScrollPane();
+        _TextArea_Log = new javax.swing.JTextArea();
 
-        setMinimumSize(new java.awt.Dimension(969, 629));
+        setMinimumSize(new java.awt.Dimension(975, 629));
+        setName(""); // NOI18N
+        setPreferredSize(new java.awt.Dimension(975, 629));
 
         _Label_Site.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         _Label_Site.setText("Name of Site");
@@ -197,7 +201,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         _FormattedTF_NumFans.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         _FormattedTF_NumFans.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        _FormattedTF_NumFans.setText("5");
+        _FormattedTF_NumFans.setText("2");
         _FormattedTF_NumFans.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 _FormattedTF_NumFansPropertyChange(evt);
@@ -215,7 +219,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         _FormattedTF_NumComp.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         _FormattedTF_NumComp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        _FormattedTF_NumComp.setText("5");
+        _FormattedTF_NumComp.setText("1");
         _FormattedTF_NumComp.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 _FormattedTF_NumCompPropertyChange(evt);
@@ -224,7 +228,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         _FormattedTF_NumSystems.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         _FormattedTF_NumSystems.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        _FormattedTF_NumSystems.setText("5");
+        _FormattedTF_NumSystems.setText("1");
         _FormattedTF_NumSystems.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 _FormattedTF_NumSystemsPropertyChange(evt);
@@ -238,23 +242,6 @@ public final class ControlsPanel extends javax.swing.JPanel {
             .addGroup(_Panel_ControlsLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_ControlsLayout.createSequentialGroup()
-                        .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                                .addComponent(_Label_NumberRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, Short.MAX_VALUE)
-                                .addComponent(_FormattedTF_NumRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                                .addGap(61, 61, 61)
-                                .addComponent(_Label_Site, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                                .addGap(66, 66, 66)
-                                .addComponent(_TextField_SiteName, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(_ComboBox_Racks, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(73, 73, 73))
                     .addGroup(_Panel_ControlsLayout.createSequentialGroup()
                         .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(_Panel_ControlsLayout.createSequentialGroup()
@@ -265,9 +252,6 @@ public final class ControlsPanel extends javax.swing.JPanel {
                                 .addComponent(_Label_NumberSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(_FormattedTF_NumSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                                .addGap(131, 131, 131)
-                                .addComponent(_Label_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(_Panel_ControlsLayout.createSequentialGroup()
                                 .addGap(198, 198, 198)
                                 .addComponent(_Label_RackSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -289,7 +273,24 @@ public final class ControlsPanel extends javax.swing.JPanel {
                                     .addComponent(_Label_SuctionGroupOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(_ComboBox_SuctionGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_ControlsLayout.createSequentialGroup()
+                        .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(_Panel_ControlsLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(_Label_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(_Panel_ControlsLayout.createSequentialGroup()
+                                .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(_Label_NumberRacks, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                                    .addComponent(_Label_Site, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(_Panel_ControlsLayout.createSequentialGroup()
+                                        .addComponent(_FormattedTF_NumRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(_ComboBox_Racks, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(_TextField_SiteName, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(73, 73, 73))))
         );
 
         _Panel_ControlsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_FormattedTF_NumComp, _FormattedTF_NumFans, _FormattedTF_NumRacks, _FormattedTF_NumSG, _FormattedTF_NumSystems});
@@ -551,32 +552,43 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _Label_StoreLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _Label_StoreLogo.setText("Store Logo");
 
+        _TextArea_Log.setColumns(20);
+        _TextArea_Log.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _TextArea_Log.setRows(5);
+        _ScrollPane_Log.setViewportView(_TextArea_Log);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(_Panel_Controls, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_ScrollPane_Log))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(_Panel_Controls, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(12, 12, 12)
                         .addComponent(_Panel_NamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
+                        .addGap(18, 18, 18)
                         .addComponent(_Label_StoreLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(_Panel_NamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Panel_Controls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(_Label_StoreLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(_Panel_NamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_Label_StoreLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(_Panel_Controls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_ScrollPane_Log, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1084,12 +1096,14 @@ public final class ControlsPanel extends javax.swing.JPanel {
             _ComboBox_CompressorNumber.setSelectedIndex(prevSelectedIndex);
         } else {
             _ComboBox_CompressorNumber.setSelectedIndex(0);
+            compIndex = 0;
         }
 
         // Combo box updated, now add any system names that need to be added
         sg.addCompressorNames(Math.abs(Integer.parseInt(_FormattedTF_NumComp.getText())));
         // System drop box is set now update the text field 
 
+        sg = cs.getRackIndex(rackIndex).getSuctionGroupIndex(sgIndex);
         _TextField_CompressorName.setText(sg.getCompressorNameIndex(compIndex));
 
     }
@@ -1154,6 +1168,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
             _ComboBox_Systems.setSelectedIndex(prevSelectedIndex);
         } else {
             _ComboBox_Systems.setSelectedIndex(0);
+            systemIndex = 0;
         }
 
         // Combo box updated, now add any system names that need to be added
@@ -1257,7 +1272,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
             numFans = 100;
             _FormattedTF_NumFans.setValue(new Integer("100"));
         } else if (numFans == 0) {
-            _FormattedTF_NumFans.setValue(1);
+            numFans = 1;
             _FormattedTF_NumFans.setValue(new Integer("1"));
         } else {
             _FormattedTF_NumFans.setValue(numFans);
@@ -1277,7 +1292,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
             numSG = 15;
             _FormattedTF_NumSG.setValue(new Integer("15"));
         } else if (numSG == 0) {
-            _FormattedTF_NumSG.setValue(1);
+            numSG = 1;
             _FormattedTF_NumSG.setValue(new Integer("1"));
         } else {
             _FormattedTF_NumSG.setValue(numSG);
@@ -1295,8 +1310,8 @@ public final class ControlsPanel extends javax.swing.JPanel {
         if (numComp > 100) {
             numComp = 100;
             _FormattedTF_NumComp.setValue(new Integer("100"));
-        } else if (numComp == 0) {
-            _FormattedTF_NumComp.setValue(1);
+        } else if (numComp == 0) {            
+            numComp = 1;
             _FormattedTF_NumComp.setValue(new Integer("1"));
         } else {
             _FormattedTF_NumComp.setValue(numComp);
@@ -1314,8 +1329,8 @@ public final class ControlsPanel extends javax.swing.JPanel {
         if (numSystems > 100) {
             numSystems = 100;
             _FormattedTF_NumSystems.setValue(new Integer("100"));
-        } else if (numSystems == 0) {
-            _FormattedTF_NumSystems.setValue(1);
+        } else if (numSystems == 0) {       
+            numSystems = 1;
             _FormattedTF_NumSystems.setValue(new Integer("1"));
         } else {
             _FormattedTF_NumSystems.setValue(numSystems);
@@ -1350,6 +1365,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         this.loadComboBoxRacks(0);
         this.loadRackOptions(0);
         this.updateDisplay();
+    }
+    
+    
+    public void writeToLog(String s){
+        _TextArea_Log.append(s + "\n");
     }
 
 
@@ -1391,6 +1411,8 @@ public final class ControlsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel _Label_Title;
     private javax.swing.JPanel _Panel_Controls;
     private javax.swing.JPanel _Panel_NamePanel;
+    private javax.swing.JScrollPane _ScrollPane_Log;
+    private javax.swing.JTextArea _TextArea_Log;
     private javax.swing.JTextField _TextField_CompressorName;
     private javax.swing.JTextField _TextField_RackName;
     private javax.swing.JTextField _TextField_SiteName;

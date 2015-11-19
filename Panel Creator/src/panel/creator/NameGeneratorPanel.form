@@ -181,50 +181,41 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="_Label_constant" max="32767" attributes="0"/>
-                                      <Component id="_Label_offset" min="-2" pref="72" max="-2" attributes="0"/>
-                                      <Component id="_Label_uom" min="-2" pref="68" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="_FTF_Constant" linkSize="1" max="32767" attributes="0"/>
-                                      <Component id="_FTF_Offset" linkSize="1" min="-2" pref="65" max="-2" attributes="0"/>
-                                      <Component id="_TextField_UoM" linkSize="1" min="-2" pref="65" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
-                              </Group>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="_Label_valueDisplayed" max="32767" attributes="0"/>
+                              <Component id="_Label_constant" max="32767" attributes="0"/>
+                              <Component id="_Label_offset" pref="72" max="32767" attributes="0"/>
+                              <Component id="_Label_uom" min="-2" pref="68" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="_FTF_Constant" linkSize="1" max="32767" attributes="0"/>
+                              <Component id="_FTF_Offset" linkSize="1" pref="65" max="32767" attributes="0"/>
+                              <Component id="_TextField_UoM" linkSize="1" pref="65" max="32767" attributes="0"/>
+                              <Component id="_FTF_DisplayedValue" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="_Label_alertHigh" alignment="0" pref="104" max="32767" attributes="0"/>
                               <Component id="_Label_constant1" alignment="0" max="32767" attributes="0"/>
                               <Component id="_Label_Alert" max="32767" attributes="0"/>
-                              <Component id="_FTF_DisplayedValue" max="32767" attributes="0"/>
+                              <Component id="_Label_decimalPlaces" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="_FTF_AlertHigh" linkSize="1" pref="65" max="32767" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                              <Component id="_FTF_AlertHigh" linkSize="1" alignment="0" pref="65" max="32767" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="_CheckBox_Alert" linkSize="1" alignment="0" pref="66" max="32767" attributes="0"/>
+                                  <Component id="_FTF_AlertLow" linkSize="1" alignment="0" pref="65" max="32767" attributes="0"/>
+                                  <Component id="_FTF_DecimalPlaces" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="_CheckBox_Alert" linkSize="1" alignment="0" min="-2" pref="66" max="-2" attributes="0"/>
-                                      <Component id="_FTF_AlertLow" linkSize="1" alignment="0" pref="65" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace pref="40" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="_Button_Check" linkSize="4" max="32767" attributes="0"/>
-                                      <Component id="_Button_Defaults" linkSize="4" min="-2" pref="129" max="-2" attributes="0"/>
-                                      <Component id="_Button_SaveSelected" linkSize="4" alignment="0" min="-2" pref="131" max="-2" attributes="0"/>
-                                      <Component id="_Button_NewName" min="-2" pref="131" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              </Group>
+                          </Group>
+                          <EmptySpace pref="51" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="_Button_Check" linkSize="4" max="32767" attributes="0"/>
+                              <Component id="_Button_Defaults" linkSize="4" min="-2" pref="129" max="-2" attributes="0"/>
+                              <Component id="_Button_SaveSelected" linkSize="4" alignment="0" min="-2" pref="131" max="-2" attributes="0"/>
+                              <Component id="_Button_NewName" min="-2" pref="131" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
@@ -240,20 +231,54 @@
                                   <Component id="_Textfield_Name" min="-2" pref="302" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
-                          <Component id="_Label_valueDisplayed" linkSize="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="_Button_NewName" min="-2" pref="31" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="_Button_SaveSelected" min="-2" pref="31" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="_Button_Check" min="-2" pref="31" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="_Button_Defaults" min="-2" pref="31" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="_Label_name" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="_Textfield_Name" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="_Label_type" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="_ComboBox_Type" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="_Label_valueDisplayed" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Component id="_FTF_DisplayedValue" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="_Label_decimalPlaces" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Component id="_FTF_DecimalPlaces" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="_Label_uom" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="_TextField_UoM" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
@@ -274,31 +299,6 @@
                               <Component id="_Label_alertHigh" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="_FTF_AlertHigh" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="_Label_name" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="_Textfield_Name" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="_Label_type" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="_ComboBox_Type" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                          <Component id="_FTF_DisplayedValue" linkSize="3" min="-2" pref="35" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="_Button_NewName" min="-2" pref="31" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="_Button_SaveSelected" min="-2" pref="31" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="_Button_Check" min="-2" pref="31" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="_Button_Defaults" min="-2" pref="31" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -344,9 +344,6 @@
               <Font name="Arial" size="12" style="0"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_FTF_DisplayedValueActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="_ComboBox_Type">
           <Properties>
@@ -372,7 +369,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Value Displayed"/>
+            <Property name="text" type="java.lang.String" value="Displayed"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="_Label_uom">
@@ -413,9 +410,6 @@
               <Font name="Arial" size="12" style="0"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_FTF_ConstantActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="_Label_offset">
           <Properties>
@@ -437,9 +431,6 @@
               <Font name="Arial" size="12" style="0"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_FTF_OffsetActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="_Label_constant1">
           <Properties>
@@ -461,9 +452,6 @@
               <Font name="Arial" size="12" style="0"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_FTF_AlertLowActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="_Label_alertHigh">
           <Properties>
@@ -485,9 +473,6 @@
               <Font name="Arial" size="12" style="0"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_FTF_AlertHighActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="_Label_Alert">
           <Properties>
@@ -552,6 +537,27 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_NewNameActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="_FTF_DecimalPlaces">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+              <Format format="#0" subtype="-1" type="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="2"/>
+            <Property name="toolTipText" type="java.lang.String" value="io_num_digits Field"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="12" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="_Label_decimalPlaces">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="12" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Decimal Places"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

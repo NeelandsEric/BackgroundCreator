@@ -64,9 +64,10 @@ public class MainFrame extends JFrame {
         // Load the main panel        
         //controlPanel.setVisible(true);
         displayFrame.setVisible(true);
+        mbPanel.initalizeMeters();
         controlPanel.updateDisplay();
         ngPanel.loadGroups();
-        mbPanel.initalizeMeters();
+        
         // add it to the frame           
         _TabbedPane_Tabs.add("Controls", controlPanel);
         _TabbedPane_Tabs.add("Settings", settingsPanel);
@@ -89,16 +90,14 @@ public class MainFrame extends JFrame {
         this.store.setMb(mb);
     }
 
-    public void updateDisplaySize(Dimension d) {
+    public void updateDisplaySettingsSize(Dimension d) {
         if (settingsPanel != null) {
             settingsPanel.setDim(d);
         }
     }
 
-    public void updateDisplaySize(DisplaySettings ds) {
-        //displayFrame.setNewSize(width, height);
-        this.store.setDs(ds);
-        displayFrame.setSize(ds.getDisplayWidth(), ds.getDisplayHeight());
+    public void updateDisplaySize(int width, int height) {
+        displayFrame.setNewSize(width, height);        
     }
 
     public void updateSettings(DisplaySettings ds) {
@@ -118,6 +117,8 @@ public class MainFrame extends JFrame {
 
     public void updateDisplay(ControlSettings cs) {
         this.store.setCs(cs);
+        store.getMb().updateModbusSettings(cs);
+        mbPanel.loadModels();
         displayFrame.updateDisplays(this.store.getCs(), this.store.getDs());
     }
 
@@ -220,12 +221,6 @@ public class MainFrame extends JFrame {
         setTitle("Image Creator");
         setMinimumSize(new java.awt.Dimension(1045, 629));
         setResizable(false);
-
-        _TabbedPane_Tabs.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                _TabbedPane_TabsStateChanged(evt);
-            }
-        });
 
         _Menu_File.setText("File");
 
@@ -413,7 +408,7 @@ public class MainFrame extends JFrame {
                 ScreenImage.writeImage(bi, fn);
                 //ScreenImage.createImage();
             } catch (AWTException | IOException e) {
-                System.out.println("Error " + e.getMessage());
+                controlPanel.writeToLog("Error saving current display as a picture" + e.getMessage());
             }
 
         } else {
@@ -446,10 +441,10 @@ public class MainFrame extends JFrame {
                 oos.writeObject(this.store);
                 oos.close();
                 fos.close();
-                System.out.println("Store " + this.store.getStoreName() + " saved");                
+                controlPanel.writeToLog("Store " + this.store.getStoreName() + " saved");                
 
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                controlPanel.writeToLog("Error when saving the store " + e.getMessage());
             }
 
         } else {
@@ -477,18 +472,15 @@ public class MainFrame extends JFrame {
                 ois.close();
                 fis.close();
 
-                for (Sensor ss : store.getMb().getItems().values()) {
-                    System.out.println(ss);
-                }
-
+                displayFrame.updateSettings(this.store.getDs());
                 settingsPanel.loadSettings(this.store.getDs());
-                controlPanel.loadControlSettings(store.getCs());
+                controlPanel.loadControlSettings(this.store.getCs());
                 ngPanel.loadStore(this.store.getIoNames());
                 mbPanel.loadStore(this.store.getMb());
 
-                System.out.println("Store " + this.store.getStoreName() + " read properly");
+                controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
             } catch (Exception e) {
-                System.out.println("Error with opening store: " + e.getMessage());
+                controlPanel.writeToLog("Error with opening store: " + e.getMessage());
             }
             /*
              System.out.println("Store Load Debug\nRack count: " + controlPanel.store.getNumRacks());
@@ -514,7 +506,7 @@ public class MainFrame extends JFrame {
             try {
                 this.store.writeCSV(filePath + " " + store.getStoreName() + "-IO Names.csv");
             } catch (Exception e) {
-                System.out.println("Problem writing csv file to " + filePath + " " + store.getStoreName() + "-IO Names.csv");
+                controlPanel.writeToLog("Problem writing csv file to " + filePath + " " + store.getStoreName() + "-IO Names.csv");
             }
             BufferedImage bi;
 
@@ -533,7 +525,7 @@ public class MainFrame extends JFrame {
                     //ScreenImage.createImage();
 
                 } catch (IOException e) {
-                    System.out.println("Error " + e.getMessage());
+                   controlPanel.writeToLog("Error writing csv file" + e.getMessage());
                 }
             }
         } else {
@@ -654,20 +646,13 @@ public class MainFrame extends JFrame {
                 wb.write(fileOut);
                 fileOut.close();
             } catch (Exception e) {
-                System.out.println("Error with workbook " + e.getMessage());
+                controlPanel.writeToLog("Error with creating excel file " + e.getMessage());
             }
 
         } else {
             System.out.println("File access cancelled by user.");
         }
     }//GEN-LAST:event__MenuItem_PrintVarNamesXActionPerformed
-
-    private void _TabbedPane_TabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event__TabbedPane_TabsStateChanged
-        // TODO add your handling code here:
-        if (_TabbedPane_Tabs.getSelectedIndex() == 3) {
-            mbPanel.loadStore(store.getMb());
-        }
-    }//GEN-LAST:event__TabbedPane_TabsStateChanged
 
     public static boolean isStringNumeric(String str) {
         DecimalFormatSymbols currentLocaleSymbols = DecimalFormatSymbols.getInstance();
