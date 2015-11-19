@@ -118,9 +118,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _ScrollPane_Log = new javax.swing.JScrollPane();
         _TextArea_Log = new javax.swing.JTextArea();
 
-        setMinimumSize(new java.awt.Dimension(950, 629));
+        setMinimumSize(new java.awt.Dimension(975, 629));
         setName(""); // NOI18N
-        setPreferredSize(new java.awt.Dimension(950, 629));
+        setPreferredSize(new java.awt.Dimension(975, 629));
 
         _Label_Site.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         _Label_Site.setText("Name of Site");
@@ -201,7 +201,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         _FormattedTF_NumFans.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         _FormattedTF_NumFans.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        _FormattedTF_NumFans.setText("5");
+        _FormattedTF_NumFans.setText("2");
         _FormattedTF_NumFans.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 _FormattedTF_NumFansPropertyChange(evt);
@@ -219,7 +219,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         _FormattedTF_NumComp.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         _FormattedTF_NumComp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        _FormattedTF_NumComp.setText("5");
+        _FormattedTF_NumComp.setText("1");
         _FormattedTF_NumComp.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 _FormattedTF_NumCompPropertyChange(evt);
@@ -228,7 +228,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         _FormattedTF_NumSystems.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         _FormattedTF_NumSystems.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        _FormattedTF_NumSystems.setText("5");
+        _FormattedTF_NumSystems.setText("1");
         _FormattedTF_NumSystems.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 _FormattedTF_NumSystemsPropertyChange(evt);
@@ -1096,12 +1096,14 @@ public final class ControlsPanel extends javax.swing.JPanel {
             _ComboBox_CompressorNumber.setSelectedIndex(prevSelectedIndex);
         } else {
             _ComboBox_CompressorNumber.setSelectedIndex(0);
+            compIndex = 0;
         }
 
         // Combo box updated, now add any system names that need to be added
         sg.addCompressorNames(Math.abs(Integer.parseInt(_FormattedTF_NumComp.getText())));
         // System drop box is set now update the text field 
 
+        sg = cs.getRackIndex(rackIndex).getSuctionGroupIndex(sgIndex);
         _TextField_CompressorName.setText(sg.getCompressorNameIndex(compIndex));
 
     }
@@ -1166,6 +1168,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
             _ComboBox_Systems.setSelectedIndex(prevSelectedIndex);
         } else {
             _ComboBox_Systems.setSelectedIndex(0);
+            systemIndex = 0;
         }
 
         // Combo box updated, now add any system names that need to be added
