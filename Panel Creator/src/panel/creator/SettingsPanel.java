@@ -117,10 +117,13 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
         _ComboBox_BorderSize = new javax.swing.JComboBox();
         _Label_BorderSize = new javax.swing.JLabel();
 
+        _Label_DisplayWidth.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Label_DisplayWidth.setText("Display Width");
 
+        _Label_DisplayHeight.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Label_DisplayHeight.setText("Display Height");
 
+        _Button_DefaultSettings.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Button_DefaultSettings.setText("Default Settings");
         _Button_DefaultSettings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,8 +135,10 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
         _Label_DisplaySettings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _Label_DisplaySettings.setText("Display Frame Settings");
 
+        _Label_FontType.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Label_FontType.setText("Font Type");
 
+        _ComboBox_Fonts.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _ComboBox_Fonts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tahoma" }));
         _ComboBox_Fonts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,8 +146,10 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
             }
         });
 
+        _Label_FontSize.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Label_FontSize.setText("Font Size");
 
+        _ComboBox_FontSize.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _ComboBox_FontSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "8", "10", "12", "14" }));
         _ComboBox_FontSize.setSelectedIndex(2);
         _ComboBox_FontSize.addActionListener(new java.awt.event.ActionListener() {
@@ -151,6 +158,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
             }
         });
 
+        _CheckBox_Bold.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _CheckBox_Bold.setText("Bold");
         _CheckBox_Bold.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,6 +166,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
             }
         });
 
+        _CheckBox_Italic.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _CheckBox_Italic.setText("Italic");
         _CheckBox_Italic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,10 +192,11 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
             }
         });
 
-        _Label_Font.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        _Label_Font.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         _Label_Font.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _Label_Font.setText("Sample Text");
 
+        _ComboBox_Borders.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _ComboBox_Borders.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Line Border", "Raised Etched Border", "Lowered Etched Border", "Raised Bevel Border", "Lowered Bevel Border", "No Border" }));
         _ComboBox_Borders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,8 +204,12 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
             }
         });
 
+        _Label_BorderType.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Label_BorderType.setText("Border Type");
 
+        _ColorChooser_Color.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        _ComboBox_BorderSize.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _ComboBox_BorderSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
         _ComboBox_BorderSize.setToolTipText("");
         _ComboBox_BorderSize.addActionListener(new java.awt.event.ActionListener() {
@@ -204,6 +218,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
             }
         });
 
+        _Label_BorderSize.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Label_BorderSize.setText("Border Size");
 
         javax.swing.GroupLayout _Panel_BorderPanelLayout = new javax.swing.GroupLayout(_Panel_BorderPanel);

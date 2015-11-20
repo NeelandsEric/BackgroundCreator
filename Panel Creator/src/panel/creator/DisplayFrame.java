@@ -2,6 +2,7 @@ package panel.creator;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -34,15 +35,15 @@ public class DisplayFrame extends javax.swing.JFrame {
         this.cs = css;
         this.ds = dss;
         rackTabs = new ArrayList<>();
-        bg = new BackgroundMain();
+        bg = new BackgroundMain(this);
         _TabbedPane_Tabs.add("Main", bg);
         for (int i = 1; i <= this.cs.getNumRacks(); i++) {
-            BackgroundRack br = new BackgroundRack((i - 1));
+            BackgroundRack br = new BackgroundRack(this, (i - 1));
             _TabbedPane_Tabs.add("Rack " + i, br);
             rackTabs.add(br);
         }
 
-        bgl = new BackgroundLoad();
+        bgl = new BackgroundLoad(this);
         _TabbedPane_Tabs.add("Loads", bgl);
 
     }
@@ -105,6 +106,22 @@ public class DisplayFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event__TabbedPane_TabsComponentResized
 
+    public void canClick(int panelIndex, boolean b){
+        int nt = _TabbedPane_Tabs.getTabCount();
+        if(panelIndex == 0){
+            bg.setCanClick(b);
+        }else if(panelIndex == (nt-1)){
+            bgl.setCanClick(b);
+        }else {
+            panelIndex--;
+            rackTabs.get(panelIndex).setCanClick(b);
+        }        
+    }
+    
+    public void returnClick(Point point){
+        mf.returnClick(point);
+    }
+    
     /**
      * Updates the form with the right information
      *
@@ -115,14 +132,13 @@ public class DisplayFrame extends javax.swing.JFrame {
         this.cs = css;
         this.ds = dss;
 
-        JFrame t = this;
+        DisplayFrame t = this;
         SwingUtilities.invokeLater(new Runnable() {
 
             @Override
             public void run() {
                 int selected = _TabbedPane_Tabs.getSelectedIndex();
-                int nt = _TabbedPane_Tabs.getTabCount();
-
+                int nt = _TabbedPane_Tabs.getTabCount();                
                 // update the main
                 bg.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(),
                         cs.getImgStr(), cs.getStoreName());
@@ -140,7 +156,7 @@ public class DisplayFrame extends javax.swing.JFrame {
                             _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);
                         }
                     } else {
-                        rackTabs.add(new BackgroundRack(i));
+                        rackTabs.add(new BackgroundRack(t, i));
                         rackTabs.get(i).updateRacks(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), rackNames);
                         _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
                         _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);
