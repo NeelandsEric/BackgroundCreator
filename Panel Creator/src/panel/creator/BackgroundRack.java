@@ -22,6 +22,7 @@ import javax.swing.border.Border;
  */
 public class BackgroundRack extends javax.swing.JPanel {
 
+    public DisplayFrame df;
     public int numRacks;
     public Rack rack;
     public Font font;
@@ -30,17 +31,23 @@ public class BackgroundRack extends javax.swing.JPanel {
     public String storeName;
     public int rackNum;
     public String[] rackNames;
+    private boolean canClick;
 
     /**
      * Creates new form BackgroundRack
      *
+     * @param df
      * @param rackNum
      */
-    public BackgroundRack(int rackNum) {
+    public BackgroundRack(DisplayFrame df, int rackNum) {
+        
         initComponents();
+        this.df = df;
         this.rack = new Rack();
         this.img = "";
         this.rackNum = rackNum;
+        this.canClick = false;
+        
     }
 
     /**
@@ -127,6 +134,16 @@ public class BackgroundRack extends javax.swing.JPanel {
         this.updateView();
     }
 
+    public boolean canClick() {
+        return canClick;
+    }
+
+    public void setCanClick(boolean canClick) {
+        this.canClick = canClick;
+    }
+    
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -141,6 +158,11 @@ public class BackgroundRack extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1000, 800));
 
         _Panel_MainPanel.setBackground(new java.awt.Color(0, 0, 0));
+        _Panel_MainPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                _Panel_MainPanelMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout _Panel_MainPanelLayout = new javax.swing.GroupLayout(_Panel_MainPanel);
         _Panel_MainPanel.setLayout(_Panel_MainPanelLayout);
@@ -164,6 +186,13 @@ public class BackgroundRack extends javax.swing.JPanel {
             .addComponent(_Panel_MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void _Panel_MainPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event__Panel_MainPanelMousePressed
+        if(canClick){
+            //System.out.println(this.rack.getName() + " click "+ evt.getPoint());
+            df.returnClick(evt.getPoint());
+        }
+    }//GEN-LAST:event__Panel_MainPanelMousePressed
 
     /**
      * updates the panel

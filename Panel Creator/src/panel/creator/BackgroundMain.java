@@ -23,19 +23,23 @@ import javax.swing.border.Border;
  */
 public class BackgroundMain extends javax.swing.JPanel {
 
+    public DisplayFrame df;
     public int numRacks;            // number of racks
     public ArrayList<Rack> racks;   // list of racks
     public Font font;               // global fonts
     public Border border;           // global border
     public String img;              // global string of the logo file path
     public String storeName;        // store name
-
+    private boolean canClick;
     /**
      * Creates new form BackgroundMain
+     * @param df
      */
-    public BackgroundMain() {
+    public BackgroundMain(DisplayFrame df) {
         initComponents();
+        this.df = df;
         this.img = "";
+        this.canClick = false;
     }
 
     /**
@@ -110,6 +114,16 @@ public class BackgroundMain extends javax.swing.JPanel {
         this.updateView();
     }
 
+    public boolean canClick() {
+        return canClick;
+    }
+
+    public void setCanClick(boolean canClick) {
+        this.canClick = canClick;
+    }
+    
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -127,6 +141,11 @@ public class BackgroundMain extends javax.swing.JPanel {
         setOpaque(false);
 
         _Panel_MainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        _Panel_MainPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                _Panel_MainPanelMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout _Panel_MainPanelLayout = new javax.swing.GroupLayout(_Panel_MainPanel);
         _Panel_MainPanel.setLayout(_Panel_MainPanelLayout);
@@ -150,6 +169,13 @@ public class BackgroundMain extends javax.swing.JPanel {
             .addComponent(_Panel_MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void _Panel_MainPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event__Panel_MainPanelMousePressed
+        if(canClick){
+            //System.out.println("Main click " + evt.getPoint());
+            df.returnClick(evt.getPoint());            
+        }
+    }//GEN-LAST:event__Panel_MainPanelMousePressed
 
     /**
      * update the panel

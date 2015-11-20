@@ -102,6 +102,23 @@ public class Store implements java.io.Serializable {
 
             writer.writeAll(ioNames.formatStrings(this.cs));
             writer.close();
+            
+        } catch (IOException ex) {
+            System.out.println("Write csv error with " + filepath + " : " + ex.getMessage());
+        }
+
+    }
+    
+    public void writeCSVNoParams(String filepath) {
+
+        CSVWriter writer;
+        try {
+            writer = new CSVWriter(new FileWriter(filepath), ',', CSVWriter.NO_QUOTE_CHARACTER);
+            // feed in your array (or convert your data to an array)          
+
+            writer.writeAll(ioNames.formatStringsNoParams(this.cs));
+            writer.close();
+            
         } catch (IOException ex) {
             System.out.println("Write csv error with " + filepath + " : " + ex.getMessage());
         }

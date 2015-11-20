@@ -305,6 +305,157 @@ public class IoNames implements java.io.Serializable {
         return vars;
 
     }
+    
+    public List<String[]> formatStringsNoParams(ControlSettings cs) {
+
+        long start = System.currentTimeMillis(), end;
+        List<String[]> vars = new ArrayList<String[]>() {
+        };
+
+        // Add header
+        // Add header
+        String[] headers = new String[]{"io_name", "io_id"};
+        vars.add(headers);
+
+        int numfans, numsg, numcomp, numsys;
+        String[] newString;
+        Rack r;
+        String rName, sgName, fannum = "1";
+        SuctionGroup sucG;
+        String compName, sysName;
+
+        for (int i = 0; i < cs.getNumRacks(); i++) {
+            // do all racks
+            r = cs.getRacks().get(i);
+            rName = r.getName();
+            sgName = r.getSuctionGroupNameIndex(0);
+            fannum = "1";
+            sucG = r.getSuctionGroupIndex(0);
+            compName = sucG.getCompressorNameIndex(0);
+            sysName = sucG.getSystemNameIndex(0);
+
+            // RACKS
+            // do all condenser     
+            for (String s : rackStr) {
+                newString = new String[]{s.split(",")[0]};
+                newString[0] = newString[0]
+                        .replace("`%rackname`", rName)
+                        .replace("`%fannum`", fannum)
+                        .replace("`%sgname`", sgName)
+                        .replace("`%compname`", compName)
+                        .replace("`%sysname`", sysName);
+
+                //System.out.println("RACK - New string: " + newString[0] + "\tFrom old string: " + s);
+                vars.add(newString);
+            }
+
+            // CONDENSERS
+            numfans = r.getNumCondenserFans();
+            for (int nf = 0; nf < numfans; nf++) {
+
+                fannum = ('0' + String.valueOf((nf + 1)));
+                if (nf < 99) {
+                    fannum = fannum.substring(fannum.length() - 2);
+                } else {
+                    fannum = fannum.substring(fannum.length() - 3);
+                }
+
+                // do all condenser     
+                for (String s : condStr) {
+                    newString = new String[]{s.split(",")[0]};
+                    newString[0] = newString[0]
+                            .replace("`%rackname`", rName)
+                            .replace("`%fannum`", fannum)
+                            .replace("`%sgname`", sgName)
+                            .replace("`%compname`", compName)
+                            .replace("`%sysname`", sysName);
+
+                    //System.out.println("COND - New string: " + newString[0] + "\tFrom old string: " + s);
+                    vars.add(newString);
+                }
+            }
+
+            // SUCTION GROUPS
+            numsg = r.getNumSuctionGroups();
+            for (int sg = 0; sg < numsg; sg++) {
+                sucG = r.getSuctionGroupIndex(sg);
+                sgName = sucG.getName();
+                for (String s : sgStr) {
+                    newString = new String[]{s.split(",")[0]};
+                    newString[0] = newString[0]
+                            .replace("`%rackname`", rName)
+                            .replace("`%fannum`", fannum)
+                            .replace("`%sgname`", sgName)
+                            .replace("`%compname`", compName)
+                            .replace("`%sysname`", sysName);
+
+                    //System.out.println("SG - New string: " + newString[0] + "\tFrom old string: " + s);
+                    vars.add(newString);
+                }
+
+                // do all suction groups
+                // COMPRESSORS
+                numcomp = sucG.getNumCompressors();
+                for (int nc = 0; nc < numcomp; nc++) {
+                    compName = sucG.getCompressorNameIndex(nc);
+                    // do all compressors
+                    for (String s : compStr) {
+                        newString = new String[]{s.split(",")[0]};
+                        newString[0] = newString[0]
+                                .replace("`%rackname`", rName)
+                                .replace("`%fannum`", fannum)
+                                .replace("`%sgname`", sgName)
+                                .replace("`%compname`", compName)
+                                .replace("`%sysname`", sysName);
+
+                        //System.out.println("COMP - New string: " + newString[0] + "\tFrom old string: " + s);
+                        vars.add(newString);
+                    }
+                }
+
+                // SYSTEMS
+                numsys = sucG.getNumSystems();
+                for (int ns = 0; ns < numsys; ns++) {
+                    sysName = sucG.getSystemNameIndex(ns);
+                    // do all systems
+                    for (String s : sysStr) {
+                        newString = new String[]{s.split(",")[0]};
+                        newString[0] = newString[0]
+                                .replace("`%rackname`", rName)
+                                .replace("`%fannum`", fannum)
+                                .replace("`%sgname`", sgName)
+                                .replace("`%compname`", compName)
+                                .replace("`%sysname`", sysName);
+
+                        //System.out.println("SYS - New string: " + newString[0] + "\tFrom old string: " + s);
+                        vars.add(newString);
+                    }
+
+                }
+
+            }
+        }
+
+        for (String s : storeStr) {
+            newString = new String[]{s.split(",")[0]};
+
+            //System.out.println("STORE - New string: " + newString[0] + "\tFrom old string: " + s);
+            vars.add(newString);
+        }
+
+        for (String s : extraStr) {
+            newString = new String[]{s.split(",")[0]};
+
+            //System.out.println("EXTRA - New string: " + newString[0] + "\tFrom old string: " + s);
+            vars.add(newString);
+        }
+
+        end = System.currentTimeMillis();
+
+        System.out.println("Format strings took " + ((end - start)) + " ms");
+        return vars;
+
+    }
 
     public List<String[]> unformattedStrings() {
 

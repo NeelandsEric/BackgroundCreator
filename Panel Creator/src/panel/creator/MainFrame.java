@@ -7,6 +7,7 @@ package panel.creator;
 
 import java.awt.AWTException;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,6 +39,7 @@ public class MainFrame extends JFrame {
     public SettingsPanel settingsPanel;
     public NameGeneratorPanel ngPanel;
     public ModbusPanel mbPanel;
+    public WidgetPanel wgPanel;
     public Store store;
     
     /**
@@ -59,20 +61,23 @@ public class MainFrame extends JFrame {
         settingsPanel = new SettingsPanel(this, store.getDs());
         ngPanel = new NameGeneratorPanel(this, store.getIoNames());
         mbPanel = new ModbusPanel(this, store.getMb());
+        wgPanel = new WidgetPanel(this, store.getCs());
         displayFrame = new DisplayFrame(this, store.getCs(), store.getDs());
-       
+        
         // Load the main panel        
         //controlPanel.setVisible(true);
         displayFrame.setVisible(true);
         mbPanel.initalizeMeters();
         controlPanel.updateDisplay();
         ngPanel.loadGroups();
+        wgPanel.loadWidgets();
         
         // add it to the frame           
         _TabbedPane_Tabs.add("Controls", controlPanel);
         _TabbedPane_Tabs.add("Settings", settingsPanel);
         _TabbedPane_Tabs.add("Name Generator", ngPanel);
         _TabbedPane_Tabs.add("Modbus Generator", mbPanel);
+        _TabbedPane_Tabs.add("Widget Creator", wgPanel);
 
     }
 
@@ -119,12 +124,23 @@ public class MainFrame extends JFrame {
         this.store.setCs(cs);
         store.getMb().updateModbusSettings(cs);
         mbPanel.loadModels();
+        wgPanel.setCs(cs);
         displayFrame.updateDisplays(this.store.getCs(), this.store.getDs());
     }
 
     public void updateVarNames(IoNames ioNames) {
         store.setIoNames(ioNames);
     }
+    
+    public void canClick(int panelIndex, boolean b){
+        displayFrame.canClick(panelIndex, b);
+    }
+    
+    public void returnClick(Point point){
+        wgPanel.returnClick(point);
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -361,7 +377,7 @@ public class MainFrame extends JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(_TabbedPane_Tabs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
+            .addComponent(_TabbedPane_Tabs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
         );
 
         pack();
@@ -477,6 +493,7 @@ public class MainFrame extends JFrame {
                 controlPanel.loadControlSettings(this.store.getCs());
                 ngPanel.loadStore(this.store.getIoNames());
                 mbPanel.loadStore(this.store.getMb());
+                wgPanel.loadControlSettings(this.store.getCs());
 
                 controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
             } catch (Exception e) {
@@ -565,10 +582,17 @@ public class MainFrame extends JFrame {
             File file = _FileChooser_SaveCSV.getSelectedFile();
             //System.out.println("File: " + file.getAbsolutePath());
             String filePath = file.getAbsolutePath();
+            String filePath2 = filePath;
             if (!filePath.endsWith(".csv")) {
-                filePath += ".csv";
+                filePath += ".csv";                
+            }
+            if (!filePath2.endsWith(".csv")) {
+                filePath2 += "-NOPARAMS.csv";                
+            }else {
+                filePath2 = filePath2.replace(".csv", "-NOPARAMS.csv");
             }
             this.store.writeCSV(filePath);
+            this.store.writeCSVNoParams(filePath2);
 
         } else {
             System.out.println("File access cancelled by user.");

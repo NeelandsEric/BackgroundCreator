@@ -1,5 +1,5 @@
 `Store`
-Cents/kWh,1,1,A,1,0,2,0,0,0
+Cents/kWh,3,1,A,1,0,2,0,0,0
 Outside Air Temp,1,1,F,1.8,-32,1,0,0,0
 `Rack`
 Cond Out Pressure `%rackname`,1,1,F,1.8,-32,1,0,0,0

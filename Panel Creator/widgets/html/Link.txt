@@ -1,0 +1,7 @@
+{
+  "widget_class": "HTML",
+  "widget_subclass": "72",
+  "w_x": "`%XPOS%`",
+  "w_y": "`%YPOS%`",
+  "code": "\n\n<div id=\"holder_1448032251\" style=\"display:inline-block;\">\n</div>\n<script language=\"javascript\">\nvar widget_help={\n\t\t\"main_help\":{\n\t\t\"ro\":\"HTML.\",\n\t\t\"en\":\"HTML\"\n\t\t},\n\t\"Background_color\":{\n\t\t\"ro\":\"Culoare fundal\",\n\t\t\"en\":\"Background Color\"\n\t\t},\n\t\"TextSize\":{\n\t\t\"ro\":\"Marimea Textului\",\n\t\t\"en\":\"Text Size\"\n\t\t},\n\t\"TextColor\":{\n\t\t\"ro\":\"BKGC\",\n\t\t\"en\":\"Text Color\"\n\t\t},\n\t\"Html_code\":{\n\t\t\"width\": \"60px\",\n\t\t\"ro\":\"Cod\",\n\t\t\"en\":\"Code\"\t\t\n\t\t}\n\n\t};\n\n\tvar color_pickers=\"Background_color,TextColor\";\n\t\n\tvar editable_params={\n\t\t\"Background_color\":\"#`%BACKGROUNDCOLOR%`\",\n\t\t\"TextSize\":`%TEXTSIZE%`,\n\t\t\"TextColor\":\"#`%TEXTCOLOR%`\",\n\t\t\"Html_code\":\"<http://a href=`%LINK%`><span style=font-weight:bolt;color;black>`%LABEL%`</span></a>\"};\n\tjQuery('#holder_1448032251').css('background-color', editable_params.Background_color);\n\tjQuery('#holder_1448032251').css('color', editable_params.TextColor);\n\tjQuery('#holder_1448032251').css('font-size', editable_params.TextSize);\n\tjQuery('#holder_1448032251').html(editable_params.Html_code);\n\n</script>\n\n\n"
+}
