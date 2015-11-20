@@ -10,12 +10,16 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
@@ -30,6 +34,9 @@ public class WidgetPanel extends javax.swing.JPanel {
     private boolean mouseActive;
     private MainFrame mf;
     private Map<String, Widget> widgetList;
+    private boolean ioFileLoaded;
+    private ArrayList<String> ioVariables;
+    private DefaultListModel listModel;
 
     /**
      * Creates new form WidgetPanel
@@ -40,14 +47,19 @@ public class WidgetPanel extends javax.swing.JPanel {
         this.mf = mf;
         this.cs = cs;
         this.mouseActive = false;
-        this.widgetList = new HashMap<>();
+        this.ioFileLoaded = false;
+        this.widgetList = new HashMap<>();        
+        listModel = new DefaultListModel();
         initComponents();
+        _Button_EnableClicks.setEnabled(false);
     }
 
     public void loadControlSettings(ControlSettings cs) {
         this.cs = cs;
         this.mouseActive = false;
         this.widgetList = new HashMap<>();
+        this.ioFileLoaded = false;
+        _Button_EnableClicks.setEnabled(false);
     }
 
     public ControlSettings getCs() {
@@ -58,19 +70,32 @@ public class WidgetPanel extends javax.swing.JPanel {
         this.cs = cs;
         updateDisplay();
     }
-    
-    public void updateDisplay(){
-        
-        String [] tabs = new String[cs.getNumRacks() + 2];
+
+    public void updateDisplay() {
+
+        String[] tabs = new String[cs.getNumRacks() + 2];
         tabs[0] = "Main";
-        for(int i = 0; i < cs.getNumRacks(); i++){
-            tabs[i+1] = cs.getRackName(i);
+        for (int i = 0; i < cs.getNumRacks(); i++) {
+            tabs[i + 1] = cs.getRackName(i);
         }
-        tabs[tabs.length-1] = "Loads";
-        
+        tabs[tabs.length - 1] = "Loads";
+
         _ComboBox_DisplayPanel.setModel(new javax.swing.DefaultComboBoxModel(tabs));
-        
-        
+
+    }
+
+    public void loadWidgets() {
+        Widget widget;
+        ArrayList<String> results = new ArrayList<>();
+        String dir = new File("").getAbsolutePath() + "\\widgets";
+        getWidgetFiles(dir, results);
+
+        for (String s : results) {
+            String[] ss = s.split(",");
+            //System.out.println("Variables for " + ss[0]);
+            widget = new Widget(ss[0], readFile(ss[1]));
+            widgetList.put(ss[0], widget);
+        }
     }
 
     public boolean isMouseActive() {
@@ -80,12 +105,22 @@ public class WidgetPanel extends javax.swing.JPanel {
     public void setMouseActive(boolean mouseActive) {
         this.mouseActive = mouseActive;
     }
-    
-    public void returnClick(Point p){
+
+    public void returnClick(Point p) {
         System.out.println("Widget click at " + p);
-        
+
     }
 
+    public void updateIoVariables(){
+        
+        listModel.removeAllElements();
+        
+        for (String s : ioVariables) {
+            listModel.addElement(s);
+        }
+        
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -95,18 +130,27 @@ public class WidgetPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        _FileChooser_IoFile = new javax.swing.JFileChooser();
+        _ScrollPane_WidgetNames = new javax.swing.JScrollPane();
         _List_WidgetList = new javax.swing.JList();
-        jLabel2 = new javax.swing.JLabel();
+        _Label_Title = new javax.swing.JLabel();
         _ComboBox_DisplayPanel = new javax.swing.JComboBox();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        _ScrollPane_ExportPane = new javax.swing.JScrollPane();
         _TextArea_WidgetExport = new javax.swing.JTextArea();
         _Button_Copy = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         _Button_EnableClicks = new javax.swing.JButton();
+        _ScrollPane_VariableNames = new javax.swing.JScrollPane();
+        _List_WidgetList1 = new javax.swing.JList();
+        _Label_VarNames = new javax.swing.JLabel();
+        _Label_Widget = new javax.swing.JLabel();
+        _Button_LoadCSV = new javax.swing.JButton();
+        _Label_Loaded = new javax.swing.JLabel();
 
-        jLabel1.setText("jLabel1");
+        _FileChooser_IoFile.setApproveButtonText("Open");
+        _FileChooser_IoFile.setApproveButtonToolTipText("Open a csv file");
+        _FileChooser_IoFile.setCurrentDirectory(null);
+        _FileChooser_IoFile.setDialogTitle("Open a CSV File");
+        _FileChooser_IoFile.setFileFilter(new panel.creator.FilterCSV());
 
         setMinimumSize(new java.awt.Dimension(969, 544));
 
@@ -117,11 +161,11 @@ public class WidgetPanel extends javax.swing.JPanel {
             public Object getElementAt(int i) { return strings[i]; }
         });
         _List_WidgetList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(_List_WidgetList);
+        _ScrollPane_WidgetNames.setViewportView(_List_WidgetList);
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Widget Creator");
+        _Label_Title.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        _Label_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _Label_Title.setText("Widget Creator");
 
         _ComboBox_DisplayPanel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         _ComboBox_DisplayPanel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Main" }));
@@ -136,7 +180,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                 _TextArea_WidgetExportMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(_TextArea_WidgetExport);
+        _ScrollPane_ExportPane.setViewportView(_TextArea_WidgetExport);
 
         _Button_Copy.setText("Copy");
         _Button_Copy.addActionListener(new java.awt.event.ActionListener() {
@@ -145,45 +189,65 @@ public class WidgetPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("TTTESTT");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        _Button_EnableClicks.setText("Clicks");
+        _Button_EnableClicks.setText("Click");
         _Button_EnableClicks.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _Button_EnableClicksActionPerformed(evt);
             }
         });
 
+        _List_WidgetList1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _List_WidgetList1.setModel(listModel);
+        _List_WidgetList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        _ScrollPane_VariableNames.setViewportView(_List_WidgetList1);
+
+        _Label_VarNames.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _Label_VarNames.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _Label_VarNames.setText("Variable Names to Link");
+
+        _Label_Widget.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _Label_Widget.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _Label_Widget.setText("Widget List");
+
+        _Button_LoadCSV.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        _Button_LoadCSV.setText("LOAD CSV FILE");
+        _Button_LoadCSV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_LoadCSVActionPerformed(evt);
+            }
+        });
+
+        _Label_Loaded.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        _Label_Loaded.setText("CSV File Not loaded, load file to continue");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(_Button_EnableClicks, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(146, 146, 146)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(_Label_Loaded, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(_Button_LoadCSV, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
+                        .addGap(54, 54, 54)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(_Label_Title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Label_Widget, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(_Button_EnableClicks, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(_Button_Copy, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(_ComboBox_DisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(84, 84, 84)
-                                .addComponent(jButton1)))
+                        .addComponent(_ComboBox_DisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(_ScrollPane_WidgetNames)
+                            .addComponent(_ScrollPane_VariableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                            .addComponent(_Label_VarNames, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)))
+                        .addComponent(_ScrollPane_ExportPane)))
                 .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
@@ -192,24 +256,31 @@ public class WidgetPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(_Button_Copy, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_Button_EnableClicks, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(_Label_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Button_LoadCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(54, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(_ComboBox_DisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(135, 135, 135))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(_Label_Widget, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_Label_Loaded, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(_Button_Copy, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(_Button_EnableClicks, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(_ComboBox_DisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(_ScrollPane_ExportPane, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(_ScrollPane_WidgetNames, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(_Label_VarNames, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(_ScrollPane_VariableNames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(57, 57, 57))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -236,27 +307,29 @@ public class WidgetPanel extends javax.swing.JPanel {
         h.removeAllHighlights();
     }//GEN-LAST:event__TextArea_WidgetExportMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        Widget widget;
-        ArrayList<String> results = new ArrayList<>();
-        String dir = new File("").getAbsolutePath() + "\\widgets";
-        getWidgetFiles(dir, results);
-
-        for (String s : results) {
-            String[] ss = s.split(",");
-            //System.out.println("Variables for " + ss[0]);
-            widget = new Widget(ss[0], readFile(ss[1]));
-            widgetList.put(ss[0], widget);
-        }
-                
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void _Button_EnableClicksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_EnableClicksActionPerformed
-        
+
         mouseActive = !mouseActive;
         mf.canClick(_ComboBox_DisplayPanel.getSelectedIndex(), mouseActive);
     }//GEN-LAST:event__Button_EnableClicksActionPerformed
+
+    private void _Button_LoadCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_LoadCSVActionPerformed
+        int returnVal = _FileChooser_IoFile.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            File file = _FileChooser_IoFile.getSelectedFile();
+
+            // What to do with the file, e.g. display it in a TextArea
+            //System.out.println("File: " + file.getAbsolutePath());
+            String filePath = file.getAbsolutePath();
+            ioVariables = readCSVFile(filePath);
+            
+            updateIoVariables();
+
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+    }//GEN-LAST:event__Button_LoadCSVActionPerformed
 
     public void getWidgetFiles(String dirName, ArrayList<String> filePaths) {
 
@@ -265,7 +338,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         File[] files = directory.listFiles();
         for (File file : files) {
             if (file.isFile()) {
-                filePaths.add(file.getName() + "," + file.getAbsolutePath());                
+                filePaths.add(file.getName() + "," + file.getAbsolutePath());
             } else if (file.isDirectory()) {
                 getWidgetFiles(file.getAbsolutePath(), filePaths);
             }
@@ -307,21 +380,57 @@ public class WidgetPanel extends javax.swing.JPanel {
             System.out.println("Error trying to read " + filename);
         }
 
-        System.out.println("Variables found: " + vars);
+        //System.out.println("Variables found: " + vars);
+        return vars;
+    }
 
+    /**
+     * Reads a file and returns a list of strings which contain all the variable
+     * names
+     *
+     * @param filename
+     * @return List of variable names as an ArrayList of Strings
+     */
+    public ArrayList<String> readCSVFile(String filename) {
+
+        ArrayList<String> vars = new ArrayList<>();
+
+        try {
+            Scanner scan = new Scanner(new FileReader(filename));
+
+            while (scan.hasNextLine()) {
+                vars.add(scan.nextLine());
+
+            }
+            
+            ioFileLoaded = true;
+            _Label_Loaded.setText("File loaded");
+            _Button_EnableClicks.setEnabled(true);
+
+        } catch (Exception e) {
+
+            System.out.println("Error trying to read " + filename);
+        }
+
+        //System.out.println("Variables found: " + vars);
         return vars;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton _Button_Copy;
     private javax.swing.JButton _Button_EnableClicks;
+    private javax.swing.JButton _Button_LoadCSV;
     private javax.swing.JComboBox _ComboBox_DisplayPanel;
+    private javax.swing.JFileChooser _FileChooser_IoFile;
+    private javax.swing.JLabel _Label_Loaded;
+    private javax.swing.JLabel _Label_Title;
+    private javax.swing.JLabel _Label_VarNames;
+    private javax.swing.JLabel _Label_Widget;
     private javax.swing.JList _List_WidgetList;
+    private javax.swing.JList _List_WidgetList1;
+    private javax.swing.JScrollPane _ScrollPane_ExportPane;
+    private javax.swing.JScrollPane _ScrollPane_VariableNames;
+    private javax.swing.JScrollPane _ScrollPane_WidgetNames;
     private javax.swing.JTextArea _TextArea_WidgetExport;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

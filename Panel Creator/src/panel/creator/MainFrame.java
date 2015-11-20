@@ -70,6 +70,7 @@ public class MainFrame extends JFrame {
         mbPanel.initalizeMeters();
         controlPanel.updateDisplay();
         ngPanel.loadGroups();
+        wgPanel.loadWidgets();
         
         // add it to the frame           
         _TabbedPane_Tabs.add("Controls", controlPanel);
@@ -581,10 +582,17 @@ public class MainFrame extends JFrame {
             File file = _FileChooser_SaveCSV.getSelectedFile();
             //System.out.println("File: " + file.getAbsolutePath());
             String filePath = file.getAbsolutePath();
+            String filePath2 = filePath;
             if (!filePath.endsWith(".csv")) {
-                filePath += ".csv";
+                filePath += ".csv";                
+            }
+            if (!filePath2.endsWith(".csv")) {
+                filePath2 += "-NOPARAMS.csv";                
+            }else {
+                filePath2 = filePath2.replace(".csv", "-NOPARAMS.csv");
             }
             this.store.writeCSV(filePath);
+            this.store.writeCSVNoParams(filePath2);
 
         } else {
             System.out.println("File access cancelled by user.");
