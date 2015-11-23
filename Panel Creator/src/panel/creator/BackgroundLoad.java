@@ -447,7 +447,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         label = new JLabel("Powered by N.O.E.L");
         label.setForeground(Colours.White.getCol());
         //label.setBorder(border);
-        label.setFont(new Font("Arial", Font.BOLD, 14));
+        label.setFont(font);
         label.setAlignmentX((Component.LEFT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         panel.add(label, c);
@@ -471,7 +471,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         // Main button
         //button = new JButton("<html><font color = green>Main</font></html>");        
         button = new JButton("Main");
-        button.setFont(new Font("Arial", Font.BOLD, 14));
+        button.setFont(font);
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         panel.add(button, c);
         //===========================================================
@@ -491,7 +491,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         for (int i = 0; i < numRacks; i++) {
             c.gridx += 1;
             button = new JButton(racks.get(i).getName());
-            button.setFont(new Font("Arial", Font.BOLD, 14));
+            button.setFont(font);
             button.setAlignmentX((Component.CENTER_ALIGNMENT));
             panel.add(button, c);
         }
@@ -511,7 +511,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         //===========================================================
         // Load Button
         button = new JButton("Loads");
-        button.setFont(new Font("Arial", Font.BOLD, 14));
+        button.setFont(font);
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.setEnabled(false);
         panel.add(button, c);
@@ -532,7 +532,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
 
         // Map Label
         label = new JLabel("Map");
-        label.setFont(new Font("Arial", Font.BOLD, 14));
+        label.setFont(font);
         label.setAlignmentX((Component.RIGHT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel.add(label, c);
@@ -625,7 +625,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         label = new JLabel("CIRCUIT STATUS                 " + storeName);
         label.setOpaque(true);
         label.setBackground(Color.BLACK);
-        label.setFont(new Font("Arial", Font.BOLD, 18));
+        label.setFont(font.deriveFont(Font.BOLD, 18));
         label.setAlignmentX((Component.RIGHT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setBorder(BorderFactory.createRaisedBevelBorder());

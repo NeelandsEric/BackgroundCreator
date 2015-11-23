@@ -183,7 +183,7 @@ public class BackgroundMain extends javax.swing.JPanel {
     public void updateView() {
 
         // Vars used        
-        int[] rackGridWidth = new int[5];
+        int[] rackGridWidth = new int[this.numRacks];
         int sum = 2;
         for (int i = 0; i < this.numRacks; i++) {
             rackGridWidth[i] = 3 * racks.get(i).numSuctionGroups;
@@ -398,7 +398,7 @@ public class BackgroundMain extends javax.swing.JPanel {
             //gridYPos += gridHeight;
             // End of Constraints
             //===========================================================
-            panel.setBackground(Colours.GreyLight.getCol());
+            //panel.setBackground(Colours.GreyLight.getCol());
             _Panel_MainPanel.add(panel, c);
 
             // Suction Groups - Compressors then Systems   
@@ -424,7 +424,7 @@ public class BackgroundMain extends javax.swing.JPanel {
                 //gridYPos += gridHeight;
                 // End of Constraints
                 //===========================================================
-                panel.setBackground(Colours.OrangeDark.getCol());
+                //panel.setBackground(Colours.OrangeDark.getCol());
                 _Panel_MainPanel.add(panel, c);
                 //c.gridx = gridXPos;
                 //c.fill = GridBagConstraints.HORIZONTAL;
@@ -450,7 +450,7 @@ public class BackgroundMain extends javax.swing.JPanel {
                 //gridYPos += gridHeight;
                 // End of Constraints
                 //===========================================================
-                panel.setBackground(Colours.BrownDark.getCol());
+                //panel.setBackground(Colours.BrownDark.getCol());
                 _Panel_MainPanel.add(panel, c);
             }
         }
@@ -906,7 +906,7 @@ public class BackgroundMain extends javax.swing.JPanel {
             panel.add(label, c);
         }
 
-        panel.setBackground(Colours.BlueLightest.getCol());
+        //panel.setBackground(Colours.BlueLightest.getCol());
         panel.setBorder(border);
         return panel;
     }
@@ -945,13 +945,13 @@ public class BackgroundMain extends javax.swing.JPanel {
         // RACK SUCTION GROUP NAME
         //===========================
         label = new JLabel(sg.getName());
-        c.gridwidth = 2;
+        c.gridwidth = numCols;
         c.weightx = 1;
         c.weighty = 0;
         c.gridx = 0;
         c.gridy = 0;
         label.setFont(font);
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.BOTH;
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setOpaque(true);
         label.setBackground(Colours.OrangeDark.getCol());
@@ -1041,13 +1041,13 @@ public class BackgroundMain extends javax.swing.JPanel {
         // RACK SUCTION GROUP NAME
         //===========================
         label = new JLabel(sg.getName());
-        c.gridwidth = 2;
+        c.gridwidth = numCols;
         c.weightx = 1;
         c.weighty = 0;
         c.gridx = 0;
         c.gridy = 0;
         label.setFont(font);
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.BOTH;
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setOpaque(true);
         label.setBackground(Colours.BrownDark.getCol());

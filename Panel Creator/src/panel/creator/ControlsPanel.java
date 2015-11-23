@@ -1248,9 +1248,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
     public void updateRackCount() throws NumberFormatException {
 
         numRacks = Math.abs(Integer.parseInt(_FormattedTF_NumRacks.getText()));
-        if (numRacks > 15) {
-            numRacks = 15;
-            _FormattedTF_NumRacks.setValue(new Integer("15"));
+        if (numRacks > 10) {
+            numRacks = 10;
+            _FormattedTF_NumRacks.setValue(new Integer("10"));
         } else if (numRacks == 0) {
             _FormattedTF_NumRacks.setValue(1);
             _FormattedTF_NumRacks.setValue(new Integer("1"));
