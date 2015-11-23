@@ -13,18 +13,21 @@ public class Widget {
     
     String widgetName;
     Map<String, Object> variables;
+    String fullWidgetText;
 
     public Widget(String variableName) {
         this.widgetName = variableName;
         variables = new HashMap<>();
+        this.fullWidgetText = "";
     }
     
-    public Widget(String variableName, ArrayList<String> vars) {
+    public Widget(String variableName, ArrayList<String> vars, String fullWidgetText) {
         this.widgetName = variableName;
         variables = new HashMap<>();
         for(String s: vars){
             this.variables.put(s, new Object());
         }
+        this.fullWidgetText = fullWidgetText;
     }
 
     public String getWidgetName() {
@@ -72,6 +75,20 @@ public class Widget {
             this.variables.put(s, new Object());
         }
     }
+
+    public String getFullWidgetText() {
+        return fullWidgetText;
+    }
+
+    public void setFullWidgetText(String fullWidgetText) {
+        this.fullWidgetText = fullWidgetText;
+    }
+    
+    public void addFullWidgetText(String text){        
+        this.fullWidgetText += text;
+    }
+    
+    
     
     
     @Override

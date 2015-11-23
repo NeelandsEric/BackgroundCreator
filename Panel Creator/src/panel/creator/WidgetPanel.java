@@ -11,6 +11,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     /**
      * Creates new form WidgetPanel
      *
+     * @param mf
      * @param cs
      */
     public WidgetPanel(MainFrame mf, ControlSettings cs) {
@@ -48,7 +50,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         this.cs = cs;
         this.mouseActive = false;
         this.ioFileLoaded = false;
-        this.widgetList = new HashMap<>();        
+        this.widgetList = new HashMap<>();
         listModel = new DefaultListModel();
         initComponents();
         _Button_EnableClicks.setEnabled(false);
@@ -90,12 +92,9 @@ public class WidgetPanel extends javax.swing.JPanel {
         String dir = new File("").getAbsolutePath() + "\\widgets";
         getWidgetFiles(dir, results);
 
-        for (String s : results) {
-            String[] ss = s.split(",");
-            //System.out.println("Variables for " + ss[0]);
-            widget = new Widget(ss[0], readFile(ss[1]));
-            widgetList.put(ss[0], widget);
-        }
+        results.stream().forEach((s) -> {
+            readFile(s);
+        });
     }
 
     public boolean isMouseActive() {
@@ -111,16 +110,16 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     }
 
-    public void updateIoVariables(){
-        
+    public void updateIoVariables() {
+
         listModel.removeAllElements();
-        
-        for (String s : ioVariables) {
+
+        ioVariables.stream().forEach((s) -> {
             listModel.addElement(s);
-        }
-        
+        });
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -323,7 +322,7 @@ public class WidgetPanel extends javax.swing.JPanel {
             //System.out.println("File: " + file.getAbsolutePath());
             String filePath = file.getAbsolutePath();
             ioVariables = readCSVFile(filePath);
-            
+
             updateIoVariables();
 
         } else {
@@ -350,38 +349,46 @@ public class WidgetPanel extends javax.swing.JPanel {
      * Reads a file and returns a list of strings which contain all the variable
      * names
      *
-     * @param filename
-     * @return List of variable names as an ArrayList of Strings
+     * @param result the combination of files + file paths
      */
-    public ArrayList<String> readFile(String filename) {
+    public void readFile(String result) {
 
+        String[] ss = result.split(",");
+        // s[0] -> File name
+        // s[1] -> File path        
+        
+        String filename = ss[1];
+        String entireWidget = "";
         String line;
+        
         ArrayList<String> vars = new ArrayList<>();
         int begin, end;
         try {
-            Scanner scan = new Scanner(new FileReader(filename));
-
-            while (scan.hasNextLine()) {
-                line = scan.nextLine();
-                while (line.contains("`%")) {
-
-                    begin = line.indexOf("`%");
-                    end = line.indexOf("%`") + 2;
-                    vars.add(line.substring(begin, end));
-                    //System.out.println("Variable added: " + line.substring(begin, end));
-                    line = line.substring(end);
-
+            try (Scanner scan = new Scanner(new FileReader(filename))) {
+                while (scan.hasNextLine()) {
+                    line = scan.nextLine();
+                    entireWidget += line;
+                    
+                    while (line.contains("`%")) {
+                        
+                        begin = line.indexOf("`%");
+                        end = line.indexOf("%`") + 2;
+                        vars.add(line.substring(begin, end));
+                        //System.out.println("Variable added: " + line.substring(begin, end));
+                        line = line.substring(end);
+                    }
+                    
                 }
-
             }
-
-        } catch (Exception e) {
-
+        } catch (FileNotFoundException e) {
+            
+            System.out.println("File not found error " + e.getMessage());
             System.out.println("Error trying to read " + filename);
         }
 
-        //System.out.println("Variables found: " + vars);
-        return vars;
+        Widget widget = new Widget(ss[0], vars, entireWidget);
+        widgetList.put(ss[0], widget);
+
     }
 
     /**
@@ -396,19 +403,20 @@ public class WidgetPanel extends javax.swing.JPanel {
         ArrayList<String> vars = new ArrayList<>();
 
         try {
-            Scanner scan = new Scanner(new FileReader(filename));
-
-            while (scan.hasNextLine()) {
-                vars.add(scan.nextLine());
-
+            try (Scanner scan = new Scanner(new FileReader(filename))) {
+                while (scan.hasNextLine()) {
+                    vars.add(scan.nextLine());
+                    
+                }
+                
+                ioFileLoaded = true;
+                _Label_Loaded.setText("File loaded");
+                _Button_EnableClicks.setEnabled(true);
             }
+
+        }catch (FileNotFoundException e){
             
-            ioFileLoaded = true;
-            _Label_Loaded.setText("File loaded");
-            _Button_EnableClicks.setEnabled(true);
-
-        } catch (Exception e) {
-
+            System.out.println("File not found error " + e.getMessage());
             System.out.println("Error trying to read " + filename);
         }
 
