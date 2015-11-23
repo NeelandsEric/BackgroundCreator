@@ -6,6 +6,8 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -31,8 +33,10 @@ public class BackgroundMain extends javax.swing.JPanel {
     public String img;              // global string of the logo file path
     public String storeName;        // store name
     private boolean canClick;
+
     /**
      * Creates new form BackgroundMain
+     *
      * @param df
      */
     public BackgroundMain(DisplayFrame df) {
@@ -121,8 +125,6 @@ public class BackgroundMain extends javax.swing.JPanel {
     public void setCanClick(boolean canClick) {
         this.canClick = canClick;
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -171,11 +173,19 @@ public class BackgroundMain extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _Panel_MainPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event__Panel_MainPanelMousePressed
-        if(canClick){
+        if (canClick) {
             //System.out.println("Main click " + evt.getPoint());
-            df.returnClick(evt.getPoint());            
+            df.returnClick(evt.getPoint());
         }
     }//GEN-LAST:event__Panel_MainPanelMousePressed
+
+    private void buttonClick() {
+
+        if (canClick) {
+            Point p = this.getMousePosition();
+            df.returnClick(p);
+        }
+    }
 
     /**
      * update the panel
@@ -843,14 +853,14 @@ public class BackgroundMain extends javax.swing.JPanel {
         GridBagConstraints c = new GridBagConstraints();
         // Return a panel containing condenser labels
         JPanel panel = new JPanel(gbl);
-        
+
         int numCols;
         if ((numSg + 5) > numCond) {
             numCols = numCond;
         } else {
-            numCols = numSg + (numCond/3);
+            numCols = numSg + (numCond / 3);
         }
-        
+
         double numPerCol = Math.ceil((double) numCond / numCols);
         //System.out.println("Ceil of " + numCond + "/" + numCols + "=" + numPerCol);
 
@@ -1030,7 +1040,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         } else {
             numCols = numSg + 1;
         }
-        
+
         double numPerCol = Math.ceil((double) numSys / numCols);
         //System.out.println("Ceil of " + numCond + "/" + numCols + "=" + numPerCol);
         //System.out.println("Num compressors in bg: " + numComp);
@@ -1217,7 +1227,6 @@ public class BackgroundMain extends javax.swing.JPanel {
         c.weighty = 0;
         c.gridy = 0;
         c.gridheight = 1;
-        
 
         label.setFont(font);
         panel.add(label, c);
@@ -1329,6 +1338,11 @@ public class BackgroundMain extends javax.swing.JPanel {
         button.setFont(font.deriveFont(Font.BOLD, 20));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.setEnabled(false);
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick();
+            }
+        });
         panel.add(button, c);
         //===========================================================
         // Constraints        
@@ -1349,6 +1363,11 @@ public class BackgroundMain extends javax.swing.JPanel {
             button = new JButton(racks.get(i).getName());
             button.setFont(font.deriveFont(Font.BOLD, 20));
             button.setAlignmentX((Component.CENTER_ALIGNMENT));
+            button.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mousePressed(java.awt.event.MouseEvent evt) {
+                    buttonClick();
+                }
+            });
             panel.add(button, c);
         }
 
@@ -1369,6 +1388,11 @@ public class BackgroundMain extends javax.swing.JPanel {
         button = new JButton("Loads");
         button.setFont(font.deriveFont(Font.BOLD, 20));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick();
+            }
+        });
         panel.add(button, c);
 
         //===========================================================
@@ -1479,7 +1503,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         label = new JLabel("OPERATIONAL OVERVIEW                 " + storeName);
         label.setOpaque(true);
         label.setBackground(Color.BLACK);
-        label.setForeground(Colours.Gray.getCol());        
+        label.setForeground(Colours.Gray.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 18));
         label.setAlignmentX((Component.RIGHT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

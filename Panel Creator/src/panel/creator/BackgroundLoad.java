@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Point;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -118,6 +119,14 @@ public class BackgroundLoad extends javax.swing.JPanel {
         this.updateView();
     }
 
+    private void buttonClick(){
+
+        if(canClick){
+            Point p = this.getMousePosition();
+            df.returnClick(p);
+        }
+    }
+    
     public boolean canClick() {
         return canClick;
     }
@@ -473,6 +482,11 @@ public class BackgroundLoad extends javax.swing.JPanel {
         button = new JButton("Main");
         button.setFont(font.deriveFont(Font.BOLD, 20));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick();
+            }
+        }); 
         panel.add(button, c);
         //===========================================================
         // Constraints        
@@ -493,6 +507,11 @@ public class BackgroundLoad extends javax.swing.JPanel {
             button = new JButton(racks.get(i).getName());
             button.setFont(font.deriveFont(Font.BOLD, 20));
             button.setAlignmentX((Component.CENTER_ALIGNMENT));
+            button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick();
+            }
+        }); 
             panel.add(button, c);
         }
 
@@ -514,6 +533,11 @@ public class BackgroundLoad extends javax.swing.JPanel {
         button.setFont(font.deriveFont(Font.BOLD, 20));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.setEnabled(false);
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick();
+            }
+        }); 
         panel.add(button, c);
 
         //===========================================================
