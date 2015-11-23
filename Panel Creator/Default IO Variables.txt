@@ -83,10 +83,10 @@ Liquid Pressure Setpoint `%rackname` `%sgname`,1,1,Psig,0.145,0,1,0,0,0
 Liquid Saturation `%rackname` `%sgname`,1,1,F,1.8,-32,1,0,0,0
 Liquid Subcooling `%rackname` `%sgname`,1,1,F,1.8,-32,1,0,0,0
 `System`
-Loads Capacity `%rackname` `%sgname` `%sysname`,1,1,BTU/H,1,0,0,1,0,0
+Loads Capacity `%rackname` `%sgname` `%sysname`,1,1,BTU/H,1,0,1,0,0,0
 Loads Cost Difference `%rackname` `%sgname` `%sysname`,1,1,$,1,0,1,0,0,0
 Loads EEPR `%rackname` `%sgname` `%sysname`,1,1,%,1,0,1,0,0,0
-Loads EEPR Difference `%rackname` `%sgname` `%sysname`,1,1,%,1,0,0,1,0,0
+Loads EEPR Difference `%rackname` `%sgname` `%sysname`,1,1,%,1,0,1,0,0,0
 Loads EEPR Predicted `%rackname` `%sgname` `%sysname`,1,1,%,1,0,1,0,0,0
 Loads kW `%rackname` `%sgname` `%sysname`,1,1,kW,1,0,1,0,0,0
 Loads kW Difference `%rackname` `%sgname` `%sysname`,1,1,kW,1,0,1,0,0,0
@@ -94,7 +94,7 @@ Loads Setpoint `%rackname` `%sgname` `%sysname`,1,1,F,1.8,-32,1,0,0,0
 Loads Temp `%rackname` `%sgname` `%sysname`,1,1,F,1.8,-32,1,0,0,0
 System Status `%rackname` `%sgname` `%sysname`,0,,,,,,0,0,0
 `Compressor`
-Comp Amps `%rackname` `%sgname` `%compname`,1,1,A,1,0,0,1,0,0
+Comp Amps `%rackname` `%sgname` `%compname`,1,1,A,1,0,1,0,0,0
 Comp Amp Limit `%rackname` `%sgname` `%compname`,1,1,A,1,0,1,0,0,0
 Comp Discharge Temp `%rackname` `%sgname` `%compname`,1,1,F,1.8,-32,1,0,0,0
 Comp Discharge Limit `%rackname` `%sgname` `%compname`,1,1,F,1.8,-32,1,0,0,0
