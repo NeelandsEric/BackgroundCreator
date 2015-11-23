@@ -14,23 +14,31 @@ public class Widget {
     String widgetName;
     Map<String, Object> variables;
     String fullWidgetText;
+    String filePath;
 
     public Widget(String variableName) {
         this.widgetName = variableName;
         variables = new HashMap<>();
         this.fullWidgetText = "";
+        this.filePath = "";
     }
     
-    public Widget(String variableName, ArrayList<String> vars, String fullWidgetText) {
+    public Widget(String variableName, ArrayList<String> vars, String fullWidgetText, String filePath) {
         this.widgetName = variableName;
         variables = new HashMap<>();
         for(String s: vars){
             this.variables.put(s, new Object());
         }
         this.fullWidgetText = fullWidgetText;
+        this.filePath = filePath;
+        
+        if(this.widgetName.endsWith(".txt")){
+            this.widgetName = this.widgetName.replace(".txt", "");
+        }
     }
 
     public String getWidgetName() {
+        
         return widgetName;
     }
 
@@ -86,6 +94,14 @@ public class Widget {
     
     public void addFullWidgetText(String text){        
         this.fullWidgetText += text;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
     
     
