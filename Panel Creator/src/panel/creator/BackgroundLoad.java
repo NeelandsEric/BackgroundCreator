@@ -447,7 +447,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         label = new JLabel("Powered by N.O.E.L");
         label.setForeground(Colours.White.getCol());
         //label.setBorder(border);
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 20));
         label.setAlignmentX((Component.LEFT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         panel.add(label, c);
@@ -471,7 +471,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         // Main button
         //button = new JButton("<html><font color = green>Main</font></html>");        
         button = new JButton("Main");
-        button.setFont(font);
+        button.setFont(font.deriveFont(Font.BOLD, 20));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         panel.add(button, c);
         //===========================================================
@@ -491,7 +491,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         for (int i = 0; i < numRacks; i++) {
             c.gridx += 1;
             button = new JButton(racks.get(i).getName());
-            button.setFont(font);
+            button.setFont(font.deriveFont(Font.BOLD, 20));
             button.setAlignmentX((Component.CENTER_ALIGNMENT));
             panel.add(button, c);
         }
@@ -511,7 +511,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         //===========================================================
         // Load Button
         button = new JButton("Loads");
-        button.setFont(font);
+        button.setFont(font.deriveFont(Font.BOLD, 20));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.setEnabled(false);
         panel.add(button, c);
@@ -532,7 +532,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
 
         // Map Label
         label = new JLabel("Map");
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 20));
         label.setAlignmentX((Component.RIGHT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel.add(label, c);
