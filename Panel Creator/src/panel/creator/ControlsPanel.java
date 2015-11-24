@@ -53,13 +53,13 @@ public final class ControlsPanel extends javax.swing.JPanel {
         String [] fn = new String[numRacks+2];
         String storeName = cs.getStoreName();
         
-        fn[0] = filePath + storeName + " [1] Main - " + + d.width + "x" + d.height + ".png";
+        fn[0] = filePath + storeName + " [1] Main-" + + d.width + "x" + d.height + ".png";
         
         for(int i = 1; i <= numRacks; i++){
             fn[i] = filePath + storeName + " ["+(i+1)+"] Rack{" + cs.getRackName(i-1)
-                             + "} - " + d.width + "x" + d.height + ".png";
+                             + "}-" + d.width + "x" + d.height + ".png";
         }
-        fn[fn.length-1] = filePath + storeName + " ["+(fn.length)+"] Loads - " + + d.width + "x" + d.height + ".png";
+        fn[fn.length-1] = filePath + storeName + " ["+(fn.length)+"] Loads-" + + d.width + "x" + d.height + ".png";
         
         return fn;
     }
@@ -274,7 +274,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(_ComboBox_SuctionGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_ControlsLayout.createSequentialGroup()
+                    .addGroup(_Panel_ControlsLayout.createSequentialGroup()
                         .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(_Panel_ControlsLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
@@ -1248,9 +1248,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
     public void updateRackCount() throws NumberFormatException {
 
         numRacks = Math.abs(Integer.parseInt(_FormattedTF_NumRacks.getText()));
-        if (numRacks > 15) {
-            numRacks = 15;
-            _FormattedTF_NumRacks.setValue(new Integer("15"));
+        if (numRacks > 10) {
+            numRacks = 10;
+            _FormattedTF_NumRacks.setValue(new Integer("10"));
         } else if (numRacks == 0) {
             _FormattedTF_NumRacks.setValue(1);
             _FormattedTF_NumRacks.setValue(new Integer("1"));

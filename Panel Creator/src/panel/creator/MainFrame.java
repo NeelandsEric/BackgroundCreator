@@ -377,7 +377,7 @@ public class MainFrame extends JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(_TabbedPane_Tabs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+            .addComponent(_TabbedPane_Tabs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
         );
 
         pack();
@@ -519,12 +519,7 @@ public class MainFrame extends JFrame {
             String filePath = _FileChooser_SaveIntoFolder.getSelectedFile().toString() + "\\";
             //System.out.println("FP: " + filePath);
             String[] fileNames = controlPanel.getFileNames(filePath, displayFrame.bg.getSize());
-            int numDisplays = displayFrame.getTabCount();
-            try {
-                this.store.writeCSV(filePath + " " + store.getStoreName() + "-IO Names.csv");
-            } catch (Exception e) {
-                controlPanel.writeToLog("Problem writing csv file to " + filePath + " " + store.getStoreName() + "-IO Names.csv");
-            }
+            int numDisplays = displayFrame.getTabCount();           
             BufferedImage bi;
 
             for (int i = 0; i < numDisplays; i++) {

@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Point;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -40,14 +41,14 @@ public class BackgroundRack extends javax.swing.JPanel {
      * @param rackNum
      */
     public BackgroundRack(DisplayFrame df, int rackNum) {
-        
+
         initComponents();
         this.df = df;
         this.rack = new Rack();
         this.img = "";
         this.rackNum = rackNum;
         this.canClick = false;
-        
+
     }
 
     /**
@@ -134,6 +135,14 @@ public class BackgroundRack extends javax.swing.JPanel {
         this.updateView();
     }
 
+    private void buttonClick() {
+
+        if (canClick) {
+            Point p = this.getMousePosition();            
+            df.returnClick(p);
+        }
+    }
+
     public boolean canClick() {
         return canClick;
     }
@@ -141,8 +150,6 @@ public class BackgroundRack extends javax.swing.JPanel {
     public void setCanClick(boolean canClick) {
         this.canClick = canClick;
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -188,7 +195,7 @@ public class BackgroundRack extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _Panel_MainPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event__Panel_MainPanelMousePressed
-        if(canClick){
+        if (canClick) {
             //System.out.println(this.rack.getName() + " click "+ evt.getPoint());
             df.returnClick(evt.getPoint());
         }
@@ -1300,7 +1307,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         label = new JLabel("Powered by N.O.E.L");
         label.setForeground(Colours.White.getCol());
         //label.setBorder(border);
-        label.setFont(new Font("Arial", Font.BOLD, 14));
+        label.setFont(font.deriveFont(Font.BOLD, 20));
         label.setAlignmentX((Component.LEFT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         panel.add(label, c);
@@ -1324,8 +1331,13 @@ public class BackgroundRack extends javax.swing.JPanel {
         // Main button
         //button = new JButton("<html><font color = green>Main</font></html>");        
         button = new JButton("Main");
-        button.setFont(new Font("Arial", Font.BOLD, 14));
+        button.setFont(font.deriveFont(Font.BOLD, 20));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick();
+            }
+        });
         panel.add(button, c);
         //===========================================================
         // Constraints        
@@ -1344,12 +1356,17 @@ public class BackgroundRack extends javax.swing.JPanel {
         for (int i = 0; i < numRacks; i++) {
             c.gridx += 1;
             button = new JButton(rackNames[i]);
-            button.setFont(new Font("Arial", Font.BOLD, 14));
+            button.setFont(font.deriveFont(Font.BOLD, 20));
             button.setAlignmentX((Component.CENTER_ALIGNMENT));
 
             if (rackNum == i) {
                 button.setEnabled(false);
             }
+            button.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mousePressed(java.awt.event.MouseEvent evt) {
+                    buttonClick();
+                }
+            });
             panel.add(button, c);
         }
 
@@ -1368,8 +1385,13 @@ public class BackgroundRack extends javax.swing.JPanel {
         //===========================================================
         // Load Button
         button = new JButton("Loads");
-        button.setFont(new Font("Arial", Font.BOLD, 14));
+        button.setFont(font.deriveFont(Font.BOLD, 20));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick();
+            }
+        });
         panel.add(button, c);
 
         //===========================================================
@@ -1388,7 +1410,7 @@ public class BackgroundRack extends javax.swing.JPanel {
 
         // Map Label
         label = new JLabel("Map");
-        label.setFont(new Font("Arial", Font.BOLD, 14));
+        label.setFont(font.deriveFont(Font.BOLD, 20));
         label.setAlignmentX((Component.RIGHT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel.add(label, c);
@@ -1480,7 +1502,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         label = new JLabel(rack.getName() + "                 " + storeName);
         label.setOpaque(true);
         label.setBackground(Color.BLACK);
-        label.setFont(new Font("Arial", Font.BOLD, 18));
+        label.setFont(font.deriveFont(Font.BOLD, 18));
         label.setAlignmentX((Component.RIGHT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setBorder(BorderFactory.createRaisedBevelBorder());
