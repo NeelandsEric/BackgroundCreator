@@ -2,6 +2,8 @@
 Cents/kWh,3,1,A,1,0,2,0,0,0
 Outside Air Temp,1,1,F,1.8,-32,1,0,0,0
 `Rack`
+Condenser Fault `%rackname`,0,1,,,,,0,0,0
+Compressor Fault `%rackname`,0,1,,,,,0,0,0
 Cond Out Pressure `%rackname`,1,1,F,1.8,-32,1,0,0,0
 Cond Out Pressure Actual `%rackname`,1,1,Psig,0.145,1,0,0,0
 Cond Pressure Setpoint `%rackname`,1,1,Psig,0.145,0,1,0,0,0

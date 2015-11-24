@@ -1154,7 +1154,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         SuctionGroup sg = racks.get(rackIndex).getSuctionGroupIndex(sgIndex);
         int numSys = sg.getNumSystems();
         int numCols;
-        if (numSg > 2) {
+        if (numSg > 3) {
             numCols = 1;
         } else {
             numCols = 2;
