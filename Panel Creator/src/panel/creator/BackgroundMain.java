@@ -325,7 +325,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         // Constraints         for c2
         c1.fill = GridBagConstraints.BOTH;
         c1.weightx = 1;
-        c1.weighty = 0; // No space between bottom and below row?        
+        c1.weighty = 1; // No space between bottom and below row?        
         c1.gridx = 0;
         c1.gridy = 0;
         c1.gridwidth = 2;
@@ -473,7 +473,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         gridYPos += (gridHeight * 2);
         //c.fill = GridBagConstraints.BOTH;        
         c.weightx = 0;
-        c.weighty = 1; // No space between bottom and below row?        
+        c.weighty = 0; // No space between bottom and below row?        
         c.gridx = 0;
         c.gridy = gridYPos; // Set new position based off previous component
         gridHeight = 20; // 5 per row for performance
@@ -576,7 +576,7 @@ public class BackgroundMain extends javax.swing.JPanel {
             // Constraints        
             //c.fill = GridBagConstraints.BOTH;        
             c.weightx = 1;
-            //c.weighty = 0; // No space between bottom and below row?        
+            c.weighty = 0; // No space between bottom and below row?        
             c.gridx = gridXPos;
             c.gridy = gridYPos;
             c.gridwidth = rackGridWidth[i];
@@ -600,7 +600,7 @@ public class BackgroundMain extends javax.swing.JPanel {
         gridXPos = 0;
         //c.fill = GridBagConstraints.BOTH;        
         c.weightx = 0;
-        c.weighty = 1; // No space between bottom and below row?        
+        c.weighty = 0; // No space between bottom and below row?        
         c.gridx = gridXPos;
         c.gridy = gridYPos; // Set new position based off previous component
         gridHeight = 20; // 5 per row for performance
@@ -910,7 +910,7 @@ public class BackgroundMain extends javax.swing.JPanel {
                 label.setBackground(Colours.GreyLight.getCol());
             }
             //label.setBorder(border);
-            c.ipady = 5;
+            c.ipady = 25;
             c.fill = GridBagConstraints.BOTH;
             label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             panel.add(label, c);
@@ -1005,6 +1005,7 @@ public class BackgroundMain extends javax.swing.JPanel {
                 label.setOpaque(true);
                 label.setBackground(Colours.OrangeLight.getCol());
             }
+            c.ipady = 25;
             c.fill = GridBagConstraints.BOTH;
             label.setVerticalAlignment(JLabel.TOP);
             label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
@@ -1102,7 +1103,8 @@ public class BackgroundMain extends javax.swing.JPanel {
                 label.setOpaque(true);
                 label.setBackground(Colours.BrownLightest.getCol());
             }
-
+            
+            c.ipady = 25;
             c.fill = GridBagConstraints.BOTH;
             label.setVerticalAlignment(JLabel.TOP);
             label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
@@ -1190,6 +1192,7 @@ public class BackgroundMain extends javax.swing.JPanel {
                             break;
                     }
                 }
+                c.ipady = 30;
                 panel.add(label, c);
             }
         }
@@ -1244,7 +1247,7 @@ public class BackgroundMain extends javax.swing.JPanel {
 
         label.setFont(font);
         panel.add(label, c);
-        c.ipady = 10;
+        
         c.weighty = 1;
         for (int i = 1; i <= 3; i++) {
             for (int j = 0; j < 2; j++) {
@@ -1264,6 +1267,7 @@ public class BackgroundMain extends javax.swing.JPanel {
                         label.setBackground(Colours.GreenLightest.getCol());
                         break;
                 }
+                c.ipady = 30;
                 panel.add(label, c);
             }
         }
