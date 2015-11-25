@@ -1208,7 +1208,7 @@ public class BackgroundMain extends javax.swing.JPanel {
             if (i <= numSys) {
                 String text = sg.getSystemNameIndex(i - 1);
                 label = new JLabel(text);
-                label.setFont(font);
+                label.setFont(font.deriveFont(Font.PLAIN, 18));
             } else {
                 label = new JLabel();
             }
@@ -1225,7 +1225,7 @@ public class BackgroundMain extends javax.swing.JPanel {
             //c.ipady = 25;
             c.fill = GridBagConstraints.BOTH;
             label.setVerticalAlignment(JLabel.TOP);
-            label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+            label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             panel.add(label, c);
         }
 
