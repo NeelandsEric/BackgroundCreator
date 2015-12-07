@@ -22,7 +22,7 @@ import javax.swing.border.Border;
  *
  * @author EricGummerson
  */
-public class BackgroundMain extends javax.swing.JPanel {
+public class BackgroundMain extends javax.swing.JPanel implements Background{
 
     public DisplayFrame df;
     public int numRacks;            // number of racks

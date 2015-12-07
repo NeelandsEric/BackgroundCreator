@@ -450,8 +450,7 @@ public class MainFrame extends JFrame {
             // What to do with the file, e.g. display it in a TextArea
 
             try {
-                
-               
+                                
                 FileOutputStream fos = new FileOutputStream(fn);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(this.store);

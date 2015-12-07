@@ -21,7 +21,7 @@ import javax.swing.border.Border;
  *
  * @author EricGummerson
  */
-public class BackgroundRack extends javax.swing.JPanel {
+public class BackgroundRack extends javax.swing.JPanel{
 
     public DisplayFrame df;
     public int numRacks;
