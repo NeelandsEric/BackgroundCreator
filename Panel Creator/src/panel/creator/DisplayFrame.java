@@ -16,7 +16,7 @@ public class DisplayFrame extends javax.swing.JFrame {
     public BackgroundMain bg; // main panel 
     // Loads panel
     public MainFrame mf;
-    public ArrayList<BackgroundRack> rackTabs;
+    public ArrayList<BackgroundRackNew> rackTabs;
     public BackgroundLoad bgl;
     public ControlSettings cs;
     public DisplaySettings ds;
@@ -37,7 +37,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         bg = new BackgroundMain(this);
         _TabbedPane_Tabs.add("Main", bg);
         for (int i = 1; i <= this.cs.getNumRacks(); i++) {
-            BackgroundRack br = new BackgroundRack(this, (i - 1));
+            BackgroundRackNew br = new BackgroundRackNew(this, (i - 1));
             _TabbedPane_Tabs.add("Rack " + i, br);
             rackTabs.add(br);
         }
@@ -121,6 +121,11 @@ public class DisplayFrame extends javax.swing.JFrame {
         mf.returnClick(point);
     }
     
+    public void setTab(int tab){
+        if(_TabbedPane_Tabs.getTabCount() > tab){
+            _TabbedPane_Tabs.setSelectedIndex(tab);
+        }
+    }
     /**
      * Updates the form with the right information
      *
@@ -155,7 +160,7 @@ public class DisplayFrame extends javax.swing.JFrame {
                             _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);
                         }
                     } else {
-                        rackTabs.add(new BackgroundRack(t, i));
+                        rackTabs.add(new BackgroundRackNew(t, i));
                         rackTabs.get(i).updateRacks(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), rackNames);
                         _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
                         _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);

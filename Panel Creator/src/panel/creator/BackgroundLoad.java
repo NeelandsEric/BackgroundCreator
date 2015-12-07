@@ -649,7 +649,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
         label = new JLabel("CIRCUIT STATUS                 " + storeName);
         label.setOpaque(true);
         label.setBackground(Color.BLACK);
-        label.setFont(font.deriveFont(Font.BOLD, 18));
+        label.setFont(font.deriveFont(Font.BOLD, 22));
         label.setAlignmentX((Component.RIGHT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setBorder(BorderFactory.createRaisedBevelBorder());

@@ -79,6 +79,7 @@ public class MainFrame extends JFrame {
         _TabbedPane_Tabs.add("Modbus Generator", mbPanel);
         _TabbedPane_Tabs.add("Widget Creator", wgPanel);
 
+        displayFrame.setTab(1);
     }
 
     public Store getStore() {
