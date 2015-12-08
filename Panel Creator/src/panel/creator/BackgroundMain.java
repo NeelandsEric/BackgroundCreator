@@ -55,6 +55,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
      * @param img global img string for the logo
      * @param storeName global string for the store name
      */
+    @Override
     public void updateRacks(ArrayList<Rack> racks, int numRacks, Font font, Border border, String img, String storeName) {
         this.racks = racks;
         this.numRacks = numRacks;
@@ -70,6 +71,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
      *
      * @param storeName string of the store name
      */
+    @Override
     public void updateStoreName(String storeName) {
         this.storeName = storeName;
         this.updateView();
@@ -80,6 +82,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
      *
      * @param img string file path of the logo
      */
+    @Override
     public void updateImageURL(String img) {
         this.img = img;
         this.updateView();
@@ -90,6 +93,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
      *
      * @param font Font
      */
+    @Override
     public void updateFont(Font font) {
         this.font = font;
         this.updateView();
@@ -100,6 +104,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
      *
      * @param border Border
      */
+    @Override
     public void updateBorder(Border border) {
         this.border = border;
         this.updateView();
@@ -111,16 +116,19 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
      * @param font Font
      * @param border Border
      */
+    @Override
     public void updateFontBorder(Font font, Border border) {
         this.font = font;
         this.border = border;
         this.updateView();
     }
 
+    @Override
     public boolean canClick() {
         return canClick;
     }
 
+    @Override
     public void setCanClick(boolean canClick) {
         this.canClick = canClick;
     }
@@ -189,6 +197,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
     /**
      * update the panel
      */
+    @Override
     public void updateView() {
 
         // Vars used        
@@ -800,6 +809,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
      * @param p1 container
      * @param c colour
      */
+    @Override
     public void setLabels(Container p1, Color c) {
 
         for (Component p : p1.getComponents()) {
@@ -1508,6 +1518,18 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
         //===========================================================
         // Load Button
         button = new JButton("Loads");
+        button.setFont(font.deriveFont(Font.BOLD, 20));
+        button.setAlignmentX((Component.CENTER_ALIGNMENT));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick();
+            }
+        });
+        panel.add(button, c);
+        
+        // Financial Button
+        c.gridx += 1;
+        button = new JButton("Financial");
         button.setFont(font.deriveFont(Font.BOLD, 20));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {

@@ -539,6 +539,18 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
             }
         }); 
         panel.add(button, c);
+        
+        // Financial Button
+        c.gridx += 1;
+        button = new JButton("Financial");
+        button.setFont(font.deriveFont(Font.BOLD, 20));
+        button.setAlignmentX((Component.CENTER_ALIGNMENT));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick();
+            }
+        });
+        panel.add(button, c);
 
         //===========================================================
         // Constraints        

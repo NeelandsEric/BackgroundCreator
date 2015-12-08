@@ -50,7 +50,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * @return array of strings, file names used to save all the files
      */
     public String[] getFileNames(String filePath, Dimension d){
-        String [] fn = new String[numRacks+2];
+        String [] fn = new String[numRacks+3];
         String storeName = cs.getStoreName();
         
         fn[0] = filePath + storeName + " [1] Main-" + + d.width + "x" + d.height + ".png";
@@ -59,7 +59,8 @@ public final class ControlsPanel extends javax.swing.JPanel {
             fn[i] = filePath + storeName + " ["+(i+1)+"] Rack{" + cs.getRackName(i-1)
                              + "}-" + d.width + "x" + d.height + ".png";
         }
-        fn[fn.length-1] = filePath + storeName + " ["+(fn.length)+"] Loads-" + + d.width + "x" + d.height + ".png";
+        fn[fn.length-2] = filePath + storeName + " ["+(fn.length-1)+"] Loads-" + + d.width + "x" + d.height + ".png";
+        fn[fn.length-1] = filePath + storeName + " ["+(fn.length)+"] Financial-" + + d.width + "x" + d.height + ".png";
         
         return fn;
     }
