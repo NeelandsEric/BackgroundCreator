@@ -128,7 +128,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         _TextField_SiteName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         _TextField_SiteName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        _TextField_SiteName.setText("Site Name");
+        _TextField_SiteName.setText("Store Name");
         _TextField_SiteName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 _TextField_SiteNameFocusLost(evt);

@@ -45,6 +45,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         this.df = df;
         this.img = "";
         this.canClick = false;
+        this.storeName = "Store Name";
     }
 
     /**
@@ -203,7 +204,6 @@ public class BackgroundFinancial extends javax.swing.JPanel {
 
         int gridXPos, gridYPos, gridWidth, gridHeight;
         Rack r;
-        SuctionGroup sg;
         JLabel label;
         JPanel panel;
         GridBagLayout gbl = new GridBagLayout();
@@ -241,7 +241,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         gridHeight = 5;
         // Constraints               
         c.fill = GridBagConstraints.BOTH;
-        c.weightx = 1;
+        c.weightx = 0;
         c.weighty = 0; // No space between bottom and below row?        
         c.gridx = gridXPos;
         c.gridy = gridYPos;
@@ -252,6 +252,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         // End of Constraints
         //===========================================================  
         panel = panelSiteInfo(storeName);
+        panel.setBorder(border);
         _Panel_MainPanel.add(panel, c);
 
         // First initial cell
@@ -588,7 +589,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
             _Panel_MainPanel.add(panel, c);
 
         }
-        
+
         //===========================
         // Operating Costs
         //===========================
@@ -731,14 +732,10 @@ public class BackgroundFinancial extends javax.swing.JPanel {
             _Panel_MainPanel.add(panel, c);
 
         }
-        
-        //===========================================================
 
-        
-        
+        //===========================================================
         //=========================================================== 
         // Filler area
-        
         gridXPos = 0;
         gridYPos += gridHeight;
         gridWidth = sum;
@@ -756,9 +753,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //panel.setBorder(border);
         //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
         _Panel_MainPanel.add(panel, c);
-        
-        
-        
+
         // make labels white
         setLabels(_Panel_MainPanel, Colours.White.getCol());
         // do it before last panel
@@ -777,7 +772,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.gridwidth = sum;
         c.gridheight = 1;
         //c.ipady = 100;
-        c.ipady = 0;                  
+        c.ipady = 0;
         // We dont setup next position because we are adding suction groups still
 
         //gridYPos += gridHeight;
@@ -830,7 +825,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //===========================
 
         label = new JLabel(rackName);
-        label.setFont(font.deriveFont(Font.BOLD, 18));
+        label.setFont(font.deriveFont(Font.BOLD, 20));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setVerticalAlignment(JLabel.TOP);
         c.fill = GridBagConstraints.BOTH;
@@ -839,16 +834,14 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.weighty = 1;
         c.gridy = 0;
         c.gridwidth = c.gridheight = 2;
-        c.ipady = 25;
-        
+
         panel.add(label, c);
-        
-       
+
         panel.setBorder(border);
         panel.setBackground(Colours.BlueDark.getCol());
         return panel;
     }
-    
+
     /**
      * The rack names at the top
      *
@@ -863,20 +856,28 @@ public class BackgroundFinancial extends javax.swing.JPanel {
 
         // Return a panel containing two labels
         JPanel panel = new JPanel(gbl);
+
+        label = new JLabel(rackName);
+        label.setFont(font.deriveFont(Font.BOLD, 20));
+        label.setBorder(border);
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label.setVerticalAlignment(JLabel.TOP);
+        c.gridwidth = 14;
+        c.gridheight = 1;
         c.gridx = 0;
         c.gridy = 0;
-        c.gridwidth = 10;
-        c.gridheight = 1;
         c.fill = GridBagConstraints.BOTH;
-        panel.add(Box.createRigidArea(new Dimension(0,5)),c);
+        panel.add(label, c);
+
         //===========================
         // kWh/BTU Capacity
         //===========================
-
-        label = new JLabel("kWh/BTU Capacity");
-        label.setFont(font.deriveFont(Font.BOLD, 18));
+        label = new JLabel("kW/BTU Capacity");
+        label.setOpaque(true);
+        label.setBackground(Colours.BlueLight.getCol());
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
-        label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setVerticalAlignment(JLabel.TOP);
         c.fill = GridBagConstraints.BOTH;
         c.gridx = 0;
@@ -884,17 +885,18 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.weighty = 1;
         c.gridy = 1;
         c.gridwidth = c.gridheight = 2;
-        c.ipady = 40;        
+        c.ipady = 40;
         panel.add(label, c);
-        
+
         //===========================
         // kWh/BTU Cost
         //===========================
-
-        label = new JLabel("kWh/BTU Cost");
+        label = new JLabel("kW/BTU Cost");
         label.setBorder(border);
-        label.setFont(font.deriveFont(Font.BOLD, 18));
-        label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        label.setOpaque(true);
+        label.setBackground(Colours.BlueLight.getCol());
+        label.setFont(font.deriveFont(Font.BOLD, 16));
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setVerticalAlignment(JLabel.TOP);
         //c.fill = GridBagConstraints.BOTH;
         c.gridx = 2;
@@ -904,33 +906,35 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //c.gridwidth = c.gridheight = 2;
         //c.ipady = 35;        
         panel.add(label, c);
-        
+
         //===========================
         // SEI
         //===========================
-
         label = new JLabel("SEI");
         label.setBorder(border);
-        label.setFont(font.deriveFont(Font.BOLD, 18));
-        label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        label.setOpaque(true);
+        label.setBackground(Colours.BlueLight.getCol());
+        label.setFont(font.deriveFont(Font.BOLD, 16));
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setVerticalAlignment(JLabel.TOP);
         //c.fill = GridBagConstraints.BOTH;
         c.gridx = 4;
-        //c.weightx = 1;
+        c.weightx = 1;
         //c.weighty = 1;
         //c.gridy = 0;
         //c.gridwidth = c.gridheight = 2;
         //c.ipady = 35;        
         panel.add(label, c);
-        
+
         //===========================
         // Cost/SqFt
-        //===========================
-
+        //===========================        
         label = new JLabel("Cost/SqFt");
         label.setBorder(border);
-        label.setFont(font.deriveFont(Font.BOLD, 18));
-        label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        label.setOpaque(true);
+        label.setBackground(Colours.BlueLight.getCol());
+        label.setFont(font.deriveFont(Font.BOLD, 16));
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setVerticalAlignment(JLabel.TOP);
         //c.fill = GridBagConstraints.BOTH;
         c.gridx = 6;
@@ -940,35 +944,34 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //c.gridwidth = c.gridheight = 2;
         //c.ipady = 35;        
         panel.add(label, c);
-        
+
         //===========================
         // Predicted Site
         //===========================
-
-        
-        label = new JLabel("Predicted Site");
-        
+        label = new JLabel("Predicted Cost ");
+        label.setOpaque(true);
+        label.setBackground(Colours.BlueLight.getCol());
         label.setBorder(border);
-        label.setFont(font.deriveFont(Font.BOLD, 18));
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        label.setVerticalAlignment(JLabel.TOP);
+        label.setVerticalAlignment(JLabel.CENTER);
         //c.fill = GridBagConstraints.BOTH;
         c.gridx = 8;
-        //c.weightx = 1;
+        c.weightx = 0;
         //c.weighty = 1;
         //c.gridy = 0;
         c.gridheight = 1;
-        c.ipady = 20;        
+        c.ipady = 20;
         panel.add(label, c);
-        
+
         //===========================
         // Predicted Site
         //===========================
-
-        
-        label = new JLabel("Actual Site");
+        label = new JLabel("Actual Cost");
         label.setBorder(border);
-        label.setFont(font.deriveFont(Font.BOLD, 18));
+        label.setOpaque(true);
+        label.setBackground(Colours.BlueLight.getCol());
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         label.setVerticalAlignment(JLabel.CENTER);
         //c.fill = GridBagConstraints.BOTH;
@@ -979,15 +982,36 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //c.gridheight = 1;
         //c.ipady = 35;        
         panel.add(label, c);
-        
-        
-       
+
+        c.gridx = 10;
+        c.gridy = 1;
+        c.gridwidth = 2;
+        c.gridheight = 1;
+        c.weightx = 1;
+        c.ipadx = 40;
+        for (int i = 0; i < 2; i++) {
+            label = new JLabel();
+            label.setOpaque(true);
+            label.setBorder(border);
+            label.setBackground(Colours.GreenLight.getCol());
+            panel.add(label, c);
+
+            c.gridx += 2;
+            label = new JLabel();
+            label.setOpaque(true);
+            label.setBorder(border);
+            label.setBackground(Colours.BlueLight.getCol());
+            panel.add(label, c);
+
+            c.gridx -= 2;
+            c.gridy += 1;
+        }
+
         panel.setBorder(border);
         panel.setBackground(Colours.BlueDark.getCol());
         //panel.setBackground(Color.black);
         return panel;
     }
-    
 
     /**
      * Creates a panel for the performance
@@ -1016,10 +1040,9 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.gridheight = 1;
         c.ipady = 0;
 
-        
         panel.add(label, c);
         // KW
-        label = new JLabel("KW");
+        label = new JLabel("kW");
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
         label.setBackground(Colours.BlueDark.getCol());
@@ -1031,7 +1054,6 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.gridy = 0;
         c.gridheight = 1;
 
-        
         panel.add(label, c);
         c.ipady = 10;
         c.weighty = 1;
@@ -1155,7 +1177,6 @@ public class BackgroundFinancial extends javax.swing.JPanel {
 
     }
 
-    
     /**
      * Creates the operating panel
      *
@@ -1221,12 +1242,11 @@ public class BackgroundFinancial extends javax.swing.JPanel {
                 panel.add(label, c);
             }
         }
-        
+
         return panel;
 
     }
 
-    
     /**
      * Creates the bottom panel
      *
