@@ -778,8 +778,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //button = new JButton("<html><font color = green>Main</font></html>");        
         button = new JButton("Main");
         button.setFont(font.deriveFont(Font.BOLD, 20));
-        button.setAlignmentX((Component.CENTER_ALIGNMENT));
-        button.setEnabled(false);
+        button.setAlignmentX((Component.CENTER_ALIGNMENT));        
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonClick();
@@ -841,6 +840,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         // Financial Button
         c.gridx += 1;
         button = new JButton("Financial");
+        button.setEnabled(false);
         button.setFont(font.deriveFont(Font.BOLD, 20));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
