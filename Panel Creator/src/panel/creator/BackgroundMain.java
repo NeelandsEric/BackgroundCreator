@@ -493,7 +493,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
 
         //gridYPos += gridHeight;
         c.gridx = gridXPos;
-        c.gridwidth = sum;        
+        c.gridwidth = sum;
         c.ipady = 200;
         panel = panelRackOutput();
         panel.setBorder(border);
@@ -895,8 +895,14 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         int numSys = sg.getNumSystems();
         int numCols;
         if (numSg > 3) {
+            numCols = 2;
+        }else if(numSys >= 4 && numSys <= 8){
+            numCols = 2;            
+        }else if(numSys < 16 && numSys > 8){
+            numCols = 3;
+        } else if(numSys <= 4){
             numCols = 1;
-        } else {
+        }else {
             numCols = 2;
         }
 
@@ -953,14 +959,8 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
                 label = new JLabel();
             }
 
-            //label.setBorder(border);
-            if (numAdded % 2 == 0) {
-                label.setOpaque(true);
-                label.setBackground(Colours.BlueLightest.getCol());
-            } else {
-                label.setOpaque(true);
-                label.setBackground(Colours.BlueLightest.getCol());
-            }
+            label.setOpaque(true);
+            label.setBackground(Colours.BlueLightest.getCol());
 
             //c.ipady = 25;
             c.fill = GridBagConstraints.BOTH;
