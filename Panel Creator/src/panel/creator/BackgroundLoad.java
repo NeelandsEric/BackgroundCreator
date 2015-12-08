@@ -371,7 +371,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
                 sgName = sg.getName();
                 numSystems += sg.getNumSystems();
                 for (int k = 0; k < sg.getNumSystems(); k++) {
-                    systemNames.add(sgName + ": " + sg.getSystemNameIndex(k));
+                    systemNames.add(sg.getSystemNameIndex(k));
                 }
             }
         }
