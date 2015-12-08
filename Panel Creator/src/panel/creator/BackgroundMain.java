@@ -277,7 +277,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
         label = new JLabel("Performance");
         label.setOpaque(true);
         label.setBackground(Colours.GreenDark.getCol());
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         //label.setBorder(border);
         panel.add(label, c4);
         //=========================================
@@ -289,7 +289,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
         label = new JLabel("Predicted");
         label.setOpaque(true);
         label.setBackground(Colours.GreenLightest.getCol());
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         //label.setBorder(border);
         panel.add(label, c4);
         //=========================================
@@ -300,7 +300,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
         label = new JLabel("Actual");
         label.setOpaque(true);
         label.setBackground(Colours.GreenLight.getCol());
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         //label.setBorder(border);
         panel.add(label, c4);
         panel.setBorder(border);
@@ -393,7 +393,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
         panel = new JPanel();
         label = new JLabel("<html>Rack Status<br><br><br>Systems</html>");
         //label.setVerticalAlignment(JLabel.TOP);
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         //label.setOpaque(true);
         //label.setBackground(Colours.GreyDark.getCol());
         //label.setBorder(border);        
@@ -480,7 +480,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
         c6.gridx = 0;
         c6.fill = GridBagConstraints.BOTH;
         label = new JLabel("Alarms");
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         panel.setOpaque(true);
         panel.setBorder(border);
         panel.setBackground(Colours.BlueDark.getCol());
@@ -872,7 +872,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
         c.gridheight = 1;
         c.gridy = 2;
         c.ipady = 0;
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         panel.add(label, c);
 
         // rack SEI
@@ -952,13 +952,13 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
         c.fill = GridBagConstraints.BOTH;
         label = new JLabel("Condenser Fan  ");
         label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         panel.add(label, c);
 
         c.gridx = 1;
         label = new JLabel("Compressor  ");
         label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         panel.add(label, c);
         panel.setBackground(Colours.BlueLightest.getCol());
         panel.setBorder(border);
@@ -1026,7 +1026,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
 
             if (i <= numCond) {
                 label = new JLabel("Fan " + i);
-                label.setFont(font);
+                label.setFont(font.deriveFont(Font.BOLD, 16));
             } else {
                 label = new JLabel();
             }
@@ -1088,7 +1088,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
         c.weighty = 0;
         c.gridx = 0;
         c.gridy = 0;
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         c.fill = GridBagConstraints.BOTH;
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setOpaque(true);
@@ -1185,7 +1185,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
         c.weighty = 0;
         c.gridx = 0;
         c.gridy = 0;
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 18));
         c.fill = GridBagConstraints.BOTH;
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setOpaque(true);
@@ -1271,7 +1271,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
         c.gridheight = 1;
         c.ipady = 0;
 
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         panel.add(label, c);
         // KW
         label = new JLabel("  KW  ");
@@ -1285,7 +1285,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
         c.gridy = 0;
         c.gridheight = 1;
 
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         panel.add(label, c);
         c.ipady = 10;
         c.weighty = 1;

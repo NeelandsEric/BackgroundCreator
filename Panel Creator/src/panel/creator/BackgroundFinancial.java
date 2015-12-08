@@ -1,5 +1,4 @@
-
- package panel.creator;
+package panel.creator;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -152,32 +151,32 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         javax.swing.GroupLayout _Panel_MainPanelLayout = new javax.swing.GroupLayout(_Panel_MainPanel);
         _Panel_MainPanel.setLayout(_Panel_MainPanelLayout);
         _Panel_MainPanelLayout.setHorizontalGroup(
-            _Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+                _Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 1000, Short.MAX_VALUE)
         );
         _Panel_MainPanelLayout.setVerticalGroup(
-            _Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+                _Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 800, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(_Panel_MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(_Panel_MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(_Panel_MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(_Panel_MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>                        
 
-    private void _Panel_MainPanelMousePressed(java.awt.event.MouseEvent evt) {                                              
+    private void _Panel_MainPanelMousePressed(java.awt.event.MouseEvent evt) {
         if (canClick) {
             //System.out.println("Main click " + evt.getPoint());
             df.returnClick(evt.getPoint());
         }
-    }                                             
+    }
 
     private void buttonClick() {
 
@@ -232,7 +231,89 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         panel = panelTop(img, storeName);
         _Panel_MainPanel.add(panel, c);
 
-       
+        //Store panel info at top
+        //===========================================================
+        // Positioning
+        gridXPos = 0;
+        gridYPos = 0;
+        gridHeight = 5;
+        // Constraints               
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.weighty = 0; // No space between bottom and below row?        
+        c.gridx = gridXPos;
+        c.gridy = gridYPos;
+        c.gridwidth = sum;
+        c.gridheight = gridHeight;
+        //c.ipady = 100;
+        //c.ipady = 0;                
+        // End of Constraints
+        //===========================================================  
+        panel = panelTop(img, storeName);
+        _Panel_MainPanel.add(panel, c);
+
+        // First initial cell
+        label = new JLabel("Outside Air Temp");
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setFont(font.deriveFont(Font.BOLD, 18));
+        panel = new JPanel();
+        panel.add(label);
+        panel.setBackground(Colours.BlueDark.getCol());
+        panel.setBorder(border);
+        //===========================================================
+        // Positioning
+        gridXPos = 0;
+        gridYPos = 5;
+        gridWidth = 2;
+        gridHeight = 5;
+        // Constraints               
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 0;
+        c.weighty = 0; // No space between bottom and below row?        
+        c.gridx = gridXPos;
+        c.gridy = gridYPos;
+        c.gridwidth = gridWidth;
+        c.gridheight = gridHeight;
+        //c.ipady = 100;
+        //c.ipady = 0;        
+        // Setup next position
+        gridXPos += gridWidth;
+        //gridYPos += gridHeight;
+
+        // End of Constraints
+        //===========================================================        
+        _Panel_MainPanel.add(panel, c);
+
+        // rack names + SEI, they have their own panels, incase we want borders
+        for (int i = 0; i < this.numRacks; i++) {
+
+            r = racks.get(i);
+            // Number of suction groups for the rack          
+
+            panel = panelRackName(r.getName());
+            // For each new rack panel, we must assign the grid width
+            // to be 3 * num Suctiongroups
+            //rackGridWidth[i] = 3 * r.numSuctionGroups; // 1 cell per compressor
+            // 2 cells per system
+            //===========================================================            
+            // Constraints        
+            //c.fill = GridBagConstraints.BOTH;        
+            c.weightx = 1;
+            //c.weighty = 0; // No space between bottom and below row?        
+            c.gridx = gridXPos;
+            c.gridy = gridYPos;
+            c.gridwidth = rackGridWidth[i];
+            //c.gridheight = gridHeight;
+            //c.ipady = 100;
+            //c.ipady = 0;                  
+            // Setup next position
+            gridXPos += rackGridWidth[i];
+            // End of Constraints
+            //===========================================================
+            _Panel_MainPanel.add(panel, c);
+
+        }
+
         //===========================
         // Performance
         //===========================
@@ -277,7 +358,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label = new JLabel("Performance");
         label.setOpaque(true);
         label.setBackground(Colours.BlueDark.getCol());
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         panel.add(label, c2);
         //=========================================
@@ -288,7 +369,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label = new JLabel("Predicted");
         label.setOpaque(true);
         label.setBackground(Colours.BlueLight.getCol());
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         panel.add(label, c2);
         //=========================================
@@ -298,7 +379,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label = new JLabel("Actual");
         label.setOpaque(true);
         label.setBackground(Colours.BlueLightest.getCol());
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         panel.add(label, c2);
         //=========================================
@@ -308,7 +389,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label = new JLabel("Difference");
         label.setOpaque(true);
         label.setBackground(Colours.BlueLight.getCol());
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         panel.add(label, c2);
         //=========================================
@@ -404,7 +485,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label = new JLabel("Operating");
         label.setOpaque(true);
         label.setBackground(Colours.GreenDark.getCol());
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         panel.add(label, c3);
         //=========================================
@@ -418,7 +499,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label.setOpaque(true);
         label.setBackground(Colours.GreenDark.getCol());
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         panel.add(label, c3);
         //=========================================
@@ -431,7 +512,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label.setOpaque(true);
         label.setBackground(Colours.GreenLight.getCol());
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         panel.add(label, c3);
         //=========================================
@@ -442,7 +523,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label.setOpaque(true);
         label.setBackground(Colours.GreenLightest.getCol());
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         panel.add(label, c3);
         //=========================================       
@@ -453,7 +534,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label.setOpaque(true);
         label.setBackground(Colours.GreenLight.getCol());
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         panel.add(label, c3);
         panel.setBorder(border);
@@ -504,6 +585,28 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         // make labels white
         setLabels(_Panel_MainPanel, Colours.White.getCol());
         // do it before last panel
+        
+        //=========================================================== 
+        // Filler area
+        
+        gridXPos = 0;
+        gridYPos += gridHeight;
+        gridWidth = sum;
+        gridHeight = 10;
+        c.gridwidth = gridWidth;
+        c.gridheight = gridHeight;
+        c.gridx = gridXPos;
+        c.gridy = gridYPos;
+        c.weightx = 1;
+        c.weighty = 1;
+        c.ipady = 120;
+        // End of Constraints
+        panel = new JPanel();
+        panel.setBackground(Color.black);
+        //panel.setBorder(border);
+        //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+        _Panel_MainPanel.add(panel, c);
+        
 
         // Bottom Panel
         //===========================================================
@@ -519,7 +622,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.gridwidth = sum;
         c.gridheight = 1;
         //c.ipady = 100;
-        //c.ipady = 0;                  
+        c.ipady = 0;                  
         // We dont setup next position because we are adding suction groups still
 
         //gridYPos += gridHeight;
@@ -553,8 +656,43 @@ public class BackgroundFinancial extends javax.swing.JPanel {
 
     }
 
+    /**
+     * The rack names at the top
+     *
+     * @param rackName String of name
+     * @return JPanel
+     */
+    public JPanel panelRackName(String rackName) {
 
-    
+        JLabel label;
+        GridBagLayout gbl = new GridBagLayout();
+        GridBagConstraints c = new GridBagConstraints();
+
+        // Return a panel containing two labels
+        JPanel panel = new JPanel(gbl);
+        //===========================
+        // RACK NAMES
+        //===========================
+
+        label = new JLabel(rackName);
+        label.setFont(font.deriveFont(Font.BOLD, 18));
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        c.fill = GridBagConstraints.BOTH;
+        c.gridx = 0;
+        c.weightx = 1;
+        c.weighty = 1;
+        c.gridy = 0;
+        c.gridwidth = c.gridheight = 2;
+        c.ipady = 15;
+        
+        panel.add(label, c);
+        
+       
+        panel.setBorder(border);
+        panel.setBackground(Colours.BlueDark.getCol());
+        return panel;
+    }
+
     /**
      * Creates a panel for the performance
      *
@@ -570,6 +708,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         // Cost
         label = new JLabel("Cost");
         label.setOpaque(true);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBackground(Colours.GreenDark.getCol());
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -581,10 +720,11 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.gridheight = 1;
         c.ipady = 0;
 
-        label.setFont(font);
+        
         panel.add(label, c);
         // KW
         label = new JLabel("  KW  ");
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
         label.setBackground(Colours.BlueDark.getCol());
         label.setBorder(border);
@@ -595,7 +735,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.gridy = 0;
         c.gridheight = 1;
 
-        label.setFont(font);
+        
         panel.add(label, c);
         c.ipady = 10;
         c.weighty = 1;
@@ -669,7 +809,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.gridy = 0;
         c.gridheight = 1;
 
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         panel.add(label, c);
         // KW
         label = new JLabel("Previous Year");
@@ -683,9 +823,9 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.gridy = 0;
         c.gridheight = 1;
 
-        label.setFont(font);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         panel.add(label, c);
-        
+
         c.weighty = 1;
         for (int i = 1; i <= 3; i++) {
             for (int j = 0; j < 2; j++) {
@@ -778,7 +918,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //button = new JButton("<html><font color = green>Main</font></html>");        
         button = new JButton("Main");
         button.setFont(font.deriveFont(Font.BOLD, 20));
-        button.setAlignmentX((Component.CENTER_ALIGNMENT));        
+        button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonClick();
@@ -836,7 +976,6 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         });
         panel.add(button, c);
 
-        
         // Financial Button
         c.gridx += 1;
         button = new JButton("Financial");
@@ -954,7 +1093,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //===========================================================
 
         // Store
-        label = new JLabel("OPERATIONAL OVERVIEW                 " + storeName);
+        label = new JLabel("FINANCIAL ANALYSIS               " + storeName);
         label.setOpaque(true);
         label.setBackground(Color.BLACK);
         label.setForeground(Colours.Gray.getCol());

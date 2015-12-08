@@ -56,6 +56,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
      * @param img global img string for the logo
      * @param storeName global string for the store name
      */
+    @Override
     public void updateRacks(ArrayList<Rack> racks, int numRacks, Font font, Border border, String img, String storeName) {
 
         this.racks = racks;
@@ -72,6 +73,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
      *
      * @param storeName string of the store name
      */
+    @Override
     public void updateStoreName(String storeName) {
         this.storeName = storeName;
         this.updateView();
@@ -82,6 +84,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
      *
      * @param img string file path of the logo
      */
+    @Override
     public void updateImageURL(String img) {
         this.img = img;
         this.updateView();
@@ -92,6 +95,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
      *
      * @param font Font
      */
+    @Override
     public void updateFont(Font font) {
         this.font = font;
         this.updateView();
@@ -102,6 +106,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
      *
      * @param border Border
      */
+    @Override
     public void updateBorder(Border border) {
         this.border = border;
         this.updateView();
@@ -113,6 +118,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
      * @param font Font
      * @param border Border
      */
+    @Override
     public void updateFontBorder(Font font, Border border) {
         this.font = font;
         this.border = border;
@@ -127,10 +133,12 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
         }
     }
     
+    @Override
     public boolean canClick() {
         return canClick;
     }
 
+    @Override
     public void setCanClick(boolean canClick) {
         this.canClick = canClick;
     }
@@ -187,6 +195,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
     /**
      * update the view of the panel
      */
+    @Override
     public void updateView() {
 
         int gridXPos, gridYPos, gridWidth, gridHeight;
@@ -279,6 +288,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
      * @param p1 the container to change
      * @param c colour to change to
      */
+    @Override
     public void setLabels(Container p1, Color c) {
 
         for (Component p : p1.getComponents()) {
