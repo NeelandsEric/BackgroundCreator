@@ -276,6 +276,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
         // Rack status
         label = new JLabel("Performance");
         label.setOpaque(true);
+        label.setHorizontalAlignment(JLabel.CENTER);
         label.setBackground(Colours.GreenDark.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 16));
         //label.setBorder(border);
@@ -288,6 +289,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
         //=========================================
         label = new JLabel("Predicted");
         label.setOpaque(true);
+        label.setHorizontalAlignment(JLabel.CENTER);
         label.setBackground(Colours.GreenLightest.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 16));
         //label.setBorder(border);
@@ -299,6 +301,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
         //=========================================
         label = new JLabel("Actual");
         label.setOpaque(true);
+        label.setHorizontalAlignment(JLabel.CENTER);
         label.setBackground(Colours.GreenLight.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 16));
         //label.setBorder(border);
@@ -391,7 +394,8 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
                
         // Rack status
         panel = new JPanel();
-        label = new JLabel("<html>Rack Status<br><br><br>Systems</html>");
+        label = new JLabel("<html>Rack Status<br><br><br> Systems</html>");
+        label.setHorizontalAlignment(JLabel.CENTER);
         //label.setVerticalAlignment(JLabel.TOP);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         //label.setOpaque(true);
@@ -1218,7 +1222,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background{
             if (i <= numSys) {
                 String text = sg.getSystemNameIndex(i - 1);
                 label = new JLabel(text);
-                label.setFont(font.deriveFont(Font.PLAIN, 18));
+                label.setFont(font.deriveFont(Font.BOLD, 18));
             } else {
                 label = new JLabel();
             }

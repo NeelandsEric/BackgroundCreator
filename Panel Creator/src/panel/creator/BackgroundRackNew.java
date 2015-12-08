@@ -552,6 +552,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridheight = 2;
         c.gridwidth = 1;
         label = new JLabel("Fans");
+        label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 18));
         label.setOpaque(true);
         label.setBackground(Colours.BlueDark.getCol());
@@ -576,7 +577,8 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.weightx = 0;
         c.gridheight = 1;
         label = new JLabel("Fan Amps");
-        label.setFont(font.deriveFont(Font.BOLD, 18));
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
         label.setBackground(Colours.BlueLight.getCol());
         label.setBorder(border);
@@ -584,8 +586,9 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridx = 0;
         c.ipady = 10;
         panel.add(label, c);
-        label = new JLabel("Fault Detect ");
-        label.setFont(font.deriveFont(Font.BOLD, 18));
+        label = new JLabel(" Fault Detect ");
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
         label.setBackground(Colours.BlueLightest.getCol());
         label.setBorder(border);
@@ -718,6 +721,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.weighty = 0;
         c.ipady = 10;
         label = new JLabel("Setpoint");
+        label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
         label.setBorder(border);
@@ -750,6 +754,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridwidth = 2;
         c.weightx = 0;
         label = new JLabel("Pressure");
+        label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
         label.setBorder(border);
@@ -784,6 +789,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridwidth = 2;
         c.weightx = 0;
         label = new JLabel("Temp");
+        label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
         label.setBorder(border);
@@ -818,6 +824,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridwidth = 2;
         c.weightx = 0;
         label = new JLabel("Superheat");
+        label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
         label.setBorder(border);
