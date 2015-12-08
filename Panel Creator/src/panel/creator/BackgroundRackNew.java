@@ -604,7 +604,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
                 label = new JLabel("");
                 c.gridx = i;
                 label.setOpaque(true);
-                label.setBackground(Colours.BlueLight.getCol());
+                label.setBackground(Colours.BlueLightest.getCol());
                 label.setBorder(border);
                 panel.add(label, c);
             }
