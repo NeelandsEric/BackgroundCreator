@@ -693,46 +693,13 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.weightx = 0;
         c.weighty = 0;
         c.ipady = 10;
-        label = new JLabel("SpSt / Temp");
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setOpaque(true);
-        label.setBorder(border);
-        label.setBackground(Colours.BlueLightest.getCol());
-        panel.add(label, c);
-        //===========================
-        // Add columns
-        //===========================
-        c.gridx += 2;
-        c.gridwidth = 1;
-        c.weightx = 1;
-        for (int i = 0; i < numSg; i++) {
-            c.gridwidth = comp[i];
-            label = new JLabel("");
-            label.setFont(font);
-            label.setOpaque(true);
-            label.setBorder(border);
-            label.setBackground(Colours.BlueLightest.getCol());
-            panel.add(label, c);
-            c.gridx += comp[i];
-        }
-
-        //===========================
-        // row 4
-        // SH Temp / Superheat
-        //===========================
-        c.gridx = 0;
-        c.gridy = 4;
-        c.gridwidth = 2;
-        c.weightx = 0;
-        label = new JLabel(" SH Temp / Superheat ");
+        label = new JLabel("SpSt/Tmp");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
         label.setBorder(border);
         label.setBackground(Colours.BlueLight.getCol());
         panel.add(label, c);
-
         //===========================
         // Add columns
         //===========================
@@ -746,6 +713,39 @@ public class BackgroundRackNew extends javax.swing.JPanel {
             label.setOpaque(true);
             label.setBorder(border);
             label.setBackground(Colours.BlueLight.getCol());
+            panel.add(label, c);
+            c.gridx += comp[i];
+        }
+
+        //===========================
+        // row 4
+        // SH Temp / Superheat
+        //===========================
+        c.gridx = 0;
+        c.gridy = 4;
+        c.gridwidth = 2;
+        c.weightx = 0;
+        label = new JLabel("SH Tmp/Superheat ");
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setFont(font.deriveFont(Font.BOLD, 16));
+        label.setOpaque(true);
+        label.setBorder(border);
+        label.setBackground(Colours.BlueLightest.getCol());
+        panel.add(label, c);
+
+        //===========================
+        // Add columns
+        //===========================
+        c.gridx += 2;
+        c.gridwidth = 1;
+        c.weightx = 1;
+        for (int i = 0; i < numSg; i++) {
+            c.gridwidth = comp[i];
+            label = new JLabel("");
+            label.setFont(font);
+            label.setOpaque(true);
+            label.setBorder(border);
+            label.setBackground(Colours.BlueLightest.getCol());
             panel.add(label, c);
             c.gridx += comp[i];
 
