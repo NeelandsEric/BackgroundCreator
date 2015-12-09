@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import javax.swing.border.Border;
 
 /**
- *
+ * Interface for backgrounds
  * @author EricGummerson
  */
 public interface Background {
