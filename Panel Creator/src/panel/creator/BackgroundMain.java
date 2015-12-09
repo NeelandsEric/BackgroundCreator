@@ -18,7 +18,7 @@ import javax.swing.border.Border;
 /**
  * Creates the main background which is the first page of the of the stores
  * Contains information all all compressors, systems, condensers, suction groups
- * price points, electricity usage and previous history numbers
+ * price points, electricity usage and previous history numbers.
  *
  * @author EricGummerson
  */
