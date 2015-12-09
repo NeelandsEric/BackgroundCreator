@@ -29,12 +29,12 @@ Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,0,0
 Volts L1 to L2 `%rackname`,1,1,V,0.1,0,1,0,0,0
 Volts L2 to L3 `%rackname`,1,1,V,0.1,0,1,0,0,0
 Volts L1 to L3 `%rackname`,1,1,V,0.1,0,1,0,0,0
-Op Cost Current Year Day `%rackname`,1,1,$,1,0,1,0,0,0
-Op Cost Current Year Month `%rackname`,1,1,$,1,0,1,0,0,0
-Op Cost Current Year Year `%rackname`,1,1,$,1,0,1,0,0,0
-Op Cost Previous Year Day `%rackname`,1,1,$,1,0,1,0,0,0
-Op Cost Previous Year Month `%rackname`,1,1,$,1,0,1,0,0,0
-Op Cost Previous Year Year `%rackname`,1,1,$,1,0,1,0,0,0
+Op Cost Current Day `%rackname`,1,1,$,1,0,1,0,0,0
+Op Cost Current Month `%rackname`,1,1,$,1,0,1,0,0,0
+Op Cost Current Year `%rackname`,1,1,$,1,0,1,0,0,0
+Op Cost Previous Day `%rackname`,1,1,$,1,0,1,0,0,0
+Op Cost Previous zmonth `%rackname`,1,1,$,1,0,1,0,0,0
+Op Cost Previous Year `%rackname`,1,1,$,1,0,1,0,0,0
 LE Cooling Load `%rackname`,1,1,BTU/H,1,0,1,0,0,0
 LE COP `%rackname`,1,1,COP,1,0,1,0,0,0
 Performance $/ton `%rackname`,1,1,$,1,0,1,0,0,0
@@ -63,6 +63,9 @@ Cond Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,0,0
 Cond Volts L1 to L2 `%rackname`,1,1,V,0.1,0,1,0,0,0
 Cond Volts L2 to L3 `%rackname`,1,1,V,0.1,0,1,0,0,0
 Cond Volts L1 to L3 `%rackname`,1,1,V,0.1,0,1,0,0,0
+Cond Setpoint `%rackname`,
+Cond Outlet Pressure `%rackname`,
+Cond Outlet Temperature `%rackname`,
 `Condenser`
 Cond Fan Fault `%rackname` `%fannum`,0,,,,,,0,0,0
 Cond Fan Amps `%rackname` `%fannum`,1,1,A,1,0,1,0,0,0

@@ -604,7 +604,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
                 label = new JLabel("");
                 c.gridx = i;
                 label.setOpaque(true);
-                label.setBackground(j == 0? Colours.BlueLight.getCol(): Colours.BlueLightest.getCol());
+                label.setBackground(j == 0 ? Colours.BlueLight.getCol() : Colours.BlueLightest.getCol());
                 label.setBorder(border);
                 panel.add(label, c);
             }
@@ -656,17 +656,8 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel.add(label, c);
 
-        // Row 2
-        c.gridy = 2;
-        c.ipady = 10;
-        label = new JLabel("Compressors");
-        label.setFont(font.deriveFont(Font.BOLD, 18));
-        label.setOpaque(true);
-        label.setBorder(border);
-        label.setBackground(Colours.BlueLight.getCol());
-        panel.add(label, c);
         //==========================================================
-        //                  Suction groups + compressors
+        //                  Suction groups
         //==========================================================
         c.gridx = 2;
         c.gridy = 0;
@@ -676,51 +667,33 @@ public class BackgroundRackNew extends javax.swing.JPanel {
             // Suction group
             c.gridheight = 2;
             c.gridwidth = comp[i];
+            if (comp[i] == 1) {
+                c.ipadx = 75;
+            }
             label = new JLabel(rack.getSuctionGroupNameIndex(i));
+
             label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             label.setFont(font.deriveFont(Font.BOLD, 18));
             label.setOpaque(true);
             label.setBackground(Colours.BlueDark.getCol());
             label.setBorder(border);
             panel.add(label, c);
-
-            // now each compressor
-            c.gridy += 2;
-            c.gridwidth = 1;
-            c.ipadx = 10;
-            for (int j = 0; j < comp[i]; j++) {
-                sg = rack.getSuctionGroupIndex(i);
-                if(sg.getNumCompressors() == 1){                    
-                    label = new JLabel("  " + sg.getCompressorNameIndex(j) + "  ");
-                }else {
-                    label = new JLabel(sg.getCompressorNameIndex(j));
-                }                
-                label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                label.setFont(font.deriveFont(Font.BOLD, 18));
-                label.setOpaque(true);
-                label.setBackground(Colours.BlueLight.getCol());
-                label.setBorder(border);
-                panel.add(label, c);
-                c.gridx += 1;
-
-            }
             c.ipadx = 0;
-            // Go back up a space for the suctiongroup title
-            c.gridy -= 2;
+            c.gridx += comp[i];
         }
 
         // Add the left side titles
         //===========================
-        // row 4
-        // Discharge temp
+        // row 2
+        // SpSt / Temp
         //===========================
         c.gridx = 0;
-        c.gridy = 4;
+        c.gridy = 2;
         c.gridwidth = 2;
         c.weightx = 0;
         c.weighty = 0;
         c.ipady = 10;
-        label = new JLabel("Setpoint");
+        label = new JLabel("SpSt / Temp");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
@@ -734,26 +707,25 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridwidth = 1;
         c.weightx = 1;
         for (int i = 0; i < numSg; i++) {
-            for (int j = 0; j < comp[i]; j++) {
-                label = new JLabel("");
-                label.setFont(font);
-                label.setOpaque(true);
-                label.setBorder(border);
-                label.setBackground(Colours.BlueLightest.getCol());
-                panel.add(label, c);
-                c.gridx += 1;
-            }
+            c.gridwidth = comp[i];
+            label = new JLabel("");
+            label.setFont(font);
+            label.setOpaque(true);
+            label.setBorder(border);
+            label.setBackground(Colours.BlueLightest.getCol());
+            panel.add(label, c);
+            c.gridx += comp[i];
         }
 
         //===========================
-        // row 6
-        // Discharge temp
+        // row 4
+        // SH Temp / Superheat
         //===========================
         c.gridx = 0;
-        c.gridy = 6;
+        c.gridy = 4;
         c.gridwidth = 2;
         c.weightx = 0;
-        label = new JLabel("Pressure");
+        label = new JLabel(" SH Temp / Superheat ");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
@@ -768,15 +740,54 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridwidth = 1;
         c.weightx = 1;
         for (int i = 0; i < numSg; i++) {
+            c.gridwidth = comp[i];
+            label = new JLabel("");
+            label.setFont(font);
+            label.setOpaque(true);
+            label.setBorder(border);
+            label.setBackground(Colours.BlueLight.getCol());
+            panel.add(label, c);
+            c.gridx += comp[i];
+
+        }
+
+        // Row 6
+        c.weightx = 0;
+        c.gridy = 6;
+        c.gridx = 0;
+        c.gridwidth = 2;
+        c.ipady = 10;
+        label = new JLabel("Compressors");
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label.setFont(font.deriveFont(Font.BOLD, 18));
+        label.setOpaque(true);
+        label.setBorder(border);
+        label.setBackground(Colours.BlueLight.getCol());
+        panel.add(label, c);
+        c.gridx += 2;
+        for (int i = 0; i < numSg; i++) {
+            // now each compressor      
+            c.weightx = 1;
+            c.gridwidth = 1;
+            c.ipadx = 10;
             for (int j = 0; j < comp[i]; j++) {
-                label = new JLabel("");
-                label.setFont(font);
+                sg = rack.getSuctionGroupIndex(i);
+                if (sg.getNumCompressors() == 1) {
+                    label = new JLabel("  " + sg.getCompressorNameIndex(j) + "  ");
+                } else {
+                    label = new JLabel(sg.getCompressorNameIndex(j));
+                }
+                label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                label.setFont(font.deriveFont(Font.BOLD, 18));
                 label.setOpaque(true);
-                label.setBorder(border);
                 label.setBackground(Colours.BlueLight.getCol());
+                label.setBorder(border);
                 panel.add(label, c);
                 c.gridx += 1;
+
             }
+            c.ipadx = 0;
+
         }
 
         //==================================================================
@@ -788,7 +799,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridy = 8;
         c.gridwidth = 2;
         c.weightx = 0;
-        label = new JLabel("Temp");
+        label = new JLabel("Discharge Temp");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
@@ -817,13 +828,13 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         //==================================================================
         //===========================
         // row 10
-        // Discharge temp
+        // Amps
         //===========================
         c.gridx = 0;
         c.gridy = 10;
         c.gridwidth = 2;
         c.weightx = 0;
-        label = new JLabel("Superheat");
+        label = new JLabel("Amps");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
@@ -1005,7 +1016,6 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         });
         panel.add(button, c);
 
-        
         // Financial Button
         c.gridx += 1;
         button = new JButton("Financial");
@@ -1017,8 +1027,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
             }
         });
         panel.add(button, c);
-        
-        
+
         //===========================================================
         // Constraints        
         //c.fill = GridBagConstraints.HORIZONTAL;        
