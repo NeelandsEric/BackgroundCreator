@@ -46,7 +46,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     public WidgetPanel(MainFrame mf, ControlSettings cs) {
         this.mf = mf;
         this.cs = cs;
-        this.mouseActive = new boolean [cs.getNumRacks() + 2];
+        this.mouseActive = new boolean [cs.getNumRacks() + 3];
         this.ioFileLoaded = false;
         this.widgetList = new HashMap<>();
         listModelIoVars = new DefaultListModel();
@@ -57,7 +57,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     public void loadControlSettings(ControlSettings cs) {
         this.cs = cs;
-        this.mouseActive = new boolean [cs.getNumRacks() + 2];
+        this.mouseActive = new boolean [cs.getNumRacks() + 3];
         this.widgetList = new HashMap<>();
         this.ioFileLoaded = false;
         _Button_EnableClicks.setEnabled(false);
@@ -74,12 +74,13 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     public void updateDisplay() {
 
-        String[] tabs = new String[cs.getNumRacks() + 2];
+        String[] tabs = new String[cs.getNumRacks() + 3];
         tabs[0] = "Main";
         for (int i = 0; i < cs.getNumRacks(); i++) {
             tabs[i + 1] = cs.getRackName(i);
         }
-        tabs[tabs.length - 1] = "Loads";
+        tabs[tabs.length - 2] = "Loads";
+        tabs[tabs.length - 1] = "Financial";
 
         _ComboBox_DisplayPanel.setModel(new javax.swing.DefaultComboBoxModel(tabs));
 
@@ -308,20 +309,15 @@ public class WidgetPanel extends javax.swing.JPanel {
                         .addComponent(_FTF_WigetParam_stationID, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(_Panel_WidgetParamsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(_Panel_WidgetParamsLayout.createSequentialGroup()
-                        .addComponent(_Label_ClickStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(_Button_EnableClicks, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(_Panel_WidgetParamsLayout.createSequentialGroup()
-                        .addGroup(_Panel_WidgetParamsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(_Label_WigetParam_yPos, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_Label_WigetParam_xPos, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(_Panel_WidgetParamsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(_FTF_WigetParam_yPos)
-                            .addGroup(_Panel_WidgetParamsLayout.createSequentialGroup()
-                                .addComponent(_FTF_WigetParam_xPos, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                    .addComponent(_Label_ClickStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(_Panel_WidgetParamsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(_Label_WigetParam_yPos, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(_Label_WigetParam_xPos, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(_Panel_WidgetParamsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(_FTF_WigetParam_xPos)
+                    .addComponent(_Button_EnableClicks, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(_FTF_WigetParam_yPos))
                 .addContainerGap())
         );
         _Panel_WidgetParamsLayout.setVerticalGroup(

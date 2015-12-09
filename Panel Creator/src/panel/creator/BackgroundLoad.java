@@ -22,7 +22,7 @@ import javax.swing.border.Border;
  *
  * @author EricGummerson
  */
-public class BackgroundLoad extends javax.swing.JPanel {
+public class BackgroundLoad extends javax.swing.JPanel implements Background{
 
     public DisplayFrame df;
     public int numRacks;            // num of racks
@@ -56,6 +56,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
      * @param img global img string for the logo
      * @param storeName global string for the store name
      */
+    @Override
     public void updateRacks(ArrayList<Rack> racks, int numRacks, Font font, Border border, String img, String storeName) {
 
         this.racks = racks;
@@ -72,6 +73,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
      *
      * @param storeName string of the store name
      */
+    @Override
     public void updateStoreName(String storeName) {
         this.storeName = storeName;
         this.updateView();
@@ -82,6 +84,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
      *
      * @param img string file path of the logo
      */
+    @Override
     public void updateImageURL(String img) {
         this.img = img;
         this.updateView();
@@ -92,6 +95,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
      *
      * @param font Font
      */
+    @Override
     public void updateFont(Font font) {
         this.font = font;
         this.updateView();
@@ -102,6 +106,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
      *
      * @param border Border
      */
+    @Override
     public void updateBorder(Border border) {
         this.border = border;
         this.updateView();
@@ -113,6 +118,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
      * @param font Font
      * @param border Border
      */
+    @Override
     public void updateFontBorder(Font font, Border border) {
         this.font = font;
         this.border = border;
@@ -127,10 +133,12 @@ public class BackgroundLoad extends javax.swing.JPanel {
         }
     }
     
+    @Override
     public boolean canClick() {
         return canClick;
     }
 
+    @Override
     public void setCanClick(boolean canClick) {
         this.canClick = canClick;
     }
@@ -187,6 +195,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
     /**
      * update the view of the panel
      */
+    @Override
     public void updateView() {
 
         int gridXPos, gridYPos, gridWidth, gridHeight;
@@ -279,6 +288,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
      * @param p1 the container to change
      * @param c colour to change to
      */
+    @Override
     public void setLabels(Container p1, Color c) {
 
         for (Component p : p1.getComponents()) {
@@ -361,7 +371,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
                 sgName = sg.getName();
                 numSystems += sg.getNumSystems();
                 for (int k = 0; k < sg.getNumSystems(); k++) {
-                    systemNames.add(sgName + ": " + sg.getSystemNameIndex(k));
+                    systemNames.add(sg.getSystemNameIndex(k));
                 }
             }
         }
@@ -539,6 +549,18 @@ public class BackgroundLoad extends javax.swing.JPanel {
             }
         }); 
         panel.add(button, c);
+        
+        // Financial Button
+        c.gridx += 1;
+        button = new JButton("Financial");
+        button.setFont(font.deriveFont(Font.BOLD, 20));
+        button.setAlignmentX((Component.CENTER_ALIGNMENT));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick();
+            }
+        });
+        panel.add(button, c);
 
         //===========================================================
         // Constraints        
@@ -649,7 +671,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         label = new JLabel("CIRCUIT STATUS                 " + storeName);
         label.setOpaque(true);
         label.setBackground(Color.BLACK);
-        label.setFont(font.deriveFont(Font.BOLD, 18));
+        label.setFont(font.deriveFont(Font.BOLD, 22));
         label.setAlignmentX((Component.RIGHT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setBorder(BorderFactory.createRaisedBevelBorder());

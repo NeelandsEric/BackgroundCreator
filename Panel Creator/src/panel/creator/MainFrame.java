@@ -79,6 +79,7 @@ public class MainFrame extends JFrame {
         _TabbedPane_Tabs.add("Modbus Generator", mbPanel);
         _TabbedPane_Tabs.add("Widget Creator", wgPanel);
 
+        displayFrame.setTab(1);
     }
 
     public Store getStore() {
@@ -450,8 +451,7 @@ public class MainFrame extends JFrame {
             // What to do with the file, e.g. display it in a TextArea
 
             try {
-                
-               
+                                
                 FileOutputStream fos = new FileOutputStream(fn);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(this.store);
@@ -527,8 +527,10 @@ public class MainFrame extends JFrame {
                 try {
                     if (i == 0) {
                         bi = ScreenImage.createImage(displayFrame.bg);
-                    } else if (i == (numDisplays - 1)) {
+                    }else if (i == (numDisplays - 2)) {
                         bi = ScreenImage.createImage(displayFrame.bgl);
+                    } else if (i == (numDisplays - 1)) {
+                        bi = ScreenImage.createImage(displayFrame.bgf);
                     } else {
                         bi = ScreenImage.createImage(displayFrame.rackTabs.get(i - 1));
                     }

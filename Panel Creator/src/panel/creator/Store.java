@@ -92,7 +92,6 @@ public class Store implements java.io.Serializable {
 
     }
 
-    
     public void writeCSV(String filepath) {
 
         CSVWriter writer;
