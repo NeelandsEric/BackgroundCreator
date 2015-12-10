@@ -377,7 +377,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         // Constraints        
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 0;
-        c.weighty = 1; // No space between bottom and below row?        
+        c.weighty = 0; // No space between bottom and below row?        
         c.gridx = gridXPos;
         c.gridy = gridYPos;
         c.gridwidth = gridWidth;
@@ -495,6 +495,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         c.gridx = gridXPos;
         c.gridwidth = sum;
         c.ipady = 200;
+        c.weighty = 0;
         panel = panelRackOutput();
         panel.setBorder(border);
         _Panel_MainPanel.add(panel, c);
@@ -526,7 +527,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         //===========================================================
         panel = panelBottom(this.numRacks);
         _Panel_MainPanel.add(panel, c);
-
+        
         _Panel_MainPanel.revalidate();
         _Panel_MainPanel.repaint();
 
@@ -903,7 +904,13 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         } else if(numSys <= 4){
             numCols = 1;
         }else {
-            numCols = 2;
+            if(numRacks > 2){
+                numCols = 2;
+            }else if(df.cs.getTotalSG() < 4){
+                numCols = 6;
+            }else {
+                numCols = 3;
+            }
         }
 
         double numPerCol = Math.ceil((double) numSys / numCols);
@@ -933,6 +940,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         c.weighty = 1;
         c.gridwidth = 1;
         c.gridheight = 1;
+        //c.ipady = 10;
 
         int colIndex = 0;
         int rowIndex = 1;
