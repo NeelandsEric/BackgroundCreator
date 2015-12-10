@@ -153,6 +153,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        _ScrollPane_Panel = new javax.swing.JScrollPane();
         _Panel_MainPanel = new javax.swing.JPanel();
 
         _Panel_MainPanel.setBackground(new java.awt.Color(0, 0, 0));
@@ -166,22 +167,24 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
         _Panel_MainPanel.setLayout(_Panel_MainPanelLayout);
         _Panel_MainPanelLayout.setHorizontalGroup(
             _Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGap(0, 998, Short.MAX_VALUE)
         );
         _Panel_MainPanelLayout.setVerticalGroup(
             _Panel_MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 798, Short.MAX_VALUE)
         );
+
+        _ScrollPane_Panel.setViewportView(_Panel_MainPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(_Panel_MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(_ScrollPane_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(_Panel_MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(_ScrollPane_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -685,5 +688,6 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel _Panel_MainPanel;
+    private javax.swing.JScrollPane _ScrollPane_Panel;
     // End of variables declaration//GEN-END:variables
 }

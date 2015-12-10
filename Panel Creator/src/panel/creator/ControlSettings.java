@@ -109,6 +109,27 @@ public class ControlSettings implements java.io.Serializable {
     public String getSysNameIndex(int rackIndex, int sgIndex, int sysIndex) {
         return this.racks.get(rackIndex).getSuctionGroupIndex(sgIndex).getSystemNameIndex(sysIndex);
     }
+    
+    public int getRackNumSG(int rackIndex){
+        return this.racks.get(rackIndex).getNumSuctionGroups();
+    }
+            
+            
+    public int getTotalSystems(){
+        int total = 0;
+        for(int i = 0; i < numRacks; i++){
+            total += this.getRackNumComp(i);            
+        }        
+        return total;
+    }
+    
+    public int getTotalSG(){
+        int total = 0;
+        for(int i = 0; i < numRacks; i++){
+            total += this.getRackNumSG(i);            
+        }        
+        return total;
+    }
 
     /**
      * gets the rack names from the array list
