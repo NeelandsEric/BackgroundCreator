@@ -78,8 +78,6 @@ public class MainFrame extends JFrame {
         _TabbedPane_Tabs.add("Name Generator", ngPanel);
         _TabbedPane_Tabs.add("Modbus Generator", mbPanel);
         _TabbedPane_Tabs.add("Widget Creator", wgPanel);
-
-        displayFrame.setTab(1);
     }
 
     public Store getStore() {
@@ -415,7 +413,7 @@ public class MainFrame extends JFrame {
         int returnVal = _FileChooser_SavePicture.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             String fn = _FileChooser_SavePicture.getSelectedFile().toString();
-            if (!fn.endsWith(".png") || !fn.endsWith(".jpg") || !fn.endsWith(".gif")) {
+            if (!fn.endsWith(".png")) {
                 fn += ".png";
             }
             // What to do with the file, e.g. display it in a TextArea
