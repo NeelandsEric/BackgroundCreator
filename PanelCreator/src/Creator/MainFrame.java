@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package panel.creator;
+package Creator;
 
 import java.awt.AWTException;
 import java.awt.Dimension;
@@ -181,7 +181,7 @@ public class MainFrame extends JFrame {
         _FileChooser_LoadLogo.setApproveButtonToolTipText("Open the logo file");
         _FileChooser_LoadLogo.setCurrentDirectory(null);
         _FileChooser_LoadLogo.setDialogTitle("Open image file for the store logo");
-        _FileChooser_LoadLogo.setFileFilter(new panel.creator.FilterImage());
+        _FileChooser_LoadLogo.setFileFilter(new FilterImage());
 
         _FileChooser_SavePicture.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         _FileChooser_SavePicture.setApproveButtonText("Save");
@@ -201,14 +201,14 @@ public class MainFrame extends JFrame {
         _FileChooser_LoadStore.setApproveButtonToolTipText("Loads the store file");
         _FileChooser_LoadStore.setCurrentDirectory(null);
         _FileChooser_LoadStore.setDialogTitle("Directory to open Store file");
-        _FileChooser_LoadStore.setFileFilter(new panel.creator.FilterStore());
+        _FileChooser_LoadStore.setFileFilter(new FilterStore());
 
         _FileChooser_SaveIntoFolder.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         _FileChooser_SaveIntoFolder.setApproveButtonText("Save Here");
         _FileChooser_SaveIntoFolder.setApproveButtonToolTipText("Saves the displays into this directory");
         _FileChooser_SaveIntoFolder.setCurrentDirectory(null);
         _FileChooser_SaveIntoFolder.setDialogTitle("Directory to save pictures");
-        _FileChooser_SaveIntoFolder.setFileFilter(new panel.creator.FilterFolder());
+        _FileChooser_SaveIntoFolder.setFileFilter(new FilterFolder());
         _FileChooser_SaveIntoFolder.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
         _FileChooser_SaveCSV.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);

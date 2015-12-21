@@ -1,4 +1,4 @@
-package panel.creator;
+package Creator;
 
 import java.awt.Color;
 import java.awt.Component;
