@@ -894,7 +894,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label = new JLabel("kW/BTU Cost");
         label.setBorder(border);
         label.setOpaque(true);
-        label.setBackground(Colours.BlueLight.getCol());
+        label.setBackground(Colours.GreenLight.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setVerticalAlignment(JLabel.TOP);
@@ -932,7 +932,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label = new JLabel("Cost/SqFt");
         label.setBorder(border);
         label.setOpaque(true);
-        label.setBackground(Colours.BlueLight.getCol());
+        label.setBackground(Colours.GreenLight.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setVerticalAlignment(JLabel.TOP);
