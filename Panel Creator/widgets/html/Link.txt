@@ -1,7 +1,0 @@
-{
-  "widget_class": "HTML",
-  "widget_subclass": "72",
-  "w_x": "`%XPOS%`",
-  "w_y": "`%YPOS%`",
-  "code": "\n\n<div id=\"holder_1440075104\" style=\"display:inline-block;\">\n</div>\n<script>try {\n\nvar widget_help={\n\t\t\"main_help\":{\n\t\t\"ro\":\"HTML.\",\n\t\t\"en\":\"HTML\"\n\t\t},\n\t\"Background_color\":{\n\t\t\"ro\":\"Culoare fundal\",\n\t\t\"en\":\"Background Color\"\n\t\t},\n\t\"TextSize\":{\n\t\t\"ro\":\"Marimea Textului\",\n\t\t\"en\":\"Text Size\"\n\t\t},\n\t\"TextColor\":{\n\t\t\"ro\":\"BKGC\",\n\t\t\"en\":\"Text Color\"\n\t\t},\n\t\t\"Html_code\":{\n\t\t\"ro\":\"Cod\",\n\t\t\"en\":\"Code\"\n\t\t}\n\n\t};\n\n\tvar color_pickers=\"Background_color,TextColor\";\n\t\n\tvar editable_params={\n\t\t\"Background_color\":\"\",\n\t\t\"TextSize\":27,\n\t\t\"TextColor\":\"#b81a1a\",\n\t\t\"Html_code\":\"<a href=`%LINK%`><span style=font-weight:bold;color:transparent>`%LABEL%`</span></a>\"};\n\tjQuery('#holder_1440075104').css('background-color', editable_params.Background_color);\n\tjQuery('#holder_1440075104').css('color', editable_params.TextColor);\n\tjQuery('#holder_1440075104').css('font-size', editable_params.TextSize);\n\tjQuery('#holder_1440075104').html(editable_params.Html_code);\n\n\n}catch(e){\n\talert(e);\n}\n</script>\n\n\n"
-}
