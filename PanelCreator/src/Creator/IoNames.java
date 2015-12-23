@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+
 /**
  *
  * @author EricGummerson
@@ -16,6 +17,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class IoNames implements java.io.Serializable {
+
+    private static final long serialVersionUID = 1244L;
 
     private ArrayList<String> storeStr;
     private ArrayList<String> rackStr;
@@ -163,9 +166,9 @@ public class IoNames implements java.io.Serializable {
 
         // Add header
         // Add header
-        String[] headers = new String[]{"io_name", "io_type", "io_value_displayed", 
+        String[] headers = new String[]{"io_name", "io_type", "io_value_displayed",
             "io_unit_of_measure", "io_constant", "io_offset", "io_float_digits",
-            "io_alert", "io_alert_range_low", "io_alert_range_high"            
+            "io_alert", "io_alert_range_low", "io_alert_range_high"
         };
         vars.add(headers);
 
@@ -308,7 +311,7 @@ public class IoNames implements java.io.Serializable {
         return vars;
 
     }
-    
+
     public List<String[]> formatStringsNoParams(ControlSettings cs) {
 
         long start = System.currentTimeMillis(), end;
@@ -466,9 +469,9 @@ public class IoNames implements java.io.Serializable {
         };
 
         // Add header
-         String[] headers = new String[]{"io_name", "io_type", "io_value_displayed", 
+        String[] headers = new String[]{"io_name", "io_type", "io_value_displayed",
             "io_unit_of_measure", "io_constant", "io_offset", "io_float_digits",
-            "io_alert", "io_alert_range_low", "io_alert_range_high"            
+            "io_alert", "io_alert_range_low", "io_alert_range_high"
         };
         vars.add(headers);
         // Store

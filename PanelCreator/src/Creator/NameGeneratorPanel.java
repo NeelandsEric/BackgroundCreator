@@ -605,74 +605,63 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
         ioNames = new IoNames();
         String path = "/Creator/textFiles/Default IO Variables.txt";
-        
-        String filename = new File("").getAbsolutePath() +  "/src" + path;
-        try {
-            if(new File(filename).exists()){
-                scan = new Scanner(new FileReader(filename));
-            }else {
-                InputStream loc = this.getClass().getResourceAsStream(path);
-                scan = new Scanner(loc);
-            }
 
-            String line, groupName = "";
-            while (scan.hasNextLine()) {
-                line = scan.nextLine();
-                line = formatString(line);
+        InputStream loc = this.getClass().getResourceAsStream(path);
+        scan = new Scanner(loc);
 
-                if (line == null) { // make sure it doesnt break
+        String line, groupName = "";
+        while (scan.hasNextLine()) {
+            line = scan.nextLine();
+            line = formatString(line);
 
-                } else if (line.startsWith("`gn")) {
-                    groupName = line.substring(3).toLowerCase();
-                    //System.out.println("Grouping name: " + groupName);
-                } else {
-                    switch (groupName) {
-                        case "":
-                            //System.out.println("No groupname line = " + line);
-                            break;
-                        case "store":
-                            //System.out.println("Added to Store: " + line);
-                            ioNames.getStoreStr().add(line);
-                            break;
-                        case "rack":
-                            //System.out.println("Added to Rack: " + line);
-                            ioNames.getRackStr().add(line);
-                            break;
-                        case "condenser":
-                            //System.out.println("Added to Condenser: " + line);
-                            ioNames.getCondStr().add(line);
-                            break;
-                        case "suction group":
-                            //System.out.println("Added to SuctionGroup: " + line);
-                            ioNames.getSgStr().add(line);
-                            break;
-                        case "compressor":
-                            //System.out.println("Added to Compressor: " + line);
-                            ioNames.getCompStr().add(line);
-                            break;
-                        case "system":
-                            //System.out.println("Added to System: " + line);
-                            ioNames.getSysStr().add(line);
-                            break;
-                        default:
-                            //System.out.println("Unknown groupname, added to extra" + line);
-                            ioNames.getExtraStr().add(line);
-                            break;
-                    }
+            if (line == null) { // make sure it doesnt break
+
+            } else if (line.startsWith("`gn")) {
+                groupName = line.substring(3).toLowerCase();
+                //System.out.println("Grouping name: " + groupName);
+            } else {
+                switch (groupName) {
+                    case "":
+                        //System.out.println("No groupname line = " + line);
+                        break;
+                    case "store":
+                        //System.out.println("Added to Store: " + line);
+                        ioNames.getStoreStr().add(line);
+                        break;
+                    case "rack":
+                        //System.out.println("Added to Rack: " + line);
+                        ioNames.getRackStr().add(line);
+                        break;
+                    case "condenser":
+                        //System.out.println("Added to Condenser: " + line);
+                        ioNames.getCondStr().add(line);
+                        break;
+                    case "suction group":
+                        //System.out.println("Added to SuctionGroup: " + line);
+                        ioNames.getSgStr().add(line);
+                        break;
+                    case "compressor":
+                        //System.out.println("Added to Compressor: " + line);
+                        ioNames.getCompStr().add(line);
+                        break;
+                    case "system":
+                        //System.out.println("Added to System: " + line);
+                        ioNames.getSysStr().add(line);
+                        break;
+                    default:
+                        //System.out.println("Unknown groupname, added to extra" + line);
+                        ioNames.getExtraStr().add(line);
+                        break;
                 }
             }
-
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found " + filename);
-        } finally {
-
-            if (scan != null) {
-                scan.close();
-            }
-            // update the fields
-            update();
-            mf.updateVarNames(ioNames);
         }
+
+        if (scan != null) {
+            scan.close();
+        }
+        // update the fields
+        update();
+        mf.updateVarNames(ioNames);
 
     }
 

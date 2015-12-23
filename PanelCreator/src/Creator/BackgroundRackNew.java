@@ -7,6 +7,14 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Scanner;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -869,25 +877,34 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.ipady = 35;
 
         ImageIcon icon;
+        BufferedImage buff = null;
+        try {
 
-        if (numComp >= 10 && numComp <= 12) {
-            icon = new ImageIcon("pics\\compSmaller3.png");
-        } else if (numComp > 12) {
-            icon = new ImageIcon("pics\\compSmaller4.png");
-        } else {
-            icon = new ImageIcon("pics\\compSmaller2.png");
-        }
+            if (numComp >= 10 && numComp <= 12) {
+                buff = ImageIO.read(this.getClass().getResourceAsStream("/Creator/pics/compSmaller3.png"));
+                icon = new ImageIcon(buff);
 
-        for (int i = 0; i < numSg; i++) {
-            for (int j = 0; j < comp[i]; j++) {
-                label = new JLabel(icon, JLabel.CENTER);
-                label.setVerticalAlignment(JLabel.BOTTOM);
-                label.setOpaque(true);
-                //label.setBorder(border);
-                label.setBackground(Color.black);
-                panel.add(label, c);
-                c.gridx += 1;
+            } else if (numComp > 12) {
+                buff = ImageIO.read(this.getClass().getResourceAsStream("/Creator/pics/compSmaller4.png"));
+                icon = new ImageIcon(buff);
+            } else {
+                buff = ImageIO.read(this.getClass().getResourceAsStream("/Creator/pics/compSmaller2.png"));
+                icon = new ImageIcon(buff);
             }
+
+            for (int i = 0; i < numSg; i++) {
+                for (int j = 0; j < comp[i]; j++) {
+                    label = new JLabel(icon, JLabel.CENTER);
+                    label.setVerticalAlignment(JLabel.BOTTOM);
+                    label.setOpaque(true);
+                    //label.setBorder(border);
+                    label.setBackground(Color.black);
+                    panel.add(label, c);
+                    c.gridx += 1;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Didnt read the compressor images");
         }
 
         panel.setBackground(Color.black);

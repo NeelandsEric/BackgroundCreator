@@ -193,7 +193,7 @@ public class MainFrame extends JFrame {
         _FileChooser_SaveStore.setApproveButtonToolTipText("Save Store");
         _FileChooser_SaveStore.setCurrentDirectory(null);
         _FileChooser_SaveStore.setDialogTitle("Directory to save store");
-        _FileChooser_SaveStore.setFileFilter(new FileNameExtensionFilter("Store file .sto", new String[]{"sto"}));
+        _FileChooser_SaveStore.setFileFilter(new FileNameExtensionFilter("XML File .xml", new String[]{"xml"}));
 
         _FileChooser_LoadStore.setApproveButtonText("Open Store");
         _FileChooser_LoadStore.setApproveButtonToolTipText("Loads the store file");
@@ -441,23 +441,33 @@ public class MainFrame extends JFrame {
         int returnVal = _FileChooser_SaveStore.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             String fn = _FileChooser_SaveStore.getSelectedFile().toString();
-            if (!fn.endsWith(".sto")) {
-                fn += ".sto";
+            if (!fn.endsWith(".xml")) {
+                fn += ".xml";
             }
             // What to do with the file, e.g. display it in a TextArea
 
-            try {
-
-                FileOutputStream fos = new FileOutputStream(fn);
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
-                oos.writeObject(this.store);
-                oos.close();
-                fos.close();
-                controlPanel.writeToLog("Store " + this.store.getStoreName() + " saved");
-
-            } catch (IOException e) {
-                controlPanel.writeToLog("Error when saving the store " + e.getMessage());
+            if (xmlParser != null) {
+                if (xmlParser.writeOut(this.store, fn)) {
+                    controlPanel.writeToLog("Store " + this.store.getStoreName() + " saved");
+                } else {
+                    controlPanel.writeToLog("Store " + this.store.getStoreName() + " had a problem saving");
+                }
+            } else {
+                System.out.println("Problem with the XMLParser");
             }
+            /*
+             try {
+
+             FileOutputStream fos = new FileOutputStream(fn);
+             ObjectOutputStream oos = new ObjectOutputStream(fos);
+             oos.writeObject(this.store);
+             oos.close();
+             fos.close();
+             controlPanel.writeToLog("Store " + this.store.getStoreName() + " saved");
+
+             } catch (IOException e) {
+             controlPanel.writeToLog("Error when saving the store " + e.getMessage());
+             }*/
 
         } else {
             System.out.println("File access cancelled by user.");
@@ -491,25 +501,25 @@ public class MainFrame extends JFrame {
                 controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
             }
             /*
-            try {
-                FileInputStream fis = new FileInputStream(filePath);
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                this.store = (Store) ois.readObject();
-                ois.close();
-                fis.close();
+             try {
+             FileInputStream fis = new FileInputStream(filePath);
+             ObjectInputStream ois = new ObjectInputStream(fis);
+             this.store = (Store) ois.readObject();
+             ois.close();
+             fis.close();
 
-                displayFrame.updateSettings(this.store.getDs());
-                settingsPanel.loadSettings(this.store.getDs());
-                controlPanel.loadControlSettings(this.store.getCs());
-                ngPanel.loadStore(this.store.getIoNames());
-                mbPanel.loadStore(this.store.getMb());
-                wgPanel.loadControlSettings(this.store.getCs());
+             displayFrame.updateSettings(this.store.getDs());
+             settingsPanel.loadSettings(this.store.getDs());
+             controlPanel.loadControlSettings(this.store.getCs());
+             ngPanel.loadStore(this.store.getIoNames());
+             mbPanel.loadStore(this.store.getMb());
+             wgPanel.loadControlSettings(this.store.getCs());
 
-                controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
-            } catch (Exception e) {
-                controlPanel.writeToLog("Error with opening store: " + e.getMessage());
-            }
-            /*
+             controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
+             } catch (Exception e) {
+             controlPanel.writeToLog("Error with opening store: " + e.getMessage());
+             }
+             /*
              System.out.println("Store Load Debug\nRack count: " + controlPanel.store.getNumRacks());
              for (Rack r : controlPanel.store.getRacks()) {
              System.out.println(r);
