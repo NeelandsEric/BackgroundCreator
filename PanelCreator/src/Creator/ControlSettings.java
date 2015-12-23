@@ -3,11 +3,14 @@ package Creator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 /**
  *
  * @author EricGummerson
  */
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ControlSettings implements java.io.Serializable {
 
     private static final long serialVersionUID = 2234L;

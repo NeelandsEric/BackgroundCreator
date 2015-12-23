@@ -8,12 +8,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.border.Border;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Store will contain all information for the store
  *
  * @author EricGummerson
  */
+
+@XmlRootElement(name = "Store")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Store implements java.io.Serializable {
 
     private static final long serialVersionUID = 222L;

@@ -1,12 +1,16 @@
 package Creator;
 
 import java.util.ArrayList;
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 /**
  * Suction group contains suction group info
  *
  * @author EricGummerson
  */
+
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class SuctionGroup implements java.io.Serializable {
 
     private static final long serialVersionUID = 122L;
@@ -16,6 +20,17 @@ public class SuctionGroup implements java.io.Serializable {
     public ArrayList<String> systemNames;
     public ArrayList<String> compressorNames;
 
+    
+    
+    public SuctionGroup(){
+        this.name = "";
+        this.numCompressors = 1;
+        this.numSystems = 1;
+        this.systemNames = new ArrayList<>();
+        this.systemNames.add("System 1");
+        this.compressorNames = new ArrayList<>();
+        this.compressorNames.add("Comp 1");
+    }
     /**
      * SuctionGroup constructor needs a name
      *

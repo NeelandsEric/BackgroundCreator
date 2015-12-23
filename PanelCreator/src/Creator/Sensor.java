@@ -1,9 +1,12 @@
 package Creator;
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 /**
  *
  * @author EricGummerson
  */
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Sensor implements java.io.Serializable {
     
     private static final long serialVersionUID = 561L;

@@ -3,31 +3,39 @@ package Creator;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.border.Border;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * 
+ *
  * @author EricGummerson
  */
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DisplaySettings implements java.io.Serializable {
 
-    
     private static final long serialVersionUID = 422L;
+
+    @XmlTransient
+    public Font font;
+    @XmlTransient
+    
+    public Border border;
     public int displayWidth;
     public int displayHeight;
-    public Font font;
-    public Border border;
+
     public int borderSize;
     public int fontTypeSel, fontSizeSel, borderTypeSel, borderSizeSel;
     public boolean bold, italic;
     public String colorStr;
-    
-    
-    public DisplaySettings(){    
-        
+
+    public DisplaySettings() {
+
         this.displayWidth = 1200;
-        this.displayHeight = 900;        
+        this.displayHeight = 900;
         this.colorStr = String.valueOf(Color.white.getRGB());
-        this.bold = this.italic = false;  
+        this.bold = this.italic = false;
         this.font = new Font("Arial", Font.PLAIN, 14);
         this.fontTypeSel = 11;
         this.fontSizeSel = 6;
@@ -35,8 +43,6 @@ public class DisplaySettings implements java.io.Serializable {
         this.borderSizeSel = 1;
         this.borderSize = 1;
     }
-        
-
 
     public DisplaySettings(int displayWidth, int displayHeight, Font font,
             Border border, int borderSize, int fontTypeSel, int fontSizeSel,
@@ -51,22 +57,20 @@ public class DisplaySettings implements java.io.Serializable {
         this.borderTypeSel = borderTypeSel;
         this.borderSizeSel = borderSizeSel;
         this.bold = bold;
-        this.italic = italic;        
+        this.italic = italic;
         this.colorStr = String.valueOf(color.getRGB());
     }
 
     @Override
     public String toString() {
-        return "DisplaySettings{" + "displayWidth=" + displayWidth + 
-                ", displayHeight=" + displayHeight + "\nfont=" + font + 
-                "\nborder=" + border + ", borderSize=" + borderSize + 
-                "\nfontTypeSel=" + fontTypeSel + ", fontSizeSel=" + fontSizeSel 
-                + "\nborderTypeSel=" + borderTypeSel + ", borderSizeSel=" + 
-                borderSizeSel + ", bold=" + bold + ", italic=" + italic + 
-                "\ncolorStr=" + colorStr + '}';
+        return "DisplaySettings{" + "displayWidth=" + displayWidth
+                + ", displayHeight=" + displayHeight + "\nfont=" + font
+                + "\nborder=" + border + ", borderSize=" + borderSize
+                + "\nfontTypeSel=" + fontTypeSel + ", fontSizeSel=" + fontSizeSel
+                + "\nborderTypeSel=" + borderTypeSel + ", borderSizeSel="
+                + borderSizeSel + ", bold=" + bold + ", italic=" + italic
+                + "\ncolorStr=" + colorStr + '}';
     }
-    
-    
 
     public int getDisplayWidth() {
         return displayWidth;
@@ -156,11 +160,11 @@ public class DisplaySettings implements java.io.Serializable {
         this.italic = italic;
     }
 
-    public Color getColor() {        
-        return new Color(Integer.parseInt(colorStr));        
+    public Color getColor() {
+        return new Color(Integer.parseInt(colorStr));
     }
 
-    public void setColor(Color color) {        
+    public void setColor(Color color) {
         this.colorStr = String.valueOf(color.getRGB());
     }
 

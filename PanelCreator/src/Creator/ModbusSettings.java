@@ -6,11 +6,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.DefaultListModel;
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 /**
  *
  * @author EricGummerson
  */
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ModbusSettings implements java.io.Serializable {
 
     private static final long serialVersionUID = 532L;

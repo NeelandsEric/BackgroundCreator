@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
  *
  * @author EricGummerson
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Widget {
     
     String widgetName;

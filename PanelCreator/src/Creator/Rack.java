@@ -1,12 +1,15 @@
 package Creator;
 
 import java.util.ArrayList;
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 /**
  * Rack class holds information about the rack update
  *
  * @author EricGummerson
  */
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Rack implements java.io.Serializable {
 
     private static final long serialVersionUID = 022L;

@@ -41,7 +41,8 @@ public class MainFrame extends JFrame {
     public ModbusPanel mbPanel;
     public WidgetPanel wgPanel;
     public Store store;
-    
+    public XMLParser xmlParser;
+
     /**
      * Creates new form MainFrame
      *
@@ -52,18 +53,18 @@ public class MainFrame extends JFrame {
         store = new Store();
         initComponents();
         initPanels();
-        
+
     }
 
     private void initPanels() {
 
-        controlPanel = new ControlsPanel(this, store.getCs());        
+        controlPanel = new ControlsPanel(this, store.getCs());
         settingsPanel = new SettingsPanel(this, store.getDs());
         ngPanel = new NameGeneratorPanel(this, store.getIoNames());
         mbPanel = new ModbusPanel(this, store.getMb());
         wgPanel = new WidgetPanel(this, store.getCs());
         displayFrame = new DisplayFrame(this, store.getCs(), store.getDs());
-        
+
         // Load the main panel        
         //controlPanel.setVisible(true);
         displayFrame.setVisible(true);
@@ -71,13 +72,14 @@ public class MainFrame extends JFrame {
         controlPanel.updateDisplay();
         ngPanel.loadGroups();
         wgPanel.loadWidgets();
-        
+
         // add it to the frame           
         _TabbedPane_Tabs.add("Controls", controlPanel);
         _TabbedPane_Tabs.add("Settings", settingsPanel);
         _TabbedPane_Tabs.add("Name Generator", ngPanel);
         _TabbedPane_Tabs.add("Modbus Generator", mbPanel);
         _TabbedPane_Tabs.add("Widget Creator", wgPanel);
+        xmlParser = new XMLParser();
     }
 
     public Store getStore() {
@@ -87,10 +89,8 @@ public class MainFrame extends JFrame {
     public void setStore(Store store) {
         this.store = store;
     }
-    
-    
-    
-    public void updateModbusSettings(ModbusSettings mb){
+
+    public void updateModbusSettings(ModbusSettings mb) {
         this.store.setMb(mb);
     }
 
@@ -101,7 +101,7 @@ public class MainFrame extends JFrame {
     }
 
     public void updateDisplaySize(int width, int height) {
-        displayFrame.setNewSize(width, height);        
+        displayFrame.setNewSize(width, height);
     }
 
     public void updateSettings(DisplaySettings ds) {
@@ -130,16 +130,14 @@ public class MainFrame extends JFrame {
     public void updateVarNames(IoNames ioNames) {
         store.setIoNames(ioNames);
     }
-    
-    public void canClick(int panelIndex, boolean b){
+
+    public void canClick(int panelIndex, boolean b) {
         displayFrame.canClick(panelIndex, b);
     }
-    
-    public void returnClick(Point point){
+
+    public void returnClick(Point point) {
         wgPanel.returnClick(point);
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -394,7 +392,7 @@ public class MainFrame extends JFrame {
         int returnVal = _FileChooser_LoadLogo.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = _FileChooser_LoadLogo.getSelectedFile();
-            store.getCs().setImgStr(file.getAbsolutePath());            
+            store.getCs().setImgStr(file.getAbsolutePath());
             controlPanel.updateStoreLogo(store.getCs().getImgStr());
 
         } else {
@@ -449,13 +447,13 @@ public class MainFrame extends JFrame {
             // What to do with the file, e.g. display it in a TextArea
 
             try {
-                                
+
                 FileOutputStream fos = new FileOutputStream(fn);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(this.store);
                 oos.close();
                 fos.close();
-                controlPanel.writeToLog("Store " + this.store.getStoreName() + " saved");                
+                controlPanel.writeToLog("Store " + this.store.getStoreName() + " saved");
 
             } catch (IOException e) {
                 controlPanel.writeToLog("Error when saving the store " + e.getMessage());
@@ -479,6 +477,20 @@ public class MainFrame extends JFrame {
             //System.out.println("File: " + file.getAbsolutePath());
             String filePath = file.getAbsolutePath();
 
+            this.store = xmlParser.readFile(filePath);
+
+            if (store == null) {
+                controlPanel.writeToLog("Error opening " + filePath);
+            } else {
+                displayFrame.updateSettings(this.store.getDs());
+                settingsPanel.loadSettings(this.store.getDs());
+                controlPanel.loadControlSettings(this.store.getCs());
+                ngPanel.loadStore(this.store.getIoNames());
+                mbPanel.loadStore(this.store.getMb());
+                wgPanel.loadControlSettings(this.store.getCs());
+                controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
+            }
+            /*
             try {
                 FileInputStream fis = new FileInputStream(filePath);
                 ObjectInputStream ois = new ObjectInputStream(fis);
@@ -517,7 +529,7 @@ public class MainFrame extends JFrame {
             String filePath = _FileChooser_SaveIntoFolder.getSelectedFile().toString() + "\\";
             //System.out.println("FP: " + filePath);
             String[] fileNames = controlPanel.getFileNames(filePath, displayFrame.bg.getSize());
-            int numDisplays = displayFrame.getTabCount();           
+            int numDisplays = displayFrame.getTabCount();
             BufferedImage bi;
 
             for (int i = 0; i < numDisplays; i++) {
@@ -525,7 +537,7 @@ public class MainFrame extends JFrame {
                 try {
                     if (i == 0) {
                         bi = ScreenImage.createImage(displayFrame.bg);
-                    }else if (i == (numDisplays - 2)) {
+                    } else if (i == (numDisplays - 2)) {
                         bi = ScreenImage.createImage(displayFrame.bgl);
                     } else if (i == (numDisplays - 1)) {
                         bi = ScreenImage.createImage(displayFrame.bgf);
@@ -537,7 +549,7 @@ public class MainFrame extends JFrame {
                     //ScreenImage.createImage();
 
                 } catch (IOException e) {
-                   controlPanel.writeToLog("Error writing csv file" + e.getMessage());
+                    controlPanel.writeToLog("Error writing csv file" + e.getMessage());
                 }
             }
         } else {
@@ -579,11 +591,11 @@ public class MainFrame extends JFrame {
             String filePath = file.getAbsolutePath();
             String filePath2 = filePath;
             if (!filePath.endsWith(".csv")) {
-                filePath += ".csv";                
+                filePath += ".csv";
             }
             if (!filePath2.endsWith(".csv")) {
-                filePath2 += "-NOPARAMS.csv";                
-            }else {
+                filePath2 += "-NOPARAMS.csv";
+            } else {
                 filePath2 = filePath2.replace(".csv", "-NOPARAMS.csv");
             }
             this.store.writeCSV(filePath);
@@ -647,10 +659,10 @@ public class MainFrame extends JFrame {
                         Cell cell = row.createCell(i);
 
                         // If the string is a number, write it as a number
-                        if (r[i].equals("")){
+                        if (r[i].equals("")) {
                             // Empty field, do nothing
-                            
-                        }else if (isStringNumeric(r[i])) {
+
+                        } else if (isStringNumeric(r[i])) {
                             cell.setCellValue(Double.parseDouble(r[i].replace("\"", "")));
                         } else {
                             cell.setCellValue(r[i]);
