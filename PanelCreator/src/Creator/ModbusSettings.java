@@ -121,6 +121,10 @@ public class ModbusSettings implements java.io.Serializable {
     public boolean checkKey(String key) {
         return items.get(key).isUsed();
     }
+    
+    public Sensor getSensorForKey(String key){
+        return items.get(key);
+    }
 
     public int numUnusedKeys() {
         int n = 0;

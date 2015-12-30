@@ -117,9 +117,9 @@ public class ModbusPanel extends javax.swing.JPanel {
             while (scan.hasNextLine()) {
                 line = scan.nextLine();
                 line = formatString(line);
-                
+
                 if (line == null) { // make sure it doesnt break
-                    
+
                 } else if (line.startsWith("`gn")) {
                     groupName = line.substring(3).toLowerCase();
                     //System.out.println("Grouping name: " + groupName);
@@ -589,17 +589,16 @@ public class ModbusPanel extends javax.swing.JPanel {
         for (int i = 0; i < names.length; i++) {
             names[i] = "Meter " + (i + 1);
         }
-        
-        
+
         _ComboBox_PowerMeter.setModel(new javax.swing.DefaultComboBoxModel(names));
-        updatePowerIP();        
-       
+        updatePowerIP();
+
         names = new String[mb.getNumSingleLoads()];
         for (int i = 0; i < mb.getNumSingleLoads(); i++) {
             names[i] = "Meter " + (mb.getNumPowerScouts() + (i + 1));
         }
         _ComboBox_SingleMeter.setModel(new javax.swing.DefaultComboBoxModel(names));
-        updateSingleIP(); 
+        updateSingleIP();
 
     }//GEN-LAST:event__FTF_NumPowerScoutsPropertyChange
 
@@ -621,7 +620,7 @@ public class ModbusPanel extends javax.swing.JPanel {
             names[i] = "Meter " + (mb.getNumPowerScouts() + (i + 1));
         }
         _ComboBox_SingleMeter.setModel(new javax.swing.DefaultComboBoxModel(names));
-        updateSingleIP(); 
+        updateSingleIP();
 
     }//GEN-LAST:event__FTF_NumSingleLoadsPropertyChange
 
@@ -742,9 +741,8 @@ public class ModbusPanel extends javax.swing.JPanel {
 
         // Add header
         // Add header
-        String[] headers = new String[]{"cycle_name", "slave_addr", "function_id",
-            "reg_addr", "cycle_data_type_id", "io_id", "cycle_response_time",
-            "cycle_type"
+        String[] headers = new String[]{"cycle_name", "io_id", "slave_addr", "function_id",
+            "reg_addr", "cycle_data_type_id", "cycle_response_time"
         };
         vars.add(headers);
 
@@ -753,16 +751,18 @@ public class ModbusPanel extends javax.swing.JPanel {
         int numsg, numcomp;
 
         Rack r;
-        String rName, sgName, fannum = "1";
+        Sensor sensor;
+        String rName, sgName;
         SuctionGroup sucG;
         String compName;
+        String key;
 
         for (int i = 0; i < cs.getNumRacks(); i++) {
             // do all racks
             r = cs.getRacks().get(i);
             rName = r.getName();
             sgName = r.getSuctionGroupNameIndex(0);
-            fannum = "1";
+
             sucG = r.getSuctionGroupIndex(0);
             compName = sucG.getCompressorNameIndex(0);
 
@@ -776,6 +776,17 @@ public class ModbusPanel extends javax.swing.JPanel {
                         .replace("`%compname`", compName);
 
                 //System.out.println("RACK - New string: " + newString[0] + "\tFrom old string: " + s);
+                key = rName;
+                if (newString[0].contains("Cond")) {
+                    // Cond string
+                    key += " " + "Condenser";
+                }
+
+                sensor = mb.getSensorForKey(key);
+                if (sensor != null) {
+                    newString[2] = newString[2].replace("`%slave_address`", String.valueOf(sensor.getSlave()));
+                }
+
                 vars.add(newString);
             }
 
@@ -792,13 +803,21 @@ public class ModbusPanel extends javax.swing.JPanel {
                     compName = sucG.getCompressorNameIndex(nc);
                     // do all compressors
                     for (String s : compStr) {
-                        newString =  s.split(",");
+                        newString = s.split(",");
                         newString[0] = newString[0]
                                 .replace("`%rackname`", rName)
                                 .replace("`%sgname`", sgName)
                                 .replace("`%compname`", compName);
 
-                        System.out.println("COMP - New string: " + Arrays.toString(newString) + "\tFrom old string: " + s);
+                        //System.out.println("COMP - New string: " + Arrays.toString(newString) + "\tFrom old string: " + s);
+                        //System.out.println(": " + Arrays.toString(newString) + "\tFrom old string: " + s);
+                        key = rName + " " + sgName + " " + compName;
+
+                        sensor = mb.getSensorForKey(key);
+                        if (sensor != null) {
+                            newString[2] = newString[2].replace("`%slave_address`", String.valueOf(sensor.getSlave()));
+                            newString[4] = findRegisterValue(newString[4], sensor.getRegister());
+                        }
                         vars.add(newString);
                     }
                 }
@@ -806,17 +825,24 @@ public class ModbusPanel extends javax.swing.JPanel {
             }
         }
 
-        
         // Now that we have the list, we have to replace the 
-        
-        
-        
-        
-        
-        
-        
         return vars;
 
+    }
+
+    private String findRegisterValue(String regString, int register) {
+
+        String[] items = regString.split(" ");
+
+        System.out.println("Reg: " + Arrays.toString(items));
+        int newVal;
+        if(items.length > 3){
+            newVal = Integer.parseInt(items[0]) + (register * Integer.parseInt(items[4]));
+        }else {
+            newVal = Integer.parseInt(items[0]) + register;
+        }
+
+        return String.valueOf(newVal);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
