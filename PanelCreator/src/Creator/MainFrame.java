@@ -66,7 +66,7 @@ public class MainFrame extends JFrame {
         mbPanel = new ModbusPanel(this, store.getMb());
         wgPanel = new WidgetPanel(this, store.getCs());
         displayFrame = new DisplayFrame(this, store.getCs(), store.getDs());
-
+        displayFrame.setStopUpdate(true);
         // Load the main panel        
         //controlPanel.setVisible(true);
         displayFrame.setVisible(true);
@@ -81,11 +81,13 @@ public class MainFrame extends JFrame {
         _TabbedPane_Tabs.add("Name Generator", ngPanel);
         _TabbedPane_Tabs.add("Modbus Generator", mbPanel);
         _TabbedPane_Tabs.add("Widget Creator", wgPanel);
+        displayFrame.setStopUpdate(false);
 
     }
 
     private void loadDefaultStore() {
-
+        
+        displayFrame.setStopUpdate(true);
         if (!(new File(homeDirectory).mkdirs())) {
             // Directory exists, check if the Store exists
             String filePath = homeDirectory + "/DefaultStore.xml";
@@ -105,6 +107,7 @@ public class MainFrame extends JFrame {
                 }
             }
         }
+        displayFrame.setStopUpdate(false);
 
     }
 
@@ -136,6 +139,7 @@ public class MainFrame extends JFrame {
     }
 
     public void displayPanel(int width, int height) {
+        
         displayFrame.setNewSize(width, height);
         if (!displayFrame.isVisible()) {
             controlPanel.updateDisplay();
@@ -146,10 +150,12 @@ public class MainFrame extends JFrame {
     }
 
     public void updateDisplay(ControlSettings cs) {
+        displayFrame.setStopUpdate(true);
         this.store.setCs(cs);
         store.getMb().updateModbusSettings(cs);
         mbPanel.loadModels();
         wgPanel.setCs(cs);
+        displayFrame.setStopUpdate(false);
         displayFrame.updateDisplays(this.store.getCs(), this.store.getDs());
     }
 
@@ -778,7 +784,7 @@ public class MainFrame extends JFrame {
                 Workbook wb = new XSSFWorkbook();
                 FileOutputStream fileOut = new FileOutputStream(filePath);
 
-                List<String[]> list = mbPanel.writeOutModbusSettings();
+                List<String[]> list = mbPanel.writeOutModbusSettings(controlPanel.getCs());
                 int rowNum = 0;
                 Sheet sheet = wb.createSheet("Modbus Names");
 

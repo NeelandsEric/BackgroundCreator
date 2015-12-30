@@ -3,6 +3,7 @@ package Creator;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.Arrays;
 import java.util.ArrayList;
 import javax.swing.SwingUtilities;
 
@@ -21,6 +22,7 @@ public class DisplayFrame extends javax.swing.JFrame {
     public BackgroundFinancial bgf;
     public ControlSettings cs;
     public DisplaySettings ds;
+    private boolean stopUpdate;
 
     /**
      * Creates new form DisplayFrame
@@ -31,6 +33,7 @@ public class DisplayFrame extends javax.swing.JFrame {
      */
     public DisplayFrame(MainFrame mf, ControlSettings css, DisplaySettings dss) {
         initComponents();
+        this.stopUpdate = true;
         this.mf = mf;
         this.cs = css;
         this.ds = dss;
@@ -48,7 +51,18 @@ public class DisplayFrame extends javax.swing.JFrame {
         _TabbedPane_Tabs.add("Loads", bgl);
         _TabbedPane_Tabs.add("Financial", bgf);
 
+        this.stopUpdate = false;
     }
+
+    public boolean isStopUpdate() {
+        return stopUpdate;
+    }
+
+    public void setStopUpdate(boolean stopUpdate) {
+        this.stopUpdate = stopUpdate;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -112,9 +126,9 @@ public class DisplayFrame extends javax.swing.JFrame {
             bg.setCanClick(b);
         } else if (panelIndex == (nt - 2)) {
             bgl.setCanClick(b);
-        } else if(panelIndex == (nt - 1)){
+        } else if (panelIndex == (nt - 1)) {
             bgf.setCanClick(b);
-        }else {
+        } else {
             panelIndex--;
             rackTabs.get(panelIndex).setCanClick(b);
         }
@@ -140,65 +154,68 @@ public class DisplayFrame extends javax.swing.JFrame {
         this.cs = css;
         this.ds = dss;
 
-        DisplayFrame t = this;
-        SwingUtilities.invokeLater(new Runnable() {
+        if (!stopUpdate) {
+            DisplayFrame t = this;
+            SwingUtilities.invokeLater(new Runnable() {
 
-            @Override
-            public void run() {
-                int selected = _TabbedPane_Tabs.getSelectedIndex();
-                int nt = _TabbedPane_Tabs.getTabCount();
-                // update the main
-                bg.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(),
-                        cs.getImgStr(), cs.getStoreName());
+                @Override
+                public void run() {
+                    int selected = _TabbedPane_Tabs.getSelectedIndex();
+                    int nt = _TabbedPane_Tabs.getTabCount();
+                    // update the main
+                    bg.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(),
+                            cs.getImgStr(), cs.getStoreName());
 
-                for (int i = nt - 3; i > cs.getNumRacks(); i--) {
-                    _TabbedPane_Tabs.remove(i);
-                }
-
-                String[] rackNames = cs.getRackNames();
-                for (int i = 0; i < cs.getNumRacks(); i++) {
-                    if (rackTabs.size() > i) {
-                        if (rackTabs.get(i) != null) {
-                            rackTabs.get(i).updateRacks(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), rackNames);
+                    for (int i = nt - 3; i > cs.getNumRacks(); i--) {
+                        _TabbedPane_Tabs.remove(i);
+                    }
+             
+   
+                    for (int i = 0; i < cs.getNumRacks(); i++) {
+                        if (rackTabs.size() > i) {
+                            if (rackTabs.get(i) != null) {
+                                rackTabs.get(i).updateRacks(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), cs.getRackNames());
+                                _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
+                                _TabbedPane_Tabs.setTitleAt(i + 1, cs.getRackNames()[i]);
+                            }
+                        } else {
+                            rackTabs.add(new BackgroundRackNew(t, i));
+                            rackTabs.get(i).updateRacks(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), cs.getRackNames());
                             _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
-                            _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);
+                            _TabbedPane_Tabs.setTitleAt(i + 1, cs.getRackNames()[i]);
                         }
-                    } else {
-                        rackTabs.add(new BackgroundRackNew(t, i));
-                        rackTabs.get(i).updateRacks(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), rackNames);
-                        _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
-                        _TabbedPane_Tabs.setTitleAt(i + 1, rackNames[i]);
                     }
+
+                    bgl.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
+                    bgf.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
+                    if (selected == (nt - 1)) {
+                        if (_TabbedPane_Tabs.getTabCount() < nt) {
+                            selected--; // loads tab selected
+                        } else {
+                            selected = _TabbedPane_Tabs.getTabCount() - 1;
+                        }
+                    } else if (selected < (_TabbedPane_Tabs.getTabCount() - 1)) {
+                        // good                    
+                    } else if (selected >= (_TabbedPane_Tabs.getTabCount() - 1)) {
+                        selected--;
+                    }
+                    _TabbedPane_Tabs.setSelectedIndex(selected);
+                    t.pack();
+                    int w = bg.getWidth();
+                    int h = bg.getHeight();
+                    t.setTitle("Customized Backgrounds " + w + "x" + h);
+
                 }
 
-                bgl.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
-                bgf.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
-                if (selected == (nt - 1)) {
-                    if (_TabbedPane_Tabs.getTabCount() < nt) {
-                        selected--; // loads tab selected
-                    } else {
-                        selected = _TabbedPane_Tabs.getTabCount() - 1;
-                    }
-                } else if (selected < (_TabbedPane_Tabs.getTabCount() - 1)) {
-                    // good                    
-                } else if (selected >= (_TabbedPane_Tabs.getTabCount() - 1)) {
-                    selected--;
-                }
-                _TabbedPane_Tabs.setSelectedIndex(selected);
-                t.pack();
-                int w = bg.getWidth();
-                int h = bg.getHeight();
-                t.setTitle("Customized Backgrounds " + w + "x" + h);
-
-            }
-
-        });
+            });
+        }
 
     }
 
     public void updateSettings(DisplaySettings dss) {
         this.ds = dss;
-
+        
+        this.stopUpdate = true;
         setNewSize(ds.getDisplayWidth(), ds.getDisplayHeight());
         bg.updateFont(ds.getFont());
         bg.updateBorder(ds.getBorder());
@@ -212,12 +229,14 @@ public class DisplayFrame extends javax.swing.JFrame {
         bgl.updateBorder(ds.getBorder());
         bgf.updateFont(ds.getFont());
         bgf.updateBorder(ds.getBorder());
+        this.stopUpdate = false;
     }
 
     /**
      * update the logo
      */
     public void updateLogo() {
+        
         bg.updateImageURL("");
         for (int i = 0; i < cs.getNumRacks(); i++) {
             if (rackTabs.get(i) != null) {

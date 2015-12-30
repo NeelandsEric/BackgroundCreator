@@ -1,7 +1,4 @@
-Amp Avg `%rackname`,`%io_id`,`%slave_address`,2,4015,UHINT16,5000
-Comp Amps `%rackname` `%sgname` `%compname`,`%io_id`,`%slave_address`,2,(4055 + `%registeraddress`),UHINT16,5000
-Comp kW `%rackname` `%sgname` `%compname`,`%io_id`,`%slave_address`,2,(4028 + `%registeraddress`),UHINT16,5000
-Comp kWh `%rackname` `%sgname` `%compname`,`%io_id`,`%slave_address`,2,(4022 + `%registeraddress`*2),L[HINT16]32,5000
+`Rack`
 Cond Amp Avg `%rackname`,`%io_id`,`%slave_address`,2,4015,UHINT16,5000
 Cond kVA System `%rackname`,`%io_id`,`%slave_address`,2,4012,UHINT16,5000
 Cond kVAR System `%rackname`,`%io_id`,`%slave_address`,2,4009,UHINT16,5000
@@ -17,6 +14,7 @@ Cond Volts L1 to L3 `%rackname`,`%io_id`,`%slave_address`,2,4020,UHINT16,5000
 Cond Volts L2 to L3 `%rackname`,`%io_id`,`%slave_address`,2,4019,UHINT16,5000
 Cond Volts Line to Line Avg `%rackname`,`%io_id`,`%slave_address`,2,4016,UHINT16,5000
 Cond Volts Line to Neutral Avg `%rackname`,`%io_id`,`%slave_address`,2,4017,UHINT16,5000
+Amp Avg `%rackname`,`%io_id`,`%slave_address`,2,4015,UHINT16,5000
 kVA System `%rackname`,`%io_id`,`%slave_address`,2,4012,UHINT16,5000
 kVAR System `%rackname`,`%io_id`,`%slave_address`,2,4009,UHINT16,5000
 kW Actual `%rackname`,`%io_id`,`%slave_address`,2,4002,UHINT16,5000
@@ -31,3 +29,7 @@ Volts L1 to L3 `%rackname`,`%io_id`,`%slave_address`,2,4020,UHINT16,5000
 Volts L2 to L3 `%rackname`,`%io_id`,`%slave_address`,2,4019,UHINT16,5000
 Volts Line to Line Avg `%rackname`,`%io_id`,`%slave_address`,2,4016,UHINT16,5000
 Volts Line to Neutral Avg `%rackname`,`%io_id`,`%slave_address`,2,4017,UHINT16,5000
+`Compressor`
+Comp Amps `%rackname` `%sgname` `%compname`,`%io_id`,`%slave_address`,2,(4055 + `%registeraddress`),UHINT16,5000
+Comp kW `%rackname` `%sgname` `%compname`,`%io_id`,`%slave_address`,2,(4028 + `%registeraddress`),UHINT16,5000
+Comp kWh `%rackname` `%sgname` `%compname`,`%io_id`,`%slave_address`,2,(4022 + `%registeraddress`*2),L[HINT16]32,5000

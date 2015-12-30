@@ -56,13 +56,13 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
         loading = true;
         // Make a new model
         DefaultListModel df = new DefaultListModel();
-        if(dm == null){
+        if (dm == null) {
             System.out.println("dm null");
         }
         for (Object e : dm.toArray()) {
             df.addElement(e);
         }
-        
+
         switch (register) {
             case 0: // reg 1
                 selectedItem[0] = key;
@@ -96,24 +96,23 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
     }
 
     public void updateModelList(DefaultListModel df, ArrayList<String> removedItems) {
-        
+
         this.dm = df;
         loading = true;
-        
-        if(removedItems.contains(selectedItem[0])){
+
+        if (removedItems.contains(selectedItem[0])) {
             selectedItem[0] = "No Selection";
-            itemSelected[0] = false;            
+            itemSelected[0] = false;
         }
-        if(removedItems.contains(selectedItem[1])){
+        if (removedItems.contains(selectedItem[1])) {
             selectedItem[1] = "No Selection";
-            itemSelected[1] = false;            
+            itemSelected[1] = false;
         }
-        if(removedItems.contains(selectedItem[2])){
+        if (removedItems.contains(selectedItem[2])) {
             selectedItem[2] = "No Selection";
-            itemSelected[2] = false;            
+            itemSelected[2] = false;
         }
-        
-        
+
         if (itemSelected[0]) {
             DefaultListModel df1 = new DefaultListModel();
             for (Object e : df.toArray()) {
@@ -188,15 +187,15 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
 
         loading = false;
     }
-    
-    public String [] clearRegisters(){
+
+    public String[] clearRegisters() {
         itemSelected[0] = itemSelected[1] = itemSelected[2] = false;
-        String [] removedItems = new String [3];
-        for(int i = 0; i < 3; i++){
+        String[] removedItems = new String[3];
+        for (int i = 0; i < 3; i++) {
             removedItems[i] = selectedItem[i];
             selectedItem[i] = "No Selection";
             //System.out.println("Removed items " + i + ": " + removedItems[i]);
-        }        
+        }
         return removedItems;
     }
 
@@ -334,18 +333,20 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
         if (_ComboBox_Slave1.getSelectedIndex() == 0 && this.type != 1) {
 
             this.type = 1;
+            mp.changeTableType(slaveNumber, type, selectedItem[1], selectedItem[2]);
             _ComboBox_Reg2.setEnabled(true);
             _ComboBox_Reg3.setEnabled(true);
 
-        } else if (this.type == 1) {
+        } else if (_ComboBox_Slave1.getSelectedIndex() == 1 && this.type == 1) {
             // change the type and remove the items that have been selected
+            this.type = 2;
             itemSelected[1] = itemSelected[2] = false;
             mp.changeTableType(slaveNumber, type, selectedItem[1], selectedItem[2]);
             selectedItem[1] = selectedItem[2] = "No Selection";
 
             _ComboBox_Reg2.setEnabled(false);
             _ComboBox_Reg3.setEnabled(false);
-            this.type = 2;
+
         }
     }//GEN-LAST:event__ComboBox_Slave1ActionPerformed
 
@@ -412,7 +413,6 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
 
     }//GEN-LAST:event__ComboBox_Reg3ActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox _ComboBox_Reg1;

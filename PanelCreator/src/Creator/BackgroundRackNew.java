@@ -55,6 +55,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         this.img = "";
         this.rackNum = rackNum;
         this.canClick = false;
+        this.rackNames = new String[]{"Main", "Rack {}", "Rack {}", "Loads", "Financial"};
 
     }
 

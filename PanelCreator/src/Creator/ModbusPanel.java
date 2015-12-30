@@ -2,8 +2,11 @@ package Creator;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -16,6 +19,8 @@ public class ModbusPanel extends javax.swing.JPanel {
     public ArrayList<MeterPanel>[] powerScoutPanels;
     public ArrayList<MeterPanel> singleLoadPanels;
     private IPAddressValidator ipValidator;
+    private ArrayList<String> rackStr;
+    private ArrayList<String> compStr;
 
     /**
      * Creates new form ModbusPanel
@@ -27,6 +32,7 @@ public class ModbusPanel extends javax.swing.JPanel {
         initComponents();
         this.mf = mf;
         this.mb = mb;
+        this.readModbusFile();
         ipValidator = new IPAddressValidator();
         mb.updateModbusSettings(mf.getStore().getCs());
     }
@@ -97,6 +103,81 @@ public class ModbusPanel extends javax.swing.JPanel {
         this.updatePanels();
         this.loadModels();
         this.loadSettings();
+
+    }
+
+    private void readModbusFile() {
+
+        String path = "/Creator/textFiles/Default Modbus Variables.txt";
+        InputStream loc = this.getClass().getResourceAsStream(path);
+        try (Scanner scan = new Scanner(loc)) {
+            rackStr = new ArrayList<>();
+            compStr = new ArrayList<>();
+            String line, groupName = "";
+            while (scan.hasNextLine()) {
+                line = scan.nextLine();
+                line = formatString(line);
+                
+                if (line == null) { // make sure it doesnt break
+                    
+                } else if (line.startsWith("`gn")) {
+                    groupName = line.substring(3).toLowerCase();
+                    //System.out.println("Grouping name: " + groupName);
+                } else {
+                    switch (groupName) {
+                        case "":
+                            //System.out.println("No groupname line = " + line);
+                            break;
+                        case "rack":
+                            //System.out.println("Added to Rack: " + line);
+                            rackStr.add(line);
+                            break;
+                        case "compressor":
+                            //System.out.println("Added to Compressor: " + line);
+                            compStr.add(line);
+                            break;
+                    }
+                }
+            }
+        }
+
+    }
+
+    /**
+     * formats a string input based on specific formating `name` indicates a
+     * grouping `
+     *
+     * @param input
+     * @return
+     */
+    public String formatString(String input) {
+        String output;
+        if (input.startsWith("`")) {
+            // Make sure the follow character is not a % indicating a variable name
+            if (input.charAt(1) != '%') {
+                output = "`gn" + input.substring(1, input.length() - 1);
+
+            } else {
+                output = input;
+            }
+        } else if (input.isEmpty()) {
+            //System.out.println("Empty line");
+            output = null;
+
+        } else if (input.startsWith("\t")) {
+            //System.out.println("Tab line");
+            if (input.length() > 2) {
+                input = input.substring(1);
+                output = formatString(input);
+            } else {
+                output = null;
+            }
+
+        } else {
+            output = input;
+        }
+
+        return output;
 
     }
 
@@ -252,8 +333,8 @@ public class ModbusPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         _Panel_PowerScout = new javax.swing.JPanel();
-        _ComboBox_PowerMeter = new javax.swing.JComboBox();
         _Panel_SingleLoads = new javax.swing.JPanel();
+        _ComboBox_PowerMeter = new javax.swing.JComboBox();
         _Label_PowerScout = new javax.swing.JLabel();
         _Label_NumPowerScouts = new javax.swing.JLabel();
         _FTF_NumPowerScouts = new javax.swing.JFormattedTextField();
@@ -282,14 +363,6 @@ public class ModbusPanel extends javax.swing.JPanel {
             .addGap(0, 373, Short.MAX_VALUE)
         );
 
-        _ComboBox_PowerMeter.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _ComboBox_PowerMeter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Meter 1" }));
-        _ComboBox_PowerMeter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _ComboBox_PowerMeterActionPerformed(evt);
-            }
-        });
-
         _Panel_SingleLoads.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         _Panel_SingleLoads.setPreferredSize(new java.awt.Dimension(318, 480));
 
@@ -303,6 +376,14 @@ public class ModbusPanel extends javax.swing.JPanel {
             _Panel_SingleLoadsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 95, Short.MAX_VALUE)
         );
+
+        _ComboBox_PowerMeter.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _ComboBox_PowerMeter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Meter 1" }));
+        _ComboBox_PowerMeter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _ComboBox_PowerMeterActionPerformed(evt);
+            }
+        });
 
         _Label_PowerScout.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         _Label_PowerScout.setText("Meter #1 IP - ");
@@ -508,13 +589,17 @@ public class ModbusPanel extends javax.swing.JPanel {
         for (int i = 0; i < names.length; i++) {
             names[i] = "Meter " + (i + 1);
         }
+        
+        
         _ComboBox_PowerMeter.setModel(new javax.swing.DefaultComboBoxModel(names));
-
+        updatePowerIP();        
+       
         names = new String[mb.getNumSingleLoads()];
         for (int i = 0; i < mb.getNumSingleLoads(); i++) {
             names[i] = "Meter " + (mb.getNumPowerScouts() + (i + 1));
         }
         _ComboBox_SingleMeter.setModel(new javax.swing.DefaultComboBoxModel(names));
+        updateSingleIP(); 
 
     }//GEN-LAST:event__FTF_NumPowerScoutsPropertyChange
 
@@ -536,6 +621,7 @@ public class ModbusPanel extends javax.swing.JPanel {
             names[i] = "Meter " + (mb.getNumPowerScouts() + (i + 1));
         }
         _ComboBox_SingleMeter.setModel(new javax.swing.DefaultComboBoxModel(names));
+        updateSingleIP(); 
 
     }//GEN-LAST:event__FTF_NumSingleLoadsPropertyChange
 
@@ -649,7 +735,7 @@ public class ModbusPanel extends javax.swing.JPanel {
         mf.updateModbusSettings(mb);
     }
 
-    public List<String[]> writeOutModbusSettings() {
+    public List<String[]> writeOutModbusSettings(ControlSettings cs) {
 
         List<String[]> vars = new ArrayList<String[]>() {
         };
@@ -664,6 +750,71 @@ public class ModbusPanel extends javax.swing.JPanel {
 
         String[] newString;
 
+        int numsg, numcomp;
+
+        Rack r;
+        String rName, sgName, fannum = "1";
+        SuctionGroup sucG;
+        String compName;
+
+        for (int i = 0; i < cs.getNumRacks(); i++) {
+            // do all racks
+            r = cs.getRacks().get(i);
+            rName = r.getName();
+            sgName = r.getSuctionGroupNameIndex(0);
+            fannum = "1";
+            sucG = r.getSuctionGroupIndex(0);
+            compName = sucG.getCompressorNameIndex(0);
+
+            // RACKS
+            // do all condenser     
+            for (String s : rackStr) {
+                newString = s.split(",");
+                newString[0] = newString[0]
+                        .replace("`%rackname`", rName)
+                        .replace("`%sgname`", sgName)
+                        .replace("`%compname`", compName);
+
+                //System.out.println("RACK - New string: " + newString[0] + "\tFrom old string: " + s);
+                vars.add(newString);
+            }
+
+            // SUCTION GROUPS
+            numsg = r.getNumSuctionGroups();
+            for (int sg = 0; sg < numsg; sg++) {
+                sucG = r.getSuctionGroupIndex(sg);
+                sgName = sucG.getName();
+
+                // do all suction groups
+                // COMPRESSORS
+                numcomp = sucG.getNumCompressors();
+                for (int nc = 0; nc < numcomp; nc++) {
+                    compName = sucG.getCompressorNameIndex(nc);
+                    // do all compressors
+                    for (String s : compStr) {
+                        newString =  s.split(",");
+                        newString[0] = newString[0]
+                                .replace("`%rackname`", rName)
+                                .replace("`%sgname`", sgName)
+                                .replace("`%compname`", compName);
+
+                        System.out.println("COMP - New string: " + Arrays.toString(newString) + "\tFrom old string: " + s);
+                        vars.add(newString);
+                    }
+                }
+
+            }
+        }
+
+        
+        // Now that we have the list, we have to replace the 
+        
+        
+        
+        
+        
+        
+        
         return vars;
 
     }
