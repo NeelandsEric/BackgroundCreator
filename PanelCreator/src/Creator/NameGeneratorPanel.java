@@ -294,7 +294,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                                 .addComponent(_CheckBox_Alert, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
                                 .addComponent(_FTF_AlertLow, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                                 .addComponent(_FTF_DecimalPlaces)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                         .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(_Button_Check, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(_Button_Defaults, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)

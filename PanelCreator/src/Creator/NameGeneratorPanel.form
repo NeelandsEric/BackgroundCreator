@@ -210,7 +210,7 @@
                                   <Component id="_FTF_DecimalPlaces" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="51" max="32767" attributes="0"/>
+                          <EmptySpace pref="52" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="_Button_Check" linkSize="4" max="32767" attributes="0"/>
                               <Component id="_Button_Defaults" linkSize="4" min="-2" pref="129" max="-2" attributes="0"/>

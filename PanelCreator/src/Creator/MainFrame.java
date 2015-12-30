@@ -10,11 +10,8 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
 import javax.swing.JFileChooser;
@@ -42,6 +39,7 @@ public class MainFrame extends JFrame {
     public WidgetPanel wgPanel;
     public Store store;
     public XMLParser xmlParser;
+    private final String homeDirectory;
 
     /**
      * Creates new form MainFrame
@@ -51,6 +49,7 @@ public class MainFrame extends JFrame {
     public MainFrame(PanelCreator main) {
         this.main = main;
         store = new Store();
+        homeDirectory = System.getProperty("user.home") + "/PanelCreator";
         initComponents();
         initPanels();
 
@@ -80,6 +79,37 @@ public class MainFrame extends JFrame {
         _TabbedPane_Tabs.add("Modbus Generator", mbPanel);
         _TabbedPane_Tabs.add("Widget Creator", wgPanel);
         xmlParser = new XMLParser();
+
+        // Attempt to load the last stored store
+        loadDefaultStore();
+    }
+
+    public void loadDefaultStore() {
+
+        if (new File(homeDirectory).mkdirs()) {
+            controlPanel.writeToLog("Created directory at " + homeDirectory);
+        } else {
+            // Directory exists, check if the Store exists
+            String filePath = homeDirectory + "/DefaultStore.xml";
+            if (new File(filePath).exists()) {
+
+                this.store = xmlParser.readFile(filePath);
+
+                if (store == null) {
+                    controlPanel.writeToLog("Error opening " + filePath);
+                } else {
+                    displayFrame.updateSettings(this.store.getDs());
+                    settingsPanel.loadSettings(this.store.getDs());
+                    controlPanel.loadControlSettings(this.store.getCs());
+                    ngPanel.loadStore(this.store.getIoNames());
+                    mbPanel.loadStore(this.store.getMb());
+                    wgPanel.loadControlSettings(this.store.getCs());
+                    controlPanel.writeToLog("Read the default store.");
+                }
+
+            }
+        }
+
     }
 
     public Store getStore() {
@@ -230,10 +260,15 @@ public class MainFrame extends JFrame {
         _FileChooser_SaveExcel.setDialogTitle("Directory to save a picture");
         _FileChooser_SaveExcel.setFileFilter(new FileNameExtensionFilter("Excel workbook (.xlsx)", new String[]{"xlsx"}));
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Image Creator");
         setMinimumSize(new java.awt.Dimension(1045, 629));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                closeFrame(evt);
+            }
+        });
 
         _Menu_File.setText("File");
 
@@ -402,6 +437,17 @@ public class MainFrame extends JFrame {
 
     private void _MenuItem_CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_CloseActionPerformed
         // TODO add your handling code here:
+
+        if (xmlParser != null) {
+            if (xmlParser.writeOut(this.store, homeDirectory + "/DefaultStore.xml")) {
+                controlPanel.writeToLog("Store " + this.store.getStoreName() + " saved");
+            } else {
+                controlPanel.writeToLog("Store " + this.store.getStoreName() + " had a problem saving");
+            }
+        } else {
+            System.out.println("Problem with the XMLParser");
+        }
+
         main.close();
     }//GEN-LAST:event__MenuItem_CloseActionPerformed
 
@@ -694,6 +740,20 @@ public class MainFrame extends JFrame {
             System.out.println("File access cancelled by user.");
         }
     }//GEN-LAST:event__MenuItem_PrintVarNamesXActionPerformed
+
+    private void closeFrame(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeFrame
+        // TODO add your handling code here:
+        if (xmlParser != null) {
+            if (xmlParser.writeOut(this.store, homeDirectory + "/DefaultStore.xml")) {
+                controlPanel.writeToLog("Store " + this.store.getStoreName() + " saved");
+            } else {
+                controlPanel.writeToLog("Store " + this.store.getStoreName() + " had a problem saving");
+            }
+        } else {
+            System.out.println("Problem with the XMLParser");
+        }
+        main.close();
+    }//GEN-LAST:event_closeFrame
 
     public static boolean isStringNumeric(String str) {
         DecimalFormatSymbols currentLocaleSymbols = DecimalFormatSymbols.getInstance();
