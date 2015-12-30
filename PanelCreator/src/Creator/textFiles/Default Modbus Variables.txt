@@ -25,7 +25,6 @@ kW Max `%rackname`,`%io_id`,`%slave_address`,2,4005,UHINT16,5000
 kW Min `%rackname`,`%io_id`,`%slave_address`,2,4006,UHINT16,5000
 kW Peak Demand `%rackname`,`%io_id`,`%slave_address`,2,4003,UHINT16,5000
 kWh Actual `%rackname`,`%io_id`,`%slave_address`,2,4000,L[HINT16]32,5000
-Performance kW Current `%rackname`,`%io_id`,`%slave_address`,2,4002,UHINT16,5000
 PF `%rackname`,`%io_id`,`%slave_address`,2,4014,UHINT16,5000
 Volts L1 to L2 `%rackname`,`%io_id`,`%slave_address`,2,4018,UHINT16,5000
 Volts L1 to L3 `%rackname`,`%io_id`,`%slave_address`,2,4020,UHINT16,5000

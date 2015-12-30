@@ -3,6 +3,7 @@ package Creator;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -646,6 +647,25 @@ public class ModbusPanel extends javax.swing.JPanel {
 
         loadModels();
         mf.updateModbusSettings(mb);
+    }
+
+    public List<String[]> writeOutModbusSettings() {
+
+        List<String[]> vars = new ArrayList<String[]>() {
+        };
+
+        // Add header
+        // Add header
+        String[] headers = new String[]{"cycle_name", "slave_addr", "function_id",
+            "reg_addr", "cycle_data_type_id", "io_id", "cycle_response_time",
+            "cycle_type"
+        };
+        vars.add(headers);
+
+        String[] newString;
+
+        return vars;
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

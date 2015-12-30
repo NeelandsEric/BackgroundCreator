@@ -48,10 +48,13 @@ public class MainFrame extends JFrame {
      */
     public MainFrame(PanelCreator main) {
         this.main = main;
-        store = new Store();
         homeDirectory = System.getProperty("user.home") + "/PanelCreator";
+        xmlParser = new XMLParser();
+        this.store = new Store();
+        // Attempt to load the last stored store        
         initComponents();
         initPanels();
+        loadDefaultStore();
 
     }
 
@@ -78,21 +81,15 @@ public class MainFrame extends JFrame {
         _TabbedPane_Tabs.add("Name Generator", ngPanel);
         _TabbedPane_Tabs.add("Modbus Generator", mbPanel);
         _TabbedPane_Tabs.add("Widget Creator", wgPanel);
-        xmlParser = new XMLParser();
 
-        // Attempt to load the last stored store
-        loadDefaultStore();
     }
 
-    public void loadDefaultStore() {
+    private void loadDefaultStore() {
 
-        if (new File(homeDirectory).mkdirs()) {
-            controlPanel.writeToLog("Created directory at " + homeDirectory);
-        } else {
+        if (!(new File(homeDirectory).mkdirs())) {
             // Directory exists, check if the Store exists
             String filePath = homeDirectory + "/DefaultStore.xml";
             if (new File(filePath).exists()) {
-
                 this.store = xmlParser.readFile(filePath);
 
                 if (store == null) {
@@ -104,9 +101,8 @@ public class MainFrame extends JFrame {
                     ngPanel.loadStore(this.store.getIoNames());
                     mbPanel.loadStore(this.store.getMb());
                     wgPanel.loadControlSettings(this.store.getCs());
-                    controlPanel.writeToLog("Read the default store.");
+                    controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
                 }
-
             }
         }
 
@@ -191,12 +187,13 @@ public class MainFrame extends JFrame {
         _Menu_File = new javax.swing.JMenu();
         _MenuItem_SaveCurrentDisplay = new javax.swing.JMenuItem();
         _MenuItem_SaveAllDisplays = new javax.swing.JMenuItem();
+        _MenuItem_PrintModbusSettings = new javax.swing.JMenuItem();
         _MenuItem_PrintVarNamesX = new javax.swing.JMenuItem();
         _MenuItem_PrintVarNamesCsv = new javax.swing.JMenuItem();
         _MenuItem_PrintVarNamesText = new javax.swing.JMenuItem();
+        _MenuItem_NewStore = new javax.swing.JMenuItem();
         _MenuItem_OpenStore = new javax.swing.JMenuItem();
         _MenuItem_SaveStore = new javax.swing.JMenuItem();
-        _MenuItem_NewStore = new javax.swing.JMenuItem();
         _MenuItem_Close = new javax.swing.JMenuItem();
         _Menu_View = new javax.swing.JMenu();
         _MenuItem_ViewPanel = new javax.swing.JMenuItem();
@@ -290,6 +287,15 @@ public class MainFrame extends JFrame {
         });
         _Menu_File.add(_MenuItem_SaveAllDisplays);
 
+        _MenuItem_PrintModbusSettings.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_PrintModbusSettings.setText("Print Modbus Settings to .xlsx");
+        _MenuItem_PrintModbusSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _MenuItem_PrintModbusSettingsActionPerformed(evt);
+            }
+        });
+        _Menu_File.add(_MenuItem_PrintModbusSettings);
+
         _MenuItem_PrintVarNamesX.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         _MenuItem_PrintVarNamesX.setText("Print Variable Names to .xlsx");
         _MenuItem_PrintVarNamesX.addActionListener(new java.awt.event.ActionListener() {
@@ -317,6 +323,15 @@ public class MainFrame extends JFrame {
         });
         _Menu_File.add(_MenuItem_PrintVarNamesText);
 
+        _MenuItem_NewStore.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_NewStore.setText("New Store");
+        _MenuItem_NewStore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _MenuItem_NewStoreActionPerformed(evt);
+            }
+        });
+        _Menu_File.add(_MenuItem_NewStore);
+
         _MenuItem_OpenStore.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         _MenuItem_OpenStore.setText("Open Store");
         _MenuItem_OpenStore.addActionListener(new java.awt.event.ActionListener() {
@@ -334,15 +349,6 @@ public class MainFrame extends JFrame {
             }
         });
         _Menu_File.add(_MenuItem_SaveStore);
-
-        _MenuItem_NewStore.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        _MenuItem_NewStore.setText("New Store");
-        _MenuItem_NewStore.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _MenuItem_NewStoreActionPerformed(evt);
-            }
-        });
-        _Menu_File.add(_MenuItem_NewStore);
 
         _MenuItem_Close.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         _MenuItem_Close.setText("Exit");
@@ -755,6 +761,62 @@ public class MainFrame extends JFrame {
         main.close();
     }//GEN-LAST:event_closeFrame
 
+    private void _MenuItem_PrintModbusSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintModbusSettingsActionPerformed
+        // TODO add your handling code here:
+
+        int returnVal = _FileChooser_SaveExcel.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            File file = _FileChooser_SaveExcel.getSelectedFile();
+            //System.out.println("File: " + file.getAbsolutePath());
+            String filePath = file.getAbsolutePath();
+            if (!filePath.endsWith(".xlsx")) {
+                filePath += ".xlsx";
+            }
+
+            try {
+                Workbook wb = new XSSFWorkbook();
+                FileOutputStream fileOut = new FileOutputStream(filePath);
+
+                List<String[]> list = mbPanel.writeOutModbusSettings();
+                int rowNum = 0;
+                Sheet sheet = wb.createSheet("Modbus Names");
+
+                for (String[] r : list) {
+                    // Create a row and put some cells in it. Rows are 0 based.
+                    Row row = sheet.createRow(rowNum);
+                    // Create a cell and put a value in it.
+                    for (int i = 0; i < r.length; i++) {
+                        Cell cell = row.createCell(i);
+
+                        // If the string is a number, write it as a number
+                        if (r[i].equals("")) {
+                            // Empty field, do nothing
+
+                        } else if (isStringNumeric(r[i])) {
+                            cell.setCellValue(Double.parseDouble(r[i].replace("\"", "")));
+                        } else {
+                            cell.setCellValue(r[i]);
+                        }
+
+                    }
+
+                    rowNum++;
+
+                }
+
+                wb.write(fileOut);
+                fileOut.close();
+            } catch (NumberFormatException | IOException e) {
+                controlPanel.writeToLog("Error with creating Modbus excel file " + e.getMessage());
+                e.printStackTrace();
+            }
+
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+    }//GEN-LAST:event__MenuItem_PrintModbusSettingsActionPerformed
+
     public static boolean isStringNumeric(String str) {
         DecimalFormatSymbols currentLocaleSymbols = DecimalFormatSymbols.getInstance();
         char localeMinusSign = currentLocaleSymbols.getMinusSign();
@@ -793,6 +855,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem _MenuItem_NewStore;
     private javax.swing.JMenuItem _MenuItem_OpenImage;
     private javax.swing.JMenuItem _MenuItem_OpenStore;
+    private javax.swing.JMenuItem _MenuItem_PrintModbusSettings;
     private javax.swing.JMenuItem _MenuItem_PrintVarNamesCsv;
     private javax.swing.JMenuItem _MenuItem_PrintVarNamesText;
     private javax.swing.JMenuItem _MenuItem_PrintVarNamesX;
