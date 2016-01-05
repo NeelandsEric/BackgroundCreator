@@ -1,14 +1,16 @@
 `Store`
-Cents/kWh,3,1,$/kWh,1,0,2,0,0,0
-Outside Temp,1,1,F,1.8,-32,1,0,0,0
-Outside Humidity,1,1,%,1,0,1,0,0,0
+Store BTU Capacity,1,1,kW/BTU,1,0,2,0,0,0
+Store Sqft
+Store Cents/kWh,3,1,$/kWh,1,0,2,0,0,0
+Store Outside Temp,1,1,F,1.8,-32,1,0,0,0
+Store Outside Humidity,1,1,%,1,0,1,0,0,0
 Store Temp,1,1,F,1.8,-32,1,0,0,0
 Store Humidity,1,1,%,1,0,1,0,0,0
 Performance Cost Sum Predicted,1,1,$,1,0,2,0,0,0
 Performance Cost Sum Actual,1,1,$,1,0,2,0,0,0
 Performance kW Sum Predicted,1,1,kW,1,0,1,0,0,0
 Performance kW Sum Actual,1,1,kW,1,0,1,0,0,0
-Energy SEI Total,l,1,%,1,0,1,0,0,0
+Energy SEI Total,1,1,%,1,0,1,0,0,0
 Energy Cost/SqFt,1,1,$/SqFt,1,0,2,0,0,0
 Energy kW/BTU Capacity,1,1,kW/BTU,1,0,2,0,0,0
 Energy kW/BTU Cost,1,1,$,1,0,2,0,0,0
