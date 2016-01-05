@@ -834,7 +834,7 @@ public class ModbusPanel extends javax.swing.JPanel {
 
         String[] items = regString.split(" ");
 
-        System.out.println("Reg: " + Arrays.toString(items));
+        //System.out.println("Reg: " + Arrays.toString(items));
         int newVal;
         if(items.length > 3){
             newVal = Integer.parseInt(items[0]) + (register * Integer.parseInt(items[4]));

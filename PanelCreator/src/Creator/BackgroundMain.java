@@ -182,6 +182,9 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
     private void _Panel_MainPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event__Panel_MainPanelMousePressed
         if (canClick) {
             //System.out.println("Main click " + evt.getPoint());
+            Component c = _Panel_MainPanel.getComponentAt(evt.getPoint());
+            System.out.println(c.toString());
+            //c.setBackground(Color.black);
             df.returnClick(evt.getPoint());
         }
     }//GEN-LAST:event__Panel_MainPanelMousePressed

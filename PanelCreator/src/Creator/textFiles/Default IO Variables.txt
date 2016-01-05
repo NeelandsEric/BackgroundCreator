@@ -1,6 +1,5 @@
 `Store`
 Cents/kWh,3,1,$/kWh,1,0,2,0,0,0
-Cents/kW,3,1,$/kW,1,0,2,0,0,0
 Outside Temp,1,1,F,1.8,-32,1,0,0,0
 Outside Humidity,1,1,%,1,0,1,0,0,0
 Store Temp,1,1,F,1.8,-32,1,0,0,0
@@ -12,7 +11,7 @@ Performance kW Sum Actual,1,1,kW,1,0,1,0,0,0
 Energy SEI Total,l,1,%,1,0,1,0,0,0
 Energy Cost/SqFt,1,1,$/SqFt,1,0,2,0,0,0
 Energy kW/BTU Capacity,1,1,kW/BTU,1,0,2,0,0,0
-Energy kW/BTU Cost,1,1,kW/BTU,1,0,2,0,0,0
+Energy kW/BTU Cost,1,1,$,1,0,2,0,0,0
 `Rack`
 Amp Avg `%rackname`,1,1,A,0.1,0,1,0,0,0
 Compressor Fault `%rackname`,1,1,,1,0,0,0,0,0
@@ -120,4 +119,3 @@ Comp Status `%rackname` `%sgname` `%compname`,1,1,,1,0,0,0,0,0
 Comp SLA `%rackname` `%sgname` `%compname`,0,,,,,,0,0,0
 Comp RUN `%rackname` `%sgname` `%compname`,0,,,,,,0,0,0
 Comp kW `%rackname` `%sgname` `%compname`,1,1,kW,0.1,0,1,0,0,0
-Comp kWh `%rackname` `%sgname` `%compname`,1,1,kWh,0.1,0,1,0,0,0

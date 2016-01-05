@@ -32,4 +32,3 @@ Volts Line to Neutral Avg `%rackname`,`%io_id`,`%slave_address`,2,4017,UHINT16,5
 `Compressor`
 Comp Amps `%rackname` `%sgname` `%compname`,`%io_id`,`%slave_address`,2,4055 + `%registeraddress`,UHINT16,5000
 Comp kW `%rackname` `%sgname` `%compname`,`%io_id`,`%slave_address`,2,4028 + `%registeraddress`,UHINT16,5000
-Comp kWh `%rackname` `%sgname` `%compname`,`%io_id`,`%slave_address`,2,4022 + `%registeraddress` * 2,L[HINT16]32,5000
