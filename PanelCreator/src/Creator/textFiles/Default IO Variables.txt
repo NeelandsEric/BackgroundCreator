@@ -32,7 +32,7 @@ Cond kWh DayCount `%rackname`,1,1,kWh,1,0,1,0,0,0
 Cond Out Subcooling `%rackname`,1,1,F,1.8,-32,1,0,0,0
 Cond Outlet Pressure `%rackname`,1,1,Psig,0.145,1,1,0,0,0
 Cond Outlet Temperature `%rackname`,1,1,F,1.8,-32,1,0,0,0
-Cond PF `%rackname`,1,1,PF,0.1,0,1,0,0,0
+Cond PF `%rackname`,1,1,PF,0.01,0,3,0,0,0
 Cond Setpoint `%rackname`,1,1,Psig,0.145,0,1,0,0,0
 Cond Saturation `%rackname`,1,1,F,1.8,-32,1,0,0,0
 Cond Volts L1 to L2 `%rackname`,1,1,V,0.1,0,1,0,0,0
@@ -83,7 +83,7 @@ Performance kW Sum Actual `%rackname`,1,1,kW,1,0,1,0,0,0
 Performance kW Sum Difference `%rackname`,1,1,kW,1,0,1,0,0,0
 Performance kW Actual `%rackname`,1,1,kW,0.1,0,1,0,0,0
 Performance kW Predicted `%rackname`,1,1,kW,1,0,1,0,0,0
-PF `%rackname`,1,1,PF,0.1,0,1,0,0,0
+PF `%rackname`,1,1,PF,0.01,0,3,0,0,0
 SEI `%rackname`,1,1,%,1,0,0,1,0,0
 Volts L1 to L2 `%rackname`,1,1,V,0.1,0,1,0,0,0
 Volts L1 to L3 `%rackname`,1,1,V,0.1,0,1,0,0,0
