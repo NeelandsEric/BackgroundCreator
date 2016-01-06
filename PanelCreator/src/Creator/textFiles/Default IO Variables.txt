@@ -1,6 +1,7 @@
 `Store`
+Store Temp Type,2,1,,,,,0,0,0
 Store BTU Capacity,1,1,kW/BTU,1,0,2,0,0,0
-Store Sqft
+Store Sqft,1,1,SqFt,1,0,2,0,0,0
 Store Cents/kWh,3,1,$/kWh,1,0,2,0,0,0
 Store Outside Temp,1,1,F,1.8,-32,1,0,0,0
 Store Outside Humidity,1,1,%,1,0,1,0,0,0
@@ -77,13 +78,9 @@ Op kWh Previous `%rackname` Year,1,1,kWh,1,0,1,0,0,0
 Performance Cost Sum Predicted `%rackname`,1,1,$,1,0,1,0,0,0
 Performance Cost Sum Actual `%rackname`,1,1,$,1,0,1,0,0,0
 Performance Cost Sum Difference `%rackname`,1,1,$,1,0,1,0,0,0
-Performance Cost Actual `%rackname`,1,1,$,1,0,1,0,0,0
-Performance Cost Predicted `%rackname`,1,1,$,1,0,1,0,0,0
 Performance kW Sum Predicted `%rackname`,1,1,kW,1,0,1,0,0,0
 Performance kW Sum Actual `%rackname`,1,1,kW,1,0,1,0,0,0
 Performance kW Sum Difference `%rackname`,1,1,kW,1,0,1,0,0,0
-Performance kW Actual `%rackname`,1,1,kW,0.1,0,1,0,0,0
-Performance kW Predicted `%rackname`,1,1,kW,1,0,1,0,0,0
 PF `%rackname`,1,1,PF,0.01,0,3,0,0,0
 SEI `%rackname`,1,1,%,1,0,0,1,0,0
 Volts L1 to L2 `%rackname`,1,1,V,0.1,0,1,0,0,0
