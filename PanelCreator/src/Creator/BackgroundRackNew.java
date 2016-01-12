@@ -8,12 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -642,7 +637,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         int[] comp = new int[numSg];
         int numComp = rack.getNumCompressors();
         for (int i = 0; i < numSg; i++) {
-            comp[i] = rack.getSuctionGroupIndex(i).getNumCompressors();
+            comp[i] = rack.getSuctionGroupIndex(i).getNumCompressors();            
         }
 
         // we saved the number of compressors for each suction group
@@ -676,7 +671,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
             c.gridheight = 2;
             c.gridwidth = comp[i];
             if (comp[i] == 1) {
-                c.ipadx = 75;
+                c.ipadx = 75;                
             }
             label = new JLabel(rack.getSuctionGroupNameIndex(i));
 
@@ -701,7 +696,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.weightx = 0;
         c.weighty = 0;
         c.ipady = 10;
-        label = new JLabel("SpSt/Actual Pres");
+        label = new JLabel("Pressure");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
@@ -715,14 +710,25 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridwidth = 1;
         c.weightx = 1;
         for (int i = 0; i < numSg; i++) {
+            
             c.gridwidth = comp[i];
-            label = new JLabel("");
-            label.setFont(font);
+            label = new JLabel("Setpoint");
+            label.setFont(font.deriveFont(Font.BOLD, 16));
             label.setOpaque(true);
             label.setBorder(border);
             label.setBackground(Colours.BlueLight.getCol());
             panel.add(label, c);
             c.gridx += comp[i];
+            /*
+            gw1 = comp[i] - gw1;
+            c.gridwidth = gw1;
+            label = new JLabel("Actual");
+            label.setFont(font.deriveFont(Font.BOLD, 16));
+            label.setOpaque(true);
+            label.setBorder(border);
+            label.setBackground(Colours.BlueLight.getCol());
+            panel.add(label, c);
+            c.gridx += gw1;*/
         }
 
         //===========================
@@ -733,7 +739,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridy = 4;
         c.gridwidth = 2;
         c.weightx = 0;
-        label = new JLabel("SH Tmp/Superheat ");
+        label = new JLabel("Temps");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
@@ -748,14 +754,26 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridwidth = 1;
         c.weightx = 1;
         for (int i = 0; i < numSg; i++) {
+            
+            
             c.gridwidth = comp[i];
-            label = new JLabel("");
-            label.setFont(font);
+            label = new JLabel("Header");
+            label.setFont(font.deriveFont(Font.BOLD, 16));
             label.setOpaque(true);
             label.setBorder(border);
             label.setBackground(Colours.BlueLightest.getCol());
             panel.add(label, c);
             c.gridx += comp[i];
+            /*
+            gw1 = comp[i] - gw1;
+            c.gridwidth = gw1;
+            label = new JLabel("Superheat");
+            label.setFont(font.deriveFont(Font.BOLD, 16));
+            label.setOpaque(true);
+            label.setBorder(border);
+            label.setBackground(Colours.BlueLightest.getCol());
+            panel.add(label, c);
+            c.gridx += gw1;*/
 
         }
 
@@ -767,7 +785,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.ipady = 10;
         label = new JLabel("Compressors");
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setFont(font.deriveFont(Font.BOLD, 18));
+        label.setFont(font.deriveFont(Font.BOLD, 20));
         label.setOpaque(true);
         label.setBorder(border);
         label.setBackground(Colours.BlueLight.getCol());
