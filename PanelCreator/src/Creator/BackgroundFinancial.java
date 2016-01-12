@@ -3,14 +3,12 @@ package Creator;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Point;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -195,11 +193,12 @@ public class BackgroundFinancial extends javax.swing.JPanel {
     public void updateView() {
 
         // Vars used        
-        int[] rackGridWidth = new int[this.numRacks];
-        int sum = 2;
+        int[] rackGridWidth = new int[this.numRacks + 1];
+        int sum = 5;
+        rackGridWidth[0] = 3;
         for (int i = 0; i < this.numRacks; i++) {
-            rackGridWidth[i] = 3 * racks.get(i).numSuctionGroups;
-            sum += rackGridWidth[i];
+            rackGridWidth[i + 1] = 3 * racks.get(i).numSuctionGroups;
+            sum += rackGridWidth[i + 1];
         }
 
         int gridXPos, gridYPos, gridWidth, gridHeight;
@@ -288,12 +287,15 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         _Panel_MainPanel.add(panel, c);
 
         // rack names + SEI, they have their own panels, incase we want borders
-        for (int i = 0; i < this.numRacks; i++) {
+        for (int i = 0; i <= this.numRacks; i++) {
 
-            r = racks.get(i);
-            // Number of suction groups for the rack          
-
-            panel = panelRackName(r.getName());
+            if (i == 0) {
+                panel = panelRackName("Total");
+            } else {
+                r = racks.get(i-1);
+                // Number of suction groups for the rack 
+                panel = panelRackName(r.getName());
+            }
             // For each new rack panel, we must assign the grid width
             // to be 3 * num Suctiongroups
             //rackGridWidth[i] = 3 * r.numSuctionGroups; // 1 cell per compressor
@@ -422,7 +424,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         // End of Constraints
         //===========================================================
         // rack names + SEI, they have their own panels, incase we want borders
-        for (int i = 0; i < this.numRacks; i++) {
+        for (int i = 0; i <= this.numRacks; i++) {
 
             panel = panelPerformance();
             // For each new rack panel, we must assign the grid width
@@ -489,7 +491,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         panel.setLayout(gblOp);
 
         // Rack status
-        label = new JLabel("Operating");
+        label = new JLabel("Operating Cost ");
         label.setOpaque(true);
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBackground(Colours.GreenDark.getCol());
@@ -509,7 +511,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
-        panel.add(label, c3);
+        //panel.add(label, c3);
         //=========================================
         // Go right        
         c3.gridx += 1;
@@ -565,7 +567,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         // End of Constraints
         //===========================================================
         // rack names + SEI, they have their own panels, incase we want borders
-        for (int i = 0; i < this.numRacks; i++) {
+        for (int i = 0; i <= this.numRacks; i++) {
 
             panel = panelOperatingDollars();
             // For each new rack panel, we must assign the grid width
@@ -632,7 +634,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         panel.setLayout(gblOp);
 
         // Rack status
-        label = new JLabel("Operating kWh");
+        label = new JLabel("Operating kWh ");
         label.setOpaque(true);
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBackground(Colours.BlueDark.getCol());
@@ -652,7 +654,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
-        panel.add(label, c3);
+        //panel.add(label, c3);
         //=========================================
         // Go right        
         c3.gridx += 1;
@@ -708,9 +710,9 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         // End of Constraints
         //===========================================================
         // rack names + SEI, they have their own panels, incase we want borders
-        for (int i = 0; i < this.numRacks; i++) {
+        for (int i = 0; i <= this.numRacks; i++) {
 
-            panel = panelOperatingkW();
+            panel = panelOperatingkWh();
             // For each new rack panel, we must assign the grid width
             // to be 3 * num Suctiongroups            
             // 2 cells per system
@@ -872,7 +874,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //===========================
         // kWh/BTU Capacity
         //===========================
-        label = new JLabel("kW/BTU Capacity");
+        label = new JLabel("KBTU/kW");
         label.setOpaque(true);
         label.setBackground(Colours.BlueLight.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 16));
@@ -891,7 +893,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //===========================
         // kWh/BTU Cost
         //===========================
-        label = new JLabel("kW/BTU Cost");
+        label = new JLabel("$/MBTU/hour");
         label.setBorder(border);
         label.setOpaque(true);
         label.setBackground(Colours.GreenLight.getCol());
@@ -910,7 +912,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //===========================
         // SEI
         //===========================
-        label = new JLabel("SEI");
+        label = new JLabel("Store SEI Avg");
         label.setBorder(border);
         label.setOpaque(true);
         label.setBackground(Colours.BlueLight.getCol());
@@ -948,7 +950,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //===========================
         // Predicted Site
         //===========================
-        label = new JLabel("Predicted Cost ");
+        label = new JLabel("Hourly Predicted Cost ");
         label.setOpaque(true);
         label.setBackground(Colours.BlueLight.getCol());
         label.setBorder(border);
@@ -967,7 +969,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //===========================
         // Predicted Site
         //===========================
-        label = new JLabel("Actual Cost");
+        label = new JLabel("Hourly Actual Cost");
         label.setBorder(border);
         label.setOpaque(true);
         label.setBackground(Colours.BlueLight.getCol());
@@ -1182,7 +1184,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
      *
      * @return JPanel
      */
-    public JPanel panelOperatingkW() {
+    public JPanel panelOperatingkWh() {
         // Condenser Panel will list the condensers 
         JLabel label;
         GridBagLayout gbl = new GridBagLayout();

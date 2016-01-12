@@ -255,7 +255,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         c4.gridy = 0;
         c4.gridwidth = 2;
         c4.gridheight = 2; // 2 spots per row
-        c4.ipady = 7;
+        c4.ipady = 10;
         // We dont setup next position because we are adding suction groups still
         // End of Constraints
         //===========================================================
@@ -290,9 +290,9 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         c4.gridy += 1;
         c4.weighty = 1;
         //=========================================
-        label = new JLabel("Predicted");
+        label = new JLabel("Predicted $/kW");
         label.setOpaque(true);
-        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setHorizontalAlignment(JLabel.LEADING);
         label.setBackground(Colours.GreenLightest.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 16));
         //label.setBorder(border);
@@ -302,9 +302,9 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         c4.gridy += 1;
 
         //=========================================
-        label = new JLabel("Actual");
+        label = new JLabel("Actual $/kW");
         label.setOpaque(true);
-        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setHorizontalAlignment(JLabel.LEADING);
         label.setBackground(Colours.GreenLight.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 16));
         //label.setBorder(border);
@@ -584,7 +584,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         c.weighty = 1;
         c.gridy = 0;
         c.gridwidth = c.gridheight = 2;
-        c.ipady = 15;
+        c.ipady = 16;
         //c.ipady = 100;
         //c.gridheight = 5;
         //label.setOpaque(true);
@@ -972,7 +972,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
 
             label.setOpaque(true);
             label.setBackground(Colours.BlueLightest.getCol());
-
+           
             //c.ipady = 25;
             c.fill = GridBagConstraints.BOTH;
             label.setVerticalAlignment(JLabel.TOP);
