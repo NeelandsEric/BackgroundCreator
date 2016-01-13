@@ -696,7 +696,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.weightx = 0;
         c.weighty = 0;
         c.ipady = 10;
-        label = new JLabel("Pressure");
+        label = new JLabel("SpSt | Actual Pres");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
@@ -712,7 +712,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         for (int i = 0; i < numSg; i++) {
             
             c.gridwidth = comp[i];
-            label = new JLabel("Setpoint");
+            label = new JLabel("");
             label.setFont(font.deriveFont(Font.BOLD, 16));
             label.setOpaque(true);
             label.setBorder(border);
@@ -739,7 +739,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridy = 4;
         c.gridwidth = 2;
         c.weightx = 0;
-        label = new JLabel("Temps");
+        label = new JLabel("SH Tmp | Superheat ");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
@@ -757,7 +757,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
             
             
             c.gridwidth = comp[i];
-            label = new JLabel("Header");
+            label = new JLabel("");
             label.setFont(font.deriveFont(Font.BOLD, 16));
             label.setOpaque(true);
             label.setBorder(border);
@@ -783,9 +783,9 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridx = 0;
         c.gridwidth = 2;
         c.ipady = 10;
-        label = new JLabel("Compressors");
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setFont(font.deriveFont(Font.BOLD, 20));
+        label = new JLabel(""); // Compressors
+        //label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        //label.setFont(font.deriveFont(Font.BOLD, 20));
         label.setOpaque(true);
         label.setBorder(border);
         label.setBackground(Colours.BlueLight.getCol());

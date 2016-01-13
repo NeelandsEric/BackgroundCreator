@@ -874,7 +874,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //===========================
         // kWh/BTU Capacity
         //===========================
-        label = new JLabel("KBTU/kW");
+        label = new JLabel("  KBTU/kW  ");
         label.setOpaque(true);
         label.setBackground(Colours.BlueLight.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 16));
@@ -887,13 +887,13 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.weighty = 1;
         c.gridy = 1;
         c.gridwidth = c.gridheight = 2;
-        c.ipady = 40;
+        c.ipady = 40;        
         panel.add(label, c);
 
         //===========================
         // kWh/BTU Cost
         //===========================
-        label = new JLabel("$/MBTU/hour");
+        label = new JLabel(" $/MBTU/hour ");
         label.setBorder(border);
         label.setOpaque(true);
         label.setBackground(Colours.GreenLight.getCol());
@@ -901,7 +901,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setVerticalAlignment(JLabel.TOP);
         //c.fill = GridBagConstraints.BOTH;
-        c.gridx = 2;
+        c.gridx = 2;        
         //c.weightx = 1;
         //c.weighty = 1;
         //c.gridy = 0;
@@ -912,7 +912,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //===========================
         // SEI
         //===========================
-        label = new JLabel("Store SEI Avg");
+        label = new JLabel(" Store SEI Avg ");
         label.setBorder(border);
         label.setOpaque(true);
         label.setBackground(Colours.BlueLight.getCol());
@@ -921,7 +921,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label.setVerticalAlignment(JLabel.TOP);
         //c.fill = GridBagConstraints.BOTH;
         c.gridx = 4;
-        c.weightx = 1;
+        c.weightx = 0;        
         //c.weighty = 1;
         //c.gridy = 0;
         //c.gridwidth = c.gridheight = 2;
@@ -940,7 +940,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label.setVerticalAlignment(JLabel.TOP);
         //c.fill = GridBagConstraints.BOTH;
         c.gridx = 6;
-        //c.weightx = 1;
+        c.weightx = 1;
         //c.weighty = 1;
         //c.gridy = 0;
         //c.gridwidth = c.gridheight = 2;
