@@ -874,7 +874,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //===========================
         // kWh/BTU Capacity
         //===========================
-        label = new JLabel("  KBTU/kW  ");
+        label = new JLabel("Capacity/EnergyUnit");
         label.setOpaque(true);
         label.setBackground(Colours.BlueLight.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 16));
@@ -921,7 +921,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label.setVerticalAlignment(JLabel.TOP);
         //c.fill = GridBagConstraints.BOTH;
         c.gridx = 4;
-        c.weightx = 0;        
+        c.weightx = 1;        
         //c.weighty = 1;
         //c.gridy = 0;
         //c.gridwidth = c.gridheight = 2;
@@ -931,7 +931,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //===========================
         // Cost/SqFt
         //===========================        
-        label = new JLabel("Cost/SqFt");
+        label = new JLabel("$/1000SqFt/Month");
         label.setBorder(border);
         label.setOpaque(true);
         label.setBackground(Colours.GreenLight.getCol());
