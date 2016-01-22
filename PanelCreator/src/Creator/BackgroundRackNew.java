@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
 /**
@@ -211,7 +212,6 @@ public class BackgroundRackNew extends javax.swing.JPanel {
 
         int gridXPos, gridYPos, gridWidth, gridHeight;
         int maxGridWidth = 30;
-        JLabel label;
         JPanel panel;
         GridBagLayout gbl = new GridBagLayout();
 
@@ -327,6 +327,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
 
         _Panel_MainPanel.revalidate();
         _Panel_MainPanel.repaint();
+        
 
     }
 
@@ -373,6 +374,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         for (Component p : p1.getComponents()) {
             if (p instanceof JLabel) {
                 ((JLabel) p).setForeground(Color.white);
+                //System.out.println(e.getMessage());
             } else {
                 if (p instanceof JPanel) {
                     setLabels((Container) p, c);
@@ -381,7 +383,8 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         }
 
     }
-
+    
+    
     /**
      * creates a pressure temp panel
      *
@@ -637,7 +640,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         int[] comp = new int[numSg];
         int numComp = rack.getNumCompressors();
         for (int i = 0; i < numSg; i++) {
-            comp[i] = rack.getSuctionGroupIndex(i).getNumCompressors();            
+            comp[i] = rack.getSuctionGroupIndex(i).getNumCompressors();
         }
 
         // we saved the number of compressors for each suction group
@@ -671,7 +674,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
             c.gridheight = 2;
             c.gridwidth = comp[i];
             if (comp[i] == 1) {
-                c.ipadx = 75;                
+                c.ipadx = 75;
             }
             label = new JLabel(rack.getSuctionGroupNameIndex(i));
 
@@ -710,7 +713,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridwidth = 1;
         c.weightx = 1;
         for (int i = 0; i < numSg; i++) {
-            
+
             c.gridwidth = comp[i];
             label = new JLabel("");
             label.setFont(font.deriveFont(Font.BOLD, 16));
@@ -720,15 +723,15 @@ public class BackgroundRackNew extends javax.swing.JPanel {
             panel.add(label, c);
             c.gridx += comp[i];
             /*
-            gw1 = comp[i] - gw1;
-            c.gridwidth = gw1;
-            label = new JLabel("Actual");
-            label.setFont(font.deriveFont(Font.BOLD, 16));
-            label.setOpaque(true);
-            label.setBorder(border);
-            label.setBackground(Colours.BlueLight.getCol());
-            panel.add(label, c);
-            c.gridx += gw1;*/
+             gw1 = comp[i] - gw1;
+             c.gridwidth = gw1;
+             label = new JLabel("Actual");
+             label.setFont(font.deriveFont(Font.BOLD, 16));
+             label.setOpaque(true);
+             label.setBorder(border);
+             label.setBackground(Colours.BlueLight.getCol());
+             panel.add(label, c);
+             c.gridx += gw1;*/
         }
 
         //===========================
@@ -754,8 +757,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridwidth = 1;
         c.weightx = 1;
         for (int i = 0; i < numSg; i++) {
-            
-            
+
             c.gridwidth = comp[i];
             label = new JLabel("");
             label.setFont(font.deriveFont(Font.BOLD, 16));
@@ -765,15 +767,15 @@ public class BackgroundRackNew extends javax.swing.JPanel {
             panel.add(label, c);
             c.gridx += comp[i];
             /*
-            gw1 = comp[i] - gw1;
-            c.gridwidth = gw1;
-            label = new JLabel("Superheat");
-            label.setFont(font.deriveFont(Font.BOLD, 16));
-            label.setOpaque(true);
-            label.setBorder(border);
-            label.setBackground(Colours.BlueLightest.getCol());
-            panel.add(label, c);
-            c.gridx += gw1;*/
+             gw1 = comp[i] - gw1;
+             c.gridwidth = gw1;
+             label = new JLabel("Superheat");
+             label.setFont(font.deriveFont(Font.BOLD, 16));
+             label.setOpaque(true);
+             label.setBorder(border);
+             label.setBackground(Colours.BlueLightest.getCol());
+             panel.add(label, c);
+             c.gridx += gw1;*/
 
         }
 
