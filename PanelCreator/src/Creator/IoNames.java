@@ -6,6 +6,9 @@
 package Creator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -14,7 +17,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
  *
  * @author EricGummerson
  */
-
 @XmlAccessorType(XmlAccessType.FIELD)
 public class IoNames implements java.io.Serializable {
 
@@ -164,14 +166,7 @@ public class IoNames implements java.io.Serializable {
         List<String[]> vars = new ArrayList<String[]>() {
         };
 
-        // Add header
-        // Add header
-        String[] headers = new String[]{"io_name", "io_type", "io_value_displayed",
-            "io_unit_of_measure", "io_constant", "io_offset", "io_float_digits",
-            "io_alert", "io_alert_range_low", "io_alert_range_high"
-        };
-        vars.add(headers);
-
+        
         int numfans, numsg, numcomp, numsys;
         String[] newString;
         Rack r;
@@ -308,6 +303,22 @@ public class IoNames implements java.io.Serializable {
         end = System.currentTimeMillis();
 
         System.out.println("Format strings took " + ((end - start)) + " ms");
+
+        Collections.sort(vars, new Comparator< String[]>() {
+            @Override
+            public int compare(String[] x1, String[] x2) {
+                return x1[0].toLowerCase().compareTo(x2[0].toLowerCase());
+            }
+        });
+        
+        // Add header
+        // Add header
+        String[] headers = new String[]{"io_name", "io_type", "io_value_displayed",
+            "io_unit_of_measure", "io_constant", "io_offset", "io_float_digits",
+            "io_alert", "io_alert_range_low", "io_alert_range_high", "io_log"
+        };
+        vars.add(0, headers);
+        
         return vars;
 
     }
