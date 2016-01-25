@@ -683,13 +683,13 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         c.gridy = 0;
         c.ipady = 25;
         c.fill = GridBagConstraints.BOTH;
-        label = new JLabel("Condenser Fan  ");
+        label = new JLabel("Condenser Fans  ");
         label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         panel.add(label, c);
 
         c.gridx = 1;
-        label = new JLabel("Compressor  ");
+        label = new JLabel("Compressors  ");
         label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         panel.add(label, c);

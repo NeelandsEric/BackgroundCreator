@@ -54,7 +54,8 @@ Cond Volts L1 to L3 `%rackname`,1,1,V,0.1,0,1,0,0,0,1
 Cond Volts L2 to L3 `%rackname`,1,1,V,0.1,0,1,0,0,0,1
 Cond Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,0,0,1
 Cond Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,0,0,1
-Condenser Fault `%rackname`,1,1,,1,0,0,0,0,0,1
+Comp Rack Fault `%rackname`,1,1,,1,0,0,0,0,0,1
+Cond Rack Fault `%rackname`,1,1,,1,0,0,0,0,0,1
 Discharge Pressure Actual `%rackname`,1,1,Psig,0.145,0,1,0,0,0,1
 Discharge Temp `%rackname`,1,1,F,1.8,-32,1,0,0,0,1
 kVA System `%rackname`,1,1,kVA,0.1,0,1,0,0,0,1
