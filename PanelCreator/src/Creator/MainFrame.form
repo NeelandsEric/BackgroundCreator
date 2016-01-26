@@ -48,16 +48,14 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFileChooser" name="_FileChooser_SaveIntoFolder">
+    <Component class="javax.swing.JFileChooser" name="_FileChooser">
       <Properties>
         <Property name="dialogType" type="int" value="1"/>
-        <Property name="approveButtonText" type="java.lang.String" value="Save Here"/>
-        <Property name="approveButtonToolTipText" type="java.lang.String" value="Saves the displays into this directory"/>
+        <Property name="approveButtonText" type="java.lang.String" value="Save"/>
+        <Property name="approveButtonToolTipText" type="java.lang.String" value="Save in this folder"/>
         <Property name="currentDirectory" type="java.io.File" value="null"/>
-        <Property name="dialogTitle" type="java.lang.String" value="Directory to save pictures"/>
-        <Property name="fileFilter" type="javax.swing.filechooser.FileFilter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new FilterFolder()" type="code"/>
-        </Property>
+        <Property name="dialogTitle" type="java.lang.String" value=""/>
+        <Property name="fileHidingEnabled" type="boolean" value="true"/>
         <Property name="fileSelectionMode" type="int" value="1"/>
       </Properties>
     </Component>
@@ -201,6 +199,17 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_SaveStoreActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_SaveAll">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+Alt+S"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Save Everything"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_MenuItem_SaveAllActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="_MenuItem_Close">

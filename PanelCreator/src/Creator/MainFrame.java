@@ -184,7 +184,7 @@ public class MainFrame extends JFrame {
         _FileChooser_SavePicture = new javax.swing.JFileChooser();
         _FileChooser_SaveStore = new javax.swing.JFileChooser();
         _FileChooser_LoadStore = new javax.swing.JFileChooser();
-        _FileChooser_SaveIntoFolder = new javax.swing.JFileChooser();
+        _FileChooser = new javax.swing.JFileChooser();
         _FileChooser_SaveCSV = new javax.swing.JFileChooser();
         _FileChooser_SaveText = new javax.swing.JFileChooser();
         _FileChooser_SaveExcel = new javax.swing.JFileChooser();
@@ -200,6 +200,7 @@ public class MainFrame extends JFrame {
         _MenuItem_NewStore = new javax.swing.JMenuItem();
         _MenuItem_OpenStore = new javax.swing.JMenuItem();
         _MenuItem_SaveStore = new javax.swing.JMenuItem();
+        _MenuItem_SaveAll = new javax.swing.JMenuItem();
         _MenuItem_Close = new javax.swing.JMenuItem();
         _Menu_View = new javax.swing.JMenu();
         _MenuItem_ViewPanel = new javax.swing.JMenuItem();
@@ -234,13 +235,13 @@ public class MainFrame extends JFrame {
         _FileChooser_LoadStore.setDialogTitle("Directory to open Store file");
         _FileChooser_LoadStore.setFileFilter(new FilterStore());
 
-        _FileChooser_SaveIntoFolder.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
-        _FileChooser_SaveIntoFolder.setApproveButtonText("Save Here");
-        _FileChooser_SaveIntoFolder.setApproveButtonToolTipText("Saves the displays into this directory");
-        _FileChooser_SaveIntoFolder.setCurrentDirectory(null);
-        _FileChooser_SaveIntoFolder.setDialogTitle("Directory to save pictures");
-        _FileChooser_SaveIntoFolder.setFileFilter(new FilterFolder());
-        _FileChooser_SaveIntoFolder.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
+        _FileChooser.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+        _FileChooser.setApproveButtonText("Save");
+        _FileChooser.setApproveButtonToolTipText("Save in this folder");
+        _FileChooser.setCurrentDirectory(null);
+        _FileChooser.setDialogTitle("");
+        _FileChooser.setFileHidingEnabled(true);
+        _FileChooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
         _FileChooser_SaveCSV.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         _FileChooser_SaveCSV.setApproveButtonText("Save");
@@ -355,6 +356,15 @@ public class MainFrame extends JFrame {
             }
         });
         _Menu_File.add(_MenuItem_SaveStore);
+
+        _MenuItem_SaveAll.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        _MenuItem_SaveAll.setText("Save Everything");
+        _MenuItem_SaveAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _MenuItem_SaveAllActionPerformed(evt);
+            }
+        });
+        _Menu_File.add(_MenuItem_SaveAll);
 
         _MenuItem_Close.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         _MenuItem_Close.setText("Exit");
@@ -513,20 +523,7 @@ public class MainFrame extends JFrame {
             } else {
                 System.out.println("Problem with the XMLParser");
             }
-            /*
-             try {
-
-             FileOutputStream fos = new FileOutputStream(fn);
-             ObjectOutputStream oos = new ObjectOutputStream(fos);
-             oos.writeObject(this.store);
-             oos.close();
-             fos.close();
-             controlPanel.writeToLog("Store " + this.store.getStoreName() + " saved");
-
-             } catch (IOException e) {
-             controlPanel.writeToLog("Error when saving the store " + e.getMessage());
-             }*/
-
+            
         } else {
             System.out.println("File access cancelled by user.");
         }
@@ -590,11 +587,16 @@ public class MainFrame extends JFrame {
 
     private void _MenuItem_SaveAllDisplaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveAllDisplaysActionPerformed
         // TODO add your handling code here:
+        
+        _FileChooser.setDialogTitle("Save pictures into a folder");
+        _FileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+        _FileChooser.setApproveButtonText("Save Here");
 
-        int returnVal = _FileChooser_SaveIntoFolder.showSaveDialog(this);
+        int returnVal = _FileChooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-            String filePath = _FileChooser_SaveIntoFolder.getSelectedFile().toString() + "\\";
+            String filePath = _FileChooser.getSelectedFile().toString() + "\\";
             //System.out.println("FP: " + filePath);
             String[] fileNames = controlPanel.getFileNames(filePath, displayFrame.bg.getSize());
             int numDisplays = displayFrame.getTabCount();
@@ -823,6 +825,123 @@ public class MainFrame extends JFrame {
         }
     }//GEN-LAST:event__MenuItem_PrintModbusSettingsActionPerformed
 
+    private void _MenuItem_SaveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveAllActionPerformed
+        // TODO add your handling code here:
+        _FileChooser.setDialogTitle("Save everything into a folder");
+        _FileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+        _FileChooser.setApproveButtonText("Save Here");
+        
+        int returnVal = _FileChooser.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            String filePathORIGINAL = _FileChooser.getSelectedFile().toString();
+            String fn = filePathORIGINAL + "\\" + this.store.getStoreName() + ".xml";
+            
+            // What to do with the file, e.g. display it in a TextArea
+
+            if (xmlParser != null) {
+                if (xmlParser.writeOut(this.store, fn)) {
+                    controlPanel.writeToLog("Store " + this.store.getStoreName() + " saved");
+                } else {
+                    controlPanel.writeToLog("Store " + this.store.getStoreName() + " had a problem saving");
+                }
+            } else {
+                System.out.println("Problem with the XMLParser");
+            }
+            
+            
+            // -------------------- Save all displays --------------------------
+            String filePath = filePathORIGINAL + "\\Displays\\";
+            
+            File theDir = new File(filePath);
+            boolean dirCreated = false;
+            if(!theDir.exists()){
+                try{
+                    theDir.mkdir();
+                    dirCreated = true;
+                }catch(SecurityException e){
+                    
+                }
+            }else {
+                dirCreated = true;
+            }
+            if(!dirCreated){
+                filePath = filePath.replace("Displays\\", "");
+            }
+            //System.out.println("FP: " + filePath);
+            String[] fileNames = controlPanel.getFileNames(filePath, displayFrame.bg.getSize());
+            int numDisplays = displayFrame.getTabCount();
+            BufferedImage bi;
+
+            for (int i = 0; i < numDisplays; i++) {
+                //System.out.println(i + ": " + fileNames[i]);
+                try {
+                    if (i == 0) {
+                        bi = ScreenImage.createImage(displayFrame.bg);
+                    } else if (i == (numDisplays - 2)) {
+                        bi = ScreenImage.createImage(displayFrame.bgl);
+                    } else if (i == (numDisplays - 1)) {
+                        bi = ScreenImage.createImage(displayFrame.bgf);
+                    } else {
+                        bi = ScreenImage.createImage(displayFrame.rackTabs.get(i - 1));
+                    }
+
+                    ScreenImage.writeImage(bi, fileNames[i]);
+                    //ScreenImage.createImage();
+
+                } catch (IOException e) {
+                    controlPanel.writeToLog("Error writing image file" + e.getMessage());
+                }
+            }
+            
+            // -------------------------- Save XLSX --------------------
+            
+            File file = new File(filePathORIGINAL + "\\" + this.store.getStoreName() + "-IOVariables.xlsx");
+            //System.out.println("File: " + file.getAbsolutePath());
+            String excelPath = file.getAbsolutePath();
+            
+            try {
+                Workbook wb = new XSSFWorkbook();
+                FileOutputStream fileOut = new FileOutputStream(excelPath);
+
+                List<String[]> list = store.formatStrings();
+                int rowNum = 0;
+                Sheet sheet = wb.createSheet("Var Names");
+
+                for (String[] r : list) {
+                    // Create a row and put some cells in it. Rows are 0 based.
+                    Row row = sheet.createRow(rowNum);
+                    // Create a cell and put a value in it.
+                    for (int i = 0; i < r.length; i++) {
+                        Cell cell = row.createCell(i);
+
+                        // If the string is a number, write it as a number
+                        if (r[i].equals("")) {
+                            // Empty field, do nothing
+
+                        } else if (isStringNumeric(r[i])) {
+                            cell.setCellValue(Double.parseDouble(r[i].replace("\"", "")));
+                        } else {
+                            cell.setCellValue(r[i]);
+                        }
+
+                    }
+
+                    rowNum++;
+
+                }
+
+                wb.write(fileOut);
+                fileOut.close();
+            } catch (Exception e) {
+                controlPanel.writeToLog("Error with creating excel file " + e.getMessage());
+            }
+            
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+    }//GEN-LAST:event__MenuItem_SaveAllActionPerformed
+
     public static boolean isStringNumeric(String str) {
         DecimalFormatSymbols currentLocaleSymbols = DecimalFormatSymbols.getInstance();
         char localeMinusSign = currentLocaleSymbols.getMinusSign();
@@ -848,11 +967,11 @@ public class MainFrame extends JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFileChooser _FileChooser;
     private javax.swing.JFileChooser _FileChooser_LoadLogo;
     private javax.swing.JFileChooser _FileChooser_LoadStore;
     private javax.swing.JFileChooser _FileChooser_SaveCSV;
     private javax.swing.JFileChooser _FileChooser_SaveExcel;
-    private javax.swing.JFileChooser _FileChooser_SaveIntoFolder;
     private javax.swing.JFileChooser _FileChooser_SavePicture;
     private javax.swing.JFileChooser _FileChooser_SaveStore;
     private javax.swing.JFileChooser _FileChooser_SaveText;
@@ -866,6 +985,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem _MenuItem_PrintVarNamesText;
     private javax.swing.JMenuItem _MenuItem_PrintVarNamesX;
     private javax.swing.JMenuItem _MenuItem_RemoveImage;
+    private javax.swing.JMenuItem _MenuItem_SaveAll;
     private javax.swing.JMenuItem _MenuItem_SaveAllDisplays;
     private javax.swing.JMenuItem _MenuItem_SaveCurrentDisplay;
     private javax.swing.JMenuItem _MenuItem_SaveStore;

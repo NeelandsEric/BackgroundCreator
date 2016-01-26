@@ -6,7 +6,9 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.IllegalComponentStateException;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -15,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
 /**
@@ -256,7 +259,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         //panel.setPreferredSize(new Dimension(5, 100));
         panel.setBackground(Color.black);
         //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
-        this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 20);
+        this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 90);
         //=========================================================== 
 
         //===========================================================
@@ -327,7 +330,53 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         _Panel_MainPanel.revalidate();
         _Panel_MainPanel.repaint();
         
+    }
 
+    public void positions() {
+        positions(_Panel_MainPanel);
+    }
+
+    public void positions(Container p1) {
+
+        for (Component p : p1.getComponents()) {
+            if (p instanceof JLabel) {
+
+                try {
+                    if (((JLabel) p).getText().isEmpty()) {
+
+                        Rectangle r = p.getBounds();
+                        Component par = p;
+                        while(par.getParent() != _Panel_MainPanel){
+                            par = par.getParent();                            
+                        }
+                        r = SwingUtilities.convertRectangle(par, r, _Panel_MainPanel);
+                        //Point spot = ((JLabel) p).getLocation();
+                        ((JLabel) p).setText("x=" + r.getX() + ", y=" + r.getY());
+                        //System.out.println("Position: " + spot.toString() + "\tr: " + r.toString());
+                    }
+                } catch (NullPointerException | IllegalComponentStateException e) {
+
+                }
+                /*
+                 Point spot = new Point();
+                 Component currComponent = p;
+                 while (currComponent != null && currComponent != _Panel_MainPanel) {
+
+                 Point relativeLocation = currComponent.getLocation();
+                 spot.translate(relativeLocation.x, relativeLocation.y);
+                 currComponent = currComponent.getParent();
+                 }
+
+                 ((JLabel) p).setText(spot.toString());
+                 */
+                //System.out.println(e.getMessage());
+            } else {
+                if (p instanceof JPanel) {
+                    positions((Container) p);
+                }
+            }
+        }
+     
     }
 
     //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
@@ -382,8 +431,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         }
 
     }
-    
-    
+
     /**
      * creates a pressure temp panel
      *
@@ -649,8 +697,8 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         // RACK COMPRESSOR
         c.gridy = 0;
         c.weightx = 0;
-        c.weighty = 0;
-        c.ipady = 25;
+        c.weighty = 1;
+        //c.ipady = 25;
         c.gridheight = 2;
         c.gridwidth = 2;
         c.fill = GridBagConstraints.BOTH;

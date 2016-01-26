@@ -516,6 +516,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         } else {
             System.out.println("File access cancelled by user.");
+            _Button_EnableClicks.setEnabled(true);
         }
     }//GEN-LAST:event__Button_LoadCSVActionPerformed
 

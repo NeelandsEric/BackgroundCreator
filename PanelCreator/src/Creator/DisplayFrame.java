@@ -3,8 +3,8 @@ package Creator;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.util.Arrays;
 import java.util.ArrayList;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -61,8 +61,6 @@ public class DisplayFrame extends javax.swing.JFrame {
     public void setStopUpdate(boolean stopUpdate) {
         this.stopUpdate = stopUpdate;
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -116,6 +114,7 @@ public class DisplayFrame extends javax.swing.JFrame {
                 int h = bg.getHeight();
                 this.setTitle("Customized Backgrounds " + w + "x" + h);
             }
+            //updateDisplays(cs, ds);
 
         }
     }//GEN-LAST:event__TabbedPane_TabsComponentResized
@@ -169,8 +168,7 @@ public class DisplayFrame extends javax.swing.JFrame {
                     for (int i = nt - 3; i > cs.getNumRacks(); i--) {
                         _TabbedPane_Tabs.remove(i);
                     }
-             
-   
+
                     for (int i = 0; i < cs.getNumRacks(); i++) {
                         if (rackTabs.size() > i) {
                             if (rackTabs.get(i) != null) {
@@ -204,7 +202,10 @@ public class DisplayFrame extends javax.swing.JFrame {
                     int w = bg.getWidth();
                     int h = bg.getHeight();
                     t.setTitle("Customized Backgrounds " + w + "x" + h);
-
+                    /*
+                    for (BackgroundRackNew pp : rackTabs) {
+                        pp.positions();
+                    }*/
                 }
 
             });
@@ -214,7 +215,7 @@ public class DisplayFrame extends javax.swing.JFrame {
 
     public void updateSettings(DisplaySettings dss) {
         this.ds = dss;
-        
+
         this.stopUpdate = true;
         setNewSize(ds.getDisplayWidth(), ds.getDisplayHeight());
         bg.updateFont(ds.getFont());
@@ -236,7 +237,7 @@ public class DisplayFrame extends javax.swing.JFrame {
      * update the logo
      */
     public void updateLogo() {
-        
+
         bg.updateImageURL("");
         for (int i = 0; i < cs.getNumRacks(); i++) {
             if (rackTabs.get(i) != null) {
