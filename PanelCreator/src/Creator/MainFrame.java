@@ -853,19 +853,8 @@ public class MainFrame extends JFrame {
             // -------------------- Save all displays --------------------------
             String filePath = filePathORIGINAL + "\\Displays\\";
             
-            File theDir = new File(filePath);
-            boolean dirCreated = false;
-            if(!theDir.exists()){
-                try{
-                    theDir.mkdir();
-                    dirCreated = true;
-                }catch(SecurityException e){
-                    
-                }
-            }else {
-                dirCreated = true;
-            }
-            if(!dirCreated){
+            
+            if(!new File(filePath).mkdir()){
                 filePath = filePath.replace("Displays\\", "");
             }
             //System.out.println("FP: " + filePath);
