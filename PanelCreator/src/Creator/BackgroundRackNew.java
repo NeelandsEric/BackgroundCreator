@@ -259,7 +259,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         //panel.setPreferredSize(new Dimension(5, 100));
         panel.setBackground(Color.black);
         //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
-        this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 90);
+        this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 1, GridBagConstraints.BOTH, 0, 20);
         //=========================================================== 
 
         //===========================================================
@@ -271,9 +271,25 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         // End of Constraints
         panel = panelCompressor();
         //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
-        this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 1, GridBagConstraints.BOTH, 0, 0);
+        this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 0);
         //=========================================================== 
 
+        
+        
+        //=========================================================== 
+        // Filler area
+        gridXPos = 0;
+        gridYPos += gridHeight;
+        gridHeight = 5;
+        gridWidth = maxGridWidth;
+        panel = new JPanel();
+        //panel.setPreferredSize(new Dimension(5, 100));
+        panel.setBackground(Color.black);
+        //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+        this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 1, GridBagConstraints.BOTH, 0, 20);
+        //=========================================================== 
+        
+        
         //===========================================================
         // Condenser
         // Positioning & Constraints
@@ -497,7 +513,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridy = 2;
         c.gridwidth = 1;
         label.setOpaque(true);
-        label.setBackground(Colours.BlueLight.getCol());
+        label.setBackground(Colours.BlueLight.getCol());        
         panel.add(label, c);
         //==================================================================
 
@@ -565,7 +581,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         // Blank fields
         for (int j = 0; j < 5; j++) {
 
-            label = new JLabel("");
+            label = new JLabel("");            
             label.setFont(font);
             label.setBorder(border);
             label.setOpaque(true);
@@ -721,7 +737,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
             c.gridheight = 2;
             c.gridwidth = comp[i];
             if (comp[i] == 1) {
-                c.ipadx = 75;
+                c.ipadx = 45;
             }
             label = new JLabel(rack.getSuctionGroupNameIndex(i));
 
@@ -873,7 +889,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridx = 0;
         c.gridy = 8;
         c.gridwidth = 2;
-        c.weightx = 0;
+        c.weightx = 0;        
         label = new JLabel("Discharge Temp");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
@@ -942,6 +958,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridx = 2;
         c.gridwidth = 1;
         c.weightx = 1;
+        c.weighty = 0;
         c.ipady = 35;
 
         ImageIcon icon;

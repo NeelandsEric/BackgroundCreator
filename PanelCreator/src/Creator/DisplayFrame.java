@@ -113,8 +113,9 @@ public class DisplayFrame extends javax.swing.JFrame {
                 int w = bg.getWidth();
                 int h = bg.getHeight();
                 this.setTitle("Customized Backgrounds " + w + "x" + h);
+                updateDisplays(cs, ds);
             }
-            //updateDisplays(cs, ds);
+            
 
         }
     }//GEN-LAST:event__TabbedPane_TabsComponentResized
@@ -202,10 +203,10 @@ public class DisplayFrame extends javax.swing.JFrame {
                     int w = bg.getWidth();
                     int h = bg.getHeight();
                     t.setTitle("Customized Backgrounds " + w + "x" + h);
-                    /*
+                    
                     for (BackgroundRackNew pp : rackTabs) {
                         pp.positions();
-                    }*/
+                    }
                 }
 
             });
