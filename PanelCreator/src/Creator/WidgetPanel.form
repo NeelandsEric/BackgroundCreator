@@ -142,13 +142,13 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="_List_WidgetList">
+        <Component class="javax.swing.JList" name="_List_WidgetCodeList">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="14" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="listModelWidgets" type="code"/>
+              <Connection code="listModelCodeWidgets" type="code"/>
             </Property>
             <Property name="selectionMode" type="int" value="0"/>
           </Properties>
@@ -220,13 +220,13 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="_List_IoVariables">
+        <Component class="javax.swing.JList" name="_List_WidgetVars">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="14" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="listModelIoVars" type="code"/>
+              <Connection code="listModelWidgetsVars" type="code"/>
             </Property>
           </Properties>
         </Component>
@@ -443,6 +443,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_ComboBox_SubgroupActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -48,8 +48,9 @@ public class WidgetPanel extends javax.swing.JPanel {
     private MainFrame mf;
     private Map<String, Widget> widgetList;
     private boolean ioFileLoaded;
-    private DefaultListModel listModelIoVars;
-    private DefaultListModel listModelWidgets;
+    private DefaultListModel listModelWidgetsVars;
+    private DefaultListModel listModelCodeWidgets;
+    private IoNames widgetIos;
 
     private Map<String, Integer> importedIOVariables;
 
@@ -65,8 +66,8 @@ public class WidgetPanel extends javax.swing.JPanel {
         this.mouseActive = new boolean[cs.getNumRacks() + 3];
         this.ioFileLoaded = false;
         this.widgetList = new TreeMap<>();
-        listModelIoVars = new DefaultListModel();
-        listModelWidgets = new DefaultListModel();
+        listModelWidgetsVars = new DefaultListModel();
+        listModelCodeWidgets = new DefaultListModel();
         initComponents();
         _Button_EnableClicks.setEnabled(false);
     }
@@ -75,7 +76,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         this.cs = cs;
         this.mouseActive = new boolean[cs.getNumRacks() + 3];
         this.widgetList = new TreeMap<>();
-        this.ioFileLoaded = false;
+        this.ioFileLoaded = false;        
         _Button_EnableClicks.setEnabled(false);
     }
 
@@ -105,19 +106,19 @@ public class WidgetPanel extends javax.swing.JPanel {
     public void loadWidgets() {
 
         boolean ide = true;
-        String pathWidgetCode = "textFiles/widgets/";
-        String pathWidgets = "textFiles/Default Widgets";
+        String pathWidgetCode = "textFiles/widgets/";        
         ArrayList<String> results = new ArrayList<>();
-        String dir = new File("").getAbsolutePath() + "/src/Creator/" + pathWidgetCode;
+        String dirCode = new File("").getAbsolutePath() + "/src/Creator/" + pathWidgetCode;        
 
         try {
-            getWidgetFiles(dir, results);
+            getWidgetFiles(dirCode, results);
 
             results.stream().forEach((s) -> {
-                readFile(s);
+                readCodeFile(s);
             });
 
             updateWidgetCode();
+            
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
             ide = false;
@@ -155,6 +156,8 @@ public class WidgetPanel extends javax.swing.JPanel {
                 System.out.println(e.getMessage());
             }
         }
+        
+        readDefaultWidgets();
     }
 
     public void printWidgetVariables() {
@@ -192,22 +195,22 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     public void updateWidgetCode() {
 
-        listModelWidgets.removeAllElements();
+        listModelCodeWidgets.removeAllElements();
 
         widgetList.values().stream().forEach((widget) -> {
 
-            listModelWidgets.addElement(widget.getWidgetName());
+            listModelCodeWidgets.addElement(widget.getWidgetName());
         });
 
     }
 
     public void updateIoVariables() {
 
-        listModelIoVars.removeAllElements();
+        listModelWidgetsVars.removeAllElements();
 
         for (Entry<String, Integer> entry : importedIOVariables.entrySet()) {
 
-            listModelIoVars.addElement((entry.getValue() + ":" + entry.getKey()));
+            listModelWidgetsVars.addElement((entry.getValue() + ":" + entry.getKey()));
         }
 
     }
@@ -223,14 +226,14 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         _FileChooser_IoFile = new javax.swing.JFileChooser();
         _ScrollPane_WidgetNames = new javax.swing.JScrollPane();
-        _List_WidgetList = new javax.swing.JList();
+        _List_WidgetCodeList = new javax.swing.JList();
         _Label_Title = new javax.swing.JLabel();
         _ComboBox_DisplayPanel = new javax.swing.JComboBox();
         _ScrollPane_ExportPane = new javax.swing.JScrollPane();
         _TextArea_WidgetExport = new javax.swing.JTextArea();
         _Button_Copy = new javax.swing.JButton();
         _ScrollPane_VariableNames = new javax.swing.JScrollPane();
-        _List_IoVariables = new javax.swing.JList();
+        _List_WidgetVars = new javax.swing.JList();
         _Label_VarNames = new javax.swing.JLabel();
         _Label_Widget = new javax.swing.JLabel();
         _Button_LoadCSV = new javax.swing.JButton();
@@ -256,10 +259,10 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         setMinimumSize(new java.awt.Dimension(969, 544));
 
-        _List_WidgetList.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        _List_WidgetList.setModel(listModelWidgets);
-        _List_WidgetList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        _ScrollPane_WidgetNames.setViewportView(_List_WidgetList);
+        _List_WidgetCodeList.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _List_WidgetCodeList.setModel(listModelCodeWidgets);
+        _List_WidgetCodeList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        _ScrollPane_WidgetNames.setViewportView(_List_WidgetCodeList);
 
         _Label_Title.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         _Label_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -293,9 +296,9 @@ public class WidgetPanel extends javax.swing.JPanel {
             }
         });
 
-        _List_IoVariables.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        _List_IoVariables.setModel(listModelIoVars);
-        _ScrollPane_VariableNames.setViewportView(_List_IoVariables);
+        _List_WidgetVars.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _List_WidgetVars.setModel(listModelWidgetsVars);
+        _ScrollPane_VariableNames.setViewportView(_List_WidgetVars);
 
         _Label_VarNames.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         _Label_VarNames.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -417,6 +420,11 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         _ComboBox_Subgroup.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _ComboBox_Subgroup.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Store" }));
+        _ComboBox_Subgroup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _ComboBox_SubgroupActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -542,7 +550,7 @@ public class WidgetPanel extends javax.swing.JPanel {
             //System.out.println("File: " + file.getAbsolutePath());
             String filePath = file.getAbsolutePath();
             readXFile(filePath);
-            
+
             if (!importedIOVariables.isEmpty()) {
                 //updateIoVariables();
             }
@@ -568,7 +576,6 @@ public class WidgetPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         Map<String, Rectangle> masterMap = mf.displayFrame.getWidgetPositions(_ComboBox_DisplayPanel.getSelectedIndex());
 
-        
         for (Map.Entry<String, Rectangle> entry : masterMap.entrySet()) {
             String key = entry.getKey();
             Rectangle rect = entry.getValue();
@@ -576,6 +583,23 @@ public class WidgetPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event__Button_widgetPositionsActionPerformed
 
+    private void _ComboBox_SubgroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_SubgroupActionPerformed
+        // TODO add your handling code here:
+        
+        loadWidgetVars();
+        
+    }//GEN-LAST:event__ComboBox_SubgroupActionPerformed
+
+    
+    
+    public void loadWidgetVars(){
+        
+        
+        
+    }
+    
+    
+    
     public void getWidgetFiles(String dirName, ArrayList<String> filePaths) throws FileNotFoundException {
 
         File directory = new File(dirName);
@@ -595,13 +619,76 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     }
 
+    public void readDefaultWidgets() {
+
+        widgetIos = new IoNames();
+        String path = "/Creator/textFiles/Default Widgets.txt";
+
+        InputStream loc = this.getClass().getResourceAsStream(path);
+        Scanner scan = new Scanner(loc);
+
+        String line, groupName = "";
+        while (scan.hasNextLine()) {
+            line = scan.nextLine();            
+
+            if (line == null) { // make sure it doesnt break
+
+            } else if (line.startsWith("`")) {
+                groupName = line.substring(3).toLowerCase();
+                //System.out.println("Grouping name: " + groupName);
+            } else {
+                switch (groupName) {
+                    case "":
+                        //System.out.println("No groupname line = " + line);
+                        break;
+                    case "store":
+                        //System.out.println("Added to Store: " + line);
+                        widgetIos.getStoreStr().add(line);
+                        break;
+                    case "rack":
+                        //System.out.println("Added to Rack: " + line);
+                        widgetIos.getRackStr().add(line);
+                        break;
+                    case "condenser":
+                        //System.out.println("Added to Condenser: " + line);
+                        widgetIos.getCondStr().add(line);
+                        break;
+                    case "suction group":
+                        //System.out.println("Added to SuctionGroup: " + line);
+                        widgetIos.getSgStr().add(line);
+                        break;
+                    case "compressor":
+                        //System.out.println("Added to Compressor: " + line);
+                        widgetIos.getCompStr().add(line);
+                        break;
+                    case "system":
+                        //System.out.println("Added to System: " + line);
+                        widgetIos.getSysStr().add(line);
+                        break;
+                    default:
+                        //System.out.println("Unknown groupname, added to extra" + line);
+                        widgetIos.getExtraStr().add(line);
+                        break;
+                }
+            }
+        }
+
+        if (scan != null) {
+            scan.close();
+        }
+        // update the fields
+        //update();
+        //mf.updateVarNames(ioNames);
+
+    }
+
     /**
      * Reads a file and returns a list of strings which contain all the variable
      * names
      *
      * @param result the combination of files + file paths
      */
-    public void readFile(String result) {
+    public void readCodeFile(String result) {
 
         //System.out.println("Reading " + result);
         String[] ss = result.split(",");
@@ -713,7 +800,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                         cols = tmp;
                     }
                 }
-                
+
                 if (!sheet.getRow(i).getCell(0).toString().equals("io_id")) {
                     for (int c = 1; c < cols; c++) {
                         if (sheet.getRow(i).getCell(c).equals("io_id")) {
@@ -814,8 +901,8 @@ public class WidgetPanel extends javax.swing.JPanel {
     private javax.swing.JLabel _Label_WigetParam_stationID;
     private javax.swing.JLabel _Label_WigetParam_xPos;
     private javax.swing.JLabel _Label_WigetParam_yPos;
-    private javax.swing.JList _List_IoVariables;
-    private javax.swing.JList _List_WidgetList;
+    private javax.swing.JList _List_WidgetCodeList;
+    private javax.swing.JList _List_WidgetVars;
     private javax.swing.JPanel _Panel_WidgetParams;
     private javax.swing.JScrollPane _ScrollPane_ExportPane;
     private javax.swing.JScrollPane _ScrollPane_VariableNames;
