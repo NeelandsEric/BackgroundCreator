@@ -48,7 +48,7 @@ Performance Cost Sum Difference `%rackname`
 Performance kW Sum Predicted `%rackname`
 Performance kW Sum Actual `%rackname`
 Performance kW Sum Difference `%rackname`
-SEI `%rackname`,1,1,%,1,0,0,1,0,0,1
+SEI `%rackname`
 `Condenser`
 Cond Fan Amps `%rackname` `%fannum`
 Cond Fan Status `%rackname` `%fannum`

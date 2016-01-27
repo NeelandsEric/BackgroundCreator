@@ -145,16 +145,30 @@ public class DisplayFrame extends javax.swing.JFrame {
         }
     }
 
-    public Map<String, Rectangle> getWidgetPositions() {
+    public Map<String, Rectangle> getWidgetPositions(int panelIndex) {        
         
-        System.out.println("Getting positions");
         this.pack();
         
-        Map<String, Rectangle> masterMap = new TreeMap<>();
+        Map<String, Rectangle> masterMap = new TreeMap<>();    
+        
+        
+        int nt = _TabbedPane_Tabs.getTabCount();
+        if (panelIndex == 0) {
+            //masterMap = bg.positions();
+        } else if (panelIndex == (nt - 2)) {
+            //masterMap = bgl.positions();            
+        } else if (panelIndex == (nt - 1)) {
+            //masterMap = bgf.positions();            
+        } else {
+            panelIndex--;
+            masterMap = rackTabs.get(panelIndex).positions();
+        }      
+        
+        /*
         for (BackgroundRackNew pp : rackTabs) {            
             masterMap.putAll(pp.positions());
             //pp.positions();
-        }  
+        }  */
         
         return masterMap;
     }

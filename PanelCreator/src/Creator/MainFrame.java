@@ -74,6 +74,7 @@ public class MainFrame extends JFrame {
         controlPanel.updateDisplay();
         ngPanel.loadGroups();
         wgPanel.loadWidgets();
+        
 
         // add it to the frame           
         _TabbedPane_Tabs.add("Controls", controlPanel);
