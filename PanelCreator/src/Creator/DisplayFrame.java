@@ -3,8 +3,10 @@ package Creator;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
-import javax.swing.JPanel;
+import java.util.Map;
+import java.util.TreeMap;
 import javax.swing.SwingUtilities;
 
 /**
@@ -116,7 +118,6 @@ public class DisplayFrame extends javax.swing.JFrame {
                 updateDisplays(cs, ds);
             }
             
-
         }
     }//GEN-LAST:event__TabbedPane_TabsComponentResized
 
@@ -142,6 +143,20 @@ public class DisplayFrame extends javax.swing.JFrame {
         if (_TabbedPane_Tabs.getTabCount() > tab) {
             _TabbedPane_Tabs.setSelectedIndex(tab);
         }
+    }
+
+    public Map<String, Rectangle> getWidgetPositions() {
+        
+        System.out.println("Getting positions");
+        this.pack();
+        
+        Map<String, Rectangle> masterMap = new TreeMap<>();
+        for (BackgroundRackNew pp : rackTabs) {            
+            masterMap.putAll(pp.positions());
+            //pp.positions();
+        }  
+        
+        return masterMap;
     }
 
     /**
@@ -204,9 +219,7 @@ public class DisplayFrame extends javax.swing.JFrame {
                     int h = bg.getHeight();
                     t.setTitle("Customized Backgrounds " + w + "x" + h);
                     
-                    for (BackgroundRackNew pp : rackTabs) {
-                        pp.positions();
-                    }
+                   
                 }
 
             });

@@ -104,6 +104,7 @@ public class MainFrame extends JFrame {
                     mbPanel.loadStore(this.store.getMb());
                     wgPanel.loadControlSettings(this.store.getCs());
                     controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
+                    displayFrame.updateDisplays(this.store.getCs(), this.store.getDs());
                 }
             }
         }
@@ -554,31 +555,10 @@ public class MainFrame extends JFrame {
                 mbPanel.loadStore(this.store.getMb());
                 wgPanel.loadControlSettings(this.store.getCs());
                 controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
+                
+                displayFrame.updateDisplays(this.store.getCs(), this.store.getDs());
             }
-            /*
-             try {
-             FileInputStream fis = new FileInputStream(filePath);
-             ObjectInputStream ois = new ObjectInputStream(fis);
-             this.store = (Store) ois.readObject();
-             ois.close();
-             fis.close();
-
-             displayFrame.updateSettings(this.store.getDs());
-             settingsPanel.loadSettings(this.store.getDs());
-             controlPanel.loadControlSettings(this.store.getCs());
-             ngPanel.loadStore(this.store.getIoNames());
-             mbPanel.loadStore(this.store.getMb());
-             wgPanel.loadControlSettings(this.store.getCs());
-
-             controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
-             } catch (Exception e) {
-             controlPanel.writeToLog("Error with opening store: " + e.getMessage());
-             }
-             /*
-             System.out.println("Store Load Debug\nRack count: " + controlPanel.store.getNumRacks());
-             for (Rack r : controlPanel.store.getRacks()) {
-             System.out.println(r);
-             }*/
+            
 
         } else {
             System.out.println("File access cancelled by user.");

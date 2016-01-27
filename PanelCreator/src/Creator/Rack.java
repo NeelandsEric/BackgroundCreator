@@ -35,7 +35,7 @@ public class Rack implements java.io.Serializable {
         this.numSuctionGroups = 1;
         this.numCondenserFans = 1;
         this.suctionGroup = new ArrayList<>();
-        this.suctionGroup.add(new SuctionGroup("Suction Group 1"));
+        this.suctionGroup.add(new SuctionGroup("SGr1()"));
 
     }
 
@@ -225,7 +225,7 @@ public class Rack implements java.io.Serializable {
 
         for (int i = 0; i < toAdd; i++) {
             //System.out.println("Adding Suction Group " + (size + i+1));
-            this.suctionGroup.add(new SuctionGroup("Suction Group " + (size + i + 1)));
+            this.suctionGroup.add(new SuctionGroup("SGr" + (size + i + 1)+"()"));
         }
     }
 

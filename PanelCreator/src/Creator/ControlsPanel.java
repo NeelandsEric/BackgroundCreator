@@ -1269,9 +1269,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
      */
     public void updateFanCount() throws NumberFormatException {
         numFans = Math.abs(Integer.parseInt(_FormattedTF_NumFans.getText()));
-        if (numFans > 100) {
-            numFans = 100;
-            _FormattedTF_NumFans.setValue(new Integer("100"));
+        if (numFans > 40) {
+            numFans = 40;
+            _FormattedTF_NumFans.setValue(new Integer("40"));
         } else if (numFans == 0) {
             numFans = 1;
             _FormattedTF_NumFans.setValue(new Integer("1"));

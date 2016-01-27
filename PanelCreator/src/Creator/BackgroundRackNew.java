@@ -11,6 +11,9 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.TreeMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -38,6 +41,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
     public int rackNum;
     public String[] rackNames;
     private boolean canClick;
+    private Map<String, Component> widgetComponents;
 
     /**
      * Creates new form BackgroundRack
@@ -54,6 +58,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         this.rackNum = rackNum;
         this.canClick = false;
         this.rackNames = new String[]{"Main", "Rack {}", "Rack {}", "Loads", "Financial"};
+        this.widgetComponents = new TreeMap<>();
 
     }
 
@@ -77,6 +82,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         this.img = img;
         this.storeName = storeName;
         this.rackNames = rackNames;
+        this.widgetComponents = new TreeMap<>();
         this.updateView();
     }
 
@@ -219,6 +225,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
 
         _Panel_MainPanel.setLayout(gbl);
         _Panel_MainPanel.removeAll();
+        widgetComponents.clear();        
 
         //===========================================================
         // Store panel info at top
@@ -274,8 +281,6 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 0);
         //=========================================================== 
 
-        
-        
         //=========================================================== 
         // Filler area
         gridXPos = 0;
@@ -288,8 +293,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
         this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 1, GridBagConstraints.BOTH, 0, 20);
         //=========================================================== 
-        
-        
+
         //===========================================================
         // Condenser
         // Positioning & Constraints
@@ -345,57 +349,50 @@ public class BackgroundRackNew extends javax.swing.JPanel {
 
         _Panel_MainPanel.revalidate();
         _Panel_MainPanel.repaint();
-        
+
     }
 
-    public void positions() {
-        positions(_Panel_MainPanel);
-    }
+    public Map<String, Rectangle> positions() {
+        //public void positions() {
+        //System.out.println("Positions " + rack.getName());
+        Map<String, Rectangle> ioPoints = new TreeMap<>();
 
-    public void positions(Container p1) {
+        for (Entry<String, Component> entry : widgetComponents.entrySet()) {
 
-        for (Component p : p1.getComponents()) {
-            if (p instanceof JLabel) {
-
-                try {
-                    if (((JLabel) p).getText().isEmpty()) {
-
-                        Rectangle r = p.getBounds();
-                        Component par = p;
-                        while(par.getParent() != _Panel_MainPanel){
-                            par = par.getParent();                            
-                        }
-                        r = SwingUtilities.convertRectangle(par, r, _Panel_MainPanel);
-                        //Point spot = ((JLabel) p).getLocation();
-                        ((JLabel) p).setText("x=" + r.getX() + ", y=" + r.getY());
-                        //System.out.println("Position: " + spot.toString() + "\tr: " + r.toString());
+            Component p = entry.getValue();
+            try {
+                //System.out.println("Tooltip: " + ((JLabel) p).getToolTipText());
+                if (p instanceof JLabel) {
+                    //if (((JLabel) p).getToolTipText() != null) {
+                    //System.out.println("Has a tooltip:" + ((JLabel) p).getToolTipText());
+                    Rectangle r = p.getBounds();
+                    Component par = p;
+                    while (par.getParent() != _Panel_MainPanel) {
+                        par = par.getParent();
                     }
-                } catch (NullPointerException | IllegalComponentStateException e) {
+                    r = SwingUtilities.convertRectangle(par, r, _Panel_MainPanel);
+                    //((JLabel) p).setText("x=" + r.getX() + ", y=" + r.getY());
+
+                    Rectangle oldRect = ioPoints.put(entry.getKey(), r);
+                    if (oldRect != null) {
+                        System.out.println("Replaced " + ((JLabel) p).getToolTipText()
+                                + ".\nOld rectangle " + oldRect.toString()
+                                + "\nNew rectangle: " + r.toString());
+                    }
 
                 }
-                /*
-                 Point spot = new Point();
-                 Component currComponent = p;
-                 while (currComponent != null && currComponent != _Panel_MainPanel) {
 
-                 Point relativeLocation = currComponent.getLocation();
-                 spot.translate(relativeLocation.x, relativeLocation.y);
-                 currComponent = currComponent.getParent();
-                 }
-
-                 ((JLabel) p).setText(spot.toString());
-                 */
-                //System.out.println(e.getMessage());
-            } else {
-                if (p instanceof JPanel) {
-                    positions((Container) p);
-                }
+            } catch (NullPointerException | IllegalComponentStateException e) {
+                System.out.println("Error with " + ((JLabel) p).getName());
             }
+
         }
-     
+
+        return ioPoints;
+
     }
 
-    //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+//addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
     /**
      * adds a panel, with all the settings needed for the gridbagconstraint
      * variable
@@ -513,7 +510,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridy = 2;
         c.gridwidth = 1;
         label.setOpaque(true);
-        label.setBackground(Colours.BlueLight.getCol());        
+        label.setBackground(Colours.BlueLight.getCol());
         panel.add(label, c);
         //==================================================================
 
@@ -579,6 +576,14 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         //==================================================================
         //==================================================================
         // Blank fields
+        // 
+
+        String[] tooltip = new String[]{"Cond Outlet Temperature " + rack.getName(),
+            "Cond Outlet Pressure " + rack.getName(),
+            "Cond Out Subcooling " + rack.getName(),
+            "Discharge Pressure " + rack.getName(),
+            "Discharge Temp " + rack.getName()};
+
         for (int j = 0; j < 5; j++) {
 
             label = new JLabel("");            
@@ -586,6 +591,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
             label.setBorder(border);
             label.setOpaque(true);
             label.setBackground(Colours.BlueLightest.getCol());
+            widgetComponents.put(tooltip[j], label);
             panel.add(label, c);
 
             c.gridx++;
@@ -668,13 +674,21 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridy = 2;
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 1;
+
+        String[] tooltip = new String[]{"Cond Fan Amps " + rack.getName() + " `%fannum`",
+            "Cond Fan Status " + rack.getName() + " `%fannum`"};
+        String fannum;
         for (int j = 0; j < 2; j++) {
             for (int i = 1; i <= numCond; i++) {
                 label = new JLabel("");
+                fannum = ('0' + String.valueOf((i)));
+                fannum = fannum.substring(fannum.length() - 2);
+                
                 c.gridx = i;
                 label.setOpaque(true);
                 label.setBackground(j == 0 ? Colours.BlueLight.getCol() : Colours.BlueLightest.getCol());
                 label.setBorder(border);
+                widgetComponents.put(tooltip[j].replace("`%fannum`", fannum), label);
                 panel.add(label, c);
             }
             c.gridy = 3;
@@ -775,26 +789,20 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridx += 2;
         c.gridwidth = 1;
         c.weightx = 1;
+
+        String[] tooltip = new String[]{"Suction Pressure " + rack.getName() + " `%sgname`"};
+
         for (int i = 0; i < numSg; i++) {
 
             c.gridwidth = comp[i];
-            label = new JLabel("");
+            label = new JLabel("");            
             label.setFont(font.deriveFont(Font.BOLD, 16));
             label.setOpaque(true);
             label.setBorder(border);
             label.setBackground(Colours.BlueLight.getCol());
+            widgetComponents.put(tooltip[0].replace("`%sgname`", rack.getSuctionGroupNameIndex(i)), label);
             panel.add(label, c);
             c.gridx += comp[i];
-            /*
-             gw1 = comp[i] - gw1;
-             c.gridwidth = gw1;
-             label = new JLabel("Actual");
-             label.setFont(font.deriveFont(Font.BOLD, 16));
-             label.setOpaque(true);
-             label.setBorder(border);
-             label.setBackground(Colours.BlueLight.getCol());
-             panel.add(label, c);
-             c.gridx += gw1;*/
         }
 
         //===========================
@@ -819,27 +827,19 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridx += 2;
         c.gridwidth = 1;
         c.weightx = 1;
+        tooltip = new String[]{"Suction Temp " + rack.getName() + " `%sgname`"};
+
         for (int i = 0; i < numSg; i++) {
 
             c.gridwidth = comp[i];
-            label = new JLabel("");
+            label = new JLabel("");            
             label.setFont(font.deriveFont(Font.BOLD, 16));
             label.setOpaque(true);
             label.setBorder(border);
             label.setBackground(Colours.BlueLightest.getCol());
+            widgetComponents.put(tooltip[0].replace("`%sgname`", rack.getSuctionGroupNameIndex(i)), label);
             panel.add(label, c);
             c.gridx += comp[i];
-            /*
-             gw1 = comp[i] - gw1;
-             c.gridwidth = gw1;
-             label = new JLabel("Superheat");
-             label.setFont(font.deriveFont(Font.BOLD, 16));
-             label.setOpaque(true);
-             label.setBorder(border);
-             label.setBackground(Colours.BlueLightest.getCol());
-             panel.add(label, c);
-             c.gridx += gw1;*/
-
         }
 
         // Row 6
@@ -889,7 +889,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridx = 0;
         c.gridy = 8;
         c.gridwidth = 2;
-        c.weightx = 0;        
+        c.weightx = 0;
         label = new JLabel("Discharge Temp");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
@@ -904,13 +904,20 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridx += 2;
         c.gridwidth = 1;
         c.weightx = 1;
+
+        tooltip = new String[]{"Comp Discharge Temp " + rack.getName() + " `%sgname` `%compname`"};
+
         for (int i = 0; i < numSg; i++) {
             for (int j = 0; j < comp[i]; j++) {
-                label = new JLabel("");
+
+                label = new JLabel("");                
                 label.setFont(font);
                 label.setOpaque(true);
                 label.setBorder(border);
                 label.setBackground(Colours.BlueLightest.getCol());
+                widgetComponents.put(tooltip[0]
+                        .replace("`%sgname`", rack.getSuctionGroupNameIndex(i))
+                        .replace("`%compname`", rack.getSuctionGroupIndex(i).getCompressorNameIndex(j)), label);
                 panel.add(label, c);
                 c.gridx += 1;
             }
@@ -939,13 +946,19 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridx += 2;
         c.gridwidth = 1;
         c.weightx = 1;
+
+        tooltip = new String[]{"Comp Amps Temp " + rack.getName() + " `%sgname` `%compname`"};
+
         for (int i = 0; i < numSg; i++) {
             for (int j = 0; j < comp[i]; j++) {
-                label = new JLabel("");
+                label = new JLabel("");                
                 label.setFont(font);
                 label.setOpaque(true);
                 label.setBorder(border);
                 label.setBackground(Colours.BlueLight.getCol());
+                widgetComponents.put(tooltip[0]
+                        .replace("`%sgname`", rack.getSuctionGroupNameIndex(i))
+                        .replace("`%compname`", rack.getSuctionGroupIndex(i).getCompressorNameIndex(j)), label);
                 panel.add(label, c);
                 c.gridx += 1;
             }
@@ -977,13 +990,17 @@ public class BackgroundRackNew extends javax.swing.JPanel {
                 icon = new ImageIcon(buff);
             }
 
+            tooltip = new String[]{"Comp Status " + rack.getName() + " `%sgname` `%compname`"};
             for (int i = 0; i < numSg; i++) {
                 for (int j = 0; j < comp[i]; j++) {
-                    label = new JLabel(icon, JLabel.CENTER);
+                    label = new JLabel(icon, JLabel.CENTER);                    
                     label.setVerticalAlignment(JLabel.BOTTOM);
                     label.setOpaque(true);
                     //label.setBorder(border);
                     label.setBackground(Color.black);
+                    widgetComponents.put(tooltip[0]
+                        .replace("`%sgname`", rack.getSuctionGroupNameIndex(i))
+                        .replace("`%compname`", rack.getSuctionGroupIndex(i).getCompressorNameIndex(j)), label);
                     panel.add(label, c);
                     c.gridx += 1;
                 }
