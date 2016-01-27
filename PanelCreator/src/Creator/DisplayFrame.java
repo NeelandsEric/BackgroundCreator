@@ -6,7 +6,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.TreeMap;
 import javax.swing.SwingUtilities;
 
 /**
@@ -117,7 +116,7 @@ public class DisplayFrame extends javax.swing.JFrame {
                 this.setTitle("Customized Backgrounds " + w + "x" + h);
                 updateDisplays(cs, ds);
             }
-            
+
         }
     }//GEN-LAST:event__TabbedPane_TabsComponentResized
 
@@ -145,30 +144,19 @@ public class DisplayFrame extends javax.swing.JFrame {
         }
     }
 
-    public Map<String, Rectangle> getWidgetPositions(int panelIndex) {        
-        
+    public ArrayList<Map<String, Rectangle>> getWidgetPositions() {
+
         this.pack();
+        ArrayList<Map<String, Rectangle>> masterMap = new ArrayList<Map<String, Rectangle>>();
         
-        Map<String, Rectangle> masterMap = new TreeMap<>();    
+        //masterMap.add(bg.positions()); 
+        for(BackgroundRackNew b: rackTabs){
+            masterMap.add(b.positions());            
+        }
         
-        
-        int nt = _TabbedPane_Tabs.getTabCount();
-        if (panelIndex == 0) {
-            //masterMap = bg.positions();
-        } else if (panelIndex == (nt - 2)) {
-            //masterMap = bgl.positions();            
-        } else if (panelIndex == (nt - 1)) {
-            //masterMap = bgf.positions();            
-        } else {
-            panelIndex--;
-            masterMap = rackTabs.get(panelIndex).positions();
-        }      
-        
-        /*
-        for (BackgroundRackNew pp : rackTabs) {            
-            masterMap.putAll(pp.positions());
-            //pp.positions();
-        }  */
+        //masterMap.add(bgl.positions());            
+        //masterMap.add(bgf.positions());  
+           
         
         return masterMap;
     }
@@ -232,8 +220,7 @@ public class DisplayFrame extends javax.swing.JFrame {
                     int w = bg.getWidth();
                     int h = bg.getHeight();
                     t.setTitle("Customized Backgrounds " + w + "x" + h);
-                    
-                   
+
                 }
 
             });

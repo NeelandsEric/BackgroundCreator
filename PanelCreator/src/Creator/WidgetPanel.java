@@ -19,10 +19,12 @@ import java.io.InputStream;
 import java.net.URL;
 import java.security.CodeSource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -43,16 +45,16 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
  */
 public class WidgetPanel extends javax.swing.JPanel {
 
-    private ControlSettings cs;
-    private boolean[] mouseActive;
-    private MainFrame mf;
-    private Map<String, Widget> widgetList;
-    private boolean ioFileLoaded;
-    private DefaultListModel listModelWidgetsVars;
-    private DefaultListModel listModelCodeWidgets;
-    private IoNames widgetIos;
-
-    private Map<String, Integer> importedIOVariables;
+    private MainFrame mf;                                   // main frame    
+    private ControlSettings cs;                             // control settings
+    private boolean[] mouseActive;                          // which screen can we click on    
+    private boolean ioFileLoaded;                           // Check to see if the excel file is loaded
+    private DefaultListModel listModelWidgetsVars;          // List model for the default widgets vars used on displays
+    private DefaultListModel listModelCodeWidgets;          // List model for the code widgets
+    private Map<String, Widget> widgetList;                 // WidgetName,Widget Variable
+    private Map<String, List<String>> groupNamesWidget;     // GroupName,List of vars for the group (Store [Temp, Humidity, ..])
+    private Map<String, Integer> importedIOVariables;       // io_name,io_id
+    private List<Map<String, Rectangle>> masterMap;         // list of variables relating to each view's variables and locations on the panel
 
     /**
      * Creates new form WidgetPanel
@@ -76,7 +78,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         this.cs = cs;
         this.mouseActive = new boolean[cs.getNumRacks() + 3];
         this.widgetList = new TreeMap<>();
-        this.ioFileLoaded = false;        
+        this.ioFileLoaded = false;
         _Button_EnableClicks.setEnabled(false);
     }
 
@@ -103,12 +105,12 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     }
 
-    public void loadWidgets() {
+    public void loadWidgetCode() {
 
         boolean ide = true;
-        String pathWidgetCode = "textFiles/widgets/";        
+        String pathWidgetCode = "textFiles/widgets/";
         ArrayList<String> results = new ArrayList<>();
-        String dirCode = new File("").getAbsolutePath() + "/src/Creator/" + pathWidgetCode;        
+        String dirCode = new File("").getAbsolutePath() + "/src/Creator/" + pathWidgetCode;
 
         try {
             getWidgetFiles(dirCode, results);
@@ -118,7 +120,7 @@ public class WidgetPanel extends javax.swing.JPanel {
             });
 
             updateWidgetCode();
-            
+
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
             ide = false;
@@ -156,8 +158,8 @@ public class WidgetPanel extends javax.swing.JPanel {
                 System.out.println(e.getMessage());
             }
         }
-        
-        readDefaultWidgets();
+
+        readWidgetVars();
     }
 
     public void printWidgetVariables() {
@@ -201,17 +203,6 @@ public class WidgetPanel extends javax.swing.JPanel {
 
             listModelCodeWidgets.addElement(widget.getWidgetName());
         });
-
-    }
-
-    public void updateIoVariables() {
-
-        listModelWidgetsVars.removeAllElements();
-
-        for (Entry<String, Integer> entry : importedIOVariables.entrySet()) {
-
-            listModelWidgetsVars.addElement((entry.getValue() + ":" + entry.getKey()));
-        }
 
     }
 
@@ -554,16 +545,17 @@ public class WidgetPanel extends javax.swing.JPanel {
             if (!importedIOVariables.isEmpty()) {
                 //updateIoVariables();
             }
-
+            _Button_EnableClicks.setEnabled(true);
         } else {
             System.out.println("File access cancelled by user.");
-            _Button_EnableClicks.setEnabled(true);
+            
         }
     }//GEN-LAST:event__Button_LoadCSVActionPerformed
 
     private void _ComboBox_DisplayPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_DisplayPanelActionPerformed
         // TODO add your handling code here:
         int index = _ComboBox_DisplayPanel.getSelectedIndex();
+        mf.displayFrame.setTab(index);
 
         if (mouseActive[index]) {
             _Label_ClickStatus.setText("Click On");
@@ -574,32 +566,43 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     private void _Button_widgetPositionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_widgetPositionsActionPerformed
         // TODO add your handling code here:
-        Map<String, Rectangle> masterMap = mf.displayFrame.getWidgetPositions(_ComboBox_DisplayPanel.getSelectedIndex());
+        _Button_EnableClicks.setEnabled(true);
+        masterMap = mf.displayFrame.getWidgetPositions();
 
-        for (Map.Entry<String, Rectangle> entry : masterMap.entrySet()) {
-            String key = entry.getKey();
-            Rectangle rect = entry.getValue();
-            System.out.println(key + " = " + rect);
+        for (Map<String, Rectangle> mm : masterMap) {
+            for (Map.Entry<String, Rectangle> entry : mm.entrySet()) {
+                String key = entry.getKey();
+                Rectangle rect = entry.getValue();
+                System.out.println(key + " = " + rect);
+            }
         }
     }//GEN-LAST:event__Button_widgetPositionsActionPerformed
 
     private void _ComboBox_SubgroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_SubgroupActionPerformed
         // TODO add your handling code here:
-        
+
         loadWidgetVars();
-        
+
     }//GEN-LAST:event__ComboBox_SubgroupActionPerformed
 
-    
-    
-    public void loadWidgetVars(){
-        
-        
-        
+    public void loadWidgetVarsComboBox() {
+
+        String[] tabs = groupNamesWidget.keySet().toArray(new String[groupNamesWidget.keySet().size()]);
+        _ComboBox_Subgroup.setModel(new javax.swing.DefaultComboBoxModel(tabs));
+        loadWidgetVars();
+
     }
-    
-    
-    
+
+    public void loadWidgetVars() {
+
+        listModelWidgetsVars.removeAllElements();
+
+        for (String item : groupNamesWidget.get(_ComboBox_Subgroup.getSelectedItem().toString())) {
+            listModelWidgetsVars.addElement(item);
+        }
+
+    }
+
     public void getWidgetFiles(String dirName, ArrayList<String> filePaths) throws FileNotFoundException {
 
         File directory = new File(dirName);
@@ -619,9 +622,9 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     }
 
-    public void readDefaultWidgets() {
+    public void readWidgetVars() {
 
-        widgetIos = new IoNames();
+        groupNamesWidget = new HashMap<>();
         String path = "/Creator/textFiles/Default Widgets.txt";
 
         InputStream loc = this.getClass().getResourceAsStream(path);
@@ -629,56 +632,26 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         String line, groupName = "";
         while (scan.hasNextLine()) {
-            line = scan.nextLine();            
+            line = scan.nextLine();
 
             if (line == null) { // make sure it doesnt break
 
             } else if (line.startsWith("`")) {
-                groupName = line.substring(3).toLowerCase();
+                groupName = line.substring(1);
+                if (!groupNamesWidget.containsKey(groupName)) {
+                    groupNamesWidget.put(groupName, new ArrayList<>());
+                }
                 //System.out.println("Grouping name: " + groupName);
             } else {
-                switch (groupName) {
-                    case "":
-                        //System.out.println("No groupname line = " + line);
-                        break;
-                    case "store":
-                        //System.out.println("Added to Store: " + line);
-                        widgetIos.getStoreStr().add(line);
-                        break;
-                    case "rack":
-                        //System.out.println("Added to Rack: " + line);
-                        widgetIos.getRackStr().add(line);
-                        break;
-                    case "condenser":
-                        //System.out.println("Added to Condenser: " + line);
-                        widgetIos.getCondStr().add(line);
-                        break;
-                    case "suction group":
-                        //System.out.println("Added to SuctionGroup: " + line);
-                        widgetIos.getSgStr().add(line);
-                        break;
-                    case "compressor":
-                        //System.out.println("Added to Compressor: " + line);
-                        widgetIos.getCompStr().add(line);
-                        break;
-                    case "system":
-                        //System.out.println("Added to System: " + line);
-                        widgetIos.getSysStr().add(line);
-                        break;
-                    default:
-                        //System.out.println("Unknown groupname, added to extra" + line);
-                        widgetIos.getExtraStr().add(line);
-                        break;
-                }
+                groupNamesWidget.get(groupName).add(line);
             }
         }
 
         if (scan != null) {
             scan.close();
         }
-        // update the fields
-        //update();
-        //mf.updateVarNames(ioNames);
+
+        loadWidgetVarsComboBox();
 
     }
 

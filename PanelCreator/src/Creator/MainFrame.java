@@ -73,7 +73,7 @@ public class MainFrame extends JFrame {
         mbPanel.initalizeMeters();
         controlPanel.updateDisplay();
         ngPanel.loadGroups();
-        wgPanel.loadWidgets();
+        wgPanel.loadWidgetCode();
         
 
         // add it to the frame           

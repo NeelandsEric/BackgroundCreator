@@ -1,4 +1,4 @@
-`Store`
+`Store
 Store $/kWh
 Performance Cost Sum Predicted
 Performance Cost Sum Actual
@@ -22,7 +22,7 @@ Op kWh Total Current Year
 Op kWh Total Previous Day
 Op kWh Total Previous Month
 Op kWh Total Previous Year
-`Rack`
+`Rack
 Cond Out Subcooling `%rackname`
 Cond Outlet Pressure `%rackname`
 Cond Outlet Temperature `%rackname`
@@ -49,15 +49,15 @@ Performance kW Sum Predicted `%rackname`
 Performance kW Sum Actual `%rackname`
 Performance kW Sum Difference `%rackname`
 SEI `%rackname`
-`Condenser`
+`Condenser
 Cond Fan Amps `%rackname` `%fannum`
 Cond Fan Status `%rackname` `%fannum`
-`Suction Group`
+`Suction Group
 Suction Temp `%rackname` `%sgname`
 Suction Pressure Actual `%rackname` `%sgname`
 Suction Pressure Setpoint `%rackname` `%sgname`
 Suction Superheat `%rackname` `%sgname`
-`System`
+`System
 Loads Capacity `%rackname` `%sgname` `%sysname`
 Loads Cost Difference `%rackname` `%sgname` `%sysname`
 Loads EEPR `%rackname` `%sgname` `%sysname`
@@ -68,7 +68,7 @@ Loads kW Difference `%rackname` `%sgname` `%sysname`
 Loads Setpoint `%rackname` `%sgname` `%sysname`
 Loads Temp `%rackname` `%sgname` `%sysname`
 System Status `%rackname` `%sgname` `%sysname`
-`Compressor`
+`Compressor
 Comp Amps `%rackname` `%sgname` `%compname`
 Comp Discharge Temp `%rackname` `%sgname` `%compname`
 Comp Status `%rackname` `%sgname` `%compname`
