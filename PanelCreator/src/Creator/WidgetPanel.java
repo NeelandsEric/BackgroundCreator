@@ -22,9 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -51,10 +49,11 @@ public class WidgetPanel extends javax.swing.JPanel {
     private boolean ioFileLoaded;                           // Check to see if the excel file is loaded
     private DefaultListModel listModelWidgetsVars;          // List model for the default widgets vars used on displays
     private DefaultListModel listModelCodeWidgets;          // List model for the code widgets
-    private Map<String, Widget> widgetList;                 // WidgetName,Widget Variable
+    private DefaultListModel listModelMasterMap;            // List model for the master map variables
+    private Map<String, WidgetCode> widgetList;             // WidgetName,WidgetCode Variable
     private Map<String, List<String>> groupNamesWidget;     // GroupName,List of vars for the group (Store [Temp, Humidity, ..])
     private Map<String, Integer> importedIOVariables;       // io_name,io_id
-    private List<Map<String, Rectangle>> masterMap;         // list of variables relating to each view's variables and locations on the panel
+    private Map<String, Map<String, Rectangle>> masterMap;         // list of variables relating to each view's variables and locations on the panel
 
     /**
      * Creates new form WidgetPanel
@@ -70,6 +69,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         this.widgetList = new TreeMap<>();
         listModelWidgetsVars = new DefaultListModel();
         listModelCodeWidgets = new DefaultListModel();
+        listModelMasterMap = new DefaultListModel();
         initComponents();
         _Button_EnableClicks.setEnabled(false);
     }
@@ -164,7 +164,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     public void printWidgetVariables() {
         ArrayList<String> ss = new ArrayList<>();
-        for (Widget s : widgetList.values()) {
+        for (WidgetCode s : widgetList.values()) {
             for (String vars : s.variables.keySet()) {
                 if (!ss.contains(vars)) {
                     ss.add(vars);
@@ -184,7 +184,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }
 
     public void returnClick(Point p) {
-        //System.out.println("Widget click at " + p);
+        //System.out.println("WidgetCode click at " + p);
         clicked(p);
 
     }
@@ -218,7 +218,6 @@ public class WidgetPanel extends javax.swing.JPanel {
         _FileChooser_IoFile = new javax.swing.JFileChooser();
         _ScrollPane_WidgetNames = new javax.swing.JScrollPane();
         _List_WidgetCodeList = new javax.swing.JList();
-        _Label_Title = new javax.swing.JLabel();
         _ComboBox_DisplayPanel = new javax.swing.JComboBox();
         _ScrollPane_ExportPane = new javax.swing.JScrollPane();
         _TextArea_WidgetExport = new javax.swing.JTextArea();
@@ -241,6 +240,9 @@ public class WidgetPanel extends javax.swing.JPanel {
         _Label_ClickStatus = new javax.swing.JLabel();
         _Button_widgetPositions = new javax.swing.JButton();
         _ComboBox_Subgroup = new javax.swing.JComboBox();
+        _ScrollPane_MasterMap = new javax.swing.JScrollPane();
+        _List_MasterMapVariables = new javax.swing.JList();
+        _Label_Widget1 = new javax.swing.JLabel();
 
         _FileChooser_IoFile.setApproveButtonText("Open");
         _FileChooser_IoFile.setApproveButtonToolTipText("Open a xls file");
@@ -249,15 +251,12 @@ public class WidgetPanel extends javax.swing.JPanel {
         _FileChooser_IoFile.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("XLS files", "xls"));
 
         setMinimumSize(new java.awt.Dimension(969, 544));
+        setPreferredSize(new java.awt.Dimension(1031, 620));
 
-        _List_WidgetCodeList.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _List_WidgetCodeList.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _List_WidgetCodeList.setModel(listModelCodeWidgets);
         _List_WidgetCodeList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         _ScrollPane_WidgetNames.setViewportView(_List_WidgetCodeList);
-
-        _Label_Title.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        _Label_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        _Label_Title.setText("Widget Creator");
 
         _ComboBox_DisplayPanel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _ComboBox_DisplayPanel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Main" }));
@@ -287,7 +286,7 @@ public class WidgetPanel extends javax.swing.JPanel {
             }
         });
 
-        _List_WidgetVars.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _List_WidgetVars.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _List_WidgetVars.setModel(listModelWidgetsVars);
         _ScrollPane_VariableNames.setViewportView(_List_WidgetVars);
 
@@ -362,7 +361,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                         .addComponent(_Label_WigetParam_stationID, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(_FTF_WigetParam_stationID, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(_Panel_WidgetParamsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(_Label_ClickStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(_Panel_WidgetParamsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -371,8 +370,8 @@ public class WidgetPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(_Panel_WidgetParamsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(_FTF_WigetParam_xPos)
-                    .addComponent(_Button_EnableClicks, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                    .addComponent(_FTF_WigetParam_yPos))
+                    .addComponent(_Button_EnableClicks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(_FTF_WigetParam_yPos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         _Panel_WidgetParamsLayout.setVerticalGroup(
@@ -398,7 +397,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                         .addGroup(_Panel_WidgetParamsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(_Label_WigetParam_stationID, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(_FTF_WigetParam_stationID, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         _Button_widgetPositions.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -417,6 +416,14 @@ public class WidgetPanel extends javax.swing.JPanel {
             }
         });
 
+        _List_MasterMapVariables.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _List_MasterMapVariables.setModel(listModelMasterMap);
+        _ScrollPane_MasterMap.setViewportView(_List_MasterMapVariables);
+
+        _Label_Widget1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _Label_Widget1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _Label_Widget1.setText("Variables on Panel");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -424,75 +431,73 @@ public class WidgetPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(_Panel_WidgetParams, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(_Label_Widget, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(_Label_Loaded, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(_Button_LoadCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(_ScrollPane_WidgetNames, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(_ScrollPane_VariableNames, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(_Label_VarNames, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(_ComboBox_Subgroup, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(_Label_Widget, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                                .addComponent(_ScrollPane_WidgetNames, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(_Label_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(76, 76, 76))
-                            .addComponent(_ScrollPane_VariableNames, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(_Label_VarNames, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(_ComboBox_Subgroup, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(_Panel_WidgetParams, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(_Label_Widget1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(_ComboBox_DisplayPanel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(_Button_widgetPositions, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(_ScrollPane_MasterMap, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(163, 163, 163)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(_ComboBox_DisplayPanel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(_Button_widgetPositions))
+                    .addComponent(_ScrollPane_ExportPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_Button_Copy, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(_Button_Copy, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_ScrollPane_ExportPane, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                            .addComponent(_Button_LoadCSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(_Label_Loaded, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(_Label_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_Button_widgetPositions, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_ComboBox_DisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_ScrollPane_ExportPane))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(_ComboBox_Subgroup, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(_Label_VarNames, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(456, 456, 456)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(_Button_Copy, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(_ComboBox_Subgroup, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Label_VarNames, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_ComboBox_DisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Button_widgetPositions, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(_ScrollPane_MasterMap)
+                            .addComponent(_ScrollPane_VariableNames, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(_Label_Widget, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Label_Widget1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addComponent(_ScrollPane_WidgetNames, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(_Panel_WidgetParams, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
                         .addComponent(_Button_LoadCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
+                        .addGap(2, 2, 2)
                         .addComponent(_Label_Loaded, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(_Label_Widget, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(_ScrollPane_WidgetNames))
-                            .addComponent(_ScrollPane_VariableNames, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, 0)
+                        .addComponent(_ScrollPane_ExportPane, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(_Panel_WidgetParams, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(21, 21, 21))
+                        .addComponent(_Button_Copy, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -548,7 +553,7 @@ public class WidgetPanel extends javax.swing.JPanel {
             _Button_EnableClicks.setEnabled(true);
         } else {
             System.out.println("File access cancelled by user.");
-            
+
         }
     }//GEN-LAST:event__Button_LoadCSVActionPerformed
 
@@ -562,6 +567,8 @@ public class WidgetPanel extends javax.swing.JPanel {
         } else {
             _Label_ClickStatus.setText("Click Off");
         }
+
+        loadMasterMapList();
     }//GEN-LAST:event__ComboBox_DisplayPanelActionPerformed
 
     private void _Button_widgetPositionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_widgetPositionsActionPerformed
@@ -569,13 +576,16 @@ public class WidgetPanel extends javax.swing.JPanel {
         _Button_EnableClicks.setEnabled(true);
         masterMap = mf.displayFrame.getWidgetPositions();
 
-        for (Map<String, Rectangle> mm : masterMap) {
-            for (Map.Entry<String, Rectangle> entry : mm.entrySet()) {
-                String key = entry.getKey();
-                Rectangle rect = entry.getValue();
-                System.out.println(key + " = " + rect);
-            }
-        }
+        /*
+         for (Map.Entry<String, Map<String, Rectangle>> mm : masterMap.entrySet()) {
+         for (Map.Entry<String, Rectangle> entry: mm.getValue().entrySet()) {
+         String key = entry.getKey();
+         Rectangle rect = entry.getValue();
+                
+         System.out.println(mm.getKey() + ":" + key + " = " + rect);
+         }
+         }*/
+        loadMasterMapList();
     }//GEN-LAST:event__Button_widgetPositionsActionPerformed
 
     private void _ComboBox_SubgroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_SubgroupActionPerformed
@@ -584,6 +594,23 @@ public class WidgetPanel extends javax.swing.JPanel {
         loadWidgetVars();
 
     }//GEN-LAST:event__ComboBox_SubgroupActionPerformed
+
+    public void loadMasterMapList() {
+
+        String index = _ComboBox_DisplayPanel.getSelectedItem().toString();
+
+        if (masterMap.get(index) != null) {
+
+            listModelMasterMap.removeAllElements();
+            for (Map.Entry<String, Rectangle> entry : masterMap.get(index).entrySet()) {
+                Rectangle r = entry.getValue();
+
+                String pos = "X: " + r.x + " Y: " + r.y + " Width: " + r.width + " Height: " + r.height;
+                listModelMasterMap.addElement(entry.getKey() + ": " + pos);
+            }
+        }
+
+    }
 
     public void loadWidgetVarsComboBox() {
 
@@ -697,7 +724,7 @@ public class WidgetPanel extends javax.swing.JPanel {
             System.out.println("Error trying to read " + filename);
         }
 
-        Widget widget = new Widget(ss[0], vars, entireWidget, filename);
+        WidgetCode widget = new WidgetCode(ss[0], vars, entireWidget, filename);
         widgetList.put(ss[0], widget);
 
     }
@@ -735,7 +762,7 @@ public class WidgetPanel extends javax.swing.JPanel {
             }
         }
 
-        Widget widget = new Widget(name, vars, entireWidget, result);
+        WidgetCode widget = new WidgetCode(name, vars, entireWidget, result);
         widgetList.put(name, widget);
 
     }
@@ -867,17 +894,19 @@ public class WidgetPanel extends javax.swing.JPanel {
     private javax.swing.JFileChooser _FileChooser_IoFile;
     private javax.swing.JLabel _Label_ClickStatus;
     private javax.swing.JLabel _Label_Loaded;
-    private javax.swing.JLabel _Label_Title;
     private javax.swing.JLabel _Label_VarNames;
     private javax.swing.JLabel _Label_Widget;
+    private javax.swing.JLabel _Label_Widget1;
     private javax.swing.JLabel _Label_WidgetParams;
     private javax.swing.JLabel _Label_WigetParam_stationID;
     private javax.swing.JLabel _Label_WigetParam_xPos;
     private javax.swing.JLabel _Label_WigetParam_yPos;
+    private javax.swing.JList _List_MasterMapVariables;
     private javax.swing.JList _List_WidgetCodeList;
     private javax.swing.JList _List_WidgetVars;
     private javax.swing.JPanel _Panel_WidgetParams;
     private javax.swing.JScrollPane _ScrollPane_ExportPane;
+    private javax.swing.JScrollPane _ScrollPane_MasterMap;
     private javax.swing.JScrollPane _ScrollPane_VariableNames;
     private javax.swing.JScrollPane _ScrollPane_WidgetNames;
     private javax.swing.JTextArea _TextArea_WidgetExport;

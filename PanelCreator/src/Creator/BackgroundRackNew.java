@@ -728,7 +728,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridy = 0;
         c.weightx = 0;
         c.weighty = 1;
-        //c.ipady = 25;
+        c.ipady = 10;
         c.gridheight = 2;
         c.gridwidth = 2;
         c.fill = GridBagConstraints.BOTH;

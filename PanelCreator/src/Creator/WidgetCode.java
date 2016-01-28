@@ -12,14 +12,14 @@ import javax.xml.bind.annotation.XmlAccessorType;
  * @author EricGummerson
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Widget {
+public class WidgetCode {
     
     String widgetName;
     Map<String, Object> variables;
     String fullWidgetText;
     String filePath;
 
-    public Widget(String variableName) {
+    public WidgetCode(String variableName) {
         this.widgetName = variableName;
         variables = new HashMap<>();
         this.fullWidgetText = "";
@@ -27,7 +27,7 @@ public class Widget {
     }
     
        
-    public Widget(String variableName, ArrayList<String> vars, String fullWidgetText, String filePath) {
+    public WidgetCode(String variableName, ArrayList<String> vars, String fullWidgetText, String filePath) {
         this.widgetName = variableName;
         variables = new HashMap<>();
         for(String s: vars){

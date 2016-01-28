@@ -5,7 +5,9 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.swing.SwingUtilities;
 
 /**
@@ -144,14 +146,14 @@ public class DisplayFrame extends javax.swing.JFrame {
         }
     }
 
-    public ArrayList<Map<String, Rectangle>> getWidgetPositions() {
+    public Map<String, Map<String, Rectangle>> getWidgetPositions() {
 
         this.pack();
-        ArrayList<Map<String, Rectangle>> masterMap = new ArrayList<Map<String, Rectangle>>();
+        Map<String, Map<String, Rectangle>> masterMap = new LinkedHashMap<>();
         
         //masterMap.add(bg.positions()); 
         for(BackgroundRackNew b: rackTabs){
-            masterMap.add(b.positions());            
+            masterMap.put(b.rack.getName(), b.positions());            
         }
         
         //masterMap.add(bgl.positions());            
