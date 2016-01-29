@@ -151,13 +151,13 @@ public class DisplayFrame extends javax.swing.JFrame {
         this.pack();
         Map<String, Map<String, Rectangle>> masterMap = new LinkedHashMap<>();
         
-        //masterMap.add(bg.positions()); 
+        masterMap.put("Main", bg.positions()); 
         for(BackgroundRackNew b: rackTabs){
             masterMap.put(b.rack.getName(), b.positions());            
         }
         
-        //masterMap.add(bgl.positions());            
-        //masterMap.add(bgf.positions());  
+        masterMap.put("Loads", bgl.positions());            
+        masterMap.put("Financial", bgf.positions());  
            
         
         return masterMap;

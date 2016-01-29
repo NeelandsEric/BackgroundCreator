@@ -6,13 +6,19 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.IllegalComponentStateException;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.TreeMap;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
 /**
@@ -22,7 +28,7 @@ import javax.swing.border.Border;
  *
  * @author EricGummerson
  */
-public class BackgroundLoad extends javax.swing.JPanel implements Background{
+public class BackgroundLoad extends javax.swing.JPanel implements Background {
 
     public DisplayFrame df;
     public int numRacks;            // num of racks
@@ -32,6 +38,8 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
     public String img;              // global img string for the logo
     public String storeName;        // global string for the store name
     public boolean canClick;
+    private Map<String, Component> widgetComponents;
+
     /**
      * Creates new form BackgroundLoads Initalizes the arraylist to avoid null
      * pointer exceptions, as well as the logo
@@ -44,6 +52,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
         racks = new ArrayList<>();
         this.img = "";
         this.canClick = false;
+        this.widgetComponents = new TreeMap<>();
     }
 
     /**
@@ -65,6 +74,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
         this.border = border;
         this.img = img;
         this.storeName = storeName;
+        this.widgetComponents = new TreeMap<>();
         this.updateView();
     }
 
@@ -125,14 +135,14 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
         this.updateView();
     }
 
-    private void buttonClick(){
+    private void buttonClick() {
 
-        if(canClick){
+        if (canClick) {
             Point p = this.getMousePosition();
             df.returnClick(p);
         }
     }
-    
+
     @Override
     public boolean canClick() {
         return canClick;
@@ -142,8 +152,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
     public void setCanClick(boolean canClick) {
         this.canClick = canClick;
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -189,7 +198,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
     }// </editor-fold>//GEN-END:initComponents
 
     private void _Panel_MainPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event__Panel_MainPanelMousePressed
-         if(canClick){
+        if (canClick) {
             //System.out.println("Load click " + evt.getPoint());
             df.returnClick(evt.getPoint());
         }
@@ -211,6 +220,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
         // Make sure to remove all components from previous
         _Panel_MainPanel.removeAll();
         _Panel_MainPanel.setLayout(gbl);
+        widgetComponents.clear();
 
         // Store panel info at top
         //===========================================================
@@ -343,8 +353,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
         panel.add(label, c);
 
         String[] titles = new String[]{" SETPOINT ", "TEMPERATURE", " EEPR% ", "PREDICTED EEPR%",
-            "EEPR% DIFFERENCE", "CAPACITY", "    KW    ", "KW DIFFERENCE",
-            "COST DIFFERENCE", " FAULT "};
+            "EEPR% DIFFERENCE", "CAPACITY", "    kW    ", "kW DIFFERENCE", "COST DIFFERENCE", " FAULT "};
 
         c.gridx += 1;
         for (int i = 0; i < titles.length; i++) {
@@ -366,15 +375,17 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
         }
 
         int numSystems = 0;
-        ArrayList<String> systemNames = new ArrayList<>();
-        String sgName;
+
+        //ArrayList<String> systemNames = new ArrayList<>();
+        ArrayList<String[]> widgetInfo = new ArrayList<>();
+        //String sgName;
         for (int i = 0; i < numRacks; i++) {
             for (int j = 0; j < racks.get(i).getNumSuctionGroups(); j++) {
                 sg = racks.get(i).getSuctionGroupIndex(j);
-                sgName = sg.getName();
                 numSystems += sg.getNumSystems();
                 for (int k = 0; k < sg.getNumSystems(); k++) {
-                    systemNames.add(sg.getSystemNameIndex(k));
+                    widgetInfo.add(new String[]{racks.get(i).getName(), sg.getName(), sg.getSystemNameIndex(k)});                    
+                    //systemNames.add(sg.getSystemNameIndex(k));
                 }
             }
         }
@@ -385,10 +396,17 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
         c.gridy = 1;
         c.weighty = 1;
         c.fill = GridBagConstraints.BOTH;
+
+        String[] tooltip = new String[]{"Loads Setpoint `%rackname` `%sgname` `%sysname`", "Loads Temp `%rackname` `%sgname` `%sysname`",
+            "Loads EEPR `%rackname` `%sgname` `%sysname`", "Loads EEPR Predicted `%rackname` `%sgname` `%sysname`",
+            "Loads EEPR Difference `%rackname` `%sgname` `%sysname`", "Loads Capacity `%rackname` `%sgname` `%sysname`",
+            "Loads kW `%rackname` `%sgname` `%sysname`", "Loads kW Difference `%rackname` `%sgname` `%sysname`",
+            "Loads Cost Difference `%rackname` `%sgname` `%sysname`", "System Status `%rackname` `%sgname` `%sysname`"};
+
         for (int i = 0; i < numSystems; i++) {
 
             // add the system name
-            label = new JLabel(" " + systemNames.get(i) + " ");
+            label = new JLabel(" " + widgetInfo.get(i)[2] + " ");
             label.setOpaque(true);
             if (i % 2 == 0) {
                 label.setBackground(Colours.BlueLight.getCol());
@@ -399,6 +417,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
             label.setBorder(border);
             label.setFont(font);
             label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
             panel.add(label, c);
 
             c.gridx += 1;
@@ -421,6 +440,13 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
                 }
                 label.setBorder(border);
                 label.setFont(font);
+                try {
+                    widgetComponents.put(tooltip[j].replace("`%rackname`", widgetInfo.get(i)[0])
+                            .replace("`%sgname`", widgetInfo.get(i)[1])
+                            .replace("`%sysname`", widgetInfo.get(i)[2]), label);
+                } catch (NullPointerException e) {
+                    //System.out.println(e.getMessage());
+                }
                 panel.add(label, c);
                 c.gridx += 1;
 
@@ -499,7 +525,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonClick();
             }
-        }); 
+        });
         panel.add(button, c);
         //===========================================================
         // Constraints        
@@ -521,10 +547,10 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
             button.setFont(font.deriveFont(Font.BOLD, 20));
             button.setAlignmentX((Component.CENTER_ALIGNMENT));
             button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick();
-            }
-        }); 
+                public void mousePressed(java.awt.event.MouseEvent evt) {
+                    buttonClick();
+                }
+            });
             panel.add(button, c);
         }
 
@@ -550,9 +576,9 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonClick();
             }
-        }); 
+        });
         panel.add(button, c);
-        
+
         // Financial Button
         c.gridx += 1;
         button = new JButton("Financial");
@@ -592,6 +618,49 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
 
     }
 
+    public Map<String, Rectangle> positions() {
+        //public void positions() {
+        //System.out.println("Positions " + rack.getName());
+        Map<String, Rectangle> ioPoints = new TreeMap<>();
+
+         if(widgetComponents.isEmpty()){
+            return null;
+        }
+        for (Map.Entry<String, Component> entry : widgetComponents.entrySet()) {
+
+            Component p = entry.getValue();
+            try {
+                //System.out.println("Tooltip: " + ((JLabel) p).getToolTipText());
+                if (p instanceof JLabel) {
+                    //if (((JLabel) p).getToolTipText() != null) {
+                    //System.out.println("Has a tooltip:" + ((JLabel) p).getToolTipText());
+                    Rectangle r = p.getBounds();
+                    Component par = p;
+                    while (par.getParent() != _Panel_MainPanel) {
+                        par = par.getParent();
+                    }
+                    r = SwingUtilities.convertRectangle(par, r, _Panel_MainPanel);
+                    //((JLabel) p).setText("x=" + r.getX() + ", y=" + r.getY());
+
+                    Rectangle oldRect = ioPoints.put(entry.getKey(), r);
+                    if (oldRect != null) {
+                        System.out.println("Replaced " + ((JLabel) p).getToolTipText()
+                                + ".\nOld rectangle " + oldRect.toString()
+                                + "\nNew rectangle: " + r.toString());
+                    }
+
+                }
+
+            } catch (NullPointerException | IllegalComponentStateException e) {
+                System.out.println("Error with " + ((JLabel) p).getName());
+            }
+
+        }
+
+        return ioPoints;
+
+    }
+
     /**
      * Top panel
      *
@@ -625,8 +694,8 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background{
         //===========================       
         label = new JLabel();
         if (!"".equals(imgUrl)) {
-            ImageIcon icon = new ImageIcon(imgUrl);            
-            label.setText("");            
+            ImageIcon icon = new ImageIcon(imgUrl);
+            label.setText("");
             label.setIcon(icon);
         } else {
             label.setText("NO LOGO SELECTED");

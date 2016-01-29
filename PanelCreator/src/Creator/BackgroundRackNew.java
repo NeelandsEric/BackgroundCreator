@@ -225,7 +225,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
 
         _Panel_MainPanel.setLayout(gbl);
         _Panel_MainPanel.removeAll();
-        widgetComponents.clear();        
+        widgetComponents.clear();
 
         //===========================================================
         // Store panel info at top
@@ -357,6 +357,9 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         //System.out.println("Positions " + rack.getName());
         Map<String, Rectangle> ioPoints = new TreeMap<>();
 
+        if (widgetComponents.isEmpty()) {
+            return null;
+        }
         for (Entry<String, Component> entry : widgetComponents.entrySet()) {
 
             Component p = entry.getValue();
@@ -586,7 +589,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
 
         for (int j = 0; j < 5; j++) {
 
-            label = new JLabel("");            
+            label = new JLabel("");
             label.setFont(font);
             label.setBorder(border);
             label.setOpaque(true);
@@ -683,7 +686,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
                 label = new JLabel("");
                 fannum = ('0' + String.valueOf((i)));
                 fannum = fannum.substring(fannum.length() - 2);
-                
+
                 c.gridx = i;
                 label.setOpaque(true);
                 label.setBackground(j == 0 ? Colours.BlueLight.getCol() : Colours.BlueLightest.getCol());
@@ -795,7 +798,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         for (int i = 0; i < numSg; i++) {
 
             c.gridwidth = comp[i];
-            label = new JLabel("");            
+            label = new JLabel("");
             label.setFont(font.deriveFont(Font.BOLD, 16));
             label.setOpaque(true);
             label.setBorder(border);
@@ -832,7 +835,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         for (int i = 0; i < numSg; i++) {
 
             c.gridwidth = comp[i];
-            label = new JLabel("");            
+            label = new JLabel("");
             label.setFont(font.deriveFont(Font.BOLD, 16));
             label.setOpaque(true);
             label.setBorder(border);
@@ -910,7 +913,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         for (int i = 0; i < numSg; i++) {
             for (int j = 0; j < comp[i]; j++) {
 
-                label = new JLabel("");                
+                label = new JLabel("");
                 label.setFont(font);
                 label.setOpaque(true);
                 label.setBorder(border);
@@ -951,7 +954,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
 
         for (int i = 0; i < numSg; i++) {
             for (int j = 0; j < comp[i]; j++) {
-                label = new JLabel("");                
+                label = new JLabel("");
                 label.setFont(font);
                 label.setOpaque(true);
                 label.setBorder(border);
@@ -993,14 +996,14 @@ public class BackgroundRackNew extends javax.swing.JPanel {
             tooltip = new String[]{"Comp Status " + rack.getName() + " `%sgname` `%compname`"};
             for (int i = 0; i < numSg; i++) {
                 for (int j = 0; j < comp[i]; j++) {
-                    label = new JLabel(icon, JLabel.CENTER);                    
+                    label = new JLabel(icon, JLabel.CENTER);
                     label.setVerticalAlignment(JLabel.BOTTOM);
                     label.setOpaque(true);
                     //label.setBorder(border);
                     label.setBackground(Color.black);
                     widgetComponents.put(tooltip[0]
-                        .replace("`%sgname`", rack.getSuctionGroupNameIndex(i))
-                        .replace("`%compname`", rack.getSuctionGroupIndex(i).getCompressorNameIndex(j)), label);
+                            .replace("`%sgname`", rack.getSuctionGroupNameIndex(i))
+                            .replace("`%compname`", rack.getSuctionGroupIndex(i).getCompressorNameIndex(j)), label);
                     panel.add(label, c);
                     c.gridx += 1;
                 }

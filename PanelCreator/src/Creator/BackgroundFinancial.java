@@ -6,13 +6,18 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.IllegalComponentStateException;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
 /**
@@ -32,6 +37,9 @@ public class BackgroundFinancial extends javax.swing.JPanel {
     public String img;              // global string of the logo file path
     public String storeName;        // store name
     private boolean canClick;
+    private Map<String, Component> widgetComponents;
+    
+    
 
     /**
      * Creates new form BackgroundMain
@@ -44,6 +52,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         this.img = "";
         this.canClick = false;
         this.storeName = "Store Name";
+        this.widgetComponents = new TreeMap<>();
     }
 
     /**
@@ -63,6 +72,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         this.border = border;
         this.img = img;
         this.storeName = storeName;
+        this.widgetComponents = new TreeMap<>();
         this.updateView();
     }
 
@@ -210,6 +220,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
 
         _Panel_MainPanel.setLayout(gbl);
         _Panel_MainPanel.removeAll();
+        widgetComponents.clear();
 
         // Store panel info at top
         //===========================================================
@@ -292,7 +303,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
             if (i == 0) {
                 panel = panelRackName("Total");
             } else {
-                r = racks.get(i-1);
+                r = racks.get(i - 1);
                 // Number of suction groups for the rack 
                 panel = panelRackName(r.getName());
             }
@@ -426,7 +437,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         // rack names + SEI, they have their own panels, incase we want borders
         for (int i = 0; i <= this.numRacks; i++) {
 
-            panel = panelPerformance();
+            panel = panelPerformance(i);
             // For each new rack panel, we must assign the grid width
             // to be 3 * num Suctiongroups            
             // 2 cells per system
@@ -788,6 +799,49 @@ public class BackgroundFinancial extends javax.swing.JPanel {
 
     }
 
+    public Map<String, Rectangle> positions() {
+        //public void positions() {
+        //System.out.println("Positions " + rack.getName());
+        Map<String, Rectangle> ioPoints = new TreeMap<>();
+
+         if(widgetComponents.isEmpty()){
+            return null;
+        }
+        for (Map.Entry<String, Component> entry : widgetComponents.entrySet()) {
+
+            Component p = entry.getValue();
+            try {
+                //System.out.println("Tooltip: " + ((JLabel) p).getToolTipText());
+                if (p instanceof JLabel) {
+                    //if (((JLabel) p).getToolTipText() != null) {
+                    //System.out.println("Has a tooltip:" + ((JLabel) p).getToolTipText());
+                    Rectangle r = p.getBounds();
+                    Component par = p;
+                    while (par.getParent() != _Panel_MainPanel) {
+                        par = par.getParent();
+                    }
+                    r = SwingUtilities.convertRectangle(par, r, _Panel_MainPanel);
+                    //((JLabel) p).setText("x=" + r.getX() + ", y=" + r.getY());
+
+                    Rectangle oldRect = ioPoints.put(entry.getKey(), r);
+                    if (oldRect != null) {
+                        System.out.println("Replaced " + ((JLabel) p).getToolTipText()
+                                + ".\nOld rectangle " + oldRect.toString()
+                                + "\nNew rectangle: " + r.toString());
+                    }
+
+                }
+
+            } catch (NullPointerException | IllegalComponentStateException e) {
+                System.out.println("Error with " + ((JLabel) p).getName());
+            }
+
+        }
+
+        return ioPoints;
+
+    }
+
     /**
      * sets all the labels to a certain color
      *
@@ -873,7 +927,9 @@ public class BackgroundFinancial extends javax.swing.JPanel {
 
         //===========================
         // kWh/BTU Capacity
-        //===========================
+        //===========================        
+        String[] tooltip = new String[]{"Energy KBTU/kW Capacity"};        
+        
         label = new JLabel("Capacity/EnergyUnit");
         label.setOpaque(true);
         label.setBackground(Colours.BlueLight.getCol());
@@ -887,12 +943,15 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.weighty = 1;
         c.gridy = 1;
         c.gridwidth = c.gridheight = 2;
-        c.ipady = 40;        
+        c.ipady = 40;
+        widgetComponents.put(tooltip[0], label);
         panel.add(label, c);
 
         //===========================
         // kWh/BTU Cost
         //===========================
+        tooltip = new String[]{"Energy MBTU/hour Cost"};
+         
         label = new JLabel(" $/MBTU/hour ");
         label.setBorder(border);
         label.setOpaque(true);
@@ -901,17 +960,20 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setVerticalAlignment(JLabel.TOP);
         //c.fill = GridBagConstraints.BOTH;
-        c.gridx = 2;        
+        c.gridx = 2;
         //c.weightx = 1;
         //c.weighty = 1;
         //c.gridy = 0;
         //c.gridwidth = c.gridheight = 2;
         //c.ipady = 35;        
+        widgetComponents.put(tooltip[0], label);
         panel.add(label, c);
 
         //===========================
         // SEI
         //===========================
+        tooltip = new String[]{"Energy SEI Avg"};
+         
         label = new JLabel(" Store SEI Avg ");
         label.setBorder(border);
         label.setOpaque(true);
@@ -921,16 +983,21 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label.setVerticalAlignment(JLabel.TOP);
         //c.fill = GridBagConstraints.BOTH;
         c.gridx = 4;
-        c.weightx = 1;        
+        c.weightx = 1;
         //c.weighty = 1;
         //c.gridy = 0;
         //c.gridwidth = c.gridheight = 2;
-        //c.ipady = 35;        
+        //c.ipady = 35;     
+        widgetComponents.put(tooltip[0], label);
         panel.add(label, c);
 
         //===========================
         // Cost/SqFt
-        //===========================        
+        //===========================  
+        tooltip = new String[]{"Energy Cost/SqFt"};
+        
+        
+        
         label = new JLabel("$/1000SqFt/Month");
         label.setBorder(border);
         label.setOpaque(true);
@@ -945,6 +1012,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //c.gridy = 0;
         //c.gridwidth = c.gridheight = 2;
         //c.ipady = 35;        
+        widgetComponents.put(tooltip[0], label);
         panel.add(label, c);
 
         //===========================
@@ -991,11 +1059,17 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.gridheight = 1;
         c.weightx = 1;
         c.ipadx = 40;
+        
+        tooltip = new String[]{"Performance Cost Sum Predicted Hourly", "Performance Cost Sum Actual Hourly",
+                               "Performance kW Sum Predicted Hourly", "Performance kW Sum Actual Hourly"};        
+        
+        
         for (int i = 0; i < 2; i++) {
             label = new JLabel();
             label.setOpaque(true);
             label.setBorder(border);
             label.setBackground(Colours.GreenLight.getCol());
+            widgetComponents.put(tooltip[i], label);
             panel.add(label, c);
 
             c.gridx += 2;
@@ -1003,6 +1077,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
             label.setOpaque(true);
             label.setBorder(border);
             label.setBackground(Colours.BlueLight.getCol());
+            widgetComponents.put(tooltip[i+2], label);
             panel.add(label, c);
 
             c.gridx -= 2;
@@ -1020,7 +1095,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
      *
      * @return JPanel
      */
-    public JPanel panelPerformance() {
+    public JPanel panelPerformance(int rackNum) {
         // Condenser Panel will list the condensers 
         JLabel label;
         GridBagLayout gbl = new GridBagLayout();
@@ -1059,6 +1134,21 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         panel.add(label, c);
         c.ipady = 10;
         c.weighty = 1;
+        
+        String [] totalTooltip = new String[]{"Performance Cost Sum Predicted", "Performance Cost Sum Actual",
+                                              "Performance Cost Sum Difference", "Performance kW Sum Predicted",
+                                              "Performance kW Sum Actual", "Performance kW Sum Difference"};
+        
+        
+        String [] tooltip = new String[]{"Performance Cost Sum Predicted `%rackname`", "Performance Cost Sum Actual `%rackname`",
+                                         "Performance Cost Sum Difference `%rackname`", "Performance kW Sum Predicted `%rackname`",
+                                         "Performance kW Sum Actual `%rackname`", "Performance kW Sum Difference `%rackname`"};       
+        
+        Rack rack = null;
+        if(rackNum != 0){
+            rack = racks.get(rackNum-1);
+        }
+        
         for (int i = 1; i <= 3; i++) {
             for (int j = 0; j < 2; j++) {
                 label = new JLabel();
@@ -1091,6 +1181,18 @@ public class BackgroundFinancial extends javax.swing.JPanel {
                     }
                 }
                 c.ipady = 30;
+                String replace = "";
+                if(rack != null){
+                    // Replace string names
+                    // Cost when j == 0 (0,1,2)
+                    // kW when j == 1 (3,4,5)
+                    replace = tooltip[j*3 + i - 1].replace("`%rackname`", rack.getName());                    
+                }else {
+                    // Total strings
+                    replace = totalTooltip[j*3 + i - 1];                    
+                }
+                
+                widgetComponents.put(replace, label);
                 panel.add(label, c);
             }
         }

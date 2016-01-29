@@ -6,13 +6,18 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.IllegalComponentStateException;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
 /**
@@ -32,7 +37,9 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
     public String img;              // global string of the logo file path
     public String storeName;        // store name
     private boolean canClick;
-
+    private Map<String, Component> widgetComponents;
+    
+    
     /**
      * Creates new form BackgroundMain
      *
@@ -43,6 +50,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         this.df = df;
         this.img = "";
         this.canClick = false;
+        this.widgetComponents = new TreeMap<>();
     }
 
     /**
@@ -63,6 +71,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         this.border = border;
         this.img = img;
         this.storeName = storeName;
+        this.widgetComponents = new TreeMap<>();
         this.updateView();
     }
 
@@ -221,6 +230,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
 
         _Panel_MainPanel.setLayout(gbl);
         _Panel_MainPanel.removeAll();
+        widgetComponents.clear();
 
         // Store panel info at top
         //===========================================================
@@ -535,6 +545,51 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         _Panel_MainPanel.repaint();
 
     }
+    
+    
+    public Map<String, Rectangle> positions() {
+        //public void positions() {
+        //System.out.println("Positions " + rack.getName());
+        Map<String, Rectangle> ioPoints = new TreeMap<>();
+
+        if(widgetComponents.isEmpty()){
+            return null;
+        }
+        for (Map.Entry<String, Component> entry : widgetComponents.entrySet()) {
+
+            Component p = entry.getValue();
+            try {
+                //System.out.println("Tooltip: " + ((JLabel) p).getToolTipText());
+                if (p instanceof JLabel) {
+                    //if (((JLabel) p).getToolTipText() != null) {
+                    //System.out.println("Has a tooltip:" + ((JLabel) p).getToolTipText());
+                    Rectangle r = p.getBounds();
+                    Component par = p;
+                    while (par.getParent() != _Panel_MainPanel) {
+                        par = par.getParent();
+                    }
+                    r = SwingUtilities.convertRectangle(par, r, _Panel_MainPanel);
+                    //((JLabel) p).setText("x=" + r.getX() + ", y=" + r.getY());
+
+                    Rectangle oldRect = ioPoints.put(entry.getKey(), r);
+                    if (oldRect != null) {
+                        System.out.println("Replaced " + ((JLabel) p).getToolTipText()
+                                + ".\nOld rectangle " + oldRect.toString()
+                                + "\nNew rectangle: " + r.toString());
+                    }
+
+                }
+
+            } catch (NullPointerException | IllegalComponentStateException e) {
+                System.out.println("Error with " + ((JLabel) p).getName());
+            }
+
+        }
+
+        return ioPoints;
+
+    }
+
 
     /**
      * sets all the labels to a certain color
