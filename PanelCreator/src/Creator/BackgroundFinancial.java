@@ -38,8 +38,6 @@ public class BackgroundFinancial extends javax.swing.JPanel {
     public String storeName;        // store name
     private boolean canClick;
     private Map<String, Component> widgetComponents;
-    
-    
 
     /**
      * Creates new form BackgroundMain
@@ -580,7 +578,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         // rack names + SEI, they have their own panels, incase we want borders
         for (int i = 0; i <= this.numRacks; i++) {
 
-            panel = panelOperatingDollars();
+            panel = panelOperatingDollars(i);
             // For each new rack panel, we must assign the grid width
             // to be 3 * num Suctiongroups            
             // 2 cells per system
@@ -723,7 +721,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         // rack names + SEI, they have their own panels, incase we want borders
         for (int i = 0; i <= this.numRacks; i++) {
 
-            panel = panelOperatingkWh();
+            panel = panelOperatingkWh(i);
             // For each new rack panel, we must assign the grid width
             // to be 3 * num Suctiongroups            
             // 2 cells per system
@@ -804,7 +802,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //System.out.println("Positions " + rack.getName());
         Map<String, Rectangle> ioPoints = new TreeMap<>();
 
-         if(widgetComponents.isEmpty()){
+        if (widgetComponents.isEmpty()) {
             return null;
         }
         for (Map.Entry<String, Component> entry : widgetComponents.entrySet()) {
@@ -928,8 +926,8 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //===========================
         // kWh/BTU Capacity
         //===========================        
-        String[] tooltip = new String[]{"Energy KBTU/kW Capacity"};        
-        
+        String[] tooltip = new String[]{"Energy KBTU/kW Capacity"};
+
         label = new JLabel("Capacity/EnergyUnit");
         label.setOpaque(true);
         label.setBackground(Colours.BlueLight.getCol());
@@ -951,7 +949,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         // kWh/BTU Cost
         //===========================
         tooltip = new String[]{"Energy MBTU/hour Cost"};
-         
+
         label = new JLabel(" $/MBTU/hour ");
         label.setBorder(border);
         label.setOpaque(true);
@@ -973,7 +971,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         // SEI
         //===========================
         tooltip = new String[]{"Energy SEI Avg"};
-         
+
         label = new JLabel(" Store SEI Avg ");
         label.setBorder(border);
         label.setOpaque(true);
@@ -995,9 +993,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         // Cost/SqFt
         //===========================  
         tooltip = new String[]{"Energy Cost/SqFt"};
-        
-        
-        
+
         label = new JLabel("$/1000SqFt/Month");
         label.setBorder(border);
         label.setOpaque(true);
@@ -1059,11 +1055,10 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.gridheight = 1;
         c.weightx = 1;
         c.ipadx = 40;
-        
+
         tooltip = new String[]{"Performance Cost Sum Predicted Hourly", "Performance Cost Sum Actual Hourly",
-                               "Performance kW Sum Predicted Hourly", "Performance kW Sum Actual Hourly"};        
-        
-        
+            "Performance kW Sum Predicted Hourly", "Performance kW Sum Actual Hourly"};
+
         for (int i = 0; i < 2; i++) {
             label = new JLabel();
             label.setOpaque(true);
@@ -1077,7 +1072,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
             label.setOpaque(true);
             label.setBorder(border);
             label.setBackground(Colours.BlueLight.getCol());
-            widgetComponents.put(tooltip[i+2], label);
+            widgetComponents.put(tooltip[i + 2], label);
             panel.add(label, c);
 
             c.gridx -= 2;
@@ -1093,6 +1088,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
     /**
      * Creates a panel for the performance
      *
+     * @param rackNum Used to determine which rack this panel is being used for
      * @return JPanel
      */
     public JPanel panelPerformance(int rackNum) {
@@ -1134,21 +1130,20 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         panel.add(label, c);
         c.ipady = 10;
         c.weighty = 1;
-        
-        String [] totalTooltip = new String[]{"Performance Cost Sum Predicted", "Performance Cost Sum Actual",
-                                              "Performance Cost Sum Difference", "Performance kW Sum Predicted",
-                                              "Performance kW Sum Actual", "Performance kW Sum Difference"};
-        
-        
-        String [] tooltip = new String[]{"Performance Cost Sum Predicted `%rackname`", "Performance Cost Sum Actual `%rackname`",
-                                         "Performance Cost Sum Difference `%rackname`", "Performance kW Sum Predicted `%rackname`",
-                                         "Performance kW Sum Actual `%rackname`", "Performance kW Sum Difference `%rackname`"};       
-        
+
+        String[] totalTooltip = new String[]{"Performance Cost Sum Predicted", "Performance Cost Sum Actual",
+            "Performance Cost Sum Difference", "Performance kW Sum Predicted",
+            "Performance kW Sum Actual", "Performance kW Sum Difference"};
+
+        String[] tooltip = new String[]{"Performance Cost Sum Predicted `%rackname`", "Performance Cost Sum Actual `%rackname`",
+            "Performance Cost Sum Difference `%rackname`", "Performance kW Sum Predicted `%rackname`",
+            "Performance kW Sum Actual `%rackname`", "Performance kW Sum Difference `%rackname`"};
+
         Rack rack = null;
-        if(rackNum != 0){
-            rack = racks.get(rackNum-1);
+        if (rackNum != 0) {
+            rack = racks.get(rackNum - 1);
         }
-        
+
         for (int i = 1; i <= 3; i++) {
             for (int j = 0; j < 2; j++) {
                 label = new JLabel();
@@ -1182,16 +1177,16 @@ public class BackgroundFinancial extends javax.swing.JPanel {
                 }
                 c.ipady = 30;
                 String replace = "";
-                if(rack != null){
+                if (rack != null) {
                     // Replace string names
                     // Cost when j == 0 (0,1,2)
                     // kW when j == 1 (3,4,5)
-                    replace = tooltip[j*3 + i - 1].replace("`%rackname`", rack.getName());                    
-                }else {
+                    replace = tooltip[j * 3 + i - 1].replace("`%rackname`", rack.getName());
+                } else {
                     // Total strings
-                    replace = totalTooltip[j*3 + i - 1];                    
+                    replace = totalTooltip[j * 3 + i - 1];
                 }
-                
+
                 widgetComponents.put(replace, label);
                 panel.add(label, c);
             }
@@ -1211,7 +1206,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
      *
      * @return JPanel
      */
-    public JPanel panelOperatingDollars() {
+    public JPanel panelOperatingDollars(int rackNum) {
         // Condenser Panel will list the condensers 
         JLabel label;
         GridBagLayout gbl = new GridBagLayout();
@@ -1247,6 +1242,19 @@ public class BackgroundFinancial extends javax.swing.JPanel {
 
         label.setFont(font.deriveFont(Font.BOLD, 16));
         panel.add(label, c);
+
+        String[] totalTooltip = new String[]{"Op Cost Total Previous Day", "Op Cost Total Previous Month",
+            "Op Cost Total Previous Year", "Op Cost Total Current Day",
+            "Op Cost Total Current Month", "Op Cost Total Current Year"};
+
+        String[] tooltip = new String[]{"Op Cost Previous `%rackname` Day", "Op Cost Previous `%rackname` Month",
+            "Op Cost Previous `%rackname` Year", "Op Cost Sum Current `%rackname` Day",
+            "Op Cost Sum Current `%rackname` Month", "Performance kW Sum Difference"};
+
+        Rack rack = null;
+        if (rackNum != 0) {
+            rack = racks.get(rackNum - 1);
+        }
 
         c.weighty = 1;
         for (int i = 1; i <= 3; i++) {
@@ -1268,6 +1276,19 @@ public class BackgroundFinancial extends javax.swing.JPanel {
                         break;
                 }
                 c.ipady = 30;
+
+                String replace = "";
+                if (rack != null) {
+                    // Replace string names
+                    // Cost when j == 0 (0,1,2)
+                    // kW when j == 1 (3,4,5)
+                    replace = tooltip[j * 3 + i - 1].replace("`%rackname`", rack.getName());
+                } else {
+                    // Total strings
+                    replace = totalTooltip[j * 3 + i - 1];
+                }
+
+                widgetComponents.put(replace, label);
                 panel.add(label, c);
             }
         }
@@ -1286,7 +1307,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
      *
      * @return JPanel
      */
-    public JPanel panelOperatingkWh() {
+    public JPanel panelOperatingkWh(int rackNum) {
         // Condenser Panel will list the condensers 
         JLabel label;
         GridBagLayout gbl = new GridBagLayout();
@@ -1323,6 +1344,19 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label.setFont(font.deriveFont(Font.BOLD, 16));
         panel.add(label, c);
 
+        String[] totalTooltip = new String[]{"Op kWh Total Current Day", "Op kWh Total Current Month",
+            "Op kWh Total Current Year", "Op kWh Total Previous Day",
+            "Op kWh Total Previous Month", "Op kWh Total Previous Year"};
+
+        String[] tooltip = new String[]{"Op kWh Counter Current `%rackname` Day", "Op kWh Counter Current `%rackname` Month",
+            "Op kWh Counter Current `%rackname` Year", "Op kWh Counter Previous `%rackname` Day",
+            "Op kWh Counter Previous `%rackname` Month", "Op kWh Counter Previous `%rackname` Year"};
+
+        Rack rack = null;
+        if (rackNum != 0) {
+            rack = racks.get(rackNum - 1);
+        }
+
         c.weighty = 1;
         for (int i = 1; i <= 3; i++) {
             for (int j = 0; j < 2; j++) {
@@ -1343,6 +1377,19 @@ public class BackgroundFinancial extends javax.swing.JPanel {
                         break;
                 }
                 c.ipady = 30;
+
+                String replace = "";
+                if (rack != null) {
+                    // Replace string names
+                    // Cost when j == 0 (0,1,2)
+                    // kW when j == 1 (3,4,5)
+                    replace = tooltip[j * 3 + i - 1].replace("`%rackname`", rack.getName());
+                } else {
+                    // Total strings
+                    replace = totalTooltip[j * 3 + i - 1];
+                }
+
+                widgetComponents.put(replace, label);
                 panel.add(label, c);
             }
         }

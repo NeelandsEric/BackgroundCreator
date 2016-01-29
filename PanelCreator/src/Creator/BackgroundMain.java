@@ -3,6 +3,7 @@ package Creator;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -38,8 +39,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
     public String storeName;        // store name
     private boolean canClick;
     private Map<String, Component> widgetComponents;
-    
-    
+
     /**
      * Creates new form BackgroundMain
      *
@@ -158,7 +158,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         setName(""); // NOI18N
         setOpaque(false);
 
-        _Panel_MainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        _Panel_MainPanel.setBackground(new java.awt.Color(0, 0, 0));
         _Panel_MainPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 _Panel_MainPanelMousePressed(evt);
@@ -192,8 +192,6 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         if (canClick) {
             //System.out.println("Main click " + evt.getPoint());
             Component c = _Panel_MainPanel.getComponentAt(evt.getPoint());
-            System.out.println(c.toString());
-            //c.setBackground(Color.black);
             df.returnClick(evt.getPoint());
         }
     }//GEN-LAST:event__Panel_MainPanelMousePressed
@@ -426,7 +424,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
             //===========================
             // RACK CONDENSER
             //===========================
-            panel = panelCompCond();
+            panel = panelCompCond(r.getName());
 
             //===========================================================            
             // Constraints        
@@ -540,19 +538,18 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         //===========================================================
         panel = panelBottom(this.numRacks);
         _Panel_MainPanel.add(panel, c);
-        
+
         _Panel_MainPanel.revalidate();
         _Panel_MainPanel.repaint();
 
     }
-    
-    
+
     public Map<String, Rectangle> positions() {
         //public void positions() {
         //System.out.println("Positions " + rack.getName());
         Map<String, Rectangle> ioPoints = new TreeMap<>();
 
-        if(widgetComponents.isEmpty()){
+        if (widgetComponents.isEmpty()) {
             return null;
         }
         for (Map.Entry<String, Component> entry : widgetComponents.entrySet()) {
@@ -589,7 +586,6 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         return ioPoints;
 
     }
-
 
     /**
      * sets all the labels to a certain color
@@ -643,7 +639,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         //c.ipady = 100;
         //c.gridheight = 5;
         //label.setOpaque(true);
-        //label.setBackground(new java.awt.Color((int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() * 256)));
+        //label.setBackground(new java.awt.Color((int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() * 256)));        
         panel.add(label, c);
 
         // Cost
@@ -664,6 +660,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         panel.add(label, c);
 
         // rack SEI
+        String[] tooltip = new String[]{"SEI `%rackname`"};
         label = new JLabel("SEI");
         label.setFont(font.deriveFont(Font.BOLD, 18));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -674,9 +671,13 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         c.gridwidth = 3;
         c.gridy = 0;
         c.gridheight = 2;
+        widgetComponents.put(tooltip[0].replace("`%rackname`", rackName), label);
         panel.add(label, c);
 
         //------------------------------
+        // Performance predicted/actual spots
+        tooltip = new String[]{"Performance Cost Sum Predicted `%rackname`", "Performance Cost Sum Actual `%rackname`"};
+
         c.weighty = 1;
         for (int i = 3; i <= 4; i++) {
 
@@ -701,6 +702,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
             }
 
             c.ipady = 30;
+            widgetComponents.put(tooltip[i - 3].replace("`%rackname`", rackName), label);
             panel.add(label, c);
         }
 
@@ -711,12 +713,15 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
     }
 
     public JPanel panelRackOutput() {
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel label = new JLabel();
+        widgetComponents.put("Alert Log", label);
+        panel.add(label);
         panel.setBackground(Colours.BlueLightest.getCol());
         return panel;
     }
 
-    public JPanel panelCompCond() {
+    public JPanel panelCompCond(String rackName) {
 
         // Condenser Panel will list the condensers 
         JLabel label;
@@ -741,12 +746,14 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         label = new JLabel("Condenser Fans  ");
         label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         label.setFont(font.deriveFont(Font.BOLD, 16));
+        widgetComponents.put("Cond Rack Fault " + rackName, label);
         panel.add(label, c);
 
         c.gridx = 1;
         label = new JLabel("Compressors  ");
         label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         label.setFont(font.deriveFont(Font.BOLD, 16));
+        widgetComponents.put("Comp Rack Fault " + rackName, label);
         panel.add(label, c);
         panel.setBackground(Colours.BlueLightest.getCol());
 
@@ -955,18 +962,18 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         int numCols;
         if (numSg > 3) {
             numCols = 2;
-        }else if(numSys >= 4 && numSys <= 8){
-            numCols = 2;            
-        }else if(numSys < 16 && numSys > 8){
+        } else if (numSys >= 4 && numSys <= 8) {
+            numCols = 2;
+        } else if (numSys < 16 && numSys > 8) {
             numCols = 3;
-        } else if(numSys <= 4){
+        } else if (numSys <= 4) {
             numCols = 1;
-        }else {
-            if(numRacks > 2){
+        } else {
+            if (numRacks > 2) {
                 numCols = 2;
-            }else if(df.cs.getTotalSG() < 4){
+            } else if (df.cs.getTotalSG() < 4) {
                 numCols = 6;
-            }else {
+            } else {
                 numCols = 3;
             }
         }
@@ -1003,6 +1010,10 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         int colIndex = 0;
         int rowIndex = 1;
         int numSpots = numCols * (int) numPerCol;
+
+        String rackName = racks.get(rackIndex).getName();
+        String tooltip = "System Status `%rackname` `%sgname` `%sysname`";
+        tooltip = tooltip.replace("`%rackname`", rackName).replace("`%sgname`", sg.getName());
         for (int i = 1; i <= numSpots; i++) {
 
             if (numAdded < numPerCol) {
@@ -1021,13 +1032,14 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
                 String text = sg.getSystemNameIndex(i - 1);
                 label = new JLabel(text);
                 label.setFont(font.deriveFont(Font.BOLD, 18));
+                widgetComponents.put(tooltip.replace("`%sysname`", text), label);
             } else {
                 label = new JLabel();
             }
 
             label.setOpaque(true);
             label.setBackground(Colours.BlueLightest.getCol());
-           
+
             //c.ipady = 25;
             c.fill = GridBagConstraints.BOTH;
             label.setVerticalAlignment(JLabel.TOP);
