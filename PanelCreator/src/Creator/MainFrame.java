@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -64,7 +65,7 @@ public class MainFrame extends JFrame {
         settingsPanel = new SettingsPanel(this, store.getDs());
         ngPanel = new NameGeneratorPanel(this, store.getIoNames());
         mbPanel = new ModbusPanel(this, store.getMb());
-        wgPanel = new WidgetPanel(this, store.getCs());
+        wgPanel = new WidgetPanel(this, store.getCs(), store.getWidgetLinks());
         displayFrame = new DisplayFrame(this, store.getCs(), store.getDs());
         displayFrame.setStopUpdate(true);
         // Load the main panel        
@@ -103,7 +104,7 @@ public class MainFrame extends JFrame {
                     controlPanel.loadControlSettings(this.store.getCs());
                     ngPanel.loadStore(this.store.getIoNames());
                     mbPanel.loadStore(this.store.getMb());
-                    wgPanel.loadControlSettings(this.store.getCs());
+                    wgPanel.loadControlSettings(this.store.getCs(),this.store.getWidgetLinks());
                     controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
                     displayFrame.updateDisplays(this.store.getCs(), this.store.getDs());
                 }
@@ -121,6 +122,12 @@ public class MainFrame extends JFrame {
         this.store = store;
     }
 
+    public void updateWidgetLinks(Map<String,WidgetLink> links){
+        this.store.widgetLinks = links;
+    }
+            
+            
+    
     public void updateModbusSettings(ModbusSettings mb) {
         this.store.setMb(mb);
     }
@@ -555,7 +562,7 @@ public class MainFrame extends JFrame {
                 controlPanel.loadControlSettings(this.store.getCs());
                 ngPanel.loadStore(this.store.getIoNames());
                 mbPanel.loadStore(this.store.getMb());
-                wgPanel.loadControlSettings(this.store.getCs());
+                wgPanel.loadControlSettings(this.store.getCs(),this.store.getWidgetLinks());
                 controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
                 
                 displayFrame.updateDisplays(this.store.getCs(), this.store.getDs());
