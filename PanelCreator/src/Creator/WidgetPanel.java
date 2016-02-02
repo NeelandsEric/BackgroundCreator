@@ -856,6 +856,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         //System.out.println("Size Before: " + mf.store.ws.widgetLinks.size());
         ws.clear();
+        _TextArea_WidgetExport.setText("");
         //System.out.println("Size After: " + mf.store.ws.widgetLinks.size());
 
     }//GEN-LAST:event__Button_ClearLinksActionPerformed
@@ -918,10 +919,13 @@ public class WidgetPanel extends javax.swing.JPanel {
         _TextArea_WidgetExport.setText("");
 
         // Generate the code (Save to Files later)
-        List<String> exportStringList = new ArrayList<>();
+        Map<String, List<String>> exportStringMap = new HashMap<>();
         for (Entry<String, WidgetLink> entry : ws.getWidgetLinkEntrySet()) {
 
-            String exportString = "";
+            String subGroup = entry.getValue().getSubGroup();
+            if (!exportStringMap.containsKey(subGroup)) {
+                exportStringMap.put(subGroup, new ArrayList<>());
+            }
             // For each entry, we want to generate the code that applies to all variables
             //System.out.println(entry);
             String orgKey = entry.getKey().substring(entry.getKey().indexOf("-") + 1);
@@ -952,6 +956,8 @@ public class WidgetPanel extends javax.swing.JPanel {
                         int io_id = importedIOVariables.get(varsToGen.getKey());
                         System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + " with IO_ID: " + io_id);
 
+                        exportStringMap.get(subGroup).add(createWidget(entry.getValue().getWidgetCode(), varsToGen.getValue(), entry.getValue().getPositionPercentage(), io_id));
+
                     } else {
                         System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not found");
                     }
@@ -960,12 +966,27 @@ public class WidgetPanel extends javax.swing.JPanel {
 
                     System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not loaded");
                 } else {
-                    System.err.println("Ignored " + orgKey + " to: " + varsToGen.getKey());
+                    //System.err.println("Ignored " + orgKey + " to: " + varsToGen.getKey());
                 }
 
             }
 
         }
+
+        List<String> exports = new ArrayList<>();
+
+        for (List<String> list : exportStringMap.values()) {
+            String adder = "[";
+            for (String listString : list) {
+                adder += listString + ",";
+            }
+            adder = adder.substring(0, adder.length() - 1) + "]";
+
+            exports.add(adder);
+        }
+
+        
+        _TextArea_WidgetExport.setText(exports.get(0));
 
         Highlighter h = _TextArea_WidgetExport.getHighlighter();
         h.removeAllHighlights();
@@ -984,8 +1005,18 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event__Button_CreateImportsActionPerformed
 
-    public String createWidget(String widgetCode) {
-        return "";
+    public String createWidget(WidgetCode wc, Rectangle rect, Point per, int io_id) {
+
+        int xPos = rect.x + (int) (per.getX() * rect.getWidth() / 100.0);
+        int yPos = rect.y + (int) (per.getY() * rect.getHeight() / 100.0);
+
+        String code = wc.getFullWidgetText();
+
+        code = code.replace("`%IO_ID%`", String.valueOf(io_id))
+                .replace("`%XPOS%`", String.valueOf(xPos))
+                .replace("`%YPOS%`", String.valueOf(yPos));
+
+        return code;
     }
 
     public void loadMasterMapList() {
@@ -1021,12 +1052,12 @@ public class WidgetPanel extends javax.swing.JPanel {
                     }
                     if (contains) {
                         Rectangle r = entry.getValue();
-                        String pos = "[" + r.x + "," + r.y + "]" + r.width + " H: " + r.height;
+                        String pos = "[" + r.x + "," + r.y + "] W: " + r.width + " H: " + r.height;
                         listModelMasterMap.addElement(entry.getKey() + ": " + pos);
                     }
                 } else {
                     Rectangle r = entry.getValue();
-                    String pos = "[" + r.x + "," + r.y + "]" + r.width + " H: " + r.height;
+                    String pos = "[" + r.x + "," + r.y + "] W: " + r.width + " H: " + r.height;
                     listModelMasterMap.addElement(entry.getKey() + ": " + pos);
                 }
 

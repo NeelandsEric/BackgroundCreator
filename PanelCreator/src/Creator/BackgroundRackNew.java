@@ -798,7 +798,8 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridwidth = 1;
         c.weightx = 1;
 
-        String[] tooltip = new String[]{"Suction Pressure " + rack.getName() + " `%sgname`"};
+        String[] tooltip = new String[]{"Suction Pressure Setpoint " + rack.getName() + " `%sgname`",
+                                        "Suction Pressure Actual " + rack.getName() + " `%sgname`"};
 
         for (int i = 0; i < numSg; i++) {
 
@@ -809,6 +810,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
             label.setBorder(border);
             label.setBackground(Colours.BlueLight.getCol());
             widgetComponents.put(tooltip[0].replace("`%sgname`", rack.getSuctionGroupNameIndex(i)), label);
+            widgetComponents.put(tooltip[1].replace("`%sgname`", rack.getSuctionGroupNameIndex(i)), label);
             panel.add(label, c);
             c.gridx += comp[i];
         }
@@ -835,7 +837,8 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridx += 2;
         c.gridwidth = 1;
         c.weightx = 1;
-        tooltip = new String[]{"Suction Temp " + rack.getName() + " `%sgname`"};
+        tooltip = new String[]{"Suction Temp " + rack.getName() + " `%sgname`",
+                               "Suction Superheat " + rack.getName() + " `%sgname`"};
 
         for (int i = 0; i < numSg; i++) {
 
@@ -846,6 +849,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
             label.setBorder(border);
             label.setBackground(Colours.BlueLightest.getCol());
             widgetComponents.put(tooltip[0].replace("`%sgname`", rack.getSuctionGroupNameIndex(i)), label);
+            widgetComponents.put(tooltip[1].replace("`%sgname`", rack.getSuctionGroupNameIndex(i)), label);
             panel.add(label, c);
             c.gridx += comp[i];
         }
