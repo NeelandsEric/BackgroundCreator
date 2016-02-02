@@ -8,6 +8,7 @@ package Creator;
 import java.awt.Point;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  *
@@ -16,51 +17,77 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class WidgetLink implements java.io.Serializable {
 
-    public static final long serialVersionUID = 49321L;
-    public WidgetCode widgetType;
-    public Point percentage;
+    public static final long serialVersionUID = 49121L;
+
+    public WidgetCode widgetCode;
+    @XmlJavaTypeAdapter(MyPointAdapter.class)
+    public Point positionPercentage;
+    public String variableName; 
+    public String panelName;
 
     public WidgetLink() {
-        this.widgetType = new WidgetCode();
-        this.percentage = new Point(-99,-99);
+        this.widgetCode = null;
+        this.positionPercentage = null;
+        this.variableName = "BLANK";
+        this.panelName = "BLANK";
+    }
+
+    public WidgetLink(WidgetCode widgetCode, Point positionPercentage, String variableName, String panelName) {
+        this.widgetCode = widgetCode;
+        this.positionPercentage = positionPercentage;
+        this.variableName = variableName;
+        this.panelName = panelName;
     }
     
     
+    
 
-    public WidgetLink(WidgetCode wt) {
-        this.widgetType = wt;
-        this.percentage = null;
-
+    public WidgetCode getWidgetCode() {
+        return widgetCode;
     }
 
-    public WidgetLink(WidgetCode wt, Point per) {
-        this.widgetType = wt;
-        this.percentage = per;
-
+    public void setWidgetCode(WidgetCode widgetCode) {
+        this.widgetCode = widgetCode;
     }
 
+    public Point getPositionPercentage() {
+        return positionPercentage;
+    }
+
+    public void setPositionPercentage(Point positionPercentage) {
+        this.positionPercentage = positionPercentage;
+    }
+
+    public String getVariableName() {
+        return variableName;
+    }
+
+    public void setVariableName(String variableName) {
+        this.variableName = variableName;
+    }
+
+    public String getPanelName() {
+        return panelName;
+    }
+
+    public void setPanelName(String panelName) {
+        this.panelName = panelName;
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @Override
     public String toString() {
-        return "WidgetLink{" + "widgetType=" + widgetType + ", percentage=" + percentage + '}';
+        return "WidgetLink{" + "widgetCode=" + widgetCode + ", positionPercentage=" + positionPercentage + ", variableName=" + variableName + ", panelName=" + panelName + '}';
     }
     
-    
-
-    public WidgetCode getWidgetType() {
-        return widgetType;
-    }
-
-    public void setWidgetType(WidgetCode widgetType) {
-        this.widgetType = widgetType;
-    }
-
-    public Point getPercentage() {
-        return percentage;
-    }
-
-    public void setPercentage(Point percentage) {
-        this.percentage = percentage;
-    }
     
     
 

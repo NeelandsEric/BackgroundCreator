@@ -1345,7 +1345,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
     /**
      * Loads the store from the menu
      *
-     * @param store store
+     * @param cs
      */
     public void loadControlSettings(ControlSettings cs) {
         this.cs = cs;

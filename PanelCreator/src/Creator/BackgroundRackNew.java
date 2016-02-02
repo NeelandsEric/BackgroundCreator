@@ -82,6 +82,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         this.img = img;
         this.storeName = storeName;
         this.rackNames = rackNames;
+        this.widgetComponents = null;
         this.widgetComponents = new TreeMap<>();
         this.updateView();
     }
@@ -225,7 +226,11 @@ public class BackgroundRackNew extends javax.swing.JPanel {
 
         _Panel_MainPanel.setLayout(gbl);
         _Panel_MainPanel.removeAll();
+        
         widgetComponents.clear();
+        widgetComponents = null;
+        widgetComponents = new TreeMap<>();
+        
 
         //===========================================================
         // Store panel info at top

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.zip.ZipEntry;
@@ -47,7 +48,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     private ControlSettings cs;                             // control settings
     private boolean[] mouseActive;                          // which screen can we click on    
     private boolean ioFileLoaded;                           // Check to see if the excel file is loaded
-    private Map<String, WidgetLink> widgetLinks;
+    private WidgetSettings ws;
     private DefaultListModel listModelWidgetsVars;          // List model for the default widgets vars used on displays
     private DefaultListModel listModelCodeWidgets;          // List model for the code widgets
     private DefaultListModel listModelMasterMap;            // List model for the master map variables
@@ -61,28 +62,31 @@ public class WidgetPanel extends javax.swing.JPanel {
      *
      * @param mf
      * @param cs
+     * @param ws
      */
-    public WidgetPanel(MainFrame mf, ControlSettings cs, Map<String, WidgetLink> wl) {
+    public WidgetPanel(MainFrame mf, ControlSettings cs, WidgetSettings ws) {
         this.mf = mf;
         this.cs = cs;
         this.mouseActive = new boolean[cs.getNumRacks() + 3];
         this.ioFileLoaded = false;
         this.widgetList = new TreeMap<>();
-        this.widgetLinks = wl;
-        listModelWidgetsVars = new DefaultListModel();
-        listModelCodeWidgets = new DefaultListModel();
-        listModelMasterMap = new DefaultListModel();
+        this.ws = ws;
+        this.listModelWidgetsVars = new DefaultListModel();
+        this.listModelCodeWidgets = new DefaultListModel();
+        this.listModelMasterMap = new DefaultListModel();
         initComponents();
-        _Button_EnableClicks.setEnabled(false);
+        this._Button_EnableClicks.setEnabled(false);
     }
 
-    public void loadControlSettings(ControlSettings cs, Map<String, WidgetLink> wl) {
+    public void loadControlSettings(ControlSettings cs, WidgetSettings ws) {
         this.cs = cs;
-        this.widgetLinks = wl;
+        this.ws = ws;
         this.mouseActive = new boolean[cs.getNumRacks() + 3];
         this.widgetList = new TreeMap<>();
         this.ioFileLoaded = false;
-        _Button_EnableClicks.setEnabled(false);
+        this._Button_EnableClicks.setEnabled(false);
+
+        loadWidgetCode();
     }
 
     public ControlSettings getCs() {
@@ -94,12 +98,12 @@ public class WidgetPanel extends javax.swing.JPanel {
         updateDisplay();
     }
 
-    public Map<String, WidgetLink> getWidgetLinks() {
-        return widgetLinks;
+    public WidgetSettings getWs() {
+        return ws;
     }
 
-    public void setCs(Map<String, WidgetLink> wl) {
-        this.widgetLinks = wl;
+    public void setWs(WidgetSettings ws) {
+        this.ws = ws;
         updateDisplay();
     }
 
@@ -114,6 +118,9 @@ public class WidgetPanel extends javax.swing.JPanel {
         tabs[tabs.length - 1] = "Financial";
 
         _ComboBox_DisplayPanel.setModel(new javax.swing.DefaultComboBoxModel(tabs));
+        if (masterMap != null) {
+            loadMasterMapList();
+        }
 
     }
 
@@ -153,7 +160,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                         if (entryName.startsWith("Creator/textFiles/widgets") && entryName.endsWith(".txt")) {
 
                             list.add("/" + entryName);
-                            System.out.println("Added name: " + entryName);
+                            //System.out.println("Added name: " + entryName);
                         }
                     }
                     list.stream().forEach((s) -> {
@@ -726,7 +733,9 @@ public class WidgetPanel extends javax.swing.JPanel {
             _Label_ClickStatus.setText("Click Off");
         }
 
-        loadMasterMapList();
+        if (masterMap != null) {
+            loadMasterMapList();
+        }
     }//GEN-LAST:event__ComboBox_DisplayPanelActionPerformed
 
     private void _Button_widgetPositionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_widgetPositionsActionPerformed
@@ -757,14 +766,18 @@ public class WidgetPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         if (!evt.getValueIsAdjusting()) {
-            loadMasterMapList();
+            if (masterMap != null) {
+                loadMasterMapList();
+            }
         }
     }//GEN-LAST:event__List_WidgetVarsValueChanged
 
     private void _Button_ClearSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_ClearSelectionActionPerformed
         // TODO add your handling code here:
         _List_WidgetVars.clearSelection();
-        loadMasterMapList();
+        if (masterMap != null && masterMap.size() > 0) {
+            loadMasterMapList();
+        }
     }//GEN-LAST:event__Button_ClearSelectionActionPerformed
 
     private void _Button_GenerateWidgetLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_GenerateWidgetLinkActionPerformed
@@ -774,8 +787,13 @@ public class WidgetPanel extends javax.swing.JPanel {
             String key = _ComboBox_DisplayPanel.getSelectedItem().toString() + "-" + _List_WidgetVars.getSelectedValue().toString();
 
             String widgetCodeStr = _List_WidgetCodeList.getSelectedValue().toString();
-            WidgetLink wl = new WidgetLink(widgetList.get(widgetCodeStr));
-            if (widgetLinks.put(key, wl) != null) {
+            WidgetCode wc = widgetList.get(widgetCodeStr + ".txt");
+            //System.out.println(widgetCodeStr + " gives -> " + wc);
+            Point per = new Point(Integer.parseInt(_FTF_WigetParam_xPosPer.getText()), Integer.parseInt(_FTF_WigetParam_yPosPer.getText()));
+
+            WidgetLink wl = new WidgetLink(wc, per, widgetCodeStr, _ComboBox_DisplayPanel.getSelectedItem().toString());
+            System.out.println("WL: " + wl);
+            if (ws.add(key, wl) != null) {
                 _TextArea_Log.append("The key {" + key + "} already exists. It has now been overwritten\n");
             } else {
                 _TextArea_Log.append("Added {" + key + "} with WidgetVar {" + widgetCodeStr + "}\n");
@@ -790,10 +808,12 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-        for(WidgetLink wl: widgetLinks.values()){
-            System.out.println(wl);
+
+        System.out.println(ws.numberLinks());
+        for (Entry<String, WidgetLink> entry : ws.getWidgetLinkEntrySet()) {
+            System.out.println("Key: " + entry.getKey() + " : " + entry.getValue());
         }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void loadMasterMapList() {
@@ -841,7 +861,6 @@ public class WidgetPanel extends javax.swing.JPanel {
     public void loadWidgetVars() {
 
         listModelWidgetsVars.removeAllElements();
-
         for (String item : groupNamesWidget.get(_ComboBox_Subgroup.getSelectedItem().toString())) {
             listModelWidgetsVars.addElement(item);
         }
@@ -849,7 +868,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }
 
     public void updateStore() {
-        mf.updateWidgetLinks(widgetLinks);
+        mf.updateWidgetSettings(ws);
     }
 
     public void getWidgetFiles(String dirName, ArrayList<String> filePaths) throws FileNotFoundException {

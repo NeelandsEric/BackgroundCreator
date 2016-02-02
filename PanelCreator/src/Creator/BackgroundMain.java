@@ -50,6 +50,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         this.df = df;
         this.img = "";
         this.canClick = false;
+        this.widgetComponents = null;
         this.widgetComponents = new TreeMap<>();
     }
 

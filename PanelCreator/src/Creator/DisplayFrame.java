@@ -56,6 +56,26 @@ public class DisplayFrame extends javax.swing.JFrame {
 
         this.stopUpdate = false;
     }
+    
+    public void updateSettings(DisplaySettings dss) {
+        this.ds = dss;
+
+        this.stopUpdate = true;
+        setNewSize(ds.getDisplayWidth(), ds.getDisplayHeight());
+        bg.updateFont(ds.getFont());
+        bg.updateBorder(ds.getBorder());
+        for (int i = 0; i < cs.getNumRacks(); i++) {
+            if (rackTabs.get(i) != null) {
+                rackTabs.get(i).updateFont(ds.getFont());
+                rackTabs.get(i).updateBorder(ds.getBorder());
+            }
+        }
+        bgl.updateFont(ds.getFont());
+        bgl.updateBorder(ds.getBorder());
+        bgf.updateFont(ds.getFont());
+        bgf.updateBorder(ds.getBorder());
+        this.stopUpdate = false;
+    }
 
     public boolean isStopUpdate() {
         return stopUpdate;
@@ -230,25 +250,7 @@ public class DisplayFrame extends javax.swing.JFrame {
 
     }
 
-    public void updateSettings(DisplaySettings dss) {
-        this.ds = dss;
-
-        this.stopUpdate = true;
-        setNewSize(ds.getDisplayWidth(), ds.getDisplayHeight());
-        bg.updateFont(ds.getFont());
-        bg.updateBorder(ds.getBorder());
-        for (int i = 0; i < cs.getNumRacks(); i++) {
-            if (rackTabs.get(i) != null) {
-                rackTabs.get(i).updateFont(ds.getFont());
-                rackTabs.get(i).updateBorder(ds.getBorder());
-            }
-        }
-        bgl.updateFont(ds.getFont());
-        bgl.updateBorder(ds.getBorder());
-        bgf.updateFont(ds.getFont());
-        bgf.updateBorder(ds.getBorder());
-        this.stopUpdate = false;
-    }
+    
 
     /**
      * update the logo

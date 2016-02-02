@@ -51,11 +51,14 @@ public class MainFrame extends JFrame {
         this.main = main;
         homeDirectory = System.getProperty("user.home") + "/PanelCreator";
         xmlParser = new XMLParser();
-        this.store = new Store();
+
+        boolean storeLoaded = loadDefaultStore();
+        if (!storeLoaded) {
+            this.store = new Store();
+        }
         // Attempt to load the last stored store        
         initComponents();
         initPanels();
-        loadDefaultStore();
 
     }
 
@@ -65,17 +68,24 @@ public class MainFrame extends JFrame {
         settingsPanel = new SettingsPanel(this, store.getDs());
         ngPanel = new NameGeneratorPanel(this, store.getIoNames());
         mbPanel = new ModbusPanel(this, store.getMb());
-        wgPanel = new WidgetPanel(this, store.getCs(), store.getWidgetLinks());
+        wgPanel = new WidgetPanel(this, store.getCs(), store.getWidgetSettings());
         displayFrame = new DisplayFrame(this, store.getCs(), store.getDs());
         displayFrame.setStopUpdate(true);
-        // Load the main panel        
-        //controlPanel.setVisible(true);
+
         displayFrame.setVisible(true);
         mbPanel.initalizeMeters();
         controlPanel.updateDisplay();
         ngPanel.loadGroups();
         wgPanel.loadWidgetCode();
-        
+
+        displayFrame.updateSettings(this.store.getDs());
+        settingsPanel.loadSettings(this.store.getDs());
+        controlPanel.loadControlSettings(this.store.getCs());
+        ngPanel.loadStore(this.store.getIoNames());
+        mbPanel.loadStore(this.store.getMb());
+        wgPanel.loadControlSettings(this.store.getCs(), this.store.getWidgetSettings());
+
+        displayFrame.updateDisplays(this.store.getCs(), this.store.getDs());
 
         // add it to the frame           
         _TabbedPane_Tabs.add("Controls", controlPanel);
@@ -87,31 +97,47 @@ public class MainFrame extends JFrame {
 
     }
 
-    private void loadDefaultStore() {
-        
-        displayFrame.setStopUpdate(true);
+    private boolean loadDefaultStore() {
+
         if (!(new File(homeDirectory).mkdirs())) {
             // Directory exists, check if the Store exists
             String filePath = homeDirectory + "/DefaultStore.xml";
             if (new File(filePath).exists()) {
-                this.store = xmlParser.readFile(filePath);
+                try {
+                    this.store = xmlParser.readFile(filePath);
 
-                if (store == null) {
-                    controlPanel.writeToLog("Error opening " + filePath);
-                } else {
-                    displayFrame.updateSettings(this.store.getDs());
-                    settingsPanel.loadSettings(this.store.getDs());
-                    controlPanel.loadControlSettings(this.store.getCs());
-                    ngPanel.loadStore(this.store.getIoNames());
-                    mbPanel.loadStore(this.store.getMb());
-                    wgPanel.loadControlSettings(this.store.getCs(),this.store.getWidgetLinks());
-                    controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
-                    displayFrame.updateDisplays(this.store.getCs(), this.store.getDs());
+                    if (store != null) {
+                        if (controlPanel != null) {
+                            controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
+                        }
+
+                    } else {
+                        if (controlPanel != null) {
+                            controlPanel.writeToLog("Error opening " + filePath + "\nMaking a new store!");
+                        }
+                        return false;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+                return true;
             }
         }
-        displayFrame.setStopUpdate(false);
+        return false;
 
+        /*
+         if (loadFile) {
+            
+         } else {
+
+         displayFrame.dispose();
+
+         this.store = new Store();
+         initPanels();
+         // Load the main panel        
+         //controlPanel.setVisible(true);
+         
+         }*/
     }
 
     public Store getStore() {
@@ -122,12 +148,15 @@ public class MainFrame extends JFrame {
         this.store = store;
     }
 
-    public void updateWidgetLinks(Map<String,WidgetLink> links){
-        this.store.widgetLinks = links;
+    public void updateWidgetSettings(WidgetSettings ws) {
+        //System.out.println("before updating widget links\n" + this.store.getWidgetSettings());
+        if (ws.equals(this.store.getWidgetSettings())) {
+            //System.out.println("Update Widget Settings seems to be the same one");
+        }
+        this.store.setWidgetSettings(ws);
+        //System.out.println("-------------------\nafter updating widget links\n" + this.store.getWidgetSettings());
     }
-            
-            
-    
+
     public void updateModbusSettings(ModbusSettings mb) {
         this.store.setMb(mb);
     }
@@ -148,7 +177,7 @@ public class MainFrame extends JFrame {
     }
 
     public void displayPanel(int width, int height) {
-        
+
         displayFrame.setNewSize(width, height);
         if (!displayFrame.isVisible()) {
             controlPanel.updateDisplay();
@@ -533,7 +562,7 @@ public class MainFrame extends JFrame {
             } else {
                 System.out.println("Problem with the XMLParser");
             }
-            
+
         } else {
             System.out.println("File access cancelled by user.");
         }
@@ -562,12 +591,11 @@ public class MainFrame extends JFrame {
                 controlPanel.loadControlSettings(this.store.getCs());
                 ngPanel.loadStore(this.store.getIoNames());
                 mbPanel.loadStore(this.store.getMb());
-                wgPanel.loadControlSettings(this.store.getCs(),this.store.getWidgetLinks());
+                wgPanel.loadControlSettings(this.store.getCs(), this.store.getWidgetSettings());
                 controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
-                
+
                 displayFrame.updateDisplays(this.store.getCs(), this.store.getDs());
             }
-            
 
         } else {
             System.out.println("File access cancelled by user.");
@@ -576,7 +604,7 @@ public class MainFrame extends JFrame {
 
     private void _MenuItem_SaveAllDisplaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveAllDisplaysActionPerformed
         // TODO add your handling code here:
-        
+
         _FileChooser.setDialogTitle("Save pictures into a folder");
         _FileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
@@ -820,14 +848,13 @@ public class MainFrame extends JFrame {
         _FileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
         _FileChooser.setApproveButtonText("Save Here");
-        
+
         int returnVal = _FileChooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             String filePathORIGINAL = _FileChooser.getSelectedFile().toString();
             String fn = filePathORIGINAL + "\\" + this.store.getStoreName() + ".xml";
-            
-            // What to do with the file, e.g. display it in a TextArea
 
+            // What to do with the file, e.g. display it in a TextArea
             if (xmlParser != null) {
                 if (xmlParser.writeOut(this.store, fn)) {
                     controlPanel.writeToLog("Store " + this.store.getStoreName() + " saved");
@@ -837,13 +864,11 @@ public class MainFrame extends JFrame {
             } else {
                 System.out.println("Problem with the XMLParser");
             }
-            
-            
+
             // -------------------- Save all displays --------------------------
             String filePath = filePathORIGINAL + "\\Displays\\";
-            
-            
-            if(!new File(filePath).mkdir()){
+
+            if (!new File(filePath).mkdir()) {
                 filePath = filePath.replace("Displays\\", "");
             }
             //System.out.println("FP: " + filePath);
@@ -871,13 +896,12 @@ public class MainFrame extends JFrame {
                     controlPanel.writeToLog("Error writing image file" + e.getMessage());
                 }
             }
-            
+
             // -------------------------- Save XLSX --------------------
-            
             File file = new File(filePathORIGINAL + "\\" + this.store.getStoreName() + "-IOVariables.xlsx");
             //System.out.println("File: " + file.getAbsolutePath());
             String excelPath = file.getAbsolutePath();
-            
+
             try {
                 Workbook wb = new XSSFWorkbook();
                 FileOutputStream fileOut = new FileOutputStream(excelPath);
@@ -914,7 +938,7 @@ public class MainFrame extends JFrame {
             } catch (Exception e) {
                 controlPanel.writeToLog("Error with creating excel file " + e.getMessage());
             }
-            
+
         } else {
             System.out.println("File access cancelled by user.");
         }

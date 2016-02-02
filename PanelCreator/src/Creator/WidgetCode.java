@@ -16,7 +16,7 @@ public class WidgetCode implements java.io.Serializable {
 
     public static final long serialVersionUID = 43217L;
     public String widgetName;
-    public Map<String, Object> variables;
+    public Map<String, String> variables;
     public String fullWidgetText;
     public String filePath;
 
@@ -38,7 +38,7 @@ public class WidgetCode implements java.io.Serializable {
         this.widgetName = variableName;
         variables = new HashMap<>();
         for (String s : vars) {
-            this.variables.put(s, new Object());
+            this.variables.put(s, "");
         }
         this.fullWidgetText = fullWidgetText;
         this.filePath = filePath;
@@ -66,11 +66,11 @@ public class WidgetCode implements java.io.Serializable {
         return this.variables.keySet();
     }
 
-    public Map<String, Object> getVariables() {
+    public Map<String, String> getVariables() {
         return variables;
     }
 
-    public void setVariables(Map<String, Object> variables) {
+    public void setVariables(Map<String, String> variables) {
         this.variables = variables;
     }
 
@@ -82,7 +82,7 @@ public class WidgetCode implements java.io.Serializable {
         }
     }
 
-    public void setVariable(String key, Object value) {
+    public void setVariable(String key, String value) {
         Object replaced = variables.put(key, value);
         if (replaced != null) {
             System.out.println(key + " replaced " + replaced + " with " + value);
@@ -92,7 +92,7 @@ public class WidgetCode implements java.io.Serializable {
     public void addVariables(ArrayList<String> vars) {
 
         for (String s : vars) {
-            this.variables.put(s, new Object());
+            this.variables.put(s, "");
         }
     }
 
@@ -122,8 +122,8 @@ public class WidgetCode implements java.io.Serializable {
         String s = "";
         s += "Widget " + widgetName + " has " + variables.size() + " mappings.\n";
         for (String key : variables.keySet()) {
-            s += key + ": " + variables.get(key) + "\n";
-        }
+            s += key + ": " + variables.get(key) + " | ";
+        }        
         return s;
     }
 

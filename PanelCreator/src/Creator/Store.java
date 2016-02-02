@@ -6,10 +6,7 @@ import java.awt.Font;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 import javax.swing.border.Border;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -30,14 +27,14 @@ public class Store implements java.io.Serializable {
     public ModbusSettings mb;
     public ControlSettings cs;
     public IoNames ioNames;
-    public Map<String,WidgetLink> widgetLinks;
+    public WidgetSettings ws;
 
     public Store() {
         ds = new DisplaySettings();
         mb = new ModbusSettings();
         cs = new ControlSettings();
         ioNames = new IoNames();
-        widgetLinks = new HashMap<>();
+        ws = new WidgetSettings();
     }
 
     public ModbusSettings getMb() {
@@ -52,12 +49,12 @@ public class Store implements java.io.Serializable {
         return ioNames;
     }
 
-    public Map<String,WidgetLink> getWidgetLinks() {
-        return widgetLinks;
+    public WidgetSettings getWidgetSettings() {
+        return ws;
     }
 
-    public void setWidgetLinks(Map<String,WidgetLink> wl) {
-        this.widgetLinks = wl;
+    public void setWidgetSettings(WidgetSettings ws) {
+        this.ws = ws;
     }
 
     public void setIoNames(IoNames ioNames) {
@@ -86,23 +83,6 @@ public class Store implements java.io.Serializable {
 
     public Border getCustomBorder() {
         return ds.getBorder();
-    }
-    
-    
-    
-    public void addWidgetLink(String key, WidgetLink wl){
-        
-        if(!widgetLinks.containsKey(key)){
-            widgetLinks.put(key, wl);
-        }        
-    }
-    
-    public WidgetLink getLinkWithKey(String key){
-        if(widgetLinks.containsKey(key)){
-            return widgetLinks.get(key);
-        }else {
-            return null;
-        }
     }
 
     /**

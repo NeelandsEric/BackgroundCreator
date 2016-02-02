@@ -27,8 +27,6 @@ public class XMLParser {
             e.printStackTrace();
         }
 
-        
-
     }
 
     public boolean writeOut(Store store, String fileOutPath) {
@@ -57,9 +55,9 @@ public class XMLParser {
 
         if (unmarsh != null) {
             try {
-                
+
                 File f = new File(filepath);
-                Store store = (Store) unmarsh.unmarshal(f);               
+                Store store = (Store) unmarsh.unmarshal(f);
 
                 return store;
 

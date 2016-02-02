@@ -70,6 +70,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         this.border = border;
         this.img = img;
         this.storeName = storeName;
+        this.widgetComponents = null;
         this.widgetComponents = new TreeMap<>();
         this.updateView();
     }
@@ -1344,13 +1345,13 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label.setFont(font.deriveFont(Font.BOLD, 16));
         panel.add(label, c);
 
-        String[] totalTooltip = new String[]{"Op kWh Total Current Day", "Op kWh Total Current Month",
-            "Op kWh Total Current Year", "Op kWh Total Previous Day",
-            "Op kWh Total Previous Month", "Op kWh Total Previous Year"};
+        String[] totalTooltip = new String[]{"Op kWh Total Previous Day", "Op kWh Total Previous Month",
+                                             "Op kWh Total Previous Year", "Op kWh Total Current Day",
+                                             "Op kWh Total Current Month", "Op kWh Total Current Year"};
 
-        String[] tooltip = new String[]{"Op kWh Counter Current `%rackname` Day", "Op kWh Counter Current `%rackname` Month",
-            "Op kWh Counter Current `%rackname` Year", "Op kWh Counter Previous `%rackname` Day",
-            "Op kWh Counter Previous `%rackname` Month", "Op kWh Counter Previous `%rackname` Year"};
+        String[] tooltip = new String[]{"Op kWh Previous `%rackname` Day", "Op kWh Previous `%rackname` Month",
+                                        "Op kWh Previous `%rackname` Year", "Op kWh Counter Current `%rackname` Day",
+                                        "Op kWh Counter Current `%rackname` Month", "Op kWh Counter Current `%rackname` Year" };
 
         Rack rack = null;
         if (rackNum != 0) {
