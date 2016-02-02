@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.security.CodeSource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,8 +34,6 @@ import java.util.zip.ZipInputStream;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.text.BadLocationException;
@@ -55,17 +54,16 @@ public class WidgetPanel extends javax.swing.JPanel {
     private MainFrame mf;                                   // main frame    
     private ControlSettings cs;                             // control settings
     private boolean[] mouseActive;                          // which screen can we click on    
-    private boolean ioFileLoaded;                           // Check to see if the excel file is loaded
-    private WidgetSettings ws;
+    private WidgetSettings ws;                              // Widget settings
     private DefaultListModel listModelWidgetsVars;          // List model for the default widgets vars used on displays
     private DefaultListModel listModelCodeWidgets;          // List model for the code widgets
     private DefaultListModel listModelMasterMap;            // List model for the master map variables
     private Map<String, WidgetCode> widgetList;             // WidgetName,WidgetCode Variable
     private Map<String, List<String>> groupNamesWidget;     // GroupName,List of vars for the group (Store [Temp, Humidity, ..])
     private Map<String, Integer> importedIOVariables;       // io_name,io_id
-    private Map<String, Map<String, Rectangle>> masterMap;         // list of variables relating to each view's variables and locations on the panel
-    private Map<String, JTextField> widgetSettingsMap;
-    
+    private Map<String, Map<String, Rectangle>> masterMap;  // list of variables relating to each view's variables and locations on the panel
+    private Map<String, JTextField> widgetCodeSettings;      // custom values for widget code settings
+
     /**
      * Creates new form WidgetPanel
      *
@@ -77,7 +75,6 @@ public class WidgetPanel extends javax.swing.JPanel {
         this.mf = mf;
         this.cs = cs;
         this.mouseActive = new boolean[cs.getNumRacks() + 3];
-        this.ioFileLoaded = false;
         this.widgetList = new TreeMap<>();
         this.ws = ws;
         this.listModelWidgetsVars = new DefaultListModel();
@@ -92,8 +89,9 @@ public class WidgetPanel extends javax.swing.JPanel {
         this.ws = ws;
         this.mouseActive = new boolean[cs.getNumRacks() + 3];
         this.widgetList = new TreeMap<>();
-        this.ioFileLoaded = false;
         this._Button_EnableClicks.setEnabled(false);
+        _Button_CreateImports.setEnabled(true);
+        _Label_Loaded.setText("CSV File Not loaded, load file to continue");
 
         loadWidgetCode();
     }
@@ -299,10 +297,8 @@ public class WidgetPanel extends javax.swing.JPanel {
         _Button_LoadCSV = new javax.swing.JButton();
         _Label_Loaded = new javax.swing.JLabel();
         _Panel_WidgetParams = new javax.swing.JPanel();
-        _Label_WigetParam_stationID = new javax.swing.JLabel();
         _Label_WidgetParams = new javax.swing.JLabel();
         _Label_WigetParam_yPos = new javax.swing.JLabel();
-        _FTF_WigetParam_stationID = new javax.swing.JFormattedTextField();
         _Button_EnableClicks = new javax.swing.JButton();
         _FTF_WigetParam_xPos = new javax.swing.JFormattedTextField();
         _FTF_WigetParam_yPos = new javax.swing.JFormattedTextField();
@@ -329,7 +325,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         _FileChooser_IoFile.setApproveButtonText("Open");
         _FileChooser_IoFile.setApproveButtonToolTipText("Open a xls file");
-        _FileChooser_IoFile.setCurrentDirectory(null);
+        _FileChooser_IoFile.setCurrentDirectory(new java.io.File("C:\\Users\\EricGummerson\\Documents\\Background Creator Files"));
         _FileChooser_IoFile.setDialogTitle("Open a XLS File");
         _FileChooser_IoFile.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("XLS files", "xls"));
 
@@ -404,10 +400,6 @@ public class WidgetPanel extends javax.swing.JPanel {
         _Label_Loaded.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _Label_Loaded.setText("CSV File Not loaded, load file to continue");
 
-        _Label_WigetParam_stationID.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        _Label_WigetParam_stationID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        _Label_WigetParam_stationID.setText("Station ID");
-
         _Label_WidgetParams.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         _Label_WidgetParams.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _Label_WidgetParams.setText("Widget Parameters");
@@ -416,11 +408,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         _Label_WigetParam_yPos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _Label_WigetParam_yPos.setText("Positon Y");
 
-        _FTF_WigetParam_stationID.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-        _FTF_WigetParam_stationID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        _FTF_WigetParam_stationID.setText("10");
-
-        _Button_EnableClicks.setText("Click");
+        _Button_EnableClicks.setText("Turn On/Off");
         _Button_EnableClicks.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _Button_EnableClicksActionPerformed(evt);
@@ -484,7 +472,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         );
         _Panel_WidgetSettingsLayout.setVerticalGroup(
             _Panel_WidgetSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 265, Short.MAX_VALUE)
+            .addGap(0, 303, Short.MAX_VALUE)
         );
 
         _ScrollPane_WidgetSettings.setViewportView(_Panel_WidgetSettings);
@@ -497,12 +485,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(_Panel_WidgetParamsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(_Panel_WidgetParamsLayout.createSequentialGroup()
-                        .addGroup(_Panel_WidgetParamsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(_Label_WidgetParams, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(_Panel_WidgetParamsLayout.createSequentialGroup()
-                                .addComponent(_Label_WigetParam_stationID, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_FTF_WigetParam_stationID, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(_Label_WidgetParams, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(_ScrollPane_WidgetSettings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -557,17 +540,13 @@ public class WidgetPanel extends javax.swing.JPanel {
                         .addGroup(_Panel_WidgetParamsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(_FTF_WigetParam_yPosPer, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(_Label_WigetParam_yPos1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addComponent(_Button_GenerateWidgetLink, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(_Panel_WidgetParamsLayout.createSequentialGroup()
                         .addComponent(_Label_WidgetParams, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(_Panel_WidgetParamsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(_Label_WigetParam_stationID, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_FTF_WigetParam_stationID, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(_ScrollPane_WidgetSettings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -605,6 +584,12 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         _Button_CreateImports.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Button_CreateImports.setText("Create Imports");
+        _Button_CreateImports.setEnabled(false);
+        _Button_CreateImports.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_CreateImportsActionPerformed(evt);
+            }
+        });
 
         _Button_ClearLinks.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Button_ClearLinks.setText("Clear All Links");
@@ -760,8 +745,8 @@ public class WidgetPanel extends javax.swing.JPanel {
 
             String filePath = file.getAbsolutePath();
             readXFile(filePath);
-
-            _Button_EnableClicks.setEnabled(true);
+            _Button_CreateImports.setEnabled(true);
+            _Label_Loaded.setText("Loaded File!");
         } else {
             System.out.println("File access cancelled by user.");
         }
@@ -829,15 +814,18 @@ public class WidgetPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         // Make sure we have a selection for the widget type, the widget variable type
         if (!_List_WidgetVars.isSelectionEmpty() && !_List_WidgetCodeList.isSelectionEmpty()) {
-            String key = _ComboBox_DisplayPanel.getSelectedItem().toString() + "-" + _List_WidgetVars.getSelectedValue().toString();
+            String panel = _ComboBox_DisplayPanel.getSelectedItem().toString();
+            String subGroup = _ComboBox_Subgroup.getSelectedItem().toString();
+            String varType = _List_WidgetVars.getSelectedValue().toString();
+            String key = panel + "-" + varType;
 
             String widgetCodeStr = _List_WidgetCodeList.getSelectedValue().toString();
             WidgetCode wc = widgetList.get(widgetCodeStr + ".txt");
             //System.out.println(widgetCodeStr + " gives -> " + wc);
             Point per = new Point(Integer.parseInt(_FTF_WigetParam_xPosPer.getText()), Integer.parseInt(_FTF_WigetParam_yPosPer.getText()));
 
-            WidgetLink wl = new WidgetLink(wc, per, widgetCodeStr, _ComboBox_DisplayPanel.getSelectedItem().toString());
-            System.out.println("WL: " + wl);
+            WidgetLink wl = new WidgetLink(wc, per, panel, subGroup);
+
             if (ws.add(key, wl) != null) {
                 _TextArea_Log.append("The key {" + key + "} already exists. It has now been overwritten\n");
             } else {
@@ -854,9 +842,11 @@ public class WidgetPanel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
-        System.out.println(ws.numberLinks());
+        _TextArea_WidgetExport.setText("");
+        //System.out.println(ws.numberLinks());
         for (Entry<String, WidgetLink> entry : ws.getWidgetLinkEntrySet()) {
-            System.out.println("Key: " + entry.getKey() + " : " + entry.getValue());
+            //System.out.println("Key: " + entry.getKey() + " : " + entry.getValue());
+            _TextArea_WidgetExport.append("Key: " + entry.getKey() + " : " + entry.getValue() + "\n\n");
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -864,9 +854,9 @@ public class WidgetPanel extends javax.swing.JPanel {
     private void _Button_ClearLinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_ClearLinksActionPerformed
         // TODO add your handling code here:
 
-        System.out.println("Size Before: " + mf.store.ws.widgetLinks.size());
+        //System.out.println("Size Before: " + mf.store.ws.widgetLinks.size());
         ws.clear();
-        System.out.println("Size After: " + mf.store.ws.widgetLinks.size());
+        //System.out.println("Size After: " + mf.store.ws.widgetLinks.size());
 
     }//GEN-LAST:event__Button_ClearLinksActionPerformed
 
@@ -878,49 +868,43 @@ public class WidgetPanel extends javax.swing.JPanel {
 
             // Load the variables of the widget
             String widgetCodeStr = _List_WidgetCodeList.getSelectedValue().toString();
-            WidgetCode wc = widgetList.get(widgetCodeStr + ".txt");            
+            WidgetCode wc = widgetList.get(widgetCodeStr + ".txt");
             GridBagLayout gbl = new GridBagLayout();
             GridBagConstraints c = new GridBagConstraints();
-            
+
             c.fill = GridBagConstraints.HORIZONTAL;
             c.gridx = 0;
             c.gridy = 0;
             c.weightx = 1;
-            c.weighty = 0;        
+            c.weighty = 0;
             c.gridwidth = 1;
-            c.gridheight = 1;            
+            c.gridheight = 1;
             c.ipadx = 0;
             c.ipady = 5;
-            
-            if(widgetSettingsMap == null){    
-                widgetSettingsMap = new HashMap<>();
-            }else {
-                widgetSettingsMap.clear();
+
+            if (widgetCodeSettings == null) {
+                widgetCodeSettings = new HashMap<>();
+            } else {
+                widgetCodeSettings.clear();
             }
-            
+
             _Panel_WidgetSettings.removeAll();
             _Panel_WidgetSettings.setLayout(gbl);
 
             for (Entry<String, String> entry : wc.getVariables().entrySet()) {
-                JLabel label = new JLabel(entry.getKey());                
+                JLabel label = new JLabel(entry.getKey());
                 label.setFont(new Font("Arial", Font.BOLD, 13));
                 label.setHorizontalAlignment(SwingConstants.CENTER);
                 JTextField textfield = new JTextField(entry.getValue());
                 textfield.setFont(new Font("Arial", Font.BOLD, 15));
-                
-                widgetSettingsMap.put(label.getText(), textfield);
-                System.out.println("Adding: " + entry);
-                _Panel_WidgetSettings.add(label,c);
+
+                widgetCodeSettings.put(label.getText(), textfield);
+                _Panel_WidgetSettings.add(label, c);
                 c.gridy += 1;
-                //c.gridx = 1;
-                //c.weightx = 1;
-                _Panel_WidgetSettings.add(textfield,c);
-                //c.weightx = 0;
-                //c.gridx = 0;
+                _Panel_WidgetSettings.add(textfield, c);
                 c.gridy += 1;
-                
             }
-           
+
             _ScrollPane_WidgetSettings.revalidate();
             _ScrollPane_WidgetSettings.repaint();
 
@@ -928,6 +912,81 @@ public class WidgetPanel extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event__List_WidgetCodeListValueChanged
+
+    private void _Button_CreateImportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CreateImportsActionPerformed
+        // TODO add your handling code here:
+        _TextArea_WidgetExport.setText("");
+
+        // Generate the code (Save to Files later)
+        List<String> exportStringList = new ArrayList<>();
+        for (Entry<String, WidgetLink> entry : ws.getWidgetLinkEntrySet()) {
+
+            String exportString = "";
+            // For each entry, we want to generate the code that applies to all variables
+            //System.out.println(entry);
+            String orgKey = entry.getKey().substring(entry.getKey().indexOf("-") + 1);
+            String[] selectedVar = orgKey.split("`");
+            //System.out.println("SV: " + Arrays.toString(selectedVar));
+
+            for (Entry<String, Rectangle> varsToGen : masterMap.get(entry.getValue().getPanelName()).entrySet()) {
+
+                boolean contains = true;
+                for (String part : selectedVar) {
+                    if (!contains) {
+                        break;
+                    }
+                    if (!part.contains("%")) {
+                        //System.out.println("Does " + entry.getKey() + " contain " + part);
+                        if (!varsToGen.getKey().contains(part)) {
+                            contains = false;
+                        }
+                    }
+
+                }
+                if (importedIOVariables != null && contains) {
+
+                    System.out.println("key: " + varsToGen.getKey());
+
+                    if (importedIOVariables.containsKey(varsToGen.getKey())) {
+
+                        int io_id = importedIOVariables.get(varsToGen.getKey());
+                        System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + " with IO_ID: " + io_id);
+
+                    } else {
+                        System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not found");
+                    }
+
+                } else if (contains) {
+
+                    System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not loaded");
+                } else {
+                    System.err.println("Ignored " + orgKey + " to: " + varsToGen.getKey());
+                }
+
+            }
+
+        }
+
+        Highlighter h = _TextArea_WidgetExport.getHighlighter();
+        h.removeAllHighlights();
+        int sel = _TextArea_WidgetExport.getText().length();
+        if (sel > 0) {
+            try {
+                h.addHighlight(0, sel, DefaultHighlighter.DefaultPainter);
+            } catch (BadLocationException ex) {
+                System.out.println("Bad selection");
+            }
+        }
+        StringSelection stringSelection = new StringSelection(_TextArea_WidgetExport.getText());
+        Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clpbrd.setContents(stringSelection, null);
+
+
+    }//GEN-LAST:event__Button_CreateImportsActionPerformed
+
+    public String createWidget(String widgetCode) {
+        return "";
+    }
 
     public void loadMasterMapList() {
 
@@ -962,12 +1021,12 @@ public class WidgetPanel extends javax.swing.JPanel {
                     }
                     if (contains) {
                         Rectangle r = entry.getValue();
-                        String pos = "X: " + r.x + " Y: " + r.y + " W: " + r.width + " H: " + r.height;
+                        String pos = "[" + r.x + "," + r.y + "]" + r.width + " H: " + r.height;
                         listModelMasterMap.addElement(entry.getKey() + ": " + pos);
                     }
                 } else {
                     Rectangle r = entry.getValue();
-                    String pos = "X: " + r.x + " Y: " + r.y + " Width: " + r.width + " Height: " + r.height;
+                    String pos = "[" + r.x + "," + r.y + "]" + r.width + " H: " + r.height;
                     listModelMasterMap.addElement(entry.getKey() + ": " + pos);
                 }
 
@@ -1112,7 +1171,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         int begin, end;
 
         InputStream loc = this.getClass().getResourceAsStream(result);
-        try (Scanner scan = new Scanner(loc)) {
+        try (Scanner scan = new Scanner(loc, "UTF-8")) {
             while (scan.hasNextLine()) {
                 line = scan.nextLine();
                 entireWidget += line;
@@ -1224,28 +1283,6 @@ public class WidgetPanel extends javax.swing.JPanel {
             System.out.println("Error reading excel file " + e.getMessage());
         }
 
-        /*
-         try {
-         try (Scanner scan = new Scanner(new FileReader(filename))) {
-         while (scan.hasNextLine()) {
-         vars.add(scan.nextLine());
-
-         }
-
-         ioFileLoaded = true;
-         _Label_Loaded.setText("File loaded");
-         _Button_EnableClicks.setEnabled(true);
-         }
-
-         } catch (FileNotFoundException e) {
-
-         System.out.println("File not found error " + e.getMessage());
-         System.out.println("Error trying to read " + filename);
-         }
-
-         //System.out.println("Variables found: " + vars);
-         return vars;
-         */
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1259,7 +1296,6 @@ public class WidgetPanel extends javax.swing.JPanel {
     private javax.swing.JButton _Button_widgetPositions;
     private javax.swing.JComboBox _ComboBox_DisplayPanel;
     private javax.swing.JComboBox _ComboBox_Subgroup;
-    private javax.swing.JFormattedTextField _FTF_WigetParam_stationID;
     private javax.swing.JFormattedTextField _FTF_WigetParam_xPos;
     private javax.swing.JFormattedTextField _FTF_WigetParam_xPosPer;
     private javax.swing.JFormattedTextField _FTF_WigetParam_yPos;
@@ -1271,7 +1307,6 @@ public class WidgetPanel extends javax.swing.JPanel {
     private javax.swing.JLabel _Label_Widget;
     private javax.swing.JLabel _Label_Widget1;
     private javax.swing.JLabel _Label_WidgetParams;
-    private javax.swing.JLabel _Label_WigetParam_stationID;
     private javax.swing.JLabel _Label_WigetParam_xPos;
     private javax.swing.JLabel _Label_WigetParam_xPos1;
     private javax.swing.JLabel _Label_WigetParam_yPos;

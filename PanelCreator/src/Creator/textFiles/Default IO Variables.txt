@@ -7,12 +7,12 @@ Store Outside Temp,1,1,F,1.8,-32,1,0,0,0,1
 Store Outside Humidity,1,1,%,1,0,1,0,0,0,1
 Store Temp,1,1,F,1.8,-32,1,0,0,0,1
 Store Humidity,1,1,%,1,0,1,0,0,0,1
-Performance Cost Sum Predicted,1,1,$,1,0,2,0,0,0,1
-Performance Cost Sum Actual,1,1,$,1,0,2,0,0,0,1
-Performance Cost Sum Difference,1,1,$,1,0,2,0,0,0,1
-Performance kW Sum Predicted,1,1,kW,1,0,1,0,0,0,1
-Performance kW Sum Actual,1,1,kW,1,0,1,0,0,0,1
-Performance kW Sum Difference,1,1,kW,1,0,1,0,0,0,1
+Performance Total Cost Sum Predicted,1,1,$,1,0,2,0,0,0,1
+Performance Total Cost Sum Actual,1,1,$,1,0,2,0,0,0,1
+Performance Total Cost Sum Difference,1,1,$,1,0,2,0,0,0,1
+Performance Total kW Sum Predicted,1,1,kW,1,0,1,0,0,0,1
+Performance Total kW Sum Actual,1,1,kW,1,0,1,0,0,0,1
+Performance Total kW Sum Difference,1,1,kW,1,0,1,0,0,0,1
 Energy SEI Avg,1,1,%,1,0,1,0,0,0,1
 Energy COP Avg,1,1,%,1,0,1,0,0,0,1
 Energy Cost/SqFt,1,1,$/SqFt,1,0,2,0,0,0,1
@@ -70,24 +70,24 @@ LE Cooling Load `%rackname`,1,1,BTU/H,1,0,1,0,0,0,1
 LE COP `%rackname`,1,1,COP,1,0,1,0,0,0,1
 Liquid Total Subcooling `%rackname`,1,1,F,1.8,-32,1,0,0,0,1
 Liquid Subcooling `%rackname`,1,1,F,1.8,-32,1,0,0,0,1
-Op Cost Current `%rackname` Day ,1,1,$,1,0,2,0,0,0,0
-Op Cost Current `%rackname` Month,1,1,$,1,0,2,0,0,0,0
-Op Cost Current `%rackname` Year,1,1,$,1,0,2,0,0,0,0
-Op Cost Sum Current `%rackname` Day,1,1,$,1,0,2,0,0,0,0
-Op Cost Sum Current `%rackname` Month,1,1,$,1,0,2,0,0,0,0
-Op Cost Sum Current `%rackname` Year,1,1,$,1,0,2,0,0,0,0
-Op Cost Previous `%rackname` Day,1,1,$,1,0,2,0,0,0,1
-Op Cost Previous `%rackname` Month,1,1,$,1,0,2,0,0,0,1
-Op Cost Previous `%rackname` Year,1,1,$,1,0,2,0,0,0,1
-Op kWh Current `%rackname` Day,1,1,kWh,1,0,1,0,0,0,0
-Op kWh Current `%rackname` Month,1,1,kWh,1,0,1,0,0,0,0
-Op kWh Current `%rackname` Year,1,1,kWh,1,0,1,0,0,0,0
-Op kWh Counter Current `%rackname` Day,1,1,kWh,1,0,1,0,0,0,0
-Op kWh Counter Current `%rackname` Month,1,1,kWh,1,0,1,0,0,0,0
-Op kWh Counter Current `%rackname` Year,1,1,kWh,1,0,1,0,0,0,0
-Op kWh Previous `%rackname` Day,1,1,kWh,1,0,1,0,0,0,1
-Op kWh Previous `%rackname` Month,1,1,kWh,1,0,1,0,0,0,1
-Op kWh Previous `%rackname` Year,1,1,kWh,1,0,1,0,0,0,1
+Op Cost Current Day `%rackname` ,1,1,$,1,0,2,0,0,0,0
+Op Cost Current Month `%rackname`,1,1,$,1,0,2,0,0,0,0
+Op Cost Current Year `%rackname`,1,1,$,1,0,2,0,0,0,0
+Op Cost Sum Current Day `%rackname`,1,1,$,1,0,2,0,0,0,0
+Op Cost Sum Current Month `%rackname`,1,1,$,1,0,2,0,0,0,0
+Op Cost Sum Current Year `%rackname`,1,1,$,1,0,2,0,0,0,0
+Op Cost Previous Day `%rackname`,1,1,$,1,0,2,0,0,0,1
+Op Cost Previous Month `%rackname`,1,1,$,1,0,2,0,0,0,1
+Op Cost Previous Year `%rackname`,1,1,$,1,0,2,0,0,0,1
+Op kWh Current Day `%rackname`,1,1,kWh,1,0,1,0,0,0,0
+Op kWh Current Month `%rackname`,1,1,kWh,1,0,1,0,0,0,0
+Op kWh Current Year `%rackname`,1,1,kWh,1,0,1,0,0,0,0
+Op kWh Counter Current Day `%rackname`,1,1,kWh,1,0,1,0,0,0,0
+Op kWh Counter Current Month `%rackname`,1,1,kWh,1,0,1,0,0,0,0
+Op kWh Counter Current Year `%rackname`,1,1,kWh,1,0,1,0,0,0,0
+Op kWh Previous Day `%rackname`,1,1,kWh,1,0,1,0,0,0,1
+Op kWh Previous Month `%rackname`,1,1,kWh,1,0,1,0,0,0,1
+Op kWh Previous Year `%rackname`,1,1,kWh,1,0,1,0,0,0,1
 Performance Cost Sum Predicted `%rackname`,1,1,$,1,0,1,0,0,0,1
 Performance Cost Sum Actual `%rackname`,1,1,$,1,0,1,0,0,0,1
 Performance Cost Sum Difference `%rackname`,1,1,$,1,0,1,0,0,0,1

@@ -68,7 +68,7 @@ public class WidgetSettings implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "WidgetLink{" + "widgetType=" + widgetLinks + '}';
+        return "WidgetLink{\nwidgetType= " + widgetLinks + "\n}";
     }
     
     

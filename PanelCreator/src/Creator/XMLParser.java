@@ -33,6 +33,8 @@ public class XMLParser {
 
         if (marsh != null) {
 
+            System.out.println(store.ws);
+
             try {
                 marsh.marshal(store, new File(fileOutPath));
 

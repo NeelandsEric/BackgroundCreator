@@ -21,22 +21,22 @@ public class WidgetLink implements java.io.Serializable {
 
     public WidgetCode widgetCode;
     @XmlJavaTypeAdapter(MyPointAdapter.class)
-    public Point positionPercentage;
-    public String variableName; 
+    public Point positionPercentage;     
     public String panelName;
+    public String subGroup;
 
     public WidgetLink() {
         this.widgetCode = null;
         this.positionPercentage = null;
-        this.variableName = "BLANK";
         this.panelName = "BLANK";
+        this.subGroup = "BLANK";
     }
 
-    public WidgetLink(WidgetCode widgetCode, Point positionPercentage, String variableName, String panelName) {
+    public WidgetLink(WidgetCode widgetCode, Point positionPercentage, String panelName, String subGroup) {
         this.widgetCode = widgetCode;
         this.positionPercentage = positionPercentage;
-        this.variableName = variableName;
-        this.panelName = panelName;
+         this.panelName = panelName;
+        this.subGroup = subGroup;
     }
     
     
@@ -58,14 +58,6 @@ public class WidgetLink implements java.io.Serializable {
         this.positionPercentage = positionPercentage;
     }
 
-    public String getVariableName() {
-        return variableName;
-    }
-
-    public void setVariableName(String variableName) {
-        this.variableName = variableName;
-    }
-
     public String getPanelName() {
         return panelName;
     }
@@ -74,18 +66,24 @@ public class WidgetLink implements java.io.Serializable {
         this.panelName = panelName;
     }
 
-    
-    
-    
-    
-    
-    
+    public String getSubGroup() {
+        return subGroup;
+    }
+
+    public void setSubGroup(String subGroup) {
+        this.subGroup = subGroup;
+    }
+
     
     
     
     @Override
     public String toString() {
-        return "WidgetLink{" + "widgetCode=" + widgetCode + ", positionPercentage=" + positionPercentage + ", variableName=" + variableName + ", panelName=" + panelName + '}';
+        return "WidgetLink{\nwidgetCode = " + widgetCode
+                + "\npositionPercentage = [" + positionPercentage.getX()
+                + "," + positionPercentage.getY() + "]\npanelName = "
+                + panelName + "\nsubGroup = " + subGroup + "\n}";
+    
     }
     
     

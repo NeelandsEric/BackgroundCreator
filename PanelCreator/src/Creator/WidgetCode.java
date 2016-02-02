@@ -20,13 +20,13 @@ public class WidgetCode implements java.io.Serializable {
     public String fullWidgetText;
     public String filePath;
 
-    public WidgetCode(){
+    public WidgetCode() {
         this.widgetName = "Empty";
         this.variables = new HashMap<>();
         this.fullWidgetText = "Empty";
         this.filePath = "Empty";
     }
-    
+
     public WidgetCode(String variableName) {
         this.widgetName = variableName;
         variables = new HashMap<>();
@@ -47,9 +47,6 @@ public class WidgetCode implements java.io.Serializable {
             this.widgetName = this.widgetName.replace(".txt", "");
         }
     }
-    
-    
-    
 
     public String getWidgetName() {
 
@@ -59,8 +56,6 @@ public class WidgetCode implements java.io.Serializable {
     public void setWidgetName(String variableName) {
         this.widgetName = variableName;
     }
-    
-    
 
     public Set<String> getKeys() {
         return this.variables.keySet();
@@ -119,11 +114,13 @@ public class WidgetCode implements java.io.Serializable {
     @Override
     public String toString() {
 
-        String s = "";
-        s += "Widget " + widgetName + " has " + variables.size() + " mappings.\n";
-        for (String key : variables.keySet()) {
-            s += key + ": " + variables.get(key) + " | ";
-        }        
+        String s = this.widgetName + ": " + variables.size() + " mappings";
+        /*
+         s += "Widget " + widgetName + " has " + variables.size() + " mappings.\n";
+         for (String key : variables.keySet()) {
+         s += key + ": " + variables.get(key) + " | ";
+         }
+         */
         return s;
     }
 

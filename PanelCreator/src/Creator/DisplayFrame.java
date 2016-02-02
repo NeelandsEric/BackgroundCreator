@@ -56,7 +56,7 @@ public class DisplayFrame extends javax.swing.JFrame {
 
         this.stopUpdate = false;
     }
-    
+
     public void updateSettings(DisplaySettings dss) {
         this.ds = dss;
 
@@ -170,16 +170,15 @@ public class DisplayFrame extends javax.swing.JFrame {
 
         this.pack();
         Map<String, Map<String, Rectangle>> masterMap = new LinkedHashMap<>();
-        
-        masterMap.put("Main", bg.positions()); 
-        for(BackgroundRackNew b: rackTabs){
-            masterMap.put(b.rack.getName(), b.positions());            
+
+        masterMap.put("Main", bg.positions());
+        for (BackgroundRackNew b : rackTabs) {
+            masterMap.put(b.rack.getName(), b.positions());
         }
-        
-        masterMap.put("Loads", bgl.positions());            
-        masterMap.put("Financial", bgf.positions());  
-           
-        
+
+        masterMap.put("Loads", bgl.positions());
+        masterMap.put("Financial", bgf.positions());
+
         return masterMap;
     }
 
@@ -199,58 +198,61 @@ public class DisplayFrame extends javax.swing.JFrame {
 
                 @Override
                 public void run() {
-                    int selected = _TabbedPane_Tabs.getSelectedIndex();
-                    int nt = _TabbedPane_Tabs.getTabCount();
-                    // update the main
-                    bg.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(),
-                            cs.getImgStr(), cs.getStoreName());
 
-                    for (int i = nt - 3; i > cs.getNumRacks(); i--) {
-                        _TabbedPane_Tabs.remove(i);
-                    }
+                    try {
+                        int selected = _TabbedPane_Tabs.getSelectedIndex();
+                        int nt = _TabbedPane_Tabs.getTabCount();
+                        // update the main
+                        bg.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(),
+                                cs.getImgStr(), cs.getStoreName());
 
-                    for (int i = 0; i < cs.getNumRacks(); i++) {
-                        if (rackTabs.size() > i) {
-                            if (rackTabs.get(i) != null) {
+                        for (int i = nt - 3; i > cs.getNumRacks(); i--) {
+                            _TabbedPane_Tabs.remove(i);
+                        }
+
+                        for (int i = 0; i < cs.getNumRacks(); i++) {
+                            if (rackTabs.size() > i) {
+                                if (rackTabs.get(i) != null) {
+                                    rackTabs.get(i).updateRacks(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), cs.getRackNames());
+                                    _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
+                                    _TabbedPane_Tabs.setTitleAt(i + 1, cs.getRackNames()[i]);
+                                }
+                            } else {
+                                rackTabs.add(new BackgroundRackNew(t, i));
                                 rackTabs.get(i).updateRacks(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), cs.getRackNames());
                                 _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
                                 _TabbedPane_Tabs.setTitleAt(i + 1, cs.getRackNames()[i]);
                             }
-                        } else {
-                            rackTabs.add(new BackgroundRackNew(t, i));
-                            rackTabs.get(i).updateRacks(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), cs.getRackNames());
-                            _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
-                            _TabbedPane_Tabs.setTitleAt(i + 1, cs.getRackNames()[i]);
                         }
-                    }
 
-                    bgl.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
-                    bgf.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
-                    if (selected == (nt - 1)) {
-                        if (_TabbedPane_Tabs.getTabCount() < nt) {
-                            selected--; // loads tab selected
-                        } else {
-                            selected = _TabbedPane_Tabs.getTabCount() - 1;
+                        bgl.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
+                        bgf.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
+                        if (selected == (nt - 1)) {
+                            if (_TabbedPane_Tabs.getTabCount() < nt) {
+                                selected--; // loads tab selected
+                            } else {
+                                selected = _TabbedPane_Tabs.getTabCount() - 1;
+                            }
+                        } else if (selected < (_TabbedPane_Tabs.getTabCount() - 1)) {
+                            // good                    
+                        } else if (selected >= (_TabbedPane_Tabs.getTabCount() - 1)) {
+                            selected--;
                         }
-                    } else if (selected < (_TabbedPane_Tabs.getTabCount() - 1)) {
-                        // good                    
-                    } else if (selected >= (_TabbedPane_Tabs.getTabCount() - 1)) {
-                        selected--;
-                    }
-                    _TabbedPane_Tabs.setSelectedIndex(selected);
-                    t.pack();
-                    int w = bg.getWidth();
-                    int h = bg.getHeight();
-                    t.setTitle("Customized Backgrounds " + w + "x" + h);
+                        _TabbedPane_Tabs.setSelectedIndex(selected);
+                        t.pack();
+                        int w = bg.getWidth();
+                        int h = bg.getHeight();
+                        t.setTitle("Customized Backgrounds " + w + "x" + h);
 
+                    } catch (NullPointerException e) {
+                        System.out.println("Probably that tree map null pointer exception");
+                    }
                 }
 
             });
         }
 
     }
-
-    
 
     /**
      * update the logo

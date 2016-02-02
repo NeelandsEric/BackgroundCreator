@@ -14,7 +14,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
-import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -72,7 +71,7 @@ public class MainFrame extends JFrame {
         displayFrame = new DisplayFrame(this, store.getCs(), store.getDs());
         displayFrame.setStopUpdate(true);
 
-        displayFrame.setVisible(true);
+        //displayFrame.setVisible(true);
         mbPanel.initalizeMeters();
         controlPanel.updateDisplay();
         ngPanel.loadGroups();

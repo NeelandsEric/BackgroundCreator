@@ -1248,9 +1248,9 @@ public class BackgroundFinancial extends javax.swing.JPanel {
             "Op Cost Total Previous Year", "Op Cost Total Current Day",
             "Op Cost Total Current Month", "Op Cost Total Current Year"};
 
-        String[] tooltip = new String[]{"Op Cost Previous `%rackname` Day", "Op Cost Previous `%rackname` Month",
-            "Op Cost Previous `%rackname` Year", "Op Cost Sum Current `%rackname` Day",
-            "Op Cost Sum Current `%rackname` Month", "Op Cost Sum Current `%rackname` Year"};
+        String[] tooltip = new String[]{"Op Cost Previous Day `%rackname`", "Op Cost Previous Month `%rackname`",
+            "Op Cost Previous Year `%rackname`", "Op Cost Sum Current Day `%rackname`",
+            "Op Cost Sum Current Month `%rackname`", "Op Cost Sum Current Year `%rackname`"};
 
         Rack rack = null;
         if (rackNum != 0) {
@@ -1349,9 +1349,9 @@ public class BackgroundFinancial extends javax.swing.JPanel {
                                              "Op kWh Total Previous Year", "Op kWh Total Current Day",
                                              "Op kWh Total Current Month", "Op kWh Total Current Year"};
 
-        String[] tooltip = new String[]{"Op kWh Previous `%rackname` Day", "Op kWh Previous `%rackname` Month",
-                                        "Op kWh Previous `%rackname` Year", "Op kWh Counter Current `%rackname` Day",
-                                        "Op kWh Counter Current `%rackname` Month", "Op kWh Counter Current `%rackname` Year" };
+        String[] tooltip = new String[]{"Op kWh Previous Day `%rackname`", "Op kWh Previous Month `%rackname`",
+                                        "Op kWh Previous Year `%rackname`", "Op kWh Counter Current Day `%rackname`",
+                                        "Op kWh Counter Current Month `%rackname`", "Op kWh Counter Current Year `%rackname`" };
 
         Rack rack = null;
         if (rackNum != 0) {
