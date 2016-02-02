@@ -1132,8 +1132,8 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.ipady = 10;
         c.weighty = 1;
 
-        String[] totalTooltip = new String[]{"Performance Cost Sum Predicted", "Performance Cost Sum Actual",
-            "Performance Cost Sum Difference", "Performance kW Sum Predicted",
+        String[] totalTooltip = new String[]{"Performance Total Cost Sum Predicted", "Performance Total Cost Sum Actual",
+            "Performance Total Cost Sum Difference", "Performance kW Sum Predicted",
             "Performance kW Sum Actual", "Performance kW Sum Difference"};
 
         String[] tooltip = new String[]{"Performance Cost Sum Predicted `%rackname`", "Performance Cost Sum Actual `%rackname`",
@@ -1250,7 +1250,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
 
         String[] tooltip = new String[]{"Op Cost Previous `%rackname` Day", "Op Cost Previous `%rackname` Month",
             "Op Cost Previous `%rackname` Year", "Op Cost Sum Current `%rackname` Day",
-            "Op Cost Sum Current `%rackname` Month", "Performance kW Sum Difference"};
+            "Op Cost Sum Current `%rackname` Month", "Op Cost Sum Current `%rackname` Year"};
 
         Rack rack = null;
         if (rackNum != 0) {

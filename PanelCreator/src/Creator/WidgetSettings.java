@@ -58,6 +58,11 @@ public class WidgetSettings implements java.io.Serializable {
      public Set<Entry<String, WidgetLink>> getWidgetLinkEntrySet(){
          return this.widgetLinks.entrySet();
      }
+     
+     
+     public void clear(){
+         this.widgetLinks.clear();
+     }
 
    
 
