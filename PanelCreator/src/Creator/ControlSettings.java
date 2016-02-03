@@ -22,7 +22,7 @@ public class ControlSettings implements java.io.Serializable {
     public ControlSettings() {
         this.storeName = "Store Name";
         racks = new ArrayList<>();
-        racks.add(new Rack("Rack 1"));
+        racks.add(new Rack("Rack A"));
         numRacks = 1;
         imgStr = "";        
 
@@ -31,7 +31,7 @@ public class ControlSettings implements java.io.Serializable {
     public ControlSettings(String storeName) {
         this.storeName = storeName;
         racks = new ArrayList<>();
-        racks.add(new Rack("Rack 1"));
+        racks.add(new Rack("Rack A"));
         numRacks = 1;
         imgStr = "";        
 

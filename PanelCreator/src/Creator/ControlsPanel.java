@@ -51,16 +51,17 @@ public final class ControlsPanel extends javax.swing.JPanel {
      */
     public String[] getFileNames(String filePath, Dimension d){
         String [] fn = new String[numRacks+3];
-        String storeName = cs.getStoreName();
+        String storeName = cs.getStoreName().replace(" ", "_");
         
-        fn[0] = filePath + storeName + " [1] Main-" + + d.width + "x" + d.height + ".png";
+        fn[0] = filePath + storeName + "_[1]_Main-" + + d.width + "x" + d.height + ".png";
         
         for(int i = 1; i <= numRacks; i++){
-            fn[i] = filePath + storeName + " ["+(i+1)+"] Rack{" + cs.getRackName(i-1)
+            fn[i] = filePath + storeName + "_["+(i+1)+"]_Rack{" + cs.getRackName(i-1).replace(" ", "_")
                              + "}-" + d.width + "x" + d.height + ".png";
         }
-        fn[fn.length-2] = filePath + storeName + " ["+(fn.length-1)+"] Loads-" + + d.width + "x" + d.height + ".png";
-        fn[fn.length-1] = filePath + storeName + " ["+(fn.length)+"] Financial-" + + d.width + "x" + d.height + ".png";
+        fn[fn.length-2] = filePath + storeName + "_["+(fn.length-1)+"]_Loads-" + + d.width + "x" + d.height + ".png";
+        fn[fn.length-1] = filePath + storeName + "_["+(fn.length)+"]_Financial-" + + d.width + "x" + d.height + ".png";
+        
         
         return fn;
     }
