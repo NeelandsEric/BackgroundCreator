@@ -315,7 +315,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         _List_WidgetVars = new javax.swing.JList();
         _Label_VarNames = new javax.swing.JLabel();
         _Label_Widget = new javax.swing.JLabel();
-        _Button_LoadCSV = new javax.swing.JButton();
+        _Button_LoadXls = new javax.swing.JButton();
         _Label_Loaded = new javax.swing.JLabel();
         _Panel_WidgetParams = new javax.swing.JPanel();
         _Label_WidgetParams = new javax.swing.JLabel();
@@ -411,17 +411,17 @@ public class WidgetPanel extends javax.swing.JPanel {
         _Label_Widget.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _Label_Widget.setText("Widget Code");
 
-        _Button_LoadCSV.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        _Button_LoadCSV.setText("LOAD EXPORT FILE");
-        _Button_LoadCSV.addActionListener(new java.awt.event.ActionListener() {
+        _Button_LoadXls.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        _Button_LoadXls.setText("LOAD EXPORT FILE");
+        _Button_LoadXls.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _Button_LoadCSVActionPerformed(evt);
+                _Button_LoadXlsActionPerformed(evt);
             }
         });
 
         _Label_Loaded.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         _Label_Loaded.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        _Label_Loaded.setText("CSV File Not loaded, load file to continue");
+        _Label_Loaded.setText("XLS File Not loaded, load file to continue");
 
         _Label_WidgetParams.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         _Label_WidgetParams.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -694,7 +694,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(_Button_LoadCSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(_Button_LoadXls, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(_Label_Loaded, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(52, 52, 52))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -739,7 +739,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                                 .addComponent(_ScrollPane_WidgetNames, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(_Button_LoadCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(_Button_LoadXls, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
                         .addComponent(_Label_Loaded, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -792,7 +792,13 @@ public class WidgetPanel extends javax.swing.JPanel {
         mf.canClick(_ComboBox_DisplayPanel.getSelectedIndex(), mouseActive[index]);
     }//GEN-LAST:event__Button_EnableClicksActionPerformed
 
-    private void _Button_LoadCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_LoadCSVActionPerformed
+    private void _Button_LoadXlsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_LoadXlsActionPerformed
+
+        _FileChooser_IoFile.setDialogTitle("Load XLS File");
+        _FileChooser_IoFile.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        _FileChooser_IoFile.setDialogType(JFileChooser.OPEN_DIALOG);
+        _FileChooser_IoFile.setApproveButtonText("Save Here");
+
         int returnVal = _FileChooser_IoFile.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
@@ -805,7 +811,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         } else {
             System.out.println("File access cancelled by user.");
         }
-    }//GEN-LAST:event__Button_LoadCSVActionPerformed
+    }//GEN-LAST:event__Button_LoadXlsActionPerformed
 
     private void _ComboBox_DisplayPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_DisplayPanelActionPerformed
         // TODO add your handling code here:
@@ -968,9 +974,14 @@ public class WidgetPanel extends javax.swing.JPanel {
         Map<String, List<String>> exportStringMap = new HashMap<>();
         for (Entry<String, WidgetLink> entry : ws.getWidgetLinkEntrySet()) {
 
-            String subGroup = entry.getValue().getSubGroup();
-            if (!exportStringMap.containsKey(subGroup)) {
-                exportStringMap.put(subGroup, new ArrayList<>());
+            String panelName = entry.getValue().getPanelName();
+            if (panelName.startsWith("R:")) {
+                //System.out.print(panelName + " -> ");
+                panelName = panelName.substring(3);
+                //System.out.println(panelName);
+            }
+            if (!exportStringMap.containsKey(panelName)) {
+                exportStringMap.put(panelName, new ArrayList<>());
             }
             // For each entry, we want to generate the code that applies to all variables
             //System.out.println(entry);
@@ -979,9 +990,11 @@ public class WidgetPanel extends javax.swing.JPanel {
             //System.out.println("SV: " + Arrays.toString(selectedVar));
 
             String index = entry.getValue().getPanelName();
-            if(index.equals("R:")){
+            if (index.startsWith("R:")) {
                 index = "Rack";
             }
+
+            //System.out.println("master map keys: " + Arrays.toString(masterMap.keySet().toArray()));
             for (Entry<String, Rectangle> varsToGen : masterMap.get(index).entrySet()) {
 
                 boolean contains = true;
@@ -1004,17 +1017,17 @@ public class WidgetPanel extends javax.swing.JPanel {
                     if (importedIOVariables.containsKey(varsToGen.getKey())) {
 
                         int io_id = importedIOVariables.get(varsToGen.getKey());
-                        System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + " with IO_ID: " + io_id);
+                        //System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + " with IO_ID: " + io_id);
 
-                        exportStringMap.get(subGroup).add(createWidget(entry.getValue().getWidgetCode(), varsToGen.getValue(), entry.getValue().getPositionPercentage(), io_id));
+                        exportStringMap.get(panelName).add(createWidget(entry.getValue().getWidgetCode(), varsToGen.getValue(), entry.getValue().getPositionPercentage(), io_id));
 
                     } else {
-                        System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not found");
+                        //System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not found");
                     }
 
                 } else if (contains) {
 
-                    System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not loaded");
+                    //System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not loaded");
                 } else {
                     //System.err.println("Ignored " + orgKey + " to: " + varsToGen.getKey());
                 }
@@ -1034,6 +1047,8 @@ public class WidgetPanel extends javax.swing.JPanel {
 
             exports.add(adder);
         }
+
+        writeOutExports(exports);
 
         if (exports.size() > 0) {
             _TextArea_WidgetExport.setText(exports.get(0));
@@ -1070,6 +1085,36 @@ public class WidgetPanel extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event__Button_LoadDefaultsActionPerformed
+
+    public boolean writeOutExports(List<String> exports) {
+
+        _FileChooser_IoFile.setDialogTitle("Save Text Exports");
+        _FileChooser_IoFile.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        _FileChooser_IoFile.setDialogType(JFileChooser.SAVE_DIALOG);
+        _FileChooser_IoFile.setApproveButtonText("Save Here");
+
+        int returnVal = _FileChooser_IoFile.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            File file = _FileChooser_IoFile.getSelectedFile();
+            //System.out.println("File: " + file.getAbsolutePath());
+            String filePath = file.getAbsolutePath();
+            String fp = filePath + "OnlyNames";
+            if (!filePath.endsWith(".txt")) {
+                filePath += ".txt";
+            }
+            if (!fp.endsWith(".txt")) {
+                fp += ".txt";
+            }
+            /*
+             this.exports.writeCSV(filePath);
+             this.store.writeNames(fp);*/
+
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+        return true;
+    }
 
     public String createWidget(WidgetCode wc, Rectangle rect, Point per, int io_id) {
 
@@ -1397,9 +1442,9 @@ public class WidgetPanel extends javax.swing.JPanel {
     private javax.swing.JButton _Button_CreateImports;
     private javax.swing.JButton _Button_EnableClicks;
     private javax.swing.JButton _Button_GenerateWidgetLink;
-    private javax.swing.JButton _Button_LoadCSV;
     private javax.swing.JButton _Button_LoadDefaults;
     private javax.swing.JButton _Button_LoadDefaults1;
+    private javax.swing.JButton _Button_LoadXls;
     private javax.swing.JButton _Button_print;
     private javax.swing.JButton _Button_widgetPositions;
     private javax.swing.JComboBox _ComboBox_DisplayPanel;
