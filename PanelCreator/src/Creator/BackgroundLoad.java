@@ -397,11 +397,11 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
         c.weighty = 1;
         c.fill = GridBagConstraints.BOTH;
 
-        String[] tooltip = new String[]{"Loads Setpoint `%rackname` `%sgname` `%sysname`", "Loads Temp `%rackname` `%sgname` `%sysname`",
-            "Loads EEPR `%rackname` `%sgname` `%sysname`", "Loads EEPR Predicted `%rackname` `%sgname` `%sysname`",
-            "Loads EEPR Difference `%rackname` `%sgname` `%sysname`", "Loads Capacity `%rackname` `%sgname` `%sysname`",
-            "Loads kW `%rackname` `%sgname` `%sysname`", "Loads kW Difference `%rackname` `%sgname` `%sysname`",
-            "Loads Cost Difference `%rackname` `%sgname` `%sysname`", "System Status `%rackname` `%sgname` `%sysname`"};
+        String[] tooltip = new String[]{"System Setpoint `%rackname` `%sgname` `%sysname`", "System Temp `%rackname` `%sgname` `%sysname`",
+            "System EEPR `%rackname` `%sgname` `%sysname`", "System EEPR Predicted `%rackname` `%sgname` `%sysname`",
+            "System EEPR Difference `%rackname` `%sgname` `%sysname`", "System Capacity `%rackname` `%sgname` `%sysname`",
+            "System kW `%rackname` `%sgname` `%sysname`", "System kW Difference `%rackname` `%sgname` `%sysname`",
+            "System Cost Difference `%rackname` `%sgname` `%sysname`", "System Status `%rackname` `%sgname` `%sysname`"};
 
         for (int i = 0; i < numSystems; i++) {
 

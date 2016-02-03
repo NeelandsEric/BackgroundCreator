@@ -1,7 +1,8 @@
 package Creator;
 
 /**
- * Main 
+ * Main
+ *
  * @author EricGummerson
  */
 public class PanelCreator {
@@ -15,18 +16,29 @@ public class PanelCreator {
         // TODO code application logic here
 
         PanelCreator pc = new PanelCreator();
-        pc.start();        
+        pc.start();
     }
 
     /**
      * Starts the program
      */
-    private void start() {        
-        
-        mf = new MainFrame(this);
-        mf.setVisible(true);
-        // Show the main panel
+    private void start() {
 
+        try {
+            mf = new MainFrame(this);
+            mf.setVisible(true);
+        } catch (Exception e) {
+            System.out.println("Error caught in main");
+            e.printStackTrace();
+            System.out.println("Restarting");
+            if (mf != null) {
+                mf.saveDefault();
+            }
+
+            this.start();
+        }
+
+        // Show the main panel
     }
 
     /**

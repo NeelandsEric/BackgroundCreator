@@ -95,7 +95,8 @@ public class MainFrame extends JFrame {
         displayFrame.setStopUpdate(false);
 
     }
-
+    
+    
     private boolean loadDefaultStore() {
 
         if (!(new File(homeDirectory).mkdirs())) {
@@ -122,21 +123,32 @@ public class MainFrame extends JFrame {
                 return true;
             }
         }
-        return false;
+        return false;        
+    }
+    
+    
+    public DefaultWidgets loadDefaultWidgets(){
+        if (!(new File(homeDirectory).mkdirs())) {
+            // Directory exists, check if the Store exists
+            String filePath = homeDirectory + "/DefaultWidgets.xml";
+            if (new File(filePath).exists()) {
+                try {
+                    DefaultWidgets dw = xmlParser.readWidgetsFile(filePath);
 
-        /*
-         if (loadFile) {
-            
-         } else {
-
-         displayFrame.dispose();
-
-         this.store = new Store();
-         initPanels();
-         // Load the main panel        
-         //controlPanel.setVisible(true);
-         
-         }*/
+                    if (store != null) {
+                        System.out.println("Read default widgets!");
+                    } else {
+                        
+                        return dw;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }                
+            }
+        }
+        return null;
+               
+    
     }
 
     public Store getStore() {
@@ -207,6 +219,34 @@ public class MainFrame extends JFrame {
     public void returnClick(Point point) {
         wgPanel.returnClick(point);
     }
+
+    public void saveDefault() {
+        if (xmlParser != null) {
+            if (xmlParser.writeOut(this.store, homeDirectory + "/DefaultStore.xml")) {
+                System.out.println("Store " + this.store.getStoreName() + " saved");
+            } else {
+                System.out.println("Store " + this.store.getStoreName() + " had a problem saving");
+            }
+            
+        } else {
+            System.out.println("Problem with the XMLParser");
+        }
+    }
+    
+    public void saveDefaultWidgets(){
+        if (xmlParser != null) {
+            if (xmlParser.writeOutDefaultWidgets(this.wgPanel.getDefaultWidgets(), homeDirectory + "/DefaultWidgets.xml")) {
+                System.out.println("Default Widgets saved");
+            } else {
+                System.out.println("Default Widgets had a problem saving");
+            }
+            
+        } else {
+            System.out.println("Problem with the XMLParser");
+        }
+        
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

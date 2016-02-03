@@ -15,34 +15,31 @@ import javax.xml.bind.annotation.XmlAccessorType;
 public class WidgetCode implements java.io.Serializable {
 
     public static final long serialVersionUID = 43217L;
-    public String widgetName;
+    public String widgetName;    
     public Map<String, String> variables;
     public String fullWidgetText;
-    public String filePath;
+    
 
     public WidgetCode() {
         this.widgetName = "Empty";
         this.variables = new HashMap<>();
-        this.fullWidgetText = "Empty";
-        this.filePath = "Empty";
+        this.fullWidgetText = "Empty";        
     }
 
     public WidgetCode(String variableName) {
         this.widgetName = variableName;
         variables = new HashMap<>();
-        this.fullWidgetText = "";
-        this.filePath = "";
+        this.fullWidgetText = "";        
     }
 
-    public WidgetCode(String variableName, ArrayList<String> vars, String fullWidgetText, String filePath) {
+    public WidgetCode(String variableName, ArrayList<String> vars, String fullWidgetText) {
         this.widgetName = variableName;
         variables = new HashMap<>();
         for (String s : vars) {
             this.variables.put(s, "");
         }
         this.fullWidgetText = fullWidgetText;
-        this.filePath = filePath;
-
+        
         if (this.widgetName.endsWith(".txt")) {
             this.widgetName = this.widgetName.replace(".txt", "");
         }
@@ -102,14 +99,7 @@ public class WidgetCode implements java.io.Serializable {
     public void addFullWidgetText(String text) {
         this.fullWidgetText += text;
     }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
+  
 
     @Override
     public String toString() {

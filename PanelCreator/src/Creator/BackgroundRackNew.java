@@ -590,7 +590,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
             "Cond Outlet Pressure " + rack.getName(),
             "Cond Out Subcooling " + rack.getName(),
             "Discharge Pressure " + rack.getName(),
-            "Discharge Temp " + rack.getName()};
+            "Discharge Tmp " + rack.getName()};
 
         for (int j = 0; j < 5; j++) {
 

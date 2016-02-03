@@ -12,31 +12,93 @@ import javax.xml.bind.Unmarshaller;
  */
 public class XMLParser {
 
-    private JAXBContext context;
-    private Marshaller marsh;
-    private Unmarshaller unmarsh;
+    private JAXBContext contextStore;
+    private JAXBContext contextWidget;
+    
+    private Marshaller marshStore;
+    private Marshaller marshWidget;
+    
+    private Unmarshaller unmarshStore;
+    private Unmarshaller unmarshWidget;
 
     public XMLParser() {
         try {
-            context = JAXBContext.newInstance(Store.class);
-            marsh = context.createMarshaller();
-            marsh.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            unmarsh = context.createUnmarshaller();
+            contextStore = JAXBContext.newInstance(Store.class);
+            marshStore = contextStore.createMarshaller();
+            marshStore.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            unmarshStore = contextStore.createUnmarshaller();
         } catch (JAXBException e) {
-            System.out.println("XMLParser constructor error: marsh or unmarsher\n" + e.getMessage());
+            System.out.println("XMLParser constructor error: store marsh or unmarsher\n" + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        try {
+            contextWidget = JAXBContext.newInstance(DefaultWidgets.class);
+            marshWidget = contextWidget.createMarshaller();
+            marshWidget.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            unmarshWidget = contextWidget.createUnmarshaller();
+        } catch (JAXBException e) {
+            System.out.println("XMLParser constructor error: widget marsh or unmarsher\n" + e.getMessage());
             e.printStackTrace();
         }
 
     }
+    
+    public boolean writeOutDefaultWidgets(DefaultWidgets dw, String fileOutPath){
+        
+        if (marshWidget != null) {
+
+            
+            try {
+                marshWidget.marshal(dw, new File(fileOutPath));
+
+                return true;
+
+            } catch (JAXBException e) {
+                System.out.println("XMLParser write out error\n" + e.getMessage());
+                e.printStackTrace();
+                return false;
+
+            }
+        } else {
+            System.out.println("Marshaller has not been correctly made.");
+            return false;
+        }
+        
+        
+    }
+    
+    public DefaultWidgets readWidgetsFile(String filepath){
+        
+        if (unmarshWidget != null) {
+            try {
+
+                File f = new File(filepath);
+                DefaultWidgets dw = (DefaultWidgets) unmarshWidget.unmarshal(f);
+
+                return dw;
+
+            } catch (JAXBException ex) {
+                System.out.println("XMLParser read file error with Default Widgets\n" + ex.getMessage());
+                System.out.println("Filepath: " + filepath);
+                ex.printStackTrace();
+                return null;
+            } catch (NullPointerException e) {
+                System.out.println("File not found\n" + e.getMessage());
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
 
     public boolean writeOut(Store store, String fileOutPath) {
 
-        if (marsh != null) {
-
-            System.out.println(store.ws);
+        if (marshStore != null) {
+            
 
             try {
-                marsh.marshal(store, new File(fileOutPath));
+                marshStore.marshal(store, new File(fileOutPath));
 
                 return true;
 
@@ -55,11 +117,11 @@ public class XMLParser {
 
     public Store readFile(String filepath) {
 
-        if (unmarsh != null) {
+        if (unmarshStore != null) {
             try {
 
                 File f = new File(filepath);
-                Store store = (Store) unmarsh.unmarshal(f);
+                Store store = (Store) unmarshStore.unmarshal(f);
 
                 return store;
 
