@@ -133,8 +133,11 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="_ScrollPane_WidgetNames" max="32767" attributes="0"/>
                           <Component id="_Panel_WidgetParams" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="_ScrollPane_WidgetNames" min="-2" pref="368" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -145,14 +148,15 @@
                       <Component id="_ScrollPane_ExportPane" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="_Button_Copy" pref="42" max="32767" attributes="0"/>
-                          <Component id="_Button_CreateImports" max="32767" attributes="0"/>
+                          <Component id="_Button_CreateImports" pref="30" max="32767" attributes="0"/>
+                          <Component id="_Button_Copy" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="_Button_print" pref="35" max="32767" attributes="0"/>
-                          <Component id="_Button_ClearLinks" max="32767" attributes="0"/>
+                          <Component id="_Button_ClearLinks" pref="28" max="32767" attributes="0"/>
+                          <Component id="_Button_print" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
@@ -394,7 +398,7 @@
                               <Component id="_Button_GenerateWidgetLink" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" pref="124" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="113" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="_Label_WidgetParams" min="-2" pref="27" max="-2" attributes="0"/>
@@ -402,6 +406,7 @@
                           <Component id="_ScrollPane_WidgetSettings" max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

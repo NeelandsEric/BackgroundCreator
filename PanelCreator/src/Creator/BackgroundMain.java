@@ -671,7 +671,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         c.gridx = 1;
         c.gridwidth = 3;
         c.gridy = 0;
-        c.gridheight = 2;
+        c.gridheight = 3;
         widgetComponents.put(tooltip[0].replace("`%rackname`", rackName), label);
         panel.add(label, c);
 

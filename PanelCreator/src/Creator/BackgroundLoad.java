@@ -352,8 +352,8 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel.add(label, c);
 
-        String[] titles = new String[]{" SETPOINT ", "TEMPERATURE", " EEPR% ", "PREDICTED EEPR%",
-            "EEPR% DIFFERENCE", "CAPACITY", "    kW    ", "kW DIFFERENCE", "COST DIFFERENCE", " FAULT "};
+        String[] titles = new String[]{"SETPOINT", "  TEMP  ", " EEPR% ", "<HTML>EEPR%<br>PREDICTED</HTML>",
+            "<HTML>EEPR%<br>DIFFERENCE</HTML>", "CAPACITY", "    kW    ", "<HTML>kW<br>DIFFERENCE</HTML>", "<HTML>COST<br>DIFFERENCE</HTML>", " FAULT "};
 
         c.gridx += 1;
         for (int i = 0; i < titles.length; i++) {
