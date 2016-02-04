@@ -13,12 +13,16 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.net.URL;
 import java.security.CodeSource;
 import java.util.ArrayList;
@@ -239,7 +243,7 @@ public class WidgetPanel extends javax.swing.JPanel {
             String index = _ComboBox_DisplayPanel.getSelectedItem().toString();
 
             if (index.startsWith("R:")) {
-                index = "Rack";
+                //index = "Rack";
             }
 
             if (masterMap.get(index).containsKey(varName)) {
@@ -866,17 +870,26 @@ public class WidgetPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         // Make sure we have a selection for the widget type, the widget variable type
         if (!_List_WidgetVars.isSelectionEmpty() && !_List_WidgetCodeList.isSelectionEmpty()) {
-            String panel = _ComboBox_DisplayPanel.getSelectedItem().toString();
+            String panelName = _ComboBox_DisplayPanel.getSelectedItem().toString();
+            String panelType;
+
+            if (panelName.startsWith("R:")) {
+                panelType = "Rack";
+            } else {
+
+                panelType = panelName;
+            }
+
             String subGroup = _ComboBox_Subgroup.getSelectedItem().toString();
             String varType = _List_WidgetVars.getSelectedValue().toString();
-            String key = panel + "-" + varType;
+            String key = panelType + "-" + varType;
 
             String widgetCodeStr = _List_WidgetCodeList.getSelectedValue().toString();
             WidgetCode wc = widgetList.get(widgetCodeStr + ".txt");
             //System.out.println(widgetCodeStr + " gives -> " + wc);
             Point per = new Point(Integer.parseInt(_FTF_WigetParam_xPosPer.getText()), Integer.parseInt(_FTF_WigetParam_yPosPer.getText()));
 
-            WidgetLink wl = new WidgetLink(wc, per, panel, subGroup);
+            WidgetLink wl = new WidgetLink(wc, per, panelType, subGroup);
 
             if (ws.add(key, wl) != null) {
                 _TextArea_Log.append("The key {" + key + "} already exists. It has now been overwritten\n");
@@ -884,7 +897,6 @@ public class WidgetPanel extends javax.swing.JPanel {
                 _TextArea_Log.append("Added {" + key + "} with WidgetVar {" + widgetCodeStr + "}\n");
             }
 
-            //updateStore();
         } else {
             _TextArea_Log.append("Selection is required for Widget Variable and Widget Code.\n");
 
@@ -974,100 +986,108 @@ public class WidgetPanel extends javax.swing.JPanel {
         Map<String, List<String>> exportStringMap = new HashMap<>();
         for (Entry<String, WidgetLink> entry : ws.getWidgetLinkEntrySet()) {
 
-            String panelName = entry.getValue().getPanelName();
-            if (panelName.startsWith("R:")) {
-                //System.out.print(panelName + " -> ");
-                panelName = panelName.substring(3);
-                //System.out.println(panelName);
-            }
-            if (!exportStringMap.containsKey(panelName)) {
-                exportStringMap.put(panelName, new ArrayList<>());
-            }
-            // For each entry, we want to generate the code that applies to all variables
-            //System.out.println(entry);
-            String orgKey = entry.getKey().substring(entry.getKey().indexOf("-") + 1);
-            String[] selectedVar = orgKey.split("`");
-            //System.out.println("SV: " + Arrays.toString(selectedVar));
+            String panelType = entry.getValue().getPanelType();
+            String panelName = panelType;
+            boolean rackEntry = panelType.equals("Rack");
 
-            String index = entry.getValue().getPanelName();
-            if (index.startsWith("R:")) {
-                index = "Rack";
-            }
+            List<String> usedRacks = new ArrayList<>();
 
-            //System.out.println("master map keys: " + Arrays.toString(masterMap.keySet().toArray()));
-            for (Entry<String, Rectangle> varsToGen : masterMap.get(index).entrySet()) {
+            do {
 
-                boolean contains = true;
-                for (String part : selectedVar) {
-                    if (!contains) {
-                        break;
-                    }
-                    if (!part.contains("%")) {
-                        //System.out.println("Does " + entry.getKey() + " contain " + part);
-                        if (!varsToGen.getKey().contains(part)) {
-                            contains = false;
+                if (panelType.equals("Rack")) {
+                    String[] rackNames = cs.getRackNames();
+                    rackEntry = false;
+                    for (String rn : rackNames) {
+                        if (!usedRacks.contains(rn)) {
+                            usedRacks.add(rn);
+                            panelName = rn;
+                            rackEntry = true;
+                            break;
                         }
                     }
+                    if(!rackEntry){
+                        break;
+                    }
+                    System.out.println("Rack: " + panelName + " -- " + rackEntry);
 
                 }
-                if (importedIOVariables != null && contains) {
 
-                    System.out.println("key: " + varsToGen.getKey());
+                if (!exportStringMap.containsKey(panelName)) {
+                    exportStringMap.put(panelName, new ArrayList<>());
+                } else {
+                    System.out.println("Export already contained " + panelName);
+                }
+                // For each entry, we want to generate the code that applies to all variables
+                //System.out.println(entry);
+                String orgKey = entry.getKey().substring(entry.getKey().indexOf("-") + 1);
+                String[] selectedVar = orgKey.split("`");
+                //System.out.println("SV: " + Arrays.toString(selectedVar));
 
-                    if (importedIOVariables.containsKey(varsToGen.getKey())) {
+                String index = entry.getValue().getPanelType();
 
-                        int io_id = importedIOVariables.get(varsToGen.getKey());
-                        //System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + " with IO_ID: " + io_id);
+                if (rackEntry) {
+                    index = "R: " + panelName;
+                }
+                System.out.println("index:" + index);
+                System.out.println("master map keys: " + Arrays.toString(masterMap.keySet().toArray()));
+                for (Entry<String, Rectangle> varsToGen : masterMap.get(index).entrySet()) {
 
-                        exportStringMap.get(panelName).add(createWidget(entry.getValue().getWidgetCode(), varsToGen.getValue(), entry.getValue().getPositionPercentage(), io_id));
+                    boolean contains = true;
+                    for (String part : selectedVar) {
+                        if (!contains) {
+                            break;
+                        }
+                        if (!part.contains("%")) {
+                            //System.out.println("Does " + entry.getKey() + " contain " + part);
+                            if (!varsToGen.getKey().contains(part)) {
+                                contains = false;
+                            }
+                        }
 
+                    }
+                    if (importedIOVariables != null && contains) {
+
+                        //System.out.println("key: " + varsToGen.getKey());
+                        if (importedIOVariables.containsKey(varsToGen.getKey())) {
+
+                            int io_id = importedIOVariables.get(varsToGen.getKey());
+                            //System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + " with IO_ID: " + io_id);
+
+                            exportStringMap.get(panelName).add(createWidget(entry.getValue().getWidgetCode(), varsToGen.getValue(), entry.getValue().getPositionPercentage(), io_id));
+
+                        } else {
+                            //System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not found");
+                        }
+
+                    } else if (contains) {
+
+                        //System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not loaded");
                     } else {
-                        //System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not found");
+                        //System.err.println("Ignored " + orgKey + " to: " + varsToGen.getKey());
                     }
 
-                } else if (contains) {
-
-                    //System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not loaded");
-                } else {
-                    //System.err.println("Ignored " + orgKey + " to: " + varsToGen.getKey());
                 }
-
-            }
+            } while (rackEntry);
 
         }
 
-        List<String> exports = new ArrayList<>();
+        writeOutExports(exportStringMap);
 
-        for (List<String> list : exportStringMap.values()) {
-            String adder = "[";
-            for (String listString : list) {
-                adder += listString + ",";
-            }
-            adder = adder.substring(0, adder.length() - 1) + "]";
-
-            exports.add(adder);
-        }
-
-        writeOutExports(exports);
-
-        if (exports.size() > 0) {
-            _TextArea_WidgetExport.setText(exports.get(0));
-        }
-
-        Highlighter h = _TextArea_WidgetExport.getHighlighter();
-        h.removeAllHighlights();
-        int sel = _TextArea_WidgetExport.getText().length();
-        if (sel > 0) {
-            try {
-                h.addHighlight(0, sel, DefaultHighlighter.DefaultPainter);
-            } catch (BadLocationException ex) {
-                System.out.println("Bad selection");
-            }
-        }
-        StringSelection stringSelection = new StringSelection(_TextArea_WidgetExport.getText());
-        Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
-        clpbrd.setContents(stringSelection, null);
-
+        /*
+         Highlighter h = _TextArea_WidgetExport.getHighlighter();
+         h.removeAllHighlights();
+         int sel = _TextArea_WidgetExport.getText().length();
+         if (sel > 0) {
+         try {
+         h.addHighlight(0, sel, DefaultHighlighter.DefaultPainter);
+         } catch (BadLocationException ex) {
+         System.out.println("Bad selection");
+         }
+         }
+         StringSelection stringSelection = new StringSelection(_TextArea_WidgetExport.getText());
+         Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+         clpbrd.setContents(stringSelection, null);
+         */
 
     }//GEN-LAST:event__Button_CreateImportsActionPerformed
 
@@ -1086,7 +1106,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event__Button_LoadDefaultsActionPerformed
 
-    public boolean writeOutExports(List<String> exports) {
+    public boolean writeOutExports(Map<String, List<String>> exports) {
 
         _FileChooser_IoFile.setDialogTitle("Save Text Exports");
         _FileChooser_IoFile.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -1098,21 +1118,32 @@ public class WidgetPanel extends javax.swing.JPanel {
 
             File file = _FileChooser_IoFile.getSelectedFile();
             //System.out.println("File: " + file.getAbsolutePath());
-            String filePath = file.getAbsolutePath();
-            String fp = filePath + "OnlyNames";
-            if (!filePath.endsWith(".txt")) {
-                filePath += ".txt";
+            String filepath = file.getAbsolutePath();
+
+            for (Entry<String, List<String>> entry : exports.entrySet()) {
+                String adder = "[";
+                for (String listString : entry.getValue()) {
+                    adder += listString + ",";
+                }
+                adder = adder.substring(0, adder.length() - 1) + "]";
+
+                String fp = filepath + "\\WidgetExports-" + entry.getKey() + ".txt";
+                System.out.println("Writing " + fp);
+
+                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                        new FileOutputStream(fp), "utf-8"))) {
+                    writer.write(adder);
+                } catch (Exception e) {
+                }
+
+                System.out.println("Writing " + fp + " Completed");
+
             }
-            if (!fp.endsWith(".txt")) {
-                fp += ".txt";
-            }
-            /*
-             this.exports.writeCSV(filePath);
-             this.store.writeNames(fp);*/
 
         } else {
             System.out.println("File access cancelled by user.");
         }
+
         return true;
     }
 
@@ -1133,10 +1164,6 @@ public class WidgetPanel extends javax.swing.JPanel {
     public void loadMasterMapList() {
 
         String index = _ComboBox_DisplayPanel.getSelectedItem().toString();
-
-        if (index.startsWith("R:")) {
-            index = "Rack";
-        }
 
         if (masterMap.get(index) != null) {
 

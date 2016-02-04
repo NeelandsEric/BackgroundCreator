@@ -174,9 +174,9 @@ public class DisplayFrame extends javax.swing.JFrame {
         masterMap.put("Main", bg.positions());
         for (BackgroundRackNew b : rackTabs) {
             if (masterMap.containsKey("Rack")) {
-                masterMap.get("Rack").putAll(b.positions());
+                masterMap.get("R: " + b.rack.getName()).putAll(b.positions());
             } else {
-                masterMap.put("Rack", b.positions());
+                masterMap.put("R: " + b.rack.getName(), b.positions());
             }
         }
 

@@ -53,14 +53,12 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="_Label_Widget1" min="-2" pref="180" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="_Button_widgetPositions" min="-2" pref="163" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="_ComboBox_DisplayPanel" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="_Label_Widget1" min="-2" pref="180" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="_Button_widgetPositions" min="-2" pref="163" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="_ComboBox_DisplayPanel" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
                           <Component id="_ScrollPane_MasterMap" max="32767" attributes="0"/>
                       </Group>
                   </Group>

@@ -21,26 +21,23 @@ public class WidgetLink implements java.io.Serializable {
 
     public WidgetCode widgetCode;
     @XmlJavaTypeAdapter(MyPointAdapter.class)
-    public Point positionPercentage;     
-    public String panelName;
+    public Point positionPercentage;
+    public String panelType;
     public String subGroup;
 
     public WidgetLink() {
         this.widgetCode = null;
         this.positionPercentage = null;
-        this.panelName = "BLANK";
+        this.panelType = "BLANK";
         this.subGroup = "BLANK";
     }
 
-    public WidgetLink(WidgetCode widgetCode, Point positionPercentage, String panelName, String subGroup) {
+    public WidgetLink(WidgetCode widgetCode, Point positionPercentage, String panelType, String subGroup) {
         this.widgetCode = widgetCode;
         this.positionPercentage = positionPercentage;
-         this.panelName = panelName;
+        this.panelType = panelType;
         this.subGroup = subGroup;
     }
-    
-    
-    
 
     public WidgetCode getWidgetCode() {
         return widgetCode;
@@ -58,14 +55,7 @@ public class WidgetLink implements java.io.Serializable {
         this.positionPercentage = positionPercentage;
     }
 
-    public String getPanelName() {
-        return panelName;
-    }
-
-    public void setPanelName(String panelName) {
-        this.panelName = panelName;
-    }
-
+   
     public String getSubGroup() {
         return subGroup;
     }
@@ -74,19 +64,23 @@ public class WidgetLink implements java.io.Serializable {
         this.subGroup = subGroup;
     }
 
+    public String getPanelType() {
+        return panelType;
+    }
+
+    public void setPanelType(String panelType) {
+        this.panelType = panelType;
+    }
     
     
-    
+
     @Override
     public String toString() {
         return "WidgetLink{\nwidgetCode = " + widgetCode
                 + "\npositionPercentage = [" + positionPercentage.getX()
-                + "," + positionPercentage.getY() + "]\npanelName = "
-                + panelName + "\nsubGroup = " + subGroup + "\n}";
-    
+                + "," + positionPercentage.getY() + "]\npanelType = "
+                + panelType + "\nsubGroup = " + subGroup + "\n}";
+
     }
-    
-    
-    
 
 }
