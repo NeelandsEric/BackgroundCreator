@@ -299,9 +299,9 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         c4.gridy += 1;
         c4.weighty = 1;
         //=========================================
-        label = new JLabel("Predicted $/kW");
+        label = new JLabel("Predicted  ");
         label.setOpaque(true);
-        label.setHorizontalAlignment(JLabel.LEADING);
+        label.setHorizontalAlignment(JLabel.CENTER);
         label.setBackground(Colours.GreenLightest.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 16));
         //label.setBorder(border);
@@ -311,9 +311,9 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         c4.gridy += 1;
 
         //=========================================
-        label = new JLabel("Actual $/kW");
+        label = new JLabel("Actual");
         label.setOpaque(true);
-        label.setHorizontalAlignment(JLabel.LEADING);
+        label.setHorizontalAlignment(JLabel.CENTER);
         label.setBackground(Colours.GreenLight.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 16));
         //label.setBorder(border);
@@ -644,7 +644,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         panel.add(label, c);
 
         // Cost
-        label = new JLabel("Cost");
+        label = new JLabel("Cost $/hour");
         label.setOpaque(true);
         label.setBackground(Colours.GreenDark.getCol());
         //label.setBorder(border);
