@@ -1,0 +1,11 @@
+
+
+insert into task_manager
+(task_manager_task_id, task_manager_inputs, task_manager_outputs,
+task_manager_crontab_line, task_manager_station_id,
+task_manager_name, task_manager_pass_inputs_as_io_id)
+values ({Script_ID}, {inputs}, {outputs}, {crontab},
+{station_id},{name},{use_io_ids});
+
+
+use_io_ids - 0 to use values, 1 to use IO ID

@@ -8,7 +8,10 @@ package Creator;
 import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,6 +25,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.jfree.graphics2d.svg.SVGGraphics2D;
+import org.jfree.graphics2d.svg.SVGUtils;
 
 /**
  * Main frame is the main frame containing links to all other frames w
@@ -556,7 +561,7 @@ public class MainFrame extends JFrame {
 
         int returnVal = _FileChooser_SavePicture.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            String fn = _FileChooser_SavePicture.getSelectedFile().toString();
+            String fn = _FileChooser_SavePicture.getSelectedFile().toString();            
             if (!fn.endsWith(".png")) {
                 fn += ".png";
             }
@@ -569,6 +574,22 @@ public class MainFrame extends JFrame {
             } catch (AWTException | IOException e) {
                 controlPanel.writeToLog("Error saving current display as a picture" + e.getMessage());
             }
+            // SVG working but not used atm
+            /*
+            try{ 
+                BufferedImage bi = ScreenImage.createImage(displayFrame.getCurrentPane());
+                
+                SVGGraphics2D g = new SVGGraphics2D(bi.getWidth(), bi.getHeight());
+                BufferedImageOp op = new AffineTransformOp(new AffineTransform(), AffineTransformOp.TYPE_BILINEAR);
+                
+                g.drawImage(bi, op, 0, 0);
+                File f = new File(fn.replace(".png", ".svg"));
+                SVGUtils.writeToSVG(f, g.getSVGElement());                
+                
+                //ScreenImage.createImage();
+            } catch (AWTException | IOException e) {
+                controlPanel.writeToLog("Error saving current display as a picture" + e.getMessage());
+            }*/
 
         } else {
             System.out.println("File access cancelled by user.");
