@@ -91,8 +91,8 @@ Performance Cost Sum Difference `%rackname`,1,1,$,1,0,1,0,0,0,0
 Performance kW Sum Predicted `%rackname`,1,1,kW,1,0,1,0,0,0,1
 Performance kW Sum Actual `%rackname`,1,1,kW,1,0,1,0,0,0,1
 Performance kW Sum Difference `%rackname`,1,1,kW,1,0,1,0,0,0,0
-PF `%rackname`,1,1,PF,0.01,0,3,0,0,0,1
-SEI `%rackname`,1,1,%,1,0,0,1,0,0,1
+PF `%rackname`,1,1,PF,0.01,0,2,0,0,0,1
+SEI `%rackname`,1,1,%,1,0,2,0,0,0,1
 Volts L1 to L2 `%rackname`,1,1,V,0.1,0,1,0,0,0,1
 Volts L1 to L3 `%rackname`,1,1,V,0.1,0,1,0,0,0,1
 Volts L2 to L3 `%rackname`,1,1,V,0.1,0,1,0,0,0,1

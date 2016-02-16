@@ -4,7 +4,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -47,6 +46,7 @@ public class ModbusPanel extends javax.swing.JPanel {
 
     public void initalizeMeters() {
 
+        
         mb.setNumPowerScouts(1);
         powerScoutPanels = (ArrayList<MeterPanel>[]) new ArrayList[10];
         for (int i = 0; i < 10; i++) {
