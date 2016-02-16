@@ -1,5 +1,5 @@
 `Store`
-Store Temp Type,2,1,,,,,0,0,0,0
+Store Temp Type,2,1,,1,0,0,0,0,0,0
 Store Sqft,1,1,SqFt,1,0,2,0,0,0,0
 Store $/kWh,3,1,$/kWh,1,0,2,0,0,0,0
 Store Outside Temp,1,1,F,1.8,-32,1,0,0,0,1
@@ -101,7 +101,7 @@ Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,0,0,1
 `Condenser`
 Cond Fan Amps `%rackname` `%fannum`,1,1,A,1,0,1,0,0,0,1
 Cond Fan Status `%rackname` `%fannum`,1,1,,1,0,0,0,0,0,1
-Cond Fan RUN `%rackname` `%fannum`,0,,,,,,0,0,0,0
+Cond Fan RUN `%rackname` `%fannum`,0,1,,1,0,0,0,0,0,0
 `Suction Group`
 Suction Temp `%rackname` `%sgname`,1,1,F,1.8,-32,1,0,0,0,1
 Suction Pressure Actual `%rackname` `%sgname`,1,1,Psig,0.145,0,1,0,0,0,1
@@ -125,6 +125,6 @@ Comp Amp Limit `%rackname` `%sgname` `%compname`,1,1,A,1,0,1,0,0,0,0
 Comp Discharge Temp `%rackname` `%sgname` `%compname`,1,1,F,1.8,-32,1,0,0,0,1
 Comp Discharge Limit `%rackname` `%sgname` `%compname`,1,1,F,1.8,-32,1,0,0,0,0
 Comp Status `%rackname` `%sgname` `%compname`,1,1,,1,0,0,0,0,0,1
-Comp SLA `%rackname` `%sgname` `%compname`,0,,,,,,0,0,0,0
-Comp RUN `%rackname` `%sgname` `%compname`,0,,,,,,0,0,0,0
+Comp SLA `%rackname` `%sgname` `%compname`,0,1,,1,0,0,0,0,0,0
+Comp RUN `%rackname` `%sgname` `%compname`,0,1,,1,0,0,0,0,0,0
 Comp kW `%rackname` `%sgname` `%compname`,1,1,kW,0.1,0,1,0,0,0,1

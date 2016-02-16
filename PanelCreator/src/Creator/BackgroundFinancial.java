@@ -1614,6 +1614,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
 
         // Store
         label = new JLabel("");
+        widgetComponents.put("Store $/kWh", label);
         //label.setBorder(border);        
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel.add(label, c);
