@@ -1,0 +1,7 @@
+{
+  "widget_class": "HTML",
+  "widget_subclass": "152",
+  "w_x": "`%XPOS%`",
+  "w_y": "`%YPOS%`",
+  "code": "<a class=\"button-link-trans\" href=\"http://pbn.neelands.com:81/panel2.php?panel_id=`%PANEL_ID%`\"\n       target=\"_parent\">`%PANEL_NAME%`</a>\n\n<style>\n\t\n\t\n\t\n.button-link-trans {\n\t\tbackground-color: Transparent;\n    background-repeat:no-repeat;\n    border: none;\n    cursor:pointer;\n    overflow: hidden;\n    outline:none;\n\t  text-decoration: none;\n\t  font-family: Arial, Helvetica, sans-serif !important;\n\t  color: #FFF !important;\n\t  font-size: 16px;\n    padding: 5px 12px;   \n\n\n}\n.button-link-trans:hover {\n    background: #356094;\n    border: solid 1px #2A4E77;\n    text-decoration: none;\n}\n.button-link-trans:active {\n    -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);\n    -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);\n    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);\n    \n}\n\n\n</style>"
+}

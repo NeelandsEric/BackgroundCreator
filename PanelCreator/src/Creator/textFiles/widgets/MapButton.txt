@@ -1,0 +1,7 @@
+{
+  "widget_class": "HTML",
+  "widget_subclass": "151",
+  "w_x": "`%XPOS%`",
+  "w_y": "`%YPOS%`",
+  "code": "<a class=\"button-link\" href=\"http://pbn.neelands.com:81/panel2.php?panel_id=`%PANEL_ID%`\"\n       target=\"_parent\">Map</a>\n\n<style>\n\t\n\t\n\t\n.button-link {\n\t  text-decoration: none;\n\t  font-family: Arial, Helvetica, sans-serif !important;\n\t  color: #FFF !important;\n\t  font-size: 16px;\n    padding: 5px 12px;\n    background: #4479BA;\n    border-radius: 4px;\n    border: solid 1px #20538D;\n    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);\n\n    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);\n\n}\n.button-link:hover {\n    background: #356094;\n    border: solid 1px #2A4E77;\n    text-decoration: none;\n}\n.button-link:active {\n    -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);\n    -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);\n    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);\n    background: #2E5481;\n    border: solid 1px #203E5F;\n}\n\n\n</style>"
+}

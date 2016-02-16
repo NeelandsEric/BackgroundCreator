@@ -1,7 +1,7 @@
 `Store`
 Store Temp Type,2,1,,1,0,0,0,0,0,0
 Store Sqft,1,1,SqFt,1,0,2,0,0,0,0
-Store $/kWh,3,1,$/kWh,1,0,2,0,0,0,0
+Store $/kWh,3,0.12,$/kWh,1,0,2,0,0,0,0
 Store Outside Temp,1,1,F,1.8,-32,1,0,0,0,1
 Store Outside Humidity,1,1,%,1,0,1,0,0,0,1
 Store Temp,1,1,F,1.8,-32,1,0,0,0,1
