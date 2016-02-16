@@ -176,7 +176,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
 
         _FormattedTextField_Width.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         _FormattedTextField_Width.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        _FormattedTextField_Width.setText("1200");
+        _FormattedTextField_Width.setText("1209");
         _FormattedTextField_Width.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 _FormattedTextField_WidthFocusLost(evt);
@@ -185,7 +185,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
 
         _FormattedTextField_Height.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         _FormattedTextField_Height.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        _FormattedTextField_Height.setText("800");
+        _FormattedTextField_Height.setText("876");
         _FormattedTextField_Height.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 _FormattedTextField_HeightFocusLost(evt);
@@ -585,6 +585,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
 
     public void defaultSettings() {
         loading = true;
+        System.out.println("Making new DS");
         ds = new DisplaySettings();
 
     

@@ -76,7 +76,7 @@ public class DisplaySettings implements java.io.Serializable {
         return displayWidth;
     }
 
-    public void setDisplayWidth(int displayWidth) {
+    public void setDisplayWidth(int displayWidth) {        
         this.displayWidth = displayWidth;
     }
 
@@ -84,7 +84,7 @@ public class DisplaySettings implements java.io.Serializable {
         return displayHeight;
     }
 
-    public void setDisplayHeight(int displayHeight) {
+    public void setDisplayHeight(int displayHeight) {        
         this.displayHeight = displayHeight;
     }
 

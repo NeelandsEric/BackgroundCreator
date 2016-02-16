@@ -57,9 +57,11 @@ public class MainFrame extends JFrame {
         xmlParser = new XMLParser();
 
         boolean storeLoaded = loadDefaultStore();
+        System.out.println("Store loaded " + storeLoaded);
         if (!storeLoaded) {
             this.store = new Store();
         }
+        
         // Attempt to load the last stored store        
         initComponents();
         initPanels();
@@ -81,7 +83,8 @@ public class MainFrame extends JFrame {
         controlPanel.updateDisplay();
         ngPanel.loadGroups();
         wgPanel.loadWidgetCode();
-
+        
+        System.out.println("Size prior to update " + store.ds.getDisplayWidth() + ", " + store.ds.getDisplayHeight());
         displayFrame.updateSettings(this.store.getDs());
         settingsPanel.loadSettings(this.store.getDs());
         controlPanel.loadControlSettings(this.store.getCs());
@@ -112,20 +115,19 @@ public class MainFrame extends JFrame {
                     this.store = xmlParser.readFile(filePath);
 
                     if (store != null) {
+                        System.out.println("Size Default Store " + this.store.ds.getDisplayWidth() + ", " + this.store.ds.getDisplayHeight());
                         if (controlPanel != null) {
-                            controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
+                            controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");                            
                         }
-
+                        return true;
                     } else {
                         if (controlPanel != null) {
                             controlPanel.writeToLog("Error opening " + filePath + "\nMaking a new store!");
-                        }
-                        return false;
+                        }                        
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
-                return true;
+                }                
             }
         }
         return false;        
