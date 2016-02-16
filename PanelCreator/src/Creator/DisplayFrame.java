@@ -298,8 +298,7 @@ public class DisplayFrame extends javax.swing.JFrame {
      * @param width the width of the frame
      * @param height the height of the frame
      */
-    public void setNewSize(int width, int height) {
-        System.out.println("Set new size " + width + ", " + height); 
+    public void setNewSize(int width, int height) {        
         this.setSize(width, height);
         this.setPreferredSize(new Dimension(width, height));
 

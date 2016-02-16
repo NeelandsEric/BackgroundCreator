@@ -56,8 +56,7 @@ public class MainFrame extends JFrame {
         homeDirectory = System.getProperty("user.home") + "/PanelCreator";
         xmlParser = new XMLParser();
 
-        boolean storeLoaded = loadDefaultStore();
-        System.out.println("Store loaded " + storeLoaded);
+        boolean storeLoaded = loadDefaultStore();        
         if (!storeLoaded) {
             this.store = new Store();
         }
@@ -84,7 +83,6 @@ public class MainFrame extends JFrame {
         ngPanel.loadGroups();
         wgPanel.loadWidgetCode();
         
-        System.out.println("Size prior to update " + store.ds.getDisplayWidth() + ", " + store.ds.getDisplayHeight());
         displayFrame.updateSettings(this.store.getDs());
         settingsPanel.loadSettings(this.store.getDs());
         controlPanel.loadControlSettings(this.store.getCs());
@@ -114,8 +112,7 @@ public class MainFrame extends JFrame {
                 try {
                     this.store = xmlParser.readFile(filePath);
 
-                    if (store != null) {
-                        System.out.println("Size Default Store " + this.store.ds.getDisplayWidth() + ", " + this.store.ds.getDisplayHeight());
+                    if (store != null) {                        
                         if (controlPanel != null) {
                             controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");                            
                         }

@@ -983,17 +983,35 @@ public class WidgetPanel extends javax.swing.JPanel {
         _TextArea_WidgetExport.setText("");
 
         // Generate the code (Save to Files later)
+        
+        // Contains a List of JSON code for each panel (Main, Rack(s), Loads, Financial)
         Map<String, List<String>> exportStringMap = new HashMap<>();
+        
+        // For each type of entry in the widgetlinks, try to find a match to an io id
         for (Entry<String, WidgetLink> entry : ws.getWidgetLinkEntrySet()) {
 
+            // Panel type will be like "Main" "Rack" etc
             String panelType = entry.getValue().getPanelType();
+            // Actual panel name - u
             String panelName = panelType;
             boolean rackEntry = panelType.equals("Rack");
 
+            // Generate the same widgets for each rack as they will all be the same
+            // This will be used to keep all racks used
             List<String> usedRacks = new ArrayList<>();
 
+            // 
             do {
 
+                // We want to generate widget links for every rack panel when
+                // the widget link is for a "Rack"
+                // Every do loop will check to see if the rack name is part of
+                // usedRack list. If it is, the widget has been generated for 
+                // that rack, so we continue to find the next rack
+                // If all the racks have been used, rackEntry is set to false
+                // And we break out of the do loop
+                // We use a do loop so the code will be executed at least 1 time
+                // for the main,loads,financial widgets
                 if (panelType.equals("Rack")) {
                     String[] rackNames = cs.getRackNames();
                     rackEntry = false;
@@ -1007,38 +1025,51 @@ public class WidgetPanel extends javax.swing.JPanel {
                     }
                     if(!rackEntry){
                         break;
-                    }
-                    System.out.println("Rack: " + panelName + " -- " + rackEntry);
-
+                    }                    
                 }
+                
 
+                
+                // Generate a new arraylist for the export Mappings only if it
+                // doesnt exist. This prevents adding strings to the non existant list
                 if (!exportStringMap.containsKey(panelName)) {
                     exportStringMap.put(panelName, new ArrayList<>());
-                } else {
-                    System.out.println("Export already contained " + panelName);
                 }
+                
                 // For each entry, we want to generate the code that applies to all variables
-                //System.out.println(entry);
+                
+                // Split the widget link into the two parts
+                // Rack-Cond Outlet Pressure `%rackname`
+                // orgKey = Cond Outlet Pressure `%rackname`
                 String orgKey = entry.getKey().substring(entry.getKey().indexOf("-") + 1);
-                String[] selectedVar = orgKey.split("`");
-                //System.out.println("SV: " + Arrays.toString(selectedVar));
-
+                
+                // selectVar = [Cond Outlet Pressure , %rackname]
+                
+                String[] selectedVar = orgKey.split("`"); 
                 String index = entry.getValue().getPanelType();
-
+                
                 if (rackEntry) {
-                    index = "R: " + panelName;
+                    // We add this before the name as the master map keys follow this format
+                    index = "R: " + panelName;                   
                 }
-                System.out.println("index:" + index);
-                System.out.println("master map keys: " + Arrays.toString(masterMap.keySet().toArray()));
+                
+                //System.out.println("index:" + index);
+                //System.out.println("master map keys: " + Arrays.toString(masterMap.keySet().toArray()));
+                
+                // Find all the variables that are usable on the specific panel (masterMap.get(index))
                 for (Entry<String, Rectangle> varsToGen : masterMap.get(index).entrySet()) {
 
                     boolean contains = true;
+                    
+                    // selectVar = [Cond Outlet Pressure , %rackname]                    
                     for (String part : selectedVar) {
                         if (!contains) {
                             break;
                         }
                         if (!part.contains("%")) {
-                            //System.out.println("Does " + entry.getKey() + " contain " + part);
+                            
+                            // Find the linking variable eg.
+                            // Cond Outlet Pressure `%rackname` . contains(Cond Outlet Pressure)
                             if (!varsToGen.getKey().contains(part)) {
                                 contains = false;
                             }
@@ -1056,7 +1087,9 @@ public class WidgetPanel extends javax.swing.JPanel {
                             exportStringMap.get(panelName).add(createWidget(entry.getValue().getWidgetCode(), varsToGen.getValue(), entry.getValue().getPositionPercentage(), io_id));
 
                         } else {
-                            //System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not found");
+                            System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not found");
+                            // No io for this
+                            exportStringMap.get(panelName).add(createWidget(entry.getValue().getWidgetCode(), varsToGen.getValue(), entry.getValue().getPositionPercentage(), 0));
                         }
 
                     } else if (contains) {

@@ -1,5 +1,6 @@
 `Store
 Store $/kWh
+Alert Log
 Performance Total Cost Sum Predicted
 Performance Total Cost Sum Actual
 Performance Total Cost Sum Difference
