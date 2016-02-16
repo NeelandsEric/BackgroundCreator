@@ -312,7 +312,7 @@ public class IoNames implements java.io.Serializable {
         
         // Add header
         // Add header
-        String[] headers = new String[]{"io_name", "io_type", "io_value_displayed",
+        String[] headers = new String[]{"io_name", "io_type", "io_value",
             "io_unit_of_measure", "io_constant", "io_offset", "io_float_digits",
             "io_alert", "io_alert_range_low", "io_alert_range_high", "io_log"
         };
