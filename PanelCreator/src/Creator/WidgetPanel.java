@@ -334,7 +334,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         _Label_WigetParam_yPos1 = new javax.swing.JLabel();
         _FTF_WigetParam_yPosPer = new javax.swing.JFormattedTextField();
         _Button_GenerateWidgetLink = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        _ScrollPane_Log = new javax.swing.JScrollPane();
         _TextArea_Log = new javax.swing.JTextArea();
         _ScrollPane_WidgetSettings = new javax.swing.JScrollPane();
         _Panel_WidgetSettings = new javax.swing.JPanel();
@@ -344,7 +344,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         _ComboBox_Subgroup = new javax.swing.JComboBox();
         _ScrollPane_MasterMap = new javax.swing.JScrollPane();
         _List_MasterMapVariables = new javax.swing.JList();
-        _Label_Widget1 = new javax.swing.JLabel();
+        _Label_VarsOnPanel = new javax.swing.JLabel();
         _Button_ClearSelection = new javax.swing.JButton();
         _Button_CreateImports = new javax.swing.JButton();
         _Button_ClearLinks = new javax.swing.JButton();
@@ -487,7 +487,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         _TextArea_Log.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         _TextArea_Log.setLineWrap(true);
         _TextArea_Log.setRows(5);
-        jScrollPane1.setViewportView(_TextArea_Log);
+        _ScrollPane_Log.setViewportView(_TextArea_Log);
 
         _ScrollPane_WidgetSettings.setPreferredSize(new java.awt.Dimension(232, 265));
 
@@ -560,7 +560,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                                 .addGroup(_Panel_WidgetParamsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(_FTF_WigetParam_xPosPer)
                                     .addComponent(_FTF_WigetParam_yPosPer, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(_ScrollPane_Log, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         _Panel_WidgetParamsLayout.setVerticalGroup(
@@ -596,7 +596,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                                 .addComponent(_Button_LoadDefaults1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(_Button_GenerateWidgetLink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(_ScrollPane_Log, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(_Panel_WidgetParamsLayout.createSequentialGroup()
                         .addComponent(_Label_WidgetParams, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -626,9 +626,9 @@ public class WidgetPanel extends javax.swing.JPanel {
         _List_MasterMapVariables.setModel(listModelMasterMap);
         _ScrollPane_MasterMap.setViewportView(_List_MasterMapVariables);
 
-        _Label_Widget1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        _Label_Widget1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        _Label_Widget1.setText("Variables on Panel");
+        _Label_VarsOnPanel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _Label_VarsOnPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _Label_VarsOnPanel.setText("Variables on Panel");
 
         _Button_ClearSelection.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Button_ClearSelection.setText("Clear Selection");
@@ -679,12 +679,11 @@ public class WidgetPanel extends javax.swing.JPanel {
                                 .addComponent(_Button_ClearSelection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(_Label_Widget1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(_Button_widgetPositions, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(_ComboBox_DisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(_Label_VarsOnPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(_Button_widgetPositions, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(_ComboBox_DisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(_ScrollPane_MasterMap)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -726,7 +725,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(_Label_VarNames, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(_Button_widgetPositions, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(_Label_Widget1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(_Label_VarsOnPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(_ScrollPane_MasterMap)
@@ -983,10 +982,9 @@ public class WidgetPanel extends javax.swing.JPanel {
         _TextArea_WidgetExport.setText("");
 
         // Generate the code (Save to Files later)
-        
         // Contains a List of JSON code for each panel (Main, Rack(s), Loads, Financial)
-        Map<String, List<String>> exportStringMap = new HashMap<>();
-        
+        Map<String, List<String>> exportStringMap = new TreeMap<>();
+
         // For each type of entry in the widgetlinks, try to find a match to an io id
         for (Entry<String, WidgetLink> entry : ws.getWidgetLinkEntrySet()) {
 
@@ -1023,51 +1021,46 @@ public class WidgetPanel extends javax.swing.JPanel {
                             break;
                         }
                     }
-                    if(!rackEntry){
+                    if (!rackEntry) {
                         break;
-                    }                    
+                    }
                 }
-                
 
-                
                 // Generate a new arraylist for the export Mappings only if it
                 // doesnt exist. This prevents adding strings to the non existant list
                 if (!exportStringMap.containsKey(panelName)) {
                     exportStringMap.put(panelName, new ArrayList<>());
                 }
-                
+
                 // For each entry, we want to generate the code that applies to all variables
-                
                 // Split the widget link into the two parts
                 // Rack-Cond Outlet Pressure `%rackname`
                 // orgKey = Cond Outlet Pressure `%rackname`
                 String orgKey = entry.getKey().substring(entry.getKey().indexOf("-") + 1);
-                
+
                 // selectVar = [Cond Outlet Pressure , %rackname]
-                
-                String[] selectedVar = orgKey.split("`"); 
+                String[] selectedVar = orgKey.split("`");
                 String index = entry.getValue().getPanelType();
-                
+
                 if (rackEntry) {
                     // We add this before the name as the master map keys follow this format
-                    index = "R: " + panelName;                   
+                    index = "R: " + panelName;
                 }
-                
+
                 //System.out.println("index:" + index);
                 //System.out.println("master map keys: " + Arrays.toString(masterMap.keySet().toArray()));
-                
                 // Find all the variables that are usable on the specific panel (masterMap.get(index))
                 for (Entry<String, Rectangle> varsToGen : masterMap.get(index).entrySet()) {
 
                     boolean contains = true;
-                    
+
                     // selectVar = [Cond Outlet Pressure , %rackname]                    
                     for (String part : selectedVar) {
                         if (!contains) {
                             break;
                         }
                         if (!part.contains("%")) {
-                            
+
                             // Find the linking variable eg.
                             // Cond Outlet Pressure `%rackname` . contains(Cond Outlet Pressure)
                             if (!varsToGen.getKey().contains(part)) {
@@ -1154,25 +1147,45 @@ public class WidgetPanel extends javax.swing.JPanel {
             String filepath = file.getAbsolutePath();
 
             for (Entry<String, List<String>> entry : exports.entrySet()) {
-                String adder = "[";
+                
+                // Use this to keep a maximum of 15 elements per text file to reduce the import lag
+                List<String> importList = new ArrayList<>();
+                // The string that will contain up to 15 json entries
+                String jsonEntry = "[";
+                int counter = 0;
+                
+                // For every json code generated for the entry (Main, Racks, Loads, etc)
+                // we add the json code to a array list to contain up to 15 json codes
+                // Importing more than 15 at a time can severely lag the system.
+                
                 for (String listString : entry.getValue()) {
-                    adder += listString + ",";
+                    if (counter >= 15) {
+                        counter = 0;
+                        jsonEntry = jsonEntry.substring(0, jsonEntry.length() - 1) + "]";
+                        importList.add(jsonEntry);
+                        jsonEntry = "[";
+                    }
+                    jsonEntry += listString + ",";
+                    counter++;
                 }
-                adder = adder.substring(0, adder.length() - 1) + "]";
+                jsonEntry = jsonEntry.substring(0, jsonEntry.length() - 1) + "]";
+                importList.add(jsonEntry);
+                
+                counter = 0;
+                for(String imports: importList){
+                    String fp = filepath + "\\WidgetExports-" + entry.getKey() + "-" + counter + ".txt";
+                    System.out.println("Writing " + fp);
 
-                String fp = filepath + "\\WidgetExports-" + entry.getKey() + ".txt";
-                System.out.println("Writing " + fp);
-
-                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                        new FileOutputStream(fp), "utf-8"))) {
-                    writer.write(adder);
-                } catch (Exception e) {
-                }
-
-                System.out.println("Writing " + fp + " Completed");
-
+                    try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                            new FileOutputStream(fp), "utf-8"))) {
+                        writer.write(imports);
+                        counter++;
+                        System.out.println("Writing " + fp + " Completed");
+                    } catch (Exception e) {
+                        System.out.println("Failed writing " + fp);
+                    }
+                } 
             }
-
         } else {
             System.out.println("File access cancelled by user.");
         }
@@ -1517,8 +1530,8 @@ public class WidgetPanel extends javax.swing.JPanel {
     private javax.swing.JLabel _Label_ClickStatus;
     private javax.swing.JLabel _Label_Loaded;
     private javax.swing.JLabel _Label_VarNames;
+    private javax.swing.JLabel _Label_VarsOnPanel;
     private javax.swing.JLabel _Label_Widget;
-    private javax.swing.JLabel _Label_Widget1;
     private javax.swing.JLabel _Label_WidgetParams;
     private javax.swing.JLabel _Label_WigetParam_xPos;
     private javax.swing.JLabel _Label_WigetParam_xPos1;
@@ -1530,12 +1543,12 @@ public class WidgetPanel extends javax.swing.JPanel {
     private javax.swing.JPanel _Panel_WidgetParams;
     private javax.swing.JPanel _Panel_WidgetSettings;
     private javax.swing.JScrollPane _ScrollPane_ExportPane;
+    private javax.swing.JScrollPane _ScrollPane_Log;
     private javax.swing.JScrollPane _ScrollPane_MasterMap;
     private javax.swing.JScrollPane _ScrollPane_VariableNames;
     private javax.swing.JScrollPane _ScrollPane_WidgetNames;
     private javax.swing.JScrollPane _ScrollPane_WidgetSettings;
     private javax.swing.JTextArea _TextArea_Log;
     private javax.swing.JTextArea _TextArea_WidgetExport;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
