@@ -53,6 +53,7 @@ SEI `%rackname`
 `Condenser
 Cond Fan Amps `%rackname` `%fannum`
 Cond Fan Status `%rackname` `%fannum`
+Cond Fan &GIF& Status `%rackname` `%fannum`
 `Suction Group
 Suction Temp `%rackname` `%sgname`
 Suction Pressure Actual `%rackname` `%sgname`

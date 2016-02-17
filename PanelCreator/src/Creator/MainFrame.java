@@ -139,19 +139,18 @@ public class MainFrame extends JFrame {
                 try {
                     DefaultWidgets dw = xmlParser.readWidgetsFile(filePath);
 
-                    if (store != null) {
-                        System.out.println("Read default widgets!");
+                    if (dw == null) {
+                        System.out.println("Default widgets null");
                     } else {
-                        
+                        System.out.println("Default widgets read and returned");
                         return dw;
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }                
             }
         }
-        return null;
-               
+        return null;               
     
     }
 

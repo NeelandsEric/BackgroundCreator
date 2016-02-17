@@ -1057,8 +1057,13 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.weightx = 1;
         c.ipadx = 40;
 
-        tooltip = new String[]{"Performance Cost Sum Predicted Hourly", "Performance Cost Sum Actual Hourly",
-            "Performance kW Sum Predicted Hourly", "Performance kW Sum Actual Hourly"};
+        
+        // Since we use the total variables twice, ive added a identifier using the 
+        // ampersand characters. The ampersand characters are removed right before trying
+        // to find the same key in the exported excel file. This will allow the variables
+        // to be listed and have unique widgets and locations while still using the same variables
+        tooltip = new String[]{"Performance Total Cost Sum Predicted &Hourly&", "Performance Total Cost Sum Actual &Hourly&",
+            "Performance Total kW Sum Predicted &Hourly&", "Performance Total kW Sum Actual &Hourly&"};
 
         for (int i = 0; i < 2; i++) {
             label = new JLabel();

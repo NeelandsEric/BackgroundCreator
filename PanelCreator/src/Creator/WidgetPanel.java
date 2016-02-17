@@ -1038,6 +1038,14 @@ public class WidgetPanel extends javax.swing.JPanel {
                 // orgKey = Cond Outlet Pressure `%rackname`
                 String orgKey = entry.getKey().substring(entry.getKey().indexOf("-") + 1);
 
+                while (orgKey.contains("&")) {
+
+                    int beginIndex = orgKey.indexOf("&");
+                    int endIndex = orgKey.indexOf("&", beginIndex + 1) + 1;
+                    String replace = " " + orgKey.substring(beginIndex, endIndex);
+                    orgKey = orgKey.replace(replace, "");
+                }
+
                 // selectVar = [Cond Outlet Pressure , %rackname]
                 String[] selectedVar = orgKey.split("`");
                 String index = entry.getValue().getPanelType();
@@ -1071,29 +1079,43 @@ public class WidgetPanel extends javax.swing.JPanel {
                     }
                     if (importedIOVariables != null && contains) {
 
-                        //System.out.println("key: " + varsToGen.getKey());
-                        if (importedIOVariables.containsKey(varsToGen.getKey())) {
+                        String masterMapKey = varsToGen.getKey();
 
-                            int io_id = importedIOVariables.get(varsToGen.getKey());
+                        // Since we use the total variables twice, ive added a identifier using the 
+                        // ampersand characters. The ampersand characters are removed right before trying
+                        // to find the same key in the exported excel file. This will allow the variables
+                        // to be listed and have unique widgets and locations while still using the same variables
+                        while (masterMapKey.contains("&")) {
+
+                            int beginIndex = masterMapKey.indexOf("&");
+                            int endIndex = masterMapKey.indexOf("&", beginIndex + 1) + 1;
+                            String replace = " " + masterMapKey.substring(beginIndex, endIndex);
+                            masterMapKey = masterMapKey.replace(replace, "");
+                        }
+
+                        //System.out.println("key: " + varsToGen.getKey());
+                        if (importedIOVariables.containsKey(masterMapKey)) {
+
+                            int io_id = importedIOVariables.get(masterMapKey);
                             //System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + " with IO_ID: " + io_id);
 
                             exportStringMap.get(panelName).add(createWidget(entry.getValue().getWidgetCode(), varsToGen.getValue(), entry.getValue().getPositionPercentage(), io_id));
 
                         } else {
-                            System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not found");
+                            System.out.println("Linked " + orgKey + " to: " + masterMapKey + ". IO_ID not found");
                             // No io for this
                             exportStringMap.get(panelName).add(createWidget(entry.getValue().getWidgetCode(), varsToGen.getValue(), entry.getValue().getPositionPercentage(), 0));
                         }
 
-                    } else if (contains) {
+                    } /*else if (contains) {
 
-                        //System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not loaded");
+                        System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not loaded");
                     } else {
-                        //System.err.println("Ignored " + orgKey + " to: " + varsToGen.getKey());
-                    }
+                        System.err.println("Ignored " + orgKey + " to: " + varsToGen.getKey());
+                    }*/
 
                 }
-            } while (rackEntry);
+            } while (rackEntry); // Generate all the widget links for each rack
 
         }
 
@@ -1126,8 +1148,11 @@ public class WidgetPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         DefaultWidgets dw = mf.loadDefaultWidgets();
         if (dw != null) {
+            _TextArea_Log.setText("Loaded default widgets!");
             ws.setWidgetLinks(dw.getWidgetLinks());
             widgetList = dw.getWidgetCodeMappings();
+        } else {
+            _TextArea_Log.append("Didn't load default widgets, error locating the file.");
         }
 
     }//GEN-LAST:event__Button_LoadDefaultsActionPerformed
@@ -1147,44 +1172,43 @@ public class WidgetPanel extends javax.swing.JPanel {
             String filepath = file.getAbsolutePath();
 
             for (Entry<String, List<String>> entry : exports.entrySet()) {
-                
+
                 // Use this to keep a maximum of 15 elements per text file to reduce the import lag
                 List<String> importList = new ArrayList<>();
                 // The string that will contain up to 15 json entries
                 String jsonEntry = "[";
-                int counter = 0;
-                
+                int sizeCounter = 0;
+
                 // For every json code generated for the entry (Main, Racks, Loads, etc)
                 // we add the json code to a array list to contain up to 15 json codes
                 // Importing more than 15 at a time can severely lag the system.
-                
                 for (String listString : entry.getValue()) {
-                    if (counter >= 15) {
-                        counter = 0;
+                    if (sizeCounter >= 90000) {
+                        sizeCounter = 0;
                         jsonEntry = jsonEntry.substring(0, jsonEntry.length() - 1) + "]";
                         importList.add(jsonEntry);
                         jsonEntry = "[";
                     }
                     jsonEntry += listString + ",";
-                    counter++;
+                    sizeCounter += listString.length() + 2;
                 }
                 jsonEntry = jsonEntry.substring(0, jsonEntry.length() - 1) + "]";
                 importList.add(jsonEntry);
-                
-                counter = 0;
-                for(String imports: importList){
-                    String fp = filepath + "\\WidgetExports-" + entry.getKey() + "-" + counter + ".txt";
+
+                sizeCounter = 0;
+                for (String imports : importList) {
+                    String fp = filepath + "\\WidgetExports-" + entry.getKey() + "-" + sizeCounter + ".txt";
                     System.out.println("Writing " + fp);
 
                     try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                             new FileOutputStream(fp), "utf-8"))) {
                         writer.write(imports);
-                        counter++;
+                        sizeCounter++;
                         System.out.println("Writing " + fp + " Completed");
                     } catch (Exception e) {
                         System.out.println("Failed writing " + fp);
                     }
-                } 
+                }
             }
         } else {
             System.out.println("File access cancelled by user.");
@@ -1216,10 +1240,6 @@ public class WidgetPanel extends javax.swing.JPanel {
             String[] selectedVar = null;
             if (!_List_WidgetVars.isSelectionEmpty()) {
                 selectedVar = _List_WidgetVars.getSelectedValue().toString().split("`");
-
-                /*if (selectedVar.contains("`%")) {
-                 selectedVar = selectedVar.substring(0, selectedVar.indexOf("`%"));
-                 }*/
             }
 
             listModelMasterMap.removeAllElements();

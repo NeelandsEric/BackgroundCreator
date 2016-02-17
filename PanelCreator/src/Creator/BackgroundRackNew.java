@@ -588,7 +588,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
 
         String[] tooltip = new String[]{"Cond Outlet Temperature " + rack.getName(),
             "Cond Outlet Pressure " + rack.getName(),
-            "Cond Out Subcooling " + rack.getName(),
+            "Cond Outlet Subcooling " + rack.getName(),
             "Discharge Pressure Actual " + rack.getName(),
             "Discharge Tmp " + rack.getName()};
 
@@ -697,6 +697,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
                 label.setBackground(j == 0 ? Colours.BlueLight.getCol() : Colours.BlueLightest.getCol());
                 label.setBorder(border);
                 widgetComponents.put(tooltip[j].replace("`%fannum`", fannum), label);
+                widgetComponents.put("Cond Fan &GIF& Status " + rack.getName() + " " + fannum, label);
                 panel.add(label, c);
             }
             c.gridy = 3;
@@ -959,7 +960,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridwidth = 1;
         c.weightx = 1;
 
-        tooltip = new String[]{"Comp Amps Temp " + rack.getName() + " `%sgname` `%compname`"};
+        tooltip = new String[]{"Comp Amps " + rack.getName() + " `%sgname` `%compname`"};
 
         for (int i = 0; i < numSg; i++) {
             for (int j = 0; j < comp[i]; j++) {
