@@ -589,7 +589,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         String[] tooltip = new String[]{"Cond Outlet Temperature " + rack.getName(),
             "Cond Outlet Pressure " + rack.getName(),
             "Cond Out Subcooling " + rack.getName(),
-            "Discharge Pressure " + rack.getName(),
+            "Discharge Pressure Actual " + rack.getName(),
             "Discharge Tmp " + rack.getName()};
 
         for (int j = 0; j < 5; j++) {
