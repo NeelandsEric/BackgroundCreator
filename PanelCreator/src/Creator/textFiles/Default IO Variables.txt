@@ -105,7 +105,9 @@ Cond Fan RUN `%rackname` `%fannum`,0,1,,1,0,0,0,0,0,0
 `Suction Group`
 Suction Temp `%rackname` `%sgname`,1,1,F,1.8,-32,1,0,0,0,1
 Suction Pressure Actual `%rackname` `%sgname`,1,1,Psig,0.145,0,1,0,0,0,1
+Suction Pressure Effective Setpoint `%rackname` `%sgname`,1,1,Psig,0.145,0,1,0,0,0,1
 Suction Pressure Setpoint `%rackname` `%sgname`,1,1,Psig,0.145,0,1,0,0,0,1
+Suction Pressure Design Setpoint `%rackname` `%sgname`,1,1,Psig,1,0,1,0,0,0,0
 Suction Saturation `%rackname` `%sgname`,1,1,F,1.8,-32,1,0,0,0,1
 Suction Superheat `%rackname` `%sgname`,1,1,F,1.8,-32,1,0,0,0,1
 `System`

@@ -373,7 +373,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label = new JLabel("Performance");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setOpaque(true);
-        label.setBackground(Colours.BlueDark.getCol());
+        label.setBackground(Colours.BlueDark.getCol());        
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         panel.add(label, c2);
@@ -385,7 +385,8 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label = new JLabel("Predicted");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setOpaque(true);
-        label.setBackground(Colours.BlueLight.getCol());
+        label.setBackground(Color.black);
+        //label.setBackground(Colours.BlueLight.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         panel.add(label, c2);
@@ -396,7 +397,8 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label = new JLabel("Actual");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setOpaque(true);
-        label.setBackground(Colours.BlueLightest.getCol());
+        label.setBackground(Color.black);
+        //label.setBackground(Colours.BlueLightest.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         panel.add(label, c2);
@@ -407,7 +409,8 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label = new JLabel("Difference");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setOpaque(true);
-        label.setBackground(Colours.BlueLight.getCol());
+        label.setBackground(Color.black);
+        //label.setBackground(Colours.BlueLight.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         panel.add(label, c2);
@@ -1105,7 +1108,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         // Return a panel containing condenser labels
         JPanel panel = new JPanel(gbl);
         // Cost
-        label = new JLabel("Cost");
+        label = new JLabel("Cost/hr");
         label.setOpaque(true);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBackground(Colours.GreenDark.getCol());
@@ -1121,7 +1124,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
 
         panel.add(label, c);
         // KW
-        label = new JLabel("kW");
+        label = new JLabel("  kW   ");
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
         label.setBackground(Colours.BlueDark.getCol());
@@ -1181,6 +1184,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
                             break;
                     }
                 }
+                label.setBackground(Color.black);
                 c.ipady = 30;
                 String replace = "";
                 if (rack != null) {
