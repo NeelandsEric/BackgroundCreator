@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import javax.swing.DefaultListModel;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -95,6 +96,41 @@ public class ModbusSettings implements java.io.Serializable {
             }
         }
 
+    }
+    
+    /**
+     * Remove all keys that are part of that meter
+     * for the power scouts
+     * @param meter 
+     */
+    public void clearKeys(int meter){
+                
+        for(Entry<String, Sensor> entry: items.entrySet()){
+            Sensor s = entry.getValue();
+            if(s.isPowerScout() && s.getMeter() == meter){               
+                s.removeKey();
+                items.replace(entry.getKey(), s);                
+            }
+            
+        }
+    }
+    
+    
+    /**
+     * remove all keys that are part of that meter
+     * for the single loads
+     * @param meter 
+     */
+    public void clearSingleKeys(int meter){
+                
+        for(Entry<String, Sensor> entry: items.entrySet()){
+            Sensor s = entry.getValue();
+            if(!s.isPowerScout() && s.getMeter() == meter){               
+                s.removeKey();
+                items.replace(entry.getKey(), s);                
+            }
+            
+        }
     }
 
     public void removeKey(String key) {
@@ -275,6 +311,7 @@ public class ModbusSettings implements java.io.Serializable {
     }
 
     public int getNumPowerScouts() {
+        
         return numPowerScouts;
     }
 

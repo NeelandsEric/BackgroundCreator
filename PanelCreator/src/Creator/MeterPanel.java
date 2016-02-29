@@ -43,6 +43,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
         // 3 phase
         if (type != 1) {
 
+            _ComboBox_Slave1.setSelectedIndex(1);
             _ComboBox_Reg2.setEnabled(false);
             _ComboBox_Reg3.setEnabled(false);
         }
@@ -196,7 +197,13 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
             selectedItem[i] = "No Selection";
             //System.out.println("Removed items " + i + ": " + removedItems[i]);
         }
+        
+        _ComboBox_Slave1.setSelectedIndex(0);
+        _ComboBox_Reg2.setEnabled(true);
+        _ComboBox_Reg3.setEnabled(true);
+        
         return removedItems;
+        
     }
 
     public String getMeterName() {

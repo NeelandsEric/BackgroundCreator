@@ -273,7 +273,6 @@ public class MainFrame extends JFrame {
         _Menu_File = new javax.swing.JMenu();
         _MenuItem_SaveCurrentDisplay = new javax.swing.JMenuItem();
         _MenuItem_SaveAllDisplays = new javax.swing.JMenuItem();
-        _MenuItem_PrintModbusSettings = new javax.swing.JMenuItem();
         _MenuItem_PrintVarNamesX = new javax.swing.JMenuItem();
         _MenuItem_PrintVarNamesCsv = new javax.swing.JMenuItem();
         _MenuItem_PrintVarNamesText = new javax.swing.JMenuItem();
@@ -374,15 +373,6 @@ public class MainFrame extends JFrame {
             }
         });
         _Menu_File.add(_MenuItem_SaveAllDisplays);
-
-        _MenuItem_PrintModbusSettings.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
-        _MenuItem_PrintModbusSettings.setText("Print Modbus Settings to .xlsx");
-        _MenuItem_PrintModbusSettings.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _MenuItem_PrintModbusSettingsActionPerformed(evt);
-            }
-        });
-        _Menu_File.add(_MenuItem_PrintModbusSettings);
 
         _MenuItem_PrintVarNamesX.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         _MenuItem_PrintVarNamesX.setText("Print Variable Names to .xlsx");
@@ -844,62 +834,6 @@ public class MainFrame extends JFrame {
         main.close();
     }//GEN-LAST:event_closeFrame
 
-    private void _MenuItem_PrintModbusSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintModbusSettingsActionPerformed
-        // TODO add your handling code here:
-
-        int returnVal = _FileChooser_SaveExcel.showSaveDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-
-            File file = _FileChooser_SaveExcel.getSelectedFile();
-            //System.out.println("File: " + file.getAbsolutePath());
-            String filePath = file.getAbsolutePath();
-            if (!filePath.endsWith(".xlsx")) {
-                filePath += ".xlsx";
-            }
-
-            try {
-                Workbook wb = new XSSFWorkbook();
-                FileOutputStream fileOut = new FileOutputStream(filePath);
-
-                List<String[]> list = mbPanel.writeOutModbusSettings(controlPanel.getCs());
-                int rowNum = 0;
-                Sheet sheet = wb.createSheet("Modbus Names");
-
-                for (String[] r : list) {
-                    // Create a row and put some cells in it. Rows are 0 based.
-                    Row row = sheet.createRow(rowNum);
-                    // Create a cell and put a value in it.
-                    for (int i = 0; i < r.length; i++) {
-                        Cell cell = row.createCell(i);
-
-                        // If the string is a number, write it as a number
-                        if (r[i].equals("")) {
-                            // Empty field, do nothing
-
-                        } else if (isStringNumeric(r[i])) {
-                            cell.setCellValue(Double.parseDouble(r[i].replace("\"", "")));
-                        } else {
-                            cell.setCellValue(r[i]);
-                        }
-
-                    }
-
-                    rowNum++;
-
-                }
-
-                wb.write(fileOut);
-                fileOut.close();
-            } catch (NumberFormatException | IOException e) {
-                controlPanel.writeToLog("Error with creating Modbus excel file " + e.getMessage());
-                e.printStackTrace();
-            }
-
-        } else {
-            System.out.println("File access cancelled by user.");
-        }
-    }//GEN-LAST:event__MenuItem_PrintModbusSettingsActionPerformed
-
     private void _MenuItem_SaveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveAllActionPerformed
         // TODO add your handling code here:
         _FileChooser.setDialogTitle("Save everything into a folder");
@@ -1040,7 +974,6 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem _MenuItem_NewStore;
     private javax.swing.JMenuItem _MenuItem_OpenImage;
     private javax.swing.JMenuItem _MenuItem_OpenStore;
-    private javax.swing.JMenuItem _MenuItem_PrintModbusSettings;
     private javax.swing.JMenuItem _MenuItem_PrintVarNamesCsv;
     private javax.swing.JMenuItem _MenuItem_PrintVarNamesText;
     private javax.swing.JMenuItem _MenuItem_PrintVarNamesX;

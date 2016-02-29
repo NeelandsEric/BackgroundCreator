@@ -26,7 +26,6 @@ import java.io.Writer;
 import java.net.URL;
 import java.security.CodeSource;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -800,7 +799,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         _FileChooser_IoFile.setDialogTitle("Load XLS File");
         _FileChooser_IoFile.setFileSelectionMode(JFileChooser.FILES_ONLY);
         _FileChooser_IoFile.setDialogType(JFileChooser.OPEN_DIALOG);
-        _FileChooser_IoFile.setApproveButtonText("Save Here");
+        _FileChooser_IoFile.setApproveButtonText("Open XLS File");
 
         int returnVal = _FileChooser_IoFile.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
