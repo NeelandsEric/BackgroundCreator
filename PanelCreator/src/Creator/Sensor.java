@@ -109,10 +109,7 @@ public class Sensor implements java.io.Serializable {
         this.powerScout = powerScout;
     }
     
-    
-    
-    
-    
-    
+      
     
 }
+

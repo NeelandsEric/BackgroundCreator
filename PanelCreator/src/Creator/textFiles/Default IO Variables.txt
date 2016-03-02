@@ -63,6 +63,7 @@ kW Actual `%rackname`,1,1,kW,0.1,0,1,0,0,0,1
 kW Avg Demand `%rackname`,1,1,kW,0.1,0,1,0,0,0,1
 kW Max `%rackname`,1,1,kW,0.1,0,1,0,0,0,0
 kW Min `%rackname`,1,1,kW,0.1,0,1,0,0,0,0
+kW Predicted `%rackname`,1,1,kW,1,0,1,0,0,0,1
 kW Peak Demand `%rackname`,1,1,kW,0.1,0,1,0,0,0,1
 kWh Actual `%rackname`,1,1,kWh,0.1,0,1,0,0,0,1
 Liquid Total Subcooling `%rackname`,1,1,F,1.8,-32,1,0,0,0,0
@@ -93,6 +94,7 @@ Performance kW Sum Actual `%rackname`,1,1,kW,1,0,1,0,0,0,1
 Performance kW Sum Difference `%rackname`,1,1,kW,1,0,1,0,0,0,0
 PF `%rackname`,1,1,PF,0.01,0,2,0,0,0,1
 SEI `%rackname`,1,1,%,1,0,2,0,0,0,1
+COP `%rackname`,1,1,%,1,0,2,0,0,0,1
 Volts L1 to L2 `%rackname`,1,1,V,0.1,0,1,0,0,0,1
 Volts L1 to L3 `%rackname`,1,1,V,0.1,0,1,0,0,0,1
 Volts L2 to L3 `%rackname`,1,1,V,0.1,0,1,0,0,0,1
