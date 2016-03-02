@@ -1,14 +1,15 @@
 package Creator;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+
 /**
  *
  * @author EricGummerson
  */
-
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Sensor implements java.io.Serializable {
-    
+
     private static final long serialVersionUID = 561L;
     private String key;
     private boolean powerScout;
@@ -17,7 +18,7 @@ public class Sensor implements java.io.Serializable {
     private int register;
     private boolean used;
 
-    public Sensor(){
+    public Sensor() {
         this.meter = this.slave = this.register = -1;
         this.key = "";
         this.used = false;
@@ -26,13 +27,11 @@ public class Sensor implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "Sensor{" + "key=" + key + ", meter=" + meter + ", slave=" 
+        return "Sensor{" + "key=" + key + ", meter=" + meter + ", slave="
                 + slave + ", register=" + register + ", used=" + used + ", powerScout="
                 + powerScout + '}';
     }
-    
-    
-    
+
     public Sensor(String key, int meter, int slave, int register, boolean used, boolean powerScout) {
         this.meter = meter;
         this.slave = slave;
@@ -41,16 +40,15 @@ public class Sensor implements java.io.Serializable {
         this.key = key;
         this.powerScout = powerScout;
     }
-    
-    
-    public void removeKey(){
+
+    public void removeKey() {
         this.meter = this.slave = this.register = -1;
         this.key = "";
         this.used = false;
         this.powerScout = false;
     }
-    
-    public void updateKey(String key, int meter, int slave, int register, boolean used, boolean powerScout){
+
+    public void updateKey(String key, int meter, int slave, int register, boolean used, boolean powerScout) {
         this.key = key;
         this.meter = meter;
         this.slave = slave;
@@ -58,8 +56,6 @@ public class Sensor implements java.io.Serializable {
         this.used = used;
         this.powerScout = powerScout;
     }
-    
-    
 
     public String getKey() {
         return key;
@@ -108,8 +104,6 @@ public class Sensor implements java.io.Serializable {
     public void setPowerScout(boolean powerScout) {
         this.powerScout = powerScout;
     }
-    
-      
     
 }
 
