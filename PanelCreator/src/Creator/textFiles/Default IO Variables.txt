@@ -100,6 +100,7 @@ Volts L1 to L3 `%rackname`,1,1,V,0.1,0,1,0,0,0,1
 Volts L2 to L3 `%rackname`,1,1,V,0.1,0,1,0,0,0,1
 Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,0,0,1
 Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,0,0,1
+Refrigerant Type `%rackname`,1,1,,1,0,0,0,0,0,0
 `Condenser`
 Cond Fan Amps `%rackname` `%fannum`,1,1,A,1,0,1,0,0,0,1
 Cond Fan Status `%rackname` `%fannum`,1,1,,1,0,0,0,0,0,1

@@ -56,11 +56,11 @@ public class MainFrame extends JFrame {
         homeDirectory = System.getProperty("user.home") + "/PanelCreator";
         xmlParser = new XMLParser();
 
-        boolean storeLoaded = loadDefaultStore();        
+        boolean storeLoaded = loadDefaultStore();
         if (!storeLoaded) {
             this.store = new Store();
         }
-        
+
         // Attempt to load the last stored store        
         initComponents();
         initPanels();
@@ -82,7 +82,7 @@ public class MainFrame extends JFrame {
         controlPanel.updateDisplay();
         ngPanel.loadGroups();
         wgPanel.loadWidgetCode();
-        
+
         displayFrame.updateSettings(this.store.getDs());
         settingsPanel.loadSettings(this.store.getDs());
         controlPanel.loadControlSettings(this.store.getCs());
@@ -101,8 +101,7 @@ public class MainFrame extends JFrame {
         displayFrame.setStopUpdate(false);
 
     }
-    
-    
+
     private boolean loadDefaultStore() {
 
         if (!(new File(homeDirectory).mkdirs())) {
@@ -112,26 +111,25 @@ public class MainFrame extends JFrame {
                 try {
                     this.store = xmlParser.readFile(filePath);
 
-                    if (store != null) {                        
+                    if (store != null) {
                         if (controlPanel != null) {
-                            controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");                            
+                            controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
                         }
                         return true;
                     } else {
                         if (controlPanel != null) {
                             controlPanel.writeToLog("Error opening " + filePath + "\nMaking a new store!");
-                        }                        
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                }                
+                }
             }
         }
-        return false;        
+        return false;
     }
-    
-    
-    public DefaultWidgets loadDefaultWidgets(){
+
+    public DefaultWidgets loadDefaultWidgets() {
         if (!(new File(homeDirectory).mkdirs())) {
             // Directory exists, check if the Store exists
             String filePath = homeDirectory + "/DefaultWidgets.xml";
@@ -147,11 +145,11 @@ public class MainFrame extends JFrame {
                     }
                 } catch (Exception e) {
                     //e.printStackTrace();
-                }                
+                }
             }
         }
-        return null;               
-    
+        return null;
+
     }
 
     public Store getStore() {
@@ -230,26 +228,25 @@ public class MainFrame extends JFrame {
             } else {
                 System.out.println("Store " + this.store.getStoreName() + " had a problem saving");
             }
-            
+
         } else {
             System.out.println("Problem with the XMLParser");
         }
     }
-    
-    public void saveDefaultWidgets(){
+
+    public void saveDefaultWidgets() {
         if (xmlParser != null) {
             if (xmlParser.writeOutDefaultWidgets(this.wgPanel.getDefaultWidgets(), homeDirectory + "/DefaultWidgets.xml")) {
                 System.out.println("Default Widgets saved");
             } else {
                 System.out.println("Default Widgets had a problem saving");
             }
-            
+
         } else {
             System.out.println("Problem with the XMLParser");
         }
-        
+
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -346,7 +343,6 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Image Creator");
         setMinimumSize(new java.awt.Dimension(1045, 640));
-        setPreferredSize(new java.awt.Dimension(969, 680));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -549,7 +545,7 @@ public class MainFrame extends JFrame {
 
         int returnVal = _FileChooser_SavePicture.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            String fn = _FileChooser_SavePicture.getSelectedFile().toString();            
+            String fn = _FileChooser_SavePicture.getSelectedFile().toString();
             if (!fn.endsWith(".png")) {
                 fn += ".png";
             }
@@ -564,20 +560,20 @@ public class MainFrame extends JFrame {
             }
             // SVG working but not used atm
             /*
-            try{ 
-                BufferedImage bi = ScreenImage.createImage(displayFrame.getCurrentPane());
+             try{ 
+             BufferedImage bi = ScreenImage.createImage(displayFrame.getCurrentPane());
                 
-                SVGGraphics2D g = new SVGGraphics2D(bi.getWidth(), bi.getHeight());
-                BufferedImageOp op = new AffineTransformOp(new AffineTransform(), AffineTransformOp.TYPE_BILINEAR);
+             SVGGraphics2D g = new SVGGraphics2D(bi.getWidth(), bi.getHeight());
+             BufferedImageOp op = new AffineTransformOp(new AffineTransform(), AffineTransformOp.TYPE_BILINEAR);
                 
-                g.drawImage(bi, op, 0, 0);
-                File f = new File(fn.replace(".png", ".svg"));
-                SVGUtils.writeToSVG(f, g.getSVGElement());                
+             g.drawImage(bi, op, 0, 0);
+             File f = new File(fn.replace(".png", ".svg"));
+             SVGUtils.writeToSVG(f, g.getSVGElement());                
                 
-                //ScreenImage.createImage();
-            } catch (AWTException | IOException e) {
-                controlPanel.writeToLog("Error saving current display as a picture" + e.getMessage());
-            }*/
+             //ScreenImage.createImage();
+             } catch (AWTException | IOException e) {
+             controlPanel.writeToLog("Error saving current display as a picture" + e.getMessage());
+             }*/
 
         } else {
             System.out.println("File access cancelled by user.");
@@ -831,9 +827,9 @@ public class MainFrame extends JFrame {
         } else {
             System.out.println("Problem with the XMLParser");
         }
-        main.close();
+        main.close();        
     }//GEN-LAST:event_closeFrame
-
+    
     private void _MenuItem_SaveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveAllActionPerformed
         // TODO add your handling code here:
         _FileChooser.setDialogTitle("Save everything into a folder");
