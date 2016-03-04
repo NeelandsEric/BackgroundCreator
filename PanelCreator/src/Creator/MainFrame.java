@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -42,6 +43,7 @@ public class MainFrame extends JFrame {
     public NameGeneratorPanel ngPanel;
     public ModbusPanel mbPanel;
     public WidgetPanel wgPanel;
+    public TaskManagerPanel tmPanel;
     public Store store;
     public XMLParser xmlParser;
     private final String homeDirectory;
@@ -74,6 +76,7 @@ public class MainFrame extends JFrame {
         ngPanel = new NameGeneratorPanel(this, store.getIoNames());
         mbPanel = new ModbusPanel(this, store.getMb());
         wgPanel = new WidgetPanel(this, store.getCs(), store.getWidgetSettings());
+        tmPanel = new TaskManagerPanel(this);
         displayFrame = new DisplayFrame(this, store.getCs(), store.getDs());
         displayFrame.setStopUpdate(true);
 
@@ -98,6 +101,7 @@ public class MainFrame extends JFrame {
         _TabbedPane_Tabs.add("Name Generator", ngPanel);
         _TabbedPane_Tabs.add("Modbus Generator", mbPanel);
         _TabbedPane_Tabs.add("Widget Creator", wgPanel);
+        _TabbedPane_Tabs.add("Task Manager", tmPanel);
         displayFrame.setStopUpdate(false);
 
     }
@@ -150,6 +154,12 @@ public class MainFrame extends JFrame {
         }
         return null;
 
+    }
+    
+    public void loadImportedIos(Map<String, Integer> importedIos){
+        wgPanel.setImportedIoVariables(importedIos);
+        tmPanel.setImportedIoVariables(importedIos);
+        mbPanel.setImportedIoVariables(importedIos);
     }
 
     public Store getStore() {
@@ -527,6 +537,7 @@ public class MainFrame extends JFrame {
     private void _MenuItem_CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_CloseActionPerformed
         // TODO add your handling code here:
 
+        tmPanel.closeConn();
         if (xmlParser != null) {
             if (xmlParser.writeOut(this.store, homeDirectory + "/DefaultStore.xml")) {
                 controlPanel.writeToLog("Store " + this.store.getStoreName() + " saved");
@@ -818,6 +829,7 @@ public class MainFrame extends JFrame {
 
     private void closeFrame(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeFrame
         // TODO add your handling code here:
+        tmPanel.closeConn();
         if (xmlParser != null) {
             if (xmlParser.writeOut(this.store, homeDirectory + "/DefaultStore.xml")) {
                 controlPanel.writeToLog("Store " + this.store.getStoreName() + " saved");

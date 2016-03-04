@@ -65,7 +65,7 @@ public class ModbusPanel extends javax.swing.JPanel {
 
     public void initalizeMeters() {
 
-        if(mb.getNumPowerScouts() == 0){
+        if (mb.getNumPowerScouts() == 0) {
             mb.setNumPowerScouts(1);
         }
         powerScoutPanels = (ArrayList<MeterPanel>[]) new ArrayList[10];
@@ -75,10 +75,10 @@ public class ModbusPanel extends javax.swing.JPanel {
                 powerScoutPanels[i].add(new MeterPanel(this, j, 1, true));
             }
         }
-        if(mb.getNumSingleLoads() == 0){
+        if (mb.getNumSingleLoads() == 0) {
             mb.setNumSingleLoads(1);
         }
-        
+
         singleLoadPanels = new ArrayList<>();
         for (int i = 0; i < 15; i++) {
             singleLoadPanels.add(new MeterPanel(this, 0, 1, false));
@@ -91,7 +91,7 @@ public class ModbusPanel extends javax.swing.JPanel {
 
         this.mb = mb;
         int panelType;
-        
+
         _FTF_NumPowerScouts.setText(String.valueOf(mb.getNumPowerScouts()));
         powerScoutPanels = (ArrayList<MeterPanel>[]) new ArrayList[10];
         for (int i = 0; i < 10; i++) {
@@ -165,6 +165,19 @@ public class ModbusPanel extends javax.swing.JPanel {
             }
         }
 
+    }
+
+    public void setImportedIoVariables(Map<String, Integer> newIo) {
+        if (importedIOVariables != null && !importedIOVariables.isEmpty()) {
+            importedIOVariables.clear();
+        }
+        importedIOVariables = newIo;
+        _Button_CreateImports.setEnabled(true);
+        _Label_Loaded.setText("Loaded File!");
+    }
+
+    public Map<String, Integer> getImportedIoVariables() {
+        return importedIOVariables;
     }
 
     /**
@@ -729,10 +742,10 @@ public class ModbusPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         String ip = _TF_PowerScoutIP.getText();
         int powerIndex = _ComboBox_PowerMeter.getSelectedIndex();
-        if (ipValidator.validate(ip)) {            
+        if (ipValidator.validate(ip)) {
             mb.setPowerScoutIP(ip, powerIndex);
             updatePowerIP(ip);
-        } else {            
+        } else {
             updatePowerIP();
         }
         /*
@@ -746,10 +759,10 @@ public class ModbusPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         String ip = _TF_PowerScoutIP.getText();
         int powerIndex = _ComboBox_PowerMeter.getSelectedIndex();
-        if (ipValidator.validate(ip)) {            
+        if (ipValidator.validate(ip)) {
             mb.setPowerScoutIP(ip, powerIndex);
             updatePowerIP(ip);
-        } else {            
+        } else {
             updatePowerIP();
         }
 
@@ -758,10 +771,10 @@ public class ModbusPanel extends javax.swing.JPanel {
     private void _TF_SingleLoadIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__TF_SingleLoadIPActionPerformed
         String ip = _TF_SingleLoadIP.getText();
         int powerIndex = _ComboBox_SingleMeter.getSelectedIndex();
-        if (ipValidator.validate(ip)) {            
+        if (ipValidator.validate(ip)) {
             mb.setSingleLoadIP(ip, powerIndex);
             updateSingleIP(ip);
-        } else {            
+        } else {
             updateSingleIP();
         }
     }//GEN-LAST:event__TF_SingleLoadIPActionPerformed
@@ -769,11 +782,11 @@ public class ModbusPanel extends javax.swing.JPanel {
     private void _TF_SingleLoadIPFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event__TF_SingleLoadIPFocusLost
         String ip = _TF_SingleLoadIP.getText();
         int powerIndex = _ComboBox_SingleMeter.getSelectedIndex();
-        if (ipValidator.validate(ip)) {            
+        if (ipValidator.validate(ip)) {
             mb.setSingleLoadIP(ip, powerIndex);
             updateSingleIP(ip);
         } else {
-            
+
             updateSingleIP();
         }
     }//GEN-LAST:event__TF_SingleLoadIPFocusLost
@@ -804,18 +817,21 @@ public class ModbusPanel extends javax.swing.JPanel {
             readXFile(filePath);
             _Button_CreateImports.setEnabled(true);
             _Label_Loaded.setText("Loaded File!");
+            mf.loadImportedIos(importedIOVariables);
         } else {
             System.out.println("File access cancelled by user.");
         }
+
+        
     }//GEN-LAST:event__Button_LoadXlsActionPerformed
 
     private void _Button_CreateImportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CreateImportsActionPerformed
-        
-         _FileChooser_IoFile.setDialogTitle("Save Modbus XLS File");
+
+        _FileChooser_IoFile.setDialogTitle("Save Modbus XLS File");
         _FileChooser_IoFile.setFileSelectionMode(JFileChooser.FILES_ONLY);
         _FileChooser_IoFile.setDialogType(JFileChooser.SAVE_DIALOG);
         _FileChooser_IoFile.setApproveButtonText("Save Here");
-        
+
         int returnVal = _FileChooser_IoFile.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
@@ -860,7 +876,7 @@ public class ModbusPanel extends javax.swing.JPanel {
                 wb.write(fileOut);
                 fileOut.close();
             } catch (NumberFormatException | IOException e) {
-                               
+
             }
 
         } else {
@@ -877,7 +893,7 @@ public class ModbusPanel extends javax.swing.JPanel {
     public void readXFile(String filename) {
 
         try {
-            
+
             POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(filename));
             HSSFWorkbook wb = new HSSFWorkbook(fs);
             HSSFSheet sheet = wb.getSheetAt(0);
@@ -1088,9 +1104,9 @@ public class ModbusPanel extends javax.swing.JPanel {
     private String getIOForString(String variableName) {
 
         if (importedIOVariables.isEmpty()) {
-            return "`%io_id`";            
-        }else {            
-            return String.valueOf(importedIOVariables.get(variableName));            
+            return "`%io_id`";
+        } else {
+            return String.valueOf(importedIOVariables.get(variableName));
         }
     }
 

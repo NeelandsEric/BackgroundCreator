@@ -111,6 +111,19 @@ public class WidgetPanel extends javax.swing.JPanel {
         }
     }
 
+    public void setImportedIoVariables(Map<String, Integer> newIo) {        
+        if (importedIOVariables != null && !importedIOVariables.isEmpty()) {
+            importedIOVariables.clear();
+        }
+        importedIOVariables = newIo;
+        _Button_CreateImports.setEnabled(true);
+        _Label_Loaded.setText("Loaded File!");
+    }
+
+    public Map<String, Integer> getImportedIoVariables() {
+        return importedIOVariables;
+    }
+
     public ControlSettings getCs() {
         return cs;
     }
@@ -810,9 +823,11 @@ public class WidgetPanel extends javax.swing.JPanel {
             readXFile(filePath);
             _Button_CreateImports.setEnabled(true);
             _Label_Loaded.setText("Loaded File!");
+            mf.loadImportedIos(importedIOVariables);
         } else {
             System.out.println("File access cancelled by user.");
         }
+        
     }//GEN-LAST:event__Button_LoadXlsActionPerformed
 
     private void _ComboBox_DisplayPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_DisplayPanelActionPerformed
@@ -1108,10 +1123,10 @@ public class WidgetPanel extends javax.swing.JPanel {
 
                     } /*else if (contains) {
 
-                        System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not loaded");
-                    } else {
-                        System.err.println("Ignored " + orgKey + " to: " + varsToGen.getKey());
-                    }*/
+                     System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + ". IO_ID not loaded");
+                     } else {
+                     System.err.println("Ignored " + orgKey + " to: " + varsToGen.getKey());
+                     }*/
 
                 }
             } while (rackEntry); // Generate all the widget links for each rack
