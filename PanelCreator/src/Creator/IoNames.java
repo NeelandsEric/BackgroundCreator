@@ -161,11 +161,8 @@ public class IoNames implements java.io.Serializable {
 
     public List<String[]> formatStrings(ControlSettings cs) {
 
-        long start = System.currentTimeMillis(), end;
-        List<String[]> vars = new ArrayList<String[]>() {
-        };
-
         
+        List<String[]> vars = new ArrayList<>();        
         int numfans, numsg, numcomp, numsys;
         String[] newString;
         Rack r;
@@ -299,9 +296,7 @@ public class IoNames implements java.io.Serializable {
             vars.add(newString);
         }
 
-        end = System.currentTimeMillis();
-
-        System.out.println("Format strings took " + ((end - start)) + " ms");
+              
 
         Collections.sort(vars, new Comparator< String[]>() {
             @Override
@@ -330,7 +325,7 @@ public class IoNames implements java.io.Serializable {
 
         // Add header
         // Add header
-        String[] headers = new String[]{"io_name", "io_id"};
+        String[] headers = new String[]{"io_name"};
         vars.add(headers);
 
         int numfans, numsg, numcomp, numsys;
