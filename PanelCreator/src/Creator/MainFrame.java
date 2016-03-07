@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -168,6 +169,18 @@ public class MainFrame extends JFrame {
 
     public void setStore(Store store) {
         this.store = store;
+    }
+    
+    public List<String []> getStringsNoParams(boolean addHeader){
+        
+        return this.store.ioNames.formatStringsNoParams(this.store.getCs(), addHeader);
+        
+    }
+    
+    public Map<String, List> getMapFullStrings(){
+        
+        return this.store.ioNames.mapFullStrings(this.store.getCs());
+        
     }
 
     public void updateWidgetSettings(WidgetSettings ws) {

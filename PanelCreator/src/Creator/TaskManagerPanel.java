@@ -9,10 +9,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import javax.swing.JFileChooser;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -31,6 +33,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class TaskManagerPanel extends javax.swing.JPanel {
 
     public MainFrame mf;
+    private int stationId;
     private Map<String, Integer> importedIOVariables;       // io_name,io_id
     private List<String[]> importedTasks;
     private DBConn db;
@@ -42,9 +45,10 @@ public class TaskManagerPanel extends javax.swing.JPanel {
      */
     public TaskManagerPanel(MainFrame mf) {
         this.mf = mf;
+        this.stationId = -1;
         initComponents();
-        loadDefaultTasks();  
-        
+        loadDefaultTasks();
+
     }
 
     public void setImportedIoVariables(Map<String, Integer> newIo) {
@@ -252,33 +256,125 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             mf.loadImportedIos(importedIOVariables);
         } else {
             System.out.println("File access cancelled by user.");
-        }        
+        }
     }//GEN-LAST:event__Button_LoadXlsActionPerformed
 
     private void _Button_CreateImportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CreateImportsActionPerformed
 
-        /*
-        db = new DBConn();
-        String query = "insert into eepr (eepr_io_id, eepr_station_id) "
-                + "values (18945, (select distinct io_station_id from io where io_id =18945));";
-        db.executeQuery(query);
-        db.closeConn();
-        */
-        
-        
+        if (!importedIOVariables.isEmpty() && !importedTasks.isEmpty()) {
+            // Imported io variables and imported tasks are good
+            List<String> rowImports = new ArrayList<>();
+
+            // This function will return a Map containing all the formatted strings
+            // for each base string
+            // Amp Avg `%rackname` -> Amp Avg Rack A, Amp Avg Rack B, etc.
+            Map<String, List> mappings = mf.getMapFullStrings();
+
+            // (task_manager_task_id, task_manager_inputs, task_manager_outputs, task_manager_crontab_line,
+            //  task_manager_station_id, task_manager_name, task_manager_pass_inputs_as_io_id)
+            String queryTemplate = "(%s, %s, %s, %s, %s, %s, %s)";
+            String name, inputs, outputs;
+
+            String[] inputKeys, outputKeys;
+            int[] numValsPerInKeys, numValsPerOutKeys;
+            int maxIn = 0, maxOut = 0;
+            // Loop through each task
+            for (String[] taskEntry : importedTasks) {
+
+                name = inputs = outputs = "";
+                
+                if (taskEntry[6].equals("1")) {
+                    // Script uses all the inputs, assign the keys
+
+                    inputKeys = taskEntry[3].split(",");
+                    outputKeys = taskEntry[4].split(",");
+
+                    numValsPerInKeys = new int[inputKeys.length];
+                    numValsPerOutKeys = new int[outputKeys.length];
+
+                    // Number of values for each input key
+                    for (int i = 0; i < inputKeys.length; i++) {
+                        if (mappings.containsKey(inputKeys[i])) {
+                            numValsPerInKeys[i] = mappings.get(inputKeys[i]).size();
+                            if (numValsPerInKeys[i] > maxIn) {
+                                maxIn = numValsPerInKeys[i];
+                            }
+                        }
+                    }
+
+                    // Number of values for each output key
+                    for (int i = 0; i < outputKeys.length; i++) {
+                        if (mappings.containsKey(outputKeys[i])) {
+                            numValsPerOutKeys[i] = mappings.get(outputKeys[i]).size();
+                            if (numValsPerOutKeys[i] > maxOut) {
+                                maxOut = numValsPerOutKeys[i];
+                            }
+                        }
+                    }
+
+                    // Since we can add all the racks inputs to the script, we just
+                    // loop through each of the vals in the inputs
+                    for (int numRuns = 0; numRuns < maxIn; numRuns++) {
+                        for (int i = 0; i < inputKeys.length; i++) {
+                            
+                            if(numValsPerInKeys[i] >= numRuns){                           
+                                inputs += mappings.get(inputKeys[i]).get(numRuns); 
+                                inputs += ",";
+                            }
+                        }
+                    }
+                    
+                    // Since we can add all the racks inputs to the script, we just
+                    // loop through each of the vals in the inputs
+                    for (int numRuns = 0; numRuns < maxOut; numRuns++) {
+                        for (int i = 0; i < outputKeys.length; i++) {
+                            
+                            if(numValsPerOutKeys[i] >= numRuns){                           
+                                outputs += mappings.get(outputKeys[i]).get(numRuns); 
+                                outputs += ",";
+                            }
+                        }
+                    }
+
+                    name = taskEntry[1];
+                    
+                    // taskEntry []
+                    // [0] description of task | [1] task_manager_name | [2] task_manager_task_id
+                    // [3] task_manager_inputs | [4] task_manager_outputs | [5] task_manager_crontab_line
+                    // [6]  task_manager_pass_inputs_as_io_id | [7] EachRack
+
+                    // Query template
+                    // (task_id, inputs, outputs, crontab_line, station_id, name, pass_inputs)
+                    rowImports.add(String.format(queryTemplate,
+                            taskEntry[2], inputs, outputs,
+                            taskEntry[5], stationId, name, taskEntry[6]));
+                }
+                break;
+            }
+            System.out.println("Row import: " + rowImports.get(0));
+        }// No data, do nothing
+        else {
+            System.out.println(importedIOVariables.isEmpty() + " | " + importedTasks.isEmpty());
+        }
+
     }//GEN-LAST:event__Button_CreateImportsActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        db = new DBConn();
-        String query = "insert into eepr (eepr_io_id, eepr_station_id) "
-                + "values (18945, (select distinct io_station_id from io where io_id =18945));";
-        db.executeQuery(query);
-        db.closeConn();
+        /*
+         db = new DBConn();
+         //String query = "insert into eepr (eepr_io_id, eepr_station_id) "
+         //        + "values (18945, (select distinct io_station_id from io where io_id =18945));";
+         //String query = "delete from eepr where eepr_io_id = 18945";
+        
+         db.executeQuery(query);
+         db.closeConn();*/
+
+        createQueries();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void closeConn() {
-        if(db != null){
+        if (db != null) {
             db.closeConn();
         }
     }
@@ -326,8 +422,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 } else {
                     idCol = 0;
                 }
+
                 if (!sheet.getRow(i).getCell(1).toString().equals("io_name")) {
-                    for (int c = 1; c < cols; c++) {
+                    for (int c = 0; c < cols; c++) {
                         if (sheet.getRow(i).getCell(c).equals("io_name")) {
                             idName = c;
                             break;
@@ -336,10 +433,28 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 } else {
                     idName = 1;
                 }
+
+                if (!sheet.getRow(i).getCell(2).toString().equals("io_station_id")) {
+                    for (int c = 0; c < cols; c++) {
+                        if (sheet.getRow(i).getCell(c).equals("io_station_id")) {
+                            stationId = (int) sheet.getRow(1).getCell(c).getNumericCellValue();
+                            break;
+                        }
+                    }
+                } else {
+                    stationId = (int) sheet.getRow(1).getCell(2).getNumericCellValue();
+                }
+
             }
+
+            System.out.println("Station ID: " + stationId);
 
             if (idName == -1 || idCol == -1) {
                 System.out.println("Could not locate io_name or io_id in excel header");
+                return;
+            }
+            if (stationId == -1) {
+                System.out.println("Couldnt locate station id");
                 return;
             }
 
@@ -370,18 +485,23 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             System.out.println("Error reading excel file " + e.getMessage());
         }
     }
-    
-    
-    public void createQueries(){
-        
-        ControlSettings cs = mf.store.getCs();
-        
-        
+
+    public void createQueries() {
+
+        // This function will return a Map containing all the formatted strings
+        // for each base string
+        // Amp Avg `%rackname` -> Amp Avg Rack A, Amp Avg Rack B, etc.
+        Map<String, List> mappings = mf.getMapFullStrings();
+
+        for (Map.Entry<String, List> entry: mappings.entrySet()) {
+            
+            for (Object val : entry.getValue().toArray()) {
+                System.out.println(entry.getKey() + " -> " + (String) val);
+            }
+        }
+
     }
-    
-    
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton _Button_CreateImports;

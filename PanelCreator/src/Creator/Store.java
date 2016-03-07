@@ -128,7 +128,7 @@ public class Store implements java.io.Serializable {
             writer = new CSVWriter(new FileWriter(filepath), ',', CSVWriter.NO_QUOTE_CHARACTER);
             // feed in your array (or convert your data to an array)          
 
-            writer.writeAll(ioNames.formatStringsNoParams(this.cs));
+            writer.writeAll(ioNames.formatStringsNoParams(this.cs, true));
             writer.close();
 
         } catch (IOException ex) {

@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -161,8 +165,7 @@ public class IoNames implements java.io.Serializable {
 
     public List<String[]> formatStrings(ControlSettings cs) {
 
-        
-        List<String[]> vars = new ArrayList<>();        
+        List<String[]> vars = new ArrayList<>();
         int numfans, numsg, numcomp, numsys;
         String[] newString;
         Rack r;
@@ -296,15 +299,13 @@ public class IoNames implements java.io.Serializable {
             vars.add(newString);
         }
 
-              
-
         Collections.sort(vars, new Comparator< String[]>() {
             @Override
             public int compare(String[] x1, String[] x2) {
                 return x1[0].toLowerCase().compareTo(x2[0].toLowerCase());
             }
         });
-        
+
         // Add header
         // Add header
         String[] headers = new String[]{"io_name", "io_type", "io_value",
@@ -312,21 +313,183 @@ public class IoNames implements java.io.Serializable {
             "io_alert", "io_alert_range_low", "io_alert_range_high", "io_log"
         };
         vars.add(0, headers);
-        
+
         return vars;
 
     }
 
-    public List<String[]> formatStringsNoParams(ControlSettings cs) {
+    public Map<String, List> mapFullStrings(ControlSettings cs) {
 
-        long start = System.currentTimeMillis(), end;
-        List<String[]> vars = new ArrayList<String[]>() {
-        };
+        Map<String, List> mappings = new TreeMap<>();
+
+        int numfans, numsg, numcomp, numsys;
+        String newString;
+        Rack r;
+        String rName, sgName, fannum = "1";
+        SuctionGroup sucG;
+        String compName, sysName;
+
+        for (int i = 0; i < cs.getNumRacks(); i++) {
+            // do all racks
+            r = cs.getRacks().get(i);
+            rName = r.getName();
+            sgName = r.getSuctionGroupNameIndex(0);
+            fannum = "1";
+            sucG = r.getSuctionGroupIndex(0);
+            compName = sucG.getCompressorNameIndex(0);
+            sysName = sucG.getSystemNameIndex(0);
+
+            // RACKS
+            // do all condenser     
+            for (String s : rackStr) {
+                newString = s.split(",")[0];
+                newString = newString
+                        .replace("`%rackname`", rName)
+                        .replace("`%fannum`", fannum)
+                        .replace("`%sgname`", sgName)
+                        .replace("`%compname`", compName)
+                        .replace("`%sysname`", sysName);
+
+                //System.out.println("RACK - New string: " + newString[0] + "\tFrom old string: " + s);
+                if (!mappings.containsKey(s)) {
+                    mappings.put(s, new ArrayList<>());
+                }
+                mappings.get(s).add(newString);
+            }
+
+            // CONDENSERS
+            numfans = r.getNumCondenserFans();
+            for (int nf = 0; nf < numfans; nf++) {
+
+                fannum = ('0' + String.valueOf((nf + 1)));
+                if (nf < 99) {
+                    fannum = fannum.substring(fannum.length() - 2);
+                } else {
+                    fannum = fannum.substring(fannum.length() - 3);
+                }
+
+                // do all condenser     
+                for (String s : condStr) {
+                    newString = s.split(",")[0];
+                    newString = newString
+                            .replace("`%rackname`", rName)
+                            .replace("`%fannum`", fannum)
+                            .replace("`%sgname`", sgName)
+                            .replace("`%compname`", compName)
+                            .replace("`%sysname`", sysName);
+
+                    //System.out.println("COND - New string: " + newString[0] + "\tFrom old string: " + s);
+                    if (!mappings.containsKey(s)) {
+                        mappings.put(s, new ArrayList<>());
+                    }
+                    mappings.get(s).add(newString);
+                }
+            }
+
+            // SUCTION GROUPS
+            numsg = r.getNumSuctionGroups();
+            for (int sg = 0; sg < numsg; sg++) {
+                sucG = r.getSuctionGroupIndex(sg);
+                sgName = sucG.getName();
+                for (String s : sgStr) {
+                    newString = s.split(",")[0];
+                    newString = newString
+                            .replace("`%rackname`", rName)
+                            .replace("`%fannum`", fannum)
+                            .replace("`%sgname`", sgName)
+                            .replace("`%compname`", compName)
+                            .replace("`%sysname`", sysName);
+
+                    //System.out.println("SG - New string: " + newString[0] + "\tFrom old string: " + s);
+                    if (!mappings.containsKey(s)) {
+                        mappings.put(s, new ArrayList<>());
+                    }
+                    mappings.get(s).add(newString);
+                }
+
+                // do all suction groups
+                // COMPRESSORS
+                numcomp = sucG.getNumCompressors();
+                for (int nc = 0; nc < numcomp; nc++) {
+                    compName = sucG.getCompressorNameIndex(nc);
+                    // do all compressors
+                    for (String s : compStr) {
+                        newString = s.split(",")[0];
+                        newString = newString
+                                .replace("`%rackname`", rName)
+                                .replace("`%fannum`", fannum)
+                                .replace("`%sgname`", sgName)
+                                .replace("`%compname`", compName)
+                                .replace("`%sysname`", sysName);
+
+                        //System.out.println("COMP - New string: " + newString[0] + "\tFrom old string: " + s);
+                        if (!mappings.containsKey(s)) {
+                            mappings.put(s, new ArrayList<>());
+                        }
+                        mappings.get(s).add(newString);
+                    }
+                }
+
+                // SYSTEMS
+                numsys = sucG.getNumSystems();
+                for (int ns = 0; ns < numsys; ns++) {
+                    sysName = sucG.getSystemNameIndex(ns);
+                    // do all systems
+                    for (String s : sysStr) {
+                        newString = s.split(",")[0];
+                        newString = newString
+                                .replace("`%rackname`", rName)
+                                .replace("`%fannum`", fannum)
+                                .replace("`%sgname`", sgName)
+                                .replace("`%compname`", compName)
+                                .replace("`%sysname`", sysName);
+
+                        //System.out.println("SYS - New string: " + newString[0] + "\tFrom old string: " + s);
+                        if (!mappings.containsKey(s)) {
+                            mappings.put(s, new ArrayList<>());
+                        }
+                        mappings.get(s).add(newString);
+                    }
+
+                }
+
+            }
+        }
+
+        for (String s : storeStr) {
+            newString = s.split(",")[0];
+
+            //System.out.println("STORE - New string: " + newString[0] + "\tFrom old string: " + s);
+            if (!mappings.containsKey(s)) {
+                mappings.put(s, new ArrayList<>());
+            }
+            mappings.get(s).add(newString);
+        }
+
+        for (String s : extraStr) {
+            newString = s.split(",")[0];
+
+            //System.out.println("EXTRA - New string: " + newString[0] + "\tFrom old string: " + s);
+            if (!mappings.containsKey(s)) {
+                mappings.put(s, new ArrayList<>());
+            }
+            mappings.get(s).add(newString);
+        }
+
+        return mappings;
+
+    }
+
+    public List<String[]> formatStringsNoParams(ControlSettings cs, boolean addHeader) {
+
+        List<String[]> vars = new ArrayList<>();
 
         // Add header
         // Add header
-        String[] headers = new String[]{"io_name"};
-        vars.add(headers);
+        if (addHeader) {
+            String[] headers = new String[]{"io_name"};
+            vars.add(headers);
+        }
 
         int numfans, numsg, numcomp, numsys;
         String[] newString;
@@ -461,9 +624,6 @@ public class IoNames implements java.io.Serializable {
             vars.add(newString);
         }
 
-        end = System.currentTimeMillis();
-
-        System.out.println("Format strings took " + ((end - start)) + " ms");
         return vars;
 
     }
