@@ -823,7 +823,7 @@ public class WidgetPanel extends javax.swing.JPanel {
             readXFile(filePath);
             _Button_CreateImports.setEnabled(true);
             _Label_Loaded.setText("Loaded File!");
-            mf.loadImportedIos(importedIOVariables);
+            mf.loadImportedIos(importedIOVariables, 1);
         } else {
             System.out.println("File access cancelled by user.");
         }

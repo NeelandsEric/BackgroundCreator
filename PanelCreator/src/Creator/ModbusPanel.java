@@ -817,7 +817,7 @@ public class ModbusPanel extends javax.swing.JPanel {
             readXFile(filePath);
             _Button_CreateImports.setEnabled(true);
             _Label_Loaded.setText("Loaded File!");
-            mf.loadImportedIos(importedIOVariables);
+            mf.loadImportedIos(importedIOVariables, 3);
         } else {
             System.out.println("File access cancelled by user.");
         }

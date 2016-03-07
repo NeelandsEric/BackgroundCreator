@@ -323,7 +323,7 @@ public class IoNames implements java.io.Serializable {
         Map<String, List> mappings = new TreeMap<>();
 
         int numfans, numsg, numcomp, numsys;
-        String newString;
+        String newString, orgString;
         Rack r;
         String rName, sgName, fannum = "1";
         SuctionGroup sucG;
@@ -342,8 +342,8 @@ public class IoNames implements java.io.Serializable {
             // RACKS
             // do all condenser     
             for (String s : rackStr) {
-                newString = s.split(",")[0];
-                newString = newString
+                orgString = s.split(",")[0];
+                newString = orgString
                         .replace("`%rackname`", rName)
                         .replace("`%fannum`", fannum)
                         .replace("`%sgname`", sgName)
@@ -351,10 +351,10 @@ public class IoNames implements java.io.Serializable {
                         .replace("`%sysname`", sysName);
 
                 //System.out.println("RACK - New string: " + newString[0] + "\tFrom old string: " + s);
-                if (!mappings.containsKey(s)) {
-                    mappings.put(s, new ArrayList<>());
+                if (!mappings.containsKey(orgString)) {
+                    mappings.put(orgString, new ArrayList<>());
                 }
-                mappings.get(s).add(newString);
+                mappings.get(orgString).add(newString);
             }
 
             // CONDENSERS
@@ -370,8 +370,8 @@ public class IoNames implements java.io.Serializable {
 
                 // do all condenser     
                 for (String s : condStr) {
-                    newString = s.split(",")[0];
-                    newString = newString
+                    orgString = s.split(",")[0];
+                    newString = orgString
                             .replace("`%rackname`", rName)
                             .replace("`%fannum`", fannum)
                             .replace("`%sgname`", sgName)
@@ -379,10 +379,10 @@ public class IoNames implements java.io.Serializable {
                             .replace("`%sysname`", sysName);
 
                     //System.out.println("COND - New string: " + newString[0] + "\tFrom old string: " + s);
-                    if (!mappings.containsKey(s)) {
-                        mappings.put(s, new ArrayList<>());
+                    if (!mappings.containsKey(orgString)) {
+                        mappings.put(orgString, new ArrayList<>());
                     }
-                    mappings.get(s).add(newString);
+                    mappings.get(orgString).add(newString);
                 }
             }
 
@@ -392,8 +392,8 @@ public class IoNames implements java.io.Serializable {
                 sucG = r.getSuctionGroupIndex(sg);
                 sgName = sucG.getName();
                 for (String s : sgStr) {
-                    newString = s.split(",")[0];
-                    newString = newString
+                    orgString = s.split(",")[0];
+                    newString = orgString
                             .replace("`%rackname`", rName)
                             .replace("`%fannum`", fannum)
                             .replace("`%sgname`", sgName)
@@ -401,10 +401,10 @@ public class IoNames implements java.io.Serializable {
                             .replace("`%sysname`", sysName);
 
                     //System.out.println("SG - New string: " + newString[0] + "\tFrom old string: " + s);
-                    if (!mappings.containsKey(s)) {
-                        mappings.put(s, new ArrayList<>());
+                    if (!mappings.containsKey(orgString)) {
+                        mappings.put(orgString, new ArrayList<>());
                     }
-                    mappings.get(s).add(newString);
+                    mappings.get(orgString).add(newString);
                 }
 
                 // do all suction groups
@@ -414,8 +414,8 @@ public class IoNames implements java.io.Serializable {
                     compName = sucG.getCompressorNameIndex(nc);
                     // do all compressors
                     for (String s : compStr) {
-                        newString = s.split(",")[0];
-                        newString = newString
+                        orgString = s.split(",")[0];
+                        newString = orgString
                                 .replace("`%rackname`", rName)
                                 .replace("`%fannum`", fannum)
                                 .replace("`%sgname`", sgName)
@@ -423,10 +423,10 @@ public class IoNames implements java.io.Serializable {
                                 .replace("`%sysname`", sysName);
 
                         //System.out.println("COMP - New string: " + newString[0] + "\tFrom old string: " + s);
-                        if (!mappings.containsKey(s)) {
-                            mappings.put(s, new ArrayList<>());
+                        if (!mappings.containsKey(orgString)) {
+                            mappings.put(orgString, new ArrayList<>());
                         }
-                        mappings.get(s).add(newString);
+                        mappings.get(orgString).add(newString);
                     }
                 }
 
@@ -436,8 +436,8 @@ public class IoNames implements java.io.Serializable {
                     sysName = sucG.getSystemNameIndex(ns);
                     // do all systems
                     for (String s : sysStr) {
-                        newString = s.split(",")[0];
-                        newString = newString
+                        orgString = s.split(",")[0];
+                        newString = orgString
                                 .replace("`%rackname`", rName)
                                 .replace("`%fannum`", fannum)
                                 .replace("`%sgname`", sgName)
@@ -445,10 +445,10 @@ public class IoNames implements java.io.Serializable {
                                 .replace("`%sysname`", sysName);
 
                         //System.out.println("SYS - New string: " + newString[0] + "\tFrom old string: " + s);
-                        if (!mappings.containsKey(s)) {
-                            mappings.put(s, new ArrayList<>());
+                        if (!mappings.containsKey(orgString)) {
+                            mappings.put(orgString, new ArrayList<>());
                         }
-                        mappings.get(s).add(newString);
+                        mappings.get(orgString).add(newString);
                     }
 
                 }
@@ -460,20 +460,20 @@ public class IoNames implements java.io.Serializable {
             newString = s.split(",")[0];
 
             //System.out.println("STORE - New string: " + newString[0] + "\tFrom old string: " + s);
-            if (!mappings.containsKey(s)) {
-                mappings.put(s, new ArrayList<>());
+            if (!mappings.containsKey(newString)) {
+                mappings.put(newString, new ArrayList<>());
             }
-            mappings.get(s).add(newString);
+            mappings.get(newString).add(newString);
         }
 
         for (String s : extraStr) {
             newString = s.split(",")[0];
 
             //System.out.println("EXTRA - New string: " + newString[0] + "\tFrom old string: " + s);
-            if (!mappings.containsKey(s)) {
-                mappings.put(s, new ArrayList<>());
+            if (!mappings.containsKey(newString)) {
+                mappings.put(newString, new ArrayList<>());
             }
-            mappings.get(s).add(newString);
+            mappings.get(newString).add(newString);
         }
 
         return mappings;

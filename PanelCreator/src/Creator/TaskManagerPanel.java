@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -79,7 +80,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             int rows, cols; // No of rows
             rows = sheet.getPhysicalNumberOfRows();
 
-            for (int i = 0; i < rows; i++) {
+            for (int i = 1; i < rows; i++) {
 
                 row = sheet.getRow(i);
                 if (row != null) {
@@ -253,7 +254,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             readXFile(filePath);
             _Button_CreateImports.setEnabled(true);
             _Label_Loaded.setText("Loaded File!");
-            mf.loadImportedIos(importedIOVariables);
+            mf.loadImportedIos(importedIOVariables, 2);
         } else {
             System.out.println("File access cancelled by user.");
         }
@@ -281,9 +282,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             // Loop through each task
             for (String[] taskEntry : importedTasks) {
 
-                name = inputs = outputs = "";
-                
-                if (taskEntry[6].equals("1")) {
+                inputs = outputs = "'";
+
+                if (taskEntry[7].equals("1")) {
                     // Script uses all the inputs, assign the keys
 
                     inputKeys = taskEntry[3].split(",");
@@ -316,42 +317,186 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                     // loop through each of the vals in the inputs
                     for (int numRuns = 0; numRuns < maxIn; numRuns++) {
                         for (int i = 0; i < inputKeys.length; i++) {
-                            
-                            if(numValsPerInKeys[i] >= numRuns){                           
-                                inputs += mappings.get(inputKeys[i]).get(numRuns); 
+                            if (numValsPerInKeys[i] > numRuns) {
+                                inputs += mappings.get(inputKeys[i]).get(numRuns);
                                 inputs += ",";
                             }
                         }
                     }
-                    
+
                     // Since we can add all the racks inputs to the script, we just
                     // loop through each of the vals in the inputs
                     for (int numRuns = 0; numRuns < maxOut; numRuns++) {
                         for (int i = 0; i < outputKeys.length; i++) {
-                            
-                            if(numValsPerOutKeys[i] >= numRuns){                           
-                                outputs += mappings.get(outputKeys[i]).get(numRuns); 
+                            if (numValsPerOutKeys[i] > numRuns) {
+                                outputs += mappings.get(outputKeys[i]).get(numRuns);
                                 outputs += ",";
                             }
                         }
                     }
 
+                    inputs = inputs.substring(0, inputs.length() - 1) + "'";
+                    outputs = outputs.substring(0, outputs.length() - 1) + "'";
+
                     name = taskEntry[1];
-                    
+
                     // taskEntry []
                     // [0] description of task | [1] task_manager_name | [2] task_manager_task_id
                     // [3] task_manager_inputs | [4] task_manager_outputs | [5] task_manager_crontab_line
                     // [6]  task_manager_pass_inputs_as_io_id | [7] EachRack
-
                     // Query template
                     // (task_id, inputs, outputs, crontab_line, station_id, name, pass_inputs)
                     rowImports.add(String.format(queryTemplate,
                             taskEntry[2], inputs, outputs,
                             taskEntry[5], stationId, name, taskEntry[6]));
+
+                    //System.out.println("Row import: " + rowImports.get(rowImports.size()-1));
+                } else if (taskEntry[7].equals("0")) {
+
+                    // Doesnt use all the racks, run for each rack 
+                    inputKeys = taskEntry[3].split(",");
+                    outputKeys = taskEntry[4].split(",");
+
+                    numValsPerInKeys = new int[inputKeys.length];
+                    numValsPerOutKeys = new int[outputKeys.length];
+
+                    // Number of values for each input key
+                    for (int i = 0; i < inputKeys.length; i++) {
+                        if (mappings.containsKey(inputKeys[i])) {
+                            numValsPerInKeys[i] = mappings.get(inputKeys[i]).size();
+                            if (numValsPerInKeys[i] > maxIn) {
+                                maxIn = numValsPerInKeys[i];
+                            }
+                        }
+                    }
+
+                    // Number of values for each output key
+                    for (int i = 0; i < outputKeys.length; i++) {
+                        if (mappings.containsKey(outputKeys[i])) {
+                            numValsPerOutKeys[i] = mappings.get(outputKeys[i]).size();
+                            if (numValsPerOutKeys[i] > maxOut) {
+                                maxOut = numValsPerOutKeys[i];
+                            }
+                        }
+                    }
+
+                    // Since we cant add all the racks inputs to the script, we just
+                    // loop through and add to the tasks for each run
+                    for (int numRuns = 0; numRuns < maxIn; numRuns++) {
+
+                        for (int i = 0; i < inputKeys.length; i++) {
+                            if (numValsPerInKeys[i] > numRuns) {
+                                inputs += mappings.get(inputKeys[i]).get(numRuns);
+                                inputs += ",";
+                            }
+                        }
+
+                        for (int i = 0; i < outputKeys.length; i++) {
+                            if (numValsPerOutKeys[i] > numRuns) {
+                                outputs += mappings.get(outputKeys[i]).get(numRuns);
+                                outputs += ",";
+                            }
+                        }
+
+                        inputs = inputs.substring(0, inputs.length() - 1) + "'";
+                        outputs = outputs.substring(0, outputs.length() - 1) + "'";
+
+                        name = taskEntry[1];
+
+                        // taskEntry []
+                        // [0] description of task | [1] task_manager_name | [2] task_manager_task_id
+                        // [3] task_manager_inputs | [4] task_manager_outputs | [5] task_manager_crontab_line
+                        // [6]  task_manager_pass_inputs_as_io_id | [7] EachRack
+                        // Query template
+                        // (task_id, inputs, outputs, crontab_line, station_id, name, pass_inputs)
+                        rowImports.add(String.format(queryTemplate,
+                                taskEntry[2], inputs, outputs,
+                                taskEntry[5], stationId, name, taskEntry[6]));
+                        inputs = outputs = "'";
+                    }
+                    //System.out.println("Row import: " + rowImports.get(rowImports.size()-1));
+
+                } else if (taskEntry[7].equals("2")) {
+                    // This is used for tasks that involve multiple items from each rack
+                    // and the script is used one per rack
+                    // Ex - CompStatus - Comp Amps/Run -> Comp Status Rack _
+                    // This can only be used per rack as there is an X many compressors
+
+                    // Doesnt use all the racks, run for each rack 
+                    inputKeys = taskEntry[3].split(",");
+                    outputKeys = taskEntry[4].split(",");
+
+                    numValsPerInKeys = new int[inputKeys.length];
+                    numValsPerOutKeys = new int[outputKeys.length];
+
+                    // Number of values for each input key
+                    for (int i = 0; i < inputKeys.length; i++) {
+                        if (mappings.containsKey(inputKeys[i])) {
+                            numValsPerInKeys[i] = mappings.get(inputKeys[i]).size();
+                            if (numValsPerInKeys[i] > maxIn) {
+                                maxIn = numValsPerInKeys[i];
+                            }
+                        }
+                    }
+
+                    // Number of values for each output key
+                    for (int i = 0; i < outputKeys.length; i++) {
+                        if (mappings.containsKey(outputKeys[i])) {
+                            numValsPerOutKeys[i] = mappings.get(outputKeys[i]).size();
+                            if (numValsPerOutKeys[i] > maxOut) {
+                                maxOut = numValsPerOutKeys[i];
+                            }
+                        }
+                    }
+
+                    
+                    System.out.println("maxin: " + maxIn + " | in key len: " + inputKeys.length);
+                    int numPerRack = maxIn / mf.store.cs.getNumRacks();
+                    System.out.println("npr: " + numPerRack);
+                    // Since we cant add all the racks inputs to the script, we just
+                    // loop through and add to the tasks for each run
+                    for (int numRuns = 0; numRuns < maxIn; numRuns++) {
+
+                        for (int i = 0; i < inputKeys.length; i++) {
+                            if (numValsPerInKeys[i] > numRuns) {
+                                inputs += mappings.get(inputKeys[i]).get(numRuns);
+                                inputs += ",";
+                            }
+                        }
+
+                        for (int i = 0; i < outputKeys.length; i++) {
+                            if (numValsPerOutKeys[i] > numRuns) {
+                                outputs += mappings.get(outputKeys[i]).get(numRuns);
+                                outputs += ",";
+                            }
+                        }
+
+                        name = taskEntry[1];
+
+                        // taskEntry []
+                        // [0] description of task | [1] task_manager_name | [2] task_manager_task_id
+                        // [3] task_manager_inputs | [4] task_manager_outputs | [5] task_manager_crontab_line
+                        // [6]  task_manager_pass_inputs_as_io_id | [7] EachRack
+                        // Query template
+                        // (task_id, inputs, outputs, crontab_line, station_id, name, pass_inputs)
+                        if (numRuns != 0 && numRuns % numPerRack == (numPerRack-1) ) {
+
+                            inputs = inputs.substring(0, inputs.length() - 1) + "'";
+                            outputs = outputs.substring(0, outputs.length() - 1) + "'";
+
+                            rowImports.add(String.format(queryTemplate,
+                                    taskEntry[2], inputs, outputs,
+                                    taskEntry[5], stationId, name, taskEntry[6]));
+
+                            System.out.println("\n\nRow import: " + rowImports.get(rowImports.size() - 1));
+                            inputs = outputs = "'";
+                        }
+                    }
+                    //System.out.println("Row import: " + rowImports.get(rowImports.size()-1));
+
                 }
-                break;
+                System.out.println("\n\nRow import: " + rowImports.get(rowImports.size() - 1));
             }
-            System.out.println("Row import: " + rowImports.get(0));
         }// No data, do nothing
         else {
             System.out.println(importedIOVariables.isEmpty() + " | " + importedTasks.isEmpty());
@@ -447,8 +592,6 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
             }
 
-            System.out.println("Station ID: " + stationId);
-
             if (idName == -1 || idCol == -1) {
                 System.out.println("Could not locate io_name or io_id in excel header");
                 return;
@@ -493,8 +636,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         // Amp Avg `%rackname` -> Amp Avg Rack A, Amp Avg Rack B, etc.
         Map<String, List> mappings = mf.getMapFullStrings();
 
-        for (Map.Entry<String, List> entry: mappings.entrySet()) {
-            
+        for (Map.Entry<String, List> entry : mappings.entrySet()) {
+
             for (Object val : entry.getValue().toArray()) {
                 System.out.println(entry.getKey() + " -> " + (String) val);
             }
