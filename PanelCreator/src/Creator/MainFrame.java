@@ -133,7 +133,7 @@ public class MainFrame extends JFrame {
         }
         return false;
     }
-
+    
     public DefaultWidgets loadDefaultWidgets() {
         if (!(new File(homeDirectory).mkdirs())) {
             // Directory exists, check if the Store exists
@@ -147,6 +147,29 @@ public class MainFrame extends JFrame {
                     } else {
                         System.out.println("Default widgets read and returned");
                         return dw;
+                    }
+                } catch (Exception e) {
+                    //e.printStackTrace();
+                }
+            }
+        }
+        return null;
+
+    }
+
+    public IoNames loadDefaultIoNames() {
+        if (!(new File(homeDirectory).mkdirs())) {
+            // Directory exists, check if the Store exists
+            String filePath = homeDirectory + "/DefaultIoNames.xml";
+            if (new File(filePath).exists()) {
+                try {
+                    IoNames names = xmlParser.readIoNamesFile(filePath);
+
+                    if (names == null) {
+                        System.out.println("Default io names null");
+                    } else {
+                        System.out.println("Default names read and returned");
+                        return names;
                     }
                 } catch (Exception e) {
                     //e.printStackTrace();
@@ -273,6 +296,20 @@ public class MainFrame extends JFrame {
                 System.out.println("Default Widgets saved");
             } else {
                 System.out.println("Default Widgets had a problem saving");
+            }
+
+        } else {
+            System.out.println("Problem with the XMLParser");
+        }
+    }
+    
+    public void saveDefaultIoNames(IoNames ioNames) {
+        if (xmlParser != null) {
+            DefaultIoNames names = new DefaultIoNames(ioNames);
+            if (xmlParser.writeOutDefaultIoNames(names, homeDirectory + "/DefaultIoNames.xml")) {
+                System.out.println("Default Io Names saved");
+            } else {
+                System.out.println("Default Io Names had a problem saving");
             }
 
         } else {

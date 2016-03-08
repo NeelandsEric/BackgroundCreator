@@ -346,6 +346,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                     // [6]  task_manager_pass_inputs_as_io_id | [7] EachRack
                     // Query template
                     // (task_id, inputs, outputs, crontab_line, station_id, name, pass_inputs)
+                    inputs = findIDs(inputs);
+                    outputs = findIDs(outputs);
+
                     rowImports.add(String.format(queryTemplate,
                             taskEntry[2], inputs, outputs,
                             taskEntry[5], stationId, name, taskEntry[6]));
@@ -409,6 +412,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                         // [6]  task_manager_pass_inputs_as_io_id | [7] EachRack
                         // Query template
                         // (task_id, inputs, outputs, crontab_line, station_id, name, pass_inputs)
+                        inputs = findIDs(inputs);
+                        outputs = findIDs(outputs);
+
                         rowImports.add(String.format(queryTemplate,
                                 taskEntry[2], inputs, outputs,
                                 taskEntry[5], stationId, name, taskEntry[6]));
@@ -449,10 +455,10 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                         }
                     }
 
-                    
-                    System.out.println("maxin: " + maxIn + " | in key len: " + inputKeys.length);
+                    //System.out.println("maxin: " + maxIn + " | in key len: " + inputKeys.length);
                     int numPerRack = maxIn / mf.store.cs.getNumRacks();
-                    System.out.println("npr: " + numPerRack);
+                    //System.out.println("npr: " + numPerRack);
+                    
                     // Since we cant add all the racks inputs to the script, we just
                     // loop through and add to the tasks for each run
                     for (int numRuns = 0; numRuns < maxIn; numRuns++) {
@@ -479,10 +485,13 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                         // [6]  task_manager_pass_inputs_as_io_id | [7] EachRack
                         // Query template
                         // (task_id, inputs, outputs, crontab_line, station_id, name, pass_inputs)
-                        if (numRuns != 0 && numRuns % numPerRack == (numPerRack-1) ) {
+                        if (numRuns != 0 && numRuns % numPerRack == (numPerRack - 1)) {
 
                             inputs = inputs.substring(0, inputs.length() - 1) + "'";
                             outputs = outputs.substring(0, outputs.length() - 1) + "'";
+
+                            inputs = findIDs(inputs);
+                            outputs = findIDs(outputs);
 
                             rowImports.add(String.format(queryTemplate,
                                     taskEntry[2], inputs, outputs,
@@ -521,6 +530,28 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     public void closeConn() {
         if (db != null) {
             db.closeConn();
+        }
+    }
+
+    public String findIDs(String list) {
+
+        String[] elements = list.replace("'", "").split(",");
+
+        String returnString = "'";
+        for (String s : elements) {
+            returnString += findIDForString(s) + ",";
+        }
+
+        return returnString.substring(0, returnString.length() - 1) + "'";
+
+    }
+
+    public String findIDForString(String ioName) {
+
+        if (importedIOVariables.containsKey(ioName)) {
+            return String.valueOf(importedIOVariables.get(ioName));
+        } else {
+            return ioName;
         }
     }
 

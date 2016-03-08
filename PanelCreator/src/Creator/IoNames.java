@@ -10,9 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -32,6 +30,12 @@ public class IoNames implements java.io.Serializable {
     private ArrayList<String> compStr;
     private ArrayList<String> sysStr;
     private ArrayList<String> extraStr;
+    
+    private static final String [] HEADERS = {"io_name", "io_type", "io_value",
+            "io_unit_of_measure", "io_constant", "io_offset", "io_float_digits",
+            "io_alert","io_alert_timeout", "io_alert_range_low",
+            "io_alert_range_high", "io_log", "io_log_param1", "io_log_range"
+        };
 
     public IoNames() {
         storeStr = new ArrayList<>();
@@ -307,12 +311,8 @@ public class IoNames implements java.io.Serializable {
         });
 
         // Add header
-        // Add header
-        String[] headers = new String[]{"io_name", "io_type", "io_value",
-            "io_unit_of_measure", "io_constant", "io_offset", "io_float_digits",
-            "io_alert", "io_alert_range_low", "io_alert_range_high", "io_log"
-        };
-        vars.add(0, headers);
+       
+        vars.add(0, HEADERS);
 
         return vars;
 
@@ -486,9 +486,8 @@ public class IoNames implements java.io.Serializable {
 
         // Add header
         // Add header
-        if (addHeader) {
-            String[] headers = new String[]{"io_name"};
-            vars.add(headers);
+        if (addHeader) {            
+            vars.add(HEADERS);
         }
 
         int numfans, numsg, numcomp, numsys;
@@ -630,15 +629,10 @@ public class IoNames implements java.io.Serializable {
 
     public List<String[]> unformattedStrings() {
 
-        List<String[]> vars = new ArrayList<String[]>() {
-        };
+        List<String[]> vars = new ArrayList<>();
 
-        // Add header
-        String[] headers = new String[]{"io_name", "io_type", "io_value_displayed",
-            "io_unit_of_measure", "io_constant", "io_offset", "io_float_digits",
-            "io_alert", "io_alert_range_low", "io_alert_range_high"
-        };
-        vars.add(headers);
+        
+        vars.add(HEADERS);
         // Store
         vars.add(new String[]{"`Store`"});
         for (String s : storeStr) {
@@ -689,8 +683,7 @@ public class IoNames implements java.io.Serializable {
 
     public List<String[]> nameStrings() {
 
-        List<String[]> vars = new ArrayList<String[]>() {
-        };
+        List<String[]> vars = new ArrayList<>();
 
         // Store
         vars.add(new String[]{"`Store`"});
