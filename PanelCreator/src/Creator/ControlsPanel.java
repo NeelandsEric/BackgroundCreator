@@ -600,7 +600,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * @param evt
      */
     private void _ComboBox_RacksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_RacksActionPerformed
-        // TODO add your handling code here:
+        
         // Retrieve the settings for the rack
         _Label_RackSelected.setText(_ComboBox_Racks.getSelectedItem() + " Options");
         _ComboBox_SuctionGroups.setSelectedIndex(0);
@@ -620,7 +620,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * @param evt
      */
     private void _ComboBox_SuctionGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_SuctionGroupsActionPerformed
-        // TODO add your handling code here:
+        
         // Update suction settings
         _Label_SGSelected.setText(_ComboBox_SuctionGroups.getSelectedItem() + " Options");
         _TextField_SuctionGroupName.setText((String) _ComboBox_SuctionGroups.getSelectedItem());
@@ -638,7 +638,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * @param evt
      */
     private void _TextField_SuctionGroupNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event__TextField_SuctionGroupNameFocusLost
-        // TODO add your handling code here:
+        
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
         int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
         String name = _TextField_SuctionGroupName.getText();
@@ -697,7 +697,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * @param evt
      */
     private void _FormattedTF_NumSGPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__FormattedTF_NumSGPropertyChange
-        // TODO add your handling code here:
+        
         // Suction groups -> update combo box
         try {
             int rackIndex = _ComboBox_Racks.getSelectedIndex();
@@ -764,7 +764,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * @param evt
      */
     private void _ComboBox_SystemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_SystemsActionPerformed
-        // TODO add your handling code here:
+        
         // Update the text
         int sysIndex = _ComboBox_Systems.getSelectedIndex();
         this.updateSystemNames(sysIndex);
@@ -779,7 +779,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * @param evt
      */
     private void _Button_SysPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SysPrevActionPerformed
-        // TODO add your handling code here:
+        
         // Save the field
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
         int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
@@ -810,7 +810,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * @param evt
      */
     private void _Button_SysNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SysNextActionPerformed
-        // TODO add your handling code here:
+        
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
         int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
         int sysIndex = _ComboBox_Systems.getSelectedIndex();
@@ -839,7 +839,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * @param evt
      */
     private void _Button_CompNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CompNextActionPerformed
-        // TODO add your handling code here:
+        
         // Save the field
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
         int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
@@ -870,7 +870,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * @param evt
      */
     private void _Button_CompPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CompPrevActionPerformed
-        // TODO add your handling code here:
+        
         // Save the field
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
         int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
@@ -901,7 +901,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * @param evt
      */
     private void _ComboBox_CompressorNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_CompressorNumberActionPerformed
-        // TODO add your handling code here:
+        
         // Update the text
         int compIndex = _ComboBox_CompressorNumber.getSelectedIndex();
         this.updateCompressorNames(compIndex);
@@ -915,7 +915,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * @param evt
      */
     private void _Button_RackNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_RackNextActionPerformed
-        // TODO add your handling code here:
+        
         // Save the field
         int rackIndex = _ComboBox_RackNumber.getSelectedIndex();
         String name = _TextField_RackName.getText();
@@ -944,7 +944,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * @param evt
      */
     private void _Button_RackPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_RackPrevActionPerformed
-        // TODO add your handling code here:
+        
         // Save the field
         int rackIndex = _ComboBox_RackNumber.getSelectedIndex();
 
@@ -975,7 +975,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * @param evt
      */
     private void _ComboBox_RackNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_RackNumberActionPerformed
-        // TODO add your handling code here:
+        
         // Update the text
         int rackIndex = _ComboBox_RackNumber.getSelectedIndex();
         this.updateRackNames(rackIndex);
@@ -985,7 +985,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__ComboBox_RackNumberActionPerformed
 
     private void _TextField_SiteNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event__TextField_SiteNameFocusLost
-        // TODO add your handling code here:
+        
         cs.setStoreName(_TextField_SiteName.getText());
         this.updateDisplay();
     }//GEN-LAST:event__TextField_SiteNameFocusLost

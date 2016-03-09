@@ -667,7 +667,7 @@ public class ModbusPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _FTF_NumPowerScoutsPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__FTF_NumPowerScoutsPropertyChange
-        // TODO add your handling code here:
+        
 
         int endIndex = mb.getNumPowerScouts();
 
@@ -705,7 +705,7 @@ public class ModbusPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__FTF_NumPowerScoutsPropertyChange
 
     private void _FTF_NumSingleLoadsPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__FTF_NumSingleLoadsPropertyChange
-        // TODO add your handling code here:
+        
 
         if (Integer.parseInt(_FTF_NumSingleLoads.getText()) > 15) {
             _FTF_NumSingleLoads.setText("15");
@@ -739,7 +739,7 @@ public class ModbusPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__ComboBox_SingleMeterActionPerformed
 
     private void _TF_PowerScoutIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__TF_PowerScoutIPActionPerformed
-        // TODO add your handling code here:
+        
         String ip = _TF_PowerScoutIP.getText();
         int powerIndex = _ComboBox_PowerMeter.getSelectedIndex();
         if (ipValidator.validate(ip)) {
@@ -755,8 +755,8 @@ public class ModbusPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__TF_PowerScoutIPActionPerformed
 
     private void _TF_PowerScoutIPFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event__TF_PowerScoutIPFocusLost
-        // TODO add your handling code here:
-        // TODO add your handling code here:
+        
+        
         String ip = _TF_PowerScoutIP.getText();
         int powerIndex = _ComboBox_PowerMeter.getSelectedIndex();
         if (ipValidator.validate(ip)) {
@@ -802,7 +802,7 @@ public class ModbusPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_ClearMeterSingleActionPerformed
 
     private void _Button_LoadXlsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_LoadXlsActionPerformed
-        // TODO add your handling code here:
+        
         _FileChooser_IoFile.setDialogTitle("Load XLS File");
         _FileChooser_IoFile.setFileSelectionMode(JFileChooser.FILES_ONLY);
         _FileChooser_IoFile.setDialogType(JFileChooser.OPEN_DIALOG);

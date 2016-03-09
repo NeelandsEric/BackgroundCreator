@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import javax.swing.DefaultListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -23,10 +22,9 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
     public MainFrame mf;
     private Scanner scan;
-    private int comboBoxIndex;
-    public IoNames ioNames;
-    private DefaultListModel listModel;
+    public IoNames ioNames;    
     private List<DefaultTableModel> tableModels;
+   
 
     /**
      * Creates new form NameGeneratorPanel
@@ -37,8 +35,6 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     public NameGeneratorPanel(MainFrame mf, IoNames ioNames) {
         this.mf = mf;
         this.ioNames = ioNames;
-        comboBoxIndex = 0;
-        listModel = new DefaultListModel();
         initComponents();
         
         // Add table selection listener
@@ -50,7 +46,10 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                     int cols = _Table_Items.getModel().getColumnCount();
                     String [] vals = new String[cols];
                     for(int i = 0; i < cols; i++){
-                        vals[i] = (String) _Table_Items.getValueAt(row, i);                    
+                        vals[i] = (String) _Table_Items.getValueAt(row, i);   
+                        if(vals[i] == null){
+                            vals[i] = "";
+                        }
                     }
                     
                     loadItem(vals);
@@ -120,13 +119,9 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         _FTF_AlertTimeDelay = new javax.swing.JFormattedTextField();
         jPanel1 = new javax.swing.JPanel();
         _Label_GroupName = new javax.swing.JLabel();
-        _ScrollPane_List = new javax.swing.JScrollPane();
-        _List_Variables = new javax.swing.JList();
         _ComboBox_Groups = new javax.swing.JComboBox();
         _Button_SaveAllIoNames = new javax.swing.JButton();
         _Button_LoadProgramDefaults = new javax.swing.JButton();
-        _ScrollPane_InfoRacks = new javax.swing.JScrollPane();
-        _TextArea_Info = new javax.swing.JTextArea();
         _Button_SaveUserDefaults = new javax.swing.JButton();
         _Button_LoadUserDefaults = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -212,6 +207,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         _CheckBox_Alert.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _CheckBox_Alert.setText("No");
         _CheckBox_Alert.setToolTipText("io_alert field, check to generate alerts");
+        _CheckBox_Alert.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _CheckBox_Alert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _CheckBox_AlertActionPerformed(evt);
@@ -301,7 +297,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         _Label_LogTimeMonth.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Label_LogTimeMonth.setText("Months");
 
-        _FTF_LogTimeMonth.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        _FTF_LogTimeMonth.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         _FTF_LogTimeMonth.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         _FTF_LogTimeMonth.setText("0");
         _FTF_LogTimeMonth.setToolTipText("Number of months");
@@ -319,7 +315,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         _Label_LogTime.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Label_LogTime.setText("Log Time Frame");
 
-        _FTF_LogTimeDay.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        _FTF_LogTimeDay.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         _FTF_LogTimeDay.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         _FTF_LogTimeDay.setText("0");
         _FTF_LogTimeDay.setToolTipText("Number of days");
@@ -517,16 +513,6 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         _Label_GroupName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _Label_GroupName.setText("Group Name");
 
-        _List_Variables.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        _List_Variables.setModel(listModel);
-        _List_Variables.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        _List_Variables.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                _List_VariablesValueChanged(evt);
-            }
-        });
-        _ScrollPane_List.setViewportView(_List_Variables);
-
         _ComboBox_Groups.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _ComboBox_Groups.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Store", "Rack", "Condenser", "Suction Group", "Compressor", "System", "Other" }));
         _ComboBox_Groups.setToolTipText("Groups");
@@ -552,14 +538,6 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             }
         });
 
-        _TextArea_Info.setEditable(false);
-        _TextArea_Info.setColumns(20);
-        _TextArea_Info.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        _TextArea_Info.setLineWrap(true);
-        _TextArea_Info.setRows(5);
-        _TextArea_Info.setWrapStyleWord(true);
-        _ScrollPane_InfoRacks.setViewportView(_TextArea_Info);
-
         _Button_SaveUserDefaults.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         _Button_SaveUserDefaults.setText("Save User Defaults");
         _Button_SaveUserDefaults.addActionListener(new java.awt.event.ActionListener() {
@@ -582,38 +560,29 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(_ScrollPane_InfoRacks)
-                    .addComponent(_ScrollPane_List)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(_Label_GroupName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(_Label_GroupName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(_Button_SaveUserDefaults, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(_ComboBox_Groups, 0, 129, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(_Button_SaveAllIoNames, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(_Button_LoadProgramDefaults, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(_Button_LoadUserDefaults, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(_Button_SaveUserDefaults, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(_ComboBox_Groups, 0, 129, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(_Button_SaveAllIoNames, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(_Button_LoadProgramDefaults, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(_Button_LoadUserDefaults, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(_Label_GroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(_ScrollPane_InfoRacks, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(_ScrollPane_List, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 241, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_Button_SaveUserDefaults, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(_Button_LoadUserDefaults, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -626,29 +595,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         );
 
         _Table_Items.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _Table_Items.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Name", "IO Type", "Display Value", "UoM", "Constant", "Offset", "Decimal Places", "Generate Alerts", "Alert Time Frame", "Low Alert", "High Alert", "Log Values", "Log Param", "Log Time Period"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        _Table_Items.setModel(getDefaultTableModel());
         _Table_Items.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         _Table_Items.setFillsViewportHeight(true);
         _Table_Items.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -683,42 +630,21 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _ComboBox_GroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_GroupsActionPerformed
-        // TODO add your handling code here:
-        // Parse the text field, save it
-        parseVarNames();
-        update();
-        comboBoxIndex = _ComboBox_Groups.getSelectedIndex();
+                      
         _Table_Items.setModel(tableModels.get(_ComboBox_Groups.getSelectedIndex()));
     }//GEN-LAST:event__ComboBox_GroupsActionPerformed
 
     private void _Button_SaveAllIoNamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SaveAllIoNamesActionPerformed
-        // TODO add your handling code here:
-        // Parse the fields
-        parseVarNames();
         mf.updateVarNames(ioNames);
 
     }//GEN-LAST:event__Button_SaveAllIoNamesActionPerformed
 
     private void _Button_LoadProgramDefaultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_LoadProgramDefaultsActionPerformed
-        // TODO add your handling code here:
         loadGroups();
     }//GEN-LAST:event__Button_LoadProgramDefaultsActionPerformed
 
-    private void _List_VariablesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event__List_VariablesValueChanged
-        // TODO add your handling code here:
-        // Load the item that has been clicked
-        if (!evt.getValueIsAdjusting()) {
-            String item = (String) _List_Variables.getSelectedValue();
-            if (item != null) {
-                loadItem(item.split(","));
-            }
-
-        }
-
-    }//GEN-LAST:event__List_VariablesValueChanged
-
     private void _ComboBox_TypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_TypeActionPerformed
-        // TODO add your handling code here:
+
         if (_ComboBox_Type.getSelectedIndex() == 1 || _ComboBox_Type.getSelectedIndex() == 3) {
             boolean b = true;
             _FTF_DisplayedValue.setEnabled(b);
@@ -739,7 +665,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__ComboBox_TypeActionPerformed
 
     private void _CheckBox_AlertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__CheckBox_AlertActionPerformed
-        // TODO add your handling code here:
+        
         if (_CheckBox_Alert.isSelected()) {
             _CheckBox_Alert.setText("Yes");
         } else {
@@ -748,35 +674,10 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__CheckBox_AlertActionPerformed
 
     private void _Button_SaveSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SaveSelectedActionPerformed
-        // TODO add your handling code here:
-        if (!_List_Variables.isSelectionEmpty()) {
-            int selIndex = _List_Variables.getSelectedIndex();
-            String s;
-            switch (_ComboBox_Groups.getSelectedIndex()) {
-                case 0:
-                    s = ioNames.getStoreStr().get(selIndex);
-                    break;
-                case 1:
-                    s = ioNames.getRackStr().get(selIndex);
-                    break;
-                case 2:
-                    s = ioNames.getCondStr().get(selIndex);
-                    break;
-                case 3:
-                    s = ioNames.getSgStr().get(selIndex);
-                    break;
-                case 4:
-                    s = ioNames.getCompStr().get(selIndex);
-                    break;
-                case 5:
-                    s = ioNames.getSysStr().get(selIndex);
-                    break;
-                case 6:
-                    s = ioNames.getExtraStr().get(selIndex);
-                    break;
-                default:
-                    s = "Noo ting";
-            }
+        
+        int row = _Table_Items.getSelectedRow();
+        
+        if(row > -1 ){
 
             //System.out.println("Type switch for: " + s);
             String[] values = new String[14];
@@ -797,25 +698,25 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
             String newString = String.join(",", values);
             //System.out.println("values read: " + newString);
-            ioNames.replaceString(_ComboBox_Groups.getSelectedIndex(), selIndex, newString);
-            update();
+            ioNames.replaceString(_ComboBox_Groups.getSelectedIndex(), row, newString);
+            updateRow(_ComboBox_Groups.getSelectedIndex(), row, values);
 
         }
 
     }//GEN-LAST:event__Button_SaveSelectedActionPerformed
 
     private void _Button_NewNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_NewNameActionPerformed
-        // TODO add your handling code here:
+        
 
         String s = "New IO to be changed";
         ioNames.addString(_ComboBox_Groups.getSelectedIndex(), s);
-        update();
+        addRow(_ComboBox_Groups.getSelectedIndex(), s);
 
 
     }//GEN-LAST:event__Button_NewNameActionPerformed
 
     private void _ComboBox_LogTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_LogTypeActionPerformed
-        // TODO add your handling code here:
+        
 
         switch (_ComboBox_LogType.getSelectedIndex()) {
 
@@ -875,18 +776,19 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__RadioButton_MinActionPerformed
 
     private void _Button_SaveUserDefaultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SaveUserDefaultsActionPerformed
-        // TODO add your handling code here:
-        parseVarNames();
+        
+        //parseVarNames();
         mf.updateVarNames(ioNames);
         mf.saveDefaultIoNames(ioNames);
     }//GEN-LAST:event__Button_SaveUserDefaultsActionPerformed
 
     private void _Button_LoadUserDefaultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_LoadUserDefaultsActionPerformed
-        // TODO add your handling code here:
+        
         IoNames names = mf.loadDefaultIoNames();
         if (names != null) {
             ioNames = null;
             ioNames = names;
+            updateTable();
         }
     }//GEN-LAST:event__Button_LoadUserDefaultsActionPerformed
 
@@ -951,7 +853,24 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
         String full = Arrays.toString(values).replace("[", "").replace("]", "");
 
-        if (values.length > 8) {
+        if (values[0].equals("New IO to be changed")) {
+            _Textfield_Name.setText("New IO Name");
+            _ComboBox_Type.setSelectedIndex(0);
+            _FTF_DisplayedValue.setText("");
+            _TextField_UoM.setText("");
+            _FTF_Constant.setText("");
+            _FTF_Offset.setText("");
+
+            _CheckBox_Alert.setSelected(false);
+            _CheckBox_Alert.setText("No");
+            _FTF_AlertTimeDelay.setText("");
+            _FTF_AlertLow.setText("");
+            _FTF_AlertHigh.setText("");
+            _ComboBox_LogType.setSelectedIndex(0);
+            _ButtonGroup_LogType.clearSelection();
+            _FTF_LogParam1.setText("");
+            
+        }else if (values.length > 8) {
             _Textfield_Name.setText(values[0]);
             _ComboBox_Type.setSelectedIndex(Integer.parseInt(values[1]));
             _FTF_DisplayedValue.setText(values[2]);
@@ -972,24 +891,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             _FTF_AlertHigh.setText(values[10]);
             _ComboBox_LogType.setSelectedIndex(Integer.parseInt(values[11]));
             _FTF_LogParam1.setText(values[12]);
-
-        } else if (full.equals("New IO to be changed")) {
-            _Textfield_Name.setText("New IO Name");
-            _ComboBox_Type.setSelectedIndex(0);
-            _FTF_DisplayedValue.setText("");
-            _TextField_UoM.setText("");
-            _FTF_Constant.setText("");
-            _FTF_Offset.setText("");
-
-            _CheckBox_Alert.setSelected(false);
-            _CheckBox_Alert.setText("No");
-            _FTF_AlertTimeDelay.setText("");
-            _FTF_AlertLow.setText("");
-            _FTF_AlertHigh.setText("");
-            _ComboBox_LogType.setSelectedIndex(0);
-            _ButtonGroup_LogType.clearSelection();
-            _FTF_LogParam1.setText("");
-
+            
         } else {
             System.out.println("Not enough fields for " + values[0] + " - " + values.length);
         }
@@ -998,7 +900,8 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
     public void loadStore(IoNames ioNames) {
         this.ioNames = ioNames;
-        update();
+        updateTable();
+
     }
 
     public void loadGroups() {
@@ -1009,36 +912,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         // Make new list of table models
         tableModels = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
-            tableModels.add(new DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Name", "IO Type", "Display Value", "UoM", "Constant", "Offset",
-                "Decimal Places", "Generate Alerts", "Alert Time Frame",
-                "Low Alert", "High Alert", "Log Values", "Log Param", "Log Time Period"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class,
-                java.lang.String.class, java.lang.String.class, java.lang.String.class,
-                java.lang.String.class, java.lang.String.class, java.lang.String.class,
-                java.lang.String.class, java.lang.String.class, java.lang.String.class,
-                java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+            tableModels.add(getDefaultTableModel());
         }
 
         String path = "/Creator/textFiles/Default IO Variables.txt";
@@ -1103,166 +977,110 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
         if (scan != null) {
             scan.close();
-        }
-        // update the fields        
-
+        }     
+        
         _Table_Items.setModel(tableModels.get(0));
-
-        update();
         mf.updateVarNames(ioNames);
 
     }
-
-    /**
-     * parse var names in the text field
-     */
-    public void parseVarNames() {
-        ArrayList<String> varNames = getVarsFromList();
-        String line = "";
-
-        switch (comboBoxIndex) {
-            case 0:
-                ioNames.getStoreStr().clear();
-                break;
-            case 1:
-                ioNames.getRackStr().clear();
-                break;
-            case 2:
-                ioNames.getCondStr().clear();
-                break;
-            case 3:
-                ioNames.getSgStr().clear();
-                break;
-            case 4:
-                ioNames.getCompStr().clear();
-                break;
-            case 5:
-                ioNames.getSysStr().clear();
-                break;
-            default:
-                ioNames.getExtraStr().clear();
-                break;
+    
+    public void updateTable(){
+        
+           
+        _Table_Items.setModel(getDefaultTableModel());
+        tableModels = null;
+        // Make new list of table models
+        tableModels = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            tableModels.add(getDefaultTableModel());
+        }
+        
+        // For each array add it to its model
+        
+        // Store strings
+        for(String line: ioNames.getStoreStr()){
+            tableModels.get(0).addRow(line.split(","));
+        }
+    
+        // Rack strings
+        for(String line: ioNames.getRackStr()){
+            tableModels.get(1).addRow(line.split(","));
         }
 
-        for (String s : varNames) {
-            line = formatVarString(s);
-            switch (comboBoxIndex) {
-                case 0:
-                    //System.out.println("Added to Store: " + line);
-                    ioNames.getStoreStr().add(line);
-                    break;
-                case 1:
-                    //System.out.println("Added to Rack: " + line);
-                    ioNames.getRackStr().add(line);
-                    break;
-                case 2:
-                    //System.out.println("Added to Condenser: " + line);
-                    ioNames.getCondStr().add(line);
-                    break;
-                case 3:
-                    //System.out.println("Added to SuctionGroup: " + line);
-                    ioNames.getSgStr().add(line);
-                    break;
-                case 4:
-                    //System.out.println("Added to Compressor: " + line);
-                    ioNames.getCompStr().add(line);
-                    break;
-                case 5:
-                    //System.out.println("Added to System: " + line);
-                    ioNames.getSysStr().add(line);
-                    break;
-                default:
-                    //System.out.println("Unknown groupname, added to extra" + line);
-                    ioNames.getExtraStr().add(line);
-                    break;
-            }
+        // Condenser strings
+        for(String line: ioNames.getCondStr()){
+            tableModels.get(2).addRow(line.split(","));
         }
+        
+        // SG strings
+        for(String line: ioNames.getSgStr()){
+            tableModels.get(3).addRow(line.split(","));
+        }
+        
+        // Compressor strings
+        for(String line: ioNames.getCompStr()){
+            tableModels.get(4).addRow(line.split(","));
+        }
+        
+        // Systems strings
+        for(String line: ioNames.getSysStr()){
+            tableModels.get(5).addRow(line.split(","));
+        }
+        
+        // Extra strings
+        for(String line: ioNames.getExtraStr()){
+            tableModels.get(6).addRow(line.split(","));
+        }       
+        _Table_Items.setModel(tableModels.get(0));        
+    }
+  
+    
+    public void addRow(int model, String s){
+        DefaultTableModel dm = tableModels.get(model);
+        dm.addRow(new String[]{s});        
+    }
+    
+    public void updateRow(int model, int row, String [] values){
+        
+        DefaultTableModel dm = tableModels.get(model);
+        for(int col = 0; col < dm.getColumnCount(); col++){
+            dm.setValueAt(values[col], row, col);
+        }        
     }
 
     /**
      * Updates the text fields
      */
-    public void update() {
+    public void getInfoTips() {
+        /*
         String info = "";
-        ArrayList<String> vars = new ArrayList<>();
         switch (_ComboBox_Groups.getSelectedIndex()) {
             case 0: // store
-                info = getVarInfoStore();
-                for (String s : ioNames.getStoreStr()) {
-                    vars.add(s);
-                }
+                info = getVarInfoStore();                
                 break;
             case 1:
-                info = getVarInfoRack();
-                for (String s : ioNames.getRackStr()) {
-                    vars.add(s);
-
-                }
+                info = getVarInfoRack();                
                 break;
             case 2:
-                info = getVarInfoCond();
-                for (String s : ioNames.getCondStr()) {
-                    vars.add(s);
-                }
+                info = getVarInfoCond();                
                 break;
             case 3:
-                info = getVarInfoSG();
-                for (String s : ioNames.getSgStr()) {
-                    vars.add(s);
-                }
+                info = getVarInfoSG();                
                 break;
             case 4:
-                info = getVarInfoComp();
-                for (String s : ioNames.getCompStr()) {
-                    vars.add(s);
-                }
+                info = getVarInfoComp();                
                 break;
             case 5:
-                info = getVarInfoSys();
-                for (String s : ioNames.getSysStr()) {
-                    vars.add(s);
-                }
+                info = getVarInfoSys();                
                 break;
             case 6:
-                info = getVarInfoExtra();
-                for (String s : ioNames.getExtraStr()) {
-                    vars.add(s);
-                }
+                info = getVarInfoExtra();                
                 break;
-        }
-
-        _Label_GroupName.setText(_ComboBox_Groups.getSelectedItem().toString() + " Var Names");
-        _TextArea_Info.setText(info);
-        addVarsToList(vars);
+        }*/
+        _Label_GroupName.setText(_ComboBox_Groups.getSelectedItem().toString() + " Var Names");                
     }
-
-    public ArrayList<String> getVarsFromList() {
-        ArrayList<String> vars = new ArrayList<>();
-        for (int i = 0; i < listModel.getSize(); i++) {
-            vars.add((String) listModel.get(i));
-        }
-        return vars;
-    }
-
-    public void addVarsToList(ArrayList<String> vars) {
-
-        listModel.removeAllElements();
-        for (String s : vars) {
-            listModel.addElement(s);
-        }
-
-    }
-
-    public String getStringFromList() {
-        String vars = "";
-
-        for (int i = 0; i < _List_Variables.getModel().getSize(); i++) {
-            vars += (String) _List_Variables.getModel().getElementAt(i);
-            //vars += "\n";
-        }
-        return vars;
-    }
-
+   
+       
     /**
      * formats a string input based on specific formating `name` indicates a
      * grouping `
@@ -1414,6 +1232,41 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         return info;
 
     }
+    
+    private DefaultTableModel getDefaultTableModel(){
+        return new DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Name", "IO Type", "Display Value", "UoM", "Constant", "Offset",
+                "Decimal Places", "Generate Alerts", "Alert Time Frame",
+                "Low Alert", "High Alert", "Log Values", "Log Param", "Log Time Period"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false
+            };
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        };
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1457,15 +1310,11 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     private javax.swing.JLabel _Label_type;
     private javax.swing.JLabel _Label_uom;
     private javax.swing.JLabel _Label_valueDisplayed;
-    private javax.swing.JList _List_Variables;
     private javax.swing.JPanel _Panel_SelectedItemInfo;
     private javax.swing.JRadioButton _RadioButton_Avg;
     private javax.swing.JRadioButton _RadioButton_Max;
     private javax.swing.JRadioButton _RadioButton_Min;
-    private javax.swing.JScrollPane _ScrollPane_InfoRacks;
-    private javax.swing.JScrollPane _ScrollPane_List;
     private javax.swing.JTable _Table_Items;
-    private javax.swing.JTextArea _TextArea_Info;
     private javax.swing.JTextField _TextField_UoM;
     private javax.swing.JTextField _Textfield_Name;
     private javax.swing.JPanel jPanel1;

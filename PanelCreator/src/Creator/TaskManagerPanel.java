@@ -239,7 +239,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _Button_LoadXlsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_LoadXlsActionPerformed
-        // TODO add your handling code here:
+        
         _FileChooser_IoFile.setDialogTitle("Load XLS File");
         _FileChooser_IoFile.setFileSelectionMode(JFileChooser.FILES_ONLY);
         _FileChooser_IoFile.setDialogType(JFileChooser.OPEN_DIALOG);
@@ -514,7 +514,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_CreateImportsActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        
         /*
          db = new DBConn();
          //String query = "insert into eepr (eepr_io_id, eepr_station_id) "

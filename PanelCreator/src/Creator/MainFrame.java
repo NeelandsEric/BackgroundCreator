@@ -575,14 +575,14 @@ public class MainFrame extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _MenuItem_ViewPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_ViewPanelActionPerformed
-        // TODO add your handling code here:
+        
         int width = store.getDs().getDisplayWidth();
         int height = store.getDs().getDisplayHeight();
         displayPanel(width, height);
     }//GEN-LAST:event__MenuItem_ViewPanelActionPerformed
 
     private void _MenuItem_OpenImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_OpenImageActionPerformed
-        // TODO add your handling code here:
+        
         int returnVal = _FileChooser_LoadLogo.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = _FileChooser_LoadLogo.getSelectedFile();
@@ -595,7 +595,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_OpenImageActionPerformed
 
     private void _MenuItem_CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_CloseActionPerformed
-        // TODO add your handling code here:
+        
 
         tmPanel.closeConn();
         if (xmlParser != null) {
@@ -612,7 +612,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_CloseActionPerformed
 
     private void _MenuItem_SaveCurrentDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveCurrentDisplayActionPerformed
-        // TODO add your handling code here:
+        
 
         int returnVal = _FileChooser_SavePicture.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -653,13 +653,13 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_SaveCurrentDisplayActionPerformed
 
     private void _MenuItem_RemoveImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_RemoveImageActionPerformed
-        // TODO add your handling code here:        
+                
         controlPanel.removeStoreLogo();
 
     }//GEN-LAST:event__MenuItem_RemoveImageActionPerformed
 
     private void _MenuItem_SaveStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveStoreActionPerformed
-        // TODO add your handling code here:
+        
         int returnVal = _FileChooser_SaveStore.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             String fn = _FileChooser_SaveStore.getSelectedFile().toString();
@@ -718,7 +718,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_OpenStoreActionPerformed
 
     private void _MenuItem_SaveAllDisplaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveAllDisplaysActionPerformed
-        // TODO add your handling code here:
+        
 
         _FileChooser.setDialogTitle("Save pictures into a folder");
         _FileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -761,7 +761,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_SaveAllDisplaysActionPerformed
 
     private void _MenuItem_changedisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_changedisplayActionPerformed
-        // TODO add your handling code here:
+        
         int count = displayFrame.getTabCount();
         int curr = displayFrame.getTabSelection();
         if ((curr + 1) < count) {
@@ -773,7 +773,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_changedisplayActionPerformed
 
     private void _MenuItem_NewStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_NewStoreActionPerformed
-        // TODO add your handling code here:
+        
         displayFrame.dispose();
         _TabbedPane_Tabs.removeAll();
         this.store = new Store();
@@ -783,7 +783,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_NewStoreActionPerformed
 
     private void _MenuItem_PrintVarNamesCsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintVarNamesCsvActionPerformed
-        // TODO add your handling code here:
+        
 
         int returnVal = _FileChooser_SaveCSV.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -810,7 +810,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_PrintVarNamesCsvActionPerformed
 
     private void _MenuItem_PrintVarNamesTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintVarNamesTextActionPerformed
-        // TODO add your handling code here:
+        
         int returnVal = _FileChooser_SaveText.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
@@ -834,7 +834,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_PrintVarNamesTextActionPerformed
 
     private void _MenuItem_PrintVarNamesXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintVarNamesXActionPerformed
-        // TODO add your handling code here:
+        
         int returnVal = _FileChooser_SaveExcel.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
@@ -888,7 +888,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_PrintVarNamesXActionPerformed
 
     private void closeFrame(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeFrame
-        // TODO add your handling code here:
+        
         tmPanel.closeConn();
         if (xmlParser != null) {
             if (xmlParser.writeOut(this.store, homeDirectory + "/DefaultStore.xml")) {
@@ -903,7 +903,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event_closeFrame
     
     private void _MenuItem_SaveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveAllActionPerformed
-        // TODO add your handling code here:
+        
         _FileChooser.setDialogTitle("Save everything into a folder");
         _FileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);

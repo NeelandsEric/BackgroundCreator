@@ -773,7 +773,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _Button_CopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CopyActionPerformed
-        // TODO add your handling code here:
+        
         Highlighter h = _TextArea_WidgetExport.getHighlighter();
         h.removeAllHighlights();
         int sel = _TextArea_WidgetExport.getText().length();
@@ -831,7 +831,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_LoadXlsActionPerformed
 
     private void _ComboBox_DisplayPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_DisplayPanelActionPerformed
-        // TODO add your handling code here:
+        
         int index = _ComboBox_DisplayPanel.getSelectedIndex();
         mf.displayFrame.setTab(index);
 
@@ -847,7 +847,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__ComboBox_DisplayPanelActionPerformed
 
     private void _Button_widgetPositionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_widgetPositionsActionPerformed
-        // TODO add your handling code here:
+        
         _Button_EnableClicks.setEnabled(true);
         masterMap = mf.displayFrame.getWidgetPositions();
 
@@ -855,14 +855,14 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_widgetPositionsActionPerformed
 
     private void _ComboBox_SubgroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_SubgroupActionPerformed
-        // TODO add your handling code here:
+        
 
         loadWidgetVars();
 
     }//GEN-LAST:event__ComboBox_SubgroupActionPerformed
 
     private void _List_WidgetVarsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event__List_WidgetVarsValueChanged
-        // TODO add your handling code here:
+        
 
         if (!evt.getValueIsAdjusting()) {
             if (masterMap != null) {
@@ -872,7 +872,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__List_WidgetVarsValueChanged
 
     private void _Button_ClearSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_ClearSelectionActionPerformed
-        // TODO add your handling code here:
+        
         _List_WidgetVars.clearSelection();
         if (masterMap != null && masterMap.size() > 0) {
             loadMasterMapList();
@@ -880,7 +880,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_ClearSelectionActionPerformed
 
     private void _Button_GenerateWidgetLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_GenerateWidgetLinkActionPerformed
-        // TODO add your handling code here:
+        
         // Make sure we have a selection for the widget type, the widget variable type
         if (!_List_WidgetVars.isSelectionEmpty() && !_List_WidgetCodeList.isSelectionEmpty()) {
             String panelName = _ComboBox_DisplayPanel.getSelectedItem().toString();
@@ -917,7 +917,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_GenerateWidgetLinkActionPerformed
 
     private void _Button_printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_printActionPerformed
-        // TODO add your handling code here:
+        
 
         _TextArea_WidgetExport.setText("");
         //System.out.println(ws.numberLinks());
@@ -929,7 +929,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_printActionPerformed
 
     private void _Button_ClearLinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_ClearLinksActionPerformed
-        // TODO add your handling code here:
+        
 
         //System.out.println("Size Before: " + mf.store.ws.widgetLinks.size());
         ws.clear();
@@ -939,7 +939,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_ClearLinksActionPerformed
 
     private void _List_WidgetCodeListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event__List_WidgetCodeListValueChanged
-        // TODO add your handling code here:
+        
 
         // _ScrollPane_WidgetSettings
         if (!evt.getValueIsAdjusting()) {
@@ -992,7 +992,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__List_WidgetCodeListValueChanged
 
     private void _Button_CreateImportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CreateImportsActionPerformed
-        // TODO add your handling code here:
+        
         _TextArea_WidgetExport.setText("");
 
         // Generate the code (Save to Files later)
@@ -1154,12 +1154,12 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_CreateImportsActionPerformed
 
     private void _Button_LoadDefaults1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_LoadDefaults1ActionPerformed
-        // TODO add your handling code here:
+        
         mf.saveDefaultWidgets();
     }//GEN-LAST:event__Button_LoadDefaults1ActionPerformed
 
     private void _Button_LoadDefaultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_LoadDefaultsActionPerformed
-        // TODO add your handling code here:
+        
         DefaultWidgets dw = mf.loadDefaultWidgets();
         if (dw != null) {
             _TextArea_Log.setText("Loaded default widgets!");

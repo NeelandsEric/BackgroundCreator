@@ -335,7 +335,7 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
     }// </editor-fold>//GEN-END:initComponents
 
     private void _ComboBox_Slave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_Slave1ActionPerformed
-        // TODO add your handling code here:
+        
 
         if (_ComboBox_Slave1.getSelectedIndex() == 0 && this.type != 1) {
 

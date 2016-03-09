@@ -343,27 +343,27 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
     }// </editor-fold>//GEN-END:initComponents
 
     private void _CheckBox_ItalicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__CheckBox_ItalicActionPerformed
-        // TODO add your handling code here:
+        
         updateFontLabel();
     }//GEN-LAST:event__CheckBox_ItalicActionPerformed
 
     private void _ComboBox_FontsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_FontsActionPerformed
-        // TODO add your handling code here:
+        
         updateFontLabel();
     }//GEN-LAST:event__ComboBox_FontsActionPerformed
 
     private void _ComboBox_FontSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_FontSizeActionPerformed
-        // TODO add your handling code here:
+        
         updateFontLabel();
     }//GEN-LAST:event__ComboBox_FontSizeActionPerformed
 
     private void _CheckBox_BoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__CheckBox_BoldActionPerformed
-        // TODO add your handling code here:
+        
         updateFontLabel();
     }//GEN-LAST:event__CheckBox_BoldActionPerformed
 
     private void _FormattedTextField_WidthFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event__FormattedTextField_WidthFocusLost
-        // TODO add your handling code here:
+        
         if ("".equals(_FormattedTextField_Width.getText())) {
             _FormattedTextField_Width.setText(String.valueOf(ds.getDisplayWidth()));
         } else {
@@ -378,7 +378,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
     }//GEN-LAST:event__FormattedTextField_WidthFocusLost
 
     private void _FormattedTextField_HeightFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event__FormattedTextField_HeightFocusLost
-        // TODO add your handling code here:
+        
         if ("".equals(_FormattedTextField_Height.getText())) {
             _FormattedTextField_Height.setText(String.valueOf(ds.getDisplayHeight()));
         } else {
@@ -459,7 +459,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
     }
 
     private void _ComboBox_BordersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_BordersActionPerformed
-        // TODO add your handling code here:
+        
         // Update the border
         if (!loading) {
             int index = _ComboBox_Borders.getSelectedIndex();
@@ -508,7 +508,7 @@ public class SettingsPanel extends javax.swing.JPanel implements ChangeListener 
     }//GEN-LAST:event__ComboBox_BordersActionPerformed
 
     private void _ComboBox_BorderSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_BorderSizeActionPerformed
-        // TODO add your handling code here:
+        
         if (!loading) {
             int borderSize = Integer.parseInt((String) _ComboBox_BorderSize.getSelectedItem());
             int index = _ComboBox_Borders.getSelectedIndex();
