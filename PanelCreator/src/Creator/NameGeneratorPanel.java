@@ -667,7 +667,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         if(row > -1 ){
 
             //System.out.println("Type switch for: " + s);
-            String[] values = new String[14];
+            String[] values = new String[15];
             values[0] = _Textfield_Name.getText();
             values[1] = String.valueOf(_ComboBox_Type.getSelectedIndex());
             values[2] = _FTF_DisplayedValue.getText();
@@ -682,6 +682,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             values[11] = String.valueOf(_ComboBox_LogType.getSelectedIndex());
             values[12] = _FTF_LogParam1.getText();
             values[13] = getDateString();
+            values[14] = _TextField_AlertTemplates.getText();
 
             String newString = String.join(",", values);
             //System.out.println("values read: " + newString);
@@ -1195,8 +1196,9 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             },
             new String [] {
                 "Name", "IO Type", "Display Value", "UoM", "Constant", "Offset",
-                "Decimal Places", "Generate Alerts", "Alert Time Frame",
+                "Decimal Places", "Generate Alerts", "Alert Templates", "Alert Time Frame",
                 "Low Alert", "High Alert", "Log Values", "Log Param", "Log Time Period"
+                
             }
         ) {
             Class[] types = new Class [] {
@@ -1204,11 +1206,11 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class,
                 java.lang.String.class, java.lang.String.class, java.lang.String.class,
                 java.lang.String.class, java.lang.String.class, java.lang.String.class,
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             @Override
