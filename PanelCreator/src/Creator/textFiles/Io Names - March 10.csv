@@ -1,3 +1,4 @@
+Name,IO Type,Display Value,UoM,Constant,Offset,Decimal Places,Generate Alerts,Alert Templates,Alert Time Frame,Low Alert,High Alert,Log Values,Log Param,Log Time Period
 `Store`
 Store Sqft,1,1,SqFt,1,0,0,0,,,,,0,,
 Store $/kWh,3,0.12,$/kWh,1,0,2,0,,,,,1,,2 years

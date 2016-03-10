@@ -16,26 +16,29 @@ public class PanelCreator {
         // TODO code application logic here
 
         PanelCreator pc = new PanelCreator();
-        pc.start();
+        pc.start(0);
     }
 
     /**
      * Starts the program
      */
-    private void start() {
+    private void start(int times) {
 
         try {
             mf = new MainFrame(this);
             mf.setVisible(true);
         } catch (Exception e) {
             System.out.println("Error caught in main");
-            e.printStackTrace();
+            //e.printStackTrace();
             System.out.println("Restarting");
             if (mf != null) {
                 mf.saveDefault();
             }
-
-            this.start();
+            // Will reset 5 times before not running again
+            times++;
+            if (times < 5) {
+                this.start(times);
+            }
         }
 
         // Show the main panel

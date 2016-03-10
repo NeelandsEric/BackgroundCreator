@@ -22,9 +22,8 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
     public MainFrame mf;
     private Scanner scan;
-    public IoNames ioNames;    
+    public IoNames ioNames;
     private List<DefaultTableModel> tableModels;
-   
 
     /**
      * Creates new form NameGeneratorPanel
@@ -36,29 +35,30 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         this.mf = mf;
         this.ioNames = ioNames;
         initComponents();
-        
+
         // Add table selection listener
         _Table_Items.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                int row = _Table_Items.getSelectedRow(); 
-                if(row > -1 ){
-                    int cols = _Table_Items.getModel().getColumnCount();
-                    String [] vals = new String[cols];
-                    for(int i = 0; i < cols; i++){
-                        vals[i] = (String) _Table_Items.getValueAt(row, i);   
-                        if(vals[i] == null){
-                            vals[i] = "";
+                if (!e.getValueIsAdjusting()) {
+
+                    int row = _Table_Items.getSelectedRow();
+                    if (row > -1) {
+                        int cols = _Table_Items.getModel().getColumnCount();
+                        String[] vals = new String[cols];
+                        for (int i = 0; i < cols; i++) {
+                            vals[i] = (String) _Table_Items.getValueAt(row, i);
+                            if (vals[i] == null) {
+                                vals[i] = "";
+                            }
                         }
+
+                        loadItem(vals);
                     }
-                    
-                    loadItem(vals);
                 }
             }
         });
     }
-    
-    
 
     public IoNames getIoNames() {
         return ioNames;
@@ -504,9 +504,9 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_SelectedItemInfoLayout.createSequentialGroup()
                         .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_SelectedItemInfoLayout.createSequentialGroup()
-                                .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(_Label_Alert, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(_CheckBox_Alert, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(_Label_Alert, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(_CheckBox_Alert, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(_Label_constant2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -617,7 +617,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _ComboBox_GroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_GroupsActionPerformed
-                      
+
         _Table_Items.setModel(tableModels.get(_ComboBox_Groups.getSelectedIndex()));
     }//GEN-LAST:event__ComboBox_GroupsActionPerformed
 
@@ -652,7 +652,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__ComboBox_TypeActionPerformed
 
     private void _CheckBox_AlertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__CheckBox_AlertActionPerformed
-        
+
         if (_CheckBox_Alert.isSelected()) {
             _CheckBox_Alert.setText("Yes");
         } else {
@@ -661,10 +661,10 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__CheckBox_AlertActionPerformed
 
     private void _Button_SaveSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SaveSelectedActionPerformed
-        
+
         int row = _Table_Items.getSelectedRow();
-        
-        if(row > -1 ){
+
+        if (row > -1) {
 
             //System.out.println("Type switch for: " + s);
             String[] values = new String[15];
@@ -676,13 +676,13 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             values[5] = _FTF_Offset.getText();
             values[6] = _FTF_DecimalPlaces.getText();
             values[7] = _CheckBox_Alert.isSelected() ? "1" : "0";
-            values[8] = _FTF_AlertTimeDelay.getText();
-            values[9] = _FTF_AlertLow.getText();
-            values[10] = _FTF_AlertHigh.getText();
-            values[11] = String.valueOf(_ComboBox_LogType.getSelectedIndex());
-            values[12] = _FTF_LogParam1.getText();
-            values[13] = getDateString();
-            values[14] = _TextField_AlertTemplates.getText();
+            values[8] = _TextField_AlertTemplates.getText();
+            values[9] = _FTF_AlertTimeDelay.getText();
+            values[10] = _FTF_AlertLow.getText();
+            values[11] = _FTF_AlertHigh.getText();
+            values[12] = String.valueOf(_ComboBox_LogType.getSelectedIndex());
+            values[13] = _FTF_LogParam1.getText();
+            values[14] = getDateString();
 
             String newString = String.join(",", values);
             //System.out.println("values read: " + newString);
@@ -694,7 +694,6 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_SaveSelectedActionPerformed
 
     private void _Button_NewNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_NewNameActionPerformed
-        
 
         String s = "New IO to be changed";
         ioNames.addString(_ComboBox_Groups.getSelectedIndex(), s);
@@ -704,7 +703,6 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_NewNameActionPerformed
 
     private void _ComboBox_LogTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_LogTypeActionPerformed
-        
 
         switch (_ComboBox_LogType.getSelectedIndex()) {
 
@@ -764,14 +762,14 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__RadioButton_MinActionPerformed
 
     private void _Button_SaveUserDefaultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SaveUserDefaultsActionPerformed
-        
+
         //parseVarNames();
         mf.updateVarNames(ioNames);
         mf.saveDefaultIoNames(ioNames);
     }//GEN-LAST:event__Button_SaveUserDefaultsActionPerformed
 
     private void _Button_LoadUserDefaultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_LoadUserDefaultsActionPerformed
-        
+
         IoNames names = mf.loadDefaultIoNames();
         if (names != null) {
             ioNames = null;
@@ -780,63 +778,83 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event__Button_LoadUserDefaultsActionPerformed
 
-    
-    public String getDateString(){
-        
+    public void parseDateString(String date) {
+
+        _FTF_LogTimeDay.setText("");
+        _FTF_LogTimeMonth.setText("");
+        _FTF_LogTimeYear.setText("");
+
+        if (!date.equals("")) {
+            String[] vals = date.split(" ");
+            System.out.println(Arrays.toString(vals));
+
+            for (int i = 0; i < vals.length; i += 2) {
+                if (vals[i + 1].equals("year") || vals[i + 1].equals("years")) {
+                    _FTF_LogTimeYear.setText(vals[i]);
+                } else if (vals[i + 1].equals("mon") || vals[i + 1].equals("mons")) {
+                    _FTF_LogTimeMonth.setText(vals[i]);
+                } else if (vals[i + 1].equals("day") || vals[i + 1].equals("days")) {
+                    _FTF_LogTimeDay.setText(vals[i]);
+                }
+            }
+        }
+    }
+
+    public String getDateString() {
+
         int day = Integer.parseInt(_FTF_LogTimeDay.getText());
         int month = Integer.parseInt(_FTF_LogTimeMonth.getText());
         int year = Integer.parseInt(_FTF_LogTimeYear.getText());
         String time = "";
-        if(year > 0){
-            if(year > 5){
+        if (year > 0) {
+            if (year > 5) {
                 year = 5;
             }
             time += String.valueOf(year);
-            if(year == 1){
+            if (year == 1) {
                 time += " year ";
-            }else {
+            } else {
                 time += " years ";
             }
         }
-        if(month > 0){
-            if(month > 12){
+        if (month > 0) {
+            if (month > 12) {
                 month = 12;
             }
             time += String.valueOf(month);
-            if(month == 1){
+            if (month == 1) {
                 time += " mon ";
-            }else {
+            } else {
                 time += " mons ";
             }
         }
-        if(month > 0){
-            if(month > 12){
+        if (month > 0) {
+            if (month > 12) {
                 month = 12;
             }
             time += String.valueOf(month);
-            if(month == 1){
+            if (month == 1) {
                 time += " mon ";
-            }else {
+            } else {
                 time += " mons ";
             }
         }
-        if(day > 0){
-            if(day > 350){
+        if (day > 0) {
+            if (day > 350) {
                 day = 350;
             }
             time += String.valueOf(day);
-            if(day == 1){
+            if (day == 1) {
                 time += " day";
-            }else {
+            } else {
                 time += " days";
             }
         }
-        
-        return time;       
-        
+
+        return time;
+
     }
-    
-    
+
     public void loadItem(String[] values) {
 
         String full = Arrays.toString(values).replace("[", "").replace("]", "");
@@ -854,11 +872,12 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             _FTF_AlertTimeDelay.setText("");
             _FTF_AlertLow.setText("");
             _FTF_AlertHigh.setText("");
+            _TextField_AlertTemplates.setText("");
             _ComboBox_LogType.setSelectedIndex(0);
             _ButtonGroup_LogType.clearSelection();
             _FTF_LogParam1.setText("");
-            
-        }else if (values.length > 8) {
+
+        } else {
             _Textfield_Name.setText(values[0]);
             _ComboBox_Type.setSelectedIndex(Integer.parseInt(values[1]));
             _FTF_DisplayedValue.setText(values[2]);
@@ -874,14 +893,23 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                 _CheckBox_Alert.setSelected(false);
                 _CheckBox_Alert.setText("No");
             }
-            _FTF_AlertTimeDelay.setText(values[8]);
-            _FTF_AlertLow.setText(values[9]);
-            _FTF_AlertHigh.setText(values[10]);
-            _ComboBox_LogType.setSelectedIndex(Integer.parseInt(values[11]));
-            _FTF_LogParam1.setText(values[12]);
-            
-        } else {
-            System.out.println("Not enough fields for " + values[0] + " - " + values.length);
+            _TextField_AlertTemplates.setText(values[8]);
+            _FTF_AlertTimeDelay.setText(values[9]);
+            _FTF_AlertLow.setText(values[10]);
+            _FTF_AlertHigh.setText(values[11]);
+            _ComboBox_LogType.setSelectedIndex(Integer.parseInt(values[12]));
+            _FTF_LogParam1.setText(values[13]);
+            parseDateString(values[14]);
+            _ButtonGroup_LogType.clearSelection();
+            if (values[12].endsWith("5")) {
+                if (values[13].equals("1")) {
+                    _RadioButton_Avg.setSelected(true);
+                } else if (values[13].equals("2")) {
+                    _RadioButton_Min.setSelected(true);
+                } else if (values[13].equals("3")) {
+                    _RadioButton_Max.setSelected(true);
+                }
+            }
         }
 
     }
@@ -965,16 +993,15 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
         if (scan != null) {
             scan.close();
-        }     
-        
+        }
+
         _Table_Items.setModel(tableModels.get(0));
         mf.updateVarNames(ioNames);
 
     }
-    
-    public void updateTable(){
-        
-           
+
+    public void updateTable() {
+
         _Table_Items.setModel(getDefaultTableModel());
         tableModels = null;
         // Make new list of table models
@@ -982,61 +1009,58 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         for (int i = 0; i < 7; i++) {
             tableModels.add(getDefaultTableModel());
         }
-        
+
         // For each array add it to its model
-        
         // Store strings
-        for(String line: ioNames.getStoreStr()){
+        for (String line : ioNames.getStoreStr()) {
             tableModels.get(0).addRow(line.split(","));
         }
-    
+
         // Rack strings
-        for(String line: ioNames.getRackStr()){
+        for (String line : ioNames.getRackStr()) {
             tableModels.get(1).addRow(line.split(","));
         }
 
         // Condenser strings
-        for(String line: ioNames.getCondStr()){
+        for (String line : ioNames.getCondStr()) {
             tableModels.get(2).addRow(line.split(","));
         }
-        
+
         // SG strings
-        for(String line: ioNames.getSgStr()){
+        for (String line : ioNames.getSgStr()) {
             tableModels.get(3).addRow(line.split(","));
         }
-        
+
         // Compressor strings
-        for(String line: ioNames.getCompStr()){
+        for (String line : ioNames.getCompStr()) {
             tableModels.get(4).addRow(line.split(","));
         }
-        
+
         // Systems strings
-        for(String line: ioNames.getSysStr()){
+        for (String line : ioNames.getSysStr()) {
             tableModels.get(5).addRow(line.split(","));
         }
-        
+
         // Extra strings
-        for(String line: ioNames.getExtraStr()){
+        for (String line : ioNames.getExtraStr()) {
             tableModels.get(6).addRow(line.split(","));
-        }       
-        _Table_Items.setModel(tableModels.get(0));        
-    }
-  
-    
-    public void addRow(int model, String s){
-        DefaultTableModel dm = tableModels.get(model);
-        dm.addRow(new String[]{s});        
-    }
-    
-    public void updateRow(int model, int row, String [] values){
-        
-        DefaultTableModel dm = tableModels.get(model);
-        for(int col = 0; col < dm.getColumnCount(); col++){
-            dm.setValueAt(values[col], row, col);
-        }        
+        }
+        _Table_Items.setModel(tableModels.get(0));
     }
 
-           
+    public void addRow(int model, String s) {
+        DefaultTableModel dm = tableModels.get(model);
+        dm.addRow(new String[]{s});
+    }
+
+    public void updateRow(int model, int row, String[] values) {
+
+        DefaultTableModel dm = tableModels.get(model);
+        for (int col = 0; col < dm.getColumnCount(); col++) {
+            dm.setValueAt(values[col], row, col);
+        }
+    }
+
     /**
      * formats a string input based on specific formating `name` indicates a
      * grouping `
@@ -1188,39 +1212,37 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         return info;
 
     }
-    
-    private DefaultTableModel getDefaultTableModel(){
-        return new DefaultTableModel(
-            new Object [][] {
 
-            },
-            new String [] {
-                "Name", "IO Type", "Display Value", "UoM", "Constant", "Offset",
-                "Decimal Places", "Generate Alerts", "Alert Templates", "Alert Time Frame",
-                "Low Alert", "High Alert", "Log Values", "Log Param", "Log Time Period"
-                
-            }
+    private DefaultTableModel getDefaultTableModel() {
+        return new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Name", "IO Type", "Display Value", "UoM", "Constant", "Offset",
+                    "Decimal Places", "Generate Alerts", "Alert Templates", "Alert Time Frame",
+                    "Low Alert", "High Alert", "Log Values", "Log Param", "Log Time Period"
+
+                }
         ) {
-            Class[] types = new Class [] {
+            Class[] types = new Class[]{
                 java.lang.String.class, java.lang.String.class, java.lang.String.class,
                 java.lang.String.class, java.lang.String.class, java.lang.String.class,
                 java.lang.String.class, java.lang.String.class, java.lang.String.class,
                 java.lang.String.class, java.lang.String.class, java.lang.String.class,
                 java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean [] {
+            boolean[] canEdit = new boolean[]{
                 false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false
             };
 
             @Override
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         };
     }

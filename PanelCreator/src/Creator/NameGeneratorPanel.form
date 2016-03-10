@@ -204,7 +204,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="_Label_Alert" linkSize="3" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
                                       <Component id="_CheckBox_Alert" linkSize="3" alignment="1" min="-2" pref="33" max="-2" attributes="0"/>
                                   </Group>
