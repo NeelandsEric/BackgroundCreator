@@ -1094,13 +1094,16 @@ public class WidgetPanel extends javax.swing.JPanel {
                     if (importedIOVariables != null && contains) {
 
                         String masterMapKey = varsToGen.getKey();
-
+                        
+                       
                         // Since we use the total variables twice, ive added a identifier using the 
                         // ampersand characters. The ampersand characters are removed right before trying
                         // to find the same key in the exported excel file. This will allow the variables
                         // to be listed and have unique widgets and locations while still using the same variables
+                        
+                        boolean ignore = false;
                         while (masterMapKey.contains("&")) {
-
+                            ignore = true;
                             int beginIndex = masterMapKey.indexOf("&");
                             int endIndex = masterMapKey.indexOf("&", beginIndex + 1) + 1;
                             String replace = " " + masterMapKey.substring(beginIndex, endIndex);
@@ -1110,7 +1113,23 @@ public class WidgetPanel extends javax.swing.JPanel {
                         //System.out.println("key: " + varsToGen.getKey());
                         if (importedIOVariables.containsKey(masterMapKey)) {
 
-                            int io_id = importedIOVariables.get(masterMapKey);
+                       
+                             int [] io_id;
+                            if(!ignore && (masterMapKey.startsWith("Performance Cost Sum Predicted")
+                                    || masterMapKey.startsWith("Performance kW Sum Predicted")
+                                    || masterMapKey.startsWith("Performance Total Cost Sum")                                
+                                    || masterMapKey.startsWith("Performance Total kW Sum") )){      
+                                
+                                System.out.println(masterMapKey);
+                                System.out.println(masterMapKey.replace("Predicted", "Actual"));
+                                
+                            
+                                io_id = new int [] {importedIOVariables.get(masterMapKey),
+                                           importedIOVariables.get(masterMapKey.replace("Predicted", "Actual"))};
+                            }else {
+                                io_id = new int [] {importedIOVariables.get(masterMapKey)};
+                            }
+                            
                             //System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + " with IO_ID: " + io_id);
 
                             exportStringMap.get(panelName).add(createWidget(entry.getValue().getWidgetCode(), varsToGen.getValue(), entry.getValue().getPositionPercentage(), io_id));
@@ -1118,7 +1137,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                         } else {
                             System.out.println("Linked " + orgKey + " to: " + masterMapKey + ". IO_ID not found");
                             // No io for this
-                            exportStringMap.get(panelName).add(createWidget(entry.getValue().getWidgetCode(), varsToGen.getValue(), entry.getValue().getPositionPercentage(), 0));
+                            exportStringMap.get(panelName).add(createWidget(entry.getValue().getWidgetCode(), varsToGen.getValue(), entry.getValue().getPositionPercentage(), new int []{0}));
                         }
 
                     } /*else if (contains) {
@@ -1231,16 +1250,20 @@ public class WidgetPanel extends javax.swing.JPanel {
         return true;
     }
 
-    public String createWidget(WidgetCode wc, Rectangle rect, Point per, int io_id) {
+    public String createWidget(WidgetCode wc, Rectangle rect, Point per, int [] io_id) {
 
         int xPos = rect.x + (int) (per.getX() * rect.getWidth() / 100.0);
         int yPos = rect.y + (int) (per.getY() * rect.getHeight() / 100.0);
 
         String code = wc.getFullWidgetText();
 
-        code = code.replace("`%IO_ID%`", String.valueOf(io_id))
+        code = code.replace("`%IO_ID%`", String.valueOf(io_id[0]))
                 .replace("`%XPOS%`", String.valueOf(xPos))
                 .replace("`%YPOS%`", String.valueOf(yPos));
+        
+        for(int i = 1; i < io_id.length; i++){
+            code = code.replace("`%IO_ID" + String.valueOf(i) + "%`", String.valueOf(io_id[i]));
+        }
 
         return code;
     }

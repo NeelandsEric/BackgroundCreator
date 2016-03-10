@@ -1140,13 +1140,10 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.ipady = 10;
         c.weighty = 1;
 
-        String[] totalTooltip = new String[]{"Performance Total Cost Sum Predicted", "Performance Total Cost Sum Actual",
-            "Performance Total Cost Sum Difference", "Performance Total kW Sum Predicted",
-            "Performance Total kW Sum Actual", "Performance Total kW Sum Difference"};
+        String[] totalTooltip = new String[]{"Performance Total Cost Sum Predicted", "Performance Total kW Sum Predicted"};
 
-        String[] tooltip = new String[]{"Performance Cost Sum Predicted `%rackname`", "Performance Cost Sum Actual `%rackname`",
-            "Performance Cost Sum Difference `%rackname`", "Performance kW Sum Predicted `%rackname`",
-            "Performance kW Sum Actual `%rackname`", "Performance kW Sum Difference `%rackname`"};
+        String[] tooltip = new String[]{"Performance Cost Sum Predicted `%rackname`",
+                                        "Performance kW Sum Predicted `%rackname`"};
 
         Rack rack = null;
         if (rackNum != 0) {
@@ -1191,11 +1188,16 @@ public class BackgroundFinancial extends javax.swing.JPanel {
                     // Replace string names
                     // Cost when j == 0 (0,1,2)
                     // kW when j == 1 (3,4,5)
-                    replace = tooltip[j * 3 + i - 1].replace("`%rackname`", rack.getName());
+                    if(i == 1){                    
+                        replace = tooltip[j].replace("`%rackname`", rack.getName());
+                    }
                 } else {
                     // Total strings
-                    replace = totalTooltip[j * 3 + i - 1];
+                    if(i == 1){                    
+                        replace = totalTooltip[j];
+                    }
                 }
+                    
 
                 widgetComponents.put(replace, label);
                 panel.add(label, c);
@@ -1214,6 +1216,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
     /**
      * Creates the operating panel
      *
+     * @param rackNum
      * @return JPanel
      */
     public JPanel panelOperatingDollars(int rackNum) {
@@ -1315,6 +1318,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
     /**
      * Creates the operating panel
      *
+     * @param rackNum
      * @return JPanel
      */
     public JPanel panelOperatingkWh(int rackNum) {
