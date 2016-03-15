@@ -122,8 +122,6 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         _Button_SaveAllIoNames = new javax.swing.JButton();
         _Button_LoadUserDefaults = new javax.swing.JButton();
         _Button_LoadProgramDefaults = new javax.swing.JButton();
-        _Label_alertHigh1 = new javax.swing.JLabel();
-        _TextField_AlertTemplates = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         _Table_Items = new javax.swing.JTable();
 
@@ -372,14 +370,6 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             }
         });
 
-        _Label_alertHigh1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _Label_alertHigh1.setText("Alert Templates");
-
-        _TextField_AlertTemplates.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _TextField_AlertTemplates.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        _TextField_AlertTemplates.setText("1,2");
-        _TextField_AlertTemplates.setToolTipText("io_unit_of_measure Field");
-
         javax.swing.GroupLayout _Panel_SelectedItemInfoLayout = new javax.swing.GroupLayout(_Panel_SelectedItemInfo);
         _Panel_SelectedItemInfo.setLayout(_Panel_SelectedItemInfoLayout);
         _Panel_SelectedItemInfoLayout.setHorizontalGroup(
@@ -416,16 +406,14 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                             .addComponent(_Label_Alert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(_Label_alertHigh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(_Label_constant1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(_Label_constant2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(_Label_alertHigh1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(_Label_constant2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(_Panel_SelectedItemInfoLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(_FTF_AlertHigh, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                                     .addComponent(_FTF_AlertTimeDelay)
-                                    .addComponent(_FTF_AlertLow, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                                    .addComponent(_TextField_AlertTemplates)))
+                                    .addComponent(_FTF_AlertLow, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_SelectedItemInfoLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(_CheckBox_Alert, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)))
@@ -539,10 +527,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                                 .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(_Label_decimalPlaces, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(_FTF_DecimalPlaces, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(_Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(_Label_alertHigh1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_TextField_AlertTemplates, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(41, 41, 41))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_SelectedItemInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, _Panel_SelectedItemInfoLayout.createSequentialGroup()
                             .addComponent(_Label_LogParam1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -609,9 +594,9 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(_Panel_SelectedItemInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(_Panel_SelectedItemInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -667,7 +652,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         if (row > -1) {
 
             //System.out.println("Type switch for: " + s);
-            String[] values = new String[15];
+            String[] values = new String[14];
             values[0] = _Textfield_Name.getText();
             values[1] = String.valueOf(_ComboBox_Type.getSelectedIndex());
             values[2] = _FTF_DisplayedValue.getText();
@@ -675,15 +660,15 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             values[4] = _FTF_Constant.getText();
             values[5] = _FTF_Offset.getText();
             values[6] = _FTF_DecimalPlaces.getText();
-            values[7] = _CheckBox_Alert.isSelected() ? "1" : "0";
-            values[8] = _TextField_AlertTemplates.getText();
-            values[9] = _FTF_AlertTimeDelay.getText();
-            values[10] = _FTF_AlertLow.getText();
-            values[11] = _FTF_AlertHigh.getText();
-            values[12] = String.valueOf(_ComboBox_LogType.getSelectedIndex());
-            values[13] = _FTF_LogParam1.getText();
-            values[14] = getDateString();
-
+            values[7] = _CheckBox_Alert.isSelected() ? "1" : "0";            
+            values[8] = _FTF_AlertTimeDelay.getText();
+            values[9] = _FTF_AlertLow.getText();
+            values[10] = _FTF_AlertHigh.getText();
+            values[11] = String.valueOf(_ComboBox_LogType.getSelectedIndex());
+            values[12] = _FTF_LogParam1.getText();
+            values[13] = getDateString();
+            
+            
             String newString = String.join(",", values);
             //System.out.println("values read: " + newString);
             ioNames.replaceString(_ComboBox_Groups.getSelectedIndex(), row, newString);
@@ -871,8 +856,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             _CheckBox_Alert.setText("No");
             _FTF_AlertTimeDelay.setText("");
             _FTF_AlertLow.setText("");
-            _FTF_AlertHigh.setText("");
-            _TextField_AlertTemplates.setText("");
+            _FTF_AlertHigh.setText("");            
             _ComboBox_LogType.setSelectedIndex(0);
             _ButtonGroup_LogType.clearSelection();
             _FTF_LogParam1.setText("");
@@ -892,21 +876,20 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             } else {
                 _CheckBox_Alert.setSelected(false);
                 _CheckBox_Alert.setText("No");
-            }
-            _TextField_AlertTemplates.setText(values[8]);
-            _FTF_AlertTimeDelay.setText(values[9]);
-            _FTF_AlertLow.setText(values[10]);
-            _FTF_AlertHigh.setText(values[11]);
-            _ComboBox_LogType.setSelectedIndex(Integer.parseInt(values[12]));
-            _FTF_LogParam1.setText(values[13]);
-            parseDateString(values[14]);
+            }            
+            _FTF_AlertTimeDelay.setText(values[8]);
+            _FTF_AlertLow.setText(values[9]);
+            _FTF_AlertHigh.setText(values[10]);
+            _ComboBox_LogType.setSelectedIndex(Integer.parseInt(values[11]));
+            _FTF_LogParam1.setText(values[12]);
+            parseDateString(values[13]);
             _ButtonGroup_LogType.clearSelection();
-            if (values[12].endsWith("5")) {
-                if (values[13].equals("1")) {
+            if (values[11].endsWith("5")) {
+                if (values[12].equals("1")) {
                     _RadioButton_Avg.setSelected(true);
-                } else if (values[13].equals("2")) {
+                } else if (values[12].equals("2")) {
                     _RadioButton_Min.setSelected(true);
-                } else if (values[13].equals("3")) {
+                } else if (values[12].equals("3")) {
                     _RadioButton_Max.setSelected(true);
                 }
             }
@@ -994,8 +977,9 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         if (scan != null) {
             scan.close();
         }
-
+        
         _Table_Items.setModel(tableModels.get(0));
+        _ComboBox_Groups.setSelectedIndex(0);
         mf.updateVarNames(ioNames);
 
     }
@@ -1218,7 +1202,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                 new Object[][]{},
                 new String[]{
                     "Name", "IO Type", "Display Value", "UoM", "Constant", "Offset",
-                    "Decimal Places", "Generate Alerts", "Alert Templates", "Alert Time Frame",
+                    "Decimal Places", "Generate Alerts", "Alert Time Frame",
                     "Low Alert", "High Alert", "Log Values", "Log Param", "Log Time Period"
 
                 }
@@ -1228,11 +1212,11 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class,
                 java.lang.String.class, java.lang.String.class, java.lang.String.class,
                 java.lang.String.class, java.lang.String.class, java.lang.String.class,
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean[]{
                 false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             @Override
@@ -1279,7 +1263,6 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     private javax.swing.JLabel _Label_LogTimeMonth;
     private javax.swing.JLabel _Label_LogTimeYear;
     private javax.swing.JLabel _Label_alertHigh;
-    private javax.swing.JLabel _Label_alertHigh1;
     private javax.swing.JLabel _Label_constant;
     private javax.swing.JLabel _Label_constant1;
     private javax.swing.JLabel _Label_constant2;
@@ -1294,7 +1277,6 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton _RadioButton_Max;
     private javax.swing.JRadioButton _RadioButton_Min;
     private javax.swing.JTable _Table_Items;
-    private javax.swing.JTextField _TextField_AlertTemplates;
     private javax.swing.JTextField _TextField_UoM;
     private javax.swing.JTextField _Textfield_Name;
     private javax.swing.JScrollPane jScrollPane1;

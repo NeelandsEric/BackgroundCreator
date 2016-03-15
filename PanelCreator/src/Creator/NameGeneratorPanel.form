@@ -38,9 +38,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="_Panel_SelectedItemInfo" min="-2" pref="302" max="-2" attributes="0"/>
+              <Component id="_Panel_SelectedItemInfo" min="-2" pref="277" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="249" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="274" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -92,7 +92,6 @@
                               <Component id="_Label_alertHigh" alignment="0" max="32767" attributes="0"/>
                               <Component id="_Label_constant1" alignment="0" max="32767" attributes="0"/>
                               <Component id="_Label_constant2" alignment="0" max="32767" attributes="0"/>
-                              <Component id="_Label_alertHigh1" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
@@ -101,7 +100,6 @@
                                       <Component id="_FTF_AlertHigh" linkSize="1" alignment="0" pref="65" max="32767" attributes="0"/>
                                       <Component id="_FTF_AlertTimeDelay" alignment="0" max="32767" attributes="0"/>
                                       <Component id="_FTF_AlertLow" linkSize="1" alignment="0" pref="65" max="32767" attributes="0"/>
-                                      <Component id="_TextField_AlertTemplates" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -250,11 +248,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="_Label_alertHigh1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="_TextField_AlertTemplates" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="1" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -793,24 +787,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_LoadProgramDefaultsActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="_Label_alertHigh1">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Alert Templates"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="_TextField_AlertTemplates">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="0"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="1,2"/>
-            <Property name="toolTipText" type="java.lang.String" value="io_unit_of_measure Field"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

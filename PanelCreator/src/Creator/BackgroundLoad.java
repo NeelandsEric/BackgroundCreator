@@ -10,7 +10,6 @@ import java.awt.IllegalComponentStateException;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.BorderFactory;
@@ -353,7 +352,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
         panel.add(label, c);
 
         String[] titles = new String[]{"SETPOINT", "  TEMP  ", " EEPR% ", "<HTML>EEPR%<br>PREDICTED</HTML>",
-            "<HTML>EEPR%<br>DIFFERENCE</HTML>", "CAPACITY", "    kW    ", "<HTML>kW<br>DIFFERENCE</HTML>", "<HTML>COST<br>DIFFERENCE</HTML>", " FAULT "};
+            "CAPACITY", "    kW    ", " FAULT "};
 
         c.gridx += 1;
         for (int i = 0; i < titles.length; i++) {
@@ -361,11 +360,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
             label = new JLabel(titles[i]);
             label.setOpaque(true);
             // Set the colours
-            if (i == 8) {
-                label.setBackground(Colours.GreenDark.getCol());
-            } else {
-                label.setBackground(Colours.BlueDark.getCol());
-            }
+            label.setBackground(Colours.BlueDark.getCol());
 
             label.setBorder(border);
             label.setFont(font);
@@ -384,7 +379,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
                 sg = racks.get(i).getSuctionGroupIndex(j);
                 numSystems += sg.getNumSystems();
                 for (int k = 0; k < sg.getNumSystems(); k++) {
-                    widgetInfo.add(new String[]{racks.get(i).getName(), sg.getName(), sg.getSystemNameIndex(k)});                    
+                    widgetInfo.add(new String[]{racks.get(i).getName(), sg.getName(), sg.getSystemNameIndex(k)});
                     //systemNames.add(sg.getSystemNameIndex(k));
                 }
             }
@@ -397,11 +392,15 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
         c.weighty = 1;
         c.fill = GridBagConstraints.BOTH;
 
-        String[] tooltip = new String[]{"System Setpoint `%rackname` `%sgname` `%sysname`", "System Temp `%rackname` `%sgname` `%sysname`",
-            "System EEPR `%rackname` `%sgname` `%sysname`", "System EEPR Predicted `%rackname` `%sgname` `%sysname`",
-            "System EEPR Difference `%rackname` `%sgname` `%sysname`", "System Capacity `%rackname` `%sgname` `%sysname`",
-            "System kW `%rackname` `%sgname` `%sysname`", "System kW Difference `%rackname` `%sgname` `%sysname`",
-            "System Cost Difference `%rackname` `%sgname` `%sysname`", "System Status `%rackname` `%sgname` `%sysname`"};
+        String[] tooltip = new String[]{
+            "System Setpoint `%rackname` `%sgname` `%sysname`",
+            "System Temp `%rackname` `%sgname` `%sysname`",
+            "System EEPR `%rackname` `%sgname` `%sysname`",
+            "System EEPR Predicted `%rackname` `%sgname` `%sysname`",
+            "System Capacity `%rackname` `%sgname` `%sysname`",
+            "System kW `%rackname` `%sgname` `%sysname`",
+            "System Status `%rackname` `%sgname` `%sysname`"
+        };
 
         for (int i = 0; i < numSystems; i++) {
 
@@ -422,22 +421,16 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
 
             c.gridx += 1;
 
-            for (int j = 0; j < 10; j++) {
+            for (int j = 0; j < tooltip.length; j++) {
                 label = new JLabel("");
                 label.setOpaque(true);
-                if (j == 8) {
-                    if (i % 2 == 0) {
-                        label.setBackground(Colours.GreenLight.getCol());
-                    } else {
-                        label.setBackground(Colours.GreenLightest.getCol());
-                    }
+
+                if (i % 2 == 0) {
+                    label.setBackground(Colours.BlueLight.getCol());
                 } else {
-                    if (i % 2 == 0) {
-                        label.setBackground(Colours.BlueLight.getCol());
-                    } else {
-                        label.setBackground(Colours.BlueLightest.getCol());
-                    }
+                    label.setBackground(Colours.BlueLightest.getCol());
                 }
+
                 label.setBorder(border);
                 label.setFont(font);
                 try {
@@ -623,7 +616,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
         //System.out.println("Positions " + rack.getName());
         Map<String, Rectangle> ioPoints = new TreeMap<>();
 
-         if(widgetComponents.isEmpty()){
+        if (widgetComponents.isEmpty()) {
             return null;
         }
         for (Map.Entry<String, Component> entry : widgetComponents.entrySet()) {

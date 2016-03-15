@@ -4,8 +4,6 @@ Cond kVA System `%rackname`,`%io_id`,`%slave_address`,2,4012,UHINT16,5000
 Cond kVAR System `%rackname`,`%io_id`,`%slave_address`,2,4009,UHINT16,5000
 Cond kW Actual `%rackname`,`%io_id`,`%slave_address`,2,4002,UHINT16,5000
 Cond kW Avg Demand `%rackname`,`%io_id`,`%slave_address`,2,4004,UHINT16,5000
-Cond kW Max `%rackname`,`%io_id`,`%slave_address`,2,4005,UHINT16,5000
-Cond kW Min `%rackname`,`%io_id`,`%slave_address`,2,4006,UHINT16,5000
 Cond kW Peak Demand `%rackname`,`%io_id`,`%slave_address`,2,4003,UHINT16,5000
 Cond kWh Actual `%rackname`,`%io_id`,`%slave_address`,2,4000,L[HINT16]32,5000
 Cond PF `%rackname`,`%io_id`,`%slave_address`,2,4014,UHINT16,5000
@@ -19,8 +17,6 @@ kVA System `%rackname`,`%io_id`,`%slave_address`,2,4012,UHINT16,5000
 kVAR System `%rackname`,`%io_id`,`%slave_address`,2,4009,UHINT16,5000
 kW Actual `%rackname`,`%io_id`,`%slave_address`,2,4002,UHINT16,5000
 kW Avg Demand `%rackname`,`%io_id`,`%slave_address`,2,4004,UHINT16,5000
-kW Max `%rackname`,`%io_id`,`%slave_address`,2,4005,UHINT16,5000
-kW Min `%rackname`,`%io_id`,`%slave_address`,2,4006,UHINT16,5000
 kW Peak Demand `%rackname`,`%io_id`,`%slave_address`,2,4003,UHINT16,5000
 kWh Actual `%rackname`,`%io_id`,`%slave_address`,2,4000,L[HINT16]32,5000
 PF `%rackname`,`%io_id`,`%slave_address`,2,4014,UHINT16,5000
