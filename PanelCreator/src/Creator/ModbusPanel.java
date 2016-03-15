@@ -336,7 +336,7 @@ public class ModbusPanel extends javax.swing.JPanel {
             if (powerScout) {
                 mb.updateKey(key, used, _ComboBox_PowerMeter.getSelectedIndex(), slave, register, powerScout);
             } else {
-                mb.updateKey(key, used, _ComboBox_SingleMeter.getSelectedIndex(), slave, register, powerScout);
+                mb.updateKey(key, used, (mb.getNumPowerScouts() + _ComboBox_SingleMeter.getSelectedIndex()), slave, register, powerScout);
             }
         } else if (key.equals("Remove Item")) {
             mb.removeKey(key);
@@ -395,6 +395,7 @@ public class ModbusPanel extends javax.swing.JPanel {
         _Button_LoadXls = new javax.swing.JButton();
         _Label_Loaded = new javax.swing.JLabel();
         _Button_CreateImports = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         _FileChooser_IoFile.setApproveButtonText("Open");
         _FileChooser_IoFile.setApproveButtonToolTipText("Open a xls file");
@@ -572,6 +573,13 @@ public class ModbusPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -613,10 +621,10 @@ public class ModbusPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(_Label_Single, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(_Button_ClearMeterSingle, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(92, 92, 92)))
+                                    .addComponent(_Button_ClearMeterSingle, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1)
+                                .addGap(15, 15, 15)))
                         .addGap(12, 12, 12))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(_Panel_ImportXLS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -642,10 +650,15 @@ public class ModbusPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(_Label_SingleIP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(_TF_SingleLoadIP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(_Label_Single, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(_Button_ClearMeterSingle, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(_Label_Single, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_Button_ClearMeterSingle, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(jButton1)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(_Panel_SingleLoads, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -841,23 +854,94 @@ public class ModbusPanel extends javax.swing.JPanel {
             String filePath = file.getAbsolutePath();
             filePath = removeExtension(filePath);
 
+            // -------------------- Daemons ---------------------------
+            // Make the inital workbook for the daemon import
+            Workbook wbd = new XSSFWorkbook();
+
+            int rowNum = 0;
+            Sheet sheet = wbd.createSheet("Modbus Daemons");
+
+            String[] headers = {"daemon_name", "daemon_ip_address", "daemon_period",
+                "daemon_active", "daemon_device_communication_status",
+                "daemon_device_communication_status_data_tag_id",
+                "daemon_port", "daemon_idletime", "daemon_station_id"
+            };
+
+            // Add the header row
+            Row row = sheet.createRow(rowNum);
+            // Create a cell and put a value in it.
+            for (int j = 0; j < headers.length; j++) {
+                Cell cell = row.createCell(j);
+
+                // If the string is a number, write it as a number
+                if (isStringNumeric(headers[j])) {
+                    cell.setCellValue(Double.parseDouble(headers[j].replace("\"", "")));
+                } else {
+                    cell.setCellValue(headers[j]);
+                }
+            }
+
+            rowNum++;
+
+            List<String> ips = mb.activeMeters(mf.store.getStoreName());
+
+            for (int i = 0; i < ips.size(); i++) {
+
+                // Create a row and put some cells in it. Rows are 0 based.
+                row = sheet.createRow(rowNum);
+                // Create a cell and put a value in it.
+                String[] vals = new String[headers.length];
+                vals[0] = ips.get(i).split(",")[0];
+                vals[1] = ips.get(i).split(",")[1];
+                vals[2] = "15000";
+                vals[3] = "1";
+                vals[4] = "1";
+                vals[5] = "2812";
+                vals[6] = "502";
+                vals[7] = "300";
+                vals[8] = String.valueOf(mf.getStationId());
+
+                for (int j = 0; j < headers.length; j++) {
+                    Cell cell = row.createCell(j);
+
+                    // If the string is a number, write it as a number
+                    if (isStringNumeric(vals[j])) {
+                        cell.setCellValue(Double.parseDouble(vals[j].replace("\"", "")));
+                    } else {
+                        cell.setCellValue(vals[j]);
+                    }
+
+                }
+
+                rowNum++;
+
+            }
+            try (FileOutputStream fileOutd = new FileOutputStream(filePath + "-Daemons.xlsx")) {
+                wbd.write(fileOutd);
+                fileOutd.close();
+                wbd.close();
+            } catch (NumberFormatException | IOException e) {
+
+                System.out.println("Fail writing modbus daemon settings to file: " + filePath);
+            }
+
+            // ------------------- Mappings ---------------------------
             Map<String, List<String[]>> meterMappings = writeOutModbusSettings(mf.store.getCs());
 
+            rowNum = 0;
             for (Entry<String, List<String[]>> entry : meterMappings.entrySet()) {
 
                 String newFP = filePath + "-" + entry.getKey() + "-Modbus.xlsx";
 
                 List<String[]> list = entry.getValue();
 
-                int rowNum;
-                Sheet sheet;
                 try (Workbook wb = new XSSFWorkbook()) {
                     formatList(list);
                     rowNum = 0;
                     sheet = wb.createSheet("Modbus Settings");
                     for (String[] r : list) {
                         // Create a row and put some cells in it. Rows are 0 based.
-                        Row row = sheet.createRow(rowNum);
+                        row = sheet.createRow(rowNum);
                         // Create a cell and put a value in it.
                         for (int i = 0; i < r.length; i++) {
                             Cell cell = row.createCell(i);
@@ -884,78 +968,6 @@ public class ModbusPanel extends javax.swing.JPanel {
                         } catch (Exception e) {
 
                         }
-
-                        // Make the inital workbook for the daemon import
-                        Workbook wbd = new XSSFWorkbook();
-
-                        rowNum = 0;
-                        sheet = wbd.createSheet("Modbus Daemons");
-
-                        String[] headers = {"daemon_name", "daemon_ip_address", "daemon_period",
-                            "daemon_active", "daemon_device_communication_status",
-                            "daemon_device_communication_status_data_tag_id",
-                            "daemon_port", "daemon_idletime", "daemon_station_id"
-                        };
-
-                        // Add the header row
-                        Row row = sheet.createRow(rowNum);
-                        // Create a cell and put a value in it.
-                        for (int j = 0; j < headers.length; j++) {
-                            Cell cell = row.createCell(j);
-
-                            // If the string is a number, write it as a number
-                            if (isStringNumeric(headers[j])) {
-                                cell.setCellValue(Double.parseDouble(headers[j].replace("\"", "")));
-                            } else {
-                                cell.setCellValue(headers[j]);
-                            }
-                        }
-
-                        rowNum++;
-                        
-                        
-                        List<String> ips = mb.activeMeters(mf.store.getStoreName());                        
-
-                        for (int i = 0; i < ips.size(); i++) {
-
-                            // Create a row and put some cells in it. Rows are 0 based.
-                            row = sheet.createRow(rowNum);
-                            // Create a cell and put a value in it.
-                            String[] vals = new String[headers.length];
-                            vals[0] = ips.get(i).split(",")[0];
-                            vals[1] = ips.get(i).split(",")[1];
-                            vals[2] = "15000";
-                            vals[3] = "1";
-                            vals[4] = "1";
-                            vals[5] = "2812";
-                            vals[6] = "502";
-                            vals[7] = "300";
-                            vals[8] = String.valueOf(mf.getStationId());
-
-                            for (int j = 0; j < headers.length; j++) {
-                                Cell cell = row.createCell(j);
-
-                                // If the string is a number, write it as a number
-                                if (isStringNumeric(vals[j])) {
-                                    cell.setCellValue(Double.parseDouble(vals[j].replace("\"", "")));
-                                } else {
-                                    cell.setCellValue(vals[j]);
-                                }
-
-                            }
-
-                            rowNum++;
-
-                        }
-                        try (FileOutputStream fileOutd = new FileOutputStream(filePath + "-Daemons.xlsx")) {
-                            wbd.write(fileOutd);
-                            fileOutd.close();
-                            wbd.close();
-                        } catch (NumberFormatException | IOException e) {
-
-                            System.out.println("Fail writing modbus daemon settings to file: " + filePath);
-                        }
-
                     }
                 } catch (NumberFormatException | IOException e) {
 
@@ -964,10 +976,23 @@ public class ModbusPanel extends javax.swing.JPanel {
                 }
             }
 
+            // ------------ End of For loop on Mappings ----------------------
         } else {
             System.out.println("File access cancelled by user.");
         }
     }//GEN-LAST:event__Button_CreateImportsActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        for (Map.Entry<String, Sensor> item : mb.getItems().entrySet()) {
+            if (item.getValue().isPowerScout()) {
+                System.out.print("POWERSCOUT :: ");
+            } else {
+                System.out.print("SINGLESCOUT :: ");
+            }
+            System.out.println(item.getKey() + " -> " + item.getValue());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formatList(List<String[]> list) {
 
@@ -1121,8 +1146,12 @@ public class ModbusPanel extends javax.swing.JPanel {
         };
 
         for (int i = 0; i < mb.getNumPowerScouts(); i++) {
-            meterMapping.put("Meter " + i, new ArrayList<>());
-            meterMapping.get("Meter " + i).add(headers);
+            meterMapping.put("PowerScout " + i, new ArrayList<>());
+            meterMapping.get("PowerScout " + i).add(headers);
+        }
+        for (int i = 0; i < mb.getNumSingleLoads(); i++) {
+            meterMapping.put("SingleScout " + meterMapping.size(), new ArrayList<>());
+            meterMapping.get("SingleScout " + (meterMapping.size() - 1)).add(headers);
         }
 
         String[] newString;
@@ -1165,7 +1194,11 @@ public class ModbusPanel extends javax.swing.JPanel {
                 if (sensor != null && sensor.getSlave() != -1) {
                     newString[1] = newString[1].replace("`%io_id`", getIOForString(newString[0]));
                     newString[2] = newString[2].replace("`%slave_address`", String.valueOf(sensor.getSlave()));
-                    meterName = "Meter " + sensor.getMeter();
+                    if (sensor.isPowerScout()) {
+                        meterName = "PowerScout " + sensor.getMeter();
+                    } else {
+                        meterName = "SingleScout " + sensor.getMeter();
+                    }
                     meterMapping.get(meterName).add(newString);
                 } else {
                     System.out.println("Did not add " + newString[0] + " because no sensor was linked");
@@ -1201,7 +1234,11 @@ public class ModbusPanel extends javax.swing.JPanel {
                             newString[1] = newString[1].replace("`%io_id`", getIOForString(newString[0]));
                             newString[2] = newString[2].replace("`%slave_address`", String.valueOf(sensor.getSlave()));
                             newString[4] = findRegisterValue(newString[4], sensor.getRegister());
-                            meterName = "Meter " + sensor.getMeter();
+                            if (sensor.isPowerScout()) {
+                                meterName = "PowerScout " + sensor.getMeter();
+                            } else {
+                                meterName = "SingleScout " + sensor.getMeter();
+                            }
                             meterMapping.get(meterName).add(newString);
                         } else {
                             System.out.println("Did not add " + newString[0] + " because no sensor was linked");
@@ -1265,5 +1302,6 @@ public class ModbusPanel extends javax.swing.JPanel {
     private javax.swing.JPanel _Panel_SingleLoads;
     private javax.swing.JTextField _TF_PowerScoutIP;
     private javax.swing.JTextField _TF_SingleLoadIP;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

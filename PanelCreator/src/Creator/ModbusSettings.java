@@ -125,6 +125,10 @@ public class ModbusSettings implements java.io.Serializable {
      */
     public void clearSingleKeys(int meter){
                 
+        // Meter is actually powerScouts + meter
+        if(meter <= getNumPowerScouts()){
+            meter += getNumPowerScouts();
+        }
         for(Entry<String, Sensor> entry: items.entrySet()){
             Sensor s = entry.getValue();
             if(!s.isPowerScout() && s.getMeter() == meter){               
