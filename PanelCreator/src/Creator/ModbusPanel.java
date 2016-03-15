@@ -9,11 +9,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.TreeMap;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import static org.apache.commons.io.FilenameUtils.removeExtension;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -40,7 +44,6 @@ public class ModbusPanel extends javax.swing.JPanel {
     private ArrayList<String> compStr;
     private Map<String, Integer> importedIOVariables;       // io_name,io_id
 
-   
     /**
      * Creates new form ModbusPanel
      *
@@ -815,7 +818,7 @@ public class ModbusPanel extends javax.swing.JPanel {
             readXFile(filePath);
             _Button_CreateImports.setEnabled(true);
             _Label_Loaded.setText("Loaded File!");
-            mf.loadImportedIos(importedIOVariables, 3);
+
         } else {
             System.out.println("File access cancelled by user.");
         }
@@ -836,51 +839,140 @@ public class ModbusPanel extends javax.swing.JPanel {
             File file = _FileChooser_IoFile.getSelectedFile();
             //System.out.println("File: " + file.getAbsolutePath());
             String filePath = file.getAbsolutePath();
-            if (!filePath.endsWith(".xlsx")) {
-                filePath += ".xlsx";
-            }
+            filePath = removeExtension(filePath);
 
-            try {
-                Workbook wb = new XSSFWorkbook();
-                FileOutputStream fileOut = new FileOutputStream(filePath);
+            Map<String, List<String[]>> meterMappings = writeOutModbusSettings(mf.store.getCs());
 
-                List<String[]> list = writeOutModbusSettings(mf.store.getCs());
-                int rowNum = 0;
-                Sheet sheet = wb.createSheet("Modbus Names");
+            for (Entry<String, List<String[]>> entry : meterMappings.entrySet()) {
 
-                for (String[] r : list) {
-                    // Create a row and put some cells in it. Rows are 0 based.
-                    Row row = sheet.createRow(rowNum);
-                    // Create a cell and put a value in it.
-                    for (int i = 0; i < r.length; i++) {
-                        Cell cell = row.createCell(i);
+                String newFP = filePath + "-" + entry.getKey() + "-Modbus.xlsx";
 
-                        // If the string is a number, write it as a number
-                        if (r[i].equals("")) {
-                            // Empty field, do nothing
+                List<String[]> list = entry.getValue();
 
-                        } else if (isStringNumeric(r[i])) {
-                            cell.setCellValue(Double.parseDouble(r[i].replace("\"", "")));
-                        } else {
-                            cell.setCellValue(r[i]);
+                int rowNum;
+                Sheet sheet;
+                try (Workbook wb = new XSSFWorkbook()) {
+                    formatList(list);
+                    rowNum = 0;
+                    sheet = wb.createSheet("Modbus Settings");
+                    for (String[] r : list) {
+                        // Create a row and put some cells in it. Rows are 0 based.
+                        Row row = sheet.createRow(rowNum);
+                        // Create a cell and put a value in it.
+                        for (int i = 0; i < r.length; i++) {
+                            Cell cell = row.createCell(i);
+
+                            // If the string is a number, write it as a number
+                            if (r[i].equals("")) {
+                                // Empty field, do nothing
+
+                            } else if (isStringNumeric(r[i])) {
+                                cell.setCellValue(Double.parseDouble(r[i].replace("\"", "")));
+                            } else {
+                                cell.setCellValue(r[i]);
+                            }
+
+                        }
+
+                        rowNum++;
+
+                    }
+                    if (rowNum > 1) {
+                        try (FileOutputStream fileOut = new FileOutputStream(newFP)) {
+                            wb.write(fileOut);
+                            fileOut.close();
+                        } catch (Exception e) {
+
+                        }
+
+                        // Make the inital workbook for the daemon import
+                        Workbook wbd = new XSSFWorkbook();
+
+                        rowNum = 0;
+                        sheet = wbd.createSheet("Modbus Daemons");
+
+                        String[] headers = {"daemon_name", "daemon_ip_address", "daemon_period",
+                            "daemon_active", "daemon_device_communication_status",
+                            "daemon_device_communication_status_data_tag_id",
+                            "daemon_port", "daemon_idletime", "daemon_station_id"
+                        };
+
+                        // Add the header row
+                        Row row = sheet.createRow(rowNum);
+                        // Create a cell and put a value in it.
+                        for (int j = 0; j < headers.length; j++) {
+                            Cell cell = row.createCell(j);
+
+                            // If the string is a number, write it as a number
+                            if (isStringNumeric(headers[j])) {
+                                cell.setCellValue(Double.parseDouble(headers[j].replace("\"", "")));
+                            } else {
+                                cell.setCellValue(headers[j]);
+                            }
+                        }
+
+                        rowNum++;
+                        
+                        
+                        List<String> ips = mb.activeMeters(mf.store.getStoreName());                        
+
+                        for (int i = 0; i < ips.size(); i++) {
+
+                            // Create a row and put some cells in it. Rows are 0 based.
+                            row = sheet.createRow(rowNum);
+                            // Create a cell and put a value in it.
+                            String[] vals = new String[headers.length];
+                            vals[0] = ips.get(i).split(",")[0];
+                            vals[1] = ips.get(i).split(",")[1];
+                            vals[2] = "15000";
+                            vals[3] = "1";
+                            vals[4] = "1";
+                            vals[5] = "2812";
+                            vals[6] = "502";
+                            vals[7] = "300";
+                            vals[8] = String.valueOf(mf.getStationId());
+
+                            for (int j = 0; j < headers.length; j++) {
+                                Cell cell = row.createCell(j);
+
+                                // If the string is a number, write it as a number
+                                if (isStringNumeric(vals[j])) {
+                                    cell.setCellValue(Double.parseDouble(vals[j].replace("\"", "")));
+                                } else {
+                                    cell.setCellValue(vals[j]);
+                                }
+
+                            }
+
+                            rowNum++;
+
+                        }
+                        try (FileOutputStream fileOutd = new FileOutputStream(filePath + "-Daemons.xlsx")) {
+                            wbd.write(fileOutd);
+                            fileOutd.close();
+                            wbd.close();
+                        } catch (NumberFormatException | IOException e) {
+
+                            System.out.println("Fail writing modbus daemon settings to file: " + filePath);
                         }
 
                     }
+                } catch (NumberFormatException | IOException e) {
 
-                    rowNum++;
-
+                    System.out.println("Fail writing modbus settings for " + entry.getKey()
+                            + " to file: " + filePath);
                 }
-
-                wb.write(fileOut);
-                fileOut.close();
-            } catch (NumberFormatException | IOException e) {
-
             }
 
         } else {
             System.out.println("File access cancelled by user.");
         }
     }//GEN-LAST:event__Button_CreateImportsActionPerformed
+
+    private void formatList(List<String[]> list) {
+
+        // want to combine any strings with increasing register values on the same sensors
+    }
 
     /**
      * Reads a file and returns a list of strings which contain all the variable
@@ -904,7 +996,7 @@ public class ModbusPanel extends javax.swing.JPanel {
             int cols = 0; // No of columns
             int tmp = 0;
 
-            int idCol = -1, idName = -1;
+            int idCol = -1, idName = -1, stationId = -1;
             // This trick ensures that we get the data properly even if it doesn't start from first few rows
             for (int i = 0; i < 1; i++) {
                 row = sheet.getRow(i);
@@ -935,10 +1027,26 @@ public class ModbusPanel extends javax.swing.JPanel {
                 } else {
                     idName = 1;
                 }
+
+                if (!sheet.getRow(i).getCell(2).toString().equals("io_station_id")) {
+                    for (int c = 0; c < cols; c++) {
+                        if (sheet.getRow(i).getCell(c).equals("io_station_id")) {
+                            stationId = (int) sheet.getRow(1).getCell(c).getNumericCellValue();
+                            break;
+                        }
+                    }
+                } else {
+                    stationId = (int) sheet.getRow(1).getCell(2).getNumericCellValue();
+                }
+
             }
 
             if (idName == -1 || idCol == -1) {
                 System.out.println("Could not locate io_name or io_id in excel header");
+                return;
+            }
+            if (stationId == -1) {
+                System.out.println("Couldnt locate station id");
                 return;
             }
 
@@ -966,6 +1074,8 @@ public class ModbusPanel extends javax.swing.JPanel {
             }
 
             fs.close();
+
+            mf.loadImportedIos(importedIOVariables, 3, stationId);
 
         } catch (Exception e) {
             System.out.println("Error reading excel file " + e.getMessage());
@@ -1002,16 +1112,18 @@ public class ModbusPanel extends javax.swing.JPanel {
         mf.updateModbusSettings(mb);
     }
 
-    public List<String[]> writeOutModbusSettings(ControlSettings cs) {
+    public Map<String, List<String[]>> writeOutModbusSettings(ControlSettings cs) {
 
-        List<String[]> vars = new ArrayList<>();
+        Map<String, List<String[]>> meterMapping = new HashMap<>();
 
-        // Add header
-        // Add header
         String[] headers = new String[]{"cycle_name", "io_id", "slave_addr", "function_id",
             "reg_addr", "cycle_data_type_id", "cycle_response_time"
         };
-        vars.add(headers);
+
+        for (int i = 0; i < mb.getNumPowerScouts(); i++) {
+            meterMapping.put("Meter " + i, new ArrayList<>());
+            meterMapping.get("Meter " + i).add(headers);
+        }
 
         String[] newString;
 
@@ -1022,7 +1134,7 @@ public class ModbusPanel extends javax.swing.JPanel {
         String rName, sgName;
         SuctionGroup sucG;
         String compName;
-        String key;
+        String key, meterName;
 
         for (int i = 0; i < cs.getNumRacks(); i++) {
             // do all racks
@@ -1042,24 +1154,23 @@ public class ModbusPanel extends javax.swing.JPanel {
                         .replace("`%sgname`", sgName)
                         .replace("`%compname`", compName);
 
-                
                 key = rName;
                 if (newString[0].contains("Cond")) {
                     // Cond string
                     key += " " + "Condenser";
-                }                
+                }
                 //System.out.println("Key: " + key + "|| revised string: " + newString[0]);
 
                 sensor = mb.getSensorForKey(key);
                 if (sensor != null && sensor.getSlave() != -1) {
                     newString[1] = newString[1].replace("`%io_id`", getIOForString(newString[0]));
                     newString[2] = newString[2].replace("`%slave_address`", String.valueOf(sensor.getSlave()));
-                    vars.add(newString);
-                }else {
+                    meterName = "Meter " + sensor.getMeter();
+                    meterMapping.get(meterName).add(newString);
+                } else {
                     System.out.println("Did not add " + newString[0] + " because no sensor was linked");
                 }
 
-                
             }
 
             // SUCTION GROUPS
@@ -1086,12 +1197,16 @@ public class ModbusPanel extends javax.swing.JPanel {
                         key = rName + " " + sgName + " " + compName;
 
                         sensor = mb.getSensorForKey(key);
-                        if (sensor != null) {
+                        if (sensor != null && sensor.getSlave() != -1) {
                             newString[1] = newString[1].replace("`%io_id`", getIOForString(newString[0]));
                             newString[2] = newString[2].replace("`%slave_address`", String.valueOf(sensor.getSlave()));
                             newString[4] = findRegisterValue(newString[4], sensor.getRegister());
+                            meterName = "Meter " + sensor.getMeter();
+                            meterMapping.get(meterName).add(newString);
+                        } else {
+                            System.out.println("Did not add " + newString[0] + " because no sensor was linked");
                         }
-                        vars.add(newString);
+
                     }
                 }
 
@@ -1099,7 +1214,7 @@ public class ModbusPanel extends javax.swing.JPanel {
         }
 
         // Now that we have the list, we have to replace the 
-        return vars;
+        return meterMapping;
 
     }
 

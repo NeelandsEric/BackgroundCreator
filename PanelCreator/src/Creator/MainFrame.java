@@ -48,6 +48,7 @@ public class MainFrame extends JFrame {
     public Store store;
     public XMLParser xmlParser;
     private final String homeDirectory;
+    public int stationId;
 
     /**
      * Creates new form MainFrame
@@ -180,7 +181,8 @@ public class MainFrame extends JFrame {
 
     }
     
-    public void loadImportedIos(Map<String, Integer> importedIos, int caller){
+    public void loadImportedIos(Map<String, Integer> importedIos, int caller, int stationId){
+        this.stationId = stationId;
         if(caller == 1){ // Widget panel call
             tmPanel.setImportedIoVariables(importedIos);
             mbPanel.setImportedIoVariables(importedIos);            
@@ -203,6 +205,12 @@ public class MainFrame extends JFrame {
     public void setStore(Store store) {
         this.store = store;
     }
+
+    public int getStationId() {
+        return stationId;
+    }
+    
+    
     
     public List<String []> getStringsNoParams(boolean addHeader){
         

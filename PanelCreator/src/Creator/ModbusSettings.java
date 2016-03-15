@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.swing.DefaultListModel;
@@ -77,8 +78,9 @@ public class ModbusSettings implements java.io.Serializable {
                 }
             }
         }
-
     }
+    
+    
 
     public void updateKey(String key, Boolean used, int meter, int slave, int register, boolean powerScout) {
 
@@ -326,5 +328,26 @@ public class ModbusSettings implements java.io.Serializable {
     public void setNumSingleLoads(int numSingleLoads) {
         this.numSingleLoads = numSingleLoads;
     }
+    
+    public List<String> activeMeters(String sn){
+        
+        Map<String, String> list = new HashMap<>();
+        
+        for(Sensor s: items.values()){
+            if(s.getMeter() > -1 && !list.containsKey(String.valueOf(s.getMeter()))){
+                String name = sn + " ";
+                name += s.isPowerScout() ? "PowerScout " : "SingleScout ";
+                name += String.valueOf(s.getMeter());
+                name += "," + (s.isPowerScout() ? getPowerScoutIPIndex(s.getMeter()): getSingleLoadIPIndex(s.getMeter()));
+                list.put(String.valueOf(s.getMeter()), name);
+            }
+        }
+        
+        // Returns a list of the strings
+        return list.values() instanceof List ? (List) list.values(): new ArrayList(list.values());
+    }
+    
+            
+    
 
 }

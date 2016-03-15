@@ -254,7 +254,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             readXFile(filePath);
             _Button_CreateImports.setEnabled(true);
             _Label_Loaded.setText("Loaded File!");
-            mf.loadImportedIos(importedIOVariables, 2);
+            
         } else {
             System.out.println("File access cancelled by user.");
         }
@@ -655,6 +655,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 }
             }
             fs.close();
+            mf.loadImportedIos(importedIOVariables, 2, stationId);
         } catch (Exception e) {
             System.out.println("Error reading excel file " + e.getMessage());
         }

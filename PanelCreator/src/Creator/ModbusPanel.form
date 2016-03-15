@@ -76,10 +76,7 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="_Label_Single" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="_Button_ClearMeterSingle" min="-2" pref="181" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="_Button_ClearMeterSingle" alignment="0" min="-2" pref="181" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                           </Group>

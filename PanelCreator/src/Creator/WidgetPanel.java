@@ -823,7 +823,7 @@ public class WidgetPanel extends javax.swing.JPanel {
             readXFile(filePath);
             _Button_CreateImports.setEnabled(true);
             _Label_Loaded.setText("Loaded File!");
-            mf.loadImportedIos(importedIOVariables, 1);
+            
         } else {
             System.out.println("File access cancelled by user.");
         }
@@ -1496,7 +1496,7 @@ public class WidgetPanel extends javax.swing.JPanel {
             int cols = 0; // No of columns
             int tmp = 0;
 
-            int idCol = -1, idName = -1;
+            int idCol = -1, idName = -1, stationId = -1;
             // This trick ensures that we get the data properly even if it doesn't start from first few rows
             for (int i = 0; i < 1; i++) {
                 row = sheet.getRow(i);
@@ -1527,13 +1527,30 @@ public class WidgetPanel extends javax.swing.JPanel {
                 } else {
                     idName = 1;
                 }
+                
+                if (!sheet.getRow(i).getCell(2).toString().equals("io_station_id")) {
+                    for (int c = 0; c < cols; c++) {
+                        if (sheet.getRow(i).getCell(c).equals("io_station_id")) {
+                            stationId = (int) sheet.getRow(1).getCell(c).getNumericCellValue();
+                            break;
+                        }
+                    }
+                } else {
+                    stationId = (int) sheet.getRow(1).getCell(2).getNumericCellValue();
+                }
+
             }
 
             if (idName == -1 || idCol == -1) {
                 System.out.println("Could not locate io_name or io_id in excel header");
                 return;
             }
-
+            if (stationId == -1) {
+                System.out.println("Couldnt locate station id");
+                return;
+            }
+                
+            
             importedIOVariables = new TreeMap<>();
             int io_id;
             String io_name;
@@ -1558,6 +1575,8 @@ public class WidgetPanel extends javax.swing.JPanel {
             }
 
             fs.close();
+            
+            mf.loadImportedIos(importedIOVariables, 1, stationId);
 
         } catch (Exception e) {
             System.out.println("Error reading excel file " + e.getMessage());
