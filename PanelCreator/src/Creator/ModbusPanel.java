@@ -9,6 +9,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -395,7 +398,6 @@ public class ModbusPanel extends javax.swing.JPanel {
         _Button_LoadXls = new javax.swing.JButton();
         _Label_Loaded = new javax.swing.JLabel();
         _Button_CreateImports = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
 
         _FileChooser_IoFile.setApproveButtonText("Open");
         _FileChooser_IoFile.setApproveButtonToolTipText("Open a xls file");
@@ -573,13 +575,6 @@ public class ModbusPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -610,21 +605,20 @@ public class ModbusPanel extends javax.swing.JPanel {
                             .addComponent(_Panel_SingleLoads, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                             .addComponent(_ComboBox_SingleMeter, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(_Label_NumSingle, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(_FTF_NumSingleLoads, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 28, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(_Label_SingleIP, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(_TF_SingleLoadIP))
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(_Label_Single, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(92, 92, 92))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(_Label_Single, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(_Label_NumSingle, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(_FTF_NumSingleLoads, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(_Button_ClearMeterSingle, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)
-                                .addGap(15, 15, 15)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(12, 12, 12))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(_Panel_ImportXLS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -650,15 +644,10 @@ public class ModbusPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(_Label_SingleIP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(_TF_SingleLoadIP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(_Label_Single, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_Button_ClearMeterSingle, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(jButton1)))
+                        .addGap(18, 18, 18)
+                        .addComponent(_Label_Single, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_Button_ClearMeterSingle, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(_Panel_SingleLoads, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -863,7 +852,7 @@ public class ModbusPanel extends javax.swing.JPanel {
 
             String[] headers = {"daemon_name", "daemon_ip_address", "daemon_period",
                 "daemon_active", "daemon_device_communication_status",
-                "daemon_device_communication_status_data_tag_id",
+                "daemon_communication_status_data_tag_id",
                 "daemon_port", "daemon_idletime", "daemon_station_id"
             };
 
@@ -935,44 +924,47 @@ public class ModbusPanel extends javax.swing.JPanel {
 
                 List<String[]> list = entry.getValue();
 
-                try (Workbook wb = new XSSFWorkbook()) {
-                    formatList(list);
-                    rowNum = 0;
-                    sheet = wb.createSheet("Modbus Settings");
-                    for (String[] r : list) {
-                        // Create a row and put some cells in it. Rows are 0 based.
-                        row = sheet.createRow(rowNum);
-                        // Create a cell and put a value in it.
-                        for (int i = 0; i < r.length; i++) {
-                            Cell cell = row.createCell(i);
+                if (list.size() > 1) {
 
-                            // If the string is a number, write it as a number
-                            if (r[i].equals("")) {
-                                // Empty field, do nothing
+                    try (Workbook wb = new XSSFWorkbook()) {
+                        List<String[]> newList = formatList(list);
+                        rowNum = 0;
+                        sheet = wb.createSheet("Modbus Settings");
+                        for (String[] r : newList) {
+                            // Create a row and put some cells in it. Rows are 0 based.
+                            row = sheet.createRow(rowNum);
+                            // Create a cell and put a value in it.
+                            for (int i = 0; i < r.length; i++) {
+                                Cell cell = row.createCell(i);
 
-                            } else if (isStringNumeric(r[i])) {
-                                cell.setCellValue(Double.parseDouble(r[i].replace("\"", "")));
-                            } else {
-                                cell.setCellValue(r[i]);
+                                // If the string is a number, write it as a number
+                                if (r[i].equals("")) {
+                                    // Empty field, do nothing
+
+                                } else if (isStringNumeric(r[i])) {
+                                    cell.setCellValue(Double.parseDouble(r[i].replace("\"", "")));
+                                } else {
+                                    cell.setCellValue(r[i]);
+                                }
+
                             }
 
-                        }
-
-                        rowNum++;
-
-                    }
-                    if (rowNum > 1) {
-                        try (FileOutputStream fileOut = new FileOutputStream(newFP)) {
-                            wb.write(fileOut);
-                            fileOut.close();
-                        } catch (Exception e) {
+                            rowNum++;
 
                         }
-                    }
-                } catch (NumberFormatException | IOException e) {
+                        if (rowNum > 1) {
+                            try (FileOutputStream fileOut = new FileOutputStream(newFP)) {
+                                wb.write(fileOut);
+                                fileOut.close();
+                            } catch (Exception e) {
 
-                    System.out.println("Fail writing modbus settings for " + entry.getKey()
-                            + " to file: " + filePath);
+                            }
+                        }
+                    } catch (NumberFormatException | IOException e) {
+
+                        System.out.println("Fail writing modbus settings for " + entry.getKey()
+                                + " to file: " + filePath);
+                    }
                 }
             }
 
@@ -982,21 +974,99 @@ public class ModbusPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event__Button_CreateImportsActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        for (Map.Entry<String, Sensor> item : mb.getItems().entrySet()) {
-            if (item.getValue().isPowerScout()) {
-                System.out.print("POWERSCOUT :: ");
-            } else {
-                System.out.print("SINGLESCOUT :: ");
+    private List<String[]> formatList(List<String[]> list) {
+
+        // Check positions for slave then register
+        // slave     [2]
+        // register  [4]
+        Comparator<String[]> comp = (String[] a, String[] b) -> {
+
+            if (a[0].equals("cycle_name")) {
+                return -1;
+            } else if (b[0].equals("cycle_name")) {
+                return 1;
             }
-            System.out.println(item.getKey() + " -> " + item.getValue());
+
+            if (a[2].equals(b[2])) {
+                // Slaves are the same now compare registers
+                if (Integer.parseInt(a[4]) > Integer.parseInt(b[4])) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            } else if (Integer.parseInt(a[2]) > Integer.parseInt(b[2])) {
+                return 1;
+            } else {
+                return -1;
+            }
+        };
+
+        Collections.sort(list, comp);
+
+        // Now that the list is sorted we can organize the specific slaves with
+        // concurrent registers to be combined
+        List<String[]> newList = new ArrayList<>();
+        String currReg = null;
+        String[] curr = null;
+        int cycleCounter = 1;
+        for (String[] next : list) {
+
+            if (next[0].equals("cycle_name") || next[5].equals("L[HINT16]")) {
+                newList.add(next);
+                if (curr != null) {
+                    //curr[0] = "Cycle " + cycleCounter;
+                    cycleCounter++;
+                    newList.add(curr);
+                }
+
+                curr = null;
+
+            } else {
+                // Not headers
+                if (curr == null) {
+                    curr = next;
+                    currReg = curr[4];
+                } else {
+                    // We have an existing current item, so check it
+                    if (curr[2].equals(next[2])) {
+                        // Slaves are the same now compare registers
+                        if ((Integer.parseInt(next[4]) - Integer.parseInt(currReg)) == 1) {
+                            // New register 1 more than previous one
+                            curr[1] += "," + next[1];
+                            currReg = next[4];
+
+                        } else {
+                            // Add current
+                            if (curr != null) {
+                                //curr[0] = "Cycle " + cycleCounter;
+                                cycleCounter++;
+                                newList.add(curr);
+                            }
+                            curr = next;
+                            currReg = next[4];
+                        }
+
+                    } else {
+                        // New slave, add current and reset it
+                        if (curr != null) {
+                            //curr[0] = "Cycle " + cycleCounter;
+                            cycleCounter++;
+                            newList.add(curr);
+                        }
+                        curr = next;
+                        currReg = next[4];
+                    }
+
+                }
+            }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void formatList(List<String[]> list) {
+        for (String[] s : newList) {
+            System.out.println(Arrays.toString(s));
+        }
 
-        // want to combine any strings with increasing register values on the same sensors
+        return newList;
+
     }
 
     /**
@@ -1098,6 +1168,7 @@ public class ModbusPanel extends javax.swing.JPanel {
                 }
             }
 
+            wb.close();
             fs.close();
 
             mf.loadImportedIos(importedIOVariables, 3, stationId);
@@ -1141,8 +1212,8 @@ public class ModbusPanel extends javax.swing.JPanel {
 
         Map<String, List<String[]>> meterMapping = new HashMap<>();
 
-        String[] headers = new String[]{"cycle_name", "io_id", "slave_addr", "function_id",
-            "reg_addr", "cycle_data_type_id", "cycle_response_time"
+        String[] headers = new String[]{"cycle_name", "cycle_inputs", "cycle_slave", "cycle_function",
+            "cycle_address", "cycle_data_type", "cycle_response_wait_time", "cycle_type"
         };
 
         for (int i = 0; i < mb.getNumPowerScouts(); i++) {
@@ -1302,6 +1373,5 @@ public class ModbusPanel extends javax.swing.JPanel {
     private javax.swing.JPanel _Panel_SingleLoads;
     private javax.swing.JTextField _TF_PowerScoutIP;
     private javax.swing.JTextField _TF_SingleLoadIP;
-    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,30 +1,30 @@
 `Rack`
-Cond Amp Avg `%rackname`,`%io_id`,`%slave_address`,2,4015,UHINT16,5000
-Cond kVA System `%rackname`,`%io_id`,`%slave_address`,2,4012,UHINT16,5000
-Cond kVAR System `%rackname`,`%io_id`,`%slave_address`,2,4009,UHINT16,5000
-Cond kW Actual `%rackname`,`%io_id`,`%slave_address`,2,4002,UHINT16,5000
-Cond kW Avg Demand `%rackname`,`%io_id`,`%slave_address`,2,4004,UHINT16,5000
-Cond kW Peak Demand `%rackname`,`%io_id`,`%slave_address`,2,4003,UHINT16,5000
-Cond kWh Actual `%rackname`,`%io_id`,`%slave_address`,2,4000,L[HINT16]32,5000
-Cond PF `%rackname`,`%io_id`,`%slave_address`,2,4014,UHINT16,5000
-Cond Volts L1 to L2 `%rackname`,`%io_id`,`%slave_address`,2,4018,UHINT16,5000
-Cond Volts L1 to L3 `%rackname`,`%io_id`,`%slave_address`,2,4020,UHINT16,5000
-Cond Volts L2 to L3 `%rackname`,`%io_id`,`%slave_address`,2,4019,UHINT16,5000
-Cond Volts Line to Line Avg `%rackname`,`%io_id`,`%slave_address`,2,4016,UHINT16,5000
-Cond Volts Line to Neutral Avg `%rackname`,`%io_id`,`%slave_address`,2,4017,UHINT16,5000
-Amp Avg `%rackname`,`%io_id`,`%slave_address`,2,4015,UHINT16,5000
-kVA System `%rackname`,`%io_id`,`%slave_address`,2,4012,UHINT16,5000
-kVAR System `%rackname`,`%io_id`,`%slave_address`,2,4009,UHINT16,5000
-kW Actual `%rackname`,`%io_id`,`%slave_address`,2,4002,UHINT16,5000
-kW Avg Demand `%rackname`,`%io_id`,`%slave_address`,2,4004,UHINT16,5000
-kW Peak Demand `%rackname`,`%io_id`,`%slave_address`,2,4003,UHINT16,5000
-kWh Actual `%rackname`,`%io_id`,`%slave_address`,2,4000,L[HINT16]32,5000
-PF `%rackname`,`%io_id`,`%slave_address`,2,4014,UHINT16,5000
-Volts L1 to L2 `%rackname`,`%io_id`,`%slave_address`,2,4018,UHINT16,5000
-Volts L1 to L3 `%rackname`,`%io_id`,`%slave_address`,2,4020,UHINT16,5000
-Volts L2 to L3 `%rackname`,`%io_id`,`%slave_address`,2,4019,UHINT16,5000
-Volts Line to Line Avg `%rackname`,`%io_id`,`%slave_address`,2,4016,UHINT16,5000
-Volts Line to Neutral Avg `%rackname`,`%io_id`,`%slave_address`,2,4017,UHINT16,5000
+Cond Amp Avg `%rackname`,`%io_id`,`%slave_address`,3,4015,UHINT16,1500,R
+Cond kVA System `%rackname`,`%io_id`,`%slave_address`,3,4012,UHINT16,1500,R
+Cond kVAR System `%rackname`,`%io_id`,`%slave_address`,3,4009,UHINT16,1500,R
+Cond kW Actual `%rackname`,`%io_id`,`%slave_address`,3,4002,UHINT16,1500,R
+Cond kW Avg Demand `%rackname`,`%io_id`,`%slave_address`,3,4004,UHINT16,1500,R
+Cond kW Peak Demand `%rackname`,`%io_id`,`%slave_address`,3,4003,UHINT16,1500,R
+Cond kWh Actual `%rackname`,`%io_id`,`%slave_address`,3,4000,L[HINT16]32,1500,R
+Cond PF `%rackname`,`%io_id`,`%slave_address`,3,4014,UHINT16,1500,R
+Cond Volts L1 to L2 `%rackname`,`%io_id`,`%slave_address`,3,4018,UHINT16,1500,R
+Cond Volts L1 to L3 `%rackname`,`%io_id`,`%slave_address`,3,4020,UHINT16,1500,R
+Cond Volts L2 to L3 `%rackname`,`%io_id`,`%slave_address`,3,4019,UHINT16,1500,R
+Cond Volts Line to Line Avg `%rackname`,`%io_id`,`%slave_address`,3,4016,UHINT16,1500,R
+Cond Volts Line to Neutral Avg `%rackname`,`%io_id`,`%slave_address`,3,4017,UHINT16,1500,R
+Amp Avg `%rackname`,`%io_id`,`%slave_address`,3,4015,UHINT16,1500,R
+kVA System `%rackname`,`%io_id`,`%slave_address`,3,4012,UHINT16,1500,R
+kVAR System `%rackname`,`%io_id`,`%slave_address`,3,4009,UHINT16,1500,R
+kW Actual `%rackname`,`%io_id`,`%slave_address`,3,4002,UHINT16,1500,R
+kW Avg Demand `%rackname`,`%io_id`,`%slave_address`,3,4004,UHINT16,1500,R
+kW Peak Demand `%rackname`,`%io_id`,`%slave_address`,3,4003,UHINT16,1500,R
+kWh Actual `%rackname`,`%io_id`,`%slave_address`,3,4000,L[HINT16]32,1500,R
+PF `%rackname`,`%io_id`,`%slave_address`,3,4014,UHINT16,1500,R
+Volts L1 to L2 `%rackname`,`%io_id`,`%slave_address`,3,4018,UHINT16,1500,R
+Volts L1 to L3 `%rackname`,`%io_id`,`%slave_address`,3,4020,UHINT16,1500,R
+Volts L2 to L3 `%rackname`,`%io_id`,`%slave_address`,3,4019,UHINT16,1500,R
+Volts Line to Line Avg `%rackname`,`%io_id`,`%slave_address`,3,4016,UHINT16,1500,R
+Volts Line to Neutral Avg `%rackname`,`%io_id`,`%slave_address`,3,4017,UHINT16,1500,R
 `Compressor`
-Comp Amps `%rackname` `%sgname` `%compname`,`%io_id`,`%slave_address`,2,4055 + `%registeraddress`,UHINT16,5000
-Comp kW `%rackname` `%sgname` `%compname`,`%io_id`,`%slave_address`,2,4028 + `%registeraddress`,UHINT16,5000
+Comp Amps `%rackname` `%sgname` `%compname`,`%io_id`,`%slave_address`,3,4055 + `%registeraddress`,UHINT16,1500,R
+Comp kW `%rackname` `%sgname` `%compname`,`%io_id`,`%slave_address`,3,4028 + `%registeraddress`,UHINT16,1500,R
