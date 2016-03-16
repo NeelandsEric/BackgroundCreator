@@ -1037,22 +1037,20 @@ public class ModbusPanel extends javax.swing.JPanel {
 
                         } else {
                             // Add current
-                            if (curr != null) {
-                                //curr[0] = "Cycle " + cycleCounter;
-                                cycleCounter++;
-                                newList.add(curr);
-                            }
+                            //curr[0] = "Cycle " + cycleCounter;
+                            cycleCounter++;
+                            newList.add(curr);
+
                             curr = next;
                             currReg = next[4];
                         }
 
                     } else {
                         // New slave, add current and reset it
-                        if (curr != null) {
-                            //curr[0] = "Cycle " + cycleCounter;
-                            cycleCounter++;
-                            newList.add(curr);
-                        }
+                        //curr[0] = "Cycle " + cycleCounter;
+                        cycleCounter++;
+                        newList.add(curr);
+
                         curr = next;
                         currReg = next[4];
                     }
@@ -1060,13 +1058,7 @@ public class ModbusPanel extends javax.swing.JPanel {
                 }
             }
         }
-
-        for (String[] s : newList) {
-            System.out.println(Arrays.toString(s));
-        }
-
         return newList;
-
     }
 
     /**

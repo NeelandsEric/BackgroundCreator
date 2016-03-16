@@ -575,6 +575,9 @@ public class WidgetPanel extends javax.swing.JPanel {
                             .addComponent(_ScrollPane_Log, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
+
+        _Panel_WidgetParamsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_FTF_WigetParam_xPos, _FTF_WigetParam_xPosPer, _FTF_WigetParam_yPos, _FTF_WigetParam_yPosPer});
+
         _Panel_WidgetParamsLayout.setVerticalGroup(
             _Panel_WidgetParamsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(_Panel_WidgetParamsLayout.createSequentialGroup()
@@ -1112,16 +1115,17 @@ public class WidgetPanel extends javax.swing.JPanel {
 
                         //System.out.println("key: " + varsToGen.getKey());
                         if (importedIOVariables.containsKey(masterMapKey)) {
-
+                          
                        
-                             int [] io_id;
+                            int [] io_id;
                             if(!ignore && (masterMapKey.startsWith("Performance Cost Sum Predicted")
                                     || masterMapKey.startsWith("Performance kW Sum Predicted")
                                     || masterMapKey.startsWith("Performance Total Cost Sum")                                
-                                    || masterMapKey.startsWith("Performance Total kW Sum") )){      
+                                    || masterMapKey.startsWith("Performance Total kW Sum") )
+                                    && entry.getValue().getWidgetCode().getWidgetName().startsWith("SmartPredvsAct")){      
                                 
-                                System.out.println(masterMapKey);
-                                System.out.println(masterMapKey.replace("Predicted", "Actual"));
+                                System.out.println("Multi widget key: " + masterMapKey);
+                                System.out.println("Multi widget key replaced: " + masterMapKey.replace("Predicted", "Actual"));
                                 
                             
                                 io_id = new int [] {importedIOVariables.get(masterMapKey),
@@ -1139,6 +1143,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                             // No io for this
                             exportStringMap.get(panelName).add(createWidget(entry.getValue().getWidgetCode(), varsToGen.getValue(), entry.getValue().getPositionPercentage(), new int []{0}));
                         }
+                                                
 
                     } /*else if (contains) {
 
@@ -1151,24 +1156,8 @@ public class WidgetPanel extends javax.swing.JPanel {
             } while (rackEntry); // Generate all the widget links for each rack
 
         }
-
         writeOutExports(exportStringMap);
-
-        /*
-         Highlighter h = _TextArea_WidgetExport.getHighlighter();
-         h.removeAllHighlights();
-         int sel = _TextArea_WidgetExport.getText().length();
-         if (sel > 0) {
-         try {
-         h.addHighlight(0, sel, DefaultHighlighter.DefaultPainter);
-         } catch (BadLocationException ex) {
-         System.out.println("Bad selection");
-         }
-         }
-         StringSelection stringSelection = new StringSelection(_TextArea_WidgetExport.getText());
-         Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
-         clpbrd.setContents(stringSelection, null);
-         */
+        
 
     }//GEN-LAST:event__Button_CreateImportsActionPerformed
 
@@ -1254,16 +1243,16 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         int xPos = rect.x + (int) (per.getX() * rect.getWidth() / 100.0);
         int yPos = rect.y + (int) (per.getY() * rect.getHeight() / 100.0);
-
+        
         String code = wc.getFullWidgetText();
-
+                       
         code = code.replace("`%IO_ID%`", String.valueOf(io_id[0]))
                 .replace("`%XPOS%`", String.valueOf(xPos))
-                .replace("`%YPOS%`", String.valueOf(yPos));
+                .replace("`%YPOS%`", String.valueOf(yPos));        
         
         for(int i = 1; i < io_id.length; i++){
             code = code.replace("`%IO_ID" + String.valueOf(i) + "%`", String.valueOf(io_id[i]));
-        }
+        }       
 
         return code;
     }

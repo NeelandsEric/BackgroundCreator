@@ -322,9 +322,9 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="_FTF_WigetParam_xPos" max="32767" attributes="0"/>
+                              <Component id="_FTF_WigetParam_xPos" linkSize="2" max="32767" attributes="0"/>
                               <Component id="_Button_EnableClicks" max="32767" attributes="0"/>
-                              <Component id="_FTF_WigetParam_yPos" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="_FTF_WigetParam_yPos" linkSize="2" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" alignment="1" groupAlignment="0" attributes="0">
@@ -344,8 +344,8 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="_FTF_WigetParam_xPosPer" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="_FTF_WigetParam_yPosPer" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                      <Component id="_FTF_WigetParam_xPosPer" linkSize="2" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="_FTF_WigetParam_yPosPer" linkSize="2" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="_ScrollPane_Log" alignment="1" min="-2" pref="227" max="-2" attributes="0"/>
