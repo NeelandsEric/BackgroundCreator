@@ -37,6 +37,7 @@ import java.util.zip.ZipInputStream;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.text.BadLocationException;
@@ -111,7 +112,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         }
     }
 
-    public void setImportedIoVariables(Map<String, Integer> newIo) {        
+    public void setImportedIoVariables(Map<String, Integer> newIo) {
         if (importedIOVariables != null && !importedIOVariables.isEmpty()) {
             importedIOVariables.clear();
         }
@@ -215,19 +216,6 @@ public class WidgetPanel extends javax.swing.JPanel {
         }
 
         readWidgetVars();
-    }
-
-    public void printWidgetVariables() {
-        ArrayList<String> ss = new ArrayList<>();
-        for (WidgetCode s : widgetList.values()) {
-            for (String vars : s.getVariables().keySet()) {
-                if (!ss.contains(vars)) {
-                    ss.add(vars);
-                }
-            }
-        }
-
-        System.out.println(ss);
     }
 
     public boolean isMouseActive(int index) {
@@ -776,7 +764,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _Button_CopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CopyActionPerformed
-        
+
         Highlighter h = _TextArea_WidgetExport.getHighlighter();
         h.removeAllHighlights();
         int sel = _TextArea_WidgetExport.getText().length();
@@ -826,15 +814,15 @@ public class WidgetPanel extends javax.swing.JPanel {
             readXFile(filePath);
             _Button_CreateImports.setEnabled(true);
             _Label_Loaded.setText("Loaded File!");
-            
+
         } else {
             System.out.println("File access cancelled by user.");
         }
-        
+
     }//GEN-LAST:event__Button_LoadXlsActionPerformed
 
     private void _ComboBox_DisplayPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_DisplayPanelActionPerformed
-        
+
         int index = _ComboBox_DisplayPanel.getSelectedIndex();
         mf.displayFrame.setTab(index);
 
@@ -850,7 +838,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__ComboBox_DisplayPanelActionPerformed
 
     private void _Button_widgetPositionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_widgetPositionsActionPerformed
-        
+
         _Button_EnableClicks.setEnabled(true);
         masterMap = mf.displayFrame.getWidgetPositions();
 
@@ -858,14 +846,12 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_widgetPositionsActionPerformed
 
     private void _ComboBox_SubgroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_SubgroupActionPerformed
-        
 
         loadWidgetVars();
 
     }//GEN-LAST:event__ComboBox_SubgroupActionPerformed
 
     private void _List_WidgetVarsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event__List_WidgetVarsValueChanged
-        
 
         if (!evt.getValueIsAdjusting()) {
             if (masterMap != null) {
@@ -875,7 +861,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__List_WidgetVarsValueChanged
 
     private void _Button_ClearSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_ClearSelectionActionPerformed
-        
+
         _List_WidgetVars.clearSelection();
         if (masterMap != null && masterMap.size() > 0) {
             loadMasterMapList();
@@ -883,7 +869,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_ClearSelectionActionPerformed
 
     private void _Button_GenerateWidgetLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_GenerateWidgetLinkActionPerformed
-        
+
         // Make sure we have a selection for the widget type, the widget variable type
         if (!_List_WidgetVars.isSelectionEmpty() && !_List_WidgetCodeList.isSelectionEmpty()) {
             String panelName = _ComboBox_DisplayPanel.getSelectedItem().toString();
@@ -902,15 +888,42 @@ public class WidgetPanel extends javax.swing.JPanel {
 
             String widgetCodeStr = _List_WidgetCodeList.getSelectedValue().toString();
             WidgetCode wc = widgetList.get(widgetCodeStr + ".txt");
-            //System.out.println(widgetCodeStr + " gives -> " + wc);
-            Point per = new Point(Integer.parseInt(_FTF_WigetParam_xPosPer.getText()), Integer.parseInt(_FTF_WigetParam_yPosPer.getText()));
+            Map<String, String> wcVariables = new HashMap<>();
+            boolean emptyParams = false;
+            if (!widgetCodeSettings.isEmpty()) {
 
-            WidgetLink wl = new WidgetLink(wc, per, panelType, subGroup);
+                for (Entry<String, JTextField> entry : widgetCodeSettings.entrySet()) {
 
-            if (ws.add(key, wl) != null) {
-                _TextArea_Log.append("The key {" + key + "} already exists. It has now been overwritten\n");
+                    if (emptyParams) {
+                        break;
+                    }
+                    if (entry.getValue().getText() != null && !entry.getValue().getText().equals("")) {
+                        wcVariables.put(entry.getKey(), entry.getValue().getText());
+                    } else {
+                        emptyParams = true;
+                    }
+                }
+                if (emptyParams) {
+                    JOptionPane.showMessageDialog(null, "Parameters must have values", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+
+            if (!emptyParams) {
+
+                //System.out.println(widgetCodeStr + " gives -> " + wc);
+                Point per = new Point(Integer.parseInt(_FTF_WigetParam_xPosPer.getText()), Integer.parseInt(_FTF_WigetParam_yPosPer.getText()));
+
+                WidgetLink wl = new WidgetLink(wc, per, panelType, subGroup, wcVariables);
+
+                if (ws.add(key, wl) != null) {
+                    _TextArea_Log.append("The key {" + key + "} already exists. It has now been overwritten\n");
+                } else {
+                    _TextArea_Log.append("Added {" + key + "} with WidgetVar {" + widgetCodeStr + "}\n");
+                }
             } else {
-                _TextArea_Log.append("Added {" + key + "} with WidgetVar {" + widgetCodeStr + "}\n");
+                System.out.println("Didnt add the link");
             }
 
         } else {
@@ -920,7 +933,6 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_GenerateWidgetLinkActionPerformed
 
     private void _Button_printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_printActionPerformed
-        
 
         _TextArea_WidgetExport.setText("");
         //System.out.println(ws.numberLinks());
@@ -932,7 +944,6 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_printActionPerformed
 
     private void _Button_ClearLinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_ClearLinksActionPerformed
-        
 
         //System.out.println("Size Before: " + mf.store.ws.widgetLinks.size());
         ws.clear();
@@ -942,7 +953,6 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_ClearLinksActionPerformed
 
     private void _List_WidgetCodeListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event__List_WidgetCodeListValueChanged
-        
 
         // _ScrollPane_WidgetSettings
         if (!evt.getValueIsAdjusting()) {
@@ -972,11 +982,11 @@ public class WidgetPanel extends javax.swing.JPanel {
             _Panel_WidgetSettings.removeAll();
             _Panel_WidgetSettings.setLayout(gbl);
 
-            for (Entry<String, String> entry : wc.getVariables().entrySet()) {
-                JLabel label = new JLabel(entry.getKey());
+            for (String name : wc.getVariables()) {
+                JLabel label = new JLabel(name);
                 label.setFont(new Font("Arial", Font.BOLD, 13));
                 label.setHorizontalAlignment(SwingConstants.CENTER);
-                JTextField textfield = new JTextField(entry.getValue());
+                JTextField textfield = new JTextField("");
                 textfield.setFont(new Font("Arial", Font.BOLD, 15));
 
                 widgetCodeSettings.put(label.getText(), textfield);
@@ -995,7 +1005,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__List_WidgetCodeListValueChanged
 
     private void _Button_CreateImportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CreateImportsActionPerformed
-        
+
         _TextArea_WidgetExport.setText("");
 
         // Generate the code (Save to Files later)
@@ -1097,13 +1107,11 @@ public class WidgetPanel extends javax.swing.JPanel {
                     if (importedIOVariables != null && contains) {
 
                         String masterMapKey = varsToGen.getKey();
-                        
-                       
+
                         // Since we use the total variables twice, ive added a identifier using the 
                         // ampersand characters. The ampersand characters are removed right before trying
                         // to find the same key in the exported excel file. This will allow the variables
                         // to be listed and have unique widgets and locations while still using the same variables
-                        
                         boolean ignore = false;
                         while (masterMapKey.contains("&")) {
                             ignore = true;
@@ -1115,35 +1123,30 @@ public class WidgetPanel extends javax.swing.JPanel {
 
                         //System.out.println("key: " + varsToGen.getKey());
                         if (importedIOVariables.containsKey(masterMapKey)) {
-                          
-                       
-                            int [] io_id;
-                            if(!ignore && (masterMapKey.startsWith("Performance Cost Sum Predicted")
-                                    || masterMapKey.startsWith("Performance kW Sum Predicted")
-                                    || masterMapKey.startsWith("Performance Total Cost Sum")                                
-                                    || masterMapKey.startsWith("Performance Total kW Sum") )
-                                    && entry.getValue().getWidgetCode().getWidgetName().startsWith("SmartPredvsAct")){      
-                                
-                                System.out.println("Multi widget key: " + masterMapKey);
-                                System.out.println("Multi widget key replaced: " + masterMapKey.replace("Predicted", "Actual"));
-                                
-                            
-                                io_id = new int [] {importedIOVariables.get(masterMapKey),
-                                           importedIOVariables.get(masterMapKey.replace("Predicted", "Actual"))};
-                            }else {
-                                io_id = new int [] {importedIOVariables.get(masterMapKey)};
-                            }
-                            
-                            //System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + " with IO_ID: " + io_id);
 
-                            exportStringMap.get(panelName).add(createWidget(entry.getValue().getWidgetCode(), varsToGen.getValue(), entry.getValue().getPositionPercentage(), io_id));
+                            int[] io_id;
+                            if (!ignore && (masterMapKey.startsWith("Performance Cost Sum Predicted")
+                                    || masterMapKey.startsWith("Performance kW Sum Predicted")
+                                    || masterMapKey.startsWith("Performance Total Cost Sum")
+                                    || masterMapKey.startsWith("Performance Total kW Sum"))
+                                    && entry.getValue().getWidgetCode().getWidgetName().startsWith("SmartPredvsAct")) {
+
+                                //System.out.println("Multi widget key: " + masterMapKey);
+                                //System.out.println("Multi widget key replaced: " + masterMapKey.replace("Predicted", "Actual"));
+                                io_id = new int[]{importedIOVariables.get(masterMapKey),
+                                    importedIOVariables.get(masterMapKey.replace("Predicted", "Actual"))};
+                            } else {
+                                io_id = new int[]{importedIOVariables.get(masterMapKey)};
+                            }
+
+                            //System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + " with IO_ID: " + io_id);
+                            exportStringMap.get(panelName).add(createWidget(entry.getValue(), varsToGen.getValue(), io_id));
 
                         } else {
                             System.out.println("Linked " + orgKey + " to: " + masterMapKey + ". IO_ID not found");
                             // No io for this
-                            exportStringMap.get(panelName).add(createWidget(entry.getValue().getWidgetCode(), varsToGen.getValue(), entry.getValue().getPositionPercentage(), new int []{0}));
+                            exportStringMap.get(panelName).add(createWidget(entry.getValue(), varsToGen.getValue(), new int[]{0}));
                         }
-                                                
 
                     } /*else if (contains) {
 
@@ -1157,17 +1160,17 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         }
         writeOutExports(exportStringMap);
-        
+
 
     }//GEN-LAST:event__Button_CreateImportsActionPerformed
 
     private void _Button_LoadDefaults1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_LoadDefaults1ActionPerformed
-        
+
         mf.saveDefaultWidgets();
     }//GEN-LAST:event__Button_LoadDefaults1ActionPerformed
 
     private void _Button_LoadDefaultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_LoadDefaultsActionPerformed
-        
+
         DefaultWidgets dw = mf.loadDefaultWidgets();
         if (dw != null) {
             _TextArea_Log.setText("Loaded default widgets!");
@@ -1220,39 +1223,47 @@ public class WidgetPanel extends javax.swing.JPanel {
                 sizeCounter = 0;
                 for (String imports : importList) {
                     String fp = filepath + "\\WidgetExports-" + entry.getKey() + "-" + sizeCounter + ".txt";
-                    System.out.println("Writing " + fp);
+                    //System.out.println("Writing " + fp);
 
                     try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                             new FileOutputStream(fp), "utf-8"))) {
                         writer.write(imports);
                         sizeCounter++;
-                        System.out.println("Writing " + fp + " Completed");
+                        //System.out.println("Writing " + fp + " Completed");
                     } catch (Exception e) {
-                        System.out.println("Failed writing " + fp);
+                        System.out.println("Failed writing to: " + fp);
                     }
                 }
             }
         } else {
-            System.out.println("File access cancelled by user.");
+            System.out.println("Saving widgets exports cancelled.");
         }
 
         return true;
     }
 
-    public String createWidget(WidgetCode wc, Rectangle rect, Point per, int [] io_id) {
+    public String createWidget(WidgetLink wl, Rectangle rect, int[] io_id) {
+
+        WidgetCode wc = wl.getWidgetCode();
+        Point per = wl.getPositionPercentage();
 
         int xPos = rect.x + (int) (per.getX() * rect.getWidth() / 100.0);
         int yPos = rect.y + (int) (per.getY() * rect.getHeight() / 100.0);
-        
+
         String code = wc.getFullWidgetText();
-                       
+
         code = code.replace("`%IO_ID%`", String.valueOf(io_id[0]))
                 .replace("`%XPOS%`", String.valueOf(xPos))
-                .replace("`%YPOS%`", String.valueOf(yPos));        
-        
-        for(int i = 1; i < io_id.length; i++){
-            code = code.replace("`%IO_ID" + String.valueOf(i) + "%`", String.valueOf(io_id[i]));
-        }       
+                .replace("`%YPOS%`", String.valueOf(yPos));
+
+        for (int i = 1; i < io_id.length; i++) {
+            code = code.replace("`%IO_ID" + String.valueOf(i + 1) + "%`", String.valueOf(io_id[i]));
+        }
+
+        for (Map.Entry<String, String> entry : wl.getVariables().entrySet()) {
+
+            code = code.replace(entry.getKey(), entry.getValue());
+        }
 
         return code;
     }
@@ -1403,7 +1414,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                         begin = line.indexOf("`%");
                         end = line.indexOf("%`") + 2;
                         String var = line.substring(begin, end);
-                        if (!var.equals("`%IO_ID%`") && !var.equals("`%XPOS%`") && !var.equals("`%YPOS%`")) {
+                        if (!var.contains("`%IO_ID") && !var.equals("`%XPOS%`") && !var.equals("`%YPOS%`")) {
                             vars.add(var);
                         }
                         line = line.substring(end);
@@ -1448,7 +1459,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                     begin = line.indexOf("`%");
                     end = line.indexOf("%`") + 2;
                     String var = line.substring(begin, end);
-                    if (!var.equals("`%IO_ID%`") && !var.equals("`%XPOS%`") && !var.equals("`%YPOS%`")) {
+                    if (!var.contains("`%IO_ID") && !var.equals("`%XPOS%`") && !var.equals("`%YPOS%`")) {
                         vars.add(var);
                     }
                     //System.out.println("Variable added: " + line.substring(begin, end));
@@ -1516,7 +1527,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                 } else {
                     idName = 1;
                 }
-                
+
                 if (!sheet.getRow(i).getCell(2).toString().equals("io_station_id")) {
                     for (int c = 0; c < cols; c++) {
                         if (sheet.getRow(i).getCell(c).equals("io_station_id")) {
@@ -1538,8 +1549,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                 System.out.println("Couldnt locate station id");
                 return;
             }
-                
-            
+
             importedIOVariables = new TreeMap<>();
             int io_id;
             String io_name;
@@ -1564,7 +1574,7 @@ public class WidgetPanel extends javax.swing.JPanel {
             }
 
             fs.close();
-            
+
             mf.loadImportedIos(importedIOVariables, 1, stationId);
 
         } catch (Exception e) {

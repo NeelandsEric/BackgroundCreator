@@ -2,6 +2,7 @@ package Creator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -15,29 +16,26 @@ import javax.xml.bind.annotation.XmlAccessorType;
 public class WidgetCode implements java.io.Serializable {
 
     public static final long serialVersionUID = 43217L;
-    public String widgetName;    
-    public Map<String, String> variables;
+    public String widgetName;   
+    public List<String> variables;
     public String fullWidgetText;
     
 
     public WidgetCode() {
         this.widgetName = "Empty";
-        this.variables = new HashMap<>();
+        this.variables = new ArrayList<>();
         this.fullWidgetText = "Empty";        
     }
 
     public WidgetCode(String variableName) {
         this.widgetName = variableName;
-        variables = new HashMap<>();
+        variables = new ArrayList<>();
         this.fullWidgetText = "";        
     }
 
     public WidgetCode(String variableName, ArrayList<String> vars, String fullWidgetText) {
         this.widgetName = variableName;
-        variables = new HashMap<>();
-        for (String s : vars) {
-            this.variables.put(s, "");
-        }
+        variables = vars;        
         this.fullWidgetText = fullWidgetText;
         
         if (this.widgetName.endsWith(".txt")) {
@@ -54,37 +52,21 @@ public class WidgetCode implements java.io.Serializable {
         this.widgetName = variableName;
     }
 
-    public Set<String> getKeys() {
-        return this.variables.keySet();
-    }
-
-    public Map<String, String> getVariables() {
+   
+    public List<String>  getVariables() {
         return variables;
     }
 
-    public void setVariables(Map<String, String> variables) {
+    public void setVariables(List<String> variables) {
         this.variables = variables;
     }
-
-    public Object getValue(String key) {
-        if (variables.containsKey(key)) {
-            return variables.get(key);
-        } else {
-            return null;
-        }
-    }
-
-    public void setVariable(String key, String value) {
-        Object replaced = variables.put(key, value);
-        if (replaced != null) {
-            System.out.println(key + " replaced " + replaced + " with " + value);
-        }
-    }
+    
+ 
 
     public void addVariables(ArrayList<String> vars) {
 
         for (String s : vars) {
-            this.variables.put(s, "");
+            this.variables.add(s);
         }
     }
 
@@ -103,8 +85,10 @@ public class WidgetCode implements java.io.Serializable {
 
     @Override
     public String toString() {
+        
+        
 
-        String s = this.widgetName + ": " + variables.size() + " mappings";
+        String s = this.widgetName + "\n";
         /*
          s += "Widget " + widgetName + " has " + variables.size() + " mappings.\n";
          for (String key : variables.keySet()) {

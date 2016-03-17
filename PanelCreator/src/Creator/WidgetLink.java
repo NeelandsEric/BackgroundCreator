@@ -6,6 +6,9 @@
 package Creator;
 
 import java.awt.Point;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -24,19 +27,22 @@ public class WidgetLink implements java.io.Serializable {
     public Point positionPercentage;
     public String panelType;
     public String subGroup;
+    public Map<String, String> variables;
 
     public WidgetLink() {
         this.widgetCode = null;
         this.positionPercentage = null;
         this.panelType = "BLANK";
         this.subGroup = "BLANK";
+        this.variables = new HashMap<>();
     }
 
-    public WidgetLink(WidgetCode widgetCode, Point positionPercentage, String panelType, String subGroup) {
+    public WidgetLink(WidgetCode widgetCode, Point positionPercentage, String panelType, String subGroup, Map<String, String> vars) {
         this.widgetCode = widgetCode;
         this.positionPercentage = positionPercentage;
         this.panelType = panelType;
         this.subGroup = subGroup;
+        this.variables = vars;
     }
 
     public WidgetCode getWidgetCode() {
@@ -71,15 +77,52 @@ public class WidgetLink implements java.io.Serializable {
     public void setPanelType(String panelType) {
         this.panelType = panelType;
     }
+
+    public Map<String, String> getVariables() {
+        return variables;
+    }
+
+    public void setVariables(Map<String, String> variables) {
+        this.variables = variables;
+    }
+    
+    
+    
+    public String getValue(String key) {
+        if (variables.containsKey(key)) {
+            return variables.get(key);
+        } else {
+            return null;
+        }
+    }
+
+    public void setVariable(String key, String value) {
+        Object replaced = variables.put(key, value);
+        if (replaced != null) {
+            System.out.println(key + " replaced " + replaced + " with " + value);
+        }/*else {
+            System.out.println("Added " + key + ": " + value);
+        }*/
+    }
     
     
 
     @Override
     public String toString() {
-        return "WidgetLink{\nwidgetCode = " + widgetCode
-                + "\npositionPercentage = [" + positionPercentage.getX()
-                + "," + positionPercentage.getY() + "]\npanelType = "
-                + panelType + "\nsubGroup = " + subGroup + "\n}";
+        String re = "\nWidget Name = " + widgetCode;
+        
+        re += variables.size() + " Mappings\n";
+        for(Entry<String, String> entry: variables.entrySet()){
+            re += entry.getKey() + ": " + entry.getValue() + "\n";
+        }
+        
+        re += "Position Percentage = [" + positionPercentage.getX()
+                + "," + positionPercentage.getY() + "]\nPanel Name = "
+                + panelType + "\nSubgroup = " + subGroup + "\n";
+        
+        
+        
+        return re;                
 
     }
 

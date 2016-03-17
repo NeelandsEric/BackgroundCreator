@@ -373,7 +373,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         label = new JLabel("Performance");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setOpaque(true);
-        label.setBackground(Colours.BlueDark.getCol());        
+        label.setBackground(Colours.BlueDark.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         panel.add(label, c2);
@@ -945,7 +945,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.weighty = 1;
         c.gridy = 1;
         c.gridwidth = c.gridheight = 2;
-        c.ipady = 40;
+        c.ipady = 60;
         widgetComponents.put(tooltip[0], label);
         panel.add(label, c);
 
@@ -1015,6 +1015,12 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         widgetComponents.put(tooltip[0], label);
         panel.add(label, c);
 
+        // Removing rest for now
+        //===========================
+        //===========================
+        /*
+        
+        
         //===========================
         // Predicted Site
         //===========================
@@ -1060,7 +1066,6 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.weightx = 1;
         c.ipadx = 40;
 
-        
         // Since we use the total variables twice, ive added a identifier using the 
         // ampersand characters. The ampersand characters are removed right before trying
         // to find the same key in the exported excel file. This will allow the variables
@@ -1087,6 +1092,9 @@ public class BackgroundFinancial extends javax.swing.JPanel {
             c.gridx -= 2;
             c.gridy += 1;
         }
+        
+        //===========================
+        */
 
         panel.setBorder(border);
         panel.setBackground(Colours.BlueDark.getCol());
@@ -1143,7 +1151,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         String[] totalTooltip = new String[]{"Performance Total Cost Sum Predicted", "Performance Total kW Sum Predicted"};
 
         String[] tooltip = new String[]{"Performance Cost Sum Predicted `%rackname`",
-                                        "Performance kW Sum Predicted `%rackname`"};
+            "Performance kW Sum Predicted `%rackname`"};
 
         Rack rack = null;
         if (rackNum != 0) {
@@ -1182,24 +1190,25 @@ public class BackgroundFinancial extends javax.swing.JPanel {
                     }
                 }
                 label.setBackground(Color.black);
-                c.ipady = 30;
+                c.ipady = 40;
                 String replace = "";
                 if (rack != null) {
                     // Replace string names
                     // Cost when j == 0 (0,1,2)
                     // kW when j == 1 (3,4,5)
-                    if(i == 1){                    
+                    if (i == 1) {
                         replace = tooltip[j].replace("`%rackname`", rack.getName());
                     }
                 } else {
                     // Total strings
-                    if(i == 1){                    
+                    if (i == 1) {
                         replace = totalTooltip[j];
                     }
                 }
-                    
 
-                widgetComponents.put(replace, label);
+                if ((i == 1 && j == 0) || (i == 1 && j == 1)) {
+                    widgetComponents.put(replace, label);
+                }
                 panel.add(label, c);
             }
         }
@@ -1288,7 +1297,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
                         label.setBackground(Colours.GreenLightest.getCol());
                         break;
                 }
-                c.ipady = 30;
+                c.ipady = 40;
 
                 String replace = "";
                 if (rack != null) {
@@ -1301,7 +1310,9 @@ public class BackgroundFinancial extends javax.swing.JPanel {
                     replace = totalTooltip[j * 3 + i - 1];
                 }
 
-                widgetComponents.put(replace, label);
+                if ((i == 1 && j == 0) || (i == 1 && j == 1)) {
+                    widgetComponents.put(replace, label);
+                }
                 panel.add(label, c);
             }
         }
@@ -1359,12 +1370,12 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         panel.add(label, c);
 
         String[] totalTooltip = new String[]{"Op kWh Total Previous Day", "Op kWh Total Previous Month",
-                                             "Op kWh Total Previous Year", "Op kWh Total Current Day",
-                                             "Op kWh Total Current Month", "Op kWh Total Current Year"};
+            "Op kWh Total Previous Year", "Op kWh Total Current Day",
+            "Op kWh Total Current Month", "Op kWh Total Current Year"};
 
         String[] tooltip = new String[]{"Op kWh Previous Day `%rackname`", "Op kWh Previous Month `%rackname`",
-                                        "Op kWh Previous Year `%rackname`", "Op kWh Counter Current Day `%rackname`",
-                                        "Op kWh Counter Current Month `%rackname`", "Op kWh Counter Current Year `%rackname`" };
+            "Op kWh Previous Year `%rackname`", "Op kWh Counter Current Day `%rackname`",
+            "Op kWh Counter Current Month `%rackname`", "Op kWh Counter Current Year `%rackname`"};
 
         Rack rack = null;
         if (rackNum != 0) {
@@ -1390,7 +1401,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
                         label.setBackground(Colours.BlueLightest.getCol());
                         break;
                 }
-                c.ipady = 30;
+                c.ipady = 40;
 
                 String replace = "";
                 if (rack != null) {
@@ -1403,7 +1414,9 @@ public class BackgroundFinancial extends javax.swing.JPanel {
                     replace = totalTooltip[j * 3 + i - 1];
                 }
 
-                widgetComponents.put(replace, label);
+                if ((i == 1 && j == 0) || (i == 1 && j == 1)) {
+                    widgetComponents.put(replace, label);
+                }
                 panel.add(label, c);
             }
         }
