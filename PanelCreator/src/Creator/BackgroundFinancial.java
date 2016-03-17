@@ -127,10 +127,20 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         this.updateView();
     }
 
+    /**
+     * Checks the canClick status
+     *
+     * @return boolean, true if can click, false if not
+     */
     public boolean canClick() {
         return canClick;
     }
 
+    /**
+     * Sets the canClick status
+     *
+     * @param canClick boolean
+     */
     public void setCanClick(boolean canClick) {
         this.canClick = canClick;
     }
@@ -181,6 +191,11 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         );
     }// </editor-fold>                        
 
+    /**
+     * Sends the clicked point to the display frame to send back to the main
+     *
+     * @param evt mouse event
+     */
     private void _Panel_MainPanelMousePressed(java.awt.event.MouseEvent evt) {
         if (canClick) {
             //System.out.println("Main click " + evt.getPoint());
@@ -188,6 +203,9 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Sends the clicked point to the display frame to send back to the main
+     */
     private void buttonClick() {
 
         if (canClick) {
@@ -801,6 +819,13 @@ public class BackgroundFinancial extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Gets the widget positions of the current panel These positions are stored
+     * in the widgetComponents map which contains the component and a string
+     * identifying the component
+     *
+     * @return Map<String, Rectangle> Key, Rectangle of the spot
+     */
     public Map<String, Rectangle> positions() {
         //public void positions() {
         //System.out.println("Positions " + rack.getName());
@@ -837,7 +862,6 @@ public class BackgroundFinancial extends javax.swing.JPanel {
             } catch (NullPointerException | IllegalComponentStateException e) {
                 System.out.println("Error with " + ((JLabel) p).getName());
             }
-
         }
 
         return ioPoints;
@@ -1021,81 +1045,80 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         /*
         
         
-        //===========================
-        // Predicted Site
-        //===========================
-        label = new JLabel("Hourly Predicted Cost ");
-        label.setOpaque(true);
-        label.setBackground(Colours.BlueLight.getCol());
-        label.setBorder(border);
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        label.setVerticalAlignment(JLabel.CENTER);
-        //c.fill = GridBagConstraints.BOTH;
-        c.gridx = 8;
-        c.weightx = 0;
-        //c.weighty = 1;
-        //c.gridy = 0;
-        c.gridheight = 1;
-        c.ipady = 20;
-        panel.add(label, c);
+         //===========================
+         // Predicted Site
+         //===========================
+         label = new JLabel("Hourly Predicted Cost ");
+         label.setOpaque(true);
+         label.setBackground(Colours.BlueLight.getCol());
+         label.setBorder(border);
+         label.setFont(font.deriveFont(Font.BOLD, 16));
+         label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+         label.setVerticalAlignment(JLabel.CENTER);
+         //c.fill = GridBagConstraints.BOTH;
+         c.gridx = 8;
+         c.weightx = 0;
+         //c.weighty = 1;
+         //c.gridy = 0;
+         c.gridheight = 1;
+         c.ipady = 20;
+         panel.add(label, c);
 
-        //===========================
-        // Predicted Site
-        //===========================
-        label = new JLabel("Hourly Actual Cost");
-        label.setBorder(border);
-        label.setOpaque(true);
-        label.setBackground(Colours.BlueLight.getCol());
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        label.setVerticalAlignment(JLabel.CENTER);
-        //c.fill = GridBagConstraints.BOTH;
-        c.gridy = 2;
-        //c.weightx = 1;
-        //c.weighty = 1;
-        //c.gridy = 0;
-        //c.gridheight = 1;
-        //c.ipady = 35;        
-        panel.add(label, c);
+         //===========================
+         // Predicted Site
+         //===========================
+         label = new JLabel("Hourly Actual Cost");
+         label.setBorder(border);
+         label.setOpaque(true);
+         label.setBackground(Colours.BlueLight.getCol());
+         label.setFont(font.deriveFont(Font.BOLD, 16));
+         label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+         label.setVerticalAlignment(JLabel.CENTER);
+         //c.fill = GridBagConstraints.BOTH;
+         c.gridy = 2;
+         //c.weightx = 1;
+         //c.weighty = 1;
+         //c.gridy = 0;
+         //c.gridheight = 1;
+         //c.ipady = 35;        
+         panel.add(label, c);
 
-        c.gridx = 10;
-        c.gridy = 1;
-        c.gridwidth = 2;
-        c.gridheight = 1;
-        c.weightx = 1;
-        c.ipadx = 40;
+         c.gridx = 10;
+         c.gridy = 1;
+         c.gridwidth = 2;
+         c.gridheight = 1;
+         c.weightx = 1;
+         c.ipadx = 40;
 
-        // Since we use the total variables twice, ive added a identifier using the 
-        // ampersand characters. The ampersand characters are removed right before trying
-        // to find the same key in the exported excel file. This will allow the variables
-        // to be listed and have unique widgets and locations while still using the same variables
-        tooltip = new String[]{"Performance Total Cost Sum Predicted &Hourly&", "Performance Total Cost Sum Actual &Hourly&",
-            "Performance Total kW Sum Predicted &Hourly&", "Performance Total kW Sum Actual &Hourly&"};
+         // Since we use the total variables twice, ive added a identifier using the 
+         // ampersand characters. The ampersand characters are removed right before trying
+         // to find the same key in the exported excel file. This will allow the variables
+         // to be listed and have unique widgets and locations while still using the same variables
+         tooltip = new String[]{"Performance Total Cost Sum Predicted &Hourly&", "Performance Total Cost Sum Actual &Hourly&",
+         "Performance Total kW Sum Predicted &Hourly&", "Performance Total kW Sum Actual &Hourly&"};
 
-        for (int i = 0; i < 2; i++) {
-            label = new JLabel();
-            label.setOpaque(true);
-            label.setBorder(border);
-            label.setBackground(Colours.GreenLight.getCol());
-            widgetComponents.put(tooltip[i], label);
-            panel.add(label, c);
+         for (int i = 0; i < 2; i++) {
+         label = new JLabel();
+         label.setOpaque(true);
+         label.setBorder(border);
+         label.setBackground(Colours.GreenLight.getCol());
+         widgetComponents.put(tooltip[i], label);
+         panel.add(label, c);
 
-            c.gridx += 2;
-            label = new JLabel();
-            label.setOpaque(true);
-            label.setBorder(border);
-            label.setBackground(Colours.BlueLight.getCol());
-            widgetComponents.put(tooltip[i + 2], label);
-            panel.add(label, c);
+         c.gridx += 2;
+         label = new JLabel();
+         label.setOpaque(true);
+         label.setBorder(border);
+         label.setBackground(Colours.BlueLight.getCol());
+         widgetComponents.put(tooltip[i + 2], label);
+         panel.add(label, c);
 
-            c.gridx -= 2;
-            c.gridy += 1;
-        }
+         c.gridx -= 2;
+         c.gridy += 1;
+         }
         
-        //===========================
-        */
-
+         //===========================
+         */
         panel.setBorder(border);
         panel.setBackground(Colours.BlueDark.getCol());
         //panel.setBackground(Color.black);

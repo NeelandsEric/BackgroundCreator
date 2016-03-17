@@ -611,6 +611,13 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
 
     }
 
+    /**
+     * Gets the widget positions of the current panel These positions are stored
+     * in the widgetComponents map which contains the component and a string
+     * identifying the component
+     *
+     * @return Map<String, Rectangle> Key, Rectangle of the spot
+     */
     public Map<String, Rectangle> positions() {
         //public void positions() {
         //System.out.println("Positions " + rack.getName());

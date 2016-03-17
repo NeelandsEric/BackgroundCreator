@@ -13,6 +13,7 @@ import javax.swing.border.Border;
 
 /**
  * Interface for backgrounds
+ *
  * @author EricGummerson
  */
 public interface Background {
@@ -65,13 +66,32 @@ public interface Background {
      */
     public void updateFontBorder(Font font, Border border);
 
+    /**
+     * Checks the click status of the panel The click status is used to find
+     * locations on the panels for the widgets
+     *
+     * @return clickStatus
+     */
     public boolean canClick();
 
+    /**
+     * Sets the click status for the panel
+     *
+     * @param canClick boolean
+     */
     public void setCanClick(boolean canClick);
 
-    
+    /**
+     * updates the panel
+     */
     public void updateView();
-    
+
+    /**
+     * Some of the last labels text color needs to be redone to white
+     *
+     * @param p1 Container to change colors
+     * @param c Color to change to
+     */
     public void setLabels(Container p1, Color c);
-    
+
 }

@@ -226,11 +226,10 @@ public class BackgroundRackNew extends javax.swing.JPanel {
 
         _Panel_MainPanel.setLayout(gbl);
         _Panel_MainPanel.removeAll();
-        
+
         widgetComponents.clear();
         widgetComponents = null;
         widgetComponents = new TreeMap<>();
-        
 
         //===========================================================
         // Store panel info at top
@@ -357,6 +356,13 @@ public class BackgroundRackNew extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Gets the widget positions of the current panel These positions are stored
+     * in the widgetComponents map which contains the component and a string
+     * identifying the component
+     *
+     * @return Map<String, Rectangle> Key, Rectangle of the spot
+     */
     public Map<String, Rectangle> positions() {
         //public void positions() {
         //System.out.println("Positions " + rack.getName());
@@ -800,7 +806,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.weightx = 1;
 
         String[] tooltip = new String[]{"Suction Pressure Setpoint " + rack.getName() + " `%sgname`",
-                                        "Suction Pressure Actual " + rack.getName() + " `%sgname`"};
+            "Suction Pressure Actual " + rack.getName() + " `%sgname`"};
 
         for (int i = 0; i < numSg; i++) {
 
@@ -839,7 +845,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.gridwidth = 1;
         c.weightx = 1;
         tooltip = new String[]{"Suction Temp " + rack.getName() + " `%sgname`",
-                               "Suction Superheat " + rack.getName() + " `%sgname`"};
+            "Suction Superheat " + rack.getName() + " `%sgname`"};
 
         for (int i = 0; i < numSg; i++) {
 
