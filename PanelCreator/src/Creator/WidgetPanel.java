@@ -43,6 +43,7 @@ import javax.swing.SwingConstants;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
+import static org.apache.commons.io.FilenameUtils.removeExtension;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -102,14 +103,9 @@ public class WidgetPanel extends javax.swing.JPanel {
             DefaultWidgets dw = mf.loadDefaultWidgets();
             if (dw != null) {
                 ws.setWidgetLinks(dw.getWidgetLinks());
-                widgetList = dw.getWidgetCodeMappings();
-                updateWidgetCode();
-            } else {
-                loadWidgetCode();
             }
-        } else {
-            loadWidgetCode();
         }
+        loadWidgetCode();        
     }
 
     public void setImportedIoVariables(Map<String, Integer> newIo) {
@@ -296,7 +292,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }
 
     public DefaultWidgets getDefaultWidgets() {
-        return new DefaultWidgets(ws.getWidgetLinks(), widgetList);
+        return new DefaultWidgets(ws.getWidgetLinks());
     }
 
     /**
@@ -887,7 +883,9 @@ public class WidgetPanel extends javax.swing.JPanel {
             String key = panelType + "-" + varType;
 
             String widgetCodeStr = _List_WidgetCodeList.getSelectedValue().toString();
-            WidgetCode wc = widgetList.get(widgetCodeStr + ".txt");
+
+            // WidgetCode removed from widget link
+            //WidgetCode wc = widgetList.get(widgetCodeStr + ".txt");
             Map<String, String> wcVariables = new HashMap<>();
             boolean emptyParams = false;
             if (!widgetCodeSettings.isEmpty()) {
@@ -915,7 +913,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                 //System.out.println(widgetCodeStr + " gives -> " + wc);
                 Point per = new Point(Integer.parseInt(_FTF_WigetParam_xPosPer.getText()), Integer.parseInt(_FTF_WigetParam_yPosPer.getText()));
 
-                WidgetLink wl = new WidgetLink(wc, per, panelType, subGroup, wcVariables);
+                WidgetLink wl = new WidgetLink(widgetCodeStr, per, panelType, subGroup, wcVariables);
 
                 if (ws.add(key, wl) != null) {
                     _TextArea_Log.append("The key {" + key + "} already exists. It has now been overwritten\n");
@@ -936,9 +934,16 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         _TextArea_WidgetExport.setText("");
         //System.out.println(ws.numberLinks());
+        String type = _ComboBox_DisplayPanel.getSelectedItem().toString();
+        if (type.startsWith("R:")) {
+            type = "Rack";
+        }
+
         for (Entry<String, WidgetLink> entry : ws.getWidgetLinkEntrySet()) {
-            //System.out.println("Key: " + entry.getKey() + " : " + entry.getValue());
-            _TextArea_WidgetExport.append("Key: " + entry.getKey() + " : " + entry.getValue() + "\n\n");
+            if (entry.getValue().getPanelType().equals(type)) {
+                //System.out.println("Key: " + entry.getKey() + " : " + entry.getValue());
+                _TextArea_WidgetExport.append("Key: " + entry.getKey() + " : " + entry.getValue() + "\n\n");
+            }
         }
 
     }//GEN-LAST:event__Button_printActionPerformed
@@ -947,6 +952,8 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         //System.out.println("Size Before: " + mf.store.ws.widgetLinks.size());
         ws.clear();
+        widgetList.clear();
+        loadWidgetCode();
         _TextArea_WidgetExport.setText("");
         //System.out.println("Size After: " + mf.store.ws.widgetLinks.size());
 
@@ -1129,7 +1136,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                                     || masterMapKey.startsWith("Performance kW Sum Predicted")
                                     || masterMapKey.startsWith("Performance Total Cost Sum")
                                     || masterMapKey.startsWith("Performance Total kW Sum"))
-                                    && entry.getValue().getWidgetCode().getWidgetName().startsWith("SmartPredvsAct")) {
+                                    && entry.getValue().getWidgetCodeName().startsWith("SmartPredvsAct")) {
 
                                 //System.out.println("Multi widget key: " + masterMapKey);
                                 //System.out.println("Multi widget key replaced: " + masterMapKey.replace("Predicted", "Actual"));
@@ -1174,8 +1181,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         DefaultWidgets dw = mf.loadDefaultWidgets();
         if (dw != null) {
             _TextArea_Log.setText("Loaded default widgets!");
-            ws.setWidgetLinks(dw.getWidgetLinks());
-            widgetList = dw.getWidgetCodeMappings();
+            ws.setWidgetLinks(dw.getWidgetLinks());            
         } else {
             _TextArea_Log.append("Didn't load default widgets, error locating the file.");
         }
@@ -1244,7 +1250,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     public String createWidget(WidgetLink wl, Rectangle rect, int[] io_id) {
 
-        WidgetCode wc = wl.getWidgetCode();
+        WidgetCode wc = widgetList.get(wl.getWidgetCodeName());
         Point per = wl.getPositionPercentage();
 
         int xPos = rect.x + (int) (per.getX() * rect.getWidth() / 100.0);
@@ -1376,12 +1382,9 @@ public class WidgetPanel extends javax.swing.JPanel {
             }
         }
 
-        if (scan != null) {
-            scan.close();
-        }
+        scan.close();
 
         loadWidgetVarsComboBox();
-
     }
 
     /**
@@ -1394,6 +1397,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         //System.out.println("Reading " + result);
         String[] ss = result.split(",");
+        ss[0] = removeExtension(ss[0]);
         // s[0] -> File name
         // s[1] -> File pathWidgetCode        
 
@@ -1430,6 +1434,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         WidgetCode widget = new WidgetCode(ss[0], vars, entireWidget);
         widgetList.put(ss[0], widget);
+        
 
     }
 

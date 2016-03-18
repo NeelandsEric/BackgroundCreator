@@ -2,11 +2,7 @@
 Store $/kWh
 Alert Log
 Performance Total Cost Sum Predicted
-Performance Total Cost Sum Actual
-Performance Total Cost Sum Difference
 Performance Total kW Sum Predicted
-Performance Total kW Sum Actual
-Performance Total kW Sum Difference
 Energy SEI Avg
 Energy Cost/SqFt
 Energy KBTU/kW Capacity
@@ -24,7 +20,7 @@ Op kWh Total Previous Day
 Op kWh Total Previous Month
 Op kWh Total Previous Year
 `Rack
-Cond Out Subcooling `%rackname`
+Liquid Subcooling `%rackname`
 Cond Outlet Pressure `%rackname`
 Cond Outlet Temperature `%rackname`
 Comp Rack Fault `%rackname`
@@ -44,11 +40,7 @@ Op kWh Previous Day `%rackname`
 Op kWh Previous Month `%rackname`
 Op kWh Previous Year `%rackname`
 Performance Cost Sum Predicted `%rackname`
-Performance Cost Sum Actual `%rackname`
-Performance Cost Sum Difference `%rackname`
 Performance kW Sum Predicted `%rackname`
-Performance kW Sum Actual `%rackname`
-Performance kW Sum Difference `%rackname`
 SEI `%rackname`
 `Condenser
 Cond Fan Amps `%rackname` `%fannum`
@@ -61,12 +53,9 @@ Suction Pressure Setpoint `%rackname` `%sgname`
 Suction Superheat `%rackname` `%sgname`
 `System
 System Capacity `%rackname` `%sgname` `%sysname`
-System Cost Difference `%rackname` `%sgname` `%sysname`
 System EEPR `%rackname` `%sgname` `%sysname`
-System EEPR Difference `%rackname` `%sgname` `%sysname`
 System EEPR Predicted `%rackname` `%sgname` `%sysname`
 System kW `%rackname` `%sgname` `%sysname`
-System kW Difference `%rackname` `%sgname` `%sysname`
 System Setpoint `%rackname` `%sgname` `%sysname`
 System Temp `%rackname` `%sgname` `%sysname`
 System Status `%rackname` `%sgname` `%sysname`

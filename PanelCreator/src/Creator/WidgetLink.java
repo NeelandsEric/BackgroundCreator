@@ -22,7 +22,8 @@ public class WidgetLink implements java.io.Serializable {
 
     public static final long serialVersionUID = 49121L;
 
-    public WidgetCode widgetCode;
+    public String widgetCodeName;
+    //public WidgetCode widgetCode;
     @XmlJavaTypeAdapter(MyPointAdapter.class)
     public Point positionPercentage;
     public String panelType;
@@ -30,28 +31,40 @@ public class WidgetLink implements java.io.Serializable {
     public Map<String, String> variables;
 
     public WidgetLink() {
-        this.widgetCode = null;
+        //this.widgetCode = null;
         this.positionPercentage = null;
         this.panelType = "BLANK";
         this.subGroup = "BLANK";
         this.variables = new HashMap<>();
     }
-
-    public WidgetLink(WidgetCode widgetCode, Point positionPercentage, String panelType, String subGroup, Map<String, String> vars) {
-        this.widgetCode = widgetCode;
+                    // WidgetCode widgetCode
+    public WidgetLink(String widgetCodeName, Point positionPercentage, String panelType, String subGroup, Map<String, String> vars) {
+        //this.widgetCode = widgetCode;
+        this.widgetCodeName = widgetCodeName;
         this.positionPercentage = positionPercentage;
         this.panelType = panelType;
         this.subGroup = subGroup;
         this.variables = vars;
     }
 
+    /*
     public WidgetCode getWidgetCode() {
         return widgetCode;
     }
 
     public void setWidgetCode(WidgetCode widgetCode) {
         this.widgetCode = widgetCode;
+    }*/
+
+    public String getWidgetCodeName() {
+        return widgetCodeName;
     }
+
+    public void setWidgetCodeName(String widgetCodeName) {
+        this.widgetCodeName = widgetCodeName;
+    }
+    
+    
 
     public Point getPositionPercentage() {
         return positionPercentage;
@@ -109,7 +122,7 @@ public class WidgetLink implements java.io.Serializable {
 
     @Override
     public String toString() {
-        String re = "\nWidget Name = " + widgetCode;
+        String re = "\nWidget Name = " + widgetCodeName + "\n";
         
         re += variables.size() + " Mappings\n";
         for(Entry<String, String> entry: variables.entrySet()){

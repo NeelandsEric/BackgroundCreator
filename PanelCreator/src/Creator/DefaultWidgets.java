@@ -24,7 +24,6 @@ public class DefaultWidgets implements java.io.Serializable {
 
     public static final long serialVersionUID = 43271L;
     public Map<String, WidgetLink> widgetLinks;
-    public Map<String, WidgetCode> widgetCodeMappings;
 
     /**
      * Default Constructor
@@ -36,11 +35,10 @@ public class DefaultWidgets implements java.io.Serializable {
      * Constructor taking both maps
      *
      * @param widgetLinks Map<String, WidgetLink>
-     * @param widgetCodeMappings Map<String, WidgetCode>
      */
-    public DefaultWidgets(Map<String, WidgetLink> widgetLinks, Map<String, WidgetCode> widgetCodeMappings) {
+    public DefaultWidgets(Map<String, WidgetLink> widgetLinks) {
         this.widgetLinks = widgetLinks;
-        this.widgetCodeMappings = widgetCodeMappings;
+
     }
 
     /**
@@ -59,24 +57,6 @@ public class DefaultWidgets implements java.io.Serializable {
      */
     public void setWidgetLinks(Map<String, WidgetLink> widgetLinks) {
         this.widgetLinks = widgetLinks;
-    }
-
-    /**
-     * Get widget code mappings
-     *
-     * @return Map<String, WidgetCode>
-     */
-    public Map<String, WidgetCode> getWidgetCodeMappings() {
-        return widgetCodeMappings;
-    }
-
-    /**
-     * Set widget code mappings
-     *
-     * @param widgetCodeMappings Map<String, WidgetCode>
-     */
-    public void setWidgetCodeMappings(Map<String, WidgetCode> widgetCodeMappings) {
-        this.widgetCodeMappings = widgetCodeMappings;
     }
 
 }

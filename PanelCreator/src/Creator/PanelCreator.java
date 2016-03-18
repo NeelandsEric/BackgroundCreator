@@ -29,7 +29,7 @@ public class PanelCreator {
             mf.setVisible(true);
         } catch (Exception e) {
             System.out.println("Error caught in main");
-            //e.printStackTrace();
+            e.printStackTrace();
             System.out.println("Restarting");
             if (mf != null) {
                 mf.saveDefault();

@@ -1333,9 +1333,9 @@ public class BackgroundFinancial extends javax.swing.JPanel {
                     replace = totalTooltip[j * 3 + i - 1];
                 }
 
-                if ((i == 1 && j == 0) || (i == 1 && j == 1)) {
-                    widgetComponents.put(replace, label);
-                }
+                
+                widgetComponents.put(replace, label);
+                
                 panel.add(label, c);
             }
         }
@@ -1437,9 +1437,8 @@ public class BackgroundFinancial extends javax.swing.JPanel {
                     replace = totalTooltip[j * 3 + i - 1];
                 }
 
-                if ((i == 1 && j == 0) || (i == 1 && j == 1)) {
-                    widgetComponents.put(replace, label);
-                }
+                
+                widgetComponents.put(replace, label);                
                 panel.add(label, c);
             }
         }

@@ -5,7 +5,6 @@
  */
 package Creator;
 
-import java.awt.Point;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
