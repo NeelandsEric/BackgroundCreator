@@ -1,12 +1,4 @@
 {
-  "widget_class": "Universal%20Command%20-%20Text",
-  "widget_subclass": "87",
-  "w_x": "237",
-  "w_y": "5",
-  "station": "",
-  "io_id": "`%IO_ID%`",
-  "code": "<div id=\"command_holder\" style=\"display:inline-block;\"></div>\n\n\n<script>try {\n\n  var io_id=`%IO_ID%`;\n\tvar widget_help={\n\t\t\"main_help\":{\n\t\t\t\"ro\":\"Câmp de trimitere a valorilor către IO\",\n\t\t\t\"en\":\"Value sending field to IO\"\n\t\t},\n\t\t\"ButtonText\":{\n\t\t\t\"ro\":\"Textul afișat pe buton\",\n\t\t\t\"en\":\"The text displayed on the button\",\n\t\t\t\"width\":\"50px\"\n\t\t},\n\t\t\"ButtonTextColor\":{\n\t\t\t\"ro\":\"Culoarea textului de pe buton\",\n\t\t\t\"en\":\"The color of the button text\",\n\t\t\t\"width\":\"80px\"\n\t\t},\n\t\t\"TextboxTextColor\":{\n\t\t\t\"ro\":\"Culoarea textului din câmpul textbox\",\n\t\t\t\"en\":\"The color of the text inside the textbox\",\n\t\t\t\"width\":\"80px\"\n\t\t}\n\t};\n\tvar color_pickers='ButtonTextColor,TextboxTextColor';\n\tvar editable_params={\n\t\t\"ButtonText\":\"Update\",\n\t\t\"ButtonTextColor\":\"#f70f0f\",\n\t\t\"TextboxTextColor\":\"#000000\"};\n\tvar params={\n    \"textbox_style\":\"color:green;\",\n    //\"button_holder\":, //id-ul unui div sau span, respectiv stringul \"\" pentru a plasa butonul in continuare\n    \"button_style\":\"color:blue;\",\n    \"button_text\":\"Update!\"};\n\tparams.textbox_style=\"color:\"+editable_params.TextboxTextColor+\";\";\n\tparams.button_style=\"color:\"+ editable_params.ButtonTextColor+\";\";\n  params.button_text=editable_params.ButtonText;\n  new command_text('command_holder', io_id, params);\n\n}catch(e){\n\talert(e);\n}\n</script>"
-},{
   "widget_class": "Universal%20Value%20-%20Text",
   "widget_subclass": "44",
   "w_x": "237",
