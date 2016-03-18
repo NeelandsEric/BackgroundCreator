@@ -105,7 +105,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                 ws.setWidgetLinks(dw.getWidgetLinks());
             }
         }
-        loadWidgetCode();        
+        loadWidgetCode();
     }
 
     public void setImportedIoVariables(Map<String, Integer> newIo) {
@@ -1181,7 +1181,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         DefaultWidgets dw = mf.loadDefaultWidgets();
         if (dw != null) {
             _TextArea_Log.setText("Loaded default widgets!");
-            ws.setWidgetLinks(dw.getWidgetLinks());            
+            ws.setWidgetLinks(dw.getWidgetLinks());
         } else {
             _TextArea_Log.append("Didn't load default widgets, error locating the file.");
         }
@@ -1250,28 +1250,33 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     public String createWidget(WidgetLink wl, Rectangle rect, int[] io_id) {
 
-        WidgetCode wc = widgetList.get(wl.getWidgetCodeName());
-        Point per = wl.getPositionPercentage();
+        if (widgetList.containsKey(wl.getWidgetCodeName())) {
+            WidgetCode wc = widgetList.get(wl.getWidgetCodeName());
+            Point per = wl.getPositionPercentage();
 
-        int xPos = rect.x + (int) (per.getX() * rect.getWidth() / 100.0);
-        int yPos = rect.y + (int) (per.getY() * rect.getHeight() / 100.0);
+            int xPos = rect.x + (int) (per.getX() * rect.getWidth() / 100.0);
+            int yPos = rect.y + (int) (per.getY() * rect.getHeight() / 100.0);
 
-        String code = wc.getFullWidgetText();
+            String code = wc.getFullWidgetText();
 
-        code = code.replace("`%IO_ID%`", String.valueOf(io_id[0]))
-                .replace("`%XPOS%`", String.valueOf(xPos))
-                .replace("`%YPOS%`", String.valueOf(yPos));
+            code = code.replace("`%IO_ID%`", String.valueOf(io_id[0]))
+                    .replace("`%XPOS%`", String.valueOf(xPos))
+                    .replace("`%YPOS%`", String.valueOf(yPos));
 
-        for (int i = 1; i < io_id.length; i++) {
-            code = code.replace("`%IO_ID" + String.valueOf(i + 1) + "%`", String.valueOf(io_id[i]));
+            for (int i = 1; i < io_id.length; i++) {
+                code = code.replace("`%IO_ID" + String.valueOf(i + 1) + "%`", String.valueOf(io_id[i]));
+            }
+
+            for (Map.Entry<String, String> entry : wl.getVariables().entrySet()) {
+
+                code = code.replace(entry.getKey(), entry.getValue());
+            }
+
+            return code;
+        }else {
+            System.out.println("Could not find a link for the widget named: " + wl.getWidgetCodeName());
+            return "";
         }
-
-        for (Map.Entry<String, String> entry : wl.getVariables().entrySet()) {
-
-            code = code.replace(entry.getKey(), entry.getValue());
-        }
-
-        return code;
     }
 
     public void loadMasterMapList() {
@@ -1434,7 +1439,6 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         WidgetCode widget = new WidgetCode(ss[0], vars, entireWidget);
         widgetList.put(ss[0], widget);
-        
 
     }
 
