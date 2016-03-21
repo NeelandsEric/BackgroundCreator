@@ -40,10 +40,7 @@
               <EmptySpace min="-2" pref="351" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" pref="200" max="-2" attributes="0"/>
               <EmptySpace pref="106" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="_Panel_Imports" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="203" max="-2" attributes="0"/>
-              </Group>
+              <Component id="_Panel_Imports" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -56,9 +53,7 @@
                   <Component id="_Panel_Imports" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="65" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="108" max="-2" attributes="0"/>
-              <EmptySpace pref="210" max="32767" attributes="0"/>
+              <EmptySpace pref="366" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -138,13 +133,5 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Test DB insert"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-      </Events>
-    </Component>
   </SubComponents>
 </Form>
