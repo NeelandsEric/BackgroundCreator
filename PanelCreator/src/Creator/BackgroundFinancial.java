@@ -70,9 +70,13 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         this.border = border;
         this.img = img;
         this.storeName = storeName;
-        this.widgetComponents = null;
         this.widgetComponents = new TreeMap<>();
         this.updateView();
+    }
+    
+    public void updateDisplaySettings(DisplaySettings ds){
+        this.border = ds.getBorder();
+        this.font = ds.getFont();        
     }
 
     /**

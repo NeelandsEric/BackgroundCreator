@@ -335,14 +335,7 @@ public class MainFrame extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        _FileChooser_LoadLogo = new javax.swing.JFileChooser();
-        _FileChooser_SavePicture = new javax.swing.JFileChooser();
-        _FileChooser_SaveStore = new javax.swing.JFileChooser();
-        _FileChooser_LoadStore = new javax.swing.JFileChooser();
         _FileChooser = new javax.swing.JFileChooser();
-        _FileChooser_SaveCSV = new javax.swing.JFileChooser();
-        _FileChooser_SaveText = new javax.swing.JFileChooser();
-        _FileChooser_SaveExcel = new javax.swing.JFileChooser();
         _TabbedPane_Tabs = new javax.swing.JTabbedPane();
         _MenuBar_Menus = new javax.swing.JMenuBar();
         _Menu_File = new javax.swing.JMenu();
@@ -363,32 +356,6 @@ public class MainFrame extends JFrame {
         _MenuItem_OpenImage = new javax.swing.JMenuItem();
         _MenuItem_RemoveImage = new javax.swing.JMenuItem();
 
-        _FileChooser_LoadLogo.setApproveButtonText("Open");
-        _FileChooser_LoadLogo.setApproveButtonToolTipText("Open the logo file");
-        _FileChooser_LoadLogo.setCurrentDirectory(null);
-        _FileChooser_LoadLogo.setDialogTitle("Open image file for the store logo");
-        _FileChooser_LoadLogo.setFileFilter(new FilterImage());
-
-        _FileChooser_SavePicture.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
-        _FileChooser_SavePicture.setApproveButtonText("Save");
-        _FileChooser_SavePicture.setApproveButtonToolTipText("Save Picture");
-        _FileChooser_SavePicture.setCurrentDirectory(null);
-        _FileChooser_SavePicture.setDialogTitle("Directory to save a picture");
-        _FileChooser_SavePicture.setFileFilter(new FileNameExtensionFilter("Image files (.png, .jpg, .gif)", new String[]{"jpg", "gif", "png"}));
-
-        _FileChooser_SaveStore.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
-        _FileChooser_SaveStore.setApproveButtonText("Save");
-        _FileChooser_SaveStore.setApproveButtonToolTipText("Save Store");
-        _FileChooser_SaveStore.setCurrentDirectory(null);
-        _FileChooser_SaveStore.setDialogTitle("Directory to save store");
-        _FileChooser_SaveStore.setFileFilter(new FileNameExtensionFilter("XML File .xml", new String[]{"xml"}));
-
-        _FileChooser_LoadStore.setApproveButtonText("Open Store");
-        _FileChooser_LoadStore.setApproveButtonToolTipText("Loads the store file");
-        _FileChooser_LoadStore.setCurrentDirectory(null);
-        _FileChooser_LoadStore.setDialogTitle("Directory to open Store file");
-        _FileChooser_LoadStore.setFileFilter(new FilterStore());
-
         _FileChooser.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         _FileChooser.setApproveButtonText("Save");
         _FileChooser.setApproveButtonToolTipText("Save in this folder");
@@ -396,27 +363,6 @@ public class MainFrame extends JFrame {
         _FileChooser.setDialogTitle("");
         _FileChooser.setFileHidingEnabled(true);
         _FileChooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
-
-        _FileChooser_SaveCSV.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
-        _FileChooser_SaveCSV.setApproveButtonText("Save");
-        _FileChooser_SaveCSV.setApproveButtonToolTipText("Save as CSV");
-        _FileChooser_SaveCSV.setCurrentDirectory(null);
-        _FileChooser_SaveCSV.setDialogTitle("Directory to save a picture");
-        _FileChooser_SaveCSV.setFileFilter(new FileNameExtensionFilter("CSV (.csv)", new String[]{"csv"}));
-
-        _FileChooser_SaveText.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
-        _FileChooser_SaveText.setApproveButtonText("Save");
-        _FileChooser_SaveText.setApproveButtonToolTipText("Save as Text");
-        _FileChooser_SaveText.setCurrentDirectory(null);
-        _FileChooser_SaveText.setDialogTitle("Directory to save a picture");
-        _FileChooser_SaveText.setFileFilter(new FileNameExtensionFilter("Txt files (.txt)", new String[]{"txt"}));
-
-        _FileChooser_SaveExcel.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
-        _FileChooser_SaveExcel.setApproveButtonText("Save");
-        _FileChooser_SaveExcel.setApproveButtonToolTipText("Save as Excel");
-        _FileChooser_SaveExcel.setCurrentDirectory(null);
-        _FileChooser_SaveExcel.setDialogTitle("Directory to save a picture");
-        _FileChooser_SaveExcel.setFileFilter(new FileNameExtensionFilter("Excel workbook (.xlsx)", new String[]{"xlsx"}));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Image Creator");
@@ -591,15 +537,25 @@ public class MainFrame extends JFrame {
 
     private void _MenuItem_OpenImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_OpenImageActionPerformed
         
-        int returnVal = _FileChooser_LoadLogo.showOpenDialog(this);
+        File oldFileLoc = _FileChooser.getCurrentDirectory();
+        _FileChooser.setDialogTitle("Load Logo Image");
+        _FileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        _FileChooser.setFileFilter(new FilterImage());
+        _FileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
+        _FileChooser.setApproveButtonText("Open image file");
+        _FileChooser.setApproveButtonToolTipText("Open");
+        
+        int returnVal = _FileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = _FileChooser_LoadLogo.getSelectedFile();
+            File file = _FileChooser.getSelectedFile();
             store.getCs().setImgStr(file.getAbsolutePath());
             controlPanel.updateStoreLogo(store.getCs().getImgStr());
-
+            
         } else {
             System.out.println("File access cancelled by user.");
         }
+        
+        _FileChooser.setCurrentDirectory(oldFileLoc);
     }//GEN-LAST:event__MenuItem_OpenImageActionPerformed
 
     private void _MenuItem_CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_CloseActionPerformed
@@ -621,10 +577,18 @@ public class MainFrame extends JFrame {
 
     private void _MenuItem_SaveCurrentDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveCurrentDisplayActionPerformed
         
+        _FileChooser.setDialogTitle("Save Current Panel");
+        _FileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        _FileChooser.setFileFilter(new FileNameExtensionFilter("Image files (.png, .jpg)", new String[]{"png", "jpg"}));
+        _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+        _FileChooser.setApproveButtonText("Save image file");
+        _FileChooser.setApproveButtonToolTipText("Save");
+        
+        
 
-        int returnVal = _FileChooser_SavePicture.showSaveDialog(this);
+        int returnVal = _FileChooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            String fn = _FileChooser_SavePicture.getSelectedFile().toString();
+            String fn = _FileChooser.getSelectedFile().toString();
             if (!fn.endsWith(".png")) {
                 fn += ".png";
             }
@@ -668,9 +632,16 @@ public class MainFrame extends JFrame {
 
     private void _MenuItem_SaveStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveStoreActionPerformed
         
-        int returnVal = _FileChooser_SaveStore.showSaveDialog(this);
+        _FileChooser.setDialogTitle("Save Store (XML)");
+        _FileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        _FileChooser.setFileFilter(new FileNameExtensionFilter("XML File .xml", new String[]{"xml"}));
+        _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+        _FileChooser.setApproveButtonText("Save Store file");
+        _FileChooser.setApproveButtonToolTipText("Save");
+        
+        int returnVal = _FileChooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            String fn = _FileChooser_SaveStore.getSelectedFile().toString();
+            String fn = _FileChooser.getSelectedFile().toString();
             if (!fn.endsWith(".xml")) {
                 fn += ".xml";
             }
@@ -695,10 +666,18 @@ public class MainFrame extends JFrame {
 
     private void _MenuItem_OpenStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_OpenStoreActionPerformed
 
-        int returnVal = _FileChooser_LoadStore.showOpenDialog(this);
+        _FileChooser.setDialogTitle("Open Store File (XML)");
+        _FileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        _FileChooser.setFileFilter(new FilterStore());
+        _FileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
+        _FileChooser.setApproveButtonText("Open Store (XML) file");
+        _FileChooser.setApproveButtonToolTipText("Open");
+        
+        
+        int returnVal = _FileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-            File file = _FileChooser_LoadStore.getSelectedFile();
+            File file = _FileChooser.getSelectedFile();
 
             // What to do with the file, e.g. display it in a TextArea
             //System.out.println("File: " + file.getAbsolutePath());
@@ -730,8 +709,10 @@ public class MainFrame extends JFrame {
 
         _FileChooser.setDialogTitle("Save pictures into a folder");
         _FileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        //_FileChooser.setFileFilter(null);
         _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
-        _FileChooser.setApproveButtonText("Save Here");
+        _FileChooser.setApproveButtonText("Save Files Here");
+        _FileChooser.setApproveButtonText("Save");
 
         int returnVal = _FileChooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -792,11 +773,18 @@ public class MainFrame extends JFrame {
 
     private void _MenuItem_PrintVarNamesCsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintVarNamesCsvActionPerformed
         
+         _FileChooser.setDialogTitle("Save IO Imports As CSV File");
+        _FileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        _FileChooser.setFileFilter(new FileNameExtensionFilter("Comma Seperated Values (.csv)", new String[]{"csv"}));
+        _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+        _FileChooser.setApproveButtonText("Save CSV file");
+        _FileChooser.setApproveButtonToolTipText("Save");
+        
 
-        int returnVal = _FileChooser_SaveCSV.showSaveDialog(this);
+        int returnVal = _FileChooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-            File file = _FileChooser_SaveCSV.getSelectedFile();
+            File file = _FileChooser.getSelectedFile();
             //System.out.println("File: " + file.getAbsolutePath());
             String filePath = file.getAbsolutePath();
             String filePath2 = filePath;
@@ -819,10 +807,18 @@ public class MainFrame extends JFrame {
 
     private void _MenuItem_PrintVarNamesTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintVarNamesTextActionPerformed
         
-        int returnVal = _FileChooser_SaveText.showSaveDialog(this);
+         _FileChooser.setDialogTitle("Save IO Imports As Text File");
+        _FileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        _FileChooser.setFileFilter(new FileNameExtensionFilter("Text file (.txt)", new String[]{"txt"}));
+        _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+        _FileChooser.setApproveButtonText("Save Text file");
+        _FileChooser.setApproveButtonToolTipText("Save");
+        
+        
+        int returnVal = _FileChooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-            File file = _FileChooser_SaveText.getSelectedFile();
+            File file = _FileChooser.getSelectedFile();
             //System.out.println("File: " + file.getAbsolutePath());
             String filePath = file.getAbsolutePath();
             String fp = filePath + "OnlyNames";
@@ -843,10 +839,18 @@ public class MainFrame extends JFrame {
 
     private void _MenuItem_PrintVarNamesXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintVarNamesXActionPerformed
         
-        int returnVal = _FileChooser_SaveExcel.showSaveDialog(this);
+        _FileChooser.setDialogTitle("Save IO Imports As Excel File");
+        _FileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        _FileChooser.setFileFilter(new FileNameExtensionFilter("Excel workbook (.xlsx)", new String[]{"xlsx"}));
+        _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+        _FileChooser.setApproveButtonText("Save Excel file");
+        _FileChooser.setApproveButtonToolTipText("Save");
+        
+        
+        int returnVal = _FileChooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-            File file = _FileChooser_SaveExcel.getSelectedFile();
+            File file = _FileChooser.getSelectedFile();
             //System.out.println("File: " + file.getAbsolutePath());
             String filePath = file.getAbsolutePath();
             if (!filePath.endsWith(".xlsx")) {
@@ -916,6 +920,7 @@ public class MainFrame extends JFrame {
         _FileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
         _FileChooser.setApproveButtonText("Save Here");
+        _FileChooser.setApproveButtonToolTipText("Save");
 
         int returnVal = _FileChooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -1038,13 +1043,6 @@ public class MainFrame extends JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser _FileChooser;
-    private javax.swing.JFileChooser _FileChooser_LoadLogo;
-    private javax.swing.JFileChooser _FileChooser_LoadStore;
-    private javax.swing.JFileChooser _FileChooser_SaveCSV;
-    private javax.swing.JFileChooser _FileChooser_SaveExcel;
-    private javax.swing.JFileChooser _FileChooser_SavePicture;
-    private javax.swing.JFileChooser _FileChooser_SaveStore;
-    private javax.swing.JFileChooser _FileChooser_SaveText;
     private javax.swing.JMenuBar _MenuBar_Menus;
     private javax.swing.JMenuItem _MenuItem_Close;
     private javax.swing.JMenuItem _MenuItem_NewStore;

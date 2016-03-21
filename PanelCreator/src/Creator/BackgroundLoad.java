@@ -76,6 +76,12 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
         this.widgetComponents = new TreeMap<>();
         this.updateView();
     }
+    
+    
+    public void updateDisplaySettings(DisplaySettings ds){
+        this.border = ds.getBorder();
+        this.font = ds.getFont();        
+    }
 
     /**
      * updates the storename

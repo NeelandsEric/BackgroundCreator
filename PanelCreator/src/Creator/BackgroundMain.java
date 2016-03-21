@@ -50,7 +50,6 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         this.df = df;
         this.img = "";
         this.canClick = false;
-        this.widgetComponents = null;
         this.widgetComponents = new TreeMap<>();
     }
 
@@ -76,6 +75,10 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         this.updateView();
     }
 
+    public void updateDisplaySettings(DisplaySettings ds){
+        this.border = ds.getBorder();
+        this.font = ds.getFont();        
+    }
     /**
      * updates the storename
      *

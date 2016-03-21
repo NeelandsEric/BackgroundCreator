@@ -64,18 +64,17 @@ public class DisplayFrame extends javax.swing.JFrame {
         
         this.stopUpdate = true;
         this.setNewSize(ds.getDisplayWidth(), ds.getDisplayHeight());
-        bg.updateFont(ds.getFont());
-        bg.updateBorder(ds.getBorder());
+        
+        bg.updateDisplaySettings(ds);
+        
         for (int i = 0; i < cs.getNumRacks(); i++) {
             if (rackTabs.get(i) != null) {
-                rackTabs.get(i).updateFont(ds.getFont());
-                rackTabs.get(i).updateBorder(ds.getBorder());
+                rackTabs.get(i).updateDisplaySettings(ds);                
             }
         }
-        bgl.updateFont(ds.getFont());
-        bgl.updateBorder(ds.getBorder());
-        bgf.updateFont(ds.getFont());
-        bgf.updateBorder(ds.getBorder());
+        bgl.updateDisplaySettings(ds);       
+        bgf.updateDisplaySettings(ds);         
+        
         this.stopUpdate = false;
     }
 

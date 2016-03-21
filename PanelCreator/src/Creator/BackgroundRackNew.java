@@ -81,10 +81,14 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         this.border = border;
         this.img = img;
         this.storeName = storeName;
-        this.rackNames = rackNames;
-        this.widgetComponents = null;
+        this.rackNames = rackNames;        
         this.widgetComponents = new TreeMap<>();
         this.updateView();
+    }
+    
+    public void updateDisplaySettings(DisplaySettings ds){
+        this.border = ds.getBorder();
+        this.font = ds.getFont();        
     }
 
     /**
@@ -227,8 +231,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         _Panel_MainPanel.setLayout(gbl);
         _Panel_MainPanel.removeAll();
 
-        widgetComponents.clear();
-        widgetComponents = null;
+        widgetComponents.clear();        
         widgetComponents = new TreeMap<>();
 
         //===========================================================
