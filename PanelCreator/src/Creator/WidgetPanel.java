@@ -966,7 +966,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
             // Load the variables of the widget
             String widgetCodeStr = _List_WidgetCodeList.getSelectedValue().toString();
-            WidgetCode wc = widgetList.get(widgetCodeStr + ".txt");
+            WidgetCode wc = widgetList.get(widgetCodeStr);
             GridBagLayout gbl = new GridBagLayout();
             GridBagConstraints c = new GridBagConstraints();
 
