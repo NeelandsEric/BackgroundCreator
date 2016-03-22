@@ -184,16 +184,16 @@ public class MainFrame extends JFrame {
     public void loadImportedIos(Map<String, Integer> importedIos, int caller, int stationId){
         this.stationId = stationId;
         if(caller == 1){ // Widget panel call
-            tmPanel.setImportedIoVariables(importedIos);
-            mbPanel.setImportedIoVariables(importedIos);            
+            tmPanel.setImportedIoVariables(importedIos, stationId);
+            mbPanel.setImportedIoVariables(importedIos, stationId);            
             
         }else if(caller == 2){ // task manager call
-            wgPanel.setImportedIoVariables(importedIos);
-            mbPanel.setImportedIoVariables(importedIos);
+            wgPanel.setImportedIoVariables(importedIos, stationId);
+            mbPanel.setImportedIoVariables(importedIos, stationId);
             
         }else if (caller == 3){ // modbus call
-            wgPanel.setImportedIoVariables(importedIos);
-            tmPanel.setImportedIoVariables(importedIos);
+            wgPanel.setImportedIoVariables(importedIos, stationId);
+            tmPanel.setImportedIoVariables(importedIos, stationId);
             
         }
     }

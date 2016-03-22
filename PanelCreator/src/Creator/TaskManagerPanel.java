@@ -50,10 +50,11 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     }
 
-    public void setImportedIoVariables(Map<String, Integer> newIo) {
+    public void setImportedIoVariables(Map<String, Integer> newIo, int stationId) {
         if (importedIOVariables != null && !importedIOVariables.isEmpty()) {
             importedIOVariables.clear();
         }
+        this.stationId = stationId;
         importedIOVariables = newIo;
         _Button_CreateImports.setEnabled(true);
         _Label_Loaded.setText("Loaded File!");
@@ -145,7 +146,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         _Button_LoadXls = new javax.swing.JButton();
         _Label_Loaded = new javax.swing.JLabel();
         _Button_CreateImports = new javax.swing.JButton();
-        _Label_Status = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        _TextArea_Status = new javax.swing.JTextArea();
 
         _FileChooser_IoFile.setApproveButtonText("Open");
         _FileChooser_IoFile.setApproveButtonToolTipText("Open a xls file");
@@ -180,10 +182,6 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             }
         });
 
-        _Label_Status.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _Label_Status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        _Label_Status.setText("Status: ");
-
         javax.swing.GroupLayout _Panel_ImportsLayout = new javax.swing.GroupLayout(_Panel_Imports);
         _Panel_Imports.setLayout(_Panel_ImportsLayout);
         _Panel_ImportsLayout.setHorizontalGroup(
@@ -193,8 +191,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 .addGroup(_Panel_ImportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(_Button_CreateImports, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(_Button_LoadXls, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(_Label_Loaded, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                    .addComponent(_Label_Status, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
+                    .addComponent(_Label_Loaded, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
                 .addContainerGap())
         );
         _Panel_ImportsLayout.setVerticalGroup(
@@ -206,10 +203,15 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 .addComponent(_Label_Loaded, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(_Button_CreateImports, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(_Label_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        _TextArea_Status.setEditable(false);
+        _TextArea_Status.setColumns(20);
+        _TextArea_Status.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _TextArea_Status.setLineWrap(true);
+        _TextArea_Status.setRows(5);
+        jScrollPane1.setViewportView(_TextArea_Status);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -219,11 +221,14 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(351, 351, 351)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(295, 295, 295)
-                        .addComponent(_Panel_Imports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(372, Short.MAX_VALUE))
+                        .addComponent(_Panel_Imports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,8 +236,10 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(_Panel_Imports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(247, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(_Panel_Imports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(234, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -260,14 +267,18 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     private void _Button_CreateImportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CreateImportsActionPerformed
 
-        
-        if(checkTaskExist()){
-            _Label_Status.setText("Status: Tasks already exist for Station ID " + stationId);
+        if (checkTaskExist()) {
+            _TextArea_Status.append("\nStatus: Tasks already exist for Station ID " + stationId);
             return;
         }
         
-        _Label_Status.setText("Status: Tasks being created and imported to Station ID: " + stationId);
-        
+        if(stationId == -1){
+            stationId = mf.stationId;
+            System.out.println("New ID: " + stationId);
+        }
+
+        _TextArea_Status.append("\nStatus: Tasks being created and imported to Station ID: " + stationId);
+
         if (!importedIOVariables.isEmpty() && !importedTasks.isEmpty()) {
             // Imported io variables and imported tasks are good
             List<String> rowImports = new ArrayList<>();
@@ -349,7 +360,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                                 taskEntry[2], inputs, outputs,
                                 taskEntry[5], stationId, name, taskEntry[6]));
 
-                        System.out.println("Row import #1: " + rowImports.get(rowImports.size() - 1) + "\n");
+                        //System.out.println("Row import #1: " + rowImports.get(rowImports.size() - 1) + "\n");
                         maxIn = maxOut = 0;
                         break;
                     case "0":
@@ -537,27 +548,32 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 //System.out.println("Row import: " + rowImports.get(rowImports.size() - 1));
             }
 
-            insertTasks(rowImports);
-
+            String retString = insertTasks(rowImports);
+            if (retString.startsWith("Fail")) {
+                _TextArea_Status.append("\nStatus: " + retString);
+            } else {
+                _TextArea_Status.append("\nStatus: Successfully imported tasks for Station ID: " + stationId);
+            }
         }// No data, do nothing
         else {
             System.out.println(importedIOVariables.isEmpty() + " | " + importedTasks.isEmpty());
         }
-        
-        _Label_Status.setText("Status: Successfully imported tasks for Station ID: " + stationId);
+
 
     }//GEN-LAST:event__Button_CreateImportsActionPerformed
 
     private boolean checkTaskExist() {
 
-        String query = "select task_manager_station_id from task_manager where task_manager_id = " + stationId + ";";
+        String query = "select task_manager_station_id from task_manager where task_manager_station_id = " + stationId + ";";
 
         db = new DBConn();
-        return db.checkForData(query);        
+        boolean status =  db.checkForData(query);
+        db.closeConn();
 
+        return status;
     }
 
-    private boolean insertTasks(List<String> taskList) {
+    private String insertTasks(List<String> taskList) {
 
         String query = "INSERT INTO task_manager "
                 + "(task_manager_task_id, task_manager_inputs, task_manager_outputs, task_manager_crontab_line,"
@@ -574,10 +590,10 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         //        + "values (18945, (select distinct io_station_id from io where io_id =18945));";
         //String query = "delete from eepr where eepr_io_id = 18945";
 
-        db.executeQuery(query);
+        String returnString = db.executeQuery(query);
         db.closeConn();
 
-        return true;
+        return returnString;
 
     }
 
@@ -721,8 +737,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private javax.swing.JButton _Button_LoadXls;
     private javax.swing.JFileChooser _FileChooser_IoFile;
     private javax.swing.JLabel _Label_Loaded;
-    private javax.swing.JLabel _Label_Status;
     private javax.swing.JPanel _Panel_Imports;
+    private javax.swing.JTextArea _TextArea_Status;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

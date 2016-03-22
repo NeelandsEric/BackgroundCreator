@@ -46,7 +46,7 @@ public class ModbusPanel extends javax.swing.JPanel {
     private ArrayList<String> rackStr;
     private ArrayList<String> compStr;
     private Map<String, Integer> importedIOVariables;       // io_name,io_id
-
+    private int stationID;
     /**
      * Creates new form ModbusPanel
      *
@@ -57,6 +57,7 @@ public class ModbusPanel extends javax.swing.JPanel {
         initComponents();
         this.mf = mf;
         this.mb = mb;
+        this.stationID = -1;
         this.readModbusFile();
         ipValidator = new IPAddressValidator();
         mb.updateModbusSettings(mf.getStore().getCs());
@@ -174,10 +175,11 @@ public class ModbusPanel extends javax.swing.JPanel {
 
     }
 
-    public void setImportedIoVariables(Map<String, Integer> newIo) {
+    public void setImportedIoVariables(Map<String, Integer> newIo, int stationId) {
         if (importedIOVariables != null && !importedIOVariables.isEmpty()) {
             importedIOVariables.clear();
         }
+        this.stationID = stationId;
         importedIOVariables = newIo;
         _Button_CreateImports.setEnabled(true);
         _Label_Loaded.setText("Loaded File!");
@@ -1083,7 +1085,7 @@ public class ModbusPanel extends javax.swing.JPanel {
             int cols = 0; // No of columns
             int tmp = 0;
 
-            int idCol = -1, idName = -1, stationId = -1;
+            int idCol = -1, idName = -1;
             // This trick ensures that we get the data properly even if it doesn't start from first few rows
             for (int i = 0; i < 1; i++) {
                 row = sheet.getRow(i);
@@ -1118,12 +1120,12 @@ public class ModbusPanel extends javax.swing.JPanel {
                 if (!sheet.getRow(i).getCell(2).toString().equals("io_station_id")) {
                     for (int c = 0; c < cols; c++) {
                         if (sheet.getRow(i).getCell(c).equals("io_station_id")) {
-                            stationId = (int) sheet.getRow(1).getCell(c).getNumericCellValue();
+                            stationID = (int) sheet.getRow(1).getCell(c).getNumericCellValue();
                             break;
                         }
                     }
                 } else {
-                    stationId = (int) sheet.getRow(1).getCell(2).getNumericCellValue();
+                    stationID = (int) sheet.getRow(1).getCell(2).getNumericCellValue();
                 }
 
             }
@@ -1132,7 +1134,7 @@ public class ModbusPanel extends javax.swing.JPanel {
                 System.out.println("Could not locate io_name or io_id in excel header");
                 return;
             }
-            if (stationId == -1) {
+            if (stationID == -1) {
                 System.out.println("Couldnt locate station id");
                 return;
             }
@@ -1163,7 +1165,7 @@ public class ModbusPanel extends javax.swing.JPanel {
             wb.close();
             fs.close();
 
-            mf.loadImportedIos(importedIOVariables, 3, stationId);
+            mf.loadImportedIos(importedIOVariables, 3, stationID);
 
         } catch (Exception e) {
             System.out.println("Error reading excel file " + e.getMessage());

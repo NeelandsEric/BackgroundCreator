@@ -68,7 +68,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     private Map<String, Integer> importedIOVariables;       // io_name,io_id
     private Map<String, Map<String, Rectangle>> masterMap;  // list of variables relating to each view's variables and locations on the panel
     private Map<String, JTextField> widgetCodeSettings;      // custom values for widget code settings
-
+    private int stationID;
     /**
      * Creates new form WidgetPanel
      *
@@ -85,6 +85,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         this.listModelWidgetsVars = new DefaultListModel();
         this.listModelCodeWidgets = new DefaultListModel();
         this.listModelMasterMap = new DefaultListModel();
+        this.stationID = -1;
         initComponents();
         this._Button_EnableClicks.setEnabled(false);
     }
@@ -108,10 +109,11 @@ public class WidgetPanel extends javax.swing.JPanel {
         loadWidgetCode();
     }
 
-    public void setImportedIoVariables(Map<String, Integer> newIo) {
+    public void setImportedIoVariables(Map<String, Integer> newIo, int stationId) {
         if (importedIOVariables != null && !importedIOVariables.isEmpty()) {
             importedIOVariables.clear();
         }
+        this.stationID = stationId; 
         importedIOVariables = newIo;
         _Button_CreateImports.setEnabled(true);
         _Label_Loaded.setText("Loaded File!");
@@ -1505,7 +1507,7 @@ public class WidgetPanel extends javax.swing.JPanel {
             int cols = 0; // No of columns
             int tmp = 0;
 
-            int idCol = -1, idName = -1, stationId = -1;
+            int idCol = -1, idName = -1;
             // This trick ensures that we get the data properly even if it doesn't start from first few rows
             for (int i = 0; i < 1; i++) {
                 row = sheet.getRow(i);
@@ -1540,12 +1542,12 @@ public class WidgetPanel extends javax.swing.JPanel {
                 if (!sheet.getRow(i).getCell(2).toString().equals("io_station_id")) {
                     for (int c = 0; c < cols; c++) {
                         if (sheet.getRow(i).getCell(c).equals("io_station_id")) {
-                            stationId = (int) sheet.getRow(1).getCell(c).getNumericCellValue();
+                            stationID = (int) sheet.getRow(1).getCell(c).getNumericCellValue();
                             break;
                         }
                     }
                 } else {
-                    stationId = (int) sheet.getRow(1).getCell(2).getNumericCellValue();
+                    stationID = (int) sheet.getRow(1).getCell(2).getNumericCellValue();
                 }
 
             }
@@ -1554,7 +1556,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                 System.out.println("Could not locate io_name or io_id in excel header");
                 return;
             }
-            if (stationId == -1) {
+            if (stationID == -1) {
                 System.out.println("Couldnt locate station id");
                 return;
             }
@@ -1584,7 +1586,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
             fs.close();
 
-            mf.loadImportedIos(importedIOVariables, 1, stationId);
+            mf.loadImportedIos(importedIOVariables, 1, stationID);
 
         } catch (Exception e) {
             System.out.println("Error reading excel file " + e.getMessage());
