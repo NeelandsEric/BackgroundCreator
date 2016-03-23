@@ -197,13 +197,13 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
             selectedItem[i] = "No Selection";
             //System.out.println("Removed items " + i + ": " + removedItems[i]);
         }
-        
+
         _ComboBox_Slave1.setSelectedIndex(0);
         _ComboBox_Reg2.setEnabled(true);
         _ComboBox_Reg3.setEnabled(true);
-        
+
         return removedItems;
-        
+
     }
 
     public String getMeterName() {
@@ -335,7 +335,6 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
     }// </editor-fold>//GEN-END:initComponents
 
     private void _ComboBox_Slave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_Slave1ActionPerformed
-        
 
         if (_ComboBox_Slave1.getSelectedIndex() == 0 && this.type != 1) {
 
@@ -365,7 +364,14 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
                 n = selectedItem[0];
                 selectedItem[0] = "No Selection";
                 itemSelected[0] = false;
+
+            } else if (!selectedItem[0].equals("No Selection")) {
+                mp.removeItem(selectedItem[0], slaveNumber, 0, powerScout);
+                selectedItem[0] = n;
+                itemSelected[0] = true;
             } else {
+                // Item already selected
+                
                 selectedItem[0] = n;
                 itemSelected[0] = true;
             }
@@ -386,7 +392,12 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
                 n = selectedItem[1];
                 selectedItem[1] = "No Selection";
                 itemSelected[1] = false;
-            } else {
+            } else if (!selectedItem[1].equals("No Selection")) {
+                mp.removeItem(selectedItem[1], slaveNumber, 1, powerScout);
+                selectedItem[1] = n;
+                itemSelected[1] = true;
+            } else {                
+                
                 selectedItem[1] = n;
                 itemSelected[1] = true;
             }
@@ -406,7 +417,12 @@ public class MeterPanel extends javax.swing.JPanel implements java.io.Serializab
                 n = selectedItem[2];
                 selectedItem[2] = "No Selection";
                 itemSelected[2] = false;
+            } else if (!selectedItem[2].equals("No Selection")) {
+                mp.removeItem(selectedItem[2], slaveNumber, 2, powerScout);
+                selectedItem[2] = n;
+                itemSelected[2] = true;
             } else {
+                              
                 selectedItem[2] = n;
                 itemSelected[2] = true;
             }

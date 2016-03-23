@@ -82,7 +82,7 @@ public class ModbusSettings implements java.io.Serializable {
     
     
 
-    public void updateKey(String key, Boolean used, int meter, int slave, int register, boolean powerScout) {
+    public void updateKey(String key, boolean used, int meter, int slave, int register, boolean powerScout) {
 
         if (!items.isEmpty()) {
             if (items.containsKey(key)) {

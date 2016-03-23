@@ -47,6 +47,7 @@ public class ModbusPanel extends javax.swing.JPanel {
     private ArrayList<String> compStr;
     private Map<String, Integer> importedIOVariables;       // io_name,io_id
     private int stationID;
+
     /**
      * Creates new form ModbusPanel
      *
@@ -328,6 +329,15 @@ public class ModbusPanel extends javax.swing.JPanel {
                 }
 
             }
+        }
+
+    }
+
+    public void removeItem(String key, int slave, int register, boolean powerScout) {
+        if (powerScout) {
+            mb.updateKey(key, false, _ComboBox_PowerMeter.getSelectedIndex(), slave, register, powerScout);
+        } else {
+            mb.updateKey(key, false, (mb.getNumPowerScouts() + _ComboBox_SingleMeter.getSelectedIndex()), slave, register, powerScout);
         }
 
     }
