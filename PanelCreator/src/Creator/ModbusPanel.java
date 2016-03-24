@@ -1268,7 +1268,7 @@ public class ModbusPanel extends javax.swing.JPanel {
                 sensor = mb.getSensorForKey(key);
                 if (sensor != null && sensor.getSlave() != -1) {
                     newString[1] = newString[1].replace("`%io_id`", getIOForString(newString[0]));
-                    newString[2] = newString[2].replace("`%slave_address`", String.valueOf(sensor.getSlave()));
+                    newString[2] = newString[2].replace("`%slave_address`", String.valueOf(sensor.getSlave() + 1));
                     if (sensor.isPowerScout()) {
                         meterName = "PowerScout " + sensor.getMeter();
                     } else {
@@ -1307,7 +1307,7 @@ public class ModbusPanel extends javax.swing.JPanel {
                         sensor = mb.getSensorForKey(key);
                         if (sensor != null && sensor.getSlave() != -1) {
                             newString[1] = newString[1].replace("`%io_id`", getIOForString(newString[0]));
-                            newString[2] = newString[2].replace("`%slave_address`", String.valueOf(sensor.getSlave()));
+                            newString[2] = newString[2].replace("`%slave_address`", String.valueOf(sensor.getSlave() + 1));
                             newString[4] = findRegisterValue(newString[4], sensor.getRegister());
                             if (sensor.isPowerScout()) {
                                 meterName = "PowerScout " + sensor.getMeter();
