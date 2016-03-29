@@ -975,7 +975,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         }
 
         if (scan != null) {
-            scan.close();
+            scan.close();            
         }
         
         _Table_Items.setModel(tableModels.get(0));

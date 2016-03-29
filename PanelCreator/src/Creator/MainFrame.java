@@ -15,9 +15,11 @@ import java.awt.image.BufferedImageOp;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -146,12 +148,30 @@ public class MainFrame extends JFrame {
                     if (dw == null) {
                         System.out.println("Default widgets null");
                     } else {
-                        System.out.println("Default widgets read and returned");
+                        System.out.println("Default widgets from home directory read and returned");
                         return dw;
                     }
                 } catch (Exception e) {
                     //e.printStackTrace();
                 }
+            }else {
+                // File doesnt exist in home directory, use the file in the jar
+                String path = "/Creator/textFiles/DefaultWidgets.xml";
+
+                try (InputStream loc = this.getClass().getResourceAsStream(path)) {
+                    DefaultWidgets dw = xmlParser.readWidgetsFile(loc);
+
+                    if (dw == null) {
+                        System.out.println("Default widgets null");
+                    } else {
+                        System.out.println("Default widgets from JAR read and returned");
+                        return dw;
+                    }
+                } catch (Exception e) {
+                    //e.printStackTrace();
+                }
+                
+
             }
         }
         return null;

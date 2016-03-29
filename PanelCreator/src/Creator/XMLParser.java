@@ -1,6 +1,7 @@
 package Creator;
 
 import java.io.File;
+import java.io.InputStream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -133,6 +134,29 @@ public class XMLParser {
         }
         
         
+    }
+    
+    public DefaultWidgets readWidgetsFile(InputStream loc){
+        
+        if (unmarshWidget != null) {
+            try {
+                
+                DefaultWidgets dw = (DefaultWidgets) unmarshWidget.unmarshal(loc);
+
+                return dw;
+
+            } catch (JAXBException ex) {
+                System.out.println("XMLParser read file error with Default Widgets from the jar\n" + ex.getMessage());
+                System.out.println("Filepath: " + loc.toString());
+                ex.printStackTrace();
+                return null;
+            } catch (NullPointerException e) {
+                System.out.println("File not found\n" + e.getMessage());
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
     
     public DefaultWidgets readWidgetsFile(String filepath){

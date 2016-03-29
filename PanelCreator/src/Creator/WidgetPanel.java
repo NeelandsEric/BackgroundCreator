@@ -1367,7 +1367,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     public void readWidgetVars() {
 
         groupNamesWidget = new HashMap<>();
-        String path = "/Creator/textFiles/Default Widgets.txt";
+        String path = "/Creator/textFiles/Default Widget Names.txt";
 
         InputStream loc = this.getClass().getResourceAsStream(path);
         Scanner scan = new Scanner(loc);
