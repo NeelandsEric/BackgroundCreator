@@ -12,7 +12,11 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/EricGummerson/Documents/GitHub/BackgroundCreator/PanelCreator/src/Creator/ModbusPanel.java</file>
+            <file>file:/C:/Users/EricGummerson/Documents/GitHub/BackgroundCreator/PanelCreator/src/Creator/NameGeneratorPanel.java</file>
+            <file>file:/C:/Users/EricGummerson/Documents/GitHub/BackgroundCreator/PanelCreator/src/Creator/XMLParser.java</file>
+            <file>file:/C:/Users/EricGummerson/Documents/GitHub/BackgroundCreator/PanelCreator/src/Creator/BackgroundRackNew.java</file>
+            <file>file:/C:/Users/EricGummerson/Documents/GitHub/BackgroundCreator/PanelCreator/src/Creator/MainFrame.java</file>
+            <file>file:/C:/Users/EricGummerson/Documents/GitHub/BackgroundCreator/PanelCreator/src/Creator/WidgetPanel.java</file>
         </group>
     </open-files>
 </project-private>

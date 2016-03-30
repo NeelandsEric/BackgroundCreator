@@ -20,7 +20,7 @@ Op kWh Total Previous Day
 Op kWh Total Previous Month
 Op kWh Total Previous Year
 `Rack
-Liquid Subcooling `%rackname`
+Cond Subcooling Actual `%rackname`
 Cond Outlet Pressure `%rackname`
 Cond Outlet Temperature `%rackname`
 Comp Rack Fault `%rackname`
