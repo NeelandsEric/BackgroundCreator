@@ -14,7 +14,7 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>35</value>
+                        <value>30</value>
                     </entry>
                 </variables>
             </value>
@@ -32,7 +32,7 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>35</value>
+                        <value>30</value>
                     </entry>
                 </variables>
             </value>
@@ -50,7 +50,7 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>35</value>
+                        <value>30</value>
                     </entry>
                 </variables>
             </value>
@@ -68,7 +68,7 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>35</value>
+                        <value>30</value>
                     </entry>
                 </variables>
             </value>

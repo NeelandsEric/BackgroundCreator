@@ -794,7 +794,7 @@ public class BackgroundRackNew extends javax.swing.JPanel {
         c.weightx = 0;
         c.weighty = 0;
         c.ipady = 10;
-        label = new JLabel("SpSt | Actual Pres");
+        label = new JLabel("SpStPt | Actual Pres");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setOpaque(true);
