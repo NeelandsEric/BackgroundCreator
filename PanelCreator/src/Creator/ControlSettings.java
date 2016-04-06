@@ -19,6 +19,8 @@ public class ControlSettings implements java.io.Serializable {
     public String storeName;
     public String imgStr;
     public int numRacks;
+    public boolean glycolStore;
+    public GlycolSettings glycolSettings;
     public ArrayList<Rack> racks;
 
     /**
@@ -29,6 +31,8 @@ public class ControlSettings implements java.io.Serializable {
         racks = new ArrayList<>();
         racks.add(new Rack("Rack A"));
         numRacks = 1;
+        glycolStore = false;
+        glycolSettings = new GlycolSettings();
         imgStr = "";
     }
 
@@ -42,6 +46,8 @@ public class ControlSettings implements java.io.Serializable {
         racks = new ArrayList<>();
         racks.add(new Rack("Rack A"));
         numRacks = 1;
+        glycolStore = false;
+        glycolSettings = new GlycolSettings();
         imgStr = "";
     }
 
@@ -55,16 +61,27 @@ public class ControlSettings implements java.io.Serializable {
      * racks
      * @param racks List<Racks> List of racks
      */
-    public ControlSettings(String storeName, String imgStr, int numRacks, ArrayList<Rack> racks) {
+    public ControlSettings(String storeName, String imgStr, int numRacks, ArrayList<Rack> racks, boolean glycolStore) {
         this.storeName = storeName;
         this.imgStr = imgStr;
         this.numRacks = numRacks;
         this.racks = racks;
+        this.glycolStore = glycolStore;
     }
 
     //-------------------------------------------------------------
     //--------------- Get/Set for class variables -----------------
     //-------------------------------------------------------------
+
+    public GlycolSettings getGlycolSettings() {
+        return glycolSettings;
+    }
+
+    public void setGlycolSettings(GlycolSettings glycolSettings) {
+        this.glycolSettings = glycolSettings;
+    }
+    
+    
     /**
      * Get store name
      *
@@ -82,6 +99,16 @@ public class ControlSettings implements java.io.Serializable {
     public void setStoreName(String storeName) {
         this.storeName = storeName;
     }
+
+    public boolean isGlycolStore() {
+        return glycolStore;
+    }
+
+    public void setGlycolStore(boolean glycolStore) {
+        this.glycolStore = glycolStore;
+    }
+    
+    
 
     /**
      * Get image string

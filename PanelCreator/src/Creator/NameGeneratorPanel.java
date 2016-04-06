@@ -330,7 +330,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         _FTF_AlertTimeDelay.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         _ComboBox_Groups.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _ComboBox_Groups.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Store", "Rack", "Condenser", "Suction Group", "Compressor", "System", "Other" }));
+        _ComboBox_Groups.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Store", "Rack", "Condenser", "Suction Group", "Compressor", "System", "Other", "Glycol" }));
         _ComboBox_Groups.setToolTipText("Groups");
         _ComboBox_Groups.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -910,7 +910,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         tableModels = null;
         // Make new list of table models
         tableModels = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 8; i++) {
             tableModels.add(getDefaultTableModel());
         }
 
@@ -964,7 +964,13 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                         tableModels.get(5).addRow(line.split(","));
                         //System.out.println("Added to System: " + line);
                         ioNames.getSysStr().add(line);
+                        break;           
+                    case "glycol":
+                         tableModels.get(7).addRow(line.split(","));
+                        //System.out.println("Added to System: " + line);
+                        ioNames.getGlycolStr().add(line);
                         break;
+                        
                     default:
                         //System.out.println("Unknown groupname, added to extra" + line);
                         tableModels.get(6).addRow(line.split(","));
@@ -990,7 +996,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         tableModels = null;
         // Make new list of table models
         tableModels = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 8; i++) {
             tableModels.add(getDefaultTableModel());
         }
 
@@ -1029,6 +1035,13 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         for (String line : ioNames.getExtraStr()) {
             tableModels.get(6).addRow(line.split(","));
         }
+        
+        // Extra strings
+        for (String line : ioNames.getGlycolStr()) {
+            tableModels.get(7).addRow(line.split(","));
+        }
+        
+        
         _Table_Items.setModel(tableModels.get(0));
     }
 

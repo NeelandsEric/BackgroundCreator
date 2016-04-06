@@ -82,6 +82,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         _Panel_Controls = new javax.swing.JPanel();
         _Label_Site = new javax.swing.JLabel();
         _TextField_SiteName = new javax.swing.JTextField();
@@ -90,7 +91,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _Label_RackSelected = new javax.swing.JLabel();
         _Label_CondenserFans = new javax.swing.JLabel();
         _Label_NumberSuctionGroups = new javax.swing.JLabel();
-        _Label_SGSelected = new javax.swing.JLabel();
+        _Label_SGOptions = new javax.swing.JLabel();
         _Label_SuctionGroupOptions = new javax.swing.JLabel();
         _ComboBox_SuctionGroups = new javax.swing.JComboBox();
         _Label_Compressors = new javax.swing.JLabel();
@@ -98,11 +99,14 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _Label_SuctionGroupName = new javax.swing.JLabel();
         _TextField_SuctionGroupName = new javax.swing.JTextField();
         _FormattedTF_NumRacks = new javax.swing.JFormattedTextField();
-        _Label_Title = new javax.swing.JLabel();
         _FormattedTF_NumFans = new javax.swing.JFormattedTextField();
         _FormattedTF_NumSG = new javax.swing.JFormattedTextField();
         _FormattedTF_NumComp = new javax.swing.JFormattedTextField();
         _FormattedTF_NumSystems = new javax.swing.JFormattedTextField();
+        _CheckBox_Glycol = new javax.swing.JCheckBox();
+        _Label_NumberSystems1 = new javax.swing.JLabel();
+        _FormattedTF_NumGlycolSystems = new javax.swing.JFormattedTextField();
+        _Label_Glycol = new javax.swing.JLabel();
         _Panel_NamePanel = new javax.swing.JPanel();
         _ComboBox_RackNumber = new javax.swing.JComboBox();
         _Label_RackNumber = new javax.swing.JLabel();
@@ -123,13 +127,21 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _ComboBox_Systems = new javax.swing.JComboBox();
         _Label_SystemName = new javax.swing.JLabel();
         _Label_SystemSave = new javax.swing.JLabel();
+        _Label_SystemNumber1 = new javax.swing.JLabel();
+        _TextField_GlycolSystemName = new javax.swing.JTextField();
+        _Button_GlycolSysNext = new javax.swing.JButton();
+        _Button_GlycolSysPrev = new javax.swing.JButton();
+        _ComboBox_GlycolSystems = new javax.swing.JComboBox();
+        _Label_GlycolSystemName = new javax.swing.JLabel();
         _Label_StoreLogo = new javax.swing.JLabel();
         _ScrollPane_Log = new javax.swing.JScrollPane();
         _TextArea_Log = new javax.swing.JTextArea();
 
-        setMinimumSize(new java.awt.Dimension(975, 629));
+        jMenuItem1.setText("jMenuItem1");
+
+        setMinimumSize(new java.awt.Dimension(850, 629));
         setName(""); // NOI18N
-        setPreferredSize(new java.awt.Dimension(975, 629));
+        setPreferredSize(new java.awt.Dimension(850, 629));
 
         _Label_Site.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         _Label_Site.setText("Name of Site");
@@ -164,8 +176,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _Label_NumberSuctionGroups.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         _Label_NumberSuctionGroups.setText("Number of Suction Groups");
 
-        _Label_SGSelected.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        _Label_SGSelected.setText("Suction Group 1 Options");
+        _Label_SGOptions.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        _Label_SGOptions.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _Label_SGOptions.setText("Suction Group 1 Options");
 
         _Label_SuctionGroupOptions.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         _Label_SuctionGroupOptions.setText("Suction Group Options");
@@ -182,6 +195,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _Label_Compressors.setText("Number of Compressors");
 
         _Label_NumberSystems.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        _Label_NumberSystems.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _Label_NumberSystems.setText("Number of Systems");
 
         _Label_SuctionGroupName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -203,10 +217,6 @@ public final class ControlsPanel extends javax.swing.JPanel {
                 _FormattedTF_NumRacksPropertyChange(evt);
             }
         });
-
-        _Label_Title.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        _Label_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        _Label_Title.setText("Background Creator Settings");
 
         _FormattedTF_NumFans.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         _FormattedTF_NumFans.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -244,109 +254,140 @@ public final class ControlsPanel extends javax.swing.JPanel {
             }
         });
 
+        _CheckBox_Glycol.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _CheckBox_Glycol.setText("Glycol Store");
+        _CheckBox_Glycol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _CheckBox_GlycolActionPerformed(evt);
+            }
+        });
+
+        _Label_NumberSystems1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        _Label_NumberSystems1.setText("Number of Glycol Systems");
+
+        _FormattedTF_NumGlycolSystems.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        _FormattedTF_NumGlycolSystems.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        _FormattedTF_NumGlycolSystems.setText("1");
+        _FormattedTF_NumGlycolSystems.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                _FormattedTF_NumGlycolSystemsPropertyChange(evt);
+            }
+        });
+
+        _Label_Glycol.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        _Label_Glycol.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _Label_Glycol.setText("Glycol Options");
+
         javax.swing.GroupLayout _Panel_ControlsLayout = new javax.swing.GroupLayout(_Panel_Controls);
         _Panel_Controls.setLayout(_Panel_ControlsLayout);
         _Panel_ControlsLayout.setHorizontalGroup(
             _Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_ControlsLayout.createSequentialGroup()
+                        .addComponent(_Label_Compressors, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_FormattedTF_NumComp, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(_Label_NumberSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_FormattedTF_NumSystems))
                     .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                        .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                                .addComponent(_Label_Compressors, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_FormattedTF_NumComp, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(63, 63, 63)
-                                .addComponent(_Label_NumberSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(_FormattedTF_NumSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                                .addGap(198, 198, 198)
-                                .addComponent(_Label_RackSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                                .addComponent(_Label_CondenserFans, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_FormattedTF_NumFans, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(63, 63, 63)
-                                .addComponent(_Label_NumberSuctionGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                                .addComponent(_Label_SuctionGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(_Label_SGSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(_TextField_SuctionGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(_FormattedTF_NumSG, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                                    .addComponent(_Label_SuctionGroupOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(_ComboBox_SuctionGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(_Label_NumberRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_FormattedTF_NumRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_ComboBox_Racks, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                        .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(_Label_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                                .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(_Label_NumberRacks, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                                    .addComponent(_Label_Site, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, Short.MAX_VALUE)
-                                .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(_Panel_ControlsLayout.createSequentialGroup()
-                                        .addComponent(_FormattedTF_NumRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(_ComboBox_Racks, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(_TextField_SiteName, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(73, 73, 73))))
+                        .addComponent(_Label_Site, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_TextField_SiteName, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, _Panel_ControlsLayout.createSequentialGroup()
+                            .addComponent(_Label_CondenserFans, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(_FormattedTF_NumFans, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, _Panel_ControlsLayout.createSequentialGroup()
+                            .addComponent(_Label_NumberSuctionGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(_FormattedTF_NumSG)))
+                    .addComponent(_Label_SGOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(_Panel_ControlsLayout.createSequentialGroup()
+                        .addComponent(_Label_SuctionGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_TextField_SuctionGroupName))
+                    .addGroup(_Panel_ControlsLayout.createSequentialGroup()
+                        .addComponent(_Label_SuctionGroupOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_ComboBox_SuctionGroups, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(_Label_RackSelected, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(_Label_Glycol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_ControlsLayout.createSequentialGroup()
+                        .addComponent(_CheckBox_Glycol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(_Label_NumberSystems1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(_FormattedTF_NumGlycolSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        _Panel_ControlsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_FormattedTF_NumComp, _FormattedTF_NumFans, _FormattedTF_NumRacks, _FormattedTF_NumSG, _FormattedTF_NumSystems});
+        _Panel_ControlsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_FormattedTF_NumComp, _FormattedTF_NumRacks});
+
+        _Panel_ControlsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_Label_CondenserFans, _Label_NumberSuctionGroups});
 
         _Panel_ControlsLayout.setVerticalGroup(
             _Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(_Panel_ControlsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(_Label_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_TextField_SiteName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Label_Site, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                    .addComponent(_Label_Site, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_TextField_SiteName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
                 .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_Label_NumberRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(_FormattedTF_NumRacks, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(_ComboBox_Racks, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(_Label_RackSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(_Label_CondenserFans, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_FormattedTF_NumFans, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(_Label_NumberSuctionGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_FormattedTF_NumSG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(_Label_CondenserFans, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(_FormattedTF_NumFans, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(_FormattedTF_NumSG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Label_NumberSuctionGroups, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_Label_SuctionGroupOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(_ComboBox_SuctionGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_Label_SuctionGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(_TextField_SuctionGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(_Label_SGSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(_Label_SGOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_Label_Compressors, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(_FormattedTF_NumComp, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Label_NumberSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_FormattedTF_NumSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(_FormattedTF_NumSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_Label_NumberSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(_Label_Glycol, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(_Label_NumberSystems1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(_FormattedTF_NumGlycolSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(_CheckBox_Glycol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        _Panel_ControlsLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_FormattedTF_NumComp, _FormattedTF_NumFans, _FormattedTF_NumRacks, _FormattedTF_NumSG, _FormattedTF_NumSystems});
+        _Panel_ControlsLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_FormattedTF_NumComp, _FormattedTF_NumFans, _FormattedTF_NumGlycolSystems, _FormattedTF_NumRacks, _FormattedTF_NumSG, _FormattedTF_NumSystems, _Label_CondenserFans, _Label_NumberSuctionGroups});
+
+        _Panel_ControlsLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_Label_Compressors, _Label_NumberSystems});
 
         _ComboBox_RackNumber.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Rack 1" }));
         _ComboBox_RackNumber.addActionListener(new java.awt.event.ActionListener() {
@@ -356,6 +397,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         });
 
         _Label_RackNumber.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        _Label_RackNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _Label_RackNumber.setText("Rack Number      ");
         _Label_RackNumber.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -381,6 +423,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         });
 
         _Label_CompressorNumber.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        _Label_CompressorNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _Label_CompressorNumber.setText("Compressor Number");
         _Label_CompressorNumber.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -413,6 +456,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         });
 
         _Label_SystemNumber.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        _Label_SystemNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _Label_SystemNumber.setText("System Number");
         _Label_SystemNumber.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
@@ -448,6 +492,43 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _Label_SystemSave.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _Label_SystemSave.setText("These options save the name");
 
+        _Label_SystemNumber1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        _Label_SystemNumber1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _Label_SystemNumber1.setText("Glycol System Number");
+        _Label_SystemNumber1.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+
+        _TextField_GlycolSystemName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        _TextField_GlycolSystemName.setText("System 1");
+        _TextField_GlycolSystemName.setEnabled(false);
+
+        _Button_GlycolSysNext.setText("Next");
+        _Button_GlycolSysNext.setEnabled(false);
+        _Button_GlycolSysNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_GlycolSysNextActionPerformed(evt);
+            }
+        });
+
+        _Button_GlycolSysPrev.setText("Previous");
+        _Button_GlycolSysPrev.setEnabled(false);
+        _Button_GlycolSysPrev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_GlycolSysPrevActionPerformed(evt);
+            }
+        });
+
+        _ComboBox_GlycolSystems.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "System 1" }));
+        _ComboBox_GlycolSystems.setEnabled(false);
+        _ComboBox_GlycolSystems.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _ComboBox_GlycolSystemsActionPerformed(evt);
+            }
+        });
+
+        _Label_GlycolSystemName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        _Label_GlycolSystemName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _Label_GlycolSystemName.setText("Glycol System Name");
+
         javax.swing.GroupLayout _Panel_NamePanelLayout = new javax.swing.GroupLayout(_Panel_NamePanel);
         _Panel_NamePanel.setLayout(_Panel_NamePanelLayout);
         _Panel_NamePanelLayout.setHorizontalGroup(
@@ -455,54 +536,64 @@ public final class ControlsPanel extends javax.swing.JPanel {
             .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(_Label_SystemNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                            .addComponent(_ComboBox_Systems, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(_Label_SystemSave, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                                .addComponent(_Button_SysPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(_Button_SysNext, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(_TextField_SystemName, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(_Label_SystemName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(_Label_RackNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(_ComboBox_RackNumber, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(_Label_RackName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                                    .addComponent(_Button_RackPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(_Button_RackNext, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(_TextField_RackName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_NamePanelLayout.createSequentialGroup()
-                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(_ComboBox_GlycolSystems, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(_Label_SystemNumber1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
+                                    .addComponent(_Button_GlycolSysPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(_Button_GlycolSysNext, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(_TextField_GlycolSystemName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(_Label_GlycolSystemName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_NamePanelLayout.createSequentialGroup()
+                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(_ComboBox_Systems, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(_Label_SystemNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
+                                    .addComponent(_Button_SysPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(_Button_SysNext, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(_TextField_SystemName, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                            .addComponent(_Label_SystemName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
+                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(_Label_CompressorNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, _Panel_NamePanelLayout.createSequentialGroup()
-                                .addComponent(_ComboBox_CompressorNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                                .addComponent(_Button_CompPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(_Label_RackNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                    .addComponent(_ComboBox_RackNumber, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_Button_CompNext, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(_Label_CompressorName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(_TextField_CompressorName, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
+                                        .addComponent(_Button_RackPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(_Button_RackNext, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(_TextField_RackName)
+                                    .addComponent(_Label_RackName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
+                                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(_ComboBox_CompressorNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(_Label_CompressorNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(9, 9, 9)
+                                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
+                                        .addComponent(_Button_CompPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(_Button_CompNext, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(_Label_CompressorName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(_TextField_CompressorName, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(_Label_SystemSave, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 3, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        _Panel_NamePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_TextField_CompressorName, _TextField_SystemName});
+        _Panel_NamePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_TextField_CompressorName, _TextField_GlycolSystemName, _TextField_RackName, _TextField_SystemName});
 
         _Panel_NamePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {_Button_CompPrev, _Button_SysPrev});
 
@@ -511,10 +602,10 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _Panel_NamePanelLayout.setVerticalGroup(
             _Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_Label_RackNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Label_RackName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(_Label_RackName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_Label_RackNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(_ComboBox_RackNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -525,37 +616,52 @@ public final class ControlsPanel extends javax.swing.JPanel {
                             .addComponent(_Button_RackPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(_Button_RackNext, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(_Label_CompressorNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Label_CompressorName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(_Panel_NamePanelLayout.createSequentialGroup()
+                        .addComponent(_Label_CompressorName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(_TextField_CompressorName)
+                            .addComponent(_ComboBox_CompressorNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(_Button_CompPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Button_CompNext, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_ComboBox_CompressorNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_TextField_CompressorName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(_Label_SystemName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_Label_SystemNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_Button_CompPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Button_CompNext, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_Label_SystemNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Label_SystemName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_ComboBox_Systems, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_TextField_SystemName))
+                    .addComponent(_TextField_SystemName)
+                    .addComponent(_ComboBox_Systems, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_Button_SysPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(_Button_SysNext, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(_Label_GlycolSystemName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_Label_SystemNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(_ComboBox_GlycolSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_TextField_GlycolSystemName, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(_Panel_NamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(_Button_GlycolSysPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_Button_GlycolSysNext, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(_Label_SystemSave, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addContainerGap())
         );
 
         _Panel_NamePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_Button_CompPrev, _Button_RackNext, _Button_RackPrev, _Button_SysPrev});
 
-        _Panel_NamePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_TextField_CompressorName, _TextField_RackName, _TextField_SystemName});
+        _Panel_NamePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_TextField_CompressorName, _TextField_GlycolSystemName, _TextField_RackName, _TextField_SystemName});
+
+        _Panel_NamePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_ComboBox_CompressorNumber, _ComboBox_GlycolSystems, _ComboBox_RackNumber, _ComboBox_Systems});
 
         _Label_StoreLogo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         _Label_StoreLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -571,18 +677,16 @@ public final class ControlsPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(_ScrollPane_Log))
+                    .addComponent(_Panel_Controls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(_Panel_Controls, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_ScrollPane_Log))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(_Panel_NamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(_Label_StoreLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(_Panel_NamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(_Label_StoreLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -590,14 +694,14 @@ public final class ControlsPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(_Panel_NamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(_Label_StoreLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(_Panel_Controls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(_ScrollPane_Log, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                        .addComponent(_ScrollPane_Log, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(_Panel_NamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(_Label_StoreLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(16, 16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -629,7 +733,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
     private void _ComboBox_SuctionGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_SuctionGroupsActionPerformed
 
         // Update suction settings
-        _Label_SGSelected.setText(_ComboBox_SuctionGroups.getSelectedItem() + " Options");
+        _Label_SGOptions.setText(_ComboBox_SuctionGroups.getSelectedItem() + " Options");
         _TextField_SuctionGroupName.setText((String) _ComboBox_SuctionGroups.getSelectedItem());
         this.loadSuctionGroupOptions(_ComboBox_SuctionGroups.getSelectedIndex());
 
@@ -997,6 +1101,98 @@ public final class ControlsPanel extends javax.swing.JPanel {
         this.updateDisplay();
     }//GEN-LAST:event__TextField_SiteNameFocusLost
 
+    private void _FormattedTF_NumGlycolSystemsPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__FormattedTF_NumGlycolSystemsPropertyChange
+        // TODO add your handling code here:
+        try {
+            this.updateGlycolSystemCount();
+            // update the system names fields
+            this.updateGlycolSystemNames(_ComboBox_GlycolSystems.getSelectedIndex());
+
+            // Update the display frame
+            //System.out.println("slider systems update");
+            this.updateDisplay();
+            // Done updating display frame
+        } catch (NumberFormatException e) {
+
+        }
+    }//GEN-LAST:event__FormattedTF_NumGlycolSystemsPropertyChange
+
+    private void _CheckBox_GlycolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__CheckBox_GlycolActionPerformed
+        // TODO add your handling code here:
+
+        glycolSetting(_CheckBox_Glycol.isSelected());
+
+
+    }//GEN-LAST:event__CheckBox_GlycolActionPerformed
+
+    public void glycolSetting(boolean status) {
+
+        _CheckBox_Glycol.setSelected(status);
+        _FormattedTF_NumGlycolSystems.setEnabled(status);
+        _Button_GlycolSysNext.setEnabled(status);
+        _Button_GlycolSysPrev.setEnabled(status);
+        _ComboBox_GlycolSystems.setEnabled(status);
+        _TextField_GlycolSystemName.setEnabled(status);
+        cs.glycolStore = status;
+
+    }
+
+
+    private void _Button_GlycolSysNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_GlycolSysNextActionPerformed
+
+        int glycolSysIndex = _ComboBox_GlycolSystems.getSelectedIndex();
+        String name = _TextField_GlycolSystemName.getText();
+        cs.glycolSettings.replaceGlycolSystemName(name, glycolSysIndex);
+
+        // Select previous name
+        if (glycolSysIndex < cs.glycolSettings.getNumGlycolSystems() - 1) {
+            _ComboBox_GlycolSystems.setSelectedIndex(glycolSysIndex + 1);
+            _TextField_GlycolSystemName.setText(cs.glycolSettings.getGlycolSystemNameIndex(glycolSysIndex + 1));
+        }
+
+        // Update the display frame
+        //System.out.println("button next update");
+        this.updateDisplay();
+        // Done updating display frame
+        // Highlight the text field
+        this._TextField_GlycolSystemName.requestFocus();
+        this._TextField_GlycolSystemName.selectAll();
+    }//GEN-LAST:event__Button_GlycolSysNextActionPerformed
+
+    private void _Button_GlycolSysPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_GlycolSysPrevActionPerformed
+        // TODO add your handling code here:
+        // Save the field
+
+        int glycolSysIndex = _ComboBox_GlycolSystems.getSelectedIndex();
+        String name = _TextField_GlycolSystemName.getText();
+        cs.glycolSettings.replaceGlycolSystemName(name, glycolSysIndex);
+
+        // Select previous name
+        if (glycolSysIndex > 0) {
+            _ComboBox_GlycolSystems.setSelectedIndex(glycolSysIndex - 1);
+            _TextField_GlycolSystemName.setText(cs.glycolSettings.getGlycolSystemNameIndex(glycolSysIndex - 1));
+        }
+
+        // Update the display frame
+        //System.out.println("button prev update");
+        this.updateDisplay();
+        // Done updating display frame
+        // Highlight the text field
+        this._TextField_GlycolSystemName.requestFocus();
+        this._TextField_GlycolSystemName.selectAll();
+
+    }//GEN-LAST:event__Button_GlycolSysPrevActionPerformed
+
+    private void _ComboBox_GlycolSystemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_GlycolSystemsActionPerformed
+        // TODO add your handling code here:
+        // Update the text
+        int glycolSysIndex = _ComboBox_GlycolSystems.getSelectedIndex();
+        this.updateGlycolSystemNames(glycolSysIndex);
+        // Update the display frame
+        this.updateDisplay();
+        // Done updating display frame
+    }//GEN-LAST:event__ComboBox_GlycolSystemsActionPerformed
+
     /**
      * loads the combo box for racks
      *
@@ -1035,6 +1231,14 @@ public final class ControlsPanel extends javax.swing.JPanel {
         this.loadComboBoxSuctionGroups(0);
     }
 
+    public void loadGlycolSettings() {
+
+        glycolSetting(cs.glycolStore);
+        _FormattedTF_NumGlycolSystems.setText(String.valueOf(cs.glycolSettings.getNumGlycolSystems()));
+        updateGlycolSystemCount();
+        updateGlycolSystemNames(0);
+    }
+
     /**
      * loads the combo box for suction groups
      *
@@ -1056,7 +1260,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
             _ComboBox_SuctionGroups.setSelectedIndex(0);
         }
 
-        _Label_SGSelected.setText(_ComboBox_SuctionGroups.getSelectedItem() + " Options");
+        _Label_SGOptions.setText(_ComboBox_SuctionGroups.getSelectedItem() + " Options");
 
         this.loadSuctionGroupOptions(_ComboBox_SuctionGroups.getSelectedIndex());
 
@@ -1185,6 +1389,35 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // System drop box is set now update the text field 
 
         _TextField_SystemName.setText(sg.getSystemNameIndex(systemIndex));
+
+    }
+
+    /**
+     * updates the system names
+     *
+     * @param prevSelectedIndex previously selected index of the combo box
+     */
+    public void updateGlycolSystemNames(int prevSelectedIndex) {
+        // first update the combo box indicating what system names can be edited
+        int numGlycolSys = cs.glycolSettings.getNumGlycolSystems();
+
+        String[] sys = new String[numGlycolSys];
+        for (int i = 0; i < numGlycolSys; i++) {
+            sys[i] = "G" + (i + 1);
+        }
+        _ComboBox_GlycolSystems.setModel(new javax.swing.DefaultComboBoxModel(sys));
+        if (prevSelectedIndex <= numGlycolSys - 1) {
+            _ComboBox_GlycolSystems.setSelectedIndex(prevSelectedIndex);
+        } else {
+            _ComboBox_GlycolSystems.setSelectedIndex(0);
+            numGlycolSys = 0;
+        }
+
+        // Combo box updated, now add any system names that need to be added
+        cs.glycolSettings.addGlycolSystemNames(Math.abs(Integer.parseInt(_FormattedTF_NumGlycolSystems.getText())));
+        // System drop box is set now update the text field 
+
+        _TextField_GlycolSystemName.setText(cs.glycolSettings.getGlycolSystemNameIndex(_ComboBox_GlycolSystems.getSelectedIndex()));
 
     }
 
@@ -1348,6 +1581,25 @@ public final class ControlsPanel extends javax.swing.JPanel {
     }
 
     /**
+     * update the system count based on the text field
+     *
+     * @throws NumberFormatException for badly formatted text fields
+     */
+    public void updateGlycolSystemCount() throws NumberFormatException {
+        int glycolSystems = Math.abs(Integer.parseInt(_FormattedTF_NumGlycolSystems.getText()));
+        if (glycolSystems > 100) {
+            glycolSystems = 100;
+            _FormattedTF_NumGlycolSystems.setValue(new Integer("100"));
+        } else if (glycolSystems == 0) {
+            glycolSystems = 1;
+            _FormattedTF_NumGlycolSystems.setValue(new Integer("1"));
+        } else {
+            _FormattedTF_NumGlycolSystems.setValue(glycolSystems);
+        }
+        cs.glycolSettings.setNumGlycolSystems(glycolSystems);
+    }
+
+    /**
      * _ComboBox_SuctionGroups.getSelectedIndex()).setNumSystems(numSystems); }
      *
      * /**
@@ -1373,6 +1625,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         this.updateRackNames(0);
         this.loadComboBoxRacks(0);
         this.loadRackOptions(0);
+        this.loadGlycolSettings();
         this.updateDisplay();
     }
 
@@ -1389,17 +1642,22 @@ public final class ControlsPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton _Button_CompNext;
     private javax.swing.JButton _Button_CompPrev;
+    private javax.swing.JButton _Button_GlycolSysNext;
+    private javax.swing.JButton _Button_GlycolSysPrev;
     private javax.swing.JButton _Button_RackNext;
     private javax.swing.JButton _Button_RackPrev;
     private javax.swing.JButton _Button_SysNext;
     private javax.swing.JButton _Button_SysPrev;
+    private javax.swing.JCheckBox _CheckBox_Glycol;
     private javax.swing.JComboBox _ComboBox_CompressorNumber;
+    private javax.swing.JComboBox _ComboBox_GlycolSystems;
     private javax.swing.JComboBox _ComboBox_RackNumber;
     private javax.swing.JComboBox _ComboBox_Racks;
     private javax.swing.JComboBox _ComboBox_SuctionGroups;
     private javax.swing.JComboBox _ComboBox_Systems;
     private javax.swing.JFormattedTextField _FormattedTF_NumComp;
     private javax.swing.JFormattedTextField _FormattedTF_NumFans;
+    private javax.swing.JFormattedTextField _FormattedTF_NumGlycolSystems;
     private javax.swing.JFormattedTextField _FormattedTF_NumRacks;
     private javax.swing.JFormattedTextField _FormattedTF_NumSG;
     private javax.swing.JFormattedTextField _FormattedTF_NumSystems;
@@ -1407,30 +1665,35 @@ public final class ControlsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel _Label_CompressorNumber;
     private javax.swing.JLabel _Label_Compressors;
     private javax.swing.JLabel _Label_CondenserFans;
+    private javax.swing.JLabel _Label_Glycol;
+    private javax.swing.JLabel _Label_GlycolSystemName;
     private javax.swing.JLabel _Label_NumberRacks;
     private javax.swing.JLabel _Label_NumberSuctionGroups;
     private javax.swing.JLabel _Label_NumberSystems;
+    private javax.swing.JLabel _Label_NumberSystems1;
     private javax.swing.JLabel _Label_RackName;
     private javax.swing.JLabel _Label_RackNumber;
     private javax.swing.JLabel _Label_RackSelected;
-    private javax.swing.JLabel _Label_SGSelected;
+    private javax.swing.JLabel _Label_SGOptions;
     private javax.swing.JLabel _Label_Site;
     private javax.swing.JLabel _Label_StoreLogo;
     private javax.swing.JLabel _Label_SuctionGroupName;
     private javax.swing.JLabel _Label_SuctionGroupOptions;
     private javax.swing.JLabel _Label_SystemName;
     private javax.swing.JLabel _Label_SystemNumber;
+    private javax.swing.JLabel _Label_SystemNumber1;
     private javax.swing.JLabel _Label_SystemSave;
-    private javax.swing.JLabel _Label_Title;
     private javax.swing.JPanel _Panel_Controls;
     private javax.swing.JPanel _Panel_NamePanel;
     private javax.swing.JScrollPane _ScrollPane_Log;
     private javax.swing.JTextArea _TextArea_Log;
     private javax.swing.JTextField _TextField_CompressorName;
+    private javax.swing.JTextField _TextField_GlycolSystemName;
     private javax.swing.JTextField _TextField_RackName;
     private javax.swing.JTextField _TextField_SiteName;
     private javax.swing.JTextField _TextField_SuctionGroupName;
     private javax.swing.JTextField _TextField_SystemName;
+    private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
 
 }

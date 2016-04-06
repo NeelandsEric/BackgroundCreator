@@ -75,10 +75,11 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         this.updateView();
     }
 
-    public void updateDisplaySettings(DisplaySettings ds){
+    public void updateDisplaySettings(DisplaySettings ds) {
         this.border = ds.getBorder();
-        this.font = ds.getFont();        
+        this.font = ds.getFont();
     }
+
     /**
      * updates the storename
      *
@@ -478,6 +479,10 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
             }
         }
 
+        // -------------------------------------------------------------------
+        // ---------------     Alarms or Glycol     --------------------------
+        // -------------------------------------------------------------------
+        boolean glycolStore = df.mf.store.cs.glycolStore;
         // Performance constraints
         // Constraints     
         gridYPos += (gridHeight * 2);
@@ -494,7 +499,11 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         GridBagConstraints c6 = new GridBagConstraints();
         c6.gridx = 0;
         c6.fill = GridBagConstraints.BOTH;
-        label = new JLabel("Alarms");
+        if (glycolStore) {
+            label = new JLabel("Glycol");
+        } else {
+            label = new JLabel("Alarms");
+        }
         label.setFont(font.deriveFont(Font.BOLD, 16));
         panel.setOpaque(true);
         panel.setBorder(border);
@@ -509,9 +518,9 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         //gridYPos += gridHeight;
         c.gridx = gridXPos;
         c.gridwidth = sum;
-        c.ipady = 200;
-        c.weighty = 0;
-        panel = panelRackOutput();
+        c.ipady = 0;
+        c.weighty = 1;
+        panel = panelRackOutput(glycolStore);
         panel.setBorder(border);
         _Panel_MainPanel.add(panel, c);
 
@@ -723,13 +732,95 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         return panel;
     }
 
-    public JPanel panelRackOutput() {
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JLabel label = new JLabel();
-        widgetComponents.put("Alert Log", label);
-        panel.add(label);
-        panel.setBackground(Colours.BlueLightest.getCol());
-        return panel;
+    public JPanel panelRackOutput(boolean glycol) {
+
+        if (!glycol) {
+            JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            JLabel label = new JLabel();
+            widgetComponents.put("Alert Log", label);
+            panel.add(label);
+            panel.setBackground(Colours.BlueLightest.getCol());
+            return panel;
+        } else {
+            
+            // Make a panel for the glycol systems
+            JLabel label;
+            GridBagLayout gbl = new GridBagLayout();
+            GridBagConstraints c = new GridBagConstraints();
+            // Return a panel containing condenser labels
+            JPanel panel = new JPanel(gbl);
+            GlycolSettings gs = df.mf.store.cs.getGlycolSettings();
+            int numGSys = gs.getNumGlycolSystems();
+            int numCols = (int) Math.ceil(numGSys / 3.0);
+            int numPerCol = 3;
+            int numAdded = 0;
+
+            //===========================
+            // RACK SUCTION GROUP NAME
+            //===========================
+            label = new JLabel("Glycol System Status");
+            c.gridwidth = numCols;
+            c.weightx = 1;
+            c.weighty = 0;
+            c.gridx = 0;
+            c.gridy = 0;
+            label.setFont(font.deriveFont(Font.BOLD, 18));
+            c.fill = GridBagConstraints.BOTH;
+            label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            label.setOpaque(true);
+            label.setBackground(Colours.BlueDark.getCol());
+            panel.add(label, c);
+
+            //c.gridy = 1;
+            c.weightx = 1;
+            c.weighty = 1;
+            c.gridwidth = 1;
+            c.gridheight = 1;
+            //c.ipady = 10;
+
+            int colIndex = 0;
+            int rowIndex = 1;
+            int numSpots = numCols * (int) numPerCol;
+          
+            String tooltip = "Glycol System Status `%rackname` `%sgname` `%sysname`";
+            for (int i = 1; i <= numSpots; i++) {
+
+                if (numAdded < numPerCol) {
+                    c.gridx = colIndex;
+                    c.gridy = rowIndex++;
+                    numAdded++;
+                } else {
+                    numAdded = 1;
+                    colIndex++;
+                    rowIndex = 1;
+                    c.gridx = colIndex;
+                    c.gridy = rowIndex++;
+                }
+
+                if (i <= numGSys) {
+                    String text = gs.getGlycolSystemNameIndex(i - 1);
+                    label = new JLabel(text);
+                    label.setFont(font.deriveFont(Font.BOLD, 18));
+                    widgetComponents.put(tooltip.replace("`%glycolname`", text), label);
+                } else {
+                    label = new JLabel();
+                }
+
+                label.setOpaque(true);
+                label.setBackground(Colours.BlueLightest.getCol());
+
+                //c.ipady = 25;
+                c.fill = GridBagConstraints.BOTH;
+                label.setVerticalAlignment(JLabel.TOP);
+                label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                panel.add(label, c);
+            }
+
+            //panel.setBackground(Colours.LightestBlue.getCol());
+            panel.setBorder(border);
+            return panel;
+
+        }
     }
 
     public JPanel panelCompCond(String rackName) {
@@ -1016,7 +1107,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         c.weighty = 1;
         c.gridwidth = 1;
         c.gridheight = 1;
-        //c.ipady = 10;
+        c.ipady = 10;
 
         int colIndex = 0;
         int rowIndex = 1;

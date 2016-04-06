@@ -63,3 +63,5 @@ System Status `%rackname` `%sgname` `%sysname`
 Comp Amps `%rackname` `%sgname` `%compname`
 Comp Discharge Temp `%rackname` `%sgname` `%compname`
 Comp Status `%rackname` `%sgname` `%compname`
+`Glycol`
+Glycol System Status `%glycolname`

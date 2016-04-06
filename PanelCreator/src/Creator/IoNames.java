@@ -30,12 +30,13 @@ public class IoNames implements java.io.Serializable {
     private ArrayList<String> compStr;
     private ArrayList<String> sysStr;
     private ArrayList<String> extraStr;
-    
-    private static final String [] HEADERS = {"io_name", "io_type", "io_value",
-            "io_unit_of_measure", "io_constant", "io_offset", "io_float_digits",
-            "io_alert","io_alert_timeout", "io_alert_range_low",
-            "io_alert_range_high", "io_log", "io_log_param1", "io_log_range"
-        };
+    private ArrayList<String> glycolStr;
+
+    private static final String[] HEADERS = {"io_name", "io_type", "io_value",
+        "io_unit_of_measure", "io_constant", "io_offset", "io_float_digits",
+        "io_alert", "io_alert_timeout", "io_alert_range_low",
+        "io_alert_range_high", "io_log", "io_log_param1", "io_log_range"
+    };
 
     public IoNames() {
         storeStr = new ArrayList<>();
@@ -45,6 +46,7 @@ public class IoNames implements java.io.Serializable {
         compStr = new ArrayList<>();
         sysStr = new ArrayList<>();
         extraStr = new ArrayList<>();
+        glycolStr = new ArrayList<>();
 
     }
 
@@ -104,6 +106,14 @@ public class IoNames implements java.io.Serializable {
         this.extraStr = extraStr;
     }
 
+    public ArrayList<String> getGlycolStr() {
+        return glycolStr;
+    }
+
+    public void setGlycolStr(ArrayList<String> glycolStr) {
+        this.glycolStr = glycolStr;
+    }
+
     public void addString(int listIndex, String string) {
 
         switch (listIndex) {
@@ -127,6 +137,9 @@ public class IoNames implements java.io.Serializable {
                 break;
             case 6:
                 extraStr.add(string);
+                break;
+            case 7:
+                glycolStr.add(string);
                 break;
             default:
                 System.out.println("Didnt add " + string);
@@ -158,6 +171,9 @@ public class IoNames implements java.io.Serializable {
                 break;
             case 6:
                 replaced = extraStr.set(arrayIndex, string);
+                break;
+            case 7:
+                replaced = glycolStr.set(arrayIndex, string);
                 break;
             default:
                 System.out.println("Didnt add " + string);
@@ -303,6 +319,14 @@ public class IoNames implements java.io.Serializable {
             vars.add(newString);
         }
 
+        for (int ngs = 0; ngs < cs.glycolSettings.getNumGlycolSystems(); ngs++) {
+            for (String s : glycolStr) {
+                newString = s.split(",");
+                newString[0] = newString[0].replace("`%glycolname`", cs.glycolSettings.getGlycolSystemNameIndex(ngs));
+                vars.add(newString);
+            }
+        }
+
         Collections.sort(vars, new Comparator< String[]>() {
             @Override
             public int compare(String[] x1, String[] x2) {
@@ -311,7 +335,6 @@ public class IoNames implements java.io.Serializable {
         });
 
         // Add header
-       
         vars.add(0, HEADERS);
 
         return vars;
@@ -486,7 +509,7 @@ public class IoNames implements java.io.Serializable {
 
         // Add header
         // Add header
-        if (addHeader) {            
+        if (addHeader) {
             vars.add(HEADERS);
         }
 
@@ -631,7 +654,6 @@ public class IoNames implements java.io.Serializable {
 
         List<String[]> vars = new ArrayList<>();
 
-        
         vars.add(HEADERS);
         // Store
         vars.add(new String[]{"`Store`"});
