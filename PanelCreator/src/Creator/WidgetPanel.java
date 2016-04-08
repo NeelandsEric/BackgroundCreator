@@ -79,7 +79,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     public WidgetPanel(MainFrame mf, ControlSettings cs, WidgetSettings ws) {
         this.mf = mf;
         this.cs = cs;
-        this.mouseActive = new boolean[cs.getNumRacks() + 3];
+        this.mouseActive = new boolean[cs.getNumRacks() + 5];
         this.widgetList = new TreeMap<>();
         this.ws = ws;
         this.listModelWidgetsVars = new DefaultListModel();
@@ -93,7 +93,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     public void loadControlSettings(ControlSettings cs, WidgetSettings ws) {
         this.cs = cs;
         this.ws = ws;
-        this.mouseActive = new boolean[cs.getNumRacks() + 3];
+        this.mouseActive = new boolean[cs.getNumRacks() + 5];
         this.widgetList = new TreeMap<>();
         this._Button_EnableClicks.setEnabled(false);
         _Button_CreateImports.setEnabled(true);
@@ -143,7 +143,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     public void updateDisplay() {
 
-        String[] tabs = new String[cs.getNumRacks() + 3];
+        String[] tabs = new String[cs.getNumRacks() + 5];
         tabs[0] = "Main";
         for (int i = 0; i < cs.getNumRacks(); i++) {
             tabs[i + 1] = "R: " + cs.getRackName(i);
