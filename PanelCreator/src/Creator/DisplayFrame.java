@@ -19,9 +19,11 @@ public class DisplayFrame extends javax.swing.JFrame {
     public BackgroundMain bg; // main panel 
     // Loads panel
     public MainFrame mf;
-    public ArrayList<BackgroundRackNew> rackTabs;
+    public ArrayList<BackgroundRack> rackTabs;
     public BackgroundLoad bgl;
     public BackgroundFinancial bgf;
+    public BackgroundEnergy bge;
+    public BackgroundGlycol bgg;
     public ControlSettings cs;
     public DisplaySettings ds;
     private boolean stopUpdate;
@@ -43,15 +45,19 @@ public class DisplayFrame extends javax.swing.JFrame {
         bg = new BackgroundMain(this);
         _TabbedPane_Tabs.add("Main", bg);
         for (int i = 1; i <= this.cs.getNumRacks(); i++) {
-            BackgroundRackNew br = new BackgroundRackNew(this, (i - 1));
+            BackgroundRack br = new BackgroundRack(this, (i - 1));
             _TabbedPane_Tabs.add("Rack " + i, br);
             rackTabs.add(br);
         }
 
         bgl = new BackgroundLoad(this);
         bgf = new BackgroundFinancial(this);
+        bge = new BackgroundEnergy(this);
+        bgg = new BackgroundGlycol(this);
         _TabbedPane_Tabs.add("Loads", bgl);
         _TabbedPane_Tabs.add("Financial", bgf);
+        _TabbedPane_Tabs.add("Energy", bge);
+        _TabbedPane_Tabs.add("Glycol", bgg);
 
         this.stopUpdate = false;
     }
@@ -74,6 +80,8 @@ public class DisplayFrame extends javax.swing.JFrame {
         }
         bgl.updateDisplaySettings(ds);       
         bgf.updateDisplaySettings(ds);         
+        bge.updateDisplaySettings(ds);         
+        bgg.updateDisplaySettings(ds);         
         
         this.stopUpdate = false;
     }
@@ -148,10 +156,14 @@ public class DisplayFrame extends javax.swing.JFrame {
         int nt = _TabbedPane_Tabs.getTabCount();
         if (panelIndex == 0) {
             bg.setCanClick(b);
-        } else if (panelIndex == (nt - 2)) {
+        } else if (panelIndex == (nt - 4)) {
             bgl.setCanClick(b);
+        } else if (panelIndex == (nt - 3)) {
+            bgf.setCanClick(b);        
+        } else if (panelIndex == (nt - 2)) {
+            bge.setCanClick(b);        
         } else if (panelIndex == (nt - 1)) {
-            bgf.setCanClick(b);
+            bgg.setCanClick(b);
         } else {
             panelIndex--;
             rackTabs.get(panelIndex).setCanClick(b);
@@ -174,7 +186,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         Map<String, Map<String, Rectangle>> masterMap = new LinkedHashMap<>();
 
         masterMap.put("Main", bg.positions());
-        for (BackgroundRackNew b : rackTabs) {
+        for (BackgroundRack b : rackTabs) {
             if (masterMap.containsKey("Rack")) {
                 masterMap.get("R: " + b.rack.getName()).putAll(b.positions());
             } else {
@@ -184,6 +196,8 @@ public class DisplayFrame extends javax.swing.JFrame {
 
         masterMap.put("Loads", bgl.positions());
         masterMap.put("Financial", bgf.positions());
+        masterMap.put("Energy", bge.positions());
+        masterMap.put("Glycol", bgg.positions());
 
         return masterMap;
     }
@@ -212,7 +226,7 @@ public class DisplayFrame extends javax.swing.JFrame {
                         bg.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(),
                                 cs.getImgStr(), cs.getStoreName());
 
-                        for (int i = nt - 3; i > cs.getNumRacks(); i--) {
+                        for (int i = nt - 5; i > cs.getNumRacks(); i--) {
                             _TabbedPane_Tabs.remove(i);
                         }
 
@@ -224,7 +238,7 @@ public class DisplayFrame extends javax.swing.JFrame {
                                     _TabbedPane_Tabs.setTitleAt(i + 1, cs.getRackNames()[i]);
                                 }
                             } else {
-                                rackTabs.add(new BackgroundRackNew(t, i));
+                                rackTabs.add(new BackgroundRack(t, i));
                                 rackTabs.get(i).updateRacks(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), cs.getRackNames());
                                 _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
                                 _TabbedPane_Tabs.setTitleAt(i + 1, cs.getRackNames()[i]);
@@ -233,7 +247,9 @@ public class DisplayFrame extends javax.swing.JFrame {
 
                         bgl.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
                         bgf.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
-                        if (selected == (nt - 1)) {
+                        bge.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
+                        bgg.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
+                        if (selected == (nt - 4)) {
                             if (_TabbedPane_Tabs.getTabCount() < nt) {
                                 selected--; // loads tab selected
                             } else {
@@ -273,6 +289,8 @@ public class DisplayFrame extends javax.swing.JFrame {
         }
         bgl.updateImageURL("");
         bgf.updateImageURL("");
+        bge.updateImageURL("");
+        bgg.updateImageURL("");
     }
 
     /**
@@ -289,6 +307,8 @@ public class DisplayFrame extends javax.swing.JFrame {
         }
         bgl.updateImageURL(img);
         bgf.updateImageURL(img);
+        bge.updateImageURL(img);
+        bgg.updateImageURL(img);
     }
 
     /**
@@ -321,8 +341,10 @@ public class DisplayFrame extends javax.swing.JFrame {
             c[i] = rackTabs.get(i - 1);
         }
 
-        c[c.length - 2] = bgl;
-        c[c.length - 1] = bgf;
+        c[c.length - 4] = bgl;
+        c[c.length - 3] = bgf;
+        c[c.length - 2] = bge;
+        c[c.length - 1] = bgg;
 
         return c;
 

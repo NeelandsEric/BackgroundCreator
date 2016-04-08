@@ -27,7 +27,7 @@ import javax.swing.border.Border;
  *
  * @author EricGummerson
  */
-public class BackgroundFinancial extends javax.swing.JPanel {
+public class BackgroundGlycol extends javax.swing.JPanel {
 
     public DisplayFrame df;
     public int numRacks;            // number of racks
@@ -44,7 +44,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
      *
      * @param df
      */
-    public BackgroundFinancial(DisplayFrame df) {
+    public BackgroundGlycol(DisplayFrame df) {
         initComponents();
         this.df = df;
         this.img = "";
@@ -1570,8 +1570,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
 
         // Financial Button
         c.gridx += 1;
-        button = new JButton("Financial");
-        button.setEnabled(false);
+        button = new JButton("Financial");        
         button.setFont(font.deriveFont(Font.BOLD, 20));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1580,6 +1579,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
             }
         });
         panel.add(button, c);
+        
         
          // Energy Button
         c.gridx += 1;
@@ -1596,6 +1596,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
          // Glycol Button
         c.gridx += 1;
         button = new JButton("Glycol");
+        button.setEnabled(false);
         button.setFont(font.deriveFont(Font.BOLD, 20));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1687,10 +1688,10 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //c.ipady = 0; 
         // End of Constraints
         //===========================================================
-
+      
         // Store
         label = new JLabel("");
-        widgetComponents.put("Store $/kWh", label);
+        //widgetComponents.put("Store $/kWh", label);
         //label.setBorder(border);        
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel.add(label, c);
@@ -1710,7 +1711,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //===========================================================
 
         // Store
-        label = new JLabel("FINANCIAL ANALYSIS               " + storeName);
+        label = new JLabel("GLYCOL INFO               " + storeName);
         label.setOpaque(true);
         label.setBackground(Color.BLACK);
         label.setForeground(Colours.Gray.getCol());

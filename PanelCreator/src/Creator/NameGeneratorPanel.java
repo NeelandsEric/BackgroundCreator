@@ -787,9 +787,9 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
     public String getDateString() {
 
-        int day = Integer.parseInt(_FTF_LogTimeDay.getText());
-        int month = Integer.parseInt(_FTF_LogTimeMonth.getText());
-        int year = Integer.parseInt(_FTF_LogTimeYear.getText());
+        int day = !_FTF_LogTimeDay.getText().equals("") ? Integer.parseInt(_FTF_LogTimeDay.getText()): 0;
+        int month = !_FTF_LogTimeMonth.getText().equals("") ? Integer.parseInt(_FTF_LogTimeMonth.getText()): 0;
+        int year = !_FTF_LogTimeYear.getText().equals("") ? Integer.parseInt(_FTF_LogTimeYear.getText()): 0;
         String time = "";
         if (year > 0) {
             if (year > 5) {
@@ -812,18 +812,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             } else {
                 time += " mons ";
             }
-        }
-        if (month > 0) {
-            if (month > 12) {
-                month = 12;
-            }
-            time += String.valueOf(month);
-            if (month == 1) {
-                time += " mon ";
-            } else {
-                time += " mons ";
-            }
-        }
+        }        
         if (day > 0) {
             if (day > 350) {
                 day = 350;

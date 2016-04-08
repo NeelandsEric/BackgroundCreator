@@ -759,7 +759,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
             // RACK SUCTION GROUP NAME
             //===========================
             label = new JLabel("Glycol System Status");
-            c.gridwidth = numCols;
+            c.gridwidth = numCols + 1;
             c.weightx = 1;
             c.weighty = 0;
             c.gridx = 0;
@@ -770,15 +770,52 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
             label.setOpaque(true);
             label.setBackground(Colours.BlueDark.getCol());
             panel.add(label, c);
-
-            //c.gridy = 1;
+            
+            
+            // Status - Pump Station & Chiller
+            // Sizing up
+            c.gridwidth = 1;
+            c.gridheight = 1;            
             c.weightx = 1;
             c.weighty = 1;
-            c.gridwidth = 1;
-            c.gridheight = 1;
+            
+            // Pump Station
+            c.gridx = 0;
+            c.gridy = 1;
+            label = new JLabel("Pump Station Status");
+            label.setFont(font.deriveFont(Font.BOLD, 18));
+            c.fill = GridBagConstraints.BOTH;
+            label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            label.setOpaque(true);
+            label.setBackground(Colours.BlueLightest.getCol());
+            panel.add(label, c);
+            
+            // Chiller Status
+            c.gridy = 2;           
+            label = new JLabel("Chiller Status");
+            label.setFont(font.deriveFont(Font.BOLD, 18));
+            c.fill = GridBagConstraints.BOTH;
+            label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            label.setOpaque(true);
+            label.setBackground(Colours.BlueLightest.getCol());
+            panel.add(label, c);
+            
+            // Blank for now
+            c.gridy = 3;           
+            label = new JLabel("");
+            label.setFont(font.deriveFont(Font.BOLD, 18));
+            c.fill = GridBagConstraints.BOTH;
+            label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            label.setOpaque(true);
+            label.setBackground(Colours.BlueLightest.getCol());
+            panel.add(label, c);
+
+            
+            c.gridx = 1;
+            c.gridy = 1;
             //c.ipady = 10;
 
-            int colIndex = 0;
+            int colIndex = 1;
             int rowIndex = 1;
             int numSpots = numCols * (int) numPerCol;
           
@@ -811,6 +848,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
 
                 //c.ipady = 25;
                 c.fill = GridBagConstraints.BOTH;
+                //label.setBorder(border);
                 label.setVerticalAlignment(JLabel.TOP);
                 label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                 panel.add(label, c);
@@ -1440,6 +1478,30 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         // Financial Button
         c.gridx += 1;
         button = new JButton("Financial");
+        button.setFont(font.deriveFont(Font.BOLD, 20));
+        button.setAlignmentX((Component.CENTER_ALIGNMENT));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick();
+            }
+        });
+        panel.add(button, c);
+        
+         // Energy Button
+        c.gridx += 1;
+        button = new JButton("Energy");
+        button.setFont(font.deriveFont(Font.BOLD, 20));
+        button.setAlignmentX((Component.CENTER_ALIGNMENT));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick();
+            }
+        });
+        panel.add(button, c);
+        
+         // Glycol Button
+        c.gridx += 1;
+        button = new JButton("Glycol");
         button.setFont(font.deriveFont(Font.BOLD, 20));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {

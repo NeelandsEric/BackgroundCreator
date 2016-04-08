@@ -148,8 +148,10 @@ public class WidgetPanel extends javax.swing.JPanel {
         for (int i = 0; i < cs.getNumRacks(); i++) {
             tabs[i + 1] = "R: " + cs.getRackName(i);
         }
-        tabs[tabs.length - 2] = "Loads";
-        tabs[tabs.length - 1] = "Financial";
+        tabs[tabs.length - 4] = "Loads";
+        tabs[tabs.length - 3] = "Financial";
+        tabs[tabs.length - 2] = "Energy";
+        tabs[tabs.length - 1] = "Glycol";
 
         _ComboBox_DisplayPanel.setModel(new javax.swing.DefaultComboBoxModel(tabs));
 
