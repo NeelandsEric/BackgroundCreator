@@ -369,7 +369,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
             label.setBackground(Colours.BlueDark.getCol());
 
             label.setBorder(border);
-            label.setFont(font);
+            label.setFont(font.deriveFont(Font.BOLD, 20));
             label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             panel.add(label, c);
             c.gridx += 1;
@@ -420,7 +420,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
             }
 
             label.setBorder(border);
-            label.setFont(font);
+            label.setFont(font.deriveFont(Font.BOLD, 20));
             label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
             panel.add(label, c);
