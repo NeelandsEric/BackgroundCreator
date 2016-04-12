@@ -72,14 +72,6 @@ public interface Background {
      *
      * @return clickStatus
      */
-    public boolean canClick();
-
-    /**
-     * Sets the click status for the panel
-     *
-     * @param canClick boolean
-     */
-    public void setCanClick(boolean canClick);
 
     /**
      * updates the panel

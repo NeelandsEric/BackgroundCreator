@@ -5,6 +5,8 @@
  */
 package Creator;
 
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -36,18 +39,49 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private Map<String, Integer> importedIOVariables;       // io_name,io_id
     private List<String[]> importedTasks;
     private DBConn db;
+    private ControlSettings cs;
+    private WidgetPanelLinks wpl;
+    
+    private static String widgetCodeName = "Panel1 Link";
 
     /**
      * Creates new form TaskManagerPanel
      *
      * @param mf
+     * @param cs
      */
-    public TaskManagerPanel(MainFrame mf) {
+    public TaskManagerPanel(MainFrame mf, ControlSettings cs) {
         this.mf = mf;
         this.stationId = -1;
+        this.cs = cs;
+        this.wpl = new WidgetPanelLinks();
         initComponents();
         loadDefaultTasks();
 
+    }
+
+    public MainFrame getMf() {
+        return mf;
+    }
+
+    public void setMf(MainFrame mf) {
+        this.mf = mf;
+    }
+
+    public int getStationId() {
+        return stationId;
+    }
+
+    public void setStationId(int stationId) {
+        this.stationId = stationId;
+    }
+
+    public WidgetPanelLinks getWpl() {
+        return wpl;
+    }
+
+    public void setWpl(WidgetPanelLinks wpl) {
+        this.wpl = wpl;
     }
 
     public void setImportedIoVariables(Map<String, Integer> newIo, int stationId) {
@@ -141,6 +175,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         _FileChooser_IoFile = new javax.swing.JFileChooser();
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         _Panel_Imports = new javax.swing.JPanel();
         _Button_LoadXls = new javax.swing.JButton();
@@ -148,12 +183,36 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         _Button_CreateImports = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         _TextArea_Status = new javax.swing.JTextArea();
+        jPanel2 = new javax.swing.JPanel();
+        _Button_GenerateLinks = new javax.swing.JButton();
+        _ComboBox_Panels = new javax.swing.JComboBox();
+        _FTF_PanelID = new javax.swing.JFormattedTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        _TF_PanelName = new javax.swing.JTextField();
+        _Button_Save = new javax.swing.JButton();
+        _FTF_XPOS = new javax.swing.JFormattedTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        _FTF_YPOS = new javax.swing.JFormattedTextField();
 
         _FileChooser_IoFile.setApproveButtonText("Open");
         _FileChooser_IoFile.setApproveButtonToolTipText("Open a xls file");
         _FileChooser_IoFile.setCurrentDirectory(new java.io.File("C:\\Users\\EricGummerson\\Documents\\Background Creator Files"));
         _FileChooser_IoFile.setDialogTitle("Open a XLS File");
         _FileChooser_IoFile.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("XLS files", "xls"));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setMinimumSize(new java.awt.Dimension(969, 544));
 
@@ -213,6 +272,130 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         _TextArea_Status.setRows(5);
         jScrollPane1.setViewportView(_TextArea_Status);
 
+        _Button_GenerateLinks.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Button_GenerateLinks.setText("Generate HTML Links");
+        _Button_GenerateLinks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_GenerateLinksActionPerformed(evt);
+            }
+        });
+
+        _ComboBox_Panels.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _ComboBox_Panels.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Main" }));
+        _ComboBox_Panels.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _ComboBox_PanelsActionPerformed(evt);
+            }
+        });
+
+        _FTF_PanelID.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        _FTF_PanelID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Panel Names");
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Panel ID");
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Panel Name");
+
+        _TF_PanelName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        _Button_Save.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Button_Save.setText("Save & Next");
+        _Button_Save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_SaveActionPerformed(evt);
+            }
+        });
+
+        _FTF_XPOS.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        _FTF_XPOS.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("X Position");
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Y Position");
+
+        _FTF_YPOS.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        _FTF_YPOS.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(_Button_GenerateLinks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(_ComboBox_Panels, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(_FTF_XPOS)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(_FTF_YPOS)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(_FTF_PanelID, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                                    .addComponent(_TF_PanelName)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(_Button_Save, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(3, 3, 3)))
+                        .addGap(0, 7, Short.MAX_VALUE))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(_ComboBox_Panels, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_FTF_XPOS, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_FTF_YPOS, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11)
+                                .addComponent(_FTF_PanelID))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addComponent(_TF_PanelName))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_Button_Save, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(5, 5, 5)
+                .addComponent(_Button_GenerateLinks, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -220,14 +403,19 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(351, 351, 351)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(295, 295, 295)
                         .addComponent(_Panel_Imports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(351, 351, 351)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -237,9 +425,14 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(_Panel_Imports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(234, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(_Panel_Imports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(89, 89, 89))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -271,8 +464,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             _TextArea_Status.append("\nStatus: Tasks already exist for Station ID " + stationId);
             return;
         }
-        
-        if(stationId == -1){
+
+        if (stationId == -1) {
             stationId = mf.stationId;
             System.out.println("New ID: " + stationId);
         }
@@ -562,12 +755,86 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event__Button_CreateImportsActionPerformed
 
+    public void setCs(ControlSettings cs) {
+        this.cs = cs;
+        loadComboBoxPanels();
+    }
+
+    private void loadComboBoxPanels() {
+
+        String[] tabs = new String[cs.getNumRacks() * 2 + 4 + 1]; // racks * 2 (loads/rack) + 4 (panels) + map
+        tabs[0] = "Main";
+        for (int i = 0; i < cs.getNumRacks(); i++) {
+            tabs[i + 1] = "R: " + cs.getRackName(i);
+        }
+        for (int i = 0; i < cs.getNumRacks(); i++) {
+            tabs[i + cs.getNumRacks() + 1] = "L: " + cs.getRackName(i).replace("Rack", "Load");
+        }
+        tabs[tabs.length - 4] = "Financial";
+        tabs[tabs.length - 3] = "Energy";
+        tabs[tabs.length - 2] = "Glycol";
+        tabs[tabs.length - 1] = "Map";
+
+        _ComboBox_Panels.setModel(new javax.swing.DefaultComboBoxModel(tabs));
+
+    }
+
+    private void _ComboBox_PanelsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_PanelsActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event__ComboBox_PanelsActionPerformed
+
+    public void buttonClick(Point p){
+        _FTF_XPOS.setText(String.valueOf(p.x));
+        _FTF_YPOS.setText(String.valueOf(p.y));
+    }
+    private void _Button_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SaveActionPerformed
+        // TODO add your handling code here:
+        if (!_FTF_PanelID.getText().equals("") && !_TF_PanelName.getText().equals("")) {
+            wpl.addLink(_ComboBox_Panels.getSelectedItem().toString(), Integer.valueOf(_FTF_PanelID.getText()), _TF_PanelName.getText());
+
+            if (_ComboBox_Panels.getSelectedIndex() >= (_ComboBox_Panels.getModel().getSize() - 1)) {
+                _ComboBox_Panels.setSelectedIndex(0);
+            } else {
+                _ComboBox_Panels.setSelectedIndex(_ComboBox_Panels.getSelectedIndex() + 1);
+            }
+
+        }
+
+
+    }//GEN-LAST:event__Button_SaveActionPerformed
+
+    private void _Button_GenerateLinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_GenerateLinksActionPerformed
+        // TODO add your handling code here:
+       
+        WidgetCode wc = mf.wgPanel.getWidgetCode(widgetCodeName);
+        for(Map.Entry<String, WidgetPanelLinks.LinkInfo> entry: wpl.getLinks().entrySet()){
+            
+            // For each entry, format a code string based on the default positions
+            // and the given panel name and ID's
+            
+            int panelID = entry.getValue().getPanelID();
+            String panelName = entry.getValue().getPanelName();
+            
+            String xPos = "";
+            String yPos = "";
+            
+            String newCode = wc.getFullWidgetText()
+                            .replace("`%XPOS%`", xPos);
+            
+            
+            
+            
+        }
+        
+    }//GEN-LAST:event__Button_GenerateLinksActionPerformed
+
     private boolean checkTaskExist() {
 
         String query = "select task_manager_station_id from task_manager where task_manager_station_id = " + stationId + ";";
 
         db = new DBConn();
-        boolean status =  db.checkForData(query);
+        boolean status = db.checkForData(query);
         db.closeConn();
 
         return status;
@@ -734,12 +1001,26 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton _Button_CreateImports;
+    private javax.swing.JButton _Button_GenerateLinks;
     private javax.swing.JButton _Button_LoadXls;
+    private javax.swing.JButton _Button_Save;
+    private javax.swing.JComboBox _ComboBox_Panels;
+    private javax.swing.JFormattedTextField _FTF_PanelID;
+    private javax.swing.JFormattedTextField _FTF_XPOS;
+    private javax.swing.JFormattedTextField _FTF_YPOS;
     private javax.swing.JFileChooser _FileChooser_IoFile;
     private javax.swing.JLabel _Label_Loaded;
     private javax.swing.JPanel _Panel_Imports;
+    private javax.swing.JTextField _TF_PanelName;
     private javax.swing.JTextArea _TextArea_Status;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

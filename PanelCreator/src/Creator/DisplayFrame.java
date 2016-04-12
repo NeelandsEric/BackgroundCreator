@@ -1,13 +1,25 @@
 package Creator;
 
+import java.awt.Button;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.IllegalComponentStateException;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.TreeMap;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
 
 /**
  * The display frame which shows the different backgrounds
@@ -166,28 +178,19 @@ public class DisplayFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event__TabbedPane_TabsComponentResized
 
-    public void canClick(int panelIndex, boolean b) {
-        int nt = _TabbedPane_Tabs.getTabCount();
-        int numRacks = cs.getNumRacks();
+    /**
+     * A button is clicked
+     *
+     * @param panelID
+     */
+    private void buttonClick(int panelID) {       
 
-        if (panelIndex == 0) {
-            bg.setCanClick(b);
-        } else if (panelIndex >= 1 && panelIndex <= numRacks) {
-            panelIndex--;
-            rackTabs.get(panelIndex).setCanClick(b);
-        } else if (panelIndex > numRacks && panelIndex <= (2 * numRacks)) {
-            panelIndex -= (numRacks + 1);
-            loadTabs.get(panelIndex).setCanClick(b);
-        } else if (panelIndex == (nt - 3)) {
-            bgf.setCanClick(b);
-        } else if (panelIndex == (nt - 2)) {
-            bge.setCanClick(b);
-        } else if (panelIndex == (nt - 1)) {
-            bgg.setCanClick(b);
-        } else {
+        Point p = this.getMousePosition();
+        returnClick(p);        
+        
 
-        }
     }
+    
 
     public void returnClick(Point point) {
         mf.returnClick(point);
@@ -384,6 +387,200 @@ public class DisplayFrame extends javax.swing.JFrame {
         c[c.length - 1] = bgg;
 
         return c;
+
+    }    
+    
+
+    /**
+     * Creates the bottom panel
+     *
+     * @param panelIndex
+     * @return JPanel
+     */
+    public JPanel panelBottom(int panelIndex) {
+
+               
+        JButton button;
+        JLabel label;
+        GridBagLayout gbl = new GridBagLayout();
+        GridBagConstraints c = new GridBagConstraints();
+        JPanel panel = new JPanel();
+        panel.setLayout(gbl);
+        Font font = ds.getFont();
+        Border border = ds.getBorder();
+        int numRacks = cs.getNumRacks();
+        String[] rackNames = cs.getRackNames();
+        int buttonsAdded = 0;
+
+        //===========================================================
+        // Constraints        
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+        c.weighty = 0; // No space between bottom and below row?          
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 5;
+        c.gridheight = 2;
+        //c.ipady = 100;
+        //c.ipady = 0; 
+        // End of Constraints
+        //===========================================================
+        //===========================
+        // Powered by label
+        //===========================
+        label = new JLabel("Powered by N.O.E.L");
+        label.setForeground(Colours.White.getCol());
+        //label.setBorder(border);
+        label.setFont(font.deriveFont(Font.BOLD, 20));
+        label.setAlignmentX((Component.LEFT_ALIGNMENT));
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panel.add(label, c);
+        //===========================================================
+        // Constraints        
+        //c.fill = GridBagConstraints.HORIZONTAL;        
+        c.weightx = 0;
+        //c.weighty = 0; // No space between bottom and below row?          
+        c.gridx = 5;
+        //c.gridy = 0;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+        //c.gridheight = 2;
+        //c.ipady = 100;
+        //c.ipady = 0; 
+        // End of Constraints
+        //===========================================================
+
+        //==========================================================
+        //                  Buttons
+        //==========================================================
+        // Main button
+        //button = new JButton("<html><font color = green>Main</font></html>");        
+        button = new JButton("Main");
+        if (panelIndex == buttonsAdded) {
+            button.setEnabled(false);
+        }
+        buttonsAdded++;
+        button.setFont(font.deriveFont(Font.BOLD, 17));
+        button.setAlignmentX((Component.CENTER_ALIGNMENT));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick(panelIndex);
+            }
+        });
+        panel.add(button, c);        
+
+        // Glycol Button
+        c.gridy = 1;
+        button = new JButton("Glycol");
+        if (panelIndex == (numRacks * 2 + 3)) {
+            button.setEnabled(false);
+        }
+        buttonsAdded++;
+        button.setFont(font.deriveFont(Font.BOLD, 17));
+        button.setAlignmentX((Component.CENTER_ALIGNMENT));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick(panelIndex);
+            }
+        });
+        panel.add(button, c);
+       
+        c.gridx++;
+
+        // Rack buttons
+        for (int i = 0; i < numRacks; i++) {
+
+            // Loads
+            c.gridy = 1;
+            button = new JButton(rackNames[i].replace("Rack", "Load"));
+            if (panelIndex == (i + numRacks + 1)) {
+                button.setEnabled(false);
+            }
+            buttonsAdded++;
+            button.setFont(font.deriveFont(Font.BOLD, 17));
+            button.setAlignmentX((Component.CENTER_ALIGNMENT));
+            button.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mousePressed(java.awt.event.MouseEvent evt) {
+                    buttonClick(panelIndex);
+                }
+            });
+            panel.add(button, c);
+            c.gridy = 0;
+
+            button = new JButton(rackNames[i]);
+            if (panelIndex == (i + 1)) {
+                button.setEnabled(false);
+            }
+            buttonsAdded++;
+            button.setFont(font.deriveFont(Font.BOLD, 17));
+            button.setAlignmentX((Component.CENTER_ALIGNMENT));
+            button.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mousePressed(java.awt.event.MouseEvent evt) {
+                    buttonClick(panelIndex);
+                }
+            });
+            panel.add(button, c);
+            c.gridx += 1;
+
+        }
+
+        // Financial Button
+        c.gridx += 1;
+        button = new JButton("Financial");
+        if (panelIndex == (numRacks * 2 + 1)) {
+            button.setEnabled(false);
+        }
+        buttonsAdded++;
+        button.setFont(font.deriveFont(Font.BOLD, 17));
+        button.setAlignmentX((Component.CENTER_ALIGNMENT));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick(panelIndex);
+            }
+        });
+        panel.add(button, c);
+
+        // Energy Button
+        c.gridy = 1;
+        button = new JButton("Energy");
+        if(panelIndex == (numRacks * 2 + 2)) {
+            button.setEnabled(false);
+        }
+        buttonsAdded++;
+        button.setFont(font.deriveFont(Font.BOLD, 17));
+        button.setAlignmentX((Component.CENTER_ALIGNMENT));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick(panelIndex);
+            }
+        });
+        panel.add(button, c);
+
+        //===========================================================
+        // Constraints        
+        //c.fill = GridBagConstraints.HORIZONTAL;        
+        c.weightx = 1;
+        //c.weighty = 0; // No space between bottom and below row?          
+        c.gridx += 1;
+        c.gridy = 0;
+        c.gridwidth = 5;
+        c.gridheight = 2;
+        //c.ipady = 100;
+        //c.ipady = 0; 
+        // End of Constraints
+        //===========================================================
+
+        // Map Label
+        label = new JLabel("Map");
+        label.setFont(font.deriveFont(Font.BOLD, 20));
+        label.setAlignmentX((Component.RIGHT_ALIGNMENT));
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panel.add(label, c);
+        panel.setBackground(Colours.Gray.getCol());
+        panel.setBorder(border);
+        
+        
+        return panel;
 
     }
 

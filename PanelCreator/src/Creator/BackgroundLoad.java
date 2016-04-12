@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -36,7 +35,6 @@ public class BackgroundLoad extends javax.swing.JPanel {
     public Border border;           // global border
     public String img;              // global img string for the logo
     public String storeName;        // global string for the store name
-    public boolean canClick;
     private Map<String, Component> widgetComponents;
     public int rackNum;
     public String[] rackNames;
@@ -53,7 +51,6 @@ public class BackgroundLoad extends javax.swing.JPanel {
         this.df = df;
         rack = new Rack();
         this.img = "";
-        this.canClick = false;
         this.widgetComponents = new TreeMap<>();
         this.rackNum = rackNum;
         this.rackNames = new String[]{"Main", "Rack {}", "Loads", "Financial"};
@@ -138,22 +135,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         this.border = border;
         this.updateView();
     }
-
-    private void buttonClick() {
-
-        if (canClick) {
-            Point p = this.getMousePosition();
-            df.returnClick(p);
-        }
-    }
-
-    public boolean canClick() {
-        return canClick;
-    }
-
-    public void setCanClick(boolean canClick) {
-        this.canClick = canClick;
-    }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -200,10 +182,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _Panel_MainPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event__Panel_MainPanelMousePressed
-        if (canClick) {
-            //System.out.println("Load click " + evt.getPoint());
-            df.returnClick(evt.getPoint());
-        }
+        df.returnClick(evt.getPoint());
     }//GEN-LAST:event__Panel_MainPanelMousePressed
 
     /**
@@ -296,7 +275,8 @@ public class BackgroundLoad extends javax.swing.JPanel {
         //gridYPos += gridHeight;
         // End of Constraints
         //===========================================================
-        panel = panelBottom(this.numRacks);
+        //panel = panelBottom(this.numRacks);
+        panel = df.panelBottom(numRacks + rackNum + 1);
         _Panel_MainPanel.add(panel, c);
 
         _Panel_MainPanel.revalidate();
@@ -462,193 +442,6 @@ public class BackgroundLoad extends javax.swing.JPanel {
     }
 
     /**
-     * Creates the bottom panel
-     *
-     * @param numRacks needs to know how many rack buttons will be listed on the
-     * buttons
-     * @return JPanel
-     */
-    public JPanel panelBottom(int numRacks) {
-
-        JButton button;
-        JLabel label;
-        GridBagLayout gbl = new GridBagLayout();
-        GridBagConstraints c = new GridBagConstraints();
-        JPanel panel = new JPanel();
-        panel.setLayout(gbl);
-
-        //===========================================================
-        // Constraints        
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 1;
-        c.weighty = 0; // No space between bottom and below row?          
-        c.gridx = 0;
-        c.gridy = 0;
-        c.gridwidth = 5;
-        c.gridheight = 2;
-        //c.ipady = 100;
-        //c.ipady = 0; 
-        // End of Constraints
-        //===========================================================
-        //===========================
-        // Powered by label
-        //===========================
-        label = new JLabel("Powered by N.O.E.L");
-        label.setForeground(Colours.White.getCol());
-        //label.setBorder(border);
-        label.setFont(font.deriveFont(Font.BOLD, 20));
-        label.setAlignmentX((Component.LEFT_ALIGNMENT));
-        label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        panel.add(label, c);
-        //===========================================================
-        // Constraints        
-        //c.fill = GridBagConstraints.HORIZONTAL;        
-        c.weightx = 0;
-        //c.weighty = 0; // No space between bottom and below row?          
-        c.gridx = 5;
-        //c.gridy = 0;
-        c.gridwidth = 1;
-        //c.gridheight = 2;
-        //c.ipady = 100;
-        //c.ipady = 0; 
-        // End of Constraints
-        //===========================================================
-
-        //==========================================================
-        //                  Buttons
-        //==========================================================
-        // Main button
-        //button = new JButton("<html><font color = green>Main</font></html>");        
-        button = new JButton("Main");
-        button.setFont(font.deriveFont(Font.BOLD, 17));
-        button.setAlignmentX((Component.CENTER_ALIGNMENT));
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick();
-            }
-        });
-        panel.add(button, c);
-        //===========================================================
-        // Constraints        
-        //c.fill = GridBagConstraints.HORIZONTAL;        
-        //c.weightx = 0;
-        //c.weighty = 0; // No space between bottom and below row?          
-        c.gridx = 6;
-        //c.gridy = 0;
-        //c.gridwidth = 1;
-        //c.gridheight = 2;
-        //c.ipady = 100;
-        //c.ipady = 0; 
-        // End of Constraints
-        //===========================================================
-        // Rack buttons
-        for (int i = 0; i < numRacks; i++) {
-            c.gridx += 1;
-            button = new JButton(rack.getName());
-            button.setFont(font.deriveFont(Font.BOLD, 17));
-            button.setAlignmentX((Component.CENTER_ALIGNMENT));
-            button.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mousePressed(java.awt.event.MouseEvent evt) {
-                    buttonClick();
-                }
-            });
-            panel.add(button, c);
-        }
-
-        //===========================================================
-        // Constraints        
-        //c.fill = GridBagConstraints.HORIZONTAL;        
-        //c.weightx = 0;
-        //c.weighty = 0; // No space between bottom and below row?          
-        c.gridx += 1;
-        //c.gridy = 0;
-        //c.gridwidth = 1;
-        //c.gridheight = 2;
-        //c.ipady = 100;
-        //c.ipady = 0; 
-        // End of Constraints
-        //===========================================================
-        // Load Buttons        
-        for (int i = 0; i < numRacks; i++) {
-            c.gridx += 1;
-            button = new JButton(rackNames[i].replace("Rack", "Load"));
-            if (rackNum == i) {
-                button.setEnabled(false);
-            }
-            button.setFont(font.deriveFont(Font.BOLD, 17));
-            button.setAlignmentX((Component.CENTER_ALIGNMENT));
-            button.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mousePressed(java.awt.event.MouseEvent evt) {
-                    buttonClick();
-                }
-            });
-            panel.add(button, c);
-        }
-
-        // Financial Button
-        c.gridx += 1;
-        button = new JButton("Financial");
-        button.setFont(font.deriveFont(Font.BOLD, 17));
-        button.setAlignmentX((Component.CENTER_ALIGNMENT));
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick();
-            }
-        });
-        panel.add(button, c);
-
-        // Energy Button
-        c.gridx += 1;
-        button = new JButton("Energy");
-        button.setFont(font.deriveFont(Font.BOLD, 17));
-        button.setAlignmentX((Component.CENTER_ALIGNMENT));
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick();
-            }
-        });
-        panel.add(button, c);
-
-        // Glycol Button
-        c.gridx += 1;
-        button = new JButton("Glycol");
-        button.setFont(font.deriveFont(Font.BOLD, 17));
-        button.setAlignmentX((Component.CENTER_ALIGNMENT));
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick();
-            }
-        });
-        panel.add(button, c);
-
-        //===========================================================
-        // Constraints        
-        //c.fill = GridBagConstraints.HORIZONTAL;        
-        c.weightx = 1;
-        //c.weighty = 0; // No space between bottom and below row?          
-        c.gridx += 1;
-        //c.gridy = 0;
-        c.gridwidth = 5;
-        //c.gridheight = 2;
-        //c.ipady = 100;
-        //c.ipady = 0; 
-        // End of Constraints
-        //===========================================================
-
-        // Map Label
-        label = new JLabel("Map");
-        label.setFont(font.deriveFont(Font.BOLD, 17));
-        label.setAlignmentX((Component.RIGHT_ALIGNMENT));
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        panel.add(label, c);
-
-        panel.setBackground(Colours.Gray.getCol());
-        panel.setBorder(border);
-        return panel;
-
-    }
-
-    /**
      * Gets the widget positions of the current panel These positions are stored
      * in the widgetComponents map which contains the component and a string
      * identifying the component
@@ -757,7 +550,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         //===========================================================
 
         // Store
-        label = new JLabel(rack.getName());
+        label = new JLabel();
         //label.setBorder(border);      
         label.setOpaque(true);
         label.setBackground(Colours.Gray.getCol());
@@ -765,8 +558,7 @@ public class BackgroundLoad extends javax.swing.JPanel {
         label.setAlignmentX((Component.RIGHT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel.add(label, c);
-        
-        widgetComponents.put("Link: " + rack.getName(), label);
+               
 
         //===========================================================
         // Constraints        

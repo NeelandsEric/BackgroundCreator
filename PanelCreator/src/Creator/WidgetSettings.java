@@ -22,7 +22,7 @@ public class WidgetSettings implements java.io.Serializable {
 
     public static final long serialVersionUID = 49321L;    
     public Map<String, WidgetLink> widgetLinks;
-
+ 
     public WidgetSettings() {
         this.widgetLinks = new TreeMap<>();
         //this.percentage = new Point(-99,-99);

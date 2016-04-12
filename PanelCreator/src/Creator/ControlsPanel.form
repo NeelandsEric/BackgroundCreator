@@ -100,18 +100,6 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="_TextField_SiteName" min="-2" pref="307" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="_Label_CondenserFans" linkSize="13" min="-2" pref="161" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="_FormattedTF_NumFans" min="-2" pref="77" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="_Label_NumberSuctionGroups" linkSize="13" min="-2" pref="159" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="_FormattedTF_NumSG" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Component id="_Label_SGOptions" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="_Label_SuctionGroupName" min="-2" pref="159" max="-2" attributes="0"/>
@@ -131,6 +119,18 @@
                           <Component id="_Label_NumberSystems1" min="-2" pref="171" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="_FormattedTF_NumGlycolSystems" min="-2" pref="74" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="_Label_NumberSuctionGroups" linkSize="13" min="-2" pref="159" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="_FormattedTF_NumSG" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="_Label_CondenserFans" linkSize="13" min="-2" pref="161" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="_FormattedTF_NumFans" min="-2" pref="77" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -176,11 +176,13 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="_Label_SGOptions" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="_Label_Compressors" linkSize="15" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="_FormattedTF_NumComp" linkSize="11" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="_FormattedTF_NumSystems" linkSize="11" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="_Label_NumberSystems" linkSize="15" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="_Label_Compressors" linkSize="15" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="_FormattedTF_NumComp" linkSize="11" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="_Label_NumberSystems" linkSize="15" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="_Label_Glycol" min="-2" pref="40" max="-2" attributes="0"/>

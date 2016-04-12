@@ -272,42 +272,38 @@
                       <Component id="_Label_WidgetParams" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="18" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="_Button_GenerateWidgetLink" min="-2" pref="124" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="_Button_GenerateWidgetLink" min="-2" pref="124" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="_Button_LoadDefaults" min="-2" pref="105" max="-2" attributes="0"/>
+                                  <Component id="_Button_LoadDefaults1" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="_ScrollPane_Log" min="-2" pref="236" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="_Label_WigetParam_yPos" linkSize="2" min="-2" pref="109" max="-2" attributes="0"/>
+                              <Component id="_Label_WigetParam_xPos" linkSize="2" min="-2" pref="109" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="_Button_LoadDefaults" min="-2" pref="105" max="-2" attributes="0"/>
-                              <Component id="_Button_LoadDefaults1" max="32767" attributes="0"/>
+                              <Component id="_FTF_WigetParam_xPos" linkSize="2" max="32767" attributes="0"/>
+                              <Component id="_FTF_WigetParam_yPos" linkSize="2" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="_ScrollPane_Log" min="-2" pref="236" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="_Label_ClickStatus" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                      <Component id="_Label_WigetParam_yPos" linkSize="2" min="-2" pref="109" max="-2" attributes="0"/>
-                                      <Component id="_Label_WigetParam_xPos" linkSize="2" min="-2" pref="109" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="_FTF_WigetParam_xPos" linkSize="2" max="32767" attributes="0"/>
-                                  <Component id="_Button_EnableClicks" max="32767" attributes="0"/>
-                                  <Component id="_FTF_WigetParam_yPos" linkSize="2" min="-2" pref="100" max="-2" attributes="0"/>
-                              </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="_Label_WigetParam_xPos1" linkSize="2" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
+                              <Component id="_Label_WigetParam_yPos1" linkSize="2" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="_Label_WigetParam_xPos1" linkSize="2" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
-                                  <Component id="_Label_WigetParam_yPos1" linkSize="2" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="_FTF_WigetParam_yPosPer" linkSize="2" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <Component id="_FTF_WigetParam_xPosPer" min="-2" pref="109" max="-2" attributes="0"/>
-                              </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="_FTF_WigetParam_yPosPer" linkSize="2" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="_FTF_WigetParam_xPosPer" min="-2" pref="109" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -320,14 +316,6 @@
               <Group type="102" alignment="1" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="_Label_ClickStatus" min="-2" pref="27" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
-                                  <Component id="_Button_EnableClicks" min="-2" pref="22" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="_FTF_WigetParam_xPos" linkSize="3" min="-2" pref="27" max="-2" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
@@ -350,17 +338,17 @@
                               <Component id="_FTF_WigetParam_yPosPer" linkSize="3" alignment="0" min="-2" pref="27" max="-2" attributes="0"/>
                               <Component id="_Label_WigetParam_yPos1" linkSize="3" alignment="0" min="-2" pref="27" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="_Button_LoadDefaults" linkSize="1" min="-2" pref="31" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="_Button_LoadDefaults1" linkSize="1" min="-2" pref="27" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="_Button_GenerateWidgetLink" max="32767" attributes="0"/>
+                              <Component id="_Button_GenerateWidgetLink" min="-2" pref="68" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="_ScrollPane_Log" pref="119" max="32767" attributes="0"/>
+                          <Component id="_ScrollPane_Log" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -370,7 +358,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="_ScrollPane_WidgetNames" max="32767" attributes="0"/>
-                              <Component id="_ScrollPane_WidgetSettings" max="32767" attributes="0"/>
+                              <Component id="_ScrollPane_WidgetSettings" pref="322" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -398,14 +386,6 @@
             <Property name="text" type="java.lang.String" value="Positon Y"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="_Button_EnableClicks">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Turn On/Off"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_EnableClicksActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JFormattedTextField" name="_FTF_WigetParam_xPos">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
@@ -431,15 +411,6 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Positon X"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="_Label_ClickStatus">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="14" style="0"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Click Off"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="_FTF_WigetParam_xPosPer">

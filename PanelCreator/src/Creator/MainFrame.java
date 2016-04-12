@@ -80,7 +80,7 @@ public class MainFrame extends JFrame {
         ngPanel = new NameGeneratorPanel(this, store.getIoNames());
         mbPanel = new ModbusPanel(this, store.getMb());
         wgPanel = new WidgetPanel(this, store.getCs(), store.getWidgetSettings());
-        tmPanel = new TaskManagerPanel(this);
+        tmPanel = new TaskManagerPanel(this, store.getCs());
         displayFrame = new DisplayFrame(this, store.getCs(), store.getDs());
         displayFrame.setStopUpdate(true);
 
@@ -286,6 +286,7 @@ public class MainFrame extends JFrame {
         store.getMb().updateModbusSettings(cs);
         mbPanel.loadModels();
         wgPanel.setCs(cs);
+        tmPanel.setCs(cs);
         displayFrame.setStopUpdate(false);
         displayFrame.updateDisplays(this.store.getCs(), this.store.getDs());
     }
@@ -293,13 +294,11 @@ public class MainFrame extends JFrame {
     public void updateVarNames(IoNames ioNames) {
         store.setIoNames(ioNames);
     }
-
-    public void canClick(int panelIndex, boolean b) {
-        displayFrame.canClick(panelIndex, b);
-    }
+    
 
     public void returnClick(Point point) {
         wgPanel.returnClick(point);
+        tmPanel.buttonClick(point);
     }
 
     public void saveDefault() {
@@ -745,7 +744,7 @@ public class MainFrame extends JFrame {
                     } else if (i > 0 && i <= numRacks) {
                         bi = ScreenImage.createImage(displayFrame.rackTabs.get(i - 1));
                     } else if (i > numRacks && i <= (numRacks * 2)) {
-                        bi = ScreenImage.createImage(displayFrame.loadTabs.get(i - (numRacks - 1)));
+                        bi = ScreenImage.createImage(displayFrame.loadTabs.get(i - numRacks - 1));
                     } else if (i == (numDisplays - 3)) {
                         bi = ScreenImage.createImage(displayFrame.bgf);
                     } else if (i == (numDisplays - 2)) {
