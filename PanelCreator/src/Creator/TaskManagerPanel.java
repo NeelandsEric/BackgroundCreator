@@ -41,7 +41,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private DBConn db;
     private ControlSettings cs;
     private WidgetPanelLinks wpl;
-    
+
     private static String widgetCodeName = "Panel1 Link";
 
     /**
@@ -57,6 +57,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         this.wpl = new WidgetPanelLinks();
         initComponents();
         loadDefaultTasks();
+        loadComboBoxPanels();
 
     }
 
@@ -301,6 +302,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         jLabel4.setText("Panel Name");
 
         _TF_PanelName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _TF_PanelName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        _TF_PanelName.setText("Main");
 
         _Button_Save.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Button_Save.setText("Save & Next");
@@ -756,7 +759,10 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_CreateImportsActionPerformed
 
     public void setCs(ControlSettings cs) {
-        this.cs = cs;
+        if (this.cs != cs) {
+            this.cs = cs;
+        }
+
         loadComboBoxPanels();
     }
 
@@ -780,18 +786,41 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     }
 
     private void _ComboBox_PanelsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_PanelsActionPerformed
-        // TODO add your handling code here:
+
+        if (_ComboBox_Panels.getSelectedItem() != null) {            
+            String pn = _ComboBox_Panels.getSelectedItem().toString();
+            LinkInfo li = wpl.getLinkInfo(pn);
+            if (li != null) {    
+
+                // Load data into the fields
+                _FTF_XPOS.setText(String.valueOf(li.getXPos()));
+                _FTF_YPOS.setText(String.valueOf(li.getYPos()));
+                _FTF_PanelID.setText(String.valueOf(li.getPanelID()));
+                _TF_PanelName.setText(li.getPanelName());
+            } else {
+                _FTF_XPOS.setText("0");
+                _FTF_YPOS.setText("0");
+                _FTF_PanelID.setText("");
+                _TF_PanelName.setText(pn);
+               
+            }
+        }
 
     }//GEN-LAST:event__ComboBox_PanelsActionPerformed
 
-    public void buttonClick(Point p){
+    public void buttonClick(Point p) {
         _FTF_XPOS.setText(String.valueOf(p.x));
         _FTF_YPOS.setText(String.valueOf(p.y));
     }
     private void _Button_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SaveActionPerformed
         // TODO add your handling code here:
         if (!_FTF_PanelID.getText().equals("") && !_TF_PanelName.getText().equals("")) {
-            wpl.addLink(_ComboBox_Panels.getSelectedItem().toString(), Integer.valueOf(_FTF_PanelID.getText()), _TF_PanelName.getText());
+            wpl.addLink(_ComboBox_Panels.getSelectedItem().toString(),
+                    Integer.valueOf(_FTF_PanelID.getText()),
+                    _TF_PanelName.getText(),
+                    Integer.valueOf(_FTF_XPOS.getText()),
+                    Integer.valueOf(_FTF_YPOS.getText())
+            );
 
             if (_ComboBox_Panels.getSelectedIndex() >= (_ComboBox_Panels.getModel().getSize() - 1)) {
                 _ComboBox_Panels.setSelectedIndex(0);
@@ -806,27 +835,23 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     private void _Button_GenerateLinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_GenerateLinksActionPerformed
         // TODO add your handling code here:
-       
+
         WidgetCode wc = mf.wgPanel.getWidgetCode(widgetCodeName);
-        for(Map.Entry<String, WidgetPanelLinks.LinkInfo> entry: wpl.getLinks().entrySet()){
-            
+        for (Map.Entry<String, LinkInfo> entry : wpl.getLinks().entrySet()) {
+
             // For each entry, format a code string based on the default positions
             // and the given panel name and ID's
-            
             int panelID = entry.getValue().getPanelID();
             String panelName = entry.getValue().getPanelName();
-            
+
             String xPos = "";
             String yPos = "";
-            
+
             String newCode = wc.getFullWidgetText()
-                            .replace("`%XPOS%`", xPos);
-            
-            
-            
-            
+                    .replace("`%XPOS%`", xPos);
+
         }
-        
+
     }//GEN-LAST:event__Button_GenerateLinksActionPerformed
 
     private boolean checkTaskExist() {

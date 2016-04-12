@@ -17,37 +17,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class WidgetPanelLinks {
 
-    class LinkInfo {
-
-        protected int panelID;
-        protected String panelName;
-
-        protected LinkInfo() {
-        }
-
-        protected LinkInfo(int panelID, String panelName) {
-            this.panelID = panelID;
-            this.panelName = panelName;
-        }
-
-        protected int getPanelID() {
-            return panelID;
-        }
-
-        protected void setPanelID(int panelID) {
-            this.panelID = panelID;
-        }
-
-        protected String getPanelName() {
-            return panelName;
-        }
-
-        protected void setPanelName(String panelName) {
-            this.panelName = panelName;
-        }
-
-    }
-
     public Map<String, LinkInfo> links;
 
     /**
@@ -61,11 +30,11 @@ public class WidgetPanelLinks {
         this.links = links;
     }
 
-    public void addLink(String panel, int panelID, String panelName) {
+    public void addLink(String panel, int panelID, String panelName, int xPos, int yPos) {
 
-        links.put(panel, new LinkInfo(panelID, panelName));
+        links.put(panel, new LinkInfo(panelID, panelName, xPos, yPos));
 
-        System.out.println("Added: [" + panel + "] {" + panelID + ", " + panelName);
+        System.out.println("Added: [" + panel + "] {" + panelID + ", " + panelName + "}");
 
     }
 
@@ -76,8 +45,9 @@ public class WidgetPanelLinks {
     public void setLinks(Map<String, LinkInfo> links) {
         this.links = links;
     }
-    
-    
-    
+
+    public LinkInfo getLinkInfo(String key) {
+        return this.links.get(key);
+    }
 
 }
