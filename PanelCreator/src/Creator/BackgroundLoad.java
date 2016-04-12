@@ -27,31 +27,36 @@ import javax.swing.border.Border;
  *
  * @author EricGummerson
  */
-public class BackgroundLoad extends javax.swing.JPanel implements Background {
+public class BackgroundLoad extends javax.swing.JPanel {
 
     public DisplayFrame df;
     public int numRacks;            // num of racks
-    public ArrayList<Rack> racks;   // the list of racks
+    public Rack rack;   // the list of racks
     public Font font;               // global font
     public Border border;           // global border
     public String img;              // global img string for the logo
     public String storeName;        // global string for the store name
     public boolean canClick;
     private Map<String, Component> widgetComponents;
+    public int rackNum;
+    public String[] rackNames;
 
     /**
      * Creates new form BackgroundLoads Initalizes the arraylist to avoid null
      * pointer exceptions, as well as the logo
      *
      * @param df
+     * @param rackNum
      */
-    public BackgroundLoad(DisplayFrame df) {
+    public BackgroundLoad(DisplayFrame df, int rackNum) {
         initComponents();
         this.df = df;
-        racks = new ArrayList<>();
+        rack = new Rack();
         this.img = "";
         this.canClick = false;
         this.widgetComponents = new TreeMap<>();
+        this.rackNum = rackNum;
+        this.rackNames = new String[]{"Main", "Rack {}", "Loads", "Financial"};
     }
 
     /**
@@ -64,23 +69,22 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
      * @param img global img string for the logo
      * @param storeName global string for the store name
      */
-    @Override
-    public void updateRacks(ArrayList<Rack> racks, int numRacks, Font font, Border border, String img, String storeName) {
+    public void updateRack(Rack r, int numRacks, Font font, Border border, String img, String storeName, String[] rackNames) {
 
-        this.racks = racks;
+        this.rack = r;
         this.numRacks = numRacks;
         this.font = font;
         this.border = border;
         this.img = img;
         this.storeName = storeName;
         this.widgetComponents = new TreeMap<>();
+        this.rackNames = rackNames;
         this.updateView();
     }
-    
-    
-    public void updateDisplaySettings(DisplaySettings ds){
+
+    public void updateDisplaySettings(DisplaySettings ds) {
         this.border = ds.getBorder();
-        this.font = ds.getFont();        
+        this.font = ds.getFont();
     }
 
     /**
@@ -88,7 +92,6 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
      *
      * @param storeName string of the store name
      */
-    @Override
     public void updateStoreName(String storeName) {
         this.storeName = storeName;
         this.updateView();
@@ -99,7 +102,6 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
      *
      * @param img string file path of the logo
      */
-    @Override
     public void updateImageURL(String img) {
         this.img = img;
         this.updateView();
@@ -110,7 +112,6 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
      *
      * @param font Font
      */
-    @Override
     public void updateFont(Font font) {
         this.font = font;
         this.updateView();
@@ -121,7 +122,6 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
      *
      * @param border Border
      */
-    @Override
     public void updateBorder(Border border) {
         this.border = border;
         this.updateView();
@@ -133,7 +133,6 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
      * @param font Font
      * @param border Border
      */
-    @Override
     public void updateFontBorder(Font font, Border border) {
         this.font = font;
         this.border = border;
@@ -148,12 +147,10 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
         }
     }
 
-    @Override
     public boolean canClick() {
         return canClick;
     }
 
-    @Override
     public void setCanClick(boolean canClick) {
         this.canClick = canClick;
     }
@@ -212,7 +209,6 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
     /**
      * update the view of the panel
      */
-    @Override
     public void updateView() {
 
         int gridXPos, gridYPos, gridWidth, gridHeight;
@@ -257,12 +253,20 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
         c.gridx = gridXPos;
         c.gridy = gridYPos;
         c.weightx = 1;
-        c.weighty = 1;
+        c.weighty = 0;
         c.gridwidth = 30;
         c.gridheight = gridHeight;
 
         panel = panelLoads();
 
+        _Panel_MainPanel.add(panel, c);
+        
+        panel = new JPanel();
+        panel.setOpaque(true);
+        panel.setBackground(Color.BLACK);
+        c.weighty = 1;
+        gridYPos += gridHeight;
+        c.gridy = gridYPos;
         _Panel_MainPanel.add(panel, c);
 
         //==============================================================
@@ -306,7 +310,6 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
      * @param p1 the container to change
      * @param c colour to change to
      */
-    @Override
     public void setLabels(Container p1, Color c) {
 
         for (Component p : p1.getComponents()) {
@@ -327,7 +330,6 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
      */
     public JPanel panelLoads() {
 
-        Rack r;
         SuctionGroup sg;
         JLabel label;
         GridBagLayout gbl = new GridBagLayout();
@@ -380,14 +382,13 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
         //ArrayList<String> systemNames = new ArrayList<>();
         ArrayList<String[]> widgetInfo = new ArrayList<>();
         //String sgName;
-        for (int i = 0; i < numRacks; i++) {
-            for (int j = 0; j < racks.get(i).getNumSuctionGroups(); j++) {
-                sg = racks.get(i).getSuctionGroupIndex(j);
-                numSystems += sg.getNumSystems();
-                for (int k = 0; k < sg.getNumSystems(); k++) {
-                    widgetInfo.add(new String[]{racks.get(i).getName(), sg.getName(), sg.getSystemNameIndex(k)});
-                    //systemNames.add(sg.getSystemNameIndex(k));
-                }
+
+        for (int j = 0; j < rack.getNumSuctionGroups(); j++) {
+            sg = rack.getSuctionGroupIndex(j);
+            numSystems += sg.getNumSystems();
+            for (int k = 0; k < sg.getNumSystems(); k++) {
+                widgetInfo.add(new String[]{rack.getName(), sg.getName(), sg.getSystemNameIndex(k)});
+                //systemNames.add(sg.getSystemNameIndex(k));
             }
         }
 
@@ -395,6 +396,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
         //System.out.println("System names\n" + systemNames);
         c.gridx = 0;
         c.gridy = 1;
+        c.ipady = 10;
         c.weighty = 1;
         c.fill = GridBagConstraints.BOTH;
 
@@ -420,7 +422,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
             }
 
             label.setBorder(border);
-            label.setFont(font.deriveFont(Font.BOLD, 20));
+            label.setFont(font.deriveFont(Font.BOLD, 18));
             label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
             panel.add(label, c);
@@ -518,7 +520,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
         // Main button
         //button = new JButton("<html><font color = green>Main</font></html>");        
         button = new JButton("Main");
-        button.setFont(font.deriveFont(Font.BOLD, 20));
+        button.setFont(font.deriveFont(Font.BOLD, 17));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -542,8 +544,8 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
         // Rack buttons
         for (int i = 0; i < numRacks; i++) {
             c.gridx += 1;
-            button = new JButton(racks.get(i).getName());
-            button.setFont(font.deriveFont(Font.BOLD, 20));
+            button = new JButton(rack.getName());
+            button.setFont(font.deriveFont(Font.BOLD, 17));
             button.setAlignmentX((Component.CENTER_ALIGNMENT));
             button.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -566,11 +568,28 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
         //c.ipady = 0; 
         // End of Constraints
         //===========================================================
-        // Load Button
-        button = new JButton("Loads");
-        button.setFont(font.deriveFont(Font.BOLD, 20));
+        // Load Buttons        
+        for (int i = 0; i < numRacks; i++) {
+            c.gridx += 1;
+            button = new JButton(rackNames[i].replace("Rack", "Load"));
+            if (rackNum == i) {
+                button.setEnabled(false);
+            }
+            button.setFont(font.deriveFont(Font.BOLD, 17));
+            button.setAlignmentX((Component.CENTER_ALIGNMENT));
+            button.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mousePressed(java.awt.event.MouseEvent evt) {
+                    buttonClick();
+                }
+            });
+            panel.add(button, c);
+        }
+
+        // Financial Button
+        c.gridx += 1;
+        button = new JButton("Financial");
+        button.setFont(font.deriveFont(Font.BOLD, 17));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
-        button.setEnabled(false);
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonClick();
@@ -578,22 +597,10 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
         });
         panel.add(button, c);
 
-        // Financial Button
-        c.gridx += 1;
-        button = new JButton("Financial");
-        button.setFont(font.deriveFont(Font.BOLD, 20));
-        button.setAlignmentX((Component.CENTER_ALIGNMENT));
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick();
-            }
-        });
-        panel.add(button, c);
-        
-         // Energy Button
+        // Energy Button
         c.gridx += 1;
         button = new JButton("Energy");
-        button.setFont(font.deriveFont(Font.BOLD, 20));
+        button.setFont(font.deriveFont(Font.BOLD, 17));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -601,11 +608,11 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
             }
         });
         panel.add(button, c);
-        
-         // Glycol Button
+
+        // Glycol Button
         c.gridx += 1;
         button = new JButton("Glycol");
-        button.setFont(font.deriveFont(Font.BOLD, 20));
+        button.setFont(font.deriveFont(Font.BOLD, 17));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -630,7 +637,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
 
         // Map Label
         label = new JLabel("Map");
-        label.setFont(font.deriveFont(Font.BOLD, 20));
+        label.setFont(font.deriveFont(Font.BOLD, 17));
         label.setAlignmentX((Component.RIGHT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel.add(label, c);
@@ -686,7 +693,7 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
             }
 
         }
-
+        
         return ioPoints;
 
     }
@@ -750,10 +757,16 @@ public class BackgroundLoad extends javax.swing.JPanel implements Background {
         //===========================================================
 
         // Store
-        label = new JLabel("");
-        //label.setBorder(border);        
+        label = new JLabel(rack.getName());
+        //label.setBorder(border);      
+        label.setOpaque(true);
+        label.setBackground(Colours.Gray.getCol());
+        label.setFont(font.deriveFont(Font.BOLD, 22));
+        label.setAlignmentX((Component.RIGHT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel.add(label, c);
+        
+        widgetComponents.put("Link: " + rack.getName(), label);
 
         //===========================================================
         // Constraints        

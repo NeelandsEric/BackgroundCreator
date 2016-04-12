@@ -742,7 +742,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
             panel.setBackground(Colours.BlueLightest.getCol());
             return panel;
         } else {
-            
+
             // Make a panel for the glycol systems
             JLabel label;
             GridBagLayout gbl = new GridBagLayout();
@@ -770,15 +770,14 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
             label.setOpaque(true);
             label.setBackground(Colours.BlueDark.getCol());
             panel.add(label, c);
-            
-            
+
             // Status - Pump Station & Chiller
             // Sizing up
             c.gridwidth = 1;
-            c.gridheight = 1;            
+            c.gridheight = 1;
             c.weightx = 1;
             c.weighty = 1;
-            
+
             // Pump Station
             c.gridx = 0;
             c.gridy = 1;
@@ -789,9 +788,9 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
             label.setOpaque(true);
             label.setBackground(Colours.BlueLightest.getCol());
             panel.add(label, c);
-            
+
             // Chiller Status
-            c.gridy = 2;           
+            c.gridy = 2;
             label = new JLabel("Chiller Status");
             label.setFont(font.deriveFont(Font.BOLD, 18));
             c.fill = GridBagConstraints.BOTH;
@@ -799,9 +798,9 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
             label.setOpaque(true);
             label.setBackground(Colours.BlueLightest.getCol());
             panel.add(label, c);
-            
+
             // Blank for now
-            c.gridy = 3;           
+            c.gridy = 3;
             label = new JLabel("");
             label.setFont(font.deriveFont(Font.BOLD, 18));
             c.fill = GridBagConstraints.BOTH;
@@ -810,7 +809,6 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
             label.setBackground(Colours.BlueLightest.getCol());
             panel.add(label, c);
 
-            
             c.gridx = 1;
             c.gridy = 1;
             //c.ipady = 10;
@@ -818,7 +816,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
             int colIndex = 1;
             int rowIndex = 1;
             int numSpots = numCols * (int) numPerCol;
-          
+
             String tooltip = "Glycol System Status `%rackname` `%sgname` `%sysname`";
             for (int i = 1; i <= numSpots; i++) {
 
@@ -1415,7 +1413,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         // Main button
         //button = new JButton("<html><font color = green>Main</font></html>");        
         button = new JButton("Main");
-        button.setFont(font.deriveFont(Font.BOLD, 20));
+        button.setFont(font.deriveFont(Font.BOLD, 17));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.setEnabled(false);
         button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1441,7 +1439,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         for (int i = 0; i < numRacks; i++) {
             c.gridx += 1;
             button = new JButton(racks.get(i).getName());
-            button.setFont(font.deriveFont(Font.BOLD, 20));
+            button.setFont(font.deriveFont(Font.BOLD, 17));
             button.setAlignmentX((Component.CENTER_ALIGNMENT));
             button.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -1464,9 +1462,24 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         //c.ipady = 0; 
         // End of Constraints
         //===========================================================
-        // Load Button
-        button = new JButton("Loads");
-        button.setFont(font.deriveFont(Font.BOLD, 20));
+        // Load Buttons        
+        for (int i = 0; i < numRacks; i++) {
+            c.gridx += 1;
+            button = new JButton(racks.get(i).getName().replace("Rack", "Load"));
+            button.setFont(font.deriveFont(Font.BOLD, 17));
+            button.setAlignmentX((Component.CENTER_ALIGNMENT));
+            button.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mousePressed(java.awt.event.MouseEvent evt) {
+                    buttonClick();
+                }
+            });
+            panel.add(button, c);
+        }
+
+        // Financial Button
+        c.gridx += 1;
+        button = new JButton("Financial");
+        button.setFont(font.deriveFont(Font.BOLD, 17));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -1475,22 +1488,10 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         });
         panel.add(button, c);
 
-        // Financial Button
-        c.gridx += 1;
-        button = new JButton("Financial");
-        button.setFont(font.deriveFont(Font.BOLD, 20));
-        button.setAlignmentX((Component.CENTER_ALIGNMENT));
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick();
-            }
-        });
-        panel.add(button, c);
-        
-         // Energy Button
+        // Energy Button
         c.gridx += 1;
         button = new JButton("Energy");
-        button.setFont(font.deriveFont(Font.BOLD, 20));
+        button.setFont(font.deriveFont(Font.BOLD, 17));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -1498,11 +1499,11 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
             }
         });
         panel.add(button, c);
-        
-         // Glycol Button
+
+        // Glycol Button
         c.gridx += 1;
         button = new JButton("Glycol");
-        button.setFont(font.deriveFont(Font.BOLD, 20));
+        button.setFont(font.deriveFont(Font.BOLD, 17));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -1527,7 +1528,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
 
         // Map Label
         label = new JLabel("Map");
-        label.setFont(font.deriveFont(Font.BOLD, 20));
+        label.setFont(font.deriveFont(Font.BOLD, 17));
         label.setAlignmentX((Component.RIGHT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel.add(label, c);

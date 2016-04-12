@@ -39,10 +39,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="_ScrollPane_VariableNames" min="-2" pref="340" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
@@ -50,55 +50,52 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="_Button_ClearSelection" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="_ComboBox_Subgroup" min="-2" pref="127" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="_Label_VarsOnPanel" min="-2" pref="180" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="_Button_widgetPositions" min="-2" pref="163" max="-2" attributes="0"/>
                           </Group>
                           <Component id="_ComboBox_DisplayPanel" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
-                          <Component id="_ScrollPane_MasterMap" max="32767" attributes="0"/>
+                          <Component id="_ScrollPane_MasterMap" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="_Label_Widget" min="-2" pref="186" max="-2" attributes="0"/>
-                          <Component id="_ScrollPane_WidgetNames" min="-2" pref="203" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="_ComboBox_Subgroup" min="-2" pref="127" max="-2" attributes="0"/>
-                          <Component id="_Panel_WidgetParams" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="_Panel_WidgetParams" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace type="separate" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="_Button_LoadXls" alignment="0" max="32767" attributes="0"/>
-                          <Component id="_Label_Loaded" alignment="0" min="-2" pref="215" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="32" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="_ScrollPane_ExportPane" alignment="1" min="-2" pref="264" max="-2" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="_Button_CreateImports" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="_Button_Copy" min="-2" pref="72" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="_Button_LoadXls" min="-2" pref="236" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="_Button_ClearLinks" min="-2" pref="186" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="_Button_print" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="_Label_Loaded" min="-2" pref="236" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="_ScrollPane_ExportPane" min="-2" pref="247" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="_Button_CreateImports" max="32767" attributes="0"/>
+                                  <Component id="_Button_ClearLinks" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="_Button_Copy" pref="83" max="32767" attributes="0"/>
+                                  <Component id="_Button_print" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -107,9 +104,9 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="_Button_ClearSelection" alignment="0" min="-2" pref="29" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -120,41 +117,35 @@
                       </Group>
                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="_ScrollPane_MasterMap" max="32767" attributes="0"/>
+                          <Component id="_ScrollPane_MasterMap" max="-2" attributes="0"/>
                           <Component id="_ScrollPane_VariableNames" min="-2" pref="136" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="_Label_Widget" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="_ComboBox_DisplayPanel" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                           <Component id="_ComboBox_Subgroup" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="_Panel_WidgetParams" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="_ScrollPane_WidgetNames" min="-2" pref="368" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="_Panel_WidgetParams" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="_Button_LoadXls" min="-2" pref="42" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="_Label_Loaded" min="-2" pref="22" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="_ScrollPane_ExportPane" max="32767" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="_Button_CreateImports" pref="30" max="32767" attributes="0"/>
+                          <Component id="_Button_CreateImports" pref="45" max="32767" attributes="0"/>
                           <Component id="_Button_Copy" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="_Button_ClearLinks" pref="28" max="32767" attributes="0"/>
-                          <Component id="_Button_print" max="32767" attributes="0"/>
+                          <Component id="_Button_print" pref="46" max="32767" attributes="0"/>
+                          <Component id="_Button_ClearLinks" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
@@ -163,29 +154,6 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JScrollPane" name="_ScrollPane_WidgetNames">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JList" name="_List_WidgetCodeList">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="0"/>
-            </Property>
-            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="listModelCodeWidgets" type="code"/>
-            </Property>
-            <Property name="selectionMode" type="int" value="0"/>
-          </Properties>
-          <Events>
-            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="_List_WidgetCodeListValueChanged"/>
-          </Events>
-        </Component>
-      </SubComponents>
-    </Container>
     <Component class="javax.swing.JComboBox" name="_ComboBox_DisplayPanel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -267,15 +235,6 @@
         <Property name="text" type="java.lang.String" value="Widget Vars"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="_Label_Widget">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="14" style="0"/>
-        </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Widget Code"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="_Button_LoadXls">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -303,52 +262,52 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="_Label_WidgetParams" min="-2" pref="214" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="_ScrollPane_WidgetSettings" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="_Label_Widget" pref="196" max="32767" attributes="0"/>
+                      <Component id="_ScrollPane_WidgetNames" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="_Label_ClickStatus" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="_Label_WigetParam_yPos" min="-2" pref="109" max="-2" attributes="0"/>
-                                  <Component id="_Label_WigetParam_xPos" min="-2" pref="109" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="_FTF_WigetParam_xPos" linkSize="2" max="32767" attributes="0"/>
-                              <Component id="_Button_EnableClicks" max="32767" attributes="0"/>
-                              <Component id="_FTF_WigetParam_yPos" linkSize="2" min="-2" pref="100" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="_ScrollPane_WidgetSettings" max="-2" attributes="0"/>
+                      <Component id="_Label_WidgetParams" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="_Button_GenerateWidgetLink" min="-2" pref="124" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="_Button_LoadDefaults" min="-2" pref="105" max="-2" attributes="0"/>
+                              <Component id="_Button_LoadDefaults1" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="_Button_GenerateWidgetLink" min="-2" pref="112" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="_ScrollPane_Log" min="-2" pref="236" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="_Button_LoadDefaults" pref="105" max="32767" attributes="0"/>
-                                  <Component id="_Button_LoadDefaults1" max="32767" attributes="0"/>
+                                  <Component id="_Label_ClickStatus" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Component id="_Label_WigetParam_yPos" linkSize="2" min="-2" pref="109" max="-2" attributes="0"/>
+                                      <Component id="_Label_WigetParam_xPos" linkSize="2" min="-2" pref="109" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="_FTF_WigetParam_xPos" linkSize="2" max="32767" attributes="0"/>
+                                  <Component id="_Button_EnableClicks" max="32767" attributes="0"/>
+                                  <Component id="_FTF_WigetParam_yPos" linkSize="2" min="-2" pref="100" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="_Label_WigetParam_xPos1" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
-                                      <Component id="_Label_WigetParam_yPos1" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="_FTF_WigetParam_xPosPer" linkSize="2" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="_FTF_WigetParam_yPosPer" linkSize="2" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                  </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="_Label_WigetParam_xPos1" linkSize="2" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
+                                  <Component id="_Label_WigetParam_yPos1" linkSize="2" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="_ScrollPane_Log" alignment="1" min="-2" pref="227" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="_FTF_WigetParam_yPosPer" linkSize="2" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <Component id="_FTF_WigetParam_xPosPer" min="-2" pref="109" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -358,36 +317,41 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="_Label_ClickStatus" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="_Button_EnableClicks" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="_Label_ClickStatus" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
+                                  <Component id="_Button_EnableClicks" min="-2" pref="22" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="_Label_WigetParam_xPos" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="_FTF_WigetParam_xPos" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="_FTF_WigetParam_xPos" linkSize="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="_Label_WigetParam_xPos" linkSize="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="_FTF_WigetParam_yPos" min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="_Label_WigetParam_yPos" alignment="0" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="_FTF_WigetParam_yPos" linkSize="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="_Label_WigetParam_yPos" linkSize="3" alignment="0" min="-2" pref="27" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="_Label_WigetParam_xPos1" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="_FTF_WigetParam_xPosPer" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="_Label_WigetParam_xPos1" linkSize="3" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="_FTF_WigetParam_xPosPer" linkSize="3" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="_FTF_WigetParam_yPosPer" alignment="0" min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="_Label_WigetParam_yPos1" alignment="0" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="_FTF_WigetParam_yPosPer" linkSize="3" alignment="0" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="_Label_WigetParam_yPos1" linkSize="3" alignment="0" min="-2" pref="27" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="_Button_LoadDefaults" linkSize="1" min="-2" pref="31" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -396,12 +360,18 @@
                               <Component id="_Button_GenerateWidgetLink" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="_ScrollPane_Log" min="-2" pref="113" max="-2" attributes="0"/>
+                          <Component id="_ScrollPane_Log" pref="119" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="_Label_WidgetParams" min="-2" pref="27" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="_Label_Widget" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="_Label_WidgetParams" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="_ScrollPane_WidgetSettings" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="_ScrollPane_WidgetNames" max="32767" attributes="0"/>
+                              <Component id="_ScrollPane_WidgetSettings" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -553,12 +523,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="232" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="493" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="321" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="362" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -586,6 +556,38 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_LoadDefaults1ActionPerformed"/>
           </Events>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="_ScrollPane_WidgetNames">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JList" name="_List_WidgetCodeList">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="12" style="0"/>
+                </Property>
+                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="listModelCodeWidgets" type="code"/>
+                </Property>
+                <Property name="selectionMode" type="int" value="0"/>
+              </Properties>
+              <Events>
+                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="_List_WidgetCodeListValueChanged"/>
+              </Events>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JLabel" name="_Label_Widget">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Widget Code"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

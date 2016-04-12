@@ -123,7 +123,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="_Panel_SingleLoads" min="-2" pref="99" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="_Panel_ImportXLS" max="32767" attributes="0"/>
+                      <Component id="_Panel_ImportXLS" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -143,10 +143,9 @@
                       <Component id="_Button_ClearMeterPower" min="-2" pref="33" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="_Panel_PowerScout" min="-2" pref="373" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -374,8 +373,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="_Label_Loaded" min="-2" pref="21" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="_Button_CreateImports" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="_Button_CreateImports" min="-2" pref="36" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

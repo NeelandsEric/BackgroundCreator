@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
  *
  * @author EricGummerson
  */
-
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ControlSettings implements java.io.Serializable {
 
@@ -72,7 +71,6 @@ public class ControlSettings implements java.io.Serializable {
     //-------------------------------------------------------------
     //--------------- Get/Set for class variables -----------------
     //-------------------------------------------------------------
-
     public GlycolSettings getGlycolSettings() {
         return glycolSettings;
     }
@@ -80,8 +78,7 @@ public class ControlSettings implements java.io.Serializable {
     public void setGlycolSettings(GlycolSettings glycolSettings) {
         this.glycolSettings = glycolSettings;
     }
-    
-    
+
     /**
      * Get store name
      *
@@ -107,8 +104,6 @@ public class ControlSettings implements java.io.Serializable {
     public void setGlycolStore(boolean glycolStore) {
         this.glycolStore = glycolStore;
     }
-    
-    
 
     /**
      * Get image string
@@ -302,6 +297,19 @@ public class ControlSettings implements java.io.Serializable {
         String[] names = new String[numRacks];
         for (int i = 0; i < numRacks; i++) {
             names[i] = racks.get(i).getName();
+        }
+        return names;
+    }
+
+    /**
+     * gets the rack names from the array list
+     *
+     * @return string array of the rack names
+     */
+    public String[] getLoadNames() {
+        String[] names = new String[numRacks];
+        for (int i = 0; i < numRacks; i++) {
+            names[i] = racks.get(i).getName().replace("Rack", "Load");
         }
         return names;
     }

@@ -136,7 +136,7 @@ public class MainFrame extends JFrame {
         }
         return false;
     }
-    
+
     public DefaultWidgets loadDefaultWidgets() {
         if (!(new File(homeDirectory).mkdirs())) {
             // Directory exists, check if the Store exists
@@ -154,7 +154,7 @@ public class MainFrame extends JFrame {
                 } catch (Exception e) {
                     //e.printStackTrace();
                 }
-            }else {
+            } else {
                 // File doesnt exist in home directory, use the file in the jar
                 String path = "/Creator/textFiles/DefaultWidgets.xml";
 
@@ -170,7 +170,6 @@ public class MainFrame extends JFrame {
                 } catch (Exception e) {
                     //e.printStackTrace();
                 }
-                
 
             }
         }
@@ -200,21 +199,21 @@ public class MainFrame extends JFrame {
         return null;
 
     }
-    
-    public void loadImportedIos(Map<String, Integer> importedIos, int caller, int stationId){
+
+    public void loadImportedIos(Map<String, Integer> importedIos, int caller, int stationId) {
         this.stationId = stationId;
-        if(caller == 1){ // Widget panel call
+        if (caller == 1) { // Widget panel call
             tmPanel.setImportedIoVariables(importedIos, stationId);
-            mbPanel.setImportedIoVariables(importedIos, stationId);            
-            
-        }else if(caller == 2){ // task manager call
+            mbPanel.setImportedIoVariables(importedIos, stationId);
+
+        } else if (caller == 2) { // task manager call
             wgPanel.setImportedIoVariables(importedIos, stationId);
             mbPanel.setImportedIoVariables(importedIos, stationId);
-            
-        }else if (caller == 3){ // modbus call
+
+        } else if (caller == 3) { // modbus call
             wgPanel.setImportedIoVariables(importedIos, stationId);
             tmPanel.setImportedIoVariables(importedIos, stationId);
-            
+
         }
     }
 
@@ -229,19 +228,17 @@ public class MainFrame extends JFrame {
     public int getStationId() {
         return stationId;
     }
-    
-    
-    
-    public List<String []> getStringsNoParams(boolean addHeader){
-        
+
+    public List<String[]> getStringsNoParams(boolean addHeader) {
+
         return this.store.ioNames.formatStringsNoParams(this.store.getCs(), addHeader);
-        
+
     }
-    
-    public Map<String, List> getMapFullStrings(){
-        
+
+    public Map<String, List> getMapFullStrings() {
+
         return this.store.ioNames.mapFullStrings(this.store.getCs());
-        
+
     }
 
     public void updateWidgetSettings(WidgetSettings ws) {
@@ -330,7 +327,7 @@ public class MainFrame extends JFrame {
             System.out.println("Problem with the XMLParser");
         }
     }
-    
+
     public void saveDefaultIoNames(IoNames ioNames) {
         if (xmlParser != null) {
             DefaultIoNames names = new DefaultIoNames(ioNames);
@@ -549,14 +546,14 @@ public class MainFrame extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _MenuItem_ViewPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_ViewPanelActionPerformed
-        
+
         int width = store.getDs().getDisplayWidth();
         int height = store.getDs().getDisplayHeight();
         displayPanel(width, height);
     }//GEN-LAST:event__MenuItem_ViewPanelActionPerformed
 
     private void _MenuItem_OpenImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_OpenImageActionPerformed
-        
+
         File oldFileLoc = _FileChooser.getCurrentDirectory();
         _FileChooser.setDialogTitle("Load Logo Image");
         _FileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -564,22 +561,21 @@ public class MainFrame extends JFrame {
         _FileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
         _FileChooser.setApproveButtonText("Open image file");
         _FileChooser.setApproveButtonToolTipText("Open");
-        
+
         int returnVal = _FileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = _FileChooser.getSelectedFile();
             store.getCs().setImgStr(file.getAbsolutePath());
             controlPanel.updateStoreLogo(store.getCs().getImgStr());
-            
+
         } else {
             System.out.println("File access cancelled by user.");
         }
-        
+
         _FileChooser.setCurrentDirectory(oldFileLoc);
     }//GEN-LAST:event__MenuItem_OpenImageActionPerformed
 
     private void _MenuItem_CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_CloseActionPerformed
-        
 
         tmPanel.closeConn();
         if (xmlParser != null) {
@@ -596,15 +592,13 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_CloseActionPerformed
 
     private void _MenuItem_SaveCurrentDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveCurrentDisplayActionPerformed
-        
+
         _FileChooser.setDialogTitle("Save Current Panel");
         _FileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         _FileChooser.setFileFilter(new FileNameExtensionFilter("Image files (.png, .jpg)", new String[]{"png", "jpg"}));
         _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
         _FileChooser.setApproveButtonText("Save image file");
         _FileChooser.setApproveButtonToolTipText("Save");
-        
-        
 
         int returnVal = _FileChooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -645,20 +639,20 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_SaveCurrentDisplayActionPerformed
 
     private void _MenuItem_RemoveImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_RemoveImageActionPerformed
-                
+
         controlPanel.removeStoreLogo();
 
     }//GEN-LAST:event__MenuItem_RemoveImageActionPerformed
 
     private void _MenuItem_SaveStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveStoreActionPerformed
-        
+
         _FileChooser.setDialogTitle("Save Store (XML)");
         _FileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         _FileChooser.setFileFilter(new FileNameExtensionFilter("XML File .xml", new String[]{"xml"}));
         _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
         _FileChooser.setApproveButtonText("Save Store file");
         _FileChooser.setApproveButtonToolTipText("Save");
-        
+
         int returnVal = _FileChooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             String fn = _FileChooser.getSelectedFile().toString();
@@ -692,8 +686,7 @@ public class MainFrame extends JFrame {
         _FileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
         _FileChooser.setApproveButtonText("Open Store (XML) file");
         _FileChooser.setApproveButtonToolTipText("Open");
-        
-        
+
         int returnVal = _FileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
@@ -725,7 +718,6 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_OpenStoreActionPerformed
 
     private void _MenuItem_SaveAllDisplaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveAllDisplaysActionPerformed
-        
 
         _FileChooser.setDialogTitle("Save pictures into a folder");
         _FileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -743,21 +735,26 @@ public class MainFrame extends JFrame {
             int numDisplays = displayFrame.getTabCount();
             BufferedImage bi;
 
+            int numRacks = store.cs.getNumRacks();
+
             for (int i = 0; i < numDisplays; i++) {
                 //System.out.println(i + ": " + fileNames[i]);
                 try {
                     if (i == 0) {
                         bi = ScreenImage.createImage(displayFrame.bg);
-                    } else if (i == (numDisplays - 4)) {
-                        bi = ScreenImage.createImage(displayFrame.bgl);                   
+                    } else if (i > 0 && i <= numRacks) {
+                        bi = ScreenImage.createImage(displayFrame.rackTabs.get(i - 1));
+                    } else if (i > numRacks && i <= (numRacks * 2)) {
+                        bi = ScreenImage.createImage(displayFrame.loadTabs.get(i - (numRacks - 1)));
                     } else if (i == (numDisplays - 3)) {
-                        bi = ScreenImage.createImage(displayFrame.bgl);                   
+                        bi = ScreenImage.createImage(displayFrame.bgf);
                     } else if (i == (numDisplays - 2)) {
                         bi = ScreenImage.createImage(displayFrame.bge);
                     } else if (i == (numDisplays - 1)) {
                         bi = ScreenImage.createImage(displayFrame.bgg);
                     } else {
-                        bi = ScreenImage.createImage(displayFrame.rackTabs.get(i - 1));
+                        System.out.println("Screen Print else on i = " + i);
+                        bi = ScreenImage.createImage(displayFrame.bg);
                     }
 
                     ScreenImage.writeImage(bi, fileNames[i]);
@@ -774,7 +771,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_SaveAllDisplaysActionPerformed
 
     private void _MenuItem_changedisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_changedisplayActionPerformed
-        
+
         int count = displayFrame.getTabCount();
         int curr = displayFrame.getTabSelection();
         if ((curr + 1) < count) {
@@ -786,7 +783,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_changedisplayActionPerformed
 
     private void _MenuItem_NewStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_NewStoreActionPerformed
-        
+
         displayFrame.dispose();
         _TabbedPane_Tabs.removeAll();
         this.store = new Store();
@@ -796,14 +793,13 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_NewStoreActionPerformed
 
     private void _MenuItem_PrintVarNamesCsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintVarNamesCsvActionPerformed
-        
-         _FileChooser.setDialogTitle("Save IO Imports As CSV File");
+
+        _FileChooser.setDialogTitle("Save IO Imports As CSV File");
         _FileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         _FileChooser.setFileFilter(new FileNameExtensionFilter("Comma Seperated Values (.csv)", new String[]{"csv"}));
         _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
         _FileChooser.setApproveButtonText("Save CSV file");
         _FileChooser.setApproveButtonToolTipText("Save");
-        
 
         int returnVal = _FileChooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -830,15 +826,14 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_PrintVarNamesCsvActionPerformed
 
     private void _MenuItem_PrintVarNamesTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintVarNamesTextActionPerformed
-        
-         _FileChooser.setDialogTitle("Save IO Imports As Text File");
+
+        _FileChooser.setDialogTitle("Save IO Imports As Text File");
         _FileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         _FileChooser.setFileFilter(new FileNameExtensionFilter("Text file (.txt)", new String[]{"txt"}));
         _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
         _FileChooser.setApproveButtonText("Save Text file");
         _FileChooser.setApproveButtonToolTipText("Save");
-        
-        
+
         int returnVal = _FileChooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
@@ -862,15 +857,14 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_PrintVarNamesTextActionPerformed
 
     private void _MenuItem_PrintVarNamesXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintVarNamesXActionPerformed
-        
+
         _FileChooser.setDialogTitle("Save IO Imports As Excel File");
         _FileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         _FileChooser.setFileFilter(new FileNameExtensionFilter("Excel workbook (.xlsx)", new String[]{"xlsx"}));
         _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
         _FileChooser.setApproveButtonText("Save Excel file");
         _FileChooser.setApproveButtonToolTipText("Save");
-        
-        
+
         int returnVal = _FileChooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
@@ -924,7 +918,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event__MenuItem_PrintVarNamesXActionPerformed
 
     private void closeFrame(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeFrame
-        
+
         tmPanel.closeConn();
         if (xmlParser != null) {
             if (xmlParser.writeOut(this.store, homeDirectory + "/DefaultStore.xml")) {
@@ -935,11 +929,11 @@ public class MainFrame extends JFrame {
         } else {
             System.out.println("Problem with the XMLParser");
         }
-        main.close();        
+        main.close();
     }//GEN-LAST:event_closeFrame
-    
+
     private void _MenuItem_SaveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_SaveAllActionPerformed
-        
+
         _FileChooser.setDialogTitle("Save everything into a folder");
         _FileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
@@ -973,17 +967,25 @@ public class MainFrame extends JFrame {
             int numDisplays = displayFrame.getTabCount();
             BufferedImage bi;
 
+            int numRacks = store.cs.getNumRacks();
             for (int i = 0; i < numDisplays; i++) {
                 //System.out.println(i + ": " + fileNames[i]);
                 try {
                     if (i == 0) {
                         bi = ScreenImage.createImage(displayFrame.bg);
-                    } else if (i == (numDisplays - 2)) {
-                        bi = ScreenImage.createImage(displayFrame.bgl);
-                    } else if (i == (numDisplays - 1)) {
-                        bi = ScreenImage.createImage(displayFrame.bgf);
-                    } else {
+                    } else if (i > 0 && i <= numRacks) {
                         bi = ScreenImage.createImage(displayFrame.rackTabs.get(i - 1));
+                    } else if (i > numRacks && i <= (numRacks * 2)) {
+                        bi = ScreenImage.createImage(displayFrame.loadTabs.get(i - (numRacks - 1)));
+                    } else if (i == (numDisplays - 3)) {
+                        bi = ScreenImage.createImage(displayFrame.bgf);
+                    } else if (i == (numDisplays - 2)) {
+                        bi = ScreenImage.createImage(displayFrame.bge);
+                    } else if (i == (numDisplays - 1)) {
+                        bi = ScreenImage.createImage(displayFrame.bgg);
+                    } else {
+                        System.out.println("Screen Print else on i = " + i);
+                        bi = ScreenImage.createImage(displayFrame.bg);
                     }
 
                     ScreenImage.writeImage(bi, fileNames[i]);

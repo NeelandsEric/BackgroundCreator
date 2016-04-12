@@ -1424,7 +1424,7 @@ public class BackgroundEnergy extends javax.swing.JPanel {
         // Main button
         //button = new JButton("<html><font color = green>Main</font></html>");        
         button = new JButton("Main");
-        button.setFont(font.deriveFont(Font.BOLD, 20));
+        button.setFont(font.deriveFont(Font.BOLD, 17));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -1449,7 +1449,7 @@ public class BackgroundEnergy extends javax.swing.JPanel {
         for (int i = 0; i < numRacks; i++) {
             c.gridx += 1;
             button = new JButton(racks.get(i).getName());
-            button.setFont(font.deriveFont(Font.BOLD, 20));
+            button.setFont(font.deriveFont(Font.BOLD, 17));
             button.setAlignmentX((Component.CENTER_ALIGNMENT));
             button.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -1472,21 +1472,24 @@ public class BackgroundEnergy extends javax.swing.JPanel {
         //c.ipady = 0; 
         // End of Constraints
         //===========================================================
-        // Load Button
-        button = new JButton("Loads");
-        button.setFont(font.deriveFont(Font.BOLD, 20));
-        button.setAlignmentX((Component.CENTER_ALIGNMENT));
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick();
-            }
-        });
-        panel.add(button, c);
+        // Load Buttons        
+        for (int i = 0; i < numRacks; i++) {
+            c.gridx += 1;            
+            button = new JButton(racks.get(i).getName().replace("Rack", "Load"));            
+            button.setFont(font.deriveFont(Font.BOLD, 17));
+            button.setAlignmentX((Component.CENTER_ALIGNMENT));
+            button.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mousePressed(java.awt.event.MouseEvent evt) {
+                    buttonClick();
+                }
+            });
+            panel.add(button, c);
+        }   
 
         // Financial Button
         c.gridx += 1;
         button = new JButton("Financial");        
-        button.setFont(font.deriveFont(Font.BOLD, 20));
+        button.setFont(font.deriveFont(Font.BOLD, 17));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -1499,7 +1502,7 @@ public class BackgroundEnergy extends javax.swing.JPanel {
         c.gridx += 1;
         button = new JButton("Energy");
         button.setEnabled(false);
-        button.setFont(font.deriveFont(Font.BOLD, 20));
+        button.setFont(font.deriveFont(Font.BOLD, 17));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -1511,7 +1514,7 @@ public class BackgroundEnergy extends javax.swing.JPanel {
          // Glycol Button
         c.gridx += 1;
         button = new JButton("Glycol");
-        button.setFont(font.deriveFont(Font.BOLD, 20));
+        button.setFont(font.deriveFont(Font.BOLD, 17));
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -1535,7 +1538,7 @@ public class BackgroundEnergy extends javax.swing.JPanel {
 
         // Map Label
         label = new JLabel("Map");
-        label.setFont(font.deriveFont(Font.BOLD, 20));
+        label.setFont(font.deriveFont(Font.BOLD, 17));
         label.setAlignmentX((Component.RIGHT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel.add(label, c);

@@ -58,7 +58,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
      * @return array of strings, file names used to save all the files
      */
     public String[] getFileNames(String filePath, Dimension d) {
-        String[] fn = new String[numRacks + 3];
+        String[] fn = new String[numRacks + 5];
         String storeName = cs.getStoreName().replace(" ", "_");
 
         fn[0] = filePath + storeName + "_[1]_Main-" + +d.width + "x" + d.height + ".png";
@@ -67,8 +67,10 @@ public final class ControlsPanel extends javax.swing.JPanel {
             fn[i] = filePath + storeName + "_[" + (i + 1) + "]_Rack{" + cs.getRackName(i - 1).replace(" ", "_")
                     + "}-" + d.width + "x" + d.height + ".png";
         }
-        fn[fn.length - 2] = filePath + storeName + "_[" + (fn.length - 1) + "]_Loads-" + +d.width + "x" + d.height + ".png";
-        fn[fn.length - 1] = filePath + storeName + "_[" + (fn.length) + "]_Financial-" + +d.width + "x" + d.height + ".png";
+        fn[fn.length - 4] = filePath + storeName + "_[" + (fn.length - 1) + "]_Loads-" + +d.width + "x" + d.height + ".png";
+        fn[fn.length - 3] = filePath + storeName + "_[" + (fn.length) + "]_Financial-" + +d.width + "x" + d.height + ".png";
+        fn[fn.length - 2] = filePath + storeName + "_[" + (fn.length) + "]_Glycol-" + +d.width + "x" + d.height + ".png";
+        fn[fn.length - 1] = filePath + storeName + "_[" + (fn.length) + "]_Energy-" + +d.width + "x" + d.height + ".png";
 
         return fn;
     }

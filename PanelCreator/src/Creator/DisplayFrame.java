@@ -20,7 +20,7 @@ public class DisplayFrame extends javax.swing.JFrame {
     // Loads panel
     public MainFrame mf;
     public ArrayList<BackgroundRack> rackTabs;
-    public BackgroundLoad bgl;
+    public ArrayList<BackgroundLoad> loadTabs;
     public BackgroundFinancial bgf;
     public BackgroundEnergy bge;
     public BackgroundGlycol bgg;
@@ -42,19 +42,28 @@ public class DisplayFrame extends javax.swing.JFrame {
         this.cs = css;
         this.ds = dss;
         rackTabs = new ArrayList<>();
+        loadTabs = new ArrayList<>();
         bg = new BackgroundMain(this);
         _TabbedPane_Tabs.add("Main", bg);
+
+        // Racks
         for (int i = 1; i <= this.cs.getNumRacks(); i++) {
             BackgroundRack br = new BackgroundRack(this, (i - 1));
             _TabbedPane_Tabs.add("Rack " + i, br);
             rackTabs.add(br);
         }
 
-        bgl = new BackgroundLoad(this);
+        // Loads
+        for (int i = 1; i <= this.cs.getNumRacks(); i++) {
+
+            BackgroundLoad bl = new BackgroundLoad(this, (i - 1));
+            _TabbedPane_Tabs.add("Loads " + i, bl);
+            loadTabs.add(bl);
+        }
+
         bgf = new BackgroundFinancial(this);
         bge = new BackgroundEnergy(this);
         bgg = new BackgroundGlycol(this);
-        _TabbedPane_Tabs.add("Loads", bgl);
         _TabbedPane_Tabs.add("Financial", bgf);
         _TabbedPane_Tabs.add("Energy", bge);
         _TabbedPane_Tabs.add("Glycol", bgg);
@@ -63,26 +72,32 @@ public class DisplayFrame extends javax.swing.JFrame {
     }
 
     public void updateSettings(DisplaySettings dss) {
-        
+
         //System.out.println("Size update ds " + ds.getDisplayWidth() + ", " + ds.getDisplayHeight());
-        this.ds = dss;        
+        this.ds = dss;
         //System.out.println("Size update dss " + dss.getDisplayWidth() + ", " + dss.getDisplayHeight());
-        
+
         this.stopUpdate = true;
         this.setNewSize(ds.getDisplayWidth(), ds.getDisplayHeight());
-        
+
         bg.updateDisplaySettings(ds);
-        
+
         for (int i = 0; i < cs.getNumRacks(); i++) {
             if (rackTabs.get(i) != null) {
-                rackTabs.get(i).updateDisplaySettings(ds);                
+                rackTabs.get(i).updateDisplaySettings(ds);
             }
         }
-        bgl.updateDisplaySettings(ds);       
-        bgf.updateDisplaySettings(ds);         
-        bge.updateDisplaySettings(ds);         
-        bgg.updateDisplaySettings(ds);         
-        
+
+        for (int i = 0; i < cs.getNumRacks(); i++) {
+            if (loadTabs.get(i) != null) {
+                loadTabs.get(i).updateDisplaySettings(ds);
+            }
+        }
+
+        bgf.updateDisplaySettings(ds);
+        bge.updateDisplaySettings(ds);
+        bgg.updateDisplaySettings(ds);
+
         this.stopUpdate = false;
     }
 
@@ -139,7 +154,6 @@ public class DisplayFrame extends javax.swing.JFrame {
         // TODO add your handling code her
         if (mf != null && !stopUpdate) {
 
-            
             mf.updateDisplaySettingsSize(this.getSize());
             this.setPreferredSize(this.getSize());
             if (bg != null) {
@@ -154,19 +168,24 @@ public class DisplayFrame extends javax.swing.JFrame {
 
     public void canClick(int panelIndex, boolean b) {
         int nt = _TabbedPane_Tabs.getTabCount();
+        int numRacks = cs.getNumRacks();
+
         if (panelIndex == 0) {
             bg.setCanClick(b);
-        } else if (panelIndex == (nt - 4)) {
-            bgl.setCanClick(b);
+        } else if (panelIndex >= 1 && panelIndex <= numRacks) {
+            panelIndex--;
+            rackTabs.get(panelIndex).setCanClick(b);
+        } else if (panelIndex > numRacks && panelIndex <= (2 * numRacks)) {
+            panelIndex -= (numRacks + 1);
+            loadTabs.get(panelIndex).setCanClick(b);
         } else if (panelIndex == (nt - 3)) {
-            bgf.setCanClick(b);        
+            bgf.setCanClick(b);
         } else if (panelIndex == (nt - 2)) {
-            bge.setCanClick(b);        
+            bge.setCanClick(b);
         } else if (panelIndex == (nt - 1)) {
             bgg.setCanClick(b);
         } else {
-            panelIndex--;
-            rackTabs.get(panelIndex).setCanClick(b);
+
         }
     }
 
@@ -186,6 +205,8 @@ public class DisplayFrame extends javax.swing.JFrame {
         Map<String, Map<String, Rectangle>> masterMap = new LinkedHashMap<>();
 
         masterMap.put("Main", bg.positions());
+
+        // Racks
         for (BackgroundRack b : rackTabs) {
             if (masterMap.containsKey("Rack")) {
                 masterMap.get("R: " + b.rack.getName()).putAll(b.positions());
@@ -194,7 +215,15 @@ public class DisplayFrame extends javax.swing.JFrame {
             }
         }
 
-        masterMap.put("Loads", bgl.positions());
+        // Loads
+        for (BackgroundLoad b : loadTabs) {
+            if (masterMap.containsKey("Load")) {
+                masterMap.get("L: " + b.rack.getName().replace("Rack", "Load")).putAll(b.positions());
+            } else {
+                masterMap.put("L: " + b.rack.getName().replace("Rack", "Load"), b.positions());
+            }
+        }
+
         masterMap.put("Financial", bgf.positions());
         masterMap.put("Energy", bge.positions());
         masterMap.put("Glycol", bgg.positions());
@@ -222,43 +251,61 @@ public class DisplayFrame extends javax.swing.JFrame {
                     try {
                         int selected = _TabbedPane_Tabs.getSelectedIndex();
                         int nt = _TabbedPane_Tabs.getTabCount();
-                        // update the main
+                        // update the main         
+                        _TabbedPane_Tabs.removeAll();
+
                         bg.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(),
                                 cs.getImgStr(), cs.getStoreName());
+                        _TabbedPane_Tabs.add("Main", bg);
 
-                        for (int i = nt - 5; i > cs.getNumRacks(); i--) {
-                            _TabbedPane_Tabs.remove(i);
-                        }
-
+                        // Add Racks
                         for (int i = 0; i < cs.getNumRacks(); i++) {
                             if (rackTabs.size() > i) {
                                 if (rackTabs.get(i) != null) {
                                     rackTabs.get(i).updateRacks(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), cs.getRackNames());
-                                    _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
-                                    _TabbedPane_Tabs.setTitleAt(i + 1, cs.getRackNames()[i]);
+                                    _TabbedPane_Tabs.add(cs.getRackNames()[i], rackTabs.get(i));
                                 }
                             } else {
                                 rackTabs.add(new BackgroundRack(t, i));
                                 rackTabs.get(i).updateRacks(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), cs.getRackNames());
-                                _TabbedPane_Tabs.add(rackTabs.get(i), i + 1);
-                                _TabbedPane_Tabs.setTitleAt(i + 1, cs.getRackNames()[i]);
+                                _TabbedPane_Tabs.add(cs.getRackNames()[i], rackTabs.get(i));
                             }
                         }
 
-                        bgl.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
+                        for (int i = 0; i < cs.getNumRacks(); i++) {
+                            if (loadTabs.size() > i) {
+                                if (loadTabs.get(i) != null) {
+                                    loadTabs.get(i).updateRack(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), cs.getRackNames());
+                                    _TabbedPane_Tabs.add(cs.getRackNames()[i].replace("Rack", "Load"), loadTabs.get(i));
+                                }
+                            } else {
+                                loadTabs.add(new BackgroundLoad(t, i));
+                                loadTabs.get(i).updateRack(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), cs.getRackNames());
+                                _TabbedPane_Tabs.add(cs.getRackNames()[i].replace("Rack", "Load"), loadTabs.get(i));
+                            }
+                        }
+
                         bgf.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
                         bge.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
                         bgg.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
-                        if (selected == (nt - 4)) {
-                            if (_TabbedPane_Tabs.getTabCount() < nt) {
-                                selected--; // loads tab selected
-                            } else {
+
+                        _TabbedPane_Tabs.add("Financial", bgf);
+                        _TabbedPane_Tabs.add("Energy", bge);
+                        _TabbedPane_Tabs.add("Glycol", bgg);
+
+                        if (nt != _TabbedPane_Tabs.getTabCount()) {
+                            // Number of tabs changed, configure the previous selected tab
+
+                            if (selected == (nt - 2)) {       // Energy
+                                selected = _TabbedPane_Tabs.getTabCount() - 2;
+                            } else if (selected == (nt - 1)) { // Glycol
                                 selected = _TabbedPane_Tabs.getTabCount() - 1;
+                            } else if (selected >= _TabbedPane_Tabs.getTabCount()) {
+                                // Previously selected index is more than the number of tabs
+                                selected = _TabbedPane_Tabs.getTabCount() - (nt - selected);
+                            } else {
+                                selected = 0;
                             }
-                        } else if (selected < (_TabbedPane_Tabs.getTabCount() - 1)) {
-                            // good                    
-                        } else if (selected >= (_TabbedPane_Tabs.getTabCount() - 1)) {
-                            selected--;
                         }
                         _TabbedPane_Tabs.setSelectedIndex(selected);
                         t.pack();
@@ -278,23 +325,6 @@ public class DisplayFrame extends javax.swing.JFrame {
 
     /**
      * update the logo
-     */
-    public void updateLogo() {
-
-        bg.updateImageURL("");
-        for (int i = 0; i < cs.getNumRacks(); i++) {
-            if (rackTabs.get(i) != null) {
-                rackTabs.get(i).updateImageURL("");
-            }
-        }
-        bgl.updateImageURL("");
-        bgf.updateImageURL("");
-        bge.updateImageURL("");
-        bgg.updateImageURL("");
-    }
-
-    /**
-     * update the logo
      *
      * @param img String file path
      */
@@ -305,7 +335,11 @@ public class DisplayFrame extends javax.swing.JFrame {
                 rackTabs.get(i).updateImageURL(img);
             }
         }
-        bgl.updateImageURL(img);
+        for (int i = 0; i < cs.getNumRacks(); i++) {
+            if (loadTabs.get(i) != null) {
+                loadTabs.get(i).updateImageURL("");
+            }
+        }
         bgf.updateImageURL(img);
         bge.updateImageURL(img);
         bgg.updateImageURL(img);
@@ -317,7 +351,7 @@ public class DisplayFrame extends javax.swing.JFrame {
      * @param width the width of the frame
      * @param height the height of the frame
      */
-    public void setNewSize(int width, int height) {        
+    public void setNewSize(int width, int height) {
         this.setSize(width, height);
         this.setPreferredSize(new Dimension(width, height));
 
@@ -333,7 +367,7 @@ public class DisplayFrame extends javax.swing.JFrame {
     }
 
     public Component[] getPanelPictures() {
-        Component[] c = new Component[cs.getNumRacks() + 3];
+        Component[] c = new Component[cs.getNumRacks() * 2 + 4];
 
         c[0] = bg;
 
@@ -341,7 +375,10 @@ public class DisplayFrame extends javax.swing.JFrame {
             c[i] = rackTabs.get(i - 1);
         }
 
-        c[c.length - 4] = bgl;
+        for (int i = 1; i <= cs.getNumRacks(); i++) {
+            c[i + cs.getNumRacks()] = loadTabs.get(i - 1);
+        }
+
         c[c.length - 3] = bgf;
         c[c.length - 2] = bge;
         c[c.length - 1] = bgg;
