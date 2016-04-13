@@ -7,6 +7,7 @@ package Creator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -29,6 +30,37 @@ public class GlycolSettings {
         this.glycolSystemNames.add("G1");
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.glycolSystemNames);
+        hash = 23 * hash + this.numGlycolSystems;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final GlycolSettings other = (GlycolSettings) obj;
+        if (!Objects.equals(this.glycolSystemNames, other.glycolSystemNames)) {
+            return false;
+        }
+        if (this.numGlycolSystems != other.numGlycolSystems) {
+            return false;
+        }
+        return true;
+    }
+
+    
+    
+    
+    
+    
     public List<String> getGlycolSystemNames() {
         return glycolSystemNames;
     }

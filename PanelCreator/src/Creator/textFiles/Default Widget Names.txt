@@ -20,6 +20,11 @@ Op kWh Total Previous Day
 Op kWh Total Previous Month
 Op kWh Total Previous Year
 `Rack
+Cond Split Active `%rackname`
+Cond Split Status `%rackname`
+Cond VFD Active `%rackname`
+Cond VFD Fault `%rackname`
+Cond VFD Value `%rackname`
 Cond Subcooling Actual `%rackname`
 Cond Outlet Pressure `%rackname`
 Cond Outlet Temperature `%rackname`
@@ -42,6 +47,7 @@ Op kWh Previous Year `%rackname`
 Performance Cost Sum Predicted `%rackname`
 Performance kW Sum Predicted `%rackname`
 SEI `%rackname`
+Refrigerant Level `%rackname`
 `Condenser
 Cond Fan Amps `%rackname` `%fannum`
 Cond Fan Status `%rackname` `%fannum`

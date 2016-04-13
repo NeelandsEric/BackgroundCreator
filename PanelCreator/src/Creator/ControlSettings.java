@@ -2,6 +2,7 @@ package Creator;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -67,6 +68,50 @@ public class ControlSettings implements java.io.Serializable {
         this.racks = racks;
         this.glycolStore = glycolStore;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.storeName);
+        hash = 41 * hash + Objects.hashCode(this.imgStr);
+        hash = 41 * hash + this.numRacks;
+        hash = 41 * hash + (this.glycolStore ? 1 : 0);
+        hash = 41 * hash + Objects.hashCode(this.glycolSettings);
+        hash = 41 * hash + Objects.hashCode(this.racks);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ControlSettings other = (ControlSettings) obj;
+        if (!Objects.equals(this.storeName, other.storeName)) {
+            return false;
+        }
+        if (!Objects.equals(this.imgStr, other.imgStr)) {
+            return false;
+        }
+        if (this.numRacks != other.numRacks) {
+            return false;
+        }
+        if (this.glycolStore != other.glycolStore) {
+            return false;
+        }
+        if (!Objects.equals(this.glycolSettings, other.glycolSettings)) {
+            return false;
+        }
+        if (!Objects.equals(this.racks, other.racks)) {
+            return false;
+        }
+        return true;
+    }
+
+    
 
     //-------------------------------------------------------------
     //--------------- Get/Set for class variables -----------------

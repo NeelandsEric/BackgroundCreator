@@ -1,6 +1,7 @@
 package Creator;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 /**
@@ -46,6 +47,46 @@ public class SuctionGroup implements java.io.Serializable {
         this.compressorNames.add("Comp 1");
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + Objects.hashCode(this.name);
+        hash = 17 * hash + this.numCompressors;
+        hash = 17 * hash + this.numSystems;
+        hash = 17 * hash + Objects.hashCode(this.systemNames);
+        hash = 17 * hash + Objects.hashCode(this.compressorNames);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SuctionGroup other = (SuctionGroup) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (this.numCompressors != other.numCompressors) {
+            return false;
+        }
+        if (this.numSystems != other.numSystems) {
+            return false;
+        }
+        if (!Objects.equals(this.systemNames, other.systemNames)) {
+            return false;
+        }
+        if (!Objects.equals(this.compressorNames, other.compressorNames)) {
+            return false;
+        }
+        return true;
+    }
+
+    
+    
     /**
      * converts the object to a string
      *

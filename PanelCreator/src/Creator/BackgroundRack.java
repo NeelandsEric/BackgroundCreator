@@ -7,7 +7,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.IllegalComponentStateException;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -236,7 +235,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         gridHeight = 10;
 
         // End of Constraints
-        panel = panelLiquidDischarge();
+        panel = panelLiquid();
         //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
         this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 0);
         //=========================================================== 
@@ -446,7 +445,7 @@ public class BackgroundRack extends javax.swing.JPanel {
      *
      * @return JPanel
      */
-    public JPanel panelLiquidDischarge() {
+    public JPanel panelLiquid() {
 
         JLabel label;
         GridBagLayout gbl = new GridBagLayout();
@@ -463,6 +462,10 @@ public class BackgroundRack extends javax.swing.JPanel {
         //-------------------------------------------------------------------
         //     
         //==================================================================
+        
+        String ttp = "Refrigerant Level `%rackname`";
+        
+        
         // Liquid (3 x 2) ipady = 10
         label = new JLabel("Liquid");
         label.setFont(font.deriveFont(Font.BOLD, 18));
@@ -478,6 +481,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.ipady = 25;
         label.setOpaque(true);
         label.setBackground(Colours.BlueDark.getCol());
+        widgetComponents.put(ttp, label);
         panel.add(label, c);
         //==================================================================
 

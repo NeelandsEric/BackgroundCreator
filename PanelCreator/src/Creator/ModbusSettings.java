@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import javax.swing.DefaultListModel;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -47,6 +48,46 @@ public class ModbusSettings implements java.io.Serializable {
         Arrays.fill(singleLoadIPs, "192.168.0.00");
 
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.modelList);
+        hash = 89 * hash + this.numPowerScouts;
+        hash = 89 * hash + Arrays.deepHashCode(this.powerScoutIPs);
+        hash = 89 * hash + Arrays.deepHashCode(this.singleLoadIPs);
+        hash = 89 * hash + this.numSingleLoads;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ModbusSettings other = (ModbusSettings) obj;
+        if (!Objects.equals(this.modelList, other.modelList)) {
+            return false;
+        }
+        if (this.numPowerScouts != other.numPowerScouts) {
+            return false;
+        }
+        if (!Arrays.deepEquals(this.powerScoutIPs, other.powerScoutIPs)) {
+            return false;
+        }
+        if (!Arrays.deepEquals(this.singleLoadIPs, other.singleLoadIPs)) {
+            return false;
+        }
+        if (this.numSingleLoads != other.numSingleLoads) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 
     public void updateModbusSettings(ControlSettings cs) {
 

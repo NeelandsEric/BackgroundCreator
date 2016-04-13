@@ -265,9 +265,11 @@ public class MainFrame extends JFrame {
     }
 
     public void updateSettings(DisplaySettings ds) {
-        
-        this.store.setDs(ds);
-        displayFrame.updateSettings(ds);
+
+        if (this.store.ds.equals(ds)) {
+            this.store.setDs(ds);
+            displayFrame.updateSettings(ds);
+        }
     }
 
     public void displayPanel(int width, int height) {
@@ -283,7 +285,7 @@ public class MainFrame extends JFrame {
 
     public void updateDisplay(ControlSettings cs) {
 
-        if (this.store.cs != cs) {
+        if (this.store.cs.equals(cs)) {
             displayFrame.setStopUpdate(true);
             this.store.setCs(cs);
             store.getMb().updateModbusSettings(cs);
@@ -293,6 +295,7 @@ public class MainFrame extends JFrame {
             displayFrame.setStopUpdate(false);
             displayFrame.updateDisplays(this.store.getCs(), this.store.getDs());
         }
+
     }
 
     public void updateVarNames(IoNames ioNames) {

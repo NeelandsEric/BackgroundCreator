@@ -8,6 +8,7 @@ package Creator;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -34,7 +35,34 @@ public class WidgetSettings implements java.io.Serializable {
         this.widgetLinks = widgetLinks;
         this.wpl = wpl;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + Objects.hashCode(this.widgetLinks);
+        hash = 53 * hash + Objects.hashCode(this.wpl);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final WidgetSettings other = (WidgetSettings) obj;
+        if (!Objects.equals(this.widgetLinks, other.widgetLinks)) {
+            return false;
+        }
+        if (!Objects.equals(this.wpl, other.wpl)) {
+            return false;
+        }
+        return true;
+    }
     
+
     
 
     public WidgetPanelLinks getWpl() {

@@ -28,6 +28,11 @@ Op kWh Total Previous Day,1,1,kWh,1,0,1,0,,,,4,,2 years
 Op kWh Total Previous Month,1,1,kWh,1,0,1,0,,,,4,,2 years
 Op kWh Total Previous Year,1,1,kWh,1,0,1,0,,,,4,,2 years
 `Rack`
+Cond Split Active `%rackname`,0,1,,1,0,0,0,,,,0,,
+Cond Split Status `%rackname`,0,1,,1,0,0,0,,,,0,,
+Cond VFD Active `%rackname`,0,1,,1,0,0,0,,,,0,,
+Cond VFD Fault `%rackname`,0,1,,1,0,0,0,,,,0,,
+Cond VFD Value `%rackname`,1,1,%,0.1,0,1,0,,,,4,,2 years
 Amp Avg `%rackname`,1,1,A,0.1,0,1,0,,,,4,,2 years
 Cond Amp Avg `%rackname`,1,1,A,0.1,0,1,0,,,,4,,2 years
 Cond kVA System `%rackname`,1,1,kVA,0.1,0,1,0,,,,5,1,90 days
@@ -52,8 +57,8 @@ Cond Volts L1 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,0,,
 Cond Volts L2 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,0,,
 Cond Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,90 days
 Cond Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,90 days
-Comp Rack Fault `%rackname`,1,1,,1,0,0,0,,,,0,,
 Cond Rack Fault `%rackname`,1,1,,1,0,0,0,,,,0,,
+Comp Rack Fault `%rackname`,1,1,,1,0,0,0,,,,0,,
 Discharge Pressure Actual `%rackname`,1,1,Psig,0.145,0,1,0,,,,0,,
 Discharge Tmp `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
 kVA System `%rackname`,1,1,kVA,0.1,0,1,0,,,,5,1,90 days
@@ -94,6 +99,7 @@ Volts L2 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,0,,
 Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,90 days
 Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,90 days
 Refrigerant Type `%rackname`,1,407,,1,0,1,0,,,,0,,
+Refrigerant Level `%rackname`,1,1,%,1,0,1,0,,,,0,,
 `Condenser`
 Cond Fan Amps `%rackname` `%fannum`,1,1,A,1,0,1,0,,,,0,,
 Cond Fan Status `%rackname` `%fannum`,1,1,,1,0,0,0,,,,0,,

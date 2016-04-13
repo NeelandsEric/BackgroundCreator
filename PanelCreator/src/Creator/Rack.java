@@ -1,6 +1,7 @@
 package Creator;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 /**
@@ -15,14 +16,24 @@ public class Rack implements java.io.Serializable {
     private static final long serialVersionUID = 022L;
     public String name;
     public int numSuctionGroups;
-    public int numCondenserFans;
-    public int maxSuctionGroups;
+    public int numCondenserFans;    
+    public int compVFD;
+    public boolean condVFD;
+    public boolean condSplit;
     public ArrayList<SuctionGroup> suctionGroup;
 
     /**
      * Empty contructor
      */
     public Rack() {
+        this.name = "Rack _";
+        this.compVFD = -1;
+        this.condSplit = false;
+        this.condVFD = false;
+        this.numSuctionGroups = 1;
+        this.numCondenserFans = 1;
+        this.suctionGroup = new ArrayList<>();
+        this.suctionGroup.add(new SuctionGroup("SGr1()"));
     }
 
     /**
@@ -32,6 +43,9 @@ public class Rack implements java.io.Serializable {
      */
     public Rack(String name) {
         this.name = name;
+        this.compVFD = -1;
+        this.condSplit = false;
+        this.condVFD = false;
         this.numSuctionGroups = 1;
         this.numCondenserFans = 1;
         this.suctionGroup = new ArrayList<>();
@@ -47,10 +61,58 @@ public class Rack implements java.io.Serializable {
     @Override
     public String toString() {
         return "Rack{" + "name=" + name + ", numSuctionGroups=" + numSuctionGroups
-                + ", numCondenserFans=" + numCondenserFans
-                + ", maxSuctionGroups=" + maxSuctionGroups
+                + ", numCondenserFans=" + numCondenserFans                
                 + "\nsuctionGroup=" + suctionGroup + '}';
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.name);
+        hash = 11 * hash + this.numSuctionGroups;
+        hash = 11 * hash + this.numCondenserFans;
+        hash = 11 * hash + this.compVFD;
+        hash = 11 * hash + (this.condVFD ? 1 : 0);
+        hash = 11 * hash + (this.condSplit ? 1 : 0);
+        hash = 11 * hash + Objects.hashCode(this.suctionGroup);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Rack other = (Rack) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (this.numSuctionGroups != other.numSuctionGroups) {
+            return false;
+        }
+        if (this.numCondenserFans != other.numCondenserFans) {
+            return false;
+        }
+        if (this.compVFD != other.compVFD) {
+            return false;
+        }
+        if (this.condVFD != other.condVFD) {
+            return false;
+        }
+        if (this.condSplit != other.condSplit) {
+            return false;
+        }
+        if (!Objects.equals(this.suctionGroup, other.suctionGroup)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
 
     //===================================================
     //                  getters and setters
@@ -87,10 +149,9 @@ public class Rack implements java.io.Serializable {
      *
      * @param numSuctionGroups int
      */
-    public void setNumSuctionGroups(int numSuctionGroups) {
-        this.numSuctionGroups = numSuctionGroups;
-        if (numSuctionGroups > this.maxSuctionGroups) {
-            this.maxSuctionGroups = numSuctionGroups;
+    public void setNumSuctionGroups(int numSuctionGroups) {        
+        if (numSuctionGroups > this.numSuctionGroups) {
+            this.numSuctionGroups = numSuctionGroups;            
             this.addSuctionGroup(numSuctionGroups);
         }
     }
@@ -166,24 +227,6 @@ public class Rack implements java.io.Serializable {
     }
 
     /**
-     * gets the max number of suction groups
-     *
-     * @return int
-     */
-    public int getMaxSuctionGroups() {
-        return maxSuctionGroups;
-    }
-
-    /**
-     * sets the max number of suction groups
-     *
-     * @param maxSuctionGroups int
-     */
-    public void setMaxSuctionGroups(int maxSuctionGroups) {
-        this.maxSuctionGroups = maxSuctionGroups;
-    }
-
-    /**
      * gets the suctiongroup name at index
      *
      * @param index int
@@ -255,4 +298,31 @@ public class Rack implements java.io.Serializable {
         return numSys;
     }
 
+    public int getCompVFD() {
+        return compVFD;
+    }
+
+    public void setCompVFD(int compVFD) {
+        this.compVFD = compVFD;
+    }
+
+    public boolean isCondVFD() {
+        return condVFD;
+    }
+
+    public void setCondVFD(boolean condVFD) {
+        this.condVFD = condVFD;
+    }
+
+    public boolean isCondSplit() {
+        return condSplit;
+    }
+
+    public void setCondSplit(boolean condSplit) {
+        this.condSplit = condSplit;
+    }
+
+    
+    
+    
 }

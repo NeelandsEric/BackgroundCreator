@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import javax.swing.border.Border;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -36,6 +37,47 @@ public class Store implements java.io.Serializable {
         ioNames = new IoNames();
         ws = new WidgetSettings();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.ds);
+        hash = 37 * hash + Objects.hashCode(this.mb);
+        hash = 37 * hash + Objects.hashCode(this.cs);
+        hash = 37 * hash + Objects.hashCode(this.ioNames);
+        hash = 37 * hash + Objects.hashCode(this.ws);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Store other = (Store) obj;
+        if (!Objects.equals(this.ds, other.ds)) {
+            return false;
+        }
+        if (!Objects.equals(this.mb, other.mb)) {
+            return false;
+        }
+        if (!Objects.equals(this.cs, other.cs)) {
+            return false;
+        }
+        if (!Objects.equals(this.ioNames, other.ioNames)) {
+            return false;
+        }
+        if (!Objects.equals(this.ws, other.ws)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
 
     public ModbusSettings getMb() {
         return mb;

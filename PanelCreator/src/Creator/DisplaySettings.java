@@ -2,6 +2,7 @@ package Creator;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.Objects;
 import javax.swing.border.Border;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -60,6 +61,75 @@ public class DisplaySettings implements java.io.Serializable {
         this.italic = italic;
         this.colorStr = String.valueOf(color.getRGB());
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.font);
+        hash = 79 * hash + Objects.hashCode(this.border);
+        hash = 79 * hash + this.displayWidth;
+        hash = 79 * hash + this.displayHeight;
+        hash = 79 * hash + this.borderSize;
+        hash = 79 * hash + this.fontTypeSel;
+        hash = 79 * hash + this.fontSizeSel;
+        hash = 79 * hash + this.borderTypeSel;
+        hash = 79 * hash + this.borderSizeSel;
+        hash = 79 * hash + (this.bold ? 1 : 0);
+        hash = 79 * hash + (this.italic ? 1 : 0);
+        hash = 79 * hash + Objects.hashCode(this.colorStr);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DisplaySettings other = (DisplaySettings) obj;
+        if (!Objects.equals(this.font, other.font)) {
+            return false;
+        }
+        if (!Objects.equals(this.border, other.border)) {
+            return false;
+        }
+        if (this.displayWidth != other.displayWidth) {
+            return false;
+        }
+        if (this.displayHeight != other.displayHeight) {
+            return false;
+        }
+        if (this.borderSize != other.borderSize) {
+            return false;
+        }
+        if (this.fontTypeSel != other.fontTypeSel) {
+            return false;
+        }
+        if (this.fontSizeSel != other.fontSizeSel) {
+            return false;
+        }
+        if (this.borderTypeSel != other.borderTypeSel) {
+            return false;
+        }
+        if (this.borderSizeSel != other.borderSizeSel) {
+            return false;
+        }
+        if (this.bold != other.bold) {
+            return false;
+        }
+        if (this.italic != other.italic) {
+            return false;
+        }
+        if (!Objects.equals(this.colorStr, other.colorStr)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
 
     @Override
     public String toString() {
