@@ -20,14 +20,18 @@ Op kWh Total Previous Day
 Op kWh Total Previous Month
 Op kWh Total Previous Year
 `Rack
+Cond Accumulated Subcool Alarm `%rackname`
 Cond Split Active `%rackname`
 Cond Split Status `%rackname`
 Cond VFD Active `%rackname`
 Cond VFD Fault `%rackname`
 Cond VFD Value `%rackname`
 Cond Subcooling Actual `%rackname`
+Cond Ambient Subcool `%rackname`
 Cond Outlet Pressure `%rackname`
 Cond Outlet Temperature `%rackname`
+Cond Inlet Temperature `%rackname`
+Cond Temp Difference `%rackname`
 Comp Rack Fault `%rackname`
 Cond Rack Fault `%rackname`
 Discharge Pressure Actual `%rackname`
@@ -53,6 +57,7 @@ Cond Fan Amps `%rackname` `%fannum`
 Cond Fan Status `%rackname` `%fannum`
 Cond Fan &GIF& Status `%rackname` `%fannum`
 `Suction Group
+Suction Pressure Accumulated Alarm `%rackname` `%sgname`
 Suction Temp `%rackname` `%sgname`
 Suction Pressure Actual `%rackname` `%sgname`
 Suction Pressure Setpoint `%rackname` `%sgname`

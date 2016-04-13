@@ -235,7 +235,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         gridHeight = 10;
 
         // End of Constraints
-        panel = panelLiquid();
+        panel = panelCondenserStats();
         //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
         this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 0);
         //=========================================================== 
@@ -286,7 +286,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         gridWidth = maxGridWidth;
         gridHeight = 15;
         // End of Constraints
-        panel = panelCondenser();
+        panel = panelCondenserFans();
         //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
         this.addPanel(panel, gridXPos, gridYPos, gridWidth, gridHeight, 1, 0, GridBagConstraints.BOTH, 0, 0);
         //=========================================================== 
@@ -445,7 +445,7 @@ public class BackgroundRack extends javax.swing.JPanel {
      *
      * @return JPanel
      */
-    public JPanel panelLiquid() {
+    public JPanel panelCondenserStats() {
 
         JLabel label;
         GridBagLayout gbl = new GridBagLayout();
@@ -457,8 +457,8 @@ public class BackgroundRack extends javax.swing.JPanel {
         // RACK NAMES
         //===========================
 
-        //                       Liquid            |         Discharge         |
-        //    DLT    |    COP     |    Subcool     |     Pressure   |   Temp   |       
+        //                       Liquid                                |         Discharge         |
+        // Inlet(OAT) | Outlet | Diff  | Ambient Subcool | Subcool     |     Pressure   |   Temp   |       
         //-------------------------------------------------------------------
         //     
         //==================================================================
@@ -476,7 +476,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.gridy = 0;
         c.weightx = 1;
         c.weighty = 0;
-        c.gridwidth = 3;
+        c.gridwidth = 5;
         c.gridheight = 2;
         c.ipady = 25;
         label.setOpaque(true);
@@ -491,7 +491,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setFont(font.deriveFont(Font.BOLD, 18));
         label.setBorder(border);
-        c.gridx = 3;
+        c.gridx = 5;
         c.gridwidth = 2;
         label.setOpaque(true);
         label.setBackground(Colours.BlueDark.getCol());
@@ -501,8 +501,8 @@ public class BackgroundRack extends javax.swing.JPanel {
         // Down 2 rows
         c.ipady = 10;
         //==================================================================
-        // DLT (1 x 2)
-        label = new JLabel("Condenser Outlet Temp");
+        // Inlet temp (OAT)(1 x 2)
+        label = new JLabel("Cond Inlet Temp");
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -515,8 +515,8 @@ public class BackgroundRack extends javax.swing.JPanel {
         //==================================================================
 
         //==================================================================
-        // COP (1 x 2)
-        label = new JLabel("Condenser Outlet Pressure");
+        // Outlet temp (COT) (1 x 2)
+        label = new JLabel("Cond Outlet Temp");
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -525,10 +525,10 @@ public class BackgroundRack extends javax.swing.JPanel {
         label.setBackground(Colours.BlueLight.getCol());
         panel.add(label, c);
         //==================================================================
-
+        
         //==================================================================
-        // Subcooling (1 x 2)
-        label = new JLabel("Subcool");
+        // temp difference (1 x 2)
+        label = new JLabel("Temp Difference");
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -539,12 +539,38 @@ public class BackgroundRack extends javax.swing.JPanel {
         //==================================================================
 
         //==================================================================
+        // Ambient Subcool (1 x 2)
+        label = new JLabel("Ambient Subcool");
+        label.setFont(font.deriveFont(Font.BOLD, 16));
+        label.setBorder(border);
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        c.gridx = 3;
+        label.setOpaque(true);
+        label.setBackground(Colours.BlueLight.getCol());
+        panel.add(label, c);
+        //==================================================================
+        
+        //==================================================================
+        // Subcooling (1 x 2)
+        label = new JLabel("Subcool");
+        label.setFont(font.deriveFont(Font.BOLD, 16));
+        label.setBorder(border);
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        c.gridx = 4;
+        label.setOpaque(true);
+        label.setBackground(Colours.BlueLight.getCol());
+        ttp = "Cond Accumulated Subcool Alarm `%rackname`";
+        widgetComponents.put(ttp, label);
+        panel.add(label, c);
+        //==================================================================
+
+        //==================================================================
         // Pressure (1 x 2)
         label = new JLabel("Pressure");
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        c.gridx = 3;
+        c.gridx = 5;
         label.setOpaque(true);
         label.setBackground(Colours.BlueLight.getCol());
         panel.add(label, c);
@@ -556,7 +582,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        c.gridx = 4;
+        c.gridx = 6;
         //c.ipady = 100;        
         label.setOpaque(true);
         label.setBackground(Colours.BlueLight.getCol());
@@ -578,13 +604,16 @@ public class BackgroundRack extends javax.swing.JPanel {
         // Blank fields
         // 
 
-        String[] tooltip = new String[]{"Cond Outlet Temperature " + rack.getName(),
-            "Cond Outlet Pressure " + rack.getName(),
-            "Cond Subcooling Actual " + rack.getName(),
+        String[] tooltip = new String[]{
+            "Cond Inlet Temperature " + rack.getName(),
+            "Cond Outlet Temperature " + rack.getName(),
+            "Cond Temp Difference " + rack.getName(),
+            "Cond Ambient Subcool " + rack.getName(),
+            "Cond Subcooling " + rack.getName(),
             "Discharge Pressure Actual " + rack.getName(),
             "Discharge Tmp " + rack.getName()};
 
-        for (int j = 0; j < 5; j++) {
+        for (int j = 0; j < tooltip.length; j++) {
 
             label = new JLabel("");
             label.setFont(font);
@@ -607,7 +636,7 @@ public class BackgroundRack extends javax.swing.JPanel {
      *
      * @return JPanel
      */
-    public JPanel panelCondenser() {
+    public JPanel panelCondenserFans() {
 
         // Condenser Panel will list the condensers 
         JLabel label;
@@ -761,6 +790,7 @@ public class BackgroundRack extends javax.swing.JPanel {
             label.setOpaque(true);
             label.setBackground(Colours.BlueDark.getCol());
             label.setBorder(border);
+            widgetComponents.put("Suction Pressure Accumulated Alarm `%rackname` `%sgname`", label);
             panel.add(label, c);
             c.ipadx = 0;
             c.gridx += comp[i];
