@@ -34,7 +34,8 @@ public class WidgetPanelLinks {
 
         links.put(panel, new LinkInfo(panelID, panelName, xPos, yPos));
 
-        System.out.println("Added: [" + panel + "] {" + panelID + ", " + panelName + "}");
+        System.out.println("Added: [" + panel + "] {" + panelID + ", " + panelName
+                            + ", (" + xPos + ", " + yPos + ")}");
 
     }
 

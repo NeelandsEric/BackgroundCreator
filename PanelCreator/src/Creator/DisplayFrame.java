@@ -183,9 +183,11 @@ public class DisplayFrame extends javax.swing.JFrame {
      *
      * @param panelID
      */
-    private void buttonClick(int panelID) {       
+    private void buttonClick() {       
 
         Point p = this.getMousePosition();
+        p.x -= 10;
+        p.y -= 57;
         returnClick(p);        
         
 
@@ -464,7 +466,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick(panelIndex);
+                buttonClick();
             }
         });
         panel.add(button, c);        
@@ -480,7 +482,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick(panelIndex);
+                buttonClick();
             }
         });
         panel.add(button, c);
@@ -501,7 +503,7 @@ public class DisplayFrame extends javax.swing.JFrame {
             button.setAlignmentX((Component.CENTER_ALIGNMENT));
             button.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mousePressed(java.awt.event.MouseEvent evt) {
-                    buttonClick(panelIndex);
+                    buttonClick();
                 }
             });
             panel.add(button, c);
@@ -516,7 +518,7 @@ public class DisplayFrame extends javax.swing.JFrame {
             button.setAlignmentX((Component.CENTER_ALIGNMENT));
             button.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mousePressed(java.awt.event.MouseEvent evt) {
-                    buttonClick(panelIndex);
+                    buttonClick();
                 }
             });
             panel.add(button, c);
@@ -535,7 +537,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick(panelIndex);
+                buttonClick();
             }
         });
         panel.add(button, c);
@@ -551,7 +553,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick(panelIndex);
+                buttonClick();
             }
         });
         panel.add(button, c);

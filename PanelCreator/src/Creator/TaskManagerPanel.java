@@ -771,10 +771,10 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         String[] tabs = new String[cs.getNumRacks() * 2 + 4 + 1]; // racks * 2 (loads/rack) + 4 (panels) + map
         tabs[0] = "Main";
         for (int i = 0; i < cs.getNumRacks(); i++) {
-            tabs[i + 1] = "R: " + cs.getRackName(i);
+            tabs[i + 1] = cs.getRackName(i);
         }
         for (int i = 0; i < cs.getNumRacks(); i++) {
-            tabs[i + cs.getNumRacks() + 1] = "L: " + cs.getRackName(i).replace("Rack", "Load");
+            tabs[i + cs.getNumRacks() + 1] = cs.getRackName(i).replace("Rack", "Load");
         }
         tabs[tabs.length - 4] = "Financial";
         tabs[tabs.length - 3] = "Energy";
@@ -797,9 +797,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 _FTF_YPOS.setText(String.valueOf(li.getYPos()));
                 _FTF_PanelID.setText(String.valueOf(li.getPanelID()));
                 _TF_PanelName.setText(li.getPanelName());
-            } else {
-                _FTF_XPOS.setText("0");
-                _FTF_YPOS.setText("0");
+            } else {                
                 _FTF_PanelID.setText("");
                 _TF_PanelName.setText(pn);
                
@@ -835,22 +833,39 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     private void _Button_GenerateLinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_GenerateLinksActionPerformed
         // TODO add your handling code here:
+        
+        if(wpl.links.isEmpty()){
+            return;
+        }
+        
+        String outputCode = "[";
 
         WidgetCode wc = mf.wgPanel.getWidgetCode(widgetCodeName);
         for (Map.Entry<String, LinkInfo> entry : wpl.getLinks().entrySet()) {
 
             // For each entry, format a code string based on the default positions
             // and the given panel name and ID's
-            int panelID = entry.getValue().getPanelID();
+            String panelID = String.valueOf(entry.getValue().getPanelID());
             String panelName = entry.getValue().getPanelName();
 
-            String xPos = "";
-            String yPos = "";
+            String xPos = String.valueOf(entry.getValue().getXPos());
+            String yPos = String.valueOf(entry.getValue().getYPos());
+            
 
             String newCode = wc.getFullWidgetText()
-                    .replace("`%XPOS%`", xPos);
+                    .replace("`%XPOS%`", xPos)
+                    .replace("`%YPOS%`", yPos)
+                    .replace("`%PANELID%`", panelID)
+                    .replace("`%TEXT%`", panelName);
+            
+            
+            outputCode += newCode + ",";
 
         }
+        
+        outputCode = outputCode.substring(0, outputCode.length()-1) + "]";
+        
+        System.out.println(outputCode);
 
     }//GEN-LAST:event__Button_GenerateLinksActionPerformed
 
