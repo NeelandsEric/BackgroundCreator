@@ -47,14 +47,19 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     /**
      * Creates new form TaskManagerPanel
      *
-     * @param mf
-     * @param cs
+     * @param mf    main frame
+     * @param cs    control settings
+     * @param wpl   widget panel links
      */
-    public TaskManagerPanel(MainFrame mf, ControlSettings cs) {
+    public TaskManagerPanel(MainFrame mf, ControlSettings cs, WidgetPanelLinks wpl) {
         this.mf = mf;
         this.stationId = -1;
         this.cs = cs;
-        this.wpl = new WidgetPanelLinks();
+        if (wpl != null) {
+            this.wpl = wpl;
+        } else {
+            this.wpl = new WidgetPanelLinks();
+        }
         initComponents();
         loadDefaultTasks();
         loadComboBoxPanels();
@@ -787,20 +792,20 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     private void _ComboBox_PanelsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_PanelsActionPerformed
 
-        if (_ComboBox_Panels.getSelectedItem() != null) {            
+        if (_ComboBox_Panels.getSelectedItem() != null) {
             String pn = _ComboBox_Panels.getSelectedItem().toString();
             LinkInfo li = wpl.getLinkInfo(pn);
-            if (li != null) {    
+            if (li != null) {
 
                 // Load data into the fields
                 _FTF_XPOS.setText(String.valueOf(li.getXPos()));
                 _FTF_YPOS.setText(String.valueOf(li.getYPos()));
                 _FTF_PanelID.setText(String.valueOf(li.getPanelID()));
                 _TF_PanelName.setText(li.getPanelName());
-            } else {                
+            } else {
                 _FTF_PanelID.setText("");
                 _TF_PanelName.setText(pn);
-               
+
             }
         }
 
@@ -828,16 +833,18 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
         }
 
+        mf.store.ws.setWpl(wpl);
+
 
     }//GEN-LAST:event__Button_SaveActionPerformed
 
     private void _Button_GenerateLinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_GenerateLinksActionPerformed
         // TODO add your handling code here:
-        
-        if(wpl.links.isEmpty()){
+
+        if (wpl.links.isEmpty()) {
             return;
         }
-        
+
         String outputCode = "[";
 
         WidgetCode wc = mf.wgPanel.getWidgetCode(widgetCodeName);
@@ -850,21 +857,19 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
             String xPos = String.valueOf(entry.getValue().getXPos());
             String yPos = String.valueOf(entry.getValue().getYPos());
-            
 
             String newCode = wc.getFullWidgetText()
                     .replace("`%XPOS%`", xPos)
                     .replace("`%YPOS%`", yPos)
                     .replace("`%PANELID%`", panelID)
-                    .replace("`%TEXT%`", panelName);
-            
-            
+                    .replace("`%PANELNAME%`", panelName);
+
             outputCode += newCode + ",";
 
         }
-        
-        outputCode = outputCode.substring(0, outputCode.length()-1) + "]";
-        
+
+        outputCode = outputCode.substring(0, outputCode.length() - 1) + "]";
+
         System.out.println(outputCode);
 
     }//GEN-LAST:event__Button_GenerateLinksActionPerformed

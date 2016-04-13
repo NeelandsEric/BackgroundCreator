@@ -22,11 +22,29 @@ public class WidgetSettings implements java.io.Serializable {
 
     public static final long serialVersionUID = 49321L;    
     public Map<String, WidgetLink> widgetLinks;
+    public WidgetPanelLinks wpl;
  
     public WidgetSettings() {
         this.widgetLinks = new TreeMap<>();
+        this.wpl = new WidgetPanelLinks();
         //this.percentage = new Point(-99,-99);
     }
+
+    public WidgetSettings(Map<String, WidgetLink> widgetLinks, WidgetPanelLinks wpl) {
+        this.widgetLinks = widgetLinks;
+        this.wpl = wpl;
+    }
+    
+    
+
+    public WidgetPanelLinks getWpl() {
+        return wpl;
+    }
+
+    public void setWpl(WidgetPanelLinks wpl) {
+        this.wpl = wpl;
+    }   
+    
     
     
     public WidgetLink add(String key, WidgetLink wl){

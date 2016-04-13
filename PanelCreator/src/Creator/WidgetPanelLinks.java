@@ -15,8 +15,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
  * @author EricGummerson
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class WidgetPanelLinks {
+public class WidgetPanelLinks implements java.io.Serializable {
 
+    public static final long serialVersionUID = 412351L;
     public Map<String, LinkInfo> links;
 
     /**

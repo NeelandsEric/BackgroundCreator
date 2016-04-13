@@ -36,7 +36,7 @@ public class XMLParser {
             unmarshStore = contextStore.createUnmarshaller();
         } catch (JAXBException e) {
             System.out.println("XMLParser constructor error: store marsh or unmarsher\n" + e.getMessage());
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         
         // Widgets

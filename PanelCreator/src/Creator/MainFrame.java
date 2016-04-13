@@ -80,7 +80,7 @@ public class MainFrame extends JFrame {
         ngPanel = new NameGeneratorPanel(this, store.getIoNames());
         mbPanel = new ModbusPanel(this, store.getMb());
         wgPanel = new WidgetPanel(this, store.getCs(), store.getWidgetSettings());
-        tmPanel = new TaskManagerPanel(this, store.getCs());
+        tmPanel = new TaskManagerPanel(this, store.getCs(), store.getWidgetSettings().getWpl());
         displayFrame = new DisplayFrame(this, store.getCs(), store.getDs());
         displayFrame.setStopUpdate(true);
 
@@ -384,7 +384,7 @@ public class MainFrame extends JFrame {
         _FileChooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Image Creator");
+        setTitle("Panel Creator");
         setMinimumSize(new java.awt.Dimension(1045, 640));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {

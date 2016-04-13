@@ -94,7 +94,8 @@ public class WidgetPanel extends javax.swing.JPanel {
         this.widgetList = new TreeMap<>();        
         _Button_CreateImports.setEnabled(true);
         _Label_Loaded.setText("CSV File Not loaded, load file to continue");
-
+        
+        updateDisplay();
         // Load defaults if no links
         if (ws.getWidgetLinks().isEmpty()) {
             DefaultWidgets dw = mf.loadDefaultWidgets();
