@@ -764,6 +764,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
             label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             label.setOpaque(true);
             label.setBackground(Colours.BlueLightest.getCol());
+            widgetComponents.put("Glycol Pump Station Status", label);
             panel.add(label, c);
 
             // Chiller Status
@@ -774,6 +775,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
             label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             label.setOpaque(true);
             label.setBackground(Colours.BlueLightest.getCol());
+            widgetComponents.put("Glycol Chiller Status", label);
             panel.add(label, c);
 
             // Blank for now
@@ -794,7 +796,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
             int rowIndex = 1;
             int numSpots = numCols * (int) numPerCol;
 
-            String tooltip = "Glycol System Status `%rackname` `%sgname` `%sysname`";
+            String tooltip = "Glycol Status `%glycolname`";
             for (int i = 1; i <= numSpots; i++) {
 
                 if (numAdded < numPerCol) {

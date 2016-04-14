@@ -220,10 +220,12 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="_Label_Glycol" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="_CheckBox_Glycol" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="_Label_NumberSystems1" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="_FormattedTF_NumGlycolSystems" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="_CheckBox_Glycol" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="_Label_NumberSystems1" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
               </Group>

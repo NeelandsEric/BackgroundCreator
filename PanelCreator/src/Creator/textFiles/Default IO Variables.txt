@@ -27,6 +27,8 @@ Op kWh Total Current Year,1,1,kWh,1,0,1,0,,,,4,,2 years
 Op kWh Total Previous Day,1,1,kWh,1,0,1,0,,,,4,,2 years
 Op kWh Total Previous Month,1,1,kWh,1,0,1,0,,,,4,,2 years
 Op kWh Total Previous Year,1,1,kWh,1,0,1,0,,,,4,,2 years
+Glycol Pump Station Status,0,1,,1,0,0,0,,,,0,,
+Glycol Chiller Status,0,1,,1,0,0,0,,,,0,,
 `Rack`
 Cond Accumulated Subcool Alarm `%rackname`,0,1,,1,0,0,0,,,,0,,
 Cond Split Active `%rackname`,0,1,,1,0,0,0,,,,0,,
@@ -135,4 +137,7 @@ Comp SLA `%rackname` `%sgname` `%compname`,0,0,,1,0,0,0,,,,0,,
 Comp RUN `%rackname` `%sgname` `%compname`,0,1,,1,0,0,0,,,,0,,
 Comp kW `%rackname` `%sgname` `%compname`,1,1,kW,0.1,0,1,0,,,,5,1,180 days
 `Glycol`
-Glycol System Status `%glycolname`,1,1,,1,0,0,0,,,,5,1,180 days
+Glycol Status `%glycolname`,1,1,,1,0,0,0,,,,5,1,180 days
+Glycol System Capacity `%glycolname`,1,1,BTU/H,1,0,1,0,,,,0,,
+Glycol System Temp `%glycolname`,1,1,F,1.8,-32,2,0,,,,0,,
+Glycol System Setpoint `%glycolname`,1,1,F,1.8,-32,2,0,,,,0,,

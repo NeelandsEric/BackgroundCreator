@@ -453,10 +453,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(_Label_Glycol)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_CheckBox_Glycol)
-                    .addComponent(_Label_NumberSystems1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_FormattedTF_NumGlycolSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(_FormattedTF_NumGlycolSystems, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(_CheckBox_Glycol)
+                        .addComponent(_Label_NumberSystems1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(39, 39, 39))
         );
 
@@ -1342,7 +1343,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
     public void loadGlycolSettings() {
 
-        glycolSetting(cs.glycolStore);
+        glycolSetting(cs.glycolStore);        
         _FormattedTF_NumGlycolSystems.setText(String.valueOf(cs.glycolSettings.getNumGlycolSystems()));
         updateGlycolSystemCount();
         updateGlycolSystemNames(0);
@@ -1512,7 +1513,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         String[] sys = new String[numGlycolSys];
         for (int i = 0; i < numGlycolSys; i++) {
-            sys[i] = "G" + (i < 10 ? "0" + (i + 1) : (i + 1)); // Add a 0 infront of the system if its before 10
+            sys[i] = "G" + (i < 9 ? "0" + (i + 1) : (i + 1)); // Add a 0 infront of the system if its before 10
         }
         _ComboBox_GlycolSystems.setModel(new javax.swing.DefaultComboBoxModel(sys));
         if (prevSelectedIndex <= numGlycolSys - 1) {

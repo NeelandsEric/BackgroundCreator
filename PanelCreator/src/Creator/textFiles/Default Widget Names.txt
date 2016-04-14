@@ -19,6 +19,8 @@ Op kWh Total Current Year
 Op kWh Total Previous Day
 Op kWh Total Previous Month
 Op kWh Total Previous Year
+Glycol Pump Station Status
+Glycol Chiller Status
 `Rack
 Cond Accumulated Subcool Alarm `%rackname`
 Cond Split Active `%rackname`
@@ -74,5 +76,8 @@ System Status `%rackname` `%sgname` `%sysname`
 Comp Amps `%rackname` `%sgname` `%compname`
 Comp Discharge Temp `%rackname` `%sgname` `%compname`
 Comp Status `%rackname` `%sgname` `%compname`
-`Glycol`
-Glycol System Status `%glycolname`
+`Glycol
+Glycol Status `%glycolname`
+Glycol System Capacity `%glycolname`
+Glycol System Temp `%glycolname`
+Glycol System Setpoint `%glycolname`

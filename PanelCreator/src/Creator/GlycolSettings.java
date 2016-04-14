@@ -27,7 +27,7 @@ public class GlycolSettings {
     public GlycolSettings() {
         this.numGlycolSystems = 1;
         this.glycolSystemNames = new ArrayList<>();
-        this.glycolSystemNames.add("G1");
+        this.glycolSystemNames.add("G01");
     }
 
     @Override
@@ -95,7 +95,13 @@ public class GlycolSettings {
         if (toAdd > 0) {
             for (int i = 0; i < toAdd; i++) {
                 //System.out.println("Adding System " + (size + i+1));
-                this.glycolSystemNames.add("G" + (size + i + 1));
+                String s = "";
+                if((size + i + 1) < 10){
+                    s = "0" + String.valueOf(size + i + 1);
+                }else {
+                    s = String.valueOf(size + i + 1);
+                }
+                this.glycolSystemNames.add("G" + s);
                 this.numGlycolSystems++;
             }
         } else {

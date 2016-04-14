@@ -1050,6 +1050,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                 // Generate a new arraylist for the export Mappings only if it
                 // doesnt exist. This prevents adding strings to the non existant list
                 if (!exportStringMap.containsKey(panelName)) {
+                    //System.out.println("Created list for " + panelName);
                     exportStringMap.put(panelName, new ArrayList<>());
                 }
 
@@ -1096,6 +1097,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                             // Find the linking variable eg.
                             // Cond Outlet Pressure `%rackname` . contains(Cond Outlet Pressure)
                             if (!varsToGen.getKey().contains(part)) {
+                            //if (!varsToGen.getKey().startsWith(part)) {
                                 contains = false;
                             }
                         }
@@ -1153,7 +1155,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                      }*/
 
                 }
-            } while (rackEntry); // Generate all the widget links for each rack
+            } while (rackEntry || loadEntry); // Generate all the widget links for each rack
 
         }
         writeOutExports(exportStringMap);
