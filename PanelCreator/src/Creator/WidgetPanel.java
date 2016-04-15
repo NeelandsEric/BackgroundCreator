@@ -1187,7 +1187,7 @@ public class WidgetPanel extends javax.swing.JPanel {
             
             if (ws.containsKey(s)) {
                 WidgetLink wl = ws.get(s);
-                System.out.println(wl);
+                System.out.println(wl); 
 
                 // Select the Widget, IO name
                 _ComboBox_Subgroup.setSelectedItem(wl.getSubGroup());
