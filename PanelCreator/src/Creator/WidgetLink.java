@@ -6,7 +6,9 @@
 package Creator;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -120,11 +122,19 @@ public class WidgetLink implements java.io.Serializable {
      * @param key
      * @return
      */
-    public String getTreeString(String key) {
+    public List<String> getTreeStrings() {
 
-        String re = key + " -> " + widgetCodeName + "(" + positionPercentage.getX() + "," + positionPercentage.getY() + ")";
+        List<String> list = new ArrayList<>();
+        
+        list.add("Widget Name: " + widgetCodeName);
+        list.add("Pos: [" + positionPercentage.getX() + "," + positionPercentage.getY() + "]");
+        list.add("Subgroup: " + subGroup);
+        for (Entry<String, String> entry : variables.entrySet()) {
+            list.add("Mapping: " + entry.getKey() + ": " + entry.getValue() + "\n");
+        }
+        
 
-        return re;
+        return list;
     }
 
     @Override

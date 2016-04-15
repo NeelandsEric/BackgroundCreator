@@ -103,6 +103,20 @@ public class WidgetSettings implements java.io.Serializable {
      public Set<Entry<String, WidgetLink>> getWidgetLinkEntrySet(){
          return this.widgetLinks.entrySet();
      }
+
+    public boolean containsKey(String key) {
+        return widgetLinks.containsKey(key);
+    }
+
+    public boolean containsValue(WidgetLink value) {
+        return widgetLinks.containsValue(value);
+    }
+
+    public WidgetLink get(String key) {
+        return widgetLinks.get(key);
+    }
+     
+     
      
      
      public void clear(){

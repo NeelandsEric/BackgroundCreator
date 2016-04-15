@@ -556,9 +556,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         c.gridx = 4;
         label.setOpaque(true);
-        label.setBackground(Colours.BlueLight.getCol());
-        ttp = "Cond Accumulated Subcool Alarm " + rack.getName();
-        widgetComponents.put(ttp, label);
+        label.setBackground(Colours.BlueLight.getCol());        
         panel.add(label, c);
         //==================================================================
 
@@ -619,6 +617,10 @@ public class BackgroundRack extends javax.swing.JPanel {
             label.setOpaque(true);
             label.setBackground(Colours.BlueLightest.getCol());
             widgetComponents.put(tooltip[j], label);
+            if(j == 4){
+                ttp = "Cond Accumulated Subcool Alarm " + rack.getName();
+                widgetComponents.put(ttp, label);
+            }
             panel.add(label, c);
 
             c.gridx++;
