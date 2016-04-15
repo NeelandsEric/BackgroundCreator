@@ -37,7 +37,8 @@ public class WidgetLink implements java.io.Serializable {
         this.subGroup = "BLANK";
         this.variables = new HashMap<>();
     }
-                    // WidgetCode widgetCode
+
+    // WidgetCode widgetCode
     public WidgetLink(String widgetCodeName, Point positionPercentage, String panelType, String subGroup, Map<String, String> vars) {
         //this.widgetCode = widgetCode;
         this.widgetCodeName = widgetCodeName;
@@ -48,14 +49,13 @@ public class WidgetLink implements java.io.Serializable {
     }
 
     /*
-    public WidgetCode getWidgetCode() {
-        return widgetCode;
-    }
+     public WidgetCode getWidgetCode() {
+     return widgetCode;
+     }
 
-    public void setWidgetCode(WidgetCode widgetCode) {
-        this.widgetCode = widgetCode;
-    }*/
-
+     public void setWidgetCode(WidgetCode widgetCode) {
+     this.widgetCode = widgetCode;
+     }*/
     public String getWidgetCodeName() {
         return widgetCodeName;
     }
@@ -63,8 +63,6 @@ public class WidgetLink implements java.io.Serializable {
     public void setWidgetCodeName(String widgetCodeName) {
         this.widgetCodeName = widgetCodeName;
     }
-    
-    
 
     public Point getPositionPercentage() {
         return positionPercentage;
@@ -74,7 +72,6 @@ public class WidgetLink implements java.io.Serializable {
         this.positionPercentage = positionPercentage;
     }
 
-   
     public String getSubGroup() {
         return subGroup;
     }
@@ -98,9 +95,7 @@ public class WidgetLink implements java.io.Serializable {
     public void setVariables(Map<String, String> variables) {
         this.variables = variables;
     }
-    
-    
-    
+
     public String getValue(String key) {
         if (variables.containsKey(key)) {
             return variables.get(key);
@@ -114,28 +109,38 @@ public class WidgetLink implements java.io.Serializable {
         if (replaced != null) {
             System.out.println(key + " replaced " + replaced + " with " + value);
         }/*else {
-            System.out.println("Added " + key + ": " + value);
-        }*/
+         System.out.println("Added " + key + ": " + value);
+         }*/
+
     }
-    
-    
+
+    /**
+     * Returns a string used for a JTree
+     *
+     * @param key
+     * @return
+     */
+    public String getTreeString(String key) {
+
+        String re = key + " -> " + widgetCodeName + "(" + positionPercentage.getX() + "," + positionPercentage.getY() + ")";
+
+        return re;
+    }
 
     @Override
     public String toString() {
         String re = "\nWidget Name = " + widgetCodeName + "\n";
-        
+
         re += variables.size() + " Mappings\n";
-        for(Entry<String, String> entry: variables.entrySet()){
+        for (Entry<String, String> entry : variables.entrySet()) {
             re += entry.getKey() + ": " + entry.getValue() + "\n";
         }
-        
+
         re += "Position Percentage = [" + positionPercentage.getX()
                 + "," + positionPercentage.getY() + "]\nPanel Name = "
                 + panelType + "\nSubgroup = " + subGroup + "\n";
-        
-        
-        
-        return re;                
+
+        return re;
 
     }
 

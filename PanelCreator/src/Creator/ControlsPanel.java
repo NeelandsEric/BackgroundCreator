@@ -119,6 +119,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _Label_CompressorsVFD = new javax.swing.JLabel();
         _FormattedTF_CompVFD = new javax.swing.JFormattedTextField();
         _CheckBox_CompVFD = new javax.swing.JCheckBox();
+        _Label_SystemSave1 = new javax.swing.JLabel();
         _Panel_NamePanel = new javax.swing.JPanel();
         _ComboBox_RackNumber = new javax.swing.JComboBox();
         _Label_RackNumber = new javax.swing.JLabel();
@@ -196,7 +197,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _Label_SuctionGroupOptions.setText("Suction Group Options");
 
         _ComboBox_SuctionGroups.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        _ComboBox_SuctionGroups.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Suction Group 1" }));
+        _ComboBox_SuctionGroups.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SGr1()" }));
         _ComboBox_SuctionGroups.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _ComboBox_SuctionGroupsActionPerformed(evt);
@@ -214,7 +215,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _Label_SuctionGroupName.setText("Suction Group Name");
 
         _TextField_SuctionGroupName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        _TextField_SuctionGroupName.setText("Suction Group 1");
+        _TextField_SuctionGroupName.setText("SGr1()");
         _TextField_SuctionGroupName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 _TextField_SuctionGroupNameFocusLost(evt);
@@ -266,7 +267,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
             }
         });
 
-        _CheckBox_Glycol.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _CheckBox_Glycol.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         _CheckBox_Glycol.setText("Glycol Store");
         _CheckBox_Glycol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -330,6 +331,10 @@ public final class ControlsPanel extends javax.swing.JPanel {
             }
         });
 
+        _Label_SystemSave1.setForeground(new java.awt.Color(255, 0, 0));
+        _Label_SystemSave1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _Label_SystemSave1.setText("0 = Unused");
+
         javax.swing.GroupLayout _Panel_ControlsLayout = new javax.swing.GroupLayout(_Panel_Controls);
         _Panel_Controls.setLayout(_Panel_ControlsLayout);
         _Panel_ControlsLayout.setHorizontalGroup(
@@ -389,7 +394,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(_FormattedTF_NumComp, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(_Label_NumberSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(_Label_NumberSystems, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                                            .addComponent(_Label_SystemSave1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                                 .addComponent(_FormattedTF_NumSystems, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(_Panel_ControlsLayout.createSequentialGroup()
@@ -448,7 +455,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
                 .addComponent(_CheckBox_CompVFD)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(_FormattedTF_CompVFD, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(_FormattedTF_CompVFD, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(_Label_SystemSave1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(_Label_CompressorsVFD, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(_Label_Glycol)
@@ -463,7 +472,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         _Panel_ControlsLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {_FormattedTF_NumFans, _FormattedTF_NumRacks, _FormattedTF_NumSG, _Label_CondenserFans, _Label_NumberSuctionGroups});
 
-        _ComboBox_RackNumber.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Rack 1" }));
+        _ComboBox_RackNumber.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Rack A" }));
         _ComboBox_RackNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _ComboBox_RackNumberActionPerformed(evt);
@@ -480,7 +489,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         _Label_RackName.setText("Rack Name");
 
         _TextField_RackName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        _TextField_RackName.setText("Rack 1");
+        _TextField_RackName.setText("Rack A");
 
         _Button_RackPrev.setText("Previous");
         _Button_RackPrev.addActionListener(new java.awt.event.ActionListener() {
@@ -1270,7 +1279,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
     private void _CheckBox_CondVFDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__CheckBox_CondVFDActionPerformed
         // TODO add your handling code here:
         boolean status = _CheckBox_CondVFD.isSelected();
-        cs.getRackIndex(_ComboBox_RackNumber.getSelectedIndex()).setCondVFD(status);
+        cs.getRackIndex(_ComboBox_RackNumber.getSelectedIndex()).setCondVFDActive(status);
         
     }//GEN-LAST:event__CheckBox_CondVFDActionPerformed
 
@@ -1298,6 +1307,8 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         boolean status = _CheckBox_CompVFD.isSelected();
         _FormattedTF_CompVFD.setEnabled(status);
+        cs.getRackIndex(_ComboBox_Racks.getSelectedIndex()).setCompVFDActive(status);
+       
         
     }//GEN-LAST:event__CheckBox_CompVFDActionPerformed
 
@@ -1334,8 +1345,16 @@ public final class ControlsPanel extends javax.swing.JPanel {
         Rack cr = cs.getRackIndex(index);
         numFans = cr.getNumCondenserFans();
         numSG = cr.getNumSuctionGroups();
+        // Comp VFD
+        _CheckBox_CompVFD.setSelected(cr.isCompVFDActive());
+        _FormattedTF_CompVFD.setEnabled(cr.isCompVFDActive());        
+        _FormattedTF_CompVFD.setText(String.valueOf(cr.getCompVFD()));
+        
+        // Cond VFD
         _CheckBox_CondSplit.setSelected(cr.isCondSplit());
-        _CheckBox_CondVFD.setSelected(cr.isCondVFD());
+        _CheckBox_CondVFD.setSelected(cr.isCondVFDActive());
+        
+        // Fans | Suction groups
         _FormattedTF_NumFans.setText("" + numFans);
         _FormattedTF_NumSG.setText("" + numSG);
         this.loadComboBoxSuctionGroups(0);
@@ -1798,6 +1817,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel _Label_SystemNumber;
     private javax.swing.JLabel _Label_SystemNumber1;
     private javax.swing.JLabel _Label_SystemSave;
+    private javax.swing.JLabel _Label_SystemSave1;
     private javax.swing.JPanel _Panel_Controls;
     private javax.swing.JPanel _Panel_NamePanel;
     private javax.swing.JScrollPane _ScrollPane_Log;

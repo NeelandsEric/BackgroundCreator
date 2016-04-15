@@ -1,6 +1,4 @@
 `Store
-Store $/kWh
-Alert Log
 Performance Total Cost Sum Predicted
 Performance Total kW Sum Predicted
 Energy SEI Avg
@@ -29,13 +27,15 @@ Cond VFD Active `%rackname`
 Cond VFD Fault `%rackname`
 Cond VFD Value `%rackname`
 Cond Subcooling Actual `%rackname`
-Cond Ambient Subcool `%rackname`
+Cond Ambient Subcooling `%rackname`
 Cond Outlet Pressure `%rackname`
 Cond Outlet Temperature `%rackname`
 Cond Inlet Temperature `%rackname`
 Cond Temp Difference `%rackname`
-Comp Rack Fault `%rackname`
 Cond Rack Fault `%rackname`
+Comp Rack Fault `%rackname`
+Comp VFD Fault `%rackname`
+Comp VFD Value `%rackname`
 Discharge Pressure Actual `%rackname`
 Discharge Tmp `%rackname`
 Op Cost Sum Current Day `%rackname`
@@ -54,6 +54,7 @@ Performance Cost Sum Predicted `%rackname`
 Performance kW Sum Predicted `%rackname`
 SEI `%rackname`
 Refrigerant Level `%rackname`
+Refrigerant Type `%rackname`
 `Condenser
 Cond Fan Amps `%rackname` `%fannum`
 Cond Fan Status `%rackname` `%fannum`
@@ -62,6 +63,7 @@ Cond Fan &GIF& Status `%rackname` `%fannum`
 Suction Pressure Accumulated Alarm `%rackname` `%sgname`
 Suction Temp `%rackname` `%sgname`
 Suction Pressure Actual `%rackname` `%sgname`
+Suction Pressure Design Setpoint `%rackname` `%sgname`
 Suction Pressure Setpoint `%rackname` `%sgname`
 Suction Superheat `%rackname` `%sgname`
 `System

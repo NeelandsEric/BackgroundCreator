@@ -17,8 +17,9 @@ public class Rack implements java.io.Serializable {
     public String name;
     public int numSuctionGroups;
     public int numCondenserFans;    
-    public int compVFD;
-    public boolean condVFD;
+    public int compVFD_Index;
+    public boolean compVFDActive;
+    public boolean condVFDActive;
     public boolean condSplit;
     public ArrayList<SuctionGroup> suctionGroup;
 
@@ -27,9 +28,9 @@ public class Rack implements java.io.Serializable {
      */
     public Rack() {
         this.name = "Rack _";
-        this.compVFD = -1;
+        this.compVFD_Index = -1;
         this.condSplit = false;
-        this.condVFD = false;
+        this.condVFDActive = false;
         this.numSuctionGroups = 1;
         this.numCondenserFans = 1;
         this.suctionGroup = new ArrayList<>();
@@ -43,9 +44,11 @@ public class Rack implements java.io.Serializable {
      */
     public Rack(String name) {
         this.name = name;
-        this.compVFD = -1;
+        this.compVFD_Index = -1;
         this.condSplit = false;
-        this.condVFD = false;
+        this.condVFDActive = false;
+        this.compVFDActive = false;
+        this.compVFD_Index = 0;
         this.numSuctionGroups = 1;
         this.numCondenserFans = 1;
         this.suctionGroup = new ArrayList<>();
@@ -71,8 +74,8 @@ public class Rack implements java.io.Serializable {
         hash = 11 * hash + Objects.hashCode(this.name);
         hash = 11 * hash + this.numSuctionGroups;
         hash = 11 * hash + this.numCondenserFans;
-        hash = 11 * hash + this.compVFD;
-        hash = 11 * hash + (this.condVFD ? 1 : 0);
+        hash = 11 * hash + this.compVFD_Index;
+        hash = 11 * hash + (this.condVFDActive ? 1 : 0);
         hash = 11 * hash + (this.condSplit ? 1 : 0);
         hash = 11 * hash + Objects.hashCode(this.suctionGroup);
         return hash;
@@ -96,10 +99,10 @@ public class Rack implements java.io.Serializable {
         if (this.numCondenserFans != other.numCondenserFans) {
             return false;
         }
-        if (this.compVFD != other.compVFD) {
+        if (this.compVFD_Index != other.compVFD_Index) {
             return false;
         }
-        if (this.condVFD != other.condVFD) {
+        if (this.condVFDActive != other.condVFDActive) {
             return false;
         }
         if (this.condSplit != other.condSplit) {
@@ -299,19 +302,19 @@ public class Rack implements java.io.Serializable {
     }
 
     public int getCompVFD() {
-        return compVFD;
+        return compVFD_Index;
     }
 
     public void setCompVFD(int compVFD) {
-        this.compVFD = compVFD;
+        this.compVFD_Index = compVFD;
     }
 
-    public boolean isCondVFD() {
-        return condVFD;
+    public boolean isCondVFDActive() {
+        return condVFDActive;
     }
 
-    public void setCondVFD(boolean condVFD) {
-        this.condVFD = condVFD;
+    public void setCondVFDActive(boolean condVFD) {
+        this.condVFDActive = condVFD;
     }
 
     public boolean isCondSplit() {
@@ -321,6 +324,16 @@ public class Rack implements java.io.Serializable {
     public void setCondSplit(boolean condSplit) {
         this.condSplit = condSplit;
     }
+
+    public boolean isCompVFDActive() {
+        return compVFDActive;
+    }
+
+    public void setCompVFDActive(boolean compVFDActive) {
+        this.compVFDActive = compVFDActive;
+    }
+
+    
 
     
     

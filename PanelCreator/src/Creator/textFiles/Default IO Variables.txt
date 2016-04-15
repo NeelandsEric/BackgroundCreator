@@ -36,7 +36,6 @@ Cond Split Status `%rackname`,0,1,,1,0,0,0,,,,0,,
 Cond VFD Active `%rackname`,0,1,,1,0,0,0,,,,0,,
 Cond VFD Fault `%rackname`,0,1,,1,0,0,0,,,,0,,
 Cond VFD Value `%rackname`,1,1,%,0.1,0,1,0,,,,4,,2 years
-Amp Avg `%rackname`,1,1,A,0.1,0,1,0,,,,4,,2 years
 Cond Amp Avg `%rackname`,1,1,A,0.1,0,1,0,,,,4,,2 years
 Cond kVA System `%rackname`,1,1,kVA,0.1,0,1,0,,,,5,1,90 days
 Cond kVAR System `%rackname`,1,1,kVAR,0.1,0,1,0,,,,5,1,90 days
@@ -48,7 +47,7 @@ Cond kWh Actual `%rackname`,1,1,kWh,0.1,0,1,0,,,,4,,2 years
 Cond kWh DayStart `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
 Cond kWh DayCount `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
 Cond Total Subcooling `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
-Cond Ambient Subcool `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
+Cond Ambient Subcooling `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
 Cond Subcooling Actual `%rackname`,1,1,F,1.8,-32,2,1,300,2,115,0,,
 Cond Subcooling Setpoint `%rackname`,1,1,F,1.8,-32,2,0,,,,1,,2 years
 Cond Outlet Pressure `%rackname`,1,1,Psig,0.145,0,1,0,,,,0,,
@@ -65,8 +64,11 @@ Cond Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,90 days
 Cond Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,90 days
 Cond Rack Fault `%rackname`,1,1,,1,0,0,0,,,,0,,
 Comp Rack Fault `%rackname`,1,1,,1,0,0,0,,,,0,,
+Comp VFD Fault,0,1,,1,0,0,0,,,,0,,
+Comp VFD Value,1,1,%,1,0,1,0,,,,2,2,2 years
 Discharge Pressure Actual `%rackname`,1,1,Psig,0.145,0,1,0,,,,0,,
 Discharge Tmp `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
+Amp Avg `%rackname`,1,1,A,0.1,0,1,0,,,,4,,2 years
 kVA System `%rackname`,1,1,kVA,0.1,0,1,0,,,,5,1,90 days
 kVAR System `%rackname`,1,1,kVAR,0.1,0,1,0,,,,5,1,90 days
 kW Actual `%rackname`,1,1,kW,0.1,0,1,0,,,,4,,2 years
@@ -114,7 +116,6 @@ Cond Fan RUN `%rackname` `%fannum`,0,1,,1,0,0,0,,,,0,,
 Suction Temp `%rackname` `%sgname`,1,1,F,1.8,-32,2,0,,,,0,,
 Suction Pressure Accumulated Alarm `%rackname` `%sgname`,0,1,,1,0,0,0,,,,0,,
 Suction Pressure Actual `%rackname` `%sgname`,1,1,Psig,0.145,0,1,0,,,,0,,
-Suction Pressure Effective Setpoint `%rackname` `%sgname`,1,1,Psig,0.145,0,1,0,,,,0,,
 Suction Pressure Setpoint `%rackname` `%sgname`,1,1,Psig,0.145,0,1,0,,,,0,,
 Suction Pressure Design Setpoint `%rackname` `%sgname`,1,1,Psig,1,0,1,0,,,,0,,
 Suction Saturation `%rackname` `%sgname`,1,1,F,1.8,-32,2,0,,,,0,,

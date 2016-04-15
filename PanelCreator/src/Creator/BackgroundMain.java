@@ -636,7 +636,8 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         //c.ipady = 100;
         //c.gridheight = 5;
         //label.setOpaque(true);
-        //label.setBackground(new java.awt.Color((int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() * 256)));        
+        //label.setBackground(new java.awt.Color((int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() * 256)));          
+        
         panel.add(label, c);
 
         // Cost
@@ -713,8 +714,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
 
         if (!glycol) {
             JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-            JLabel label = new JLabel();
-            widgetComponents.put("Alert Log", label);
+            JLabel label = new JLabel();            
             panel.add(label);
             panel.setBackground(Colours.BlueLightest.getCol());
             return panel;
