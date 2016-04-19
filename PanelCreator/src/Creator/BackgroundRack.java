@@ -605,7 +605,7 @@ public class BackgroundRack extends javax.swing.JPanel {
             "Cond Outlet Temperature " + rack.getName(),
             "Cond Temp Difference " + rack.getName(),
             "Cond Ambient Subcooling " + rack.getName(),
-            "Cond Subcooling " + rack.getName(),
+            "Cond Subcooling Actual " + rack.getName(),
             "Discharge Pressure Actual " + rack.getName(),
             "Discharge Tmp " + rack.getName()};
 
@@ -1132,13 +1132,14 @@ public class BackgroundRack extends javax.swing.JPanel {
         //===========================================================
 
         // Store
-        label = new JLabel("");
+        label = new JLabel("Outside Air Temp");
         //label.setBorder(border);      
         label.setOpaque(true);
         label.setBackground(Colours.Gray.getCol());
         label.setFont(font.deriveFont(Font.BOLD, 22));
         label.setAlignmentX((Component.RIGHT_ALIGNMENT));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        widgetComponents.put("Store Outside Temp", label);
         panel.add(label, c);
 
         //===========================================================
@@ -1156,7 +1157,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         //===========================================================
 
         // Store
-        label = new JLabel(rack.getName() + "                 " + storeName);
+        label = new JLabel(rack.getName() + "                       " + storeName);
         label.setOpaque(true);
         label.setBackground(Color.BLACK);
         label.setFont(font.deriveFont(Font.BOLD, 22));

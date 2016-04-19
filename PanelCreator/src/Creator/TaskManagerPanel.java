@@ -614,7 +614,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                             inputs = inputs.substring(0, inputs.length() - 1) + "'";
                             outputs = outputs.substring(0, outputs.length() - 1) + "'";
 
-                            name = "'" + taskEntry[1] + "'";
+                            name = "'" + taskEntry[1].replace("`%rackname`", mf.store.cs.getRackName(numRuns)) + "'";
 
                             // taskEntry []
                             // [0] description of task | [1] task_manager_name | [2] task_manager_task_id
@@ -798,9 +798,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             if (li != null) {
 
                 // Load data into the fields
-                _FTF_XPOS.setText(String.valueOf(li.getXPos()));
-                _FTF_YPOS.setText(String.valueOf(li.getYPos()));
-                _FTF_PanelID.setText(String.valueOf(li.getPanelID()));
+                _FTF_XPOS.setValue(li.getXPos());
+                _FTF_YPOS.setValue(li.getYPos());
+                _FTF_PanelID.setValue(li.getPanelID());
                 _TF_PanelName.setText(li.getPanelName());
             } else {
                 _FTF_PanelID.setText("");
@@ -898,9 +898,6 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         query = query.substring(0, query.length() - 1) + ";";
 
         db = new DBConn();
-        //String query = "insert into eepr (eepr_io_id, eepr_station_id) "
-        //        + "values (18945, (select distinct io_station_id from io where io_id =18945));";
-        //String query = "delete from eepr where eepr_io_id = 18945";
 
         String returnString = db.executeQuery(query);
         db.closeConn();

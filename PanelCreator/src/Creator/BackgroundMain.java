@@ -8,14 +8,12 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.IllegalComponentStateException;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -658,7 +656,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         panel.add(label, c);
 
         // rack SEI
-        String[] tooltip = new String[]{"SEI `%rackname`"};
+        String[] tooltip = new String[]{"Rack SEI `%rackname`", "Modal SEI `%rackname`"};
         label = new JLabel("SEI");
         label.setFont(font.deriveFont(Font.BOLD, 18));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -670,6 +668,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         c.gridy = 0;
         c.gridheight = 3;
         widgetComponents.put(tooltip[0].replace("`%rackname`", rackName), label);
+        widgetComponents.put(tooltip[1].replace("`%rackname`", rackName), label);
         panel.add(label, c);
 
         //------------------------------

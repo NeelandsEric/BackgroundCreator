@@ -7,14 +7,12 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.IllegalComponentStateException;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -926,7 +924,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //===========================
         // kWh/BTU Capacity
         //===========================        
-        String[] tooltip = new String[]{"Energy KBTU/kW Capacity"};
+        String[] tooltip = new String[]{"Energy KBTU/kW Capacity", "Modal KBTU"};
 
         label = new JLabel("Capacity/EnergyUnit");
         label.setOpaque(true);
@@ -943,12 +941,13 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         c.gridwidth = c.gridheight = 2;
         c.ipady = 60;
         widgetComponents.put(tooltip[0], label);
+        widgetComponents.put(tooltip[1], label);
         panel.add(label, c);
 
         //===========================
         // kWh/BTU Cost
         //===========================
-        tooltip = new String[]{"Energy MBTU/hour Cost"};
+        tooltip = new String[]{"Energy MBTU/hour Cost", "Modal MBTU"};
 
         label = new JLabel(" $/MBTU/hour ");
         label.setBorder(border);
@@ -965,12 +964,13 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //c.gridwidth = c.gridheight = 2;
         //c.ipady = 35;        
         widgetComponents.put(tooltip[0], label);
+        widgetComponents.put(tooltip[1], label);
         panel.add(label, c);
 
         //===========================
         // SEI
         //===========================
-        tooltip = new String[]{"Energy SEI Avg"};
+        tooltip = new String[]{"Energy SEI Avg", "Modal Avg SEI"};
 
         label = new JLabel(" Store SEI Avg ");
         label.setBorder(border);
@@ -987,6 +987,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //c.gridwidth = c.gridheight = 2;
         //c.ipady = 35;     
         widgetComponents.put(tooltip[0], label);
+        widgetComponents.put(tooltip[1], label);
         panel.add(label, c);
 
         //===========================

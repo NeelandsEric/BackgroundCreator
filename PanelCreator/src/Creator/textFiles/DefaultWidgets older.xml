@@ -74,45 +74,6 @@
             </value>
         </entry>
         <entry>
-            <key>Financial-Modal Avg SEI</key>
-            <value>
-                <widgetCodeName>Modal-SEI</widgetCodeName>
-                <positionPercentage>
-                    <x>6</x>
-                    <y>32</y>
-                </positionPercentage>
-                <panelType>Financial</panelType>
-                <subGroup>Store</subGroup>
-                <variables/>
-            </value>
-        </entry>
-        <entry>
-            <key>Financial-Modal KBTU</key>
-            <value>
-                <widgetCodeName>Modal-Capacity per EnergyUnit</widgetCodeName>
-                <positionPercentage>
-                    <x>6</x>
-                    <y>32</y>
-                </positionPercentage>
-                <panelType>Financial</panelType>
-                <subGroup>Store</subGroup>
-                <variables/>
-            </value>
-        </entry>
-        <entry>
-            <key>Financial-Modal MBTU</key>
-            <value>
-                <widgetCodeName>Modal-MBTU</widgetCodeName>
-                <positionPercentage>
-                    <x>6</x>
-                    <y>32</y>
-                </positionPercentage>
-                <panelType>Financial</panelType>
-                <subGroup>Store</subGroup>
-                <variables/>
-            </value>
-        </entry>
-        <entry>
             <key>Financial-Op Cost Previous Day `%rackname`</key>
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
@@ -647,128 +608,7 @@
                     </entry>
                 </variables>
             </value>
-        </entry>
-        <entry>
-            <key>Load-System Capacity `%rackname` `%sgname` `%sysname`</key>
-            <value>
-                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
-                <positionPercentage>
-                    <x>14</x>
-                    <y>38</y>
-                </positionPercentage>
-                <panelType>Load</panelType>
-                <subGroup>System</subGroup>
-                <variables>
-                    <entry>
-                        <key>`%FONTSIZE%`</key>
-                        <value>20</value>
-                    </entry>
-                </variables>
-            </value>
-        </entry>
-        <entry>
-            <key>Load-System EEPR Predicted `%rackname` `%sgname` `%sysname`</key>
-            <value>
-                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
-                <positionPercentage>
-                    <x>35</x>
-                    <y>38</y>
-                </positionPercentage>
-                <panelType>Load</panelType>
-                <subGroup>System</subGroup>
-                <variables>
-                    <entry>
-                        <key>`%FONTSIZE%`</key>
-                        <value>20</value>
-                    </entry>
-                </variables>
-            </value>
-        </entry>
-        <entry>
-            <key>Load-System EEPR `%rackname` `%sgname` `%sysname`</key>
-            <value>
-                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
-                <positionPercentage>
-                    <x>35</x>
-                    <y>38</y>
-                </positionPercentage>
-                <panelType>Load</panelType>
-                <subGroup>System</subGroup>
-                <variables>
-                    <entry>
-                        <key>`%FONTSIZE%`</key>
-                        <value>20</value>
-                    </entry>
-                </variables>
-            </value>
-        </entry>
-        <entry>
-            <key>Load-System Setpoint `%rackname` `%sgname` `%sysname`</key>
-            <value>
-                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
-                <positionPercentage>
-                    <x>35</x>
-                    <y>38</y>
-                </positionPercentage>
-                <panelType>Load</panelType>
-                <subGroup>System</subGroup>
-                <variables>
-                    <entry>
-                        <key>`%FONTSIZE%`</key>
-                        <value>20</value>
-                    </entry>
-                </variables>
-            </value>
-        </entry>
-        <entry>
-            <key>Load-System Status `%rackname` `%sgname` `%sysname`</key>
-            <value>
-                <widgetCodeName>LED Comp Status - 20px</widgetCodeName>
-                <positionPercentage>
-                    <x>40</x>
-                    <y>10</y>
-                </positionPercentage>
-                <panelType>Load</panelType>
-                <subGroup>System</subGroup>
-                <variables/>
-            </value>
-        </entry>
-        <entry>
-            <key>Load-System Temp `%rackname` `%sgname` `%sysname`</key>
-            <value>
-                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
-                <positionPercentage>
-                    <x>35</x>
-                    <y>38</y>
-                </positionPercentage>
-                <panelType>Load</panelType>
-                <subGroup>System</subGroup>
-                <variables>
-                    <entry>
-                        <key>`%FONTSIZE%`</key>
-                        <value>20</value>
-                    </entry>
-                </variables>
-            </value>
-        </entry>
-        <entry>
-            <key>Load-System kW `%rackname` `%sgname` `%sysname`</key>
-            <value>
-                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
-                <positionPercentage>
-                    <x>35</x>
-                    <y>38</y>
-                </positionPercentage>
-                <panelType>Load</panelType>
-                <subGroup>System</subGroup>
-                <variables>
-                    <entry>
-                        <key>`%FONTSIZE%`</key>
-                        <value>20</value>
-                    </entry>
-                </variables>
-            </value>
-        </entry>
+        </entry>  
         <entry>
             <key>Main-Comp Rack Fault `%rackname`</key>
             <value>
@@ -789,58 +629,6 @@
                 <positionPercentage>
                     <x>78</x>
                     <y>20</y>
-                </positionPercentage>
-                <panelType>Main</panelType>
-                <subGroup>Rack</subGroup>
-                <variables/>
-            </value>
-        </entry>
-        <entry>
-            <key>Main-Glycol Chiller Status</key>
-            <value>
-                <widgetCodeName>LED Comp Status - 25px</widgetCodeName>
-                <positionPercentage>
-                    <x>39</x>
-                    <y>66</y>
-                </positionPercentage>
-                <panelType>Main</panelType>
-                <subGroup>Store</subGroup>
-                <variables/>
-            </value>
-        </entry>
-        <entry>
-            <key>Main-Glycol Pump Station Status</key>
-            <value>
-                <widgetCodeName>LED Comp Status - 25px</widgetCodeName>
-                <positionPercentage>
-                    <x>39</x>
-                    <y>66</y>
-                </positionPercentage>
-                <panelType>Main</panelType>
-                <subGroup>Store</subGroup>
-                <variables/>
-            </value>
-        </entry>
-        <entry>
-            <key>Main-Glycol Status `%glycolname`</key>
-            <value>
-                <widgetCodeName>LED Comp Status - 25px</widgetCodeName>
-                <positionPercentage>
-                    <x>38</x>
-                    <y>33</y>
-                </positionPercentage>
-                <panelType>Main</panelType>
-                <subGroup>Glycol</subGroup>
-                <variables/>
-            </value>
-        </entry>
-        <entry>
-            <key>Main-Modal SEI</key>
-            <value>
-                <widgetCodeName>Modal-SEI</widgetCodeName>
-                <positionPercentage>
-                    <x>75</x>
-                    <y>0</y>
                 </positionPercentage>
                 <panelType>Main</panelType>
                 <subGroup>Rack</subGroup>
@@ -884,7 +672,7 @@
             </value>
         </entry>
         <entry>
-            <key>Main-Rack SEI `%rackname`</key>
+            <key>Main-SEI `%rackname`</key>
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
                 <positionPercentage>
@@ -964,37 +752,6 @@
             </value>
         </entry>
         <entry>
-            <key>Rack-Cond Accumulated Subcool Alarm `%rackname`</key>
-            <value>
-                <widgetCodeName>LED Comp Status - 20px</widgetCodeName>
-                <positionPercentage>
-                    <x>10</x>
-                    <y>15</y>
-                </positionPercentage>
-                <panelType>Rack</panelType>
-                <subGroup>Rack</subGroup>
-                <variables/>
-            </value>
-        </entry>
-        <entry>
-            <key>Rack-Cond Ambient Subcooling `%rackname`</key>
-            <value>
-                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
-                <positionPercentage>
-                    <x>35</x>
-                    <y>32</y>
-                </positionPercentage>
-                <panelType>Rack</panelType>
-                <subGroup>Rack</subGroup>
-                <variables>
-                    <entry>
-                        <key>`%FONTSIZE%`</key>
-                        <value>25</value>
-                    </entry>
-                </variables>
-            </value>
-        </entry>
-        <entry>
             <key>Rack-Cond Fan &amp;GIF&amp; Status `%rackname` `%fannum`</key>
             <value>
                 <widgetCodeName>CondFanImage</widgetCodeName>
@@ -1039,7 +796,7 @@
             </value>
         </entry>
         <entry>
-            <key>Rack-Cond Inlet Temperature `%rackname`</key>
+            <key>Rack-Cond Outlet Pressure `%rackname`</key>
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
                 <positionPercentage>
@@ -1070,54 +827,6 @@
                     <entry>
                         <key>`%FONTSIZE%`</key>
                         <value>25</value>
-                    </entry>
-                </variables>
-            </value>
-        </entry>
-        <entry>
-            <key>Rack-Cond Subcooling Actual `%rackname`</key>
-            <value>
-                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
-                <positionPercentage>
-                    <x>35</x>
-                    <y>32</y>
-                </positionPercentage>
-                <panelType>Rack</panelType>
-                <subGroup>Rack</subGroup>
-                <variables>
-                    <entry>
-                        <key>`%FONTSIZE%`</key>
-                        <value>25</value>
-                    </entry>
-                </variables>
-            </value>
-        </entry>
-        <entry>
-            <key>Rack-Cond Temp Difference `%rackname`</key>
-            <value>
-                <widgetCodeName>SmartLabel-ColorRanges</widgetCodeName>
-                <positionPercentage>
-                    <x>35</x>
-                    <y>32</y>
-                </positionPercentage>
-                <panelType>Rack</panelType>
-                <subGroup>Rack</subGroup>
-                <variables>
-                    <entry>
-                        <key>`%MediumRangeValue%`</key>
-                        <value>5</value>
-                    </entry>
-                    <entry>
-                        <key>`%HighRangeValue%`</key>
-                        <value>15</value>
-                    </entry>
-                    <entry>
-                        <key>`%FONTSIZE%`</key>
-                        <value>25</value>
-                    </entry>
-                    <entry>
-                        <key>`%LowRangeValue%`</key>
-                        <value>0</value>
                     </entry>
                 </variables>
             </value>
@@ -1159,19 +868,19 @@
             </value>
         </entry>
         <entry>
-            <key>Rack-Refrigerant Level `%rackname`</key>
+            <key>Rack-Liquid Subcooling `%rackname`</key>
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
                 <positionPercentage>
-                    <x>60</x>
-                    <y>30</y>
+                    <x>35</x>
+                    <y>32</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
                 <subGroup>Rack</subGroup>
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>20</value>
+                        <value>25</value>
                     </entry>
                 </variables>
             </value>
@@ -1181,25 +890,7 @@
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
                 <positionPercentage>
-                    <x>75</x>
-                    <y>29</y>
-                </positionPercentage>
-                <panelType>Rack</panelType>
-                <subGroup>Suction Group</subGroup>
-                <variables>
-                    <entry>
-                        <key>`%FONTSIZE%`</key>
-                        <value>20</value>
-                    </entry>
-                </variables>
-            </value>
-        </entry>
-        <entry>
-            <key>Rack-Suction Pressure Design Setpoint `%rackname` `%sgname`</key>
-            <value>
-                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
-                <positionPercentage>
-                    <x>15</x>
+                    <x>60</x>
                     <y>29</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
@@ -1217,7 +908,7 @@
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
                 <positionPercentage>
-                    <x>45</x>
+                    <x>18</x>
                     <y>29</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>

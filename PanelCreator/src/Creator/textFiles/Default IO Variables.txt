@@ -68,14 +68,6 @@ Comp VFD Fault,0,1,,1,0,0,0,,,,0,,
 Comp VFD Value,1,1,%,1,0,1,0,,,,2,2,2 years
 Discharge Pressure Actual `%rackname`,1,1,Psig,0.145,0,1,0,,,,0,,
 Discharge Tmp `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
-Amp Avg `%rackname`,1,1,A,0.1,0,1,0,,,,4,,2 years
-kVA System `%rackname`,1,1,kVA,0.1,0,1,0,,,,5,1,90 days
-kVAR System `%rackname`,1,1,kVAR,0.1,0,1,0,,,,5,1,90 days
-kW Actual `%rackname`,1,1,kW,0.1,0,1,0,,,,4,,2 years
-kW Avg Demand `%rackname`,1,1,kW,0.1,0,1,0,,,,5,1,90 days
-kW Predicted `%rackname`,1,1,kW,1,0,1,0,,,,4,,2 years
-kW Peak Demand `%rackname`,1,1,kW,0.1,0,1,0,,,,5,1,90 days
-kWh Actual `%rackname`,1,1,kWh,0.1,0,1,0,,,,4,,2 years
 Op Cost Current Day `%rackname` ,1,1,$,1,0,2,0,,,,0,,
 Op Cost Current Month `%rackname`,1,1,$,1,0,2,0,,,,0,,
 Op Cost Current Year `%rackname`,1,1,$,1,0,2,0,,,,0,,
@@ -98,8 +90,16 @@ Performance Cost Sum Predicted `%rackname`,1,1,$,1,0,1,0,,,,4,,2 years
 Performance Cost Sum Actual `%rackname`,1,1,$,1,0,1,0,,,,4,,2 years
 Performance kW Sum Predicted `%rackname`,1,1,kW,1,0,1,0,,,,4,,2 years
 Performance kW Sum Actual `%rackname`,1,1,kW,1,0,1,0,,,,4,,2 years
+Amp Avg `%rackname`,1,1,A,0.1,0,1,0,,,,4,,2 years
+kVA System `%rackname`,1,1,kVA,0.1,0,1,0,,,,5,1,90 days
+kVAR System `%rackname`,1,1,kVAR,0.1,0,1,0,,,,5,1,90 days
+kW Actual `%rackname`,1,1,kW,0.1,0,1,0,,,,4,,2 years
+kW Avg Demand `%rackname`,1,1,kW,0.1,0,1,0,,,,5,1,90 days
+kW Predicted `%rackname`,1,1,kW,1,0,1,0,,,,4,,2 years
+kW Peak Demand `%rackname`,1,1,kW,0.1,0,1,0,,,,5,1,90 days
+kWh Actual `%rackname`,1,1,kWh,0.1,0,1,0,,,,4,,2 years
 PF `%rackname`,1,1,PF,0.01,0,2,0,,,,5,1,90 days
-SEI `%rackname`,1,1,%,1,0,1,0,,,,2,2,2 years
+Rack SEI `%rackname`,1,1,%,1,0,1,0,,,,2,2,2 years
 COP `%rackname`,1,1,%,1,0,1,0,,,,2,2,2 years
 Volts L1 to L2 `%rackname`,1,1,V,0.1,0,1,0,,,,0,,
 Volts L1 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,0,,
