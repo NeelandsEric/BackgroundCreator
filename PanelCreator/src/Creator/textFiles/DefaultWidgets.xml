@@ -1177,6 +1177,42 @@
             </value>
         </entry>
         <entry>
+            <key>Rack-Refrigerant Type `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>28</x>
+                    <y>23</y>
+                </positionPercentage>
+                <panelType>Rack</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>18</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Rack-Store Outside Temp</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>65</x>
+                    <y>10</y>
+                </positionPercentage>
+                <panelType>Rack</panelType>
+                <subGroup>Store</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>23</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
             <key>Rack-Suction Pressure Actual `%rackname` `%sgname`</key>
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>

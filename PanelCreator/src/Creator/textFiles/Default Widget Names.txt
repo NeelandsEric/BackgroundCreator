@@ -5,6 +5,7 @@ Energy SEI Avg
 Energy Cost/SqFt
 Energy KBTU/kW Capacity
 Energy MBTU/hour Cost
+Store Outside Temp
 Op Cost Total Current Day
 Op Cost Total Current Month
 Op Cost Total Current Year
