@@ -65,7 +65,7 @@ Cond Fan Amps `%rackname` `%fannum`
 Cond Fan Status `%rackname` `%fannum`
 Cond Fan &GIF& Status `%rackname` `%fannum`
 `Suction Group
-Suction Pressure Accumulated Alarm `%rackname` `%sgname`
+Suction Pressure Accumulated `%rackname` `%sgname`
 Suction Temp `%rackname` `%sgname`
 Suction Pressure Actual `%rackname` `%sgname`
 Suction Pressure Design Setpoint `%rackname` `%sgname`

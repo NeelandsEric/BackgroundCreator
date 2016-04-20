@@ -791,7 +791,7 @@ public class BackgroundRack extends javax.swing.JPanel {
             label.setBackground(Colours.BlueDark.getCol());
             label.setBorder(border);
             widgetComponents.put(
-                            "Suction Pressure Accumulated Alarm " + rack.getName() + " `%sgname`"                            
+                            "Suction Pressure Accumulated " + rack.getName() + " `%sgname`"                            
                             .replace("`%sgname`", rack.getSuctionGroupNameIndex(i))
                             , label);
             panel.add(label, c);

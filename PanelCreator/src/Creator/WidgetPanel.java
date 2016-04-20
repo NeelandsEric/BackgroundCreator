@@ -944,10 +944,10 @@ public class WidgetPanel extends javax.swing.JPanel {
                 label.setHorizontalAlignment(SwingConstants.CENTER);
                 JTextField textfield = new JTextField("");
                 textfield.setHorizontalAlignment(SwingConstants.CENTER);
-                if(wl != null){
+                if (wl != null) {
                     textfield.setText(wl.getVariables().get(name));
                 }
-                
+
                 textfield.setFont(new Font("Arial", Font.BOLD, 15));
 
                 widgetCodeSettings.put(label.getText(), textfield);
@@ -1003,6 +1003,11 @@ public class WidgetPanel extends javax.swing.JPanel {
 
 
     private void _Button_CreateImportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CreateImportsActionPerformed
+
+        if (masterMap == null) {
+            masterMap = mf.displayFrame.getWidgetPositions();
+            loadMasterMapList();
+        }
 
         _TextArea_WidgetExport.setText("");
 

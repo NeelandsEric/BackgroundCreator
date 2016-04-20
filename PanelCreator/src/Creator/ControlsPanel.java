@@ -1292,11 +1292,10 @@ public final class ControlsPanel extends javax.swing.JPanel {
     private void _FormattedTF_CompVFDPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__FormattedTF_CompVFDPropertyChange
         // TODO add your handling code here:
         int val = Integer.valueOf(_FormattedTF_CompVFD.getText());
-        int numCompOnSG = cs.getRackIndex(_ComboBox_RackNumber.getSelectedIndex())
-                            .getSuctionGroupIndex(_ComboBox_SuctionGroups.getSelectedIndex())
+        int numComps = cs.getRackIndex(_ComboBox_RackNumber.getSelectedIndex())                            
                             .getNumCompressors();
         
-        if(val > 0 && val <= numCompOnSG){
+        if(val > 0 && val <= numComps){
             cs.getRackIndex(_ComboBox_RackNumber.getSelectedIndex()).setCompVFD(val);
         }else if(val != 0){
             _FormattedTF_CompVFD.setText("0");
@@ -1348,7 +1347,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         // Comp VFD
         _CheckBox_CompVFD.setSelected(cr.isCompVFDActive());
         _FormattedTF_CompVFD.setEnabled(cr.isCompVFDActive());        
-        _FormattedTF_CompVFD.setText(String.valueOf(cr.getCompVFD()));
+        _FormattedTF_CompVFD.setValue(cr.getCompVFD());
         
         // Cond VFD
         _CheckBox_CondSplit.setSelected(cr.isCondSplit());
