@@ -34,9 +34,9 @@ Cond VFD Value `%rackname`
 Cond Subcooling Actual `%rackname`
 Cond Ambient Subcooling `%rackname`
 Cond Outlet Pressure `%rackname`
-Cond Outlet Temperature `%rackname`
-Cond Inlet Temperature `%rackname`
-Cond Temp Difference `%rackname`
+Cond Outlet Air Temperature `%rackname`
+Cond Inlet Air Temperature `%rackname`
+Cond Air TD `%rackname`
 Cond Rack Fault `%rackname`
 Comp Rack Fault `%rackname`
 Comp VFD Fault `%rackname`

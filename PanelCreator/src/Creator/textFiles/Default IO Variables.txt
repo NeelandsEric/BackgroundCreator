@@ -46,14 +46,15 @@ Cond kW Predicted `%rackname`,1,1,kW,1,0,1,0,,,,4,,2 years
 Cond kWh Actual `%rackname`,1,1,kWh,0.1,0,1,0,,,,4,,2 years
 Cond kWh DayStart `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
 Cond kWh DayCount `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
-Cond Total Subcooling `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
-Cond Ambient Subcooling `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
+Cond Total Subcooling `%rackname`,1,1,F,1.8,-32,2,0,,,,4,,2 years
+Cond Ambient Subcooling `%rackname`,1,1,F,1.8,-32,2,0,,,,4,,2 years
 Cond Subcooling Actual `%rackname`,1,1,F,1.8,-32,2,1,300,2,115,0,,
 Cond Subcooling Setpoint `%rackname`,1,1,F,1.8,-32,2,0,,,,1,,2 years
 Cond Outlet Pressure `%rackname`,1,1,Psig,0.145,0,1,0,,,,0,,
-Cond Outlet Temperature `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
-Cond Inlet Temperature `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
-Cond Temp Difference `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
+Cond Outlet Air Temperature `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
+Cond Inlet Air Temperature `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
+Cond Downleg Temp `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
+Cond Air TD `%rackname`,1,1,F,1.8,-32,2,0,,,,4,,2 years
 Cond PF `%rackname`,1,1,PF,0.01,0,2,0,,,,5,1,90 days
 Cond Setpoint `%rackname`,1,1,Psig,0.145,0,1,0,,,,0,,
 Cond Saturation `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
@@ -107,7 +108,7 @@ Volts L2 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,0,,
 Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,90 days
 Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,90 days
 Refrigerant Type `%rackname`,1,407,,1,0,1,0,,,,0,,
-Refrigerant Level `%rackname`,1,1,%,1,0,1,0,,,,0,,
+Refrigerant Level `%rackname`,1,1,% (Level),1,0,1,0,,,,4,,2 years
 `Condenser`
 Cond Fan Amps `%rackname` `%fannum`,1,1,A,1,0,1,0,,,,0,,
 Cond Fan Status `%rackname` `%fannum`,1,1,,1,0,0,0,,,,0,,

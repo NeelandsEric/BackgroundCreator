@@ -500,7 +500,7 @@ public class BackgroundRack extends javax.swing.JPanel {
         c.ipady = 10;
         //==================================================================
         // Inlet temp (OAT)(1 x 2)
-        label = new JLabel("Cond Inlet Temp");
+        label = new JLabel("Cond Outlet Air Temp");
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -514,7 +514,7 @@ public class BackgroundRack extends javax.swing.JPanel {
 
         //==================================================================
         // Outlet temp (COT) (1 x 2)
-        label = new JLabel("Cond Outlet Temp");
+        label = new JLabel("Cond Inlet Air Temp");
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -526,7 +526,7 @@ public class BackgroundRack extends javax.swing.JPanel {
 
         //==================================================================
         // temp difference (1 x 2)
-        label = new JLabel("Temp Difference");
+        label = new JLabel("Cond Air TD");
         label.setFont(font.deriveFont(Font.BOLD, 16));
         label.setBorder(border);
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -601,9 +601,9 @@ public class BackgroundRack extends javax.swing.JPanel {
         // 
 
         String[] tooltip = new String[]{
-            "Cond Inlet Temperature " + rack.getName(),
-            "Cond Outlet Temperature " + rack.getName(),
-            "Cond Temp Difference " + rack.getName(),
+            "Cond Outlet Air Temperature " + rack.getName(),
+            "Cond Inlet Air Temperature " + rack.getName(),            
+            "Cond Air TD " + rack.getName(),
             "Cond Ambient Subcooling " + rack.getName(),
             "Cond Subcooling Actual " + rack.getName(),
             "Discharge Pressure Actual " + rack.getName(),
