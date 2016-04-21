@@ -30,7 +30,7 @@ Op kWh Total Previous Year,1,1,kWh,1,0,1,0,,,,4,,2 years
 Glycol Pump Station Status,0,1,,1,0,0,0,,,,0,,
 Glycol Chiller Status,0,1,,1,0,0,0,,,,0,,
 `Rack`
-Cond Accumulated Subcool Alarm `%rackname`,0,1,,1,0,0,0,,,,0,,
+Cond Accumulated Subcool Alarm `%rackname`,0,1,,1,0,0,1,0,1,1,0,,
 Cond Split Active `%rackname`,0,1,,1,0,0,0,,,,0,,
 Cond Split Status `%rackname`,0,1,,1,0,0,0,,,,0,,
 Cond VFD Active `%rackname`,0,1,,1,0,0,0,,,,0,,
@@ -47,14 +47,14 @@ Cond kWh Actual `%rackname`,1,1,kWh,0.1,0,1,0,,,,4,,2 years
 Cond kWh DayStart `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
 Cond kWh DayCount `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
 Cond Total Subcooling `%rackname`,1,1,F,1.8,-32,2,0,,,,4,,2 years
-Cond Ambient Subcooling `%rackname`,1,1,F,1.8,-32,2,0,,,,4,,2 years
-Cond Subcooling Actual `%rackname`,1,1,F,1.8,-32,2,1,300,2,115,0,,
-Cond Subcooling Setpoint `%rackname`,1,1,F,1.8,-32,2,0,,,,1,,2 years
+Cond Ambient Subcooling `%rackname`,1,1,F,1,0,2,1,600,-25,5,4,,2 years
+Cond Subcooling Actual `%rackname`,1,1,F,1.8,0,2,1,300,2,115,0,,
+Cond Subcooling Setpoint `%rackname`,1,1,F,1.8,0,2,0,,,,1,,2 years
 Cond Outlet Pressure `%rackname`,1,1,Psig,0.145,0,1,0,,,,0,,
 Cond Outlet Air Temperature `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
 Cond Inlet Air Temperature `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
 Cond Downleg Temp `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
-Cond Air TD `%rackname`,1,1,F,1.8,-32,2,0,,,,4,,2 years
+Cond Air TD `%rackname`,1,1,F,1,0,2,1,600,2,100,4,,2 years
 Cond PF `%rackname`,1,1,PF,0.01,0,2,0,,,,5,1,90 days
 Cond Setpoint `%rackname`,1,1,Psig,0.145,0,1,0,,,,0,,
 Cond Saturation `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
