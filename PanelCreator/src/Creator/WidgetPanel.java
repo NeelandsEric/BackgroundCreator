@@ -915,7 +915,21 @@ public class WidgetPanel extends javax.swing.JPanel {
                 // No selected item on the JTree
                 widgetCodeStr = _List_WidgetCodeList.getSelectedValue().toString();
                 wc = widgetList.get(widgetCodeStr);
+            }else {
+                
+                // Make sure the item selected matches the code in the widget link
+                // This makes selecting 
+                
+                
+                if(!wc.getWidgetName().equals(_List_WidgetCodeList.getSelectedValue().toString())){
+                    
+                    widgetCodeStr = _List_WidgetCodeList.getSelectedValue().toString();
+                    wc = widgetList.get(widgetCodeStr);                    
+                }
+                
             }
+            
+            
             GridBagLayout gbl = new GridBagLayout();
             GridBagConstraints c = new GridBagConstraints();
 
