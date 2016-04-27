@@ -178,16 +178,14 @@ public class DisplayFrame extends javax.swing.JFrame {
      *
      * @param panelID
      */
-    private void buttonClick() {       
+    private void buttonClick() {
 
         Point p = this.getMousePosition();
         p.x -= 10;
         p.y -= 57;
-        returnClick(p);        
-        
+        returnClick(p);
 
     }
-    
 
     public void returnClick(Point point) {
         mf.returnClick(point);
@@ -385,8 +383,7 @@ public class DisplayFrame extends javax.swing.JFrame {
 
         return c;
 
-    }    
-    
+    }
 
     /**
      * Creates the bottom panel
@@ -396,7 +393,6 @@ public class DisplayFrame extends javax.swing.JFrame {
      */
     public JPanel panelBottom(int panelIndex) {
 
-               
         JButton button;
         JLabel label;
         GridBagLayout gbl = new GridBagLayout();
@@ -464,7 +460,7 @@ public class DisplayFrame extends javax.swing.JFrame {
                 buttonClick();
             }
         });
-        panel.add(button, c);        
+        panel.add(button, c);
 
         // Glycol Button
         c.gridy = 1;
@@ -481,7 +477,7 @@ public class DisplayFrame extends javax.swing.JFrame {
             }
         });
         panel.add(button, c);
-       
+
         c.gridx++;
 
         // Rack buttons
@@ -540,7 +536,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         // Energy Button
         c.gridy = 1;
         button = new JButton("Energy");
-        if(panelIndex == (numRacks * 2 + 2)) {
+        if (panelIndex == (numRacks * 2 + 2)) {
             button.setEnabled(false);
         }
         buttonsAdded++;
@@ -575,8 +571,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         panel.add(label, c);
         panel.setBackground(Colours.Gray.getCol());
         panel.setBorder(border);
-        
-        
+
         return panel;
 
     }
