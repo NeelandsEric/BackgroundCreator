@@ -65,8 +65,9 @@ Cond Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,90 days
 Cond Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,90 days
 Cond Rack Fault `%rackname`,1,1,,1,0,0,0,,,,0,,
 Comp Rack Fault `%rackname`,1,1,,1,0,0,0,,,,0,,
-Comp VFD Fault,0,1,,1,0,0,0,,,,0,,
-Comp VFD Value,1,1,%,1,0,1,0,,,,2,2,2 years
+Cond VFD Active `%rackname`,0,1,,1,0,0,0,,,,0,,
+Comp VFD Fault `%rackname`,0,1,,1,0,0,0,,,,0,,
+Comp VFD Value `%rackname`,1,1,%,1,0,1,0,,,,2,2,2 years
 Discharge Pressure Actual `%rackname`,1,1,Psig,0.145,0,1,0,,,,0,,
 Discharge Tmp `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
 Op Cost Current Day `%rackname` ,1,1,$,1,0,2,0,,,,0,,

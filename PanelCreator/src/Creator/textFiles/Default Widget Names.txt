@@ -39,6 +39,7 @@ Cond Inlet Air Temperature `%rackname`
 Cond Air TD `%rackname`
 Cond Rack Fault `%rackname`
 Comp Rack Fault `%rackname`
+Comp VFD Active `%rackname`
 Comp VFD Fault `%rackname`
 Comp VFD Value `%rackname`
 Discharge Pressure Actual `%rackname`
