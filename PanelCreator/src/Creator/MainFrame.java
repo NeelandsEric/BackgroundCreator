@@ -981,7 +981,7 @@ public class MainFrame extends JFrame {
                     } else if (i > 0 && i <= numRacks) {
                         bi = ScreenImage.createImage(displayFrame.rackTabs.get(i - 1));
                     } else if (i > numRacks && i <= (numRacks * 2)) {
-                        bi = ScreenImage.createImage(displayFrame.loadTabs.get(i - (numRacks - 1)));
+                        bi = ScreenImage.createImage(displayFrame.loadTabs.get(i - (numRacks + 1)));
                     } else if (i == (numDisplays - 3)) {
                         bi = ScreenImage.createImage(displayFrame.bgf);
                     } else if (i == (numDisplays - 2)) {

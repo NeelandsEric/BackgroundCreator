@@ -661,6 +661,16 @@ public class BackgroundRack extends javax.swing.JPanel {
         label.setOpaque(true);
         label.setBackground(Colours.BlueDark.getCol());
         label.setBorder(border);
+        if(rack.isCondSplit()){
+            widgetComponents.put("Cond Split Active " + rack.getName(), label);
+        }
+        if(rack.isCondVFDActive()){
+            widgetComponents.put("Cond VFD Active " + rack.getName(), label);
+            widgetComponents.put("Cond VFD Fault " + rack.getName(), label);
+            widgetComponents.put("Cond VFD Value " + rack.getName(), label);
+        }
+        
+        
         panel.add(label, c);
 
         int numCond = rack.getNumCondenserFans();

@@ -32,7 +32,6 @@ Glycol Chiller Status,0,1,,1,0,0,0,,,,0,,
 `Rack`
 Cond Accumulated Subcool Alarm `%rackname`,0,1,,1,0,0,1,0,1,1,0,,
 Cond Split Active `%rackname`,0,1,,1,0,0,0,,,,0,,
-Cond Split Status `%rackname`,0,1,,1,0,0,0,,,,0,,
 Cond VFD Active `%rackname`,0,1,,1,0,0,0,,,,0,,
 Cond VFD Fault `%rackname`,0,1,,1,0,0,0,,,,0,,
 Cond VFD Value `%rackname`,1,1,%,0.1,0,1,0,,,,4,,2 years
@@ -46,6 +45,10 @@ Cond kW Predicted `%rackname`,1,1,kW,1,0,1,0,,,,4,,2 years
 Cond kWh Actual `%rackname`,1,1,kWh,0.1,0,1,0,,,,4,,2 years
 Cond kWh DayStart `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
 Cond kWh DayCount `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
+Cond kWh MonthStart `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
+Cond kWh MonthCount `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
+Cond kWh YearStart `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
+Cond kWh YearCount `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
 Cond Total Subcooling `%rackname`,1,1,F,1.8,-32,2,0,,,,4,,2 years
 Cond Ambient Subcooling `%rackname`,1,1,F,1,0,2,1,600,-25,5,4,,2 years
 Cond Subcooling Actual `%rackname`,1,1,F,1.8,0,2,1,300,2,115,0,,

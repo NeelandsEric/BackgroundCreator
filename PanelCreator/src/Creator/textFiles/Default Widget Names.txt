@@ -27,7 +27,6 @@ Modal Avg SEI
 Modal SEI
 Cond Accumulated Subcool Alarm `%rackname`
 Cond Split Active `%rackname`
-Cond Split Status `%rackname`
 Cond VFD Active `%rackname`
 Cond VFD Fault `%rackname`
 Cond VFD Value `%rackname`
