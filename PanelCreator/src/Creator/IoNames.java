@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -31,6 +32,7 @@ public class IoNames implements java.io.Serializable {
     private ArrayList<String> sysStr;
     private ArrayList<String> extraStr;
     private ArrayList<String> glycolStr;
+    private ArrayList<String> fanPanelStr;
 
     private static final String[] HEADERS = {"io_name", "io_type", "io_value",
         "io_unit_of_measure", "io_constant", "io_offset", "io_float_digits",
@@ -47,7 +49,61 @@ public class IoNames implements java.io.Serializable {
         sysStr = new ArrayList<>();
         extraStr = new ArrayList<>();
         glycolStr = new ArrayList<>();
+        fanPanelStr = new ArrayList<>();
 
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 41 * hash + Objects.hashCode(this.storeStr);
+        hash = 41 * hash + Objects.hashCode(this.condStr);
+        hash = 41 * hash + Objects.hashCode(this.sgStr);
+        hash = 41 * hash + Objects.hashCode(this.compStr);
+        hash = 41 * hash + Objects.hashCode(this.sysStr);
+        hash = 41 * hash + Objects.hashCode(this.extraStr);
+        hash = 41 * hash + Objects.hashCode(this.glycolStr);
+        hash = 41 * hash + Objects.hashCode(this.fanPanelStr);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final IoNames other = (IoNames) obj;
+        if (!Objects.equals(this.storeStr, other.storeStr)) {
+            return false;
+        }
+        if (!Objects.equals(this.rackStr, other.rackStr)) {
+            return false;
+        }
+        if (!Objects.equals(this.condStr, other.condStr)) {
+            return false;
+        }
+        if (!Objects.equals(this.sgStr, other.sgStr)) {
+            return false;
+        }
+        if (!Objects.equals(this.compStr, other.compStr)) {
+            return false;
+        }
+        if (!Objects.equals(this.sysStr, other.sysStr)) {
+            return false;
+        }
+        if (!Objects.equals(this.extraStr, other.extraStr)) {
+            return false;
+        }
+        if (!Objects.equals(this.glycolStr, other.glycolStr)) {
+            return false;
+        }
+        if (!Objects.equals(this.fanPanelStr, other.fanPanelStr)) {
+            return false;
+        }
+        return true;
     }
 
     public ArrayList<String> getStoreStr() {
@@ -114,6 +170,14 @@ public class IoNames implements java.io.Serializable {
         this.glycolStr = glycolStr;
     }
 
+    public ArrayList<String> getFanPanelStr() {
+        return fanPanelStr;
+    }
+
+    public void setFanPanelStr(ArrayList<String> fanPanelStr) {
+        this.fanPanelStr = fanPanelStr;
+    }
+
     public void addString(int listIndex, String string) {
 
         switch (listIndex) {
@@ -140,6 +204,9 @@ public class IoNames implements java.io.Serializable {
                 break;
             case 7:
                 glycolStr.add(string);
+                break;
+            case 8:
+                fanPanelStr.add(string);
                 break;
             default:
                 System.out.println("Didnt add " + string);
@@ -174,6 +241,9 @@ public class IoNames implements java.io.Serializable {
                 break;
             case 7:
                 replaced = glycolStr.set(arrayIndex, string);
+                break;
+            case 8:
+                replaced = fanPanelStr.set(arrayIndex, string);
                 break;
             default:
                 System.out.println("Didnt add " + string);
@@ -307,9 +377,17 @@ public class IoNames implements java.io.Serializable {
 
         for (String s : storeStr) {
             newString = s.split(",");
-
+            
+            
+            // Only add glycol strings if it is a glycol store
+            if(!cs.isGlycolStore()){
+                if(!newString[0].startsWith("Glycol")){
+                    vars.add(newString);
+                }
             //System.out.println("STORE - New string: " + newString[0] + "\tFrom old string: " + s);
-            vars.add(newString);
+            }else {
+                vars.add(newString);
+            }
         }
 
         for (String s : extraStr) {
@@ -319,14 +397,26 @@ public class IoNames implements java.io.Serializable {
             vars.add(newString);
         }
 
-        for (int ngs = 0; ngs < cs.glycolSettings.getNumGlycolSystems(); ngs++) {
-            for (String s : glycolStr) {
-                newString = s.split(",");
-                newString[0] = newString[0].replace("`%glycolname`", cs.glycolSettings.getGlycolSystemNameIndex(ngs));
-                vars.add(newString);
+        if(cs.isGlycolStore()){
+            for (int ngs = 0; ngs < cs.glycolSettings.getNumGlycolSystems(); ngs++) {
+                for (String s : glycolStr) {
+                    newString = s.split(",");
+                    newString[0] = newString[0].replace("`%glycolname`", cs.glycolSettings.getGlycolSystemNameIndex(ngs));
+                    vars.add(newString);
+                }
             }
         }
 
+        
+        for (int nfp = 1; nfp <= cs.getNumFanPanels(); nfp++) {
+            for (String s : fanPanelStr) {
+                newString = s.split(",");
+                newString[0] = newString[0].replace("`%fanpanelnum`", String.valueOf((nfp < 10 ? "0" + nfp: nfp)));
+                vars.add(newString);
+            }
+        }
+        
+        
         Collections.sort(vars, new Comparator< String[]>() {
             @Override
             public int compare(String[] x1, String[] x2) {

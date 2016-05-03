@@ -19,6 +19,7 @@ public class ControlSettings implements java.io.Serializable {
     public String storeName;
     public String imgStr;
     public int numRacks;
+    public int numFanPanels;
     public boolean glycolStore;
     public GlycolSettings glycolSettings;
     public ArrayList<Rack> racks;
@@ -31,6 +32,7 @@ public class ControlSettings implements java.io.Serializable {
         racks = new ArrayList<>();
         racks.add(new Rack("Rack A"));
         numRacks = 1;
+        numFanPanels = 0;
         glycolStore = false;
         glycolSettings = new GlycolSettings();
         imgStr = "";
@@ -46,6 +48,7 @@ public class ControlSettings implements java.io.Serializable {
         racks = new ArrayList<>();
         racks.add(new Rack("Rack A"));
         numRacks = 1;
+        numFanPanels = 0;
         glycolStore = false;
         glycolSettings = new GlycolSettings();
         imgStr = "";
@@ -59,14 +62,18 @@ public class ControlSettings implements java.io.Serializable {
      * @param imgStr String Path of the image used
      * @param numRacks int Number of active racks (different that the size of
      * racks
-     * @param racks List<Racks> List of racks
+     * @param racks  List of racks
+     * @param glycolStore
+     * @param numFanPanels
      */
-    public ControlSettings(String storeName, String imgStr, int numRacks, ArrayList<Rack> racks, boolean glycolStore) {
+    public ControlSettings(String storeName, String imgStr, int numRacks, 
+                            ArrayList<Rack> racks, boolean glycolStore, int numFanPanels) {
         this.storeName = storeName;
         this.imgStr = imgStr;
         this.numRacks = numRacks;
         this.racks = racks;
         this.glycolStore = glycolStore;
+        this.numFanPanels = numFanPanels;
     }
 
     @Override
@@ -78,6 +85,7 @@ public class ControlSettings implements java.io.Serializable {
         hash = 41 * hash + (this.glycolStore ? 1 : 0);
         hash = 41 * hash + Objects.hashCode(this.glycolSettings);
         hash = 41 * hash + Objects.hashCode(this.racks);
+        hash = 41 * hash + Objects.hashCode(this.numFanPanels);
         return hash;
     }
 
@@ -106,6 +114,9 @@ public class ControlSettings implements java.io.Serializable {
             return false;
         }
         if (!Objects.equals(this.racks, other.racks)) {
+            return false;
+        }
+        if (!Objects.equals(this.numFanPanels, other.numFanPanels)) {
             return false;
         }
         return true;
@@ -359,6 +370,26 @@ public class ControlSettings implements java.io.Serializable {
         return names;
     }
 
+    public int getNumFanPanels() {
+        return numFanPanels;
+    }
+
+    public void setNumFanPanels(int numFanPanels) {
+        this.numFanPanels = numFanPanels;
+    }
+    
+    /**
+     *
+     * @param sysIndex int System index in the arraylist
+     * @return
+     */
+    public String getGlycolSysNameIndex(int sysIndex) {
+        return this.glycolSettings.glycolSystemNames.get(sysIndex);
+    }
+    
+    
+    
+
     /**
      * Gets the strings needed for the modbus settings This will return every
      * compressor + 1 condenser & rack variable for each rack
@@ -381,6 +412,14 @@ public class ControlSettings implements java.io.Serializable {
                     list.add(name);
                 }
             }
+        }
+        
+        for(int i = 1; i <= this.numFanPanels; i++){
+            list.add("Fan Panel " + (i < 10 ? "0" + i: i));
+        }
+        
+        if(this.glycolStore){
+            list.add("Glycol Pump Skid");
         }
 
         Collections.sort(list, (String s1, String s2) -> s1.compareToIgnoreCase(s2));

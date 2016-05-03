@@ -1039,7 +1039,7 @@ public class MainFrame extends JFrame {
 
                 wb.write(fileOut);
                 fileOut.close();
-            } catch (Exception e) {
+            } catch (NumberFormatException | IOException e) {
                 controlPanel.writeToLog("Error with creating excel file " + e.getMessage());
             }
 

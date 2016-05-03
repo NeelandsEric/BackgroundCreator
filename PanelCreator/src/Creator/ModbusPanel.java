@@ -9,7 +9,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -19,7 +18,6 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.TreeMap;
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
 import static org.apache.commons.io.FilenameUtils.removeExtension;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -42,9 +40,11 @@ public class ModbusPanel extends javax.swing.JPanel {
     public ModbusSettings mb;
     public ArrayList<MeterPanel>[] powerScoutPanels;
     public ArrayList<MeterPanel> singleLoadPanels;
-    private IPAddressValidator ipValidator;
+    private final IPAddressValidator ipValidator;
     private ArrayList<String> rackStr;
     private ArrayList<String> compStr;
+    private ArrayList<String> pumpSkidStr;
+    private ArrayList<String> fanPanelStr;
     private Map<String, Integer> importedIOVariables;       // io_name,io_id
     private int stationID;
 
@@ -146,6 +146,8 @@ public class ModbusPanel extends javax.swing.JPanel {
         try (Scanner scan = new Scanner(loc)) {
             rackStr = new ArrayList<>();
             compStr = new ArrayList<>();
+            pumpSkidStr = new ArrayList<>();
+            fanPanelStr = new ArrayList<>();
             String line, groupName = "";
             while (scan.hasNextLine()) {
                 line = scan.nextLine();
@@ -168,6 +170,14 @@ public class ModbusPanel extends javax.swing.JPanel {
                         case "compressor":
                             //System.out.println("Added to Compressor: " + line);
                             compStr.add(line);
+                            break;
+                        case "pumpskid":
+                            //System.out.println("Added to Compressor: " + line);
+                            pumpSkidStr.add(line);
+                            break;
+                        case "fanpanel":
+                            //System.out.println("Added to Compressor: " + line);
+                            fanPanelStr.add(line);
                             break;
                     }
                 }
@@ -313,6 +323,7 @@ public class ModbusPanel extends javax.swing.JPanel {
 
     public void loadSettings() {
         int meterIndex, slaveIndex, registerIndex;
+        int numPsMeters = mb.getNumPowerScouts();
         String key;
         for (Sensor sensor : mb.getItems().values()) {
 
@@ -325,7 +336,7 @@ public class ModbusPanel extends javax.swing.JPanel {
                 if (sensor.isPowerScout()) {
                     powerScoutPanels[meterIndex].get(slaveIndex).loadSensor(registerIndex, key);
                 } else {
-                    singleLoadPanels.get(meterIndex).loadSensor(registerIndex, key);
+                    singleLoadPanels.get(meterIndex - numPsMeters).loadSensor(registerIndex, key);
                 }
 
             }
@@ -1224,8 +1235,9 @@ public class ModbusPanel extends javax.swing.JPanel {
             meterMapping.get("PowerScout " + i).add(headers);
         }
         for (int i = 0; i < mb.getNumSingleLoads(); i++) {
-            meterMapping.put("SingleScout " + meterMapping.size(), new ArrayList<>());
-            meterMapping.get("SingleScout " + (meterMapping.size() - 1)).add(headers);
+            int index = meterMapping.size();
+            meterMapping.put("SingleScout " + index, new ArrayList<>());
+            meterMapping.get("SingleScout " + index).add(headers);
         }
 
         String[] newString;
@@ -1322,6 +1334,57 @@ public class ModbusPanel extends javax.swing.JPanel {
                 }
 
             }
+        }
+
+        // Glycol pump skid
+        if (cs.isGlycolStore()) {
+            for (String s : pumpSkidStr) {
+                newString = s.split(",");     
+                
+                key = "Glycol Pump Skid";
+                
+                sensor = mb.getSensorForKey(key);
+                if (sensor != null && sensor.getSlave() != -1) {
+                    newString[1] = newString[1].replace("`%io_id`", getIOForString(newString[0]));
+                    newString[2] = newString[2].replace("`%slave_address`", String.valueOf(sensor.getSlave() + 1));
+                    newString[4] = findRegisterValue(newString[4], sensor.getRegister());
+                    if (sensor.isPowerScout()) {
+                        meterName = "PowerScout " + sensor.getMeter();
+                    } else {
+                        meterName = "SingleScout " + sensor.getMeter();
+                    }
+                    meterMapping.get(meterName).add(newString);
+                } else {
+                    System.out.println("Did not add " + newString[0] + " because no sensor was linked");
+                }
+
+            }
+        }
+
+        // Fan panels
+        for (int i = 1; i <= cs.getNumFanPanels(); i++) {
+
+            for (String s : fanPanelStr) {
+                newString = s.split(",");
+                newString[0] = newString[0].replace("`%fanpanelnum`", String.valueOf((i < 10 ? "0" + i : i)));
+                key = "Fan Panel " + (i < 10 ? "0" + i : i);
+
+                sensor = mb.getSensorForKey(key);
+                if (sensor != null && sensor.getSlave() != -1) {
+                    newString[1] = newString[1].replace("`%io_id`", getIOForString(newString[0]));
+                    newString[2] = newString[2].replace("`%slave_address`", String.valueOf(sensor.getSlave() + 1));
+                    newString[4] = findRegisterValue(newString[4], sensor.getRegister());
+                    if (sensor.isPowerScout()) {
+                        meterName = "PowerScout " + sensor.getMeter();
+                    } else {
+                        meterName = "SingleScout " + sensor.getMeter();
+                    }
+                    meterMapping.get(meterName).add(newString);
+                } else {
+                    System.out.println("Did not add " + newString[0] + " because no sensor was linked");
+                }
+            }
+
         }
 
         // Now that we have the list, we have to replace the 

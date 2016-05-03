@@ -1322,8 +1322,9 @@ public class WidgetPanel extends javax.swing.JPanel {
         if (widgetList.containsKey(wl.getWidgetCodeName())) {
             WidgetCode wc = widgetList.get(wl.getWidgetCodeName());
             Point per = wl.getPositionPercentage();
-
-            int xPos = rect.x + (int) (per.getX() * rect.getWidth() / 100.0);
+            
+            
+            int xPos = rect.x + (int) (per.getX() * rect.getWidth() / 100.0);            
             int yPos = rect.y + (int) (per.getY() * rect.getHeight() / 100.0);
 
             String code = wc.getFullWidgetText();

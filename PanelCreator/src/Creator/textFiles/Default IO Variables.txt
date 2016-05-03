@@ -15,9 +15,9 @@ Energy COP Avg,1,1,%,1,0,1,0,,,,2,2,2 years
 Energy Cost/SqFt,1,1,$/SqFt,1,0,2,0,,,,2,2,2 years
 Energy KBTU/kW Capacity,1,1,KBTU/kW,1,0,2,0,,,,2,2,2 years
 Energy MBTU/hour Cost,1,1,$,1,0,2,0,,,,2,2,2 years
-Op Cost Total Current Day,1,1,$,1,0,2,0,,,,0,,
-Op Cost Total Current Month,1,1,$,1,0,2,0,,,,0,,
-Op Cost Total Current Year,1,1,$,1,0,2,0,,,,0,,
+Op Cost Total Current Day,1,1,$,1,0,2,0,,,,1,,2 years
+Op Cost Total Current Month,1,1,$,1,0,2,0,,,,1,,2 years
+Op Cost Total Current Year,1,1,$,1,0,2,0,,,,1,,2 years
 Op Cost Total Previous Day,1,1,$,1,0,2,0,,,,1,,2 years
 Op Cost Total Previous Month,1,1,$,1,0,2,0,,,,1,,2 years
 Op Cost Total Previous Year,1,1,$,1,0,2,0,,,,1,,2 years
@@ -29,6 +29,16 @@ Op kWh Total Previous Month,1,1,kWh,1,0,1,0,,,,4,,2 years
 Op kWh Total Previous Year,1,1,kWh,1,0,1,0,,,,4,,2 years
 Glycol Pump Station Status,0,1,,1,0,0,0,,,,0,,
 Glycol Chiller Status,0,1,,1,0,0,0,,,,0,,
+Glycol Pump Skid Amp Avg,1,1,A,0.1,0,1,0,,,,4,,2 years
+Glycol Pump Skid kVA System,1,1,kVA,0.1,0,1,0,,,,5,1,2 years
+Glycol Pump Skid kVAR System,1,1,kVAR,0.1,0,1,0,,,,5,1,2 years
+Glycol Pump Skid kW Actual,1,1,kW,0.1,0,1,0,,,,4,,2 years
+Glycol Pump Skid kW Avg Demand,1,1,kW,0.1,0,1,0,,,,5,1,2 years
+Glycol Pump Skid kW Predicted,1,1,kW,1,0,1,0,,,,4,,2 years
+Glycol Pump Skid kW Peak Demand,1,1,kW,0.1,0,1,0,,,,5,1,2 years
+Glycol Pump Skid kWh Actual,1,1,kWh,0.1,0,1,0,,,,4,,2 years
+Glycol Pump Skid PF,1,1,PF,0.01,0,2,0,,,,5,1,2 years
+Glycol Pump Skid Volts Line to Line Avg,1,1,V,0.1,0,1,0,,,,5,1,2 years
 `Rack`
 Cond Accumulated Subcool Alarm `%rackname`,0,1,,1,0,0,1,0,1,1,0,,
 Cond Split Active `%rackname`,0,1,,1,0,0,0,,,,0,,
@@ -36,11 +46,11 @@ Cond VFD Active `%rackname`,0,1,,1,0,0,0,,,,0,,
 Cond VFD Fault `%rackname`,0,1,,1,0,0,0,,,,0,,
 Cond VFD Value `%rackname`,1,1,%,0.1,0,1,0,,,,4,,2 years
 Cond Amp Avg `%rackname`,1,1,A,0.1,0,1,0,,,,4,,2 years
-Cond kVA System `%rackname`,1,1,kVA,0.1,0,1,0,,,,5,1,90 days
-Cond kVAR System `%rackname`,1,1,kVAR,0.1,0,1,0,,,,5,1,90 days
+Cond kVA System `%rackname`,1,1,kVA,0.1,0,1,0,,,,5,1,2 years
+Cond kVAR System `%rackname`,1,1,kVAR,0.1,0,1,0,,,,5,1,2 years
 Cond kW Actual `%rackname`,1,1,kW,0.1,0,1,0,,,,4,,2 years
-Cond kW Avg Demand `%rackname`,1,1,kW,0.1,0,1,0,,,,5,1,90 days
-Cond kW Peak Demand `%rackname`,1,1,kW,0.1,0,1,0,,,,5,1,90 days
+Cond kW Avg Demand `%rackname`,1,1,kW,0.1,0,1,0,,,,5,1,2 years
+Cond kW Peak Demand `%rackname`,1,1,kW,0.1,0,1,0,,,,5,1,2 years
 Cond kW Predicted `%rackname`,1,1,kW,1,0,1,0,,,,4,,2 years
 Cond kWh Actual `%rackname`,1,1,kWh,0.1,0,1,0,,,,4,,2 years
 Cond kWh DayStart `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
@@ -64,8 +74,8 @@ Cond Saturation `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
 Cond Volts L1 to L2 `%rackname`,1,1,V,0.1,0,1,0,,,,0,,
 Cond Volts L1 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,0,,
 Cond Volts L2 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,0,,
-Cond Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,90 days
-Cond Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,90 days
+Cond Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years
+Cond Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years
 Cond Rack Fault `%rackname`,1,1,,1,0,0,0,,,,0,,
 Comp Rack Fault `%rackname`,1,1,,1,0,0,0,,,,0,,
 Cond VFD Active `%rackname`,0,1,,1,0,0,0,,,,0,,
@@ -73,9 +83,6 @@ Comp VFD Fault `%rackname`,0,1,,1,0,0,0,,,,0,,
 Comp VFD Value `%rackname`,1,1,%,1,0,1,0,,,,2,2,2 years
 Discharge Pressure Actual `%rackname`,1,1,Psig,0.145,0,1,0,,,,0,,
 Discharge Tmp `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
-Op Cost Current Day `%rackname` ,1,1,$,1,0,2,0,,,,0,,
-Op Cost Current Month `%rackname`,1,1,$,1,0,2,0,,,,0,,
-Op Cost Current Year `%rackname`,1,1,$,1,0,2,0,,,,0,,
 Op Cost Sum Current Day `%rackname`,1,1,$,1,0,2,0,,,,0,,
 Op Cost Sum Current Month `%rackname`,1,1,$,1,0,2,0,,,,0,,
 Op Cost Sum Current Year `%rackname`,1,1,$,1,0,2,0,,,,0,,
@@ -88,29 +95,29 @@ Op kWh Current Year `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
 Op kWh Counter Current Day `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
 Op kWh Counter Current Month `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
 Op kWh Counter Current Year `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
-Op kWh Previous Day `%rackname`,1,200,kWh,1,0,1,0,,,,1,,2 years
-Op kWh Previous Month `%rackname`,1,6000,kWh,1,0,1,0,,,,1,,2 years
-Op kWh Previous Year `%rackname`,1,72000,kWh,1,0,1,0,,,,1,,2 years
+Op kWh Previous Day `%rackname`,1,1000,kWh,1,0,1,0,,,,1,,2 years
+Op kWh Previous Month `%rackname`,1,30000,kWh,1,0,1,0,,,,1,,2 years
+Op kWh Previous Year `%rackname`,1,360000,kWh,1,0,1,0,,,,1,,2 years
 Performance Cost Sum Predicted `%rackname`,1,1,$,1,0,1,0,,,,4,,2 years
 Performance Cost Sum Actual `%rackname`,1,1,$,1,0,1,0,,,,4,,2 years
 Performance kW Sum Predicted `%rackname`,1,1,kW,1,0,1,0,,,,4,,2 years
 Performance kW Sum Actual `%rackname`,1,1,kW,1,0,1,0,,,,4,,2 years
 Amp Avg `%rackname`,1,1,A,0.1,0,1,0,,,,4,,2 years
-kVA System `%rackname`,1,1,kVA,0.1,0,1,0,,,,5,1,90 days
-kVAR System `%rackname`,1,1,kVAR,0.1,0,1,0,,,,5,1,90 days
+kVA System `%rackname`,1,1,kVA,0.1,0,1,0,,,,5,1,2 years
+kVAR System `%rackname`,1,1,kVAR,0.1,0,1,0,,,,5,1,2 years
 kW Actual `%rackname`,1,1,kW,0.1,0,1,0,,,,4,,2 years
-kW Avg Demand `%rackname`,1,1,kW,0.1,0,1,0,,,,5,1,90 days
+kW Avg Demand `%rackname`,1,1,kW,0.1,0,1,0,,,,5,1,2 years
 kW Predicted `%rackname`,1,1,kW,1,0,1,0,,,,4,,2 years
 kW Peak Demand `%rackname`,1,1,kW,0.1,0,1,0,,,,5,1,90 days
 kWh Actual `%rackname`,1,1,kWh,0.1,0,1,0,,,,4,,2 years
-PF `%rackname`,1,1,PF,0.01,0,2,0,,,,5,1,90 days
+PF `%rackname`,1,1,PF,0.01,0,2,0,,,,5,1,2 years
 Rack SEI `%rackname`,1,1,%,1,0,1,0,,,,2,2,2 years
 COP `%rackname`,1,1,%,1,0,1,0,,,,2,2,2 years
 Volts L1 to L2 `%rackname`,1,1,V,0.1,0,1,0,,,,0,,
 Volts L1 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,0,,
 Volts L2 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,0,,
-Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,90 days
-Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,90 days
+Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years
+Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years
 Refrigerant Type `%rackname`,1,407,,1,0,1,0,,,,0,,
 Refrigerant Level `%rackname`,1,1,% (Level),1,0,1,0,,,,4,,2 years
 `Condenser`
@@ -147,3 +154,14 @@ Glycol Status `%glycolname`,1,1,,1,0,0,0,,,,5,1,180 days
 Glycol System Capacity `%glycolname`,1,1,BTU/H,1,0,1,0,,,,0,,
 Glycol System Temp `%glycolname`,1,1,F,1.8,-32,2,0,,,,0,,
 Glycol System Setpoint `%glycolname`,1,1,F,1.8,-32,2,0,,,,0,,
+`FanPanel`
+Fan Panel Amp Avg `%fanpanelnum`,1,1,A,0.1,0,1,0,,,,4,,2 years
+Fan Panel kVA System `%fanpanelnum`,1,1,kVA,0.1,0,1,0,,,,5,1,2 years
+Fan Panel kVAR System `%fanpanelnum`,1,1,kVAR,0.1,0,1,0,,,,5,1,2 years
+Fan Panel kW Actual `%fanpanelnum`,1,1,kW,0.1,0,1,0,,,,4,,2 years
+Fan Panel kW Avg Demand `%fanpanelnum`,1,1,kW,0.1,0,1,0,,,,5,1,2 years
+Fan Panel kW Predicted `%fanpanelnum`,1,1,kW,1,0,1,0,,,,4,,2 years
+Fan Panel kW Peak Demand `%fanpanelnum`,1,1,kW,0.1,0,1,0,,,,5,1,2 years
+Fan Panel kWh Actual `%fanpanelnum`,1,1,kWh,0.1,0,1,0,,,,4,,2 years
+Fan Panel PF `%fanpanelnum`,1,1,PF,0.01,0,2,0,,,,5,1,2 years
+Fan Panel Volts Line to Line Avg `%fanpanelnum`,1,1,V,0.1,0,1,0,,,,5,1,2 years

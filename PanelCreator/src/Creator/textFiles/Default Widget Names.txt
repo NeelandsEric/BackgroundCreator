@@ -23,6 +23,7 @@ Glycol Chiller Status
 Modal MBTU
 Modal KBTU
 Modal Avg SEI
+Glycol Pump Skid kW Actual
 `Rack
 Modal SEI
 Cond Accumulated Subcool Alarm `%rackname`
@@ -88,3 +89,5 @@ Glycol Status `%glycolname`
 Glycol System Capacity `%glycolname`
 Glycol System Temp `%glycolname`
 Glycol System Setpoint `%glycolname`
+`FanPanel
+Fan Panel `%fanpanelnum` Amp Avg
