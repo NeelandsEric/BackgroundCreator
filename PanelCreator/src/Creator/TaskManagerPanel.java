@@ -897,13 +897,16 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
         query = query.substring(0, query.length() - 1) + ";";
 
+        System.out.println(query);
+        
         db = new DBConn();
 
         String returnString = db.executeQuery(query);
         db.closeConn();
-
+        
         return returnString;
-
+        
+        
     }
 
     public void closeConn() {

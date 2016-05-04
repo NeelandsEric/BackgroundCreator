@@ -37,6 +37,12 @@ Glycol Pump Skid kW Avg Demand,1,1,kW,0.1,0,1,0,,,,5,1,2 years
 Glycol Pump Skid kW Predicted,1,1,kW,1,0,1,0,,,,4,,2 years
 Glycol Pump Skid kW Peak Demand,1,1,kW,0.1,0,1,0,,,,5,1,2 years
 Glycol Pump Skid kWh Actual,1,1,kWh,0.1,0,1,0,,,,4,,2 years
+Glycol Pump Skid kWh DayStart,1,1,kWh,1,0,1,0,,,,0,,
+Glycol Pump Skid kWh DayCount,1,1,kWh,1,0,1,0,,,,0,,
+Glycol Pump Skid kWh MonthStart,1,1,kWh,1,0,1,0,,,,0,,
+Glycol Pump Skid kWh MonthCount,1,1,kWh,1,0,1,0,,,,0,,
+Glycol Pump Skid kWh YearStart,1,1,kWh,1,0,1,0,,,,0,,
+Glycol Pump Skid kWh YearCount,1,1,kWh,1,0,1,0,,,,0,,
 Glycol Pump Skid PF,1,1,PF,0.01,0,2,0,,,,5,1,2 years
 Glycol Pump Skid Volts Line to Line Avg,1,1,V,0.1,0,1,0,,,,5,1,2 years
 `Rack`
@@ -163,5 +169,11 @@ Fan Panel kW Avg Demand `%fanpanelnum`,1,1,kW,0.1,0,1,0,,,,5,1,2 years
 Fan Panel kW Predicted `%fanpanelnum`,1,1,kW,1,0,1,0,,,,4,,2 years
 Fan Panel kW Peak Demand `%fanpanelnum`,1,1,kW,0.1,0,1,0,,,,5,1,2 years
 Fan Panel kWh Actual `%fanpanelnum`,1,1,kWh,0.1,0,1,0,,,,4,,2 years
+Fan Panel kWh DayStart `%fanpanelnum`,1,1,kWh,1,0,1,0,,,,0,,
+Fan Panel kWh DayCount `%fanpanelnum`,1,1,kWh,1,0,1,0,,,,0,,
+Fan Panel kWh MonthStart `%fanpanelnum`,1,1,kWh,1,0,1,0,,,,0,,
+Fan Panel kWh MonthCount `%fanpanelnum`,1,1,kWh,1,0,1,0,,,,0,,
+Fan Panel kWh YearStart `%fanpanelnum`,1,1,kWh,1,0,1,0,,,,0,,
+Fan Panel kWh YearCount `%fanpanelnum`,1,1,kWh,1,0,1,0,,,,0,,
 Fan Panel PF `%fanpanelnum`,1,1,PF,0.01,0,2,0,,,,5,1,2 years
 Fan Panel Volts Line to Line Avg `%fanpanelnum`,1,1,V,0.1,0,1,0,,,,5,1,2 years

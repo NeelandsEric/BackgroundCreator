@@ -377,15 +377,14 @@ public class IoNames implements java.io.Serializable {
 
         for (String s : storeStr) {
             newString = s.split(",");
-            
-            
+
             // Only add glycol strings if it is a glycol store
-            if(!cs.isGlycolStore()){
-                if(!newString[0].startsWith("Glycol")){
+            if (!cs.isGlycolStore()) {
+                if (!newString[0].startsWith("Glycol")) {
                     vars.add(newString);
                 }
-            //System.out.println("STORE - New string: " + newString[0] + "\tFrom old string: " + s);
-            }else {
+                //System.out.println("STORE - New string: " + newString[0] + "\tFrom old string: " + s);
+            } else {
                 vars.add(newString);
             }
         }
@@ -397,7 +396,7 @@ public class IoNames implements java.io.Serializable {
             vars.add(newString);
         }
 
-        if(cs.isGlycolStore()){
+        if (cs.isGlycolStore()) {
             for (int ngs = 0; ngs < cs.glycolSettings.getNumGlycolSystems(); ngs++) {
                 for (String s : glycolStr) {
                     newString = s.split(",");
@@ -407,16 +406,14 @@ public class IoNames implements java.io.Serializable {
             }
         }
 
-        
         for (int nfp = 1; nfp <= cs.getNumFanPanels(); nfp++) {
             for (String s : fanPanelStr) {
                 newString = s.split(",");
-                newString[0] = newString[0].replace("`%fanpanelnum`", String.valueOf((nfp < 10 ? "0" + nfp: nfp)));
+                newString[0] = newString[0].replace("`%fanpanelnum`", String.valueOf((nfp < 10 ? "0" + nfp : nfp)));
                 vars.add(newString);
             }
         }
-        
-        
+
         Collections.sort(vars, new Comparator< String[]>() {
             @Override
             public int compare(String[] x1, String[] x2) {
@@ -589,6 +586,32 @@ public class IoNames implements java.io.Serializable {
             mappings.get(newString).add(newString);
         }
 
+        if (cs.isGlycolStore()) {
+            for (int ngs = 0; ngs < cs.getGlycolSettings().getNumGlycolSystems(); ngs++) {
+                for (String s : glycolStr) {
+                    orgString = s.split(",")[0];
+                    newString = orgString.replace("`%glycolname`", cs.getGlycolSysNameIndex(ngs));
+                    if (!mappings.containsKey(orgString)) {
+                        mappings.put(orgString, new ArrayList<>());
+                    }
+                    mappings.get(orgString).add(newString);
+                }
+
+            }
+        }
+
+        for (int nfp = 1; nfp <= cs.getNumFanPanels(); nfp++) {
+            for (String s : fanPanelStr) {
+                orgString = s.split(",")[0];
+                newString = orgString.replace("`%fanpanelnum`", String.valueOf((nfp < 10 ? "0" + nfp : nfp)));
+                if (!mappings.containsKey(orgString)) {
+                    mappings.put(orgString, new ArrayList<>());
+                }
+                mappings.get(orgString).add(newString);
+            }
+
+        }
+
         return mappings;
 
     }
@@ -736,6 +759,24 @@ public class IoNames implements java.io.Serializable {
             vars.add(newString);
         }
 
+        if (cs.isGlycolStore()) {
+            for (int ngs = 0; ngs < cs.glycolSettings.getNumGlycolSystems(); ngs++) {
+                for (String s : glycolStr) {
+                    newString = new String[]{s.split(",")[0]};
+                    newString[0] = newString[0].replace("`%glycolname`", cs.glycolSettings.getGlycolSystemNameIndex(ngs));
+                    vars.add(newString);
+                }
+            }
+        }
+
+        for (int nfp = 1; nfp <= cs.getNumFanPanels(); nfp++) {
+            for (String s : fanPanelStr) {
+                newString = new String[]{s.split(",")[0]};
+                newString[0] = newString[0].replace("`%fanpanelnum`", String.valueOf((nfp < 10 ? "0" + nfp : nfp)));
+                vars.add(newString);
+            }
+        }
+
         return vars;
 
     }
@@ -789,6 +830,18 @@ public class IoNames implements java.io.Serializable {
             }
         }
 
+        // Glycol
+        vars.add(new String[]{"`Glycol`"});
+        for (String s : glycolStr) {
+            vars.add(s.split(","));
+        }
+
+        // Fan Panel
+        vars.add(new String[]{"`FanPanel`"});
+        for (String s : fanPanelStr) {
+            vars.add(s.split(","));
+        }
+
         return vars;
 
     }
@@ -839,6 +892,18 @@ public class IoNames implements java.io.Serializable {
             for (String s : extraStr) {
                 vars.add(new String[]{s.split(",")[0]});
             }
+        }
+        
+        // Glycol
+        vars.add(new String[]{"`Glycol`"});
+        for (String s : glycolStr) {
+            vars.add(new String[]{s.split(",")[0]});
+        }
+
+        // Fan Panel
+        vars.add(new String[]{"`FanPanel`"});
+        for (String s : fanPanelStr) {
+            vars.add(new String[]{s.split(",")[0]});
         }
 
         return vars;
