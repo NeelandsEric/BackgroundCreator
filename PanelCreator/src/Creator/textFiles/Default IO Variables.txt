@@ -46,11 +46,11 @@ Glycol Pump Skid kWh YearCount,1,1,kWh,1,0,1,0,,,,0,,
 Glycol Pump Skid PF,1,1,PF,0.01,0,2,0,,,,5,1,2 years
 Glycol Pump Skid Volts Line to Line Avg,1,1,V,0.1,0,1,0,,,,5,1,2 years
 `Rack`
-Cond Accumulated Subcool Alarm `%rackname`,0,1,,1,0,0,1,0,1,1,0,,
-Cond Split Active `%rackname`,0,1,,1,0,0,0,,,,0,,
-Cond VFD Active `%rackname`,0,1,,1,0,0,0,,,,0,,
-Cond VFD Fault `%rackname`,0,1,,1,0,0,0,,,,0,,
-Cond VFD Value `%rackname`,1,1,%,0.1,0,1,0,,,,4,,2 years
+Cond Accumulated Subcool Alarm `%rackname`,0,1,,1,0,0,1,0,1,1,1,,2 years
+Cond Split Active `%rackname`,0,1,,1,0,0,0,,,,1,,2 years
+Cond VFD Active `%rackname`,0,1,,1,0,0,0,,,,1,,2 years
+Cond VFD Fault `%rackname`,0,0,,1,0,0,0,,,,1,,2 years
+Cond VFD Value `%rackname`,1,1,%,1,0,1,0,,,,2,2,2 years
 Cond Amp Avg `%rackname`,1,1,A,0.1,0,1,0,,,,4,,2 years
 Cond kVA System `%rackname`,1,1,kVA,0.1,0,1,0,,,,5,1,2 years
 Cond kVAR System `%rackname`,1,1,kVAR,0.1,0,1,0,,,,5,1,2 years
@@ -82,10 +82,10 @@ Cond Volts L1 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,0,,
 Cond Volts L2 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,0,,
 Cond Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years
 Cond Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years
-Cond Rack Fault `%rackname`,1,1,,1,0,0,0,,,,0,,
-Comp Rack Fault `%rackname`,1,1,,1,0,0,0,,,,0,,
-Cond VFD Active `%rackname`,0,1,,1,0,0,0,,,,0,,
-Comp VFD Fault `%rackname`,0,1,,1,0,0,0,,,,0,,
+Cond Rack Fault `%rackname`,1,1,,1,0,0,0,,,,1,,2 years
+Comp Rack Fault `%rackname`,1,1,,1,0,0,0,,,,1,,2 years
+Comp VFD Active `%rackname`,0,1,,1,0,0,0,,,,1,,2 years
+Comp VFD Fault `%rackname`,0,0,,1,0,0,0,,,,1,,2 years
 Comp VFD Value `%rackname`,1,1,%,1,0,1,0,,,,2,2,2 years
 Discharge Pressure Actual `%rackname`,1,1,Psig,0.145,0,1,0,,,,0,,
 Discharge Tmp `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
