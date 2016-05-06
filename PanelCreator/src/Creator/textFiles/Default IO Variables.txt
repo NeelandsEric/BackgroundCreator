@@ -67,7 +67,7 @@ Cond kWh YearStart `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
 Cond kWh YearCount `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
 Cond Total Subcooling `%rackname`,1,1,F,1.8,-32,2,0,,,,4,,2 years
 Cond Ambient Subcooling `%rackname`,1,1,F,1,0,2,1,600,-25,5,4,,2 years
-Cond Subcooling Actual `%rackname`,1,1,F,1.8,0,2,1,300,2,115,0,,
+Cond Subcooling Actual `%rackname`,1,1,F,1.8,0,2,1,300,2,115,2,2,2 years
 Cond Subcooling Setpoint `%rackname`,1,1,F,1.8,0,2,0,,,,1,,2 years
 Cond Outlet Pressure `%rackname`,1,1,Psig,0.145,0,1,0,,,,0,,
 Cond Outlet Air Temperature `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
@@ -132,10 +132,10 @@ Cond Fan Status `%rackname` `%fannum`,1,1,,1,0,0,0,,,,0,,
 Cond Fan RUN `%rackname` `%fannum`,0,1,,1,0,0,0,,,,0,,
 `Suction Group`
 Suction Temp `%rackname` `%sgname`,1,1,F,1.8,-32,2,0,,,,0,,
-Suction Pressure Float Failure `%rackname` `%sgname`,1,1,,1,0,0,1,300,0,1,0,,
-Suction Pressure Accumulated `%rackname` `%sgname`,0,1,,1,0,0,0,,,,0,,
-Suction Pressure Actual `%rackname` `%sgname`,1,1,Psig,0.145,0,1,0,,,,0,,
-Suction Pressure Setpoint `%rackname` `%sgname`,1,1,Psig,0.145,0,1,0,,,,0,,
+Suction Pressure Float Failure `%rackname` `%sgname`,1,0,,1,0,0,1,300,0,1,0,,
+Suction Pressure Accumulated `%rackname` `%sgname`,0,1,,1,0,0,1,1,1,0,1,,2 years
+Suction Pressure Actual `%rackname` `%sgname`,1,1,Psig,0.145,0,1,0,,,,2,2,2 years
+Suction Pressure Setpoint `%rackname` `%sgname`,1,1,Psig,0.145,0,1,1,0,150,300,1,,2 years
 Suction Pressure Design Setpoint `%rackname` `%sgname`,1,1,Psig,1,0,1,0,,,,0,,
 Suction Superheat `%rackname` `%sgname`,1,1,F,1.8,-32,2,0,,,,0,,
 `System`
@@ -147,13 +147,13 @@ System Setpoint `%rackname` `%sgname` `%sysname`,1,1,F,1.8,-32,2,0,,,,1,,2 years
 System Temp `%rackname` `%sgname` `%sysname`,1,1,F,1.8,-32,2,0,,,,0,,
 System Status `%rackname` `%sgname` `%sysname`,1,1,,1,0,0,0,,,,0,,
 `Compressor`
-Comp Amps `%rackname` `%sgname` `%compname`,1,1,A,0.1,0,1,0,,,,5,1,180 days
+Comp Amps `%rackname` `%sgname` `%compname`,1,1,A,0.1,0,1,1,240,0,50,5,1,180 days
 Comp Amp Limit `%rackname` `%sgname` `%compname`,1,1,A,1,0,1,0,,,,0,,
 Comp Discharge Temp `%rackname` `%sgname` `%compname`,1,1,F,1.8,-32,2,1,180,-30,225,5,1,180 days
 Comp Discharge Limit `%rackname` `%sgname` `%compname`,1,1,F,1.8,-32,2,0,,,,0,,
 Comp Status `%rackname` `%sgname` `%compname`,1,1,,1,0,0,0,,,,5,1,180 days
-Comp SLA `%rackname` `%sgname` `%compname`,0,0,,1,0,0,0,,,,0,,
-Comp RUN `%rackname` `%sgname` `%compname`,0,1,,1,0,0,0,,,,0,,
+Comp SLA `%rackname` `%sgname` `%compname`,0,0,,1,0,0,0,,,,1,,2 years
+Comp RUN `%rackname` `%sgname` `%compname`,0,1,,1,0,0,0,,,,1,,2 years
 Comp kW `%rackname` `%sgname` `%compname`,1,1,kW,0.1,0,1,0,,,,5,1,180 days
 `Glycol`
 Glycol Status `%glycolname`,1,1,,1,0,0,0,,,,5,1,180 days

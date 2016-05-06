@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -47,9 +48,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     /**
      * Creates new form TaskManagerPanel
      *
-     * @param mf    main frame
-     * @param cs    control settings
-     * @param wpl   widget panel links
+     * @param mf main frame
+     * @param cs control settings
+     * @param wpl widget panel links
      */
     public TaskManagerPanel(MainFrame mf, ControlSettings cs, WidgetPanelLinks wpl) {
         this.mf = mf;
@@ -138,7 +139,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                                     rowData[j] = String.valueOf(cell.getNumericCellValue());
                                     break;
                                 case 3: // blank
-                                    rowData[j] = "no data @ [ " + i + "][" + j + "]";
+                                    System.out.println("Blank data @ [" + i + "][" + j + "]");
+                                    rowData[j] = "no data @ [" + i + "][" + j + "]";
                                     break;
                                 case 4: // boolean
                                     rowData[j] = String.valueOf(cell.getBooleanCellValue());
@@ -147,13 +149,15 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                                     rowData[j] = String.valueOf(cell.getErrorCellString());
                                     break;
                                 default:
-                                    rowData[j] = "default @ [ " + i + "][" + j + "]";
+                                    System.out.println("default @ [" + i + "][" + j + "]");
+                                    rowData[j] = "default @ [" + i + "][" + j + "]";
                                     break;
 
                             }
 
                         } else {
-                            rowData[j] = "nullValue @ [ " + i + "][" + j + "]";
+                            System.out.println("null @ [" + i + "][" + j + "]");
+                            rowData[j] = "nullValue @ [" + i + "][" + j + "]";
                         }
                     }
                     rowData[5] = "'" + rowData[5] + "'";
@@ -502,7 +506,6 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
                 inputs = outputs = "'";
 
-                // 
                 switch (taskEntry[7]) {
                     case "1":
                         // Script uses all the inputs, assign the keys
@@ -639,6 +642,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                         // Ex - CompStatus - Comp Amps/Run -> Comp Status Rack _
                         // This can only be used per rack as there is an X many compressors
 
+                        int outputsUsed = 0;
                         // Doesnt use all the racks, run for each rack
                         inputKeys = taskEntry[3].split(",");
                         outputKeys = taskEntry[4].split(",");
@@ -704,6 +708,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
                                 //System.out.println("Row import #2: " + rowImports.get(rowImports.size() - 1));
                                 inputs = outputs = "'";
+
                             }
 
                             for (int i = 0; i < inputKeys.length; i++) {
@@ -713,14 +718,45 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                                 }
                             }
 
-                            for (int i = 0; i < outputKeys.length; i++) {
-                                if (numValsPerOutKeys[i] > numRuns) {
-                                    outputs += mappings.get(outputKeys[i]).get(numRuns);
-                                    outputs += ",";
+                            // (inputs) - (outputs)
+                            // One group of inputs relates to an output
+                            // Compressor status (Amps,SLA,Temp) - (Status)
+                            if (maxIn == maxOut) {
+
+                                for (int i = 0; i < outputKeys.length; i++) {
+
+                                    if (numValsPerOutKeys[i] > numRuns) {
+                                        outputs += mappings.get(outputKeys[i]).get(numRuns);
+                                        outputs += ",";
+                                    }
+
+                                }
+                            } else {
+                                // Used for rack comp/cond faults
+                                // All rack inputs links to 1 output
+                                // Number of outputs per task -> outputsMax / numRacks
+
+                                int numOutPer = maxOut / cs.getNumRacks();
+                                for (int i = 0; i < outputKeys.length; i++) {
+                                    if (numOutPer == 1) {
+                                        // Only 1 output
+                                        if (outputs.equals("'")) {
+                                            outputs += mappings.get(outputKeys[i]).get(outputsUsed);
+                                            outputs += ",";
+                                            outputsUsed++;
+                                        }
+                                    } else {
+                                        if (outputs.split(",").length < numOutPer) {
+                                            outputs += mappings.get(outputKeys[i]).get(outputsUsed);
+                                            outputs += ",";
+                                            outputsUsed++;
+                                        }
+                                    }
+
                                 }
                             }
 
-                            // taskEntry []
+                                // taskEntry []
                             // [0] description of task | [1] task_manager_name | [2] task_manager_task_id
                             // [3] task_manager_inputs | [4] task_manager_outputs | [5] task_manager_crontab_line
                             // [6]  task_manager_pass_inputs_as_io_id | [7] EachRack
@@ -898,15 +934,14 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         query = query.substring(0, query.length() - 1) + ";";
 
         System.out.println(query);
-        
+
         db = new DBConn();
 
         String returnString = db.executeQuery(query);
         db.closeConn();
-        
+
         return returnString;
-        
-        
+
     }
 
     public void closeConn() {
