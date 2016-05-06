@@ -385,6 +385,24 @@ public class DisplayFrame extends javax.swing.JFrame {
 
     }
 
+    public Component getPanelAtIndex(int i, int numRacks, int numDisplays) {
+        if (i == 0) {
+            return bg;
+        } else if (i > 0 && i <= numRacks) {
+            return rackTabs.get(i - 1);
+        } else if (i > numRacks && i <= (numRacks * 2)) {
+            return loadTabs.get(i - numRacks - 1).getScrollPane();
+        } else if (i == (numDisplays - 3)) {
+            return bgf;
+        } else if (i == (numDisplays - 2)) {
+            return bge;
+        } else if (i == (numDisplays - 1)) {
+            return bgg;
+        } else {
+            return bg;
+        }
+    }
+
     /**
      * Creates the bottom panel
      *

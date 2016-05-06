@@ -16,6 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
@@ -56,6 +57,10 @@ public class BackgroundLoad extends javax.swing.JPanel {
         this.rackNames = new String[]{"Main", "Rack {}", "Loads", "Financial"};
     }
 
+    
+    
+    
+    
     /**
      * Updates the form with the right information
      *
@@ -302,6 +307,10 @@ public class BackgroundLoad extends javax.swing.JPanel {
             }
         }
     }
+    
+    public JScrollPane getScrollPane(){
+        return _ScrollPane_Panel;
+    }
 
     /**
      * Creates the loads panel
@@ -389,7 +398,8 @@ public class BackgroundLoad extends javax.swing.JPanel {
             "System kW `%rackname` `%sgname` `%sysname`",
             "System Status `%rackname` `%sgname` `%sysname`"
         };
-
+        
+        
         for (int i = 0; i < numSystems; i++) {
 
             // add the system name

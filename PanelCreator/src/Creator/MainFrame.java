@@ -6,6 +6,7 @@
 package Creator;
 
 import java.awt.AWTException;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
@@ -21,8 +22,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -739,28 +744,37 @@ public class MainFrame extends JFrame {
             String[] fileNames = controlPanel.getFileNames(filePath, displayFrame.bg.getSize());
             int numDisplays = displayFrame.getTabCount();
             BufferedImage bi;
+            Component[] comps = displayFrame.getPanelPictures();
 
             int numRacks = store.cs.getNumRacks();
 
             for (int i = 0; i < numDisplays; i++) {
                 //System.out.println(i + ": " + fileNames[i]);
+
                 try {
-                    if (i == 0) {
-                        bi = ScreenImage.createImage(displayFrame.bg);
-                    } else if (i > 0 && i <= numRacks) {
-                        bi = ScreenImage.createImage(displayFrame.rackTabs.get(i - 1));
-                    } else if (i > numRacks && i <= (numRacks * 2)) {
-                        bi = ScreenImage.createImage(displayFrame.loadTabs.get(i - numRacks - 1));
-                    } else if (i == (numDisplays - 3)) {
-                        bi = ScreenImage.createImage(displayFrame.bgf);
-                    } else if (i == (numDisplays - 2)) {
-                        bi = ScreenImage.createImage(displayFrame.bge);
-                    } else if (i == (numDisplays - 1)) {
-                        bi = ScreenImage.createImage(displayFrame.bgg);
+                    /*
+                     if (i == 0) {
+                     bi = ScreenImage.createImage(displayFrame.bg);
+                     } else if (i > 0 && i <= numRacks) {
+                     bi = ScreenImage.createImage(displayFrame.rackTabs.get(i - 1));
+                     } else if (i > numRacks && i <= (numRacks * 2)) {
+                     bi = ScreenImage.createImage(displayFrame.loadTabs.get(i - numRacks - 1), true);
+                     } else if (i == (numDisplays - 3)) {
+                     bi = ScreenImage.createImage(displayFrame.bgf);
+                     } else if (i == (numDisplays - 2)) {
+                     bi = ScreenImage.createImage(displayFrame.bge);
+                     } else if (i == (numDisplays - 1)) {
+                     bi = ScreenImage.createImage(displayFrame.bgg);
+                     } else {                        
+                     bi = ScreenImage.createImage(displayFrame.bg);
+                     }*/
+                    if (i > numRacks && i <= (numRacks * 2)) {
+                        bi = ScreenImage.createImage((JScrollPane) displayFrame.getPanelAtIndex(i, numRacks, numDisplays));
+
                     } else {
-                        System.out.println("Screen Print else on i = " + i);
-                        bi = ScreenImage.createImage(displayFrame.bg);
+                        bi = ScreenImage.createImage((JPanel) displayFrame.getPanelAtIndex(i, numRacks, numDisplays));
                     }
+                    //bi = ScreenImage.createImage(comps[i]);
 
                     ScreenImage.writeImage(bi, fileNames[i]);
                     //ScreenImage.createImage();

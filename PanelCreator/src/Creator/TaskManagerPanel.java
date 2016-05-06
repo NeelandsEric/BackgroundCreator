@@ -756,7 +756,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                                 }
                             }
 
-                                // taskEntry []
+                            // taskEntry []
                             // [0] description of task | [1] task_manager_name | [2] task_manager_task_id
                             // [3] task_manager_inputs | [4] task_manager_outputs | [5] task_manager_crontab_line
                             // [6]  task_manager_pass_inputs_as_io_id | [7] EachRack
@@ -927,8 +927,12 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 + "(task_manager_task_id, task_manager_inputs, task_manager_outputs, task_manager_crontab_line,"
                 + "task_manager_station_id, task_manager_name, task_manager_pass_inputs_as_io_id) values ";
 
-        for (String value : taskList) {
-            query += value + ",";
+        for (String value : taskList) { 
+            if(!value.split(", ")[1].equals("''") && !value.split(", ")[1].equals("','")){            
+                query += value + ",";  
+            }else {
+                System.out.println("Didnt ADD: " + value);
+            }
         }
 
         query = query.substring(0, query.length() - 1) + ";";
@@ -949,7 +953,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             db.closeConn();
         }
     }
-
+    
+    
     public String findIDs(String list) {
 
         String[] elements = list.replace("'", "").split(",");
@@ -958,9 +963,11 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         for (String s : elements) {
             returnString += findIDForString(s) + ",";
         }
+        
+        returnString = returnString.replace(",,", ",");
 
         return returnString.substring(0, returnString.length() - 1) + "'";
-
+        
     }
 
     public String findIDForString(String ioName) {
@@ -968,7 +975,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         if (importedIOVariables.containsKey(ioName)) {
             return String.valueOf(importedIOVariables.get(ioName));
         } else {
-            return ioName;
+            System.out.println("No variables found for " + ioName);
+            return "";
         }
     }
 

@@ -133,7 +133,6 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         this.updateView();
     }
 
-   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -183,13 +182,14 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
     private void _Panel_MainPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event__Panel_MainPanelMousePressed
         df.returnClick(evt.getPoint());
     }//GEN-LAST:event__Panel_MainPanelMousePressed
-  
+
     /**
      * update the panel
      */
     @Override
     public void updateView() {
 
+        boolean glycolStore = df.mf.store.cs.glycolStore;
         // Vars used        
         int[] rackGridWidth = new int[this.numRacks];
         int sum = 2;
@@ -368,7 +368,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         // Constraints        
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 0;
-        c.weighty = 0; // No space between bottom and below row?        
+        c.weighty = 0;
         c.gridx = gridXPos;
         c.gridy = gridYPos;
         c.gridwidth = gridWidth;
@@ -457,54 +457,51 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         // -------------------------------------------------------------------
         // ---------------     Alarms or Glycol     --------------------------
         // -------------------------------------------------------------------
-        boolean glycolStore = df.mf.store.cs.glycolStore;
-        // Performance constraints
-        // Constraints     
         gridYPos += (gridHeight * 2);
-        //c.fill = GridBagConstraints.BOTH;        
-        c.weightx = 0;
-        c.weighty = 0; // No space between bottom and below row?        
-        c.gridx = 0;
-        c.gridy = gridYPos; // Set new position based off previous component
-        gridHeight = 10; // 5 per row for performance
-        c.gridwidth = 2;
-        c.gridheight = gridHeight;
-        c.fill = GridBagConstraints.BOTH;
-        panel = new JPanel(new GridBagLayout());
-        GridBagConstraints c6 = new GridBagConstraints();
-        c6.gridx = 0;
-        c6.fill = GridBagConstraints.BOTH;
+        
         if (glycolStore) {
+            // Performance constraints
+            // Constraints                 
+            //c.fill = GridBagConstraints.BOTH;        
+            c.weightx = 0;
+            c.weighty = 0; // No space between bottom and below row?        
+            c.gridx = 0;
+            c.gridy = gridYPos; // Set new position based off previous component
+            gridHeight = 10; // 5 per row for performance
+            c.gridwidth = 2;
+            c.gridheight = gridHeight;
+            c.fill = GridBagConstraints.BOTH;
+            panel = new JPanel(new GridBagLayout());
+            GridBagConstraints c6 = new GridBagConstraints();
+            c6.gridx = 0;
+            c6.fill = GridBagConstraints.BOTH;
             label = new JLabel("Glycol");
-        } else {
-            label = new JLabel("Alarms");
+            label.setFont(font.deriveFont(Font.BOLD, 16));
+            panel.setOpaque(true);
+            panel.setBorder(border);
+            panel.setBackground(Colours.BlueDark.getCol());
+            panel.add(label, c6);
+            _Panel_MainPanel.add(panel, c);
+            //c.ipady = 100;
+            //c.ipady = 0;                  
+            // We dont setup next position because we are adding suction groups still
+            gridXPos = 2;
+
+            //gridYPos += gridHeight;
+            c.gridx = gridXPos;
+            c.gridwidth = sum;
+            c.ipady = 0;
+            c.weighty = 1;
+            panel = panelRackOutput(glycolStore);
+            panel.setBorder(border);
+            _Panel_MainPanel.add(panel, c);
+
         }
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        panel.setOpaque(true);
-        panel.setBorder(border);
-        panel.setBackground(Colours.BlueDark.getCol());
-        panel.add(label, c6);
-        _Panel_MainPanel.add(panel, c);
-        //c.ipady = 100;
-        //c.ipady = 0;                  
-        // We dont setup next position because we are adding suction groups still
-        gridXPos = 2;
-
-        //gridYPos += gridHeight;
-        c.gridx = gridXPos;
-        c.gridwidth = sum;
-        c.ipady = 0;
-        c.weighty = 1;
-        panel = panelRackOutput(glycolStore);
-        panel.setBorder(border);
-        _Panel_MainPanel.add(panel, c);
 
         c.ipady = 0;
-
         // make labels white
         setLabels(_Panel_MainPanel, Colours.White.getCol());
         // do it before last panel
-
         // Bottom Panel
         //===========================================================
         // Constraints        
@@ -635,7 +632,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         //c.gridheight = 5;
         //label.setOpaque(true);
         //label.setBackground(new java.awt.Color((int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() * 256)));          
-        
+
         panel.add(label, c);
 
         // Cost
@@ -713,7 +710,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
 
         if (!glycol) {
             JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-            JLabel label = new JLabel();            
+            JLabel label = new JLabel();
             panel.add(label);
             panel.setBackground(Colours.BlueLightest.getCol());
             return panel;
