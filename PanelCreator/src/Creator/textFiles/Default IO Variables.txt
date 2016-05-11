@@ -89,18 +89,18 @@ Comp VFD Fault `%rackname`,0,0,,1,0,0,0,,,,1,,2 years
 Comp VFD Value `%rackname`,1,1,%,1,0,1,0,,,,2,2,2 years
 Discharge Pressure Actual `%rackname`,1,1,Psig,0.145,0,1,0,,,,0,,
 Discharge Tmp `%rackname`,1,1,F,1.8,-32,2,0,,,,0,,
-Op Cost Sum Current Day `%rackname`,1,1,$,1,0,2,0,,,,0,,
-Op Cost Sum Current Month `%rackname`,1,1,$,1,0,2,0,,,,0,,
-Op Cost Sum Current Year `%rackname`,1,1,$,1,0,2,0,,,,0,,
-Op Cost Previous Day `%rackname`,1,1,$,1,0,2,0,,,,0,,
-Op Cost Previous Month `%rackname`,1,1,$,1,0,2,0,,,,0,,
-Op Cost Previous Year `%rackname`,1,1,$,1,0,2,0,,,,0,,
-Op kWh Current Day `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
-Op kWh Current Month `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
-Op kWh Current Year `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
-Op kWh Counter Current Day `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
-Op kWh Counter Current Month `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
-Op kWh Counter Current Year `%rackname`,1,1,kWh,1,0,1,0,,,,0,,
+Op Cost Sum Current Day `%rackname`,1,1,$,1,0,2,0,,,,2,5,2 years
+Op Cost Sum Current Month `%rackname`,1,1,$,1,0,2,0,,,,2,5,2 years
+Op Cost Sum Current Year `%rackname`,1,1,$,1,0,2,0,,,,2,5,2 years
+Op Cost Previous Day `%rackname`,1,1,$,1,0,2,0,,,,2,5,2 years
+Op Cost Previous Month `%rackname`,1,1,$,1,0,2,0,,,,2,5,2 years
+Op Cost Previous Year `%rackname`,1,1,$,1,0,2,0,,,,2,5,2 years
+Op kWh Current Day `%rackname`,1,1,kWh,1,0,1,0,,,,2,5,2 years
+Op kWh Current Month `%rackname`,1,1,kWh,1,0,1,0,,,,2,5,2 years
+Op kWh Current Year `%rackname`,1,1,kWh,1,0,1,0,,,,2,5,2 years
+Op kWh Counter Current Day `%rackname`,1,1,kWh,1,0,1,0,,,,2,5,2 years
+Op kWh Counter Current Month `%rackname`,1,1,kWh,1,0,1,0,,,,2,5,2 years
+Op kWh Counter Current Year `%rackname`,1,1,kWh,1,0,1,0,,,,2,5,2 years
 Op kWh Previous Day `%rackname`,1,1000,kWh,1,0,1,0,,,,1,,2 years
 Op kWh Previous Month `%rackname`,1,30000,kWh,1,0,1,0,,,,1,,2 years
 Op kWh Previous Year `%rackname`,1,360000,kWh,1,0,1,0,,,,1,,2 years
@@ -127,7 +127,7 @@ Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years
 Refrigerant Type `%rackname`,1,407,,1,0,1,0,,,,0,,
 Refrigerant Level `%rackname`,1,1,% (Level),1,0,1,0,,,,4,,2 years
 `Condenser`
-Cond Fan Amps `%rackname` `%fannum`,1,1,A,1,0,1,0,,,,0,,
+Cond Fan Amps `%rackname` `%fannum`,1,0.1,A,1,0,1,0,,,,0,,
 Cond Fan Status `%rackname` `%fannum`,1,1,,1,0,0,0,,,,0,,
 Cond Fan RUN `%rackname` `%fannum`,0,1,,1,0,0,0,,,,0,,
 `Suction Group`
