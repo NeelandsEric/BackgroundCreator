@@ -68,8 +68,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         loadComboBoxPanels();
         listUsers = new DefaultListModel();
         listUserGroups = new DefaultListModel();
-        loadUserData();
-        loadUserGroupData();
+        loadData();
 
     }
 
@@ -233,6 +232,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         _Buton_CreateUser = new javax.swing.JButton();
         _Label_Password = new javax.swing.JLabel();
         _TF_Password = new javax.swing.JTextField();
+        _Label_UGHomePanel = new javax.swing.JLabel();
+        _TF_UGHomePanel = new javax.swing.JTextField();
 
         _FileChooser_IoFile.setApproveButtonText("Open");
         _FileChooser_IoFile.setApproveButtonToolTipText("Open a xls file");
@@ -480,6 +481,11 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
         _Button_AddUserToGroups.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Button_AddUserToGroups.setText("Add User(s) to Group(s)");
+        _Button_AddUserToGroups.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_AddUserToGroupsActionPerformed(evt);
+            }
+        });
 
         _Label_Username.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         _Label_Username.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -537,6 +543,14 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         _TF_Password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         _TF_Password.setText("pass");
 
+        _Label_UGHomePanel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        _Label_UGHomePanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _Label_UGHomePanel.setText("User Group Home Panel");
+
+        _TF_UGHomePanel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _TF_UGHomePanel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        _TF_UGHomePanel.setText("0");
+
         javax.swing.GroupLayout _Panel_AlertInsertsLayout = new javax.swing.GroupLayout(_Panel_AlertInserts);
         _Panel_AlertInserts.setLayout(_Panel_AlertInsertsLayout);
         _Panel_AlertInsertsLayout.setHorizontalGroup(
@@ -570,9 +584,13 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                         .addContainerGap())
                     .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(_Label_Password, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                            .addComponent(_TF_Password))
+                        .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(_Label_UGHomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(_TF_UGHomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(_Label_Password, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                                .addComponent(_TF_Password)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         _Panel_AlertInsertsLayout.setVerticalGroup(
@@ -591,30 +609,37 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                             .addComponent(_Label_Username, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
-                                .addComponent(_TF_Username, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_Label_Users3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_TF_UserGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_Label_Nav, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_CB_NavOption, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_Label_UserType, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_CB_UserType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                                .addComponent(_Buton_CreateUser)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(_Button_AddUserToGroups))
                             .addComponent(jScrollPane3)
                             .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(_Button_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(_Button_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
+                                .addComponent(_TF_Username, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
+                                        .addComponent(_Label_UGHomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(_TF_UGHomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
+                                        .addComponent(_Label_Users3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(_TF_UserGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(_Label_Nav, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(_CB_NavOption, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(_Label_UserType, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(_CB_UserType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                                        .addComponent(_Buton_CreateUser)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(_Button_AddUserToGroups))))))
                     .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
                         .addComponent(_Label_Users, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1161,41 +1186,60 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         if (_List_Users.isSelectionEmpty()) {
 
             db = newDBConn();
-            String valuesTemplate = "(%s, %s, %s, %s, %s, %s)";
 
-            String[] params = new String[6];
-            params[0] = "'" + _TF_Username.getText() + "'";     // Username
-            params[1] = "'" + _TF_Password.getText() + "'";     // Password
-            params[2] = "'" + "-" + "'";     // Email
-            params[3] = String.valueOf(_CB_UserType.getSelectedIndex()); // User type
-            params[4] = "'" + _TF_Username.getText() + "'";     // Full Name
-            params[5] = String.valueOf(_CB_NavOption.getSelectedIndex());     // Show menu
+            String userName = _TF_Username.getText();
+            String userID = null;
 
-            String realVals = String.format(valuesTemplate, (Object[]) params);
+            String groupName = _TF_UserGroup.getText();
+            String userGroupID = null;
 
-            String query = "insert into interface_users (interface_user_login, interface_user_password, "
-                    + "interface_user_email, interface_user_type, interface_user_full_name, "
-                    + "interface_user_showmenu) values " + realVals + " returning interface_user_id;";
+            // Check if user exists
+            if (users.containsKey(userName)) {
+                userID = String.valueOf(users.get(userName));
+            } else {
 
-            System.out.println(query);
+                String[] params = new String[6];
+                params[0] = "'" + _TF_Username.getText() + "'";     // Username
+                params[1] = "'" + _TF_Password.getText() + "'";     // Password
+                params[2] = "'" + "-" + "'";     // Email
+                params[3] = String.valueOf(_CB_UserType.getSelectedIndex()); // User type
+                params[4] = "'" + _TF_Username.getText() + "'";     // Full Name
+                params[5] = String.valueOf(_CB_NavOption.getSelectedIndex());     // Show menu
+                String valuesTemplate = "(%s, %s, %s, %s, %s, %s)";
+                String realVals = String.format(valuesTemplate, (Object[]) params);
+                String query = "insert into interface_users (interface_user_login, interface_user_password, "
+                        + "interface_user_email, interface_user_type, interface_user_full_name, "
+                        + "interface_user_showmenu) values " + realVals + " returning interface_user_id;";
 
-            String userID = db.executeReturnQuery(query);
+                System.out.println(query);
 
-            if (!_List_UserGroups.isSelectionEmpty()) {
+                userID = db.executeReturnQuery(query);
 
-                String userGroupID = String.valueOf(userGroups.get((String) _List_UserGroups.getSelectedValue()));
-
-                String vals = "(" + userID + ", " + userGroupID + ")";
-                String queryGroup = "insert into user_group_members (user_group_member_interface_user_id, "
-                        + "user_group_member_user_group_id) values " + vals + ";";
-                System.out.println(queryGroup);
-                db.executeQuery(queryGroup);
             }
+
+            // Check if the user group exists
+            if (userGroups.containsKey(groupName)) {
+                userGroupID = String.valueOf(userGroups.get(groupName));
+            } else {
+                // Add the user group to the Database
+                String userGroupPanelID = _TF_UGHomePanel.getText();
+                String queryUG = "insert into user_groups (user_group_name, user_group_home_panel_id) values "
+                        + "('" + groupName + "', " + userGroupPanelID + ") returning user_group_id;";
+
+                userGroupID = db.executeReturnQuery(queryUG);
+
+            }
+
+            String vals = "(" + userID + ", " + userGroupID + ")";
+            String queryGroup = "insert into user_group_members (user_group_member_interface_user_id, "
+                    + "user_group_member_user_group_id) values " + vals + ";";
+            System.out.println(queryGroup);
+
+            db.executeQuery(queryGroup);
 
             db.closeConn();
 
-            loadUserData();
-            loadUserGroupData();
+            loadData();
         }
 
     }//GEN-LAST:event__Buton_CreateUserActionPerformed
@@ -1209,6 +1253,43 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         _List_UserGroups.clearSelection();
     }//GEN-LAST:event__TF_UserGroupKeyPressed
+
+    private void _Button_AddUserToGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_AddUserToGroupsActionPerformed
+        // TODO add your handling code here:
+        // For each user selected, add them to the specific group
+
+        db = newDBConn();
+
+        String groupName = _TF_UserGroup.getText();
+        String userGroupID = null;
+
+        // Check if the user group exists
+        if (userGroups.containsKey(groupName)) {
+            userGroupID = String.valueOf(userGroups.get(groupName));
+        } else {
+            // Add the user group to the Database
+            String userGroupPanelID = _TF_UGHomePanel.getText();
+            String queryUG = "insert into user_groups (user_group_name, user_group_home_panel_id) values "
+                    + "('" + groupName + "', " + userGroupPanelID + ") returning user_group_id;";
+
+            userGroupID = db.executeReturnQuery(queryUG);
+
+        }
+
+        
+
+        for (Object item : _List_Users.getSelectedValuesList()) {
+
+            String userID = String.valueOf(users.get(item.toString()));
+            String query = "insert into user_group_members (user_group_member_interface_user_id, "
+                    + "user_group_member_user_group_id) values (" + userID + ", " + userGroupID + ");";                     
+            
+            db.executeQuery(query);
+        }
+
+        db.closeConn();
+
+    }//GEN-LAST:event__Button_AddUserToGroupsActionPerformed
 
     private boolean checkTaskExist() {
 
@@ -1249,9 +1330,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     }
 
     public DBConn newDBConn() {
-        if(db == null){
+        if (db == null) {
             return new DBConn();
-        }else if (!db.isConnOpened()) {
+        } else if (!db.isConnOpened()) {
             return new DBConn();
         } else {
             return db;
@@ -1265,32 +1346,28 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         }
     }
 
-    private void loadUserData() {
+    private void loadData() {
 
         db = newDBConn();
 
-        String query = "select interface_user_id,interface_user_login from interface_users order by 2 asc;";
-
-        users = db.getUserData(query);
+        loadUserData();
+        loadUserGroupData();
 
         db.closeConn();
+    }
 
+    private void loadUserData() {
+
+        String query = "select interface_user_id,interface_user_login from interface_users order by 2 asc;";
+        users = db.getUserData(query);
         updateUserData();
-
     }
 
     private void loadUserGroupData() {
 
-        db = newDBConn();
-
         String query = "select user_group_id, user_group_name from user_groups order by 2 asc;";
-
         userGroups = db.getUserGroupData(query);
-
-        db.closeConn();
-
         updateUserGroupData();
-
     }
 
     public void updateUserData() {
@@ -1470,6 +1547,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private javax.swing.JLabel _Label_Loaded;
     private javax.swing.JLabel _Label_Nav;
     private javax.swing.JLabel _Label_Password;
+    private javax.swing.JLabel _Label_UGHomePanel;
     private javax.swing.JLabel _Label_UserGroups;
     private javax.swing.JLabel _Label_UserType;
     private javax.swing.JLabel _Label_Username;
@@ -1481,6 +1559,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private javax.swing.JPanel _Panel_Imports;
     private javax.swing.JTextField _TF_PanelName;
     private javax.swing.JTextField _TF_Password;
+    private javax.swing.JTextField _TF_UGHomePanel;
     private javax.swing.JTextField _TF_UserGroup;
     private javax.swing.JTextField _TF_Username;
     private javax.swing.JTextArea _TextArea_Status;

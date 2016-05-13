@@ -810,7 +810,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
                 if (i <= numGSys) {
                     String text = gs.getGlycolSystemNameIndex(i - 1);
                     label = new JLabel(text);
-                    label.setFont(font.deriveFont(Font.BOLD, 18));
+                    label.setFont(font.deriveFont(Font.BOLD, 18));                    
                     widgetComponents.put(tooltip.replace("`%glycolname`", text), label);
                 } else {
                     label = new JLabel();
