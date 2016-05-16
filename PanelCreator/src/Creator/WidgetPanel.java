@@ -127,6 +127,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     public void setCs(ControlSettings cs) {
         this.cs = cs;
+        
         updateDisplay();
     }
 

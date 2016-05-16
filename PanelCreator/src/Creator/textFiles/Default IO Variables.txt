@@ -135,7 +135,7 @@ Suction Temp `%rackname` `%sgname`,1,1,F,1.8,-32,2,0,,,,0,,
 Suction Pressure Float Failure `%rackname` `%sgname`,1,0,,1,0,0,1,300,0,1,0,,                                                   
 Suction Pressure Accumulated `%rackname` `%sgname`,0,1,,1,0,0,1,0,1,1,1,,2 years
 Suction Pressure Actual `%rackname` `%sgname`,1,1,Psig,0.145,0,1,0,,,,2,2,2 years
-Suction Pressure Setpoint `%rackname` `%sgname`,1,1,Psig,0.145,0,1,1,0,150,300,1,,2 years
+Suction Pressure Setpoint `%rackname` `%sgname`,1,1,Psig,0.145,0,1,1,300,0,150,1,,2 years
 Suction Pressure Design Setpoint `%rackname` `%sgname`,1,1,Psig,1,0,1,0,,,,0,,
 Suction Superheat `%rackname` `%sgname`,1,1,F,1.8,-32,2,0,,,,0,,
 `System`

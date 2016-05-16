@@ -35,6 +35,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private int stationId;
     private Map<String, Integer> importedIOVariables;       // io_name,io_id
     private List<String[]> importedTasks;
+    private List<String[]> importedAlerts;
     private DBConn db;
     private ControlSettings cs;
     private WidgetPanelLinks wpl;
@@ -65,6 +66,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         }
         initComponents();
         loadDefaultTasks();
+        loadDefaultAlerts();
         loadComboBoxPanels();
         listUsers = new DefaultListModel();
         listUserGroups = new DefaultListModel();
@@ -180,6 +182,73 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     }
 
+    private void loadDefaultAlerts() {
+
+        String path = "/Creator/textFiles/alerts.xlsx";
+        InputStream loc = this.getClass().getResourceAsStream(path);
+        importedAlerts = new ArrayList<>();
+        try {
+
+            XSSFWorkbook wb = new XSSFWorkbook(loc);
+            XSSFSheet sheet = wb.getSheetAt(0);
+            XSSFRow row;
+            XSSFCell cell;
+            String[] rowData;
+            int rows, cols; // No of rows
+            rows = sheet.getPhysicalNumberOfRows();
+
+            for (int i = 1; i < rows; i++) {
+
+                row = sheet.getRow(i);
+                if (row != null) {
+                    cols = row.getPhysicalNumberOfCells();
+                    rowData = new String[cols];
+
+                    for (int j = 0; j < cols; j++) {
+
+                        cell = row.getCell(j);
+                        if (cell != null) {
+                            switch (cell.getCellType()) {
+                                case 1: // string
+                                    rowData[j] = cell.getStringCellValue();
+                                    break;
+                                case 2: // int
+                                    rowData[j] = String.valueOf(cell.getNumericCellValue());
+                                    break;
+                                case 3: // blank
+                                    System.out.println("Blank data @ [" + i + "][" + j + "]");
+                                    rowData[j] = "no data @ [" + i + "][" + j + "]";
+                                    break;
+                                case 4: // boolean
+                                    rowData[j] = String.valueOf(cell.getBooleanCellValue());
+                                    break;
+                                case 5: // error
+                                    rowData[j] = String.valueOf(cell.getErrorCellString());
+                                    break;
+                                default:
+                                    //System.out.println("default @ [" + i + "][" + j + "] = " + String.valueOf(cell.getRawValue()));
+                                    rowData[j] = String.valueOf(cell.getRawValue());
+                                    break;
+                            }
+
+                        } else {
+                            System.out.println("null @ [" + i + "][" + j + "]");
+                            rowData[j] = "nullValue @ [" + i + "][" + j + "]";
+                        }
+                    }
+                    importedAlerts.add(rowData);
+
+                }
+            }
+
+            wb.close();
+
+        } catch (Exception e) {
+            System.out.println("Error reading excel file " + e.getMessage());
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -212,7 +281,6 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         _FTF_YPOS = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         _Panel_AlertInserts = new javax.swing.JPanel();
-        _Button_Refresh = new javax.swing.JButton();
         _Label_Users = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         _List_Users = new javax.swing.JList();
@@ -234,6 +302,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         _TF_Password = new javax.swing.JTextField();
         _Label_UGHomePanel = new javax.swing.JLabel();
         _TF_UGHomePanel = new javax.swing.JTextField();
+        _Button_AddTemplates = new javax.swing.JButton();
 
         _FileChooser_IoFile.setApproveButtonText("Open");
         _FileChooser_IoFile.setApproveButtonToolTipText("Open a xls file");
@@ -437,13 +506,6 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 .addComponent(_Button_GenerateLinks, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        _Button_Refresh.setText("Refresh Data");
-        _Button_Refresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _Button_RefreshActionPerformed(evt);
-            }
-        });
-
         _Label_Users.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         _Label_Users.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _Label_Users.setText("Users");
@@ -471,7 +533,6 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        _List_UserGroups.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         _List_UserGroups.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 _List_UserGroupsValueChanged(evt);
@@ -551,6 +612,13 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         _TF_UGHomePanel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         _TF_UGHomePanel.setText("0");
 
+        _Button_AddTemplates.setText("Add Templates");
+        _Button_AddTemplates.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_AddTemplatesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout _Panel_AlertInsertsLayout = new javax.swing.GroupLayout(_Panel_AlertInserts);
         _Panel_AlertInserts.setLayout(_Panel_AlertInsertsLayout);
         _Panel_AlertInsertsLayout.setHorizontalGroup(
@@ -572,26 +640,22 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                     .addComponent(_Label_Users3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(_TF_UserGroup, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(_Button_AddUserToGroups, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(_CB_NavOption, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(_Label_Nav, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(_Label_UserType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(_Buton_CreateUser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(_Label_UserType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(_Button_Refresh)
-                        .addContainerGap())
-                    .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(_Label_UGHomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(_TF_UGHomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(_Label_Password, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                                .addComponent(_TF_Password)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(_Label_UGHomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(_TF_UGHomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
+                    .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(_Label_Password, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                        .addComponent(_TF_Password))
+                    .addComponent(_Button_AddTemplates, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(_Button_AddUserToGroups, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(_Buton_CreateUser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         _Panel_AlertInsertsLayout.setVerticalGroup(
             _Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -611,22 +675,20 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                         .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3)
                             .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(_Button_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
                                 .addComponent(_TF_Username, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
-                                        .addComponent(_Label_UGHomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(_TF_UGHomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
                                         .addComponent(_Label_Users3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(_TF_UserGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(_TF_UserGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
+                                        .addComponent(_Label_UGHomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(_TF_UGHomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
                                         .addComponent(jLabel8)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(_Label_Nav, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -635,11 +697,14 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(_Label_UserType, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(_CB_UserType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                                        .addComponent(_CB_UserType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
                                         .addComponent(_Buton_CreateUser)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(_Button_AddUserToGroups))))))
+                                        .addComponent(_Button_AddUserToGroups)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(_Button_AddTemplates, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 133, Short.MAX_VALUE))))
                     .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
                         .addComponent(_Label_Users, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1139,13 +1204,6 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event__Button_GenerateLinksActionPerformed
 
-    private void _Button_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_RefreshActionPerformed
-        // TODO add your handling code here:
-
-        loadUserData();
-
-    }//GEN-LAST:event__Button_RefreshActionPerformed
-
     private void _List_UsersValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event__List_UsersValueChanged
         // TODO add your handling code here:
 
@@ -1276,20 +1334,93 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
         }
 
-        
-
         for (Object item : _List_Users.getSelectedValuesList()) {
 
             String userID = String.valueOf(users.get(item.toString()));
             String query = "insert into user_group_members (user_group_member_interface_user_id, "
-                    + "user_group_member_user_group_id) values (" + userID + ", " + userGroupID + ");";                     
-            
+                    + "user_group_member_user_group_id) values (" + userID + ", " + userGroupID + ");";
+
             db.executeQuery(query);
         }
 
         db.closeConn();
 
     }//GEN-LAST:event__Button_AddUserToGroupsActionPerformed
+
+    private void _Button_AddTemplatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_AddTemplatesActionPerformed
+
+        _TextArea_Status.append("\nStatus: Alerts being created and imported.");
+
+        if (!importedIOVariables.isEmpty() && !importedAlerts.isEmpty()) {
+            // Imported io variables and imported tasks are good
+            List<String> rowImports = new ArrayList<>();
+
+            // This function will return a Map containing all the formatted strings
+            // for each base string
+            // Amp Avg `%rackname` -> Amp Avg Rack A, Amp Avg Rack B, etc.
+            Map<String, List> mappings = mf.getMapFullStrings();
+
+            // (task_manager_task_id, task_manager_inputs, task_manager_outputs, task_manager_crontab_line,
+            //  task_manager_station_id, task_manager_name, task_manager_pass_inputs_as_io_id)
+            String queryTemplate = "(%s, %s, %s)";
+
+            List<String> userGroupsToAdd = new ArrayList<>();
+
+            for (Object ugName : _List_UserGroups.getSelectedValuesList()) {
+                if (userGroups.containsKey((String) ugName)) {
+                    System.out.println("UserGroup To ADD: " + ugName);
+                    userGroupsToAdd.add(String.valueOf(userGroups.get((String) ugName)));
+                }
+            }
+
+            String alertTemplateID;
+
+            // Loop through each task
+            for (String[] taskEntry : importedAlerts) {
+
+                List<String> iosToAdd = new ArrayList<>();
+
+                alertTemplateID = taskEntry[1];
+
+                // taskEntry[2] = Comp Amps `%rackname` `%sgname` `%compname`
+                if (mappings.containsKey(taskEntry[2])) {
+
+                    System.out.println("Adding " + mappings.get(taskEntry[2]).size() + " vars [" + taskEntry[2] + "]");
+                    for (Object io : mappings.get(taskEntry[2])) {
+
+                        // io = Comp Amps Rack A SGr1(-18) Comp 1
+                        // io = Comp Amps Rack A SGr1(-18) Comp 2
+                        // io = Comp Amps Rack A SGr1(-18) Comp 3
+                        iosToAdd.add((String) io);
+                    }
+                }
+
+                // For each user group add each io                
+                for (String ug : userGroupsToAdd) {
+                    // Make sure to convert the iosToAdd from the string version to the ID its linked to
+                    for (String io : iosToAdd) {
+                        String ioVal = findIDForString(io); // Comp Amps SG1 -> 18232
+                        rowImports.add(String.format(queryTemplate, ioVal, alertTemplateID, ug));
+                    }
+                }
+
+            }
+
+            String retString = insertAlerts(rowImports);
+
+            if (retString.startsWith("Fail")) {
+                _TextArea_Status.append("\nStatus: " + retString);
+            } else {
+                _TextArea_Status.append("\nStatus: Successfully imported alerts.");
+            }
+
+        }// No data, do nothing
+        else {
+            System.out.println(importedIOVariables.isEmpty() + " | " + importedTasks.isEmpty());
+        }
+
+
+    }//GEN-LAST:event__Button_AddTemplatesActionPerformed
 
     private boolean checkTaskExist() {
 
@@ -1325,6 +1456,33 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         String returnString = db.executeQuery(query);
         db.closeConn();
 
+        return returnString;
+
+    }
+
+    private String insertAlerts(List<String> taskList) {
+
+        String query = "insert into alert_template_allocations "
+                + "(alert_template_allocation_io_id,"
+                + "alert_template_allocation_alert_template_id,"
+                + "alert_template_allocation_user_group_id) "
+                + "values ";
+
+        for (String value : taskList) {
+            if (!value.split(", ")[1].equals("''") && !value.split(", ")[1].equals("','")) {
+                query += value + ",";
+            } else {
+                System.out.println("Didnt ADD: " + value);
+            }
+        }
+
+        query = query.substring(0, query.length() - 1) + ";";
+
+        System.out.println(query);
+
+        db = newDBConn();
+        String returnString = db.executeQuery(query);
+        db.closeConn();
         return returnString;
 
     }
@@ -1531,11 +1689,11 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton _Buton_CreateUser;
+    private javax.swing.JButton _Button_AddTemplates;
     private javax.swing.JButton _Button_AddUserToGroups;
     private javax.swing.JButton _Button_CreateImports;
     private javax.swing.JButton _Button_GenerateLinks;
     private javax.swing.JButton _Button_LoadXls;
-    private javax.swing.JButton _Button_Refresh;
     private javax.swing.JButton _Button_Save;
     private javax.swing.JComboBox _CB_NavOption;
     private javax.swing.JComboBox _CB_UserType;

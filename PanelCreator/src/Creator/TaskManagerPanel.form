@@ -409,33 +409,27 @@
                       <Component id="_Label_Users3" alignment="0" max="32767" attributes="0"/>
                       <Component id="_TF_UserGroup" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel8" alignment="0" max="32767" attributes="0"/>
-                      <Component id="_Button_AddUserToGroups" alignment="0" max="32767" attributes="0"/>
                       <Component id="_CB_NavOption" alignment="0" max="32767" attributes="0"/>
                       <Component id="_Label_Nav" alignment="0" max="32767" attributes="0"/>
                       <Component id="_Label_UserType" max="32767" attributes="0"/>
-                      <Component id="_Buton_CreateUser" alignment="0" max="32767" attributes="0"/>
                   </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="_Button_Refresh" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="_Label_UGHomePanel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="_TF_UGHomePanel" alignment="0" pref="164" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="_Label_UGHomePanel" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="_TF_UGHomePanel" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="_Label_Password" pref="164" max="32767" attributes="0"/>
-                                  <Component id="_TF_Password" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="_Label_Password" pref="164" max="32767" attributes="0"/>
+                          <Component id="_TF_Password" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="_Button_AddTemplates" min="-2" pref="164" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="_Button_AddUserToGroups" alignment="0" max="32767" attributes="0"/>
+                          <Component id="_Buton_CreateUser" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -458,25 +452,24 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jScrollPane3" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="_Button_Refresh" min="-2" pref="37" max="-2" attributes="0"/>
-                              </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="_TF_Username" min="-2" pref="33" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="_Label_UGHomePanel" min="-2" pref="24" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="_TF_UGHomePanel" min="-2" pref="33" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Component id="_Label_Users3" min="-2" pref="24" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="_TF_UserGroup" min="-2" pref="33" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="_Label_UGHomePanel" min="-2" pref="24" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="_TF_UGHomePanel" min="-2" pref="33" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
                                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="_Label_Nav" min="-2" pref="17" max="-2" attributes="0"/>
@@ -486,12 +479,16 @@
                                           <Component id="_Label_UserType" min="-2" pref="17" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="_CB_UserType" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="81" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
                                           <Component id="_Buton_CreateUser" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="_Button_AddUserToGroups" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="_Button_AddTemplates" min="-2" pref="52" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <EmptySpace min="0" pref="133" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -507,14 +504,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="_Button_Refresh">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Refresh Data"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_RefreshActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="_Label_Users">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -574,7 +563,6 @@
                     <StringItem index="0" value="User Group 1"/>
                   </StringArray>
                 </Property>
-                <Property name="selectionMode" type="int" value="0"/>
               </Properties>
               <Events>
                 <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="_List_UserGroupsValueChanged"/>
@@ -726,6 +714,14 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="_Button_AddTemplates">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Add Templates"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_AddTemplatesActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
