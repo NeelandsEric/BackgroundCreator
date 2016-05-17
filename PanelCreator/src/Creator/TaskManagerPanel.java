@@ -1367,8 +1367,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             List<String> userGroupsToAdd = new ArrayList<>();
 
             for (Object ugName : _List_UserGroups.getSelectedValuesList()) {
-                if (userGroups.containsKey((String) ugName)) {
-                    System.out.println("UserGroup To ADD: " + ugName);
+                if (userGroups.containsKey((String) ugName)) {                    
                     userGroupsToAdd.add(String.valueOf(userGroups.get((String) ugName)));
                 }
             }
@@ -1384,8 +1383,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
                 // taskEntry[2] = Comp Amps `%rackname` `%sgname` `%compname`
                 if (mappings.containsKey(taskEntry[2])) {
-
-                    System.out.println("Adding " + mappings.get(taskEntry[2]).size() + " vars [" + taskEntry[2] + "]");
+                    
                     for (Object io : mappings.get(taskEntry[2])) {
 
                         // io = Comp Amps Rack A SGr1(-18) Comp 1
@@ -1405,6 +1403,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 }
 
             }
+            
+            // Insert all the alerts
 
             String retString = insertAlerts(rowImports);
 
@@ -1421,6 +1421,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event__Button_AddTemplatesActionPerformed
+
 
     private boolean checkTaskExist() {
 
@@ -1478,7 +1479,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
         query = query.substring(0, query.length() - 1) + ";";
 
-        System.out.println(query);
+        //System.out.println(query);
 
         db = newDBConn();
         String returnString = db.executeQuery(query);
