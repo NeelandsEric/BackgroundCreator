@@ -79,32 +79,35 @@
                                       <Component id="_FTF_Offset" linkSize="1" pref="65" max="32767" attributes="0"/>
                                       <Component id="_FTF_Constant" linkSize="1" max="32767" attributes="0"/>
                                   </Group>
+                                  <EmptySpace pref="26" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="_Label_Alert" max="32767" attributes="0"/>
+                                      <Component id="_Label_alertHigh" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="_Label_constant1" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="_Label_constant2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="_FTF_AlertHigh" linkSize="1" alignment="0" pref="65" max="32767" attributes="0"/>
+                                              <Component id="_FTF_AlertTimeDelay" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="_FTF_AlertLow" linkSize="1" alignment="0" pref="65" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                          <Component id="_CheckBox_Alert" linkSize="1" pref="66" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="_Label_type" min="-2" pref="52" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="_ComboBox_Type" min="-2" pref="177" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="_Label_Alert" max="32767" attributes="0"/>
-                              <Component id="_Label_alertHigh" alignment="0" max="32767" attributes="0"/>
-                              <Component id="_Label_constant1" alignment="0" max="32767" attributes="0"/>
-                              <Component id="_Label_constant2" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="_FTF_AlertHigh" linkSize="1" alignment="0" pref="65" max="32767" attributes="0"/>
-                                      <Component id="_FTF_AlertTimeDelay" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="_FTF_AlertLow" linkSize="1" alignment="0" pref="65" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Component id="_CheckBox_Alert" linkSize="1" pref="66" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="_CB_DatalogPoint" min="-2" pref="137" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -200,8 +203,46 @@
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="_Label_type" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="_ComboBox_Type" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="_CB_DatalogPoint" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="_Label_valueDisplayed" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="_FTF_DisplayedValue" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="_Label_constant" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="_FTF_Constant" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="_Label_uom" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="_TextField_UoM" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="_Label_offset" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="_FTF_Offset" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="_Label_decimalPlaces" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="_FTF_DecimalPlaces" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" alignment="1" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="_Button_SaveAllIoNames" min="-2" pref="36" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="_Button_SaveUserDefaults" min="-2" pref="36" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="_Button_LoadUserDefaults" min="-2" pref="36" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="_Button_LoadProgramDefaults" min="-2" pref="36" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="_ComboBox_Groups" min="-2" pref="36" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="_Label_Alert" linkSize="3" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
                                       <Component id="_CheckBox_Alert" linkSize="3" alignment="1" min="-2" pref="33" max="-2" attributes="0"/>
@@ -222,77 +263,38 @@
                                       <Component id="_FTF_AlertHigh" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="_Label_LogParam1" min="-2" pref="26" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                  <Component id="_ComboBox_LogType" min="-2" pref="35" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="_Label_type" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <Component id="_ComboBox_Type" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="_Label_valueDisplayed" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <Component id="_FTF_DisplayedValue" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <Component id="_Label_constant" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <Component id="_FTF_Constant" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Component id="_RadioButton_Avg" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="_RadioButton_Max" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="_RadioButton_Min" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="_Label_uom" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <Component id="_TextField_UoM" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <Component id="_Label_offset" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <Component id="_FTF_Offset" linkSize="3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Component id="_Label_LogParam" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                                      <Component id="_Label_LogTime" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="_Label_decimalPlaces" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <Component id="_FTF_DecimalPlaces" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Component id="_FTF_LogTimeDay" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="_Label_LogTimeDays" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="_FTF_LogParam1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="_Label_LogTimeMonth" linkSize="5" alignment="3" max="32767" attributes="0"/>
+                                      <Component id="_FTF_LogTimeMonth" linkSize="5" alignment="3" pref="23" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="_Label_LogTimeYear" linkSize="5" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                      <Component id="_FTF_LogTimeYear" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                          </Group>
-                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" alignment="1" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="_Label_LogParam1" min="-2" pref="26" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                              <Component id="_ComboBox_LogType" min="-2" pref="35" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="_RadioButton_Avg" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="_RadioButton_Max" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="_RadioButton_Min" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="_Label_LogParam" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                                  <Component id="_Label_LogTime" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="_FTF_LogTimeDay" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="_Label_LogTimeDays" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="_FTF_LogParam1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="_Label_LogTimeMonth" linkSize="5" alignment="3" max="32767" attributes="0"/>
-                                  <Component id="_FTF_LogTimeMonth" linkSize="5" alignment="3" pref="23" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="_Label_LogTimeYear" linkSize="5" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                                  <Component id="_FTF_LogTimeYear" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="_Button_SaveAllIoNames" min="-2" pref="36" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="_Button_SaveUserDefaults" min="-2" pref="36" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="_Button_LoadUserDefaults" min="-2" pref="36" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="_Button_LoadProgramDefaults" min="-2" pref="36" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="_ComboBox_Groups" min="-2" pref="36" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -788,6 +790,17 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_LoadProgramDefaultsActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="_CB_DatalogPoint">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="12" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Datalog Point"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_CB_DatalogPointActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
