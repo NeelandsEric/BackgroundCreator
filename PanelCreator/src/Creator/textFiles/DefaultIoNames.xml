@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DefaultIoNames>
+    <ioNames>
+        <storeStr>Store Sqft,1,1,SqFt,1,0,0,0,,,,0,,0,0</storeStr>
+        <storeStr>Store $/kWh,1,0.12,$/kWh,1,0,2,0,,,,1,,2 years,0</storeStr>
+        <storeStr>Store Outside Temp,1,1,F,1.8,-32,2,0,,,,4,,2 years,1</storeStr>
+        <storeStr>Store Outside Humidity,1,1,%,1,0,2,0,,,,4,,2 years,1</storeStr>
+        <storeStr>Store Temp,1,1,F,1.8,-32,2,0,,,,4,,2 years,1</storeStr>
+        <storeStr>Store Humidity,1,1,%,1,0,2,0,,,,4,,2 years,1</storeStr>
+        <storeStr>Store Anti sweat Dew Point,1,1,F,1.8,-32,2,0,,,,2,1,2 years,1</storeStr>
+        <storeStr>Performance Total Cost Sum Predicted,1,1,$,1,0,2,0,,,,0,,,0</storeStr>
+        <storeStr>Performance Total Cost Sum Actual,1,1,$,1,0,2,0,,,,4,,2 years,0</storeStr>
+        <storeStr>Performance Total kW Sum Predicted,1,1,kW,1,0,1,0,,,,0,,,0</storeStr>
+        <storeStr>Performance Total kW Sum Actual,1,1,kW,1,0,1,0,,,,4,,2 years,0</storeStr>
+        <storeStr>Energy SEI Avg,1,1,%,1,0,1,0,,,,2,2,2 years,0</storeStr>
+        <storeStr>Energy COP Avg,1,1,%,1,0,1,0,,,,2,2,2 years,0</storeStr>
+        <storeStr>Energy Cost/SqFt,1,1,$/SqFt,1,0,2,0,,,,2,2,2 years,0</storeStr>
+        <storeStr>Energy KBTU/kW Capacity,1,1,KBTU/kW,1,0,2,0,,,,2,2,2 years,0</storeStr>
+        <storeStr>Energy MBTU/hour Cost,1,1,$,1,0,2,0,,,,2,2,2 years,0</storeStr>
+        <storeStr>Op Cost Total Current Day,1,1,$,1,0,2,0,,,,1,,2 years,0</storeStr>
+        <storeStr>Op Cost Total Current Month,1,1,$,1,0,2,0,,,,1,,2 years,0</storeStr>
+        <storeStr>Op Cost Total Current Year,1,1,$,1,0,2,0,,,,1,,2 years,0</storeStr>
+        <storeStr>Op Cost Total Previous Day,1,1,$,1,0,2,0,,,,1,,2 years,0</storeStr>
+        <storeStr>Op Cost Total Previous Month,1,1,$,1,0,2,0,,,,1,,2 years,0</storeStr>
+        <storeStr>Op Cost Total Previous Year,1,1,$,1,0,2,0,,,,1,,2 years,0</storeStr>
+        <storeStr>Op kWh Total Current Day,1,1,kWh,1,0,1,0,,,,4,,2 years,0</storeStr>
+        <storeStr>Op kWh Total Current Month,1,1,kWh,1,0,1,0,,,,4,,2 years,0</storeStr>
+        <storeStr>Op kWh Total Current Year,1,1,kWh,1,0,1,0,,,,4,,2 years,0</storeStr>
+        <storeStr>Op kWh Total Previous Day,1,1,kWh,1,0,1,0,,,,4,,2 years,0</storeStr>
+        <storeStr>Op kWh Total Previous Month,1,1,kWh,1,0,1,0,,,,4,,2 years,0</storeStr>
+        <storeStr>Op kWh Total Previous Year,1,1,kWh,1,0,1,0,,,,4,,2 years,0</storeStr>
+        <storeStr>Glycol Pump Station Status,0,1,,1,0,0,0,,,,0,,,0,1</storeStr>
+        <storeStr>Glycol Chiller Status,0,1,,1,0,0,0,,,,0,,,0,1</storeStr>
+        <storeStr>Glycol Pump Skid Amp Avg,1,1,A,0.1,0,1,0,,,,4,,2 years,1</storeStr>
+        <storeStr>Glycol Pump Skid kVA System,1,1,kVA,0.1,0,1,0,,,,5,1,2 years,1</storeStr>
+        <storeStr>Glycol Pump Skid kVAR System,1,1,kVAR,0.1,0,1,0,,,,5,1,2 years,1</storeStr>
+        <storeStr>Glycol Pump Skid kW Actual,1,1,kW,0.1,0,1,0,,,,4,,2 years,1</storeStr>
+        <storeStr>Glycol Pump Skid kW Avg Demand,1,1,kW,0.1,0,1,0,,,,5,1,2 years,1</storeStr>
+        <storeStr>Glycol Pump Skid kW Predicted,1,1,kW,1,0,1,0,,,,4,,2 years,1</storeStr>
+        <storeStr>Glycol Pump Skid kW Peak Demand,1,1,kW,0.1,0,1,0,,,,5,1,2 years,1</storeStr>
+        <storeStr>Glycol Pump Skid kWh Actual,1,1,kWh,0.1,0,1,0,,,,4,,2 years,1</storeStr>
+        <storeStr>Glycol Pump Skid kWh DayStart,1,1,kWh,1,0,1,0,,,,0,,,0</storeStr>
+        <storeStr>Glycol Pump Skid kWh DayCount,1,1,kWh,1,0,1,0,,,,0,,,0</storeStr>
+        <storeStr>Glycol Pump Skid kWh MonthStart,1,1,kWh,1,0,1,0,,,,0,,,0</storeStr>
+        <storeStr>Glycol Pump Skid kWh MonthCount,1,1,kWh,1,0,1,0,,,,0,,,0</storeStr>
+        <storeStr>Glycol Pump Skid kWh YearStart,1,1,kWh,1,0,1,0,,,,0,,,0</storeStr>
+        <storeStr>Glycol Pump Skid kWh YearCount,1,1,kWh,1,0,1,0,,,,0,,,0</storeStr>
+        <storeStr>Glycol Pump Skid PF,1,1,PF,0.01,0,2,0,,,,5,1,2 years,1</storeStr>
+        <storeStr>Glycol Pump Skid Volts Line to Line Avg,1,1,V,0.1,0,1,0,,,,5,1,2 years,1</storeStr>
+        <rackStr>Cond Accumulated Subcool Alarm `%rackname`,0,1,,1,0,0,1,0,1,1,1,,2 years,0</rackStr>
+        <rackStr>Cond Split Active `%rackname`,0,1,,1,0,0,0,,,,1,,2 years,1</rackStr>
+        <rackStr>Cond VFD Active `%rackname`,0,1,,1,0,0,0,,,,1,,2 years,1</rackStr>
+        <rackStr>Cond VFD Fault `%rackname`,0,0,,1,0,0,0,,,,1,,2 years,1</rackStr>
+        <rackStr>Cond VFD Value `%rackname`,1,1,%,1,0,1,0,,,,2,2,2 years,1</rackStr>
+        <rackStr>Cond Amp Avg `%rackname`,1,1,A,0.1,0,1,0,,,,4,,2 years,1</rackStr>
+        <rackStr>Cond kVA System `%rackname`,1,1,kVA,0.1,0,1,0,,,,5,1,2 years,1</rackStr>
+        <rackStr>Cond kVAR System `%rackname`,1,1,kVAR,0.1,0,1,0,,,,5,1,2 years,1</rackStr>
+        <rackStr>Cond kW Actual `%rackname`,1,1,kW,0.1,0,1,0,,,,4,,2 years,1</rackStr>
+        <rackStr>Cond kW Avg Demand `%rackname`,1,1,kW,0.1,0,1,0,,,,5,1,2 years,1</rackStr>
+        <rackStr>Cond kW Peak Demand `%rackname`,1,1,kW,0.1,0,1,0,,,,5,1,2 years,1</rackStr>
+        <rackStr>Cond kW Predicted `%rackname`,1,1,kW,1,0,1,0,,,,4,,2 years,1</rackStr>
+        <rackStr>Cond kWh Actual `%rackname`,1,1,kWh,0.1,0,1,0,,,,4,,2 years,1</rackStr>
+        <rackStr>Cond kWh DayStart `%rackname`,1,1,kWh,1,0,1,0,,,,0,,,0</rackStr>
+        <rackStr>Cond kWh DayCount `%rackname`,1,1,kWh,1,0,1,0,,,,0,,,1</rackStr>
+        <rackStr>Cond kWh MonthStart `%rackname`,1,1,kWh,1,0,1,0,,,,0,,,0</rackStr>
+        <rackStr>Cond kWh MonthCount `%rackname`,1,1,kWh,1,0,1,0,,,,0,,,0</rackStr>
+        <rackStr>Cond kWh YearStart `%rackname`,1,1,kWh,1,0,1,0,,,,0,,,0</rackStr>
+        <rackStr>Cond kWh YearCount `%rackname`,1,1,kWh,1,0,1,0,,,,0,,,0</rackStr>
+        <rackStr>Cond Total Subcooling `%rackname`,1,1,F,1.8,-32,2,0,,,,4,,2 years,0</rackStr>
+        <rackStr>Cond Ambient Subcooling `%rackname`,1,1,F,1,0,2,1,600,-25,5,4,,2 years,1</rackStr>
+        <rackStr>Cond Subcooling Actual `%rackname`,1,1,F,1.8,0,2,1,300,2,115,2,2,2 years,1</rackStr>
+        <rackStr>Cond Subcooling Setpoint `%rackname`,1,1,F,1.8,0,2,0,,,,1,,2 years,1</rackStr>
+        <rackStr>Cond Outlet Pressure `%rackname`,1,1,Psig,0.145,0,1,0,,,,2,5.00,2 years ,1</rackStr>
+        <rackStr>Cond Outlet Air Temperature `%rackname`,1,1,F,1.8,-32,2,0,,,,2,5.00,2 years ,1</rackStr>
+        <rackStr>Cond Inlet Air Temperature `%rackname`,1,1,F,1.8,-32,2,0,,,,2,5.00,2 years ,1</rackStr>
+        <rackStr>Cond Downleg Temp `%rackname`,1,1,F,1.8,-32,2,0,,,,2,2.00,2 years ,1</rackStr>
+        <rackStr>Cond Air TD `%rackname`,1,1,F,1,0,2,1,600,2,100,4,,2 years,0</rackStr>
+        <rackStr>Cond PF `%rackname`,1,1,PF,0.01,0,2,0,,,,5,1,90 days,1</rackStr>
+        <rackStr>Cond Setpoint `%rackname`,1,1,Psig,0.145,0,1,0,,,,1,,,1</rackStr>
+        <rackStr>Cond Saturation `%rackname`,1,1,F,1.8,-32,2,0,,,,2,5.00,2 years ,1</rackStr>
+        <rackStr>Cond Volts L1 to L2 `%rackname`,1,1,V,0.1,0,1,0,,,,2,5.00,2 years ,1</rackStr>
+        <rackStr>Cond Volts L1 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,2,5.00,2 years ,1</rackStr>
+        <rackStr>Cond Volts L2 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,2,5.00,2 years ,1</rackStr>
+        <rackStr>Cond Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years,1</rackStr>
+        <rackStr>Cond Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years,1</rackStr>
+        <rackStr>Cond Rack Fault `%rackname`,1,1,,1,0,0,0,,,,1,,2 years,0</rackStr>
+        <rackStr>Comp Rack Fault `%rackname`,1,1,,1,0,0,0,,,,1,,2 years,0</rackStr>
+        <rackStr>Comp VFD Active `%rackname`,0,1,,1,0,0,0,,,,1,,2 years,1</rackStr>
+        <rackStr>Comp VFD Fault `%rackname`,0,0,,1,0,0,0,,,,1,,2 years,1</rackStr>
+        <rackStr>Comp VFD Value `%rackname`,1,1,%,1,0,1,0,,,,2,2,2 years,1</rackStr>
+        <rackStr>Discharge Pressure Actual `%rackname`,1,1,Psig,0.145,0,1,0,,,,2,3.00,2 years ,1</rackStr>
+        <rackStr>Discharge Tmp `%rackname`,1,1,F,1.8,-32,2,0,,,,2,3.00,2 years ,1</rackStr>
+        <rackStr>Op Cost Sum Current Day `%rackname`,1,1,$,1,0,2,0,,,,2,5,2 years,0</rackStr>
+        <rackStr>Op Cost Sum Current Month `%rackname`,1,1,$,1,0,2,0,,,,2,5,2 years,0</rackStr>
+        <rackStr>Op Cost Sum Current Year `%rackname`,1,1,$,1,0,2,0,,,,2,5,2 years,0</rackStr>
+        <rackStr>Op Cost Previous Day `%rackname`,1,1,$,1,0,2,0,,,,2,5,2 years,0</rackStr>
+        <rackStr>Op Cost Previous Month `%rackname`,1,1,$,1,0,2,0,,,,2,5,2 years,0</rackStr>
+        <rackStr>Op Cost Previous Year `%rackname`,1,1,$,1,0,2,0,,,,2,5,2 years,0</rackStr>
+        <rackStr>Op kWh Current Day `%rackname`,1,1,kWh,1,0,1,0,,,,2,5,2 years,0</rackStr>
+        <rackStr>Op kWh Current Month `%rackname`,1,1,kWh,1,0,1,0,,,,2,5,2 years,0</rackStr>
+        <rackStr>Op kWh Current Year `%rackname`,1,1,kWh,1,0,1,0,,,,2,5,2 years,0</rackStr>
+        <rackStr>Op kWh Counter Current Day `%rackname`,1,1,kWh,1,0,1,0,,,,2,5,2 years,0</rackStr>
+        <rackStr>Op kWh Counter Current Month `%rackname`,1,1,kWh,1,0,1,0,,,,2,5,2 years,0</rackStr>
+        <rackStr>Op kWh Counter Current Year `%rackname`,1,1,kWh,1,0,1,0,,,,2,5,2 years,0</rackStr>
+        <rackStr>Op kWh Previous Day `%rackname`,1,1000,kWh,1,0,1,0,,,,1,,2 years,0</rackStr>
+        <rackStr>Op kWh Previous Month `%rackname`,1,30000,kWh,1,0,1,0,,,,1,,2 years,0</rackStr>
+        <rackStr>Op kWh Previous Year `%rackname`,1,360000,kWh,1,0,1,0,,,,1,,2 years,0</rackStr>
+        <rackStr>Performance Cost Sum Predicted `%rackname`,1,1,$,1,0,1,0,,,,4,,2 years,0</rackStr>
+        <rackStr>Performance Cost Sum Actual `%rackname`,1,1,$,1,0,1,0,,,,4,,2 years,0</rackStr>
+        <rackStr>Performance kW Sum Predicted `%rackname`,1,1,kW,1,0,1,0,,,,4,,2 years,0</rackStr>
+        <rackStr>Performance kW Sum Actual `%rackname`,1,1,kW,1,0,1,0,,,,4,,2 years,0</rackStr>
+        <rackStr>Amp Avg `%rackname`,1,1,A,0.1,0,1,0,,,,4,,2 years,1</rackStr>
+        <rackStr>kVA System `%rackname`,1,1,kVA,0.1,0,1,0,,,,5,1,2 years,1</rackStr>
+        <rackStr>kVAR System `%rackname`,1,1,kVAR,0.1,0,1,0,,,,5,1,2 years,1</rackStr>
+        <rackStr>kW Actual `%rackname`,1,1,kW,0.1,0,1,0,,,,4,,2 years,1</rackStr>
+        <rackStr>kW Avg Demand `%rackname`,1,1,kW,0.1,0,1,0,,,,5,1,2 years,1</rackStr>
+        <rackStr>kW Predicted `%rackname`,1,1,kW,1,0,1,0,,,,4,,2 years,1</rackStr>
+        <rackStr>kW Peak Demand `%rackname`,1,1,kW,0.1,0,1,0,,,,5,1,90 days,1</rackStr>
+        <rackStr>kWh Actual `%rackname`,1,1,kWh,0.1,0,1,0,,,,4,,2 years,1</rackStr>
+        <rackStr>PF `%rackname`,1,1,PF,0.01,0,2,0,,,,5,1,2 years,1</rackStr>
+        <rackStr>Rack SEI `%rackname`,1,1,%,1,0,1,0,,,,2,2,2 years,0</rackStr>
+        <rackStr>COP `%rackname`,1,1,%,1,0,1,0,,,,2,2,2 years,0</rackStr>
+        <rackStr>Volts L1 to L2 `%rackname`,1,1,V,0.1,0,1,0,,,,2,5.00,2 years ,1</rackStr>
+        <rackStr>Volts L1 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,2,5.00,2 years ,1</rackStr>
+        <rackStr>Volts L2 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,2,5.00,2 years ,1</rackStr>
+        <rackStr>Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years,1</rackStr>
+        <rackStr>Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years,1</rackStr>
+        <rackStr>Refrigerant Type `%rackname`,1,407,,1,0,1,0,,,,0,,,0</rackStr>
+        <rackStr>Refrigerant Level `%rackname`,1,1,% (Level),1,0,1,0,,,,4,,2 years,1</rackStr>
+        <condStr>Cond Fan Amps `%rackname` `%fannum`,1,0.1,A,1,0,1,0,,,,2,5.00,2 years ,1</condStr>
+        <condStr>Cond Fan Status `%rackname` `%fannum`,1,1,,1,0,0,0,,,,1,,2 years ,1</condStr>
+        <condStr>Cond Fan RUN `%rackname` `%fannum`,0,1,,1,0,0,0,,,,1,,2 years ,1</condStr>
+        <sgStr>Suction Temp `%rackname` `%sgname`,1,1,F,1.8,-32,2,0,,,,2,5.00,2 years ,1</sgStr>
+        <sgStr>Suction Pressure Float Failure `%rackname` `%sgname`,1,0,,1,0,0,1,300,0,1,1,,2 years ,0</sgStr>
+        <sgStr>Suction Pressure Accumulated `%rackname` `%sgname`,0,1,,1,0,0,1,0,1,1,1,,2 years,0</sgStr>
+        <sgStr>Suction Pressure Actual `%rackname` `%sgname`,1,1,Psig,0.145,0,1,0,,,,2,2,2 years,1</sgStr>
+        <sgStr>Suction Pressure Setpoint `%rackname` `%sgname`,1,1,Psig,0.145,0,1,1,300,0,150,1,,2 years,1</sgStr>
+        <sgStr>Suction Pressure Design Setpoint `%rackname` `%sgname`,1,1,Psig,1,0,1,0,,,,1,,2 years ,0</sgStr>
+        <sgStr>Suction Superheat `%rackname` `%sgname`,1,1,F,1.8,-32,2,0,,,,2,5.00,2 years ,1</sgStr>
+        <compStr>Comp Amps `%rackname` `%sgname` `%compname`,1,1,A,0.1,0,1,1,240,0,50,5,1,180 days,1</compStr>
+        <compStr>Comp Amp Limit `%rackname` `%sgname` `%compname`,1,1,A,1,0,1,0,,,,0,,,1</compStr>
+        <compStr>Comp Discharge Temp `%rackname` `%sgname` `%compname`,1,1,F,1.8,-32,2,1,180,-30,225,5,1,180 days,1</compStr>
+        <compStr>Comp Discharge Limit `%rackname` `%sgname` `%compname`,1,1,F,1.8,-32,2,0,,,,0,,,1</compStr>
+        <compStr>Comp Status `%rackname` `%sgname` `%compname`,1,1,,1,0,0,0,,,,5,1,180 days,1</compStr>
+        <compStr>Comp SLA `%rackname` `%sgname` `%compname`,0,0,,1,0,0,0,,,,1,,2 years,1</compStr>
+        <compStr>Comp RUN `%rackname` `%sgname` `%compname`,0,1,,1,0,0,0,,,,1,,2 years,1</compStr>
+        <compStr>Comp kW `%rackname` `%sgname` `%compname`,1,1,kW,0.1,0,1,0,,,,5,1,180 days,1</compStr>
+        <sysStr>System Capacity `%rackname` `%sgname` `%sysname`,1,1,BTU/H,1,0,1,0,,,,1,,2 years ,1</sysStr>
+        <sysStr>System EEPR `%rackname` `%sgname` `%sysname`,1,1,%,1,0,1,0,,,,2,5.00,2 years ,1</sysStr>
+        <sysStr>System EEPR Predicted `%rackname` `%sgname` `%sysname`,1,1,%,1,0,1,0,,,,2,5.00,2 years ,0</sysStr>
+        <sysStr>System kW `%rackname` `%sgname` `%sysname`,1,1,kW,1,0,1,0,,,,4,,2 years,1</sysStr>
+        <sysStr>System Setpoint `%rackname` `%sgname` `%sysname`,1,1,F,1.8,-32,2,0,,,,1,,2 years,1</sysStr>
+        <sysStr>System Temp `%rackname` `%sgname` `%sysname`,1,1,F,1.8,-32,2,0,,,,2,3.00,2 years ,1</sysStr>
+        <sysStr>System Status `%rackname` `%sgname` `%sysname`,1,1,,1,0,0,0,,,,1,,2 years ,1</sysStr>
+        <glycolStr>Glycol Status `%glycolname`,1,1,,1,0,0,0,,,,5,1,180 days</glycolStr>
+        <glycolStr>Glycol System Capacity `%glycolname`,1,1,BTU/H,1,0,1,0,,,,1,,2 years ,1</glycolStr>
+        <glycolStr>Glycol System Temp `%glycolname`,1,1,F,1.8,-32,2,0,,,,2,5.00,2 years ,1</glycolStr>
+        <glycolStr>Glycol System Setpoint `%glycolname`,1,1,F,1.8,-32,2,0,,,,1,,,1</glycolStr>
+        <fanPanelStr>Fan Panel Amp Avg `%fanpanelnum`,1,1,A,0.1,0,1,0,,,,4,,2 years,1</fanPanelStr>
+        <fanPanelStr>Fan Panel kVA System `%fanpanelnum`,1,1,kVA,0.1,0,1,0,,,,5,1,2 years,1</fanPanelStr>
+        <fanPanelStr>Fan Panel kVAR System `%fanpanelnum`,1,1,kVAR,0.1,0,1,0,,,,5,1,2 years,1</fanPanelStr>
+        <fanPanelStr>Fan Panel kW Actual `%fanpanelnum`,1,1,kW,0.1,0,1,0,,,,4,,2 years,1</fanPanelStr>
+        <fanPanelStr>Fan Panel kW Avg Demand `%fanpanelnum`,1,1,kW,0.1,0,1,0,,,,5,1,2 years,1</fanPanelStr>
+        <fanPanelStr>Fan Panel kW Predicted `%fanpanelnum`,1,1,kW,1,0,1,0,,,,4,,2 years,1</fanPanelStr>
+        <fanPanelStr>Fan Panel kW Peak Demand `%fanpanelnum`,1,1,kW,0.1,0,1,0,,,,5,1,2 years,1</fanPanelStr>
+        <fanPanelStr>Fan Panel kWh Actual `%fanpanelnum`,1,1,kWh,0.1,0,1,0,,,,4,,2 years,1</fanPanelStr>
+        <fanPanelStr>Fan Panel kWh DayStart `%fanpanelnum`,1,1,kWh,1,0,1,0,,,,0,,,0</fanPanelStr>
+        <fanPanelStr>Fan Panel kWh DayCount `%fanpanelnum`,1,1,kWh,1,0,1,0,,,,0,,,0</fanPanelStr>
+        <fanPanelStr>Fan Panel kWh MonthStart `%fanpanelnum`,1,1,kWh,1,0,1,0,,,,0,,,0</fanPanelStr>
+        <fanPanelStr>Fan Panel kWh MonthCount `%fanpanelnum`,1,1,kWh,1,0,1,0,,,,0,,,0</fanPanelStr>
+        <fanPanelStr>Fan Panel kWh YearStart `%fanpanelnum`,1,1,kWh,1,0,1,0,,,,0,,,0</fanPanelStr>
+        <fanPanelStr>Fan Panel kWh YearCount `%fanpanelnum`,1,1,kWh,1,0,1,0,,,,0,,,0</fanPanelStr>
+        <fanPanelStr>Fan Panel PF `%fanpanelnum`,1,1,PF,0.01,0,2,0,,,,5,1,2 years,1</fanPanelStr>
+        <fanPanelStr>Fan Panel Volts Line to Line Avg `%fanpanelnum`,1,1,V,0.1,0,1,0,,,,5,1,2 years,1</fanPanelStr>
+    </ioNames>
+</DefaultIoNames>
