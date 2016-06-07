@@ -180,7 +180,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
     }// </editor-fold>//GEN-END:initComponents
 
     private void _Panel_MainPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event__Panel_MainPanelMousePressed
-        df.returnClick(evt.getPoint());
+        df.returnClick(evt.getPoint());        
     }//GEN-LAST:event__Panel_MainPanelMousePressed
 
     /**

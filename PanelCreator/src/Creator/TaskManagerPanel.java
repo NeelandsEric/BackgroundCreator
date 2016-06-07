@@ -6,9 +6,13 @@
 package Creator;
 
 import java.awt.Point;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -1145,6 +1149,53 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         _FTF_XPOS.setText(String.valueOf(p.x));
         _FTF_YPOS.setText(String.valueOf(p.y));
     }
+
+    public void buttonClick(Point p, String buttonName, int buttonX, int buttonWidth) {
+
+        Point np = new Point();
+        if (buttonName.startsWith("Rack")) {
+            // Rack
+            np.x = buttonX + 10;
+            np.y = p.y + 6;
+            //np.y = p.y + 
+
+        } else if (buttonName.startsWith("Load")) {
+            // Load
+            np.x = buttonX + 10;
+            np.y = p.y + 6;
+
+        } else if (buttonName.startsWith("Financial")) {
+            // Financial
+            np.x = buttonX + 7;
+            np.y = p.y + 6;
+
+        } else if (buttonName.startsWith("Energy")) {
+            // Energy 
+            np.x = buttonX + 10;
+            np.y = p.y + 6;
+
+        } else if (buttonName.startsWith("Glycol")) {
+            // Glycol
+            np.x = buttonX + 10;
+            np.y = p.y + 6;
+
+        } else if (buttonName.startsWith("Main")) {
+            // Main
+            np.x = buttonX + 15;
+            np.y = p.y + 6;
+
+        } else {
+            np.x = buttonX + 10;
+            np.y = p.y + 6;
+            // Rack just probably named wierd
+
+        }
+
+        _FTF_XPOS.setText(String.valueOf(np.x));
+        _FTF_YPOS.setText(String.valueOf(np.y));
+
+    }
+
     private void _Button_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SaveActionPerformed
         // TODO add your handling code here:
         if (!_FTF_PanelID.getText().equals("") && !_TF_PanelName.getText().equals("")) {
@@ -1175,32 +1226,60 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             return;
         }
 
-        String outputCode = "[";
+        _FileChooser_IoFile.setDialogTitle("Save Text Exports");
+        _FileChooser_IoFile.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        _FileChooser_IoFile.setDialogType(JFileChooser.SAVE_DIALOG);
+        _FileChooser_IoFile.setApproveButtonText("Save Here");
 
-        WidgetCode wc = mf.wgPanel.getWidgetCode(widgetCodeName);
-        for (Map.Entry<String, LinkInfo> entry : wpl.getLinks().entrySet()) {
+        int returnVal = _FileChooser_IoFile.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-            // For each entry, format a code string based on the default positions
-            // and the given panel name and ID's
-            String panelID = String.valueOf(entry.getValue().getPanelID());
-            String panelName = entry.getValue().getPanelName();
+            File file = _FileChooser_IoFile.getSelectedFile();
+            //System.out.println("File: " + file.getAbsolutePath());
+            String filepath = file.getAbsolutePath();
 
-            String xPos = String.valueOf(entry.getValue().getXPos());
-            String yPos = String.valueOf(entry.getValue().getYPos());
+            String outputCode = "[";
 
-            String newCode = wc.getFullWidgetText()
-                    .replace("`%XPOS%`", xPos)
-                    .replace("`%YPOS%`", yPos)
-                    .replace("`%PANELID%`", panelID)
-                    .replace("`%PANELNAME%`", panelName);
+            WidgetCode wc = mf.wgPanel.getWidgetCode(widgetCodeName);
+            for (Map.Entry<String, LinkInfo> entry : wpl.getLinks().entrySet()) {
 
-            outputCode += newCode + ",";
+                // For each entry, format a code string based on the default positions
+                // and the given panel name and ID's
+                String panelID = String.valueOf(entry.getValue().getPanelID());
+                String panelName = entry.getValue().getPanelName();
 
+                String xPos = String.valueOf(entry.getValue().getXPos());
+                String yPos = String.valueOf(entry.getValue().getYPos());
+
+                String newCode = wc.getFullWidgetText()
+                        .replace("`%XPOS%`", xPos)
+                        .replace("`%YPOS%`", yPos)
+                        .replace("`%PANELID%`", panelID)
+                        .replace("`%PANELNAME%`", panelName);
+
+                outputCode += newCode + ",";
+
+            }
+
+            outputCode = outputCode.substring(0, outputCode.length() - 1) + "]";
+
+            String fp = filepath + "\\WidgetExports-Links.txt";
+            //System.out.println("Writing " + fp);
+
+            try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(fp), "utf-8"))) {
+                writer.write(outputCode);
+                //System.out.println("Writing " + fp + " Completed");
+            } catch (Exception e) {
+                System.out.println("Failed writing to: " + fp);
+            }
+
+            System.out.println(outputCode);
+
+        } else {
+            System.out.println("Saving widgets exports cancelled.");
         }
 
-        outputCode = outputCode.substring(0, outputCode.length() - 1) + "]";
-
-        System.out.println(outputCode);
 
     }//GEN-LAST:event__Button_GenerateLinksActionPerformed
 
@@ -1367,7 +1446,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             List<String> userGroupsToAdd = new ArrayList<>();
 
             for (Object ugName : _List_UserGroups.getSelectedValuesList()) {
-                if (userGroups.containsKey((String) ugName)) {                    
+                if (userGroups.containsKey((String) ugName)) {
                     userGroupsToAdd.add(String.valueOf(userGroups.get((String) ugName)));
                 }
             }
@@ -1383,7 +1462,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
                 // taskEntry[2] = Comp Amps `%rackname` `%sgname` `%compname`
                 if (mappings.containsKey(taskEntry[2])) {
-                    
+
                     for (Object io : mappings.get(taskEntry[2])) {
 
                         // io = Comp Amps Rack A SGr1(-18) Comp 1
@@ -1403,9 +1482,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 }
 
             }
-            
-            // Insert all the alerts
 
+            // Insert all the alerts
             String retString = insertAlerts(rowImports);
 
             if (retString.startsWith("Fail")) {
@@ -1421,7 +1499,6 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event__Button_AddTemplatesActionPerformed
-
 
     private boolean checkTaskExist() {
 
@@ -1480,7 +1557,6 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         query = query.substring(0, query.length() - 1) + ";";
 
         //System.out.println(query);
-
         db = newDBConn();
         String returnString = db.executeQuery(query);
         db.closeConn();

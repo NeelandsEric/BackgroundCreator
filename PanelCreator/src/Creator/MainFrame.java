@@ -311,6 +311,10 @@ public class MainFrame extends JFrame {
         wgPanel.returnClick(point);
         tmPanel.buttonClick(point);
     }
+    
+    public void returnClick(Point point, String buttonName, int buttonX, int buttonWidth){
+        tmPanel.buttonClick(point, buttonName, buttonX, buttonWidth);
+    }
 
     public void saveDefault() {
         if (xmlParser != null) {

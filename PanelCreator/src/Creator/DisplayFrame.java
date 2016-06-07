@@ -74,6 +74,8 @@ public class DisplayFrame extends javax.swing.JFrame {
         _TabbedPane_Tabs.add("Financial", bgf);
         _TabbedPane_Tabs.add("Energy", bge);
         _TabbedPane_Tabs.add("Glycol", bgg);
+        
+        this.pack();
 
         this.stopUpdate = false;
     }
@@ -178,17 +180,33 @@ public class DisplayFrame extends javax.swing.JFrame {
      *
      * @param panelID
      */
-    private void buttonClick() {
+    private void buttonClick(java.awt.event.MouseEvent evt) {
 
+        JButton button = (JButton) evt.getSource();
+        
+        
+        System.out.println("Button Name: " + button.getText());
+        System.out.println("Button X: " + button.getX());
+        System.out.println("Actual X: " + evt.getX());
+        System.out.println("Button Y: " + button.getY());
+        System.out.println("Actual Y: " + evt.getY());
+        System.out.println("Button Width: " + button.getWidth());
+        System.out.println("Button Height: " + button.getHeight());
+        
+        
         Point p = this.getMousePosition();
         p.x -= 10;
         p.y -= 57;
-        returnClick(p);
+        returnClick(p, button.getText(), button.getX(), button.getWidth());
 
     }
 
     public void returnClick(Point point) {
         mf.returnClick(point);
+    }
+    
+    public void returnClick(Point point, String buttonName, int buttonX, int buttonWidth){
+        mf.returnClick(point, buttonName, buttonX, buttonWidth);
     }
 
     public void setTab(int tab) {
@@ -475,7 +493,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick();
+                buttonClick(evt);
             }
         });
         panel.add(button, c);
@@ -491,7 +509,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick();
+                buttonClick(evt);
             }
         });
         panel.add(button, c);
@@ -512,7 +530,7 @@ public class DisplayFrame extends javax.swing.JFrame {
             button.setAlignmentX((Component.CENTER_ALIGNMENT));
             button.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mousePressed(java.awt.event.MouseEvent evt) {
-                    buttonClick();
+                    buttonClick(evt);
                 }
             });
             panel.add(button, c);
@@ -527,7 +545,7 @@ public class DisplayFrame extends javax.swing.JFrame {
             button.setAlignmentX((Component.CENTER_ALIGNMENT));
             button.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mousePressed(java.awt.event.MouseEvent evt) {
-                    buttonClick();
+                    buttonClick(evt);
                 }
             });
             panel.add(button, c);
@@ -546,7 +564,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick();
+                buttonClick(evt);
             }
         });
         panel.add(button, c);
@@ -562,7 +580,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         button.setAlignmentX((Component.CENTER_ALIGNMENT));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick();
+                buttonClick(evt);
             }
         });
         panel.add(button, c);

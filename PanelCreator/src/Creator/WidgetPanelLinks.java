@@ -38,7 +38,8 @@ public class WidgetPanelLinks implements java.io.Serializable {
         System.out.println("Added: [" + panel + "] {" + panelID + ", " + panelName
                             + ", (" + xPos + ", " + yPos + ")}");
 
-    }
+    }    
+    
 
     public Map<String, LinkInfo> getLinks() {
         return links;
