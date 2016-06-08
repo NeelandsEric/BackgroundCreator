@@ -84,8 +84,8 @@ public class MainFrame extends JFrame {
         settingsPanel = new SettingsPanel(this, store.getDs());
         ngPanel = new NameGeneratorPanel(this, store.getIoNames());
         mbPanel = new ModbusPanel(this, store.getMb());
-        wgPanel = new WidgetPanel(this, store.getCs(), store.getWidgetSettings());
-        tmPanel = new TaskManagerPanel(this, store.getCs(), store.getWidgetSettings().getWpl());
+        wgPanel = new WidgetPanel(this, store.getCs(), store.getWidgetSettings(), store.getWidgetSettings().getWpl());
+        tmPanel = new TaskManagerPanel(this, store.getCs());
         displayFrame = new DisplayFrame(this, store.getCs(), store.getDs());
         displayFrame.setStopUpdate(true);
 
@@ -308,12 +308,11 @@ public class MainFrame extends JFrame {
     }
 
     public void returnClick(Point point) {
-        wgPanel.returnClick(point);
-        tmPanel.buttonClick(point);
+        wgPanel.returnClick(point);        
     }
     
     public void returnClick(Point point, String buttonName, int buttonX, int buttonWidth){
-        tmPanel.buttonClick(point, buttonName, buttonX, buttonWidth);
+        wgPanel.buttonClick(point, buttonName, buttonX, buttonWidth);
     }
 
     public void saveDefault() {
