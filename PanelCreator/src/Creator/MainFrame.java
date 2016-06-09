@@ -84,7 +84,7 @@ public class MainFrame extends JFrame {
         settingsPanel = new SettingsPanel(this, store.getDs());
         ngPanel = new NameGeneratorPanel(this, store.getIoNames());
         mbPanel = new ModbusPanel(this, store.getMb());
-        wgPanel = new WidgetPanel(this, store.getCs(), store.getWidgetSettings(), store.getWidgetSettings().getWpl());
+        wgPanel = new WidgetPanel(this, store.getCs(), store.getWidgetSettings());
         tmPanel = new TaskManagerPanel(this, store.getCs());
         displayFrame = new DisplayFrame(this, store.getCs(), store.getDs());
         displayFrame.setStopUpdate(true);

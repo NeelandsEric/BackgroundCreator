@@ -15,8 +15,6 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JProgressBar" name="jProgressBar1">
-    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -59,6 +57,30 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="_Button_ClearCurrent" max="32767" attributes="0"/>
+                          <Component id="_Button_ClearAll" max="32767" attributes="0"/>
+                          <Component id="_Button_AddCurrent" alignment="0" max="32767" attributes="0"/>
+                          <Component id="_Button_AddAll" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="_Button_CreateImports" min="-2" pref="138" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="_Button_ClearLinks" min="-2" pref="138" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="_Label_Loaded" min="-2" pref="169" max="-2" attributes="0"/>
+                                  <Component id="_Button_LoadXls" min="-2" pref="169" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                  </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="_ComboBox_DisplayPanel" min="-2" pref="128" max="-2" attributes="0"/>
@@ -70,18 +92,9 @@
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" max="32767" attributes="0"/>
+                  <Component id="_ScrollPane_Tree" max="32767" attributes="0"/>
                   <Component id="_ScrollPane_MasterMap" max="32767" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="_Panel_LinkPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="_Button_LoadXls" linkSize="5" min="-2" pref="160" max="-2" attributes="0"/>
-                          <Component id="_Label_Loaded" linkSize="5" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                          <Component id="_Button_CreateImports" linkSize="5" min="-2" pref="160" max="-2" attributes="0"/>
-                          <Component id="_Button_ClearLinks" linkSize="5" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="_Panel_LinkPanel" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
           </Group>
@@ -123,21 +136,35 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jScrollPane1" min="-2" pref="143" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="_ScrollPane_Tree" min="-2" pref="148" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="_Panel_LinkPanel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="_Button_LoadXls" linkSize="4" min="-2" pref="38" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="_Label_Loaded" linkSize="4" min="-2" pref="22" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="_Button_CreateImports" linkSize="4" min="-2" pref="36" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="_Button_ClearLinks" linkSize="4" min="-2" pref="46" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="_Panel_LinkPanel" max="32767" attributes="0"/>
+                          <Component id="_Button_ClearCurrent" linkSize="11" pref="33" max="32767" attributes="0"/>
+                          <Component id="_Button_LoadXls" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="33" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="_Button_ClearAll" linkSize="11" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="_Label_Loaded" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="_Button_AddCurrent" linkSize="11" min="-2" pref="21" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="_Button_AddAll" linkSize="11" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="_Button_CreateImports" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                                  <Component id="_Button_ClearLinks" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <Component id="_Panel_WidgetParams" max="32767" attributes="0"/>
               </Group>
@@ -199,7 +226,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="LOAD EXPORT FILE"/>
+        <Property name="text" type="java.lang.String" value="Load Export File (.xls)"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_LoadXlsActionPerformed"/>
@@ -229,39 +256,39 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="_Button_GenerateWidgetLink" min="-2" pref="124" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="_Button_LoadDefaults" min="-2" pref="105" max="-2" attributes="0"/>
-                                  <Component id="_Button_LoadDefaults1" max="32767" attributes="0"/>
+                                  <Component id="_Button_LoadDefaults1" min="-2" pref="106" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="_ScrollPane_Log" min="-2" pref="236" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="_Label_WigetParam_yPos" linkSize="2" min="-2" pref="109" max="-2" attributes="0"/>
+                                  <Component id="_Label_WigetParam_xPos" linkSize="2" min="-2" pref="109" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="_FTF_WigetParam_xPos" linkSize="2" max="32767" attributes="0"/>
+                                  <Component id="_FTF_WigetParam_yPos" linkSize="2" min="-2" pref="100" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="_Label_WigetParam_xPos1" linkSize="2" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
+                                  <Component id="_Label_WigetParam_yPos1" linkSize="2" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="_FTF_WigetParam_yPosPer" linkSize="2" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <Component id="_FTF_WigetParam_xPosPer" min="-2" pref="109" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="_Label_WigetParam_yPos" linkSize="2" min="-2" pref="109" max="-2" attributes="0"/>
-                              <Component id="_Label_WigetParam_xPos" linkSize="2" min="-2" pref="109" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="_FTF_WigetParam_xPos" linkSize="2" max="32767" attributes="0"/>
-                              <Component id="_FTF_WigetParam_yPos" linkSize="2" min="-2" pref="100" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="_Label_WigetParam_xPos1" linkSize="2" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
-                              <Component id="_Label_WigetParam_yPos1" linkSize="2" alignment="1" min="-2" pref="109" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="_FTF_WigetParam_yPosPer" linkSize="2" min="-2" pref="100" max="-2" attributes="0"/>
-                              <Component id="_FTF_WigetParam_xPosPer" min="-2" pref="109" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="_ScrollPane_Log" alignment="1" min="-2" pref="236" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -312,15 +339,15 @@
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="_Label_WidgetParams" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="_ScrollPane_WidgetSettings" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="_ScrollPane_Log" max="32767" attributes="0"/>
+                      <Component id="_ScrollPane_Log" min="-2" pref="225" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -470,6 +497,7 @@
               <Font name="Arial" size="8" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Load Defaults"/>
+            <Property name="toolTipText" type="java.lang.String" value="Loads the default widget panel links from the /Home/ Directory"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_LoadDefaultsActionPerformed"/>
@@ -481,6 +509,7 @@
               <Font name="Arial" size="8" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Save Defaults"/>
+            <Property name="toolTipText" type="java.lang.String" value="Save the current set of widget links to the /Home/ directory"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_LoadDefaults1ActionPerformed"/>
@@ -602,13 +631,13 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Clear All Links"/>
+        <Property name="text" type="java.lang.String" value="Delete All Widgets"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_ClearLinksActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+    <Container class="javax.swing.JScrollPane" name="_ScrollPane_Tree">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -635,45 +664,40 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel6" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
-                              <Component id="_ComboBox_Panels" alignment="0" max="32767" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="_FTF_XPOS" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jLabel5" alignment="0" pref="73" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="_FTF_YPOS" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jLabel7" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="_FTF_PanelID" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jLabel3" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel4" alignment="0" pref="79" max="32767" attributes="0"/>
-                                      <Component id="_TF_PanelName" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="_Button_Save" max="32767" attributes="0"/>
-                              <Component id="_Button_GenerateLinks" alignment="1" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jLabel2" min="-2" pref="152" max="-2" attributes="0"/>
+                      <Component id="_ComboBox_Panels" max="32767" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel3" pref="64" max="32767" attributes="0"/>
+                              <Component id="_FTF_PanelID" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="_TF_PanelName" max="32767" attributes="0"/>
+                              <Component id="jLabel4" pref="113" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="_Button_Save" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel5" linkSize="9" alignment="0" min="-2" pref="51" max="-2" attributes="0"/>
+                              <Component id="_FTF_XPOS" linkSize="8" alignment="0" min="-2" pref="51" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="_FTF_YPOS" linkSize="8" min="-2" pref="59" max="-2" attributes="0"/>
+                              <Component id="jLabel7" linkSize="9" alignment="0" min="-2" pref="59" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="_Button_GenerateLinks" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -681,47 +705,36 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel3" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="jLabel4" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel2" linkSize="10" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="jLabel3" linkSize="10" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="jLabel4" linkSize="10" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                          <Component id="_TF_PanelName" min="-2" pref="34" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="_ComboBox_Panels" pref="44" max="32767" attributes="0"/>
+                              <Component id="_FTF_PanelID" alignment="0" max="32767" attributes="0"/>
+                              <Component id="_TF_PanelName" alignment="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="_FTF_PanelID" alignment="1" min="-2" pref="34" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel2" min="-2" pref="25" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="_ComboBox_Panels" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="jLabel5" linkSize="10" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="jLabel7" linkSize="10" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="_FTF_YPOS" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                              <Component id="_FTF_XPOS" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabel5" min="-2" pref="25" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="_FTF_XPOS" min="-2" pref="37" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jLabel7" max="32767" attributes="0"/>
-                              <Component id="_Button_Save" pref="25" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="_FTF_YPOS" min="-2" pref="37" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="_Button_GenerateLinks" min="-2" pref="37" max="-2" attributes="0"/>
-                                  <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="_Button_Save" pref="31" max="32767" attributes="0"/>
+                      <Component id="_Button_GenerateLinks" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -734,7 +747,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Generate Links"/>
+            <Property name="text" type="java.lang.String" value="Create Links"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_GenerateLinksActionPerformed"/>
@@ -829,16 +842,51 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel6">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="18" style="0"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="HTML Link Creator"/>
-          </Properties>
-        </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="_Button_ClearCurrent">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Arial" size="12" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Clear Main Panel"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_ClearCurrentActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="_Button_ClearAll">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Arial" size="12" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Clear All Panels"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_ClearAllActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="_Button_AddCurrent">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Arial" size="12" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Add Widgets Main Panel"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_AddCurrentActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="_Button_AddAll">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Arial" size="12" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Add Widgets All"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_AddAllActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>
