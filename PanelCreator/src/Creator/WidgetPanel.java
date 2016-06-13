@@ -383,7 +383,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         listModelCodeWidgets.removeAllElements();
 
         widgetList.values().stream().forEach((widget) -> {
-
+            
             listModelCodeWidgets.addElement(widget.getWidgetName());
         });
 
@@ -1442,9 +1442,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
                 String xPos = String.valueOf(entry.getValue().getXPos());
                 String yPos = String.valueOf(entry.getValue().getYPos());
-
-                String w_id = wc.getFullWidgetText().split("\"widget_subclass\": \"")[1].split("\",")[0];
-                System.out.println("Widget ID: " + w_id);
+               
                 String newCode = wc.getFullWidgetText()
                         .replace("`%XPOS%`", xPos)
                         .replace("`%YPOS%`", yPos)
@@ -1557,6 +1555,11 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         if (ws.wpl.hasLink(panelName)) {
             LinkInfo li = ws.wpl.getLinkInfo(panelName);
+            
+            if(li.getPanelID() == -1 && !li.getPanelName().equals("Map")){
+                System.out.println("Not adding " + panelName);
+                return;
+            }
 
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog(this,
@@ -1571,12 +1574,11 @@ public class WidgetPanel extends javax.swing.JPanel {
                 System.out.println("Not deleting content");
             }
 
-            String values = generateWidgetImport(panelName, li.getPanelID());
+            String values = generateWidgetImport(panelName, li.getPanelID(), getSpecificExports(panelName));
 
             String query = String.format(insertQuery, values);
             System.out.println("Attempting to import widgets to " + panelName + " ID: " + li.getPanelID());
             db.executeQuery(query);
-            
 
             // Import Tasks
             db.closeConn();
@@ -1593,12 +1595,19 @@ public class WidgetPanel extends javax.swing.JPanel {
         // First check to see if the panel ID exists for the current panel
         // from the combo box selection
         String panelName = "";
+        
+        Map<String, List<String>> mapping = generateExportStrings();
 
         for (Entry<String, LinkInfo> entry : ws.wpl.getLinks().entrySet()) {
 
             panelName = entry.getValue().getPanelName();
 
             LinkInfo li = entry.getValue();
+            
+            if(li.getPanelID() == -1 || li.getPanelName().equals("Map")){
+                System.out.println("Not adding " + panelName);
+                continue;
+            }
 
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog(this,
@@ -1611,27 +1620,27 @@ public class WidgetPanel extends javax.swing.JPanel {
             } else {
                 System.out.println("Not deleting content");
             }
-
-            String values = generateWidgetImport(panelName, li.getPanelID());
+            
+            List<String> l = mapping.get(panelName);
+            String values = generateWidgetImport(panelName, li.getPanelID(), l);
 
             String query = String.format(insertQuery, values);
             System.out.println("Attempting to import widgets to " + panelName + " ID: " + li.getPanelID());
-            db.executeQuery(query);
-            //System.out.println(query);
-
-            // Import Tasks
-            db.closeConn();
+            db.executeQuery(query);            
 
         }
+        
+        db.closeConn();
     }//GEN-LAST:event__Button_AddAllActionPerformed
 
-    public String generateWidgetImport(String panelName, int panelID) {
+    
+
+    public String generateWidgetImport(String panelName, int panelID, List<String> l) {
 
         String importCode = "";
         String template = "(%s, %s, %s, %s, %s)";
-        String htmlLinks = getHtmlLinks(panelID);
-        List<String> l = getSpecificExports(panelName);
-
+        String htmlLinks = getHtmlLinks(panelID);        
+        
         Pattern p = Pattern.compile("\\d+");
         Matcher m;
 
@@ -1687,10 +1696,15 @@ public class WidgetPanel extends javax.swing.JPanel {
 
         for (Map.Entry<String, LinkInfo> entry : ws.wpl.getLinks().entrySet()) {
 
-                // For each entry, format a code string based on the default positions
+            // For each entry, format a code string based on the default positions
             // and the given panel name and ID's
             String panelID = String.valueOf(entry.getValue().getPanelID());
             String panelName = entry.getValue().getPanelName();
+            
+            if(panelID == "-1" && !panelName.equals("Map")){
+                System.out.println("Continuing on " + panelName);
+                continue;
+            }
 
             String xPos = String.valueOf(entry.getValue().getXPos());
             String yPos = String.valueOf(entry.getValue().getYPos());
@@ -1729,8 +1743,8 @@ public class WidgetPanel extends javax.swing.JPanel {
             }
 
             returnString += String.format(template, p_id, w_id, w_x, w_y, content);
-
         }
+                
 
         return returnString;
 
@@ -1903,12 +1917,19 @@ public class WidgetPanel extends javax.swing.JPanel {
                             }
 
                             //System.out.println("Linked " + orgKey + " to: " + varsToGen.getKey() + " with IO_ID: " + io_id);
-                            exportStringMap.get(panelName).add(createWidget(entry.getValue(), varsToGen.getValue(), io_id));
+                            String code = createWidget(entry.getValue(), varsToGen.getValue(), io_id);
+                            if(!code.equals("")){
+                                exportStringMap.get(panelName).add(code);
+                            }
 
                         } else {
                             System.out.println("Linked " + orgKey + " to: " + masterMapKey + ". IO_ID not found");
                             // No io for this
-                            exportStringMap.get(panelName).add(createWidget(entry.getValue(), varsToGen.getValue(), new int[]{0}));
+                            String code = createWidget(entry.getValue(), varsToGen.getValue(), new int[]{0});
+                            if(!code.equals("")){
+                                exportStringMap.get(panelName).add(code);
+                            }
+                            exportStringMap.get(panelName).add(code);
                         }
 
                     } /*else if (contains) {

@@ -182,18 +182,7 @@ public class DisplayFrame extends javax.swing.JFrame {
      */
     private void buttonClick(java.awt.event.MouseEvent evt) {
 
-        JButton button = (JButton) evt.getSource();
-        
-        
-        System.out.println("Button Name: " + button.getText());
-        System.out.println("Button X: " + button.getX());
-        System.out.println("Actual X: " + evt.getX());
-        System.out.println("Button Y: " + button.getY());
-        System.out.println("Actual Y: " + evt.getY());
-        System.out.println("Button Width: " + button.getWidth());
-        System.out.println("Button Height: " + button.getHeight());
-        
-        
+        JButton button = (JButton) evt.getSource();               
         Point p = this.getMousePosition();
         p.x -= 10;
         p.y -= 57;

@@ -1,6 +1,7 @@
 package Creator;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -13,28 +14,27 @@ import javax.xml.bind.annotation.XmlAccessorType;
 public class WidgetCode implements java.io.Serializable {
 
     public static final long serialVersionUID = 43217L;
-    public String widgetName;   
+    public String widgetName;
     public List<String> variables;
     public String fullWidgetText;
-    
 
     public WidgetCode() {
         this.widgetName = "Empty";
         this.variables = new ArrayList<>();
-        this.fullWidgetText = "Empty";        
+        this.fullWidgetText = "Empty";
     }
 
     public WidgetCode(String variableName) {
         this.widgetName = variableName;
         variables = new ArrayList<>();
-        this.fullWidgetText = "";        
+        this.fullWidgetText = "";
     }
 
     public WidgetCode(String variableName, ArrayList<String> vars, String fullWidgetText) {
         this.widgetName = variableName;
-        variables = vars;        
+        variables = vars;
         this.fullWidgetText = fullWidgetText;
-        
+
         if (this.widgetName.endsWith(".txt")) {
             this.widgetName = this.widgetName.replace(".txt", "");
         }
@@ -49,16 +49,13 @@ public class WidgetCode implements java.io.Serializable {
         this.widgetName = variableName;
     }
 
-   
-    public List<String>  getVariables() {
+    public List<String> getVariables() {
         return variables;
     }
 
     public void setVariables(List<String> variables) {
         this.variables = variables;
     }
-    
- 
 
     public void addVariables(ArrayList<String> vars) {
 
@@ -78,12 +75,10 @@ public class WidgetCode implements java.io.Serializable {
     public void addFullWidgetText(String text) {
         this.fullWidgetText += text;
     }
-  
 
+    
     @Override
     public String toString() {
-        
-        
 
         String s = this.widgetName + "\n";
         /*
