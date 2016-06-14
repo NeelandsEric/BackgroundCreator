@@ -484,8 +484,8 @@ public class WidgetPanel extends javax.swing.JPanel {
         _FileChooser_IoFile.setDialogTitle("Open a XLS File");
         _FileChooser_IoFile.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("XLS files", "xls"));
 
-        setMinimumSize(new java.awt.Dimension(969, 544));
-        setPreferredSize(new java.awt.Dimension(1031, 620));
+        setMinimumSize(new java.awt.Dimension(1031, 680));
+        setPreferredSize(new java.awt.Dimension(1031, 680));
 
         _ComboBox_DisplayPanel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _ComboBox_DisplayPanel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Main" }));

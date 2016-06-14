@@ -95,6 +95,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         this.stationId = stationId;
         importedIOVariables = newIo;
         _Button_CreateImports.setEnabled(true);
+        _Button_InsertCustom.setEnabled(true);
         _Label_Loaded.setText("Loaded File!");
     }
 
@@ -279,6 +280,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         _Label_UGHomePanel = new javax.swing.JLabel();
         _TF_UGHomePanel = new javax.swing.JTextField();
         _Button_AddTemplates = new javax.swing.JButton();
+        _Button_InsertCustom = new javax.swing.JButton();
 
         _FileChooser_IoFile.setApproveButtonText("Open");
         _FileChooser_IoFile.setApproveButtonToolTipText("Open a xls file");
@@ -286,7 +288,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         _FileChooser_IoFile.setDialogTitle("Open a XLS File");
         _FileChooser_IoFile.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("XLS files", "xls"));
 
-        setMinimumSize(new java.awt.Dimension(969, 544));
+        setMinimumSize(new java.awt.Dimension(1031, 680));
 
         _Button_LoadXls.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         _Button_LoadXls.setText("LOAD EXPORT FILE");
@@ -553,6 +555,14 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        _Button_InsertCustom.setText("Insert to Custom Table");
+        _Button_InsertCustom.setEnabled(false);
+        _Button_InsertCustom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_InsertCustomActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -564,17 +574,24 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(_Panel_Imports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-                        .addGap(317, 317, 317)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                        .addGap(45, 45, 45)
+                        .addComponent(_Button_InsertCustom, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Panel_Imports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Panel_Imports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(_Button_InsertCustom, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14)
                 .addComponent(_Panel_AlertInserts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -596,6 +613,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             String filePath = file.getAbsolutePath();
             readXFile(filePath);
             _Button_CreateImports.setEnabled(true);
+            _Button_InsertCustom.setEnabled(true);
             _Label_Loaded.setText("Loaded File!");
 
         } else {
@@ -1157,6 +1175,14 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event__Button_AddTemplatesActionPerformed
 
+    private void _Button_InsertCustomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_InsertCustomActionPerformed
+        // TODO add your handling code here:
+        
+        String setpoints;
+        String setpoint;
+        
+    }//GEN-LAST:event__Button_InsertCustomActionPerformed
+
     private boolean checkTaskExist() {
 
         String query = "select task_manager_station_id from task_manager where task_manager_station_id = " + stationId + ";";
@@ -1426,6 +1452,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private javax.swing.JButton _Button_AddTemplates;
     private javax.swing.JButton _Button_AddUserToGroups;
     private javax.swing.JButton _Button_CreateImports;
+    private javax.swing.JButton _Button_InsertCustom;
     private javax.swing.JButton _Button_LoadXls;
     private javax.swing.JComboBox _CB_NavOption;
     private javax.swing.JComboBox _CB_UserType;

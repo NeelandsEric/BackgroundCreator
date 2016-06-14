@@ -16,6 +16,15 @@
       </Properties>
     </Component>
   </NonVisualComponents>
+  <Properties>
+    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1031, 680]"/>
+    </Property>
+    <Property name="name" type="java.lang.String" value="" noResource="true"/>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1031, 680]"/>
+    </Property>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -60,7 +69,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="_Panel_SingleLoads" pref="301" max="32767" attributes="0"/>
+                          <Component id="_Panel_SingleLoads" pref="367" max="32767" attributes="0"/>
                           <Component id="_ComboBox_SingleMeter" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="_Label_SingleIP" min="-2" pref="92" max="-2" attributes="0"/>
@@ -358,7 +367,7 @@
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="_Button_CreateImports" max="32767" attributes="0"/>
-                      <Component id="_Button_LoadXls" pref="215" max="32767" attributes="0"/>
+                      <Component id="_Button_LoadXls" pref="281" max="32767" attributes="0"/>
                       <Component id="_Label_Loaded" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>

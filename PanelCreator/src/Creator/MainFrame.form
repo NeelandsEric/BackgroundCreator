@@ -224,7 +224,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="_TabbedPane_Tabs" alignment="1" pref="950" max="32767" attributes="0"/>
+          <Component id="_TabbedPane_Tabs" alignment="1" pref="1031" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">

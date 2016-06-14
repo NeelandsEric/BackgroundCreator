@@ -3,11 +3,11 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[850, 629]"/>
+      <Dimension value="[1031, 680]"/>
     </Property>
     <Property name="name" type="java.lang.String" value="" noResource="true"/>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[850, 629]"/>
+      <Dimension value="[1031, 680]"/>
     </Property>
   </Properties>
   <AuxValues>
@@ -26,19 +26,17 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="_Panel_Controls" min="-2" pref="410" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="_Panel_NamePanel" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="_ScrollPane_Log" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="_Label_StoreLogo" min="-2" pref="345" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="_Panel_Controls" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="_Panel_NamePanel" max="32767" attributes="0"/>
-                  <Component id="_Label_StoreLogo" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace pref="13" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -46,19 +44,15 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="_Panel_Controls" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="_ScrollPane_Log" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="_Panel_Controls" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="_Panel_NamePanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="_Label_StoreLogo" min="-2" pref="63" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="_Label_StoreLogo" min="-2" pref="136" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="66" pref="15" max="32767" attributes="0"/>
+              <EmptySpace pref="5" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -76,43 +70,51 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="_Label_NumberRacks" min="-2" pref="114" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="_FormattedTF_NumRacks" min="-2" pref="37" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="_ComboBox_Racks" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="_Label_Site" min="-2" pref="114" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="_TextField_SiteName" min="-2" pref="307" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="_Label_SGOptions" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="_Label_SuctionGroupName" min="-2" pref="159" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="_TextField_SuctionGroupName" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="_Label_SuctionGroupOptions" min="-2" pref="159" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="_ComboBox_SuctionGroups" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="_Label_SGOptions" alignment="0" pref="425" max="32767" attributes="0"/>
                                   <Component id="_Label_RackSelected" alignment="1" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="_Label_NumberSuctionGroups" linkSize="13" min="-2" pref="159" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="_FormattedTF_NumSG" max="32767" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="_Label_SuctionGroupName" min="-2" pref="159" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="_TextField_SuctionGroupName" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="_Label_SuctionGroupOptions" min="-2" pref="159" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="_ComboBox_SuctionGroups" min="-2" pref="108" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="_Label_CondenserFans" linkSize="13" min="-2" pref="161" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="_FormattedTF_NumFans" min="-2" pref="77" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="_CheckBox_CondVFD" min="-2" pref="89" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="_CheckBox_CondSplit" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="_Label_Site" min="-2" pref="114" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="_TextField_SiteName" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="_Label_NumberRacks" min="-2" pref="114" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="_FormattedTF_NumRacks" min="-2" pref="37" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="_ComboBox_Racks" min="-2" pref="187" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                              <Component id="_FormattedTF_NumSG" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="_Label_CondenserFans" linkSize="13" min="-2" pref="161" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="_FormattedTF_NumFans" min="-2" pref="50" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Component id="_Label_NumberSuctionGroups" linkSize="13" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="_CheckBox_CondVFD" min="-2" pref="89" max="-2" attributes="0"/>
+                                          <Component id="_CheckBox_CondSplit" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -123,39 +125,44 @@
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Group type="102" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
                                                   <Component id="_Label_CompressorsVFD" min="-2" pref="124" max="-2" attributes="0"/>
                                                   <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="_FormattedTF_CompVFD" min="-2" pref="51" max="-2" attributes="0"/>
+                                                  <Component id="_FormattedTF_CompVFD" min="-2" pref="40" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" attributes="0">
                                                   <Component id="_Label_Compressors" min="-2" pref="146" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="_FormattedTF_NumComp" min="-2" pref="51" max="-2" attributes="0"/>
+                                                  <Component id="_FormattedTF_NumComp" min="-2" pref="40" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="_Label_NumberSystems" pref="124" max="32767" attributes="0"/>
-                                              <Component id="_Label_SystemSave1" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="_Label_SystemSave1" min="-2" pref="124" max="-2" attributes="0"/>
+                                              <Component id="_Label_NumberSystems" min="-2" pref="118" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="_FormattedTF_NumSystems" min="-2" pref="51" max="-2" attributes="0"/>
+                                  <Component id="_FormattedTF_NumSystems" min="-2" pref="41" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="_CheckBox_Glycol" min="-2" pref="122" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                                  <Component id="_Label_NumberGlycolSystems" min="-2" pref="168" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="_Label_NumberFanPanels" alignment="0" min="-2" pref="134" max="-2" attributes="0"/>
+                                      <Component id="_CheckBox_Glycol" alignment="0" min="-2" pref="122" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="_FormattedTF_NumGlycolSystems" min="-2" pref="52" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="_FormattedTF_NumFanPanels" min="-2" pref="52" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                                          <Component id="_Label_NumberGlycolSystems" min="-2" pref="155" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="_FormattedTF_NumGlycolSystems" min="-2" pref="41" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="_Label_NumberFanPanels" min="-2" pref="134" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="_FormattedTF_NumFanPanels" min="-2" pref="52" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="_ScrollPane_Log" alignment="0" min="-2" pref="389" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -185,12 +192,12 @@
                       <Component id="_Label_CondenserFans" linkSize="11" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="_FormattedTF_NumFans" linkSize="11" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="_CheckBox_CondVFD" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                      <Component id="_CheckBox_CondSplit" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="_Label_NumberSuctionGroups" linkSize="11" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="_FormattedTF_NumSG" linkSize="11" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="_CheckBox_CondSplit" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -206,10 +213,12 @@
                   <Component id="_Label_SGOptions" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="_FormattedTF_NumComp" alignment="1" pref="26" max="32767" attributes="0"/>
-                      <Component id="_Label_Compressors" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="_Label_Compressors" alignment="3" max="32767" attributes="0"/>
+                          <Component id="_FormattedTF_NumComp" alignment="3" pref="26" max="32767" attributes="0"/>
+                      </Group>
                       <Component id="_Label_NumberSystems" alignment="0" max="32767" attributes="0"/>
-                      <Component id="_FormattedTF_NumSystems" alignment="1" max="32767" attributes="0"/>
+                      <Component id="_FormattedTF_NumSystems" alignment="1" pref="26" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="_CheckBox_CompVFD" min="-2" max="-2" attributes="0"/>
@@ -224,19 +233,19 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="_Label_Glycol" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="_FormattedTF_NumGlycolSystems" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="_CheckBox_Glycol" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="_Label_NumberGlycolSystems" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="_CheckBox_Glycol" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="_Label_NumberGlycolSystems" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="_FormattedTF_NumGlycolSystems" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="_Label_NumberFanPanels" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="_FormattedTF_NumFanPanels" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="_ScrollPane_Log" min="-2" pref="133" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -564,6 +573,24 @@
             <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="_FormattedTF_NumFanPanelsPropertyChange"/>
           </Events>
         </Component>
+        <Container class="javax.swing.JScrollPane" name="_ScrollPane_Log">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="_TextArea_Log">
+              <Properties>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="12" style="0"/>
+                </Property>
+                <Property name="rows" type="int" value="5"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="_Panel_NamePanel">
@@ -574,155 +601,270 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="_ComboBox_GlycolSystems" max="32767" attributes="0"/>
-                              <Component id="_Label_SystemNumber1" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="_Button_GlycolSysPrev" min="-2" pref="99" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="_Button_GlycolSysNext" min="-2" pref="91" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="_TextField_GlycolSystemName" linkSize="6" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="_Label_GlycolSystemName" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="_ComboBox_Systems" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="_Label_SystemNumber" max="32767" attributes="0"/>
+                              <Component id="_ComboBox_Systems" pref="114" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="_Button_SysPrev" linkSize="8" min="-2" pref="99" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="_Button_SysNext" min="-2" pref="91" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="_TextField_SystemName" linkSize="6" pref="200" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="_Label_SystemName" min="-2" pref="200" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="_Label_RackNumber" linkSize="9" pref="150" max="32767" attributes="0"/>
-                                      <Component id="_ComboBox_RackNumber" linkSize="9" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="_Label_SystemNumber4" min="-2" pref="198" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="_Button_RackPrev" min="-2" pref="101" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="_Button_RackNext" min="-2" pref="93" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="_TextField_RackName" linkSize="6" max="32767" attributes="0"/>
-                                      <Component id="_Label_RackName" min="-2" pref="200" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="_FTF_NumSubSystems" min="-2" pref="63" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="_ComboBox_CompressorNumber" linkSize="9" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                                      <Component id="_Label_CompressorNumber" linkSize="9" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="_Button_CompPrev" linkSize="8" min="-2" pref="101" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="_Button_SysPrev" min="-2" pref="68" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="_Button_CompNext" min="-2" pref="93" max="-2" attributes="0"/>
+                                          <Component id="_Button_SysNext" min="-2" pref="70" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="_Label_CompressorName" max="32767" attributes="0"/>
-                                      <Component id="_TextField_CompressorName" linkSize="6" min="-2" pref="172" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="_TextField_SystemName" max="32767" attributes="0"/>
+                                          <Component id="_Label_SystemName" pref="144" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="_Label_SystemNumber2" min="-2" pref="132" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="_Label_SystemName1" min="-2" pref="135" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="_ComboBox_SubSystems" max="32767" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="_Button_SubSysPrev" max="32767" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="_Button_SubSysNext" linkSize="17" min="-2" pref="62" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="_TextField_SubSystemName" min="-2" pref="135" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
-                              <Component id="_Label_SystemSave" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="_ComboBox_RackNumber" max="32767" attributes="0"/>
+                              <Component id="_Label_RackNumber" pref="116" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="_Button_RackPrev" pref="69" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="_Button_RackNext" min="-2" pref="67" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="_TextField_RackName" alignment="0" max="32767" attributes="0"/>
+                              <Component id="_Label_RackName" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="_ComboBox_CompressorNumber" max="32767" attributes="0"/>
+                              <Component id="_Label_CompressorNumber" pref="133" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="_Label_CompressorName" min="-2" pref="130" max="-2" attributes="0"/>
+                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="_Button_CompPrev" min="-2" pref="64" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="_Button_CompNext" linkSize="17" min="-2" pref="64" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="_TextField_CompressorName" min="-2" pref="134" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="_Label_SystemNumber1" pref="114" max="32767" attributes="0"/>
+                              <Component id="_ComboBox_GlycolSystems" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="_Label_SystemNumber5" min="-2" pref="199" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="_FTF_NumGlycolSubSystems" min="-2" pref="63" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="_Button_GlycolSysPrev" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="_Button_GlycolSysNext" min="-2" pref="64" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="_TextField_GlycolSystemName" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="_Label_GlycolSystemName" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="_ComboBox_GlycolSubSystems" max="32767" attributes="0"/>
+                                      <Component id="_Label_SystemNumber3" pref="130" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace pref="10" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="_Button_GlycolSubSysPrev" linkSize="17" min="-2" pref="59" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="_Button_GlycolSubSysNext" pref="68" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="_TextField_GlycolSubSystemName" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="_Label_SystemName2" alignment="1" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="_Label_RackName" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                      <Component id="_Label_RackNumber" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="_ComboBox_RackNumber" linkSize="16" min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="_TextField_RackName" linkSize="7" min="-2" pref="32" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="_Label_RackNumber" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="_Label_RackName" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="_ComboBox_RackNumber" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                                      <Component id="_TextField_RackName" linkSize="7" alignment="3" pref="32" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="_Label_CompressorNumber" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="_Label_CompressorName" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="_Button_RackPrev" linkSize="5" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                                              <Component id="_Button_RackNext" linkSize="5" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="_ComboBox_CompressorNumber" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                                              <Component id="_TextField_CompressorName" linkSize="7" alignment="3" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="_Button_CompPrev" linkSize="5" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                                      <Component id="_Button_CompNext" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="_Button_SubSysPrev" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                                      <Component id="_Button_SubSysNext" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="_Label_SystemNumber" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="_Label_SystemName" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="_Button_SysPrev" linkSize="5" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                                              <Component id="_Button_SysNext" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="_Label_SystemNumber2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                              <Component id="_Label_SystemName1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="_ComboBox_SubSystems" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                                              <Component id="_TextField_SubSystemName" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="_Button_RackPrev" linkSize="5" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="_Button_RackNext" linkSize="5" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="_ComboBox_Systems" linkSize="16" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="_TextField_SystemName" linkSize="7" alignment="3" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="_Label_CompressorNumber" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="_FTF_NumSubSystems" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="_Label_SystemNumber4" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="_Label_CompressorName" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="_Label_SystemNumber1" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Component id="_ComboBox_GlycolSystems" linkSize="16" min="-2" pref="32" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="_TextField_CompressorName" linkSize="7" alignment="3" max="32767" attributes="0"/>
-                              <Component id="_ComboBox_CompressorNumber" linkSize="16" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="_ComboBox_GlycolSubSystems" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="_TextField_GlycolSubSystemName" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="_Button_CompPrev" linkSize="5" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="_Button_CompNext" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="_Button_GlycolSubSysPrev" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="_Button_GlycolSubSysNext" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="_Label_SystemName" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                      <Component id="_Label_SystemNumber" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="_Label_GlycolSystemName" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="_Label_SystemNumber3" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="_Label_SystemName2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="_TextField_GlycolSystemName" linkSize="7" pref="37" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="_Button_GlycolSysPrev" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="_Button_GlycolSysNext" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="_TextField_SystemName" linkSize="7" alignment="3" max="32767" attributes="0"/>
-                      <Component id="_ComboBox_Systems" linkSize="16" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="_Label_SystemNumber5" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="_FTF_NumGlycolSubSystems" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="_Button_SysPrev" linkSize="5" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="_Button_SysNext" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="_Label_GlycolSystemName" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                      <Component id="_Label_SystemNumber1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="_ComboBox_GlycolSystems" linkSize="16" min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="_TextField_GlycolSystemName" linkSize="7" pref="37" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="_Button_GlycolSysPrev" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="_Button_GlycolSysNext" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="_Label_SystemSave" min="-2" pref="26" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="60" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -746,7 +888,7 @@
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Rack Number      "/>
+            <Property name="text" type="java.lang.String" value="Rack #      "/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
         </Component>
@@ -769,7 +911,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="_Button_RackPrev">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Previous"/>
+            <Property name="text" type="java.lang.String" value="Prev"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_RackPrevActionPerformed"/>
@@ -824,7 +966,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="_Button_CompPrev">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Previous"/>
+            <Property name="text" type="java.lang.String" value="Prev"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_CompPrevActionPerformed"/>
@@ -844,7 +986,7 @@
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="System Number"/>
+            <Property name="text" type="java.lang.String" value="System #"/>
             <Property name="horizontalTextPosition" type="int" value="10"/>
           </Properties>
         </Component>
@@ -866,7 +1008,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="_Button_SysPrev">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Previous"/>
+            <Property name="text" type="java.lang.String" value="Prev"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_SysPrevActionPerformed"/>
@@ -893,22 +1035,13 @@
             <Property name="text" type="java.lang.String" value="System Name"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="_Label_SystemSave">
-          <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="ff" type="rgb"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="These options save the name"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="_Label_SystemNumber1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Glycol System Number"/>
+            <Property name="text" type="java.lang.String" value="Glycol System #"/>
             <Property name="horizontalTextPosition" type="int" value="10"/>
           </Properties>
         </Component>
@@ -917,7 +1050,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="System 1"/>
+            <Property name="text" type="java.lang.String" value="G01"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
@@ -932,7 +1065,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="_Button_GlycolSysPrev">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Previous"/>
+            <Property name="text" type="java.lang.String" value="Prev"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -961,6 +1094,160 @@
             <Property name="text" type="java.lang.String" value="Glycol System Name"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JLabel" name="_Label_SystemNumber2">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Sub Systems"/>
+            <Property name="horizontalTextPosition" type="int" value="10"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="_TextField_SubSystemName">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="System 1"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="_Button_SubSysNext">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Next"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_SubSysNextActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="_Button_SubSysPrev">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Prev"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_SubSysPrevActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="_ComboBox_SubSystems">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="1">
+                <StringItem index="0" value="System 1"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_ComboBox_SubSystemsActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="_Label_SystemName1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Sub System Name"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="_Label_SystemNumber3">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Glycol Sub Sys"/>
+            <Property name="horizontalTextPosition" type="int" value="10"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="_TextField_GlycolSubSystemName">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="System 1"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="_Button_GlycolSubSysNext">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Next"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_GlycolSubSysNextActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="_Button_GlycolSubSysPrev">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Prev"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_GlycolSubSysPrevActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="_ComboBox_GlycolSubSystems">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="1">
+                <StringItem index="0" value="System 1"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_ComboBox_GlycolSubSystemsActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="_Label_SystemName2">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Sub System Name"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="_Label_SystemNumber4">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Number of Sub Systems"/>
+            <Property name="horizontalTextPosition" type="int" value="10"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="_FTF_NumSubSystems">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+              <Format subtype="1" type="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="1"/>
+          </Properties>
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="_FTF_NumSubSystemsPropertyChange"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="_Label_SystemNumber5">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Number of Glycol Sub Sys"/>
+            <Property name="horizontalTextPosition" type="int" value="10"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="_FTF_NumGlycolSubSystems">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+              <Format subtype="1" type="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="1"/>
+          </Properties>
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="_FTF_NumGlycolSubSystemsPropertyChange"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="_Label_StoreLogo">
@@ -972,23 +1259,5 @@
         <Property name="text" type="java.lang.String" value="Store Logo"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="_ScrollPane_Log">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTextArea" name="_TextArea_Log">
-          <Properties>
-            <Property name="columns" type="int" value="20"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="0"/>
-            </Property>
-            <Property name="rows" type="int" value="5"/>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
   </SubComponents>
 </Form>

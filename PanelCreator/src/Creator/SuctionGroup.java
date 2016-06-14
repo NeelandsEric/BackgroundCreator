@@ -2,6 +2,7 @@ package Creator;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 /**
@@ -14,12 +15,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SuctionGroup implements java.io.Serializable {
 
-    private static final long serialVersionUID = 122L;
+    //private static final long serialVersionUID = 122L;
     public String name;
     public int numCompressors;
     public int numSystems;
     public ArrayList<String> systemNames;
     public ArrayList<String> compressorNames;
+    public TreeMap<String, Circuit> subSystems;
 
     
     
@@ -29,6 +31,8 @@ public class SuctionGroup implements java.io.Serializable {
         this.numSystems = 1;
         this.systemNames = new ArrayList<>();
         this.systemNames.add("System 1");
+        this.subSystems = new TreeMap<>();
+        this.subSystems.put("System 1", new Circuit("System 1", 1));
         this.compressorNames = new ArrayList<>();
         this.compressorNames.add("Comp 1");
     }
@@ -43,6 +47,8 @@ public class SuctionGroup implements java.io.Serializable {
         this.numSystems = 1;
         this.systemNames = new ArrayList<>();
         this.systemNames.add("System 1");
+        this.subSystems = new TreeMap<>();
+        this.subSystems.put("System 1", new Circuit("System 1", 1));
         this.compressorNames = new ArrayList<>();
         this.compressorNames.add("Comp 1");
     }
@@ -165,6 +171,25 @@ public class SuctionGroup implements java.io.Serializable {
         return systemNames;
     }
 
+    public TreeMap<String, Circuit> getSubSystems() {
+        return subSystems;
+    }
+
+    public void setSubSystems(TreeMap<String, Circuit> subSystems) {
+        this.subSystems = subSystems;
+    }
+    
+    public ArrayList<String> getAllSystemNames(String systemName){
+                
+        if(this.subSystems.containsKey(systemName)){
+            ArrayList<String> list = this.subSystems.get(systemName).getSubSystemNames();
+            list.add(0, systemName);   
+            return list;
+        }else {
+            return null;
+        }                
+    }
+
     /**
      * get system name index
      *
@@ -203,6 +228,7 @@ public class SuctionGroup implements java.io.Serializable {
                 //System.out.println("Adding System " + (size + i+1));
                 this.systemNames.add("System " + (size + i + 1));
                 this.numSystems++;
+                this.subSystems.put("System " + (size + i + 1), new Circuit("System " + (size + i + 1), 1));
             }
         } else {
             this.numSystems = num;

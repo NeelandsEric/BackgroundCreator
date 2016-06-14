@@ -8,6 +8,7 @@ package Creator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -22,18 +23,22 @@ public class GlycolSettings {
     
     public List<String> glycolSystemNames;
     public int numGlycolSystems;
+    public TreeMap<String, Circuit> glycolSubSystems;
     // Other glycol settings to be implemented
 
     public GlycolSettings() {
         this.numGlycolSystems = 1;
         this.glycolSystemNames = new ArrayList<>();
         this.glycolSystemNames.add("G01");
+        this.glycolSubSystems = new TreeMap<>();
+        this.glycolSubSystems.put("G01", new Circuit("G01", 1));
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 23 * hash + Objects.hashCode(this.glycolSystemNames);
+        hash = 23 * hash + Objects.hashCode(this.glycolSubSystems);
         hash = 23 * hash + this.numGlycolSystems;
         return hash;
     }
@@ -50,6 +55,9 @@ public class GlycolSettings {
         if (!Objects.equals(this.glycolSystemNames, other.glycolSystemNames)) {
             return false;
         }
+        if (!Objects.equals(this.glycolSubSystems, other.glycolSubSystems)) {
+            return false;
+        }
         if (this.numGlycolSystems != other.numGlycolSystems) {
             return false;
         }
@@ -58,8 +66,24 @@ public class GlycolSettings {
 
     
     
+    public TreeMap<String, Circuit> getSubSystems() {
+        return glycolSubSystems;
+    }
+
+    public void setSubSystems(TreeMap<String, Circuit> subSystems) {
+        this.glycolSubSystems = subSystems;
+    }
     
-    
+    public ArrayList<String> getAllSystemNames(String systemName){
+                
+        if(this.glycolSubSystems.containsKey(systemName)){
+            ArrayList<String> list = this.glycolSubSystems.get(systemName).getSubSystemNames();
+            list.add(0, systemName);   
+            return list;
+        }else {
+            return null;
+        }                
+    }
     
     public List<String> getGlycolSystemNames() {
         return glycolSystemNames;
