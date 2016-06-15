@@ -169,14 +169,16 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     private void loadComboBoxPanels() {
 
-        String[] tabs = new String[cs.getNumRacks() * 2 + 4 + 1]; // racks * 2 (loads/rack) + 4 (panels) + map
+        String[] tabs = new String[cs.getNumRacks() + 4 + 1]; // [cs.getNumRacks() * 2 + 4 + 1]
         tabs[0] = "Main";
         for (int i = 0; i < cs.getNumRacks(); i++) {
             tabs[i + 1] = cs.getRackName(i);
         }
+        /*
         for (int i = 0; i < cs.getNumRacks(); i++) {
             tabs[i + cs.getNumRacks() + 1] = cs.getRackName(i).replace("Rack", "Load");
         }
+        */
         tabs[tabs.length - 4] = "Financial";
         tabs[tabs.length - 3] = "Energy";
         tabs[tabs.length - 2] = "Glycol";
@@ -218,14 +220,15 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     public void updateDisplay() {
 
-        String[] tabs = new String[cs.getNumRacks() * 2 + 4];
+        String[] tabs = new String[cs.getNumRacks() + 4]; // [cs.getNumRacks() *2  + 4]
         tabs[0] = "Main";
         for (int i = 0; i < cs.getNumRacks(); i++) {
             tabs[i + 1] = "R: " + cs.getRackName(i);
         }
+        /*
         for (int i = 0; i < cs.getNumRacks(); i++) {
             tabs[i + cs.getNumRacks() + 1] = "L: " + cs.getRackName(i).replace("Rack", "Load");
-        }
+        }*/
         tabs[tabs.length - 3] = "Financial";
         tabs[tabs.length - 2] = "Energy";
         tabs[tabs.length - 1] = "Glycol";
@@ -1099,9 +1102,9 @@ public class WidgetPanel extends javax.swing.JPanel {
 
             if (panelName.startsWith("R:")) {
                 panelType = "Rack";
-            } else if (panelName.startsWith("L:")) {
+            } /*else if (panelName.startsWith("L:")) {
                 panelType = "Load";
-            } else {
+            } */else {
                 panelType = panelName;
             }
 
@@ -1351,9 +1354,9 @@ public class WidgetPanel extends javax.swing.JPanel {
 
                 if (panelName.startsWith("Rack")) {
                     _ComboBox_DisplayPanel.setSelectedIndex(1);
-                } else if (panelName.startsWith("Load")) {
+                } /*else if (panelName.startsWith("Load")) {
                     _ComboBox_DisplayPanel.setSelectedIndex(1 + cs.getNumRacks());
-                } else {
+                } */else {
                     _ComboBox_DisplayPanel.setSelectedItem(panelName);
                 }
 
@@ -1774,12 +1777,14 @@ public class WidgetPanel extends javax.swing.JPanel {
             // Actual panel name - u
             String panelName = panelType;
             boolean rackEntry = panelType.equals("Rack");
-            boolean loadEntry = panelType.equals("Load");
+            /*
+            boolean loadEntry = panelType.equals("Load");*/
 
             // Generate the same widgets for each rack as they will all be the same
             // This will be used to keep all racks used
             List<String> usedRacks = new ArrayList<>();
-            List<String> usedLoads = new ArrayList<>();
+            /*
+            List<String> usedLoads = new ArrayList<>();*/
 
             // 
             do {
@@ -1809,6 +1814,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                     }
                 }
 
+                /*
                 // Same for loads
                 if (panelType.equals("Load")) {
                     String[] loadNames = cs.getLoadNames();
@@ -1824,7 +1830,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                     if (!loadEntry) {
                         break;
                     }
-                }
+                }*/
 
                 // Generate a new arraylist for the export Mappings only if it
                 // doesnt exist. This prevents adding strings to the non existant list
@@ -1855,9 +1861,11 @@ public class WidgetPanel extends javax.swing.JPanel {
                     // We add this before the name as the master map keys follow this format
                     index = "R: " + panelName;
                 }
+                
+                /*
                 if (loadEntry) {
                     index = "L: " + panelName;
-                }
+                }*/
 
                 //System.out.println("index:" + index);
                 //System.out.println("master map keys: " + Arrays.toString(masterMap.keySet().toArray()));
@@ -1940,7 +1948,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                      }*/
 
                 }
-            } while (rackEntry || loadEntry); // Generate all the widget links for each rack
+            } while (rackEntry);  // || loadEntry); // Generate all the widget links for each rack
 
         }
 

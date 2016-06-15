@@ -773,12 +773,9 @@ public class MainFrame extends JFrame {
                      } else {                        
                      bi = ScreenImage.createImage(displayFrame.bg);
                      }*/
-                    if (i > numRacks && i <= (numRacks * 2)) {
-                        bi = ScreenImage.createImage((JScrollPane) displayFrame.getPanelAtIndex(i, numRacks, numDisplays));
-
-                    } else {
-                        bi = ScreenImage.createImage((JPanel) displayFrame.getPanelAtIndex(i, numRacks, numDisplays));
-                    }
+                    
+                    bi = ScreenImage.createImage((JPanel) displayFrame.getPanelAtIndex(i, numRacks, numDisplays));
+                    
                     //bi = ScreenImage.createImage(comps[i]);
 
                     ScreenImage.writeImage(bi, fileNames[i]);

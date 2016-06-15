@@ -145,7 +145,9 @@ System EEPR Predicted `%rackname` `%sgname` `%sysname`,1,1,%,1,0,1,0,,,,2,5.00,2
 System kW `%rackname` `%sgname` `%sysname`,1,1,kW,1,0,1,0,,,,4,,2 years,1
 System Setpoint `%rackname` `%sgname` `%sysname`,1,1,F,1.8,-32,2,0,,,,1,,2 years,1
 System Temp `%rackname` `%sgname` `%sysname`,1,1,F,1.8,-32,2,0,,,,2,3.00,2 years ,1
-System Status `%rackname` `%sgname` `%sysname`,1,1,,1,0,0,0,,,,1,,2 years ,1
+System Defrost Status `%rackname` `%sgname` `%sysname`,0,0,,1,0,0,0,,,,1,,2 years ,1
+System Defrost Temp `%rackname` `%sgname` `%sysname`,1,1,F,1.8,-32,2,0,,,,2,3.00,2 years ,1
+System Status `%rackname` `%sgname` `%sysname`,0,1,,1,0,0,1,5,1,1,1,,2 years ,1
 `Compressor`
 Comp Amps `%rackname` `%sgname` `%compname`,1,1,A,0.1,0,1,1,240,0,50,5,1,180 days,1
 Comp Amp Limit `%rackname` `%sgname` `%compname`,1,1,A,1,0,1,0,,,,0,,,1
