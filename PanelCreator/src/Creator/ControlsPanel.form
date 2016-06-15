@@ -72,6 +72,24 @@
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="_Label_SGOptions" alignment="0" pref="425" max="32767" attributes="0"/>
                                   <Component id="_Label_RackSelected" alignment="1" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                              <Component id="_FormattedTF_NumSG" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="_Label_CondenserFans" linkSize="13" min="-2" pref="161" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="_FormattedTF_NumFans" min="-2" pref="50" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Component id="_Label_NumberSuctionGroups" linkSize="13" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="_CheckBox_CondVFD" min="-2" pref="89" max="-2" attributes="0"/>
+                                          <Component id="_CheckBox_CondSplit" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="_Label_SuctionGroupName" min="-2" pref="159" max="-2" attributes="0"/>
@@ -96,24 +114,6 @@
                                           <Component id="_FormattedTF_NumRacks" min="-2" pref="37" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="_ComboBox_Racks" min="-2" pref="187" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                              <Component id="_FormattedTF_NumSG" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="_Label_CondenserFans" linkSize="13" min="-2" pref="161" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="_FormattedTF_NumFans" min="-2" pref="50" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Component id="_Label_NumberSuctionGroups" linkSize="13" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="_CheckBox_CondVFD" min="-2" pref="89" max="-2" attributes="0"/>
-                                          <Component id="_CheckBox_CondSplit" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -696,10 +696,10 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="_Button_GlycolSysPrev" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="_Button_GlycolSysPrev" min="-2" pref="69" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="_Button_GlycolSysNext" min="-2" pref="64" max="-2" attributes="0"/>
+                                          <Component id="_Button_GlycolSysNext" min="-2" pref="68" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="_TextField_GlycolSystemName" alignment="0" max="32767" attributes="0"/>
                                       <Component id="_Label_GlycolSystemName" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
@@ -1220,7 +1220,7 @@
               <Format subtype="1" type="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="1"/>
+            <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
           <Events>
             <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="_FTF_NumSubSystemsPropertyChange"/>
@@ -1242,7 +1242,7 @@
               <Format subtype="1" type="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="1"/>
+            <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
           <Events>
             <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="_FTF_NumGlycolSubSystemsPropertyChange"/>

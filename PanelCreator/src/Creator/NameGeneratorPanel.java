@@ -778,7 +778,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_LoadUserDefaultsActionPerformed
 
     private void _CB_DatalogPointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__CB_DatalogPointActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event__CB_DatalogPointActionPerformed
 
     public void parseDateString(String date) {

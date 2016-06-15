@@ -31,7 +31,7 @@ public class GlycolSettings {
         this.glycolSystemNames = new ArrayList<>();
         this.glycolSystemNames.add("G01");
         this.glycolSubSystems = new TreeMap<>();
-        this.glycolSubSystems.put("G01", new Circuit("G01", 1));
+        this.glycolSubSystems.put("G01", new Circuit("G01", 0));
     }
 
     @Override
@@ -63,7 +63,72 @@ public class GlycolSettings {
         }
         return true;
     }
+    
+    public void updateSubSystems(){
+        for(String s: this.glycolSystemNames){
+            if(!this.glycolSubSystems.containsKey(s)){
+                this.glycolSubSystems.put(s, new Circuit(s));
+            }
+        }
+    }
 
+    
+    public int getNumSubSystems(String systemName){
+        if(this.glycolSubSystems.containsKey(systemName)){
+            return this.glycolSubSystems.get(systemName).getNumSubSystems();
+        }else {
+            return 0;
+        }
+    }
+    
+    public String getSubSystemNameIndex(String systemName, int index){
+        if(this.glycolSubSystems.containsKey(systemName)){
+            return this.glycolSubSystems.get(systemName).getSubSystemName(index);
+        }else {
+            return "No GSystem found " + systemName;
+        }
+    }
+    
+    public void setNumSubSystems(String glycolSystemName, int numGlycolSubSystems){
+        if(this.glycolSubSystems.containsKey(glycolSystemName)){
+           this.glycolSubSystems.get(glycolSystemName).setNumSubSystems(numGlycolSubSystems); 
+        }else {
+            System.out.println("No glycol system: " + glycolSystemName);
+            this.glycolSubSystems.put(glycolSystemName, new Circuit(glycolSystemName, numGlycolSubSystems));
+        }
+        
+    }
+    
+    /**
+     * replace system name
+     *
+     * @param name string
+     * @param index int
+     */
+    public void replaceGlycolSystemName(String name, int index) {
+        String oldName = this.glycolSystemNames.get(index);
+        Circuit oldSubNames;
+        if(this.glycolSystemNames.contains(oldName)){
+            oldSubNames = this.glycolSubSystems.remove(oldName);  
+        }else {
+            oldSubNames = new Circuit(name);
+        }
+        
+        this.glycolSystemNames.set(index, name);
+        
+        oldSubNames.updateNames(name);
+        
+        this.glycolSubSystems.put(name, oldSubNames);
+    }
+    
+    public void replaceGlycolSubSystemName(String systemName, String subSystemName, int index){
+        if(this.glycolSubSystems.containsKey(systemName)){
+            this.glycolSubSystems.get(systemName).replaceSubSystemName(subSystemName, index);
+        }else {
+            System.out.println(systemName + " not found in sub system map");
+        }
+        
+    }
     
     
     public TreeMap<String, Circuit> getSubSystems() {
@@ -133,15 +198,4 @@ public class GlycolSettings {
         }
 
     }
-
-    /**
-     * replace system name
-     *
-     * @param name string
-     * @param index int
-     */
-    public void replaceGlycolSystemName(String name, int index) {
-        this.glycolSystemNames.set(index, name);
-    }
-    
 }

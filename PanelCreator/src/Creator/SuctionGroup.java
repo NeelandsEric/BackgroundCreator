@@ -32,7 +32,7 @@ public class SuctionGroup implements java.io.Serializable {
         this.systemNames = new ArrayList<>();
         this.systemNames.add("System 1");
         this.subSystems = new TreeMap<>();
-        this.subSystems.put("System 1", new Circuit("System 1", 1));
+        this.subSystems.put("System 1", new Circuit("System 1", 0));
         this.compressorNames = new ArrayList<>();
         this.compressorNames.add("Comp 1");
     }
@@ -48,7 +48,7 @@ public class SuctionGroup implements java.io.Serializable {
         this.systemNames = new ArrayList<>();
         this.systemNames.add("System 1");
         this.subSystems = new TreeMap<>();
-        this.subSystems.put("System 1", new Circuit("System 1", 1));
+        this.subSystems.put("System 1", new Circuit("System 1", 0));
         this.compressorNames = new ArrayList<>();
         this.compressorNames.add("Comp 1");
     }
@@ -91,6 +91,7 @@ public class SuctionGroup implements java.io.Serializable {
         return true;
     }
 
+    
     
     
     /**
@@ -212,6 +213,12 @@ public class SuctionGroup implements java.io.Serializable {
      */
     public void setSystemNames(ArrayList<String> systemNames) {
         this.systemNames = systemNames;
+        
+        for(String s: this.systemNames){
+            if(!this.subSystems.containsKey(s)){
+                this.subSystems.put(s, new Circuit(s));
+            }
+        }
     }
 
     /**
@@ -228,7 +235,7 @@ public class SuctionGroup implements java.io.Serializable {
                 //System.out.println("Adding System " + (size + i+1));
                 this.systemNames.add("System " + (size + i + 1));
                 this.numSystems++;
-                this.subSystems.put("System " + (size + i + 1), new Circuit("System " + (size + i + 1), 1));
+                this.subSystems.put("System " + (size + i + 1), new Circuit("System " + (size + i + 1), 0));
             }
         } else {
             this.numSystems = num;
@@ -243,9 +250,41 @@ public class SuctionGroup implements java.io.Serializable {
      * @param index int
      */
     public void replaceSystemName(String name, int index) {
+        String oldName = this.systemNames.get(index);
+        Circuit oldSubNames;
+        if(this.systemNames.contains(oldName)){
+            oldSubNames = this.subSystems.remove(oldName);  
+        }else {
+            oldSubNames = new Circuit(name);
+        }
+        
         this.systemNames.set(index, name);
+        
+        oldSubNames.updateNames(name);
+        
+        this.subSystems.put(name, oldSubNames);
+    }
+    
+    public void replaceSubSystemName(String systemName, String subSystemName, int index){
+        if(this.subSystems.containsKey(systemName)){
+            this.subSystems.get(systemName).replaceSubSystemName(subSystemName, index);
+        }else {
+            System.out.println(systemName + " not found in sub system map");
+        }
+        
     }
 
+    
+    public void updateSubSystems(){
+        
+        for(String s: this.systemNames){
+            if(!this.subSystems.containsKey(s)){
+                this.subSystems.put(s, new Circuit(s));
+            }
+        }
+        
+    }
+    
     /**
      * get compressor names
      *
@@ -278,7 +317,34 @@ public class SuctionGroup implements java.io.Serializable {
     public void setCompressorNames(ArrayList<String> compressorNames) {
         this.compressorNames = compressorNames;
     }
+    
+    public void setNumSubSystems(String systemName, int numSubSystems){
+        
+        if(this.subSystems.containsKey(systemName)){
+            this.subSystems.get(systemName).setNumSubSystems(numSubSystems);
+        }else {
+            System.out.println("no subsystem " + systemName);
+            this.subSystems.put(systemName, new Circuit(systemName, numSubSystems));
+        }
+        
+    }
+    
+    public int getNumSubSystems(String systemName){
+        if(this.subSystems.containsKey(systemName)){
+            return this.subSystems.get(systemName).getNumSubSystems();
+        }else {
+            return 0;
+        }
+    }
 
+    
+    public String getSubSystemNameIndex(String systemName, int index){
+        if(this.subSystems.containsKey(systemName)){
+            return this.subSystems.get(systemName).getSubSystemName(index);
+        }else {
+            return "No system found " + systemName;
+        }
+    }
     /**
      * add compressor names
      *

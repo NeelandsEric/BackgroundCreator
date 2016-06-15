@@ -1329,7 +1329,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_LoadDefaultsActionPerformed
 
     private void _JTree_WidgetLinksValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event__JTree_WidgetLinksValueChanged
-        // TODO add your handling code here:
+        
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) _JTree_WidgetLinks.getLastSelectedPathComponent();
 
         if (node == null) //Nothing is selected.  
@@ -1369,7 +1369,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__JTree_WidgetLinksValueChanged
 
     private void _Button_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SaveActionPerformed
-        // TODO add your handling code here:
+        
         if (!_FTF_PanelID.getText().equals("") && !_TF_PanelName.getText().equals("")) {
             ws.wpl.addLink(_ComboBox_Panels.getSelectedItem().toString(),
                     Integer.valueOf(_FTF_PanelID.getText()),
@@ -1412,7 +1412,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__ComboBox_PanelsActionPerformed
 
     private void _Button_GenerateLinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_GenerateLinksActionPerformed
-        // TODO add your handling code here:
+        
 
         if (ws.wpl.links.isEmpty()) {
             return;
@@ -1474,7 +1474,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_GenerateLinksActionPerformed
 
     private void _Button_ClearCurrentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_ClearCurrentActionPerformed
-        // TODO add your handling code here:
+        
         db = newDBConn();
 
         // First check to see if the panel ID exists for the current panel
@@ -1504,7 +1504,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_ClearCurrentActionPerformed
 
     private void _Button_ClearAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_ClearAllActionPerformed
-        // TODO add your handling code here:
+        
 
         db = newDBConn();
 
@@ -1545,7 +1545,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_ClearAllActionPerformed
 
     private void _Button_AddCurrentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_AddCurrentActionPerformed
-        // TODO add your handling code here:
+        
         db = newDBConn();
 
         // Add the widgets for the current selected panel in the combo box
@@ -1588,7 +1588,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_AddCurrentActionPerformed
 
     private void _Button_AddAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_AddAllActionPerformed
-        // TODO add your handling code here:
+        
         db = newDBConn();
 
         // Add the widgets for the current selected panel in the combo box

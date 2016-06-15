@@ -5,12 +5,11 @@
  */
 package Creator;
 
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 /**
@@ -20,6 +19,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Circuit {
     
+    @XmlTransient
+    private String [] names = new String[]{"-a", "-b", "-c", "-d", "-e", "-f", "-g", "-h", "-i", "-j", "-k"};
     public String systemName;
     public int numSubSystems;
     public ArrayList<String> subSystemNames;
@@ -29,6 +30,12 @@ public class Circuit {
         this.numSubSystems = 0;
         this.subSystemNames = new ArrayList<>();
     }    
+    
+    public Circuit(String sysName) {
+        this.systemName = sysName;
+        this.numSubSystems = 0;
+        this.subSystemNames = new ArrayList<>();
+    } 
     
 
     public Circuit(String systemName, int numSubSystems) {
@@ -53,6 +60,10 @@ public class Circuit {
 
     public void setNumSubSystems(int numSubSystems) {
         this.numSubSystems = numSubSystems;
+        
+        while(this.subSystemNames.size() < this.numSubSystems){
+            this.addSubSystemName();
+        }
     }
 
     public ArrayList<String> getSubSystemNames() {
@@ -63,6 +74,13 @@ public class Circuit {
         this.subSystemNames = subSystemNames;
     }
     
+    
+    public void addSubSystemName(){
+        String newName = this.getSystemName() + names[this.subSystemNames.size()];
+        this.subSystemNames.add(newName);
+    }
+    
+    
     public void addSubSystemName(String name){
         this.subSystemNames.add(name);
     }
@@ -71,6 +89,38 @@ public class Circuit {
     public boolean hasSystem(String name){
         return this.subSystemNames.contains(name);
     }
+    
+    public String getSubSystemName(int index){
+        if(index < subSystemNames.size()){
+            return this.subSystemNames.get(index);
+        }else {
+            return systemName + "-missing-" + index;
+        }
+        
+    }
+    
+    public void updateNames(String systemName){
+        String oldSystemName = this.systemName;
+        this.systemName = systemName;
+        ArrayList<String> newList = new ArrayList<>();
+        for(String s: this.subSystemNames){
+            String newString = s.replace(oldSystemName, systemName);
+            newList.add(newString);
+        }
+        
+        this.subSystemNames = newList;
+        
+    }
+    
+    public void replaceSubSystemName(String subSystemName, int index){
+        if(index < subSystemNames.size()){
+            this.subSystemNames.set(index, subSystemName);
+        }else {
+            System.out.println("index out of bounds replacing sub system name, index: " + index + ", name: " + subSystemName);
+        }
+    }
+    
+    
     
     
     @Override

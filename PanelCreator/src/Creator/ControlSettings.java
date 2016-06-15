@@ -388,7 +388,16 @@ public class ControlSettings implements java.io.Serializable {
     }
     
     
-    
+    public void updateSubSystems(){
+        
+        for(Rack r: racks){
+            for(SuctionGroup sg: r.getSuctionGroup()){
+                sg.updateSubSystems();
+            }
+        }
+        this.glycolSettings.updateSubSystems();
+        
+    }
 
     /**
      * Gets the strings needed for the modbus settings This will return every

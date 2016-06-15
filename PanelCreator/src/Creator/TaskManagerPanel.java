@@ -959,7 +959,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     
 
     private void _List_UsersValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event__List_UsersValueChanged
-        // TODO add your handling code here:
+        
 
         // _ScrollPane_WidgetSettings
         if (!evt.getValueIsAdjusting()) {
@@ -977,7 +977,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__List_UsersValueChanged
 
     private void _List_UserGroupsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event__List_UserGroupsValueChanged
-        // TODO add your handling code here:
+        
         if (!evt.getValueIsAdjusting()) {
             if (!_List_UserGroups.isSelectionEmpty()) {
 
@@ -993,7 +993,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__List_UserGroupsValueChanged
 
     private void _Buton_CreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Buton_CreateUserActionPerformed
-        // TODO add your handling code here:
+        
 
         if (_List_Users.isSelectionEmpty()) {
 
@@ -1057,17 +1057,17 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Buton_CreateUserActionPerformed
 
     private void _TF_UsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event__TF_UsernameKeyPressed
-        // TODO add your handling code here:
+        
         _List_Users.clearSelection();
     }//GEN-LAST:event__TF_UsernameKeyPressed
 
     private void _TF_UserGroupKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event__TF_UserGroupKeyPressed
-        // TODO add your handling code here:
+        
         _List_UserGroups.clearSelection();
     }//GEN-LAST:event__TF_UserGroupKeyPressed
 
     private void _Button_AddUserToGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_AddUserToGroupsActionPerformed
-        // TODO add your handling code here:
+        
         // For each user selected, add them to the specific group
 
         db = newDBConn();
@@ -1176,7 +1176,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_AddTemplatesActionPerformed
 
     private void _Button_InsertCustomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_InsertCustomActionPerformed
-        // TODO add your handling code here:
+        
         
         String setpoints;
         String setpoint;

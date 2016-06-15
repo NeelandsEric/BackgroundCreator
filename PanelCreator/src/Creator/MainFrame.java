@@ -72,6 +72,8 @@ public class MainFrame extends JFrame {
             this.store = new Store();
         }
 
+        this.store.cs.updateSubSystems();
+        this.store.cs.glycolSettings.updateSubSystems();
         // Attempt to load the last stored store        
         initComponents();
         initPanels();
