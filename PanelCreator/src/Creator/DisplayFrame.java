@@ -27,7 +27,7 @@ public class DisplayFrame extends javax.swing.JFrame {
     // Loads panel
     public MainFrame mf;
     public ArrayList<BackgroundRack> rackTabs;
-    public ArrayList<BackgroundLoad> loadTabs;
+    //public ArrayList<BackgroundLoad> loadTabs;
     public BackgroundFinancial bgf;
     public BackgroundEnergy bge;
     public BackgroundGlycol bgg;
@@ -49,7 +49,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         this.cs = css;
         this.ds = dss;
         rackTabs = new ArrayList<>();
-        loadTabs = new ArrayList<>();
+        //loadTabs = new ArrayList<>();
         bg = new BackgroundMain(this);
         _TabbedPane_Tabs.add("Main", bg);
 
@@ -60,21 +60,22 @@ public class DisplayFrame extends javax.swing.JFrame {
             rackTabs.add(br);
         }
 
-        // Loads
-        for (int i = 1; i <= this.cs.getNumRacks(); i++) {
+        /*
+         // Loads
+         for (int i = 1; i <= this.cs.getNumRacks(); i++) {
 
-            BackgroundLoad bl = new BackgroundLoad(this, (i - 1));
-            _TabbedPane_Tabs.add("Loads " + i, bl);
-            loadTabs.add(bl);
-        }
-
+         BackgroundLoad bl = new BackgroundLoad(this, (i - 1));
+         _TabbedPane_Tabs.add("Loads " + i, bl);
+         loadTabs.add(bl);
+         }
+         */
         bgf = new BackgroundFinancial(this);
         bge = new BackgroundEnergy(this);
         bgg = new BackgroundGlycol(this);
         _TabbedPane_Tabs.add("Financial", bgf);
         _TabbedPane_Tabs.add("Energy", bge);
         _TabbedPane_Tabs.add("Glycol", bgg);
-        
+
         this.pack();
 
         this.stopUpdate = false;
@@ -97,12 +98,12 @@ public class DisplayFrame extends javax.swing.JFrame {
             }
         }
 
-        for (int i = 0; i < cs.getNumRacks(); i++) {
-            if (loadTabs.get(i) != null) {
-                loadTabs.get(i).updateDisplaySettings(ds);
-            }
-        }
-
+        /*
+         for (int i = 0; i < cs.getNumRacks(); i++) {
+         if (loadTabs.get(i) != null) {
+         loadTabs.get(i).updateDisplaySettings(ds);
+         }
+         }*/
         bgf.updateDisplaySettings(ds);
         bge.updateDisplaySettings(ds);
         bgg.updateDisplaySettings(ds);
@@ -182,7 +183,7 @@ public class DisplayFrame extends javax.swing.JFrame {
      */
     private void buttonClick(java.awt.event.MouseEvent evt) {
 
-        JButton button = (JButton) evt.getSource();               
+        JButton button = (JButton) evt.getSource();
         Point p = this.getMousePosition();
         p.x -= 10;
         p.y -= 57;
@@ -193,8 +194,8 @@ public class DisplayFrame extends javax.swing.JFrame {
     public void returnClick(Point point) {
         mf.returnClick(point);
     }
-    
-    public void returnClick(Point point, String buttonName, int buttonX, int buttonWidth){
+
+    public void returnClick(Point point, String buttonName, int buttonX, int buttonWidth) {
         mf.returnClick(point, buttonName, buttonX, buttonWidth);
     }
 
@@ -221,14 +222,15 @@ public class DisplayFrame extends javax.swing.JFrame {
         }
 
         // Loads
-        for (BackgroundLoad b : loadTabs) {
-            if (masterMap.containsKey("Load")) {
-                masterMap.get("L: " + b.rack.getName().replace("Rack", "Load")).putAll(b.positions());
-            } else {
-                masterMap.put("L: " + b.rack.getName().replace("Rack", "Load"), b.positions());
-            }
-        }
-
+        /*
+         for (BackgroundLoad b : loadTabs) {
+         if (masterMap.containsKey("Load")) {
+         masterMap.get("L: " + b.rack.getName().replace("Rack", "Load")).putAll(b.positions());
+         } else {
+         masterMap.put("L: " + b.rack.getName().replace("Rack", "Load"), b.positions());
+         }
+         }
+         */
         masterMap.put("Financial", bgf.positions());
         masterMap.put("Energy", bge.positions());
         masterMap.put("Glycol", bgg.positions());
@@ -277,19 +279,19 @@ public class DisplayFrame extends javax.swing.JFrame {
                             }
                         }
 
-                        for (int i = 0; i < cs.getNumRacks(); i++) {
-                            if (loadTabs.size() > i) {
-                                if (loadTabs.get(i) != null) {
-                                    loadTabs.get(i).updateRack(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), cs.getRackNames());
-                                    _TabbedPane_Tabs.add(cs.getRackNames()[i].replace("Rack", "Load"), loadTabs.get(i));
-                                }
-                            } else {
-                                loadTabs.add(new BackgroundLoad(t, i));
-                                loadTabs.get(i).updateRack(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), cs.getRackNames());
-                                _TabbedPane_Tabs.add(cs.getRackNames()[i].replace("Rack", "Load"), loadTabs.get(i));
-                            }
-                        }
-
+                        /*
+                         for (int i = 0; i < cs.getNumRacks(); i++) {
+                         if (loadTabs.size() > i) {
+                         if (loadTabs.get(i) != null) {
+                         loadTabs.get(i).updateRack(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), cs.getRackNames());
+                         _TabbedPane_Tabs.add(cs.getRackNames()[i].replace("Rack", "Load"), loadTabs.get(i));
+                         }
+                         } else {
+                         loadTabs.add(new BackgroundLoad(t, i));
+                         loadTabs.get(i).updateRack(cs.getRackIndex(i), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName(), cs.getRackNames());
+                         _TabbedPane_Tabs.add(cs.getRackNames()[i].replace("Rack", "Load"), loadTabs.get(i));
+                         }
+                         }*/
                         bgf.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
                         bge.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
                         bgg.updateRacks(cs.getRacks(), cs.getNumRacks(), ds.getFont(), ds.getBorder(), cs.getImgStr(), cs.getStoreName());
@@ -340,11 +342,12 @@ public class DisplayFrame extends javax.swing.JFrame {
                 rackTabs.get(i).updateImageURL(img);
             }
         }
-        for (int i = 0; i < cs.getNumRacks(); i++) {
-            if (loadTabs.get(i) != null) {
-                loadTabs.get(i).updateImageURL("");
-            }
-        }
+        /*
+         for (int i = 0; i < cs.getNumRacks(); i++) {
+         if (loadTabs.get(i) != null) {
+         loadTabs.get(i).updateImageURL("");
+         }
+         }*/
         bgf.updateImageURL(img);
         bge.updateImageURL(img);
         bgg.updateImageURL(img);
@@ -372,7 +375,7 @@ public class DisplayFrame extends javax.swing.JFrame {
     }
 
     public Component[] getPanelPictures() {
-        Component[] c = new Component[cs.getNumRacks() * 2 + 4];
+        Component[] c = new Component[cs.getNumRacks() + 4]; //[cs.getNumRacks() * 2 + 4];
 
         c[0] = bg;
 
@@ -380,10 +383,10 @@ public class DisplayFrame extends javax.swing.JFrame {
             c[i] = rackTabs.get(i - 1);
         }
 
-        for (int i = 1; i <= cs.getNumRacks(); i++) {
-            c[i + cs.getNumRacks()] = loadTabs.get(i - 1);
-        }
-
+        /*
+         for (int i = 1; i <= cs.getNumRacks(); i++) {
+         c[i + cs.getNumRacks()] = loadTabs.get(i - 1);
+         }*/
         c[c.length - 3] = bgf;
         c[c.length - 2] = bge;
         c[c.length - 1] = bgg;
@@ -397,8 +400,9 @@ public class DisplayFrame extends javax.swing.JFrame {
             return bg;
         } else if (i > 0 && i <= numRacks) {
             return rackTabs.get(i - 1);
-        } else if (i > numRacks && i <= (numRacks * 2)) {
-            return loadTabs.get(i - numRacks - 1).getScrollPane();
+            /*}else if (i > numRacks && i <= (numRacks * 2)) {
+             return loadTabs.get(i - numRacks - 1).getScrollPane();
+             */
         } else if (i == (numDisplays - 3)) {
             return bgf;
         } else if (i == (numDisplays - 2)) {
@@ -459,9 +463,9 @@ public class DisplayFrame extends javax.swing.JFrame {
         c.weightx = 0;
         //c.weighty = 0; // No space between bottom and below row?          
         c.gridx = 5;
-        //c.gridy = 0;
+        c.gridy = 0;
         c.gridwidth = 1;
-        c.gridheight = 1;
+        c.gridheight = 2;
         //c.gridheight = 2;
         //c.ipady = 100;
         //c.ipady = 0; 
@@ -487,44 +491,29 @@ public class DisplayFrame extends javax.swing.JFrame {
         });
         panel.add(button, c);
 
-        // Glycol Button
-        c.gridy = 1;
-        button = new JButton("Glycol");
-        if (panelIndex == (numRacks * 2 + 3)) {
-            button.setEnabled(false);
-        }
-        buttonsAdded++;
-        button.setFont(font.deriveFont(Font.BOLD, 17));
-        button.setAlignmentX((Component.CENTER_ALIGNMENT));
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick(evt);
-            }
-        });
-        panel.add(button, c);
-
-        c.gridx++;
+        c.gridx += 1;
 
         // Rack buttons
         for (int i = 0; i < numRacks; i++) {
 
-            // Loads
-            c.gridy = 1;
-            button = new JButton(rackNames[i].replace("Rack", "Load"));
-            if (panelIndex == (i + numRacks + 1)) {
-                button.setEnabled(false);
-            }
-            buttonsAdded++;
-            button.setFont(font.deriveFont(Font.BOLD, 17));
-            button.setAlignmentX((Component.CENTER_ALIGNMENT));
-            button.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mousePressed(java.awt.event.MouseEvent evt) {
-                    buttonClick(evt);
-                }
-            });
-            panel.add(button, c);
-            c.gridy = 0;
-
+            /*
+             // Loads
+             c.gridy = 1;
+             button = new JButton(rackNames[i].replace("Rack", "Load"));
+             if (panelIndex == (i + numRacks + 1)) {
+             button.setEnabled(false);
+             }
+             buttonsAdded++;
+             button.setFont(font.deriveFont(Font.BOLD, 17));
+             button.setAlignmentX((Component.CENTER_ALIGNMENT));
+             button.addMouseListener(new java.awt.event.MouseAdapter() {
+             public void mousePressed(java.awt.event.MouseEvent evt) {
+             buttonClick(evt);
+             }
+             });
+             panel.add(button, c);
+             c.gridy = 0;
+             */
             button = new JButton(rackNames[i]);
             if (panelIndex == (i + 1)) {
                 button.setEnabled(false);
@@ -542,10 +531,43 @@ public class DisplayFrame extends javax.swing.JFrame {
 
         }
 
-        // Financial Button
-        c.gridx += 1;
+        // Financial Button        
         button = new JButton("Financial");
-        if (panelIndex == (numRacks * 2 + 1)) {
+        if (panelIndex == (numRacks + 1)) { //(numRacks * 2 + 1)
+            button.setEnabled(false);
+        }
+        buttonsAdded++;
+        button.setFont(font.deriveFont(Font.BOLD, 17));
+        button.setAlignmentX((Component.CENTER_ALIGNMENT));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick(evt);
+            }
+        });
+        panel.add(button, c);
+        c.gridx += 1;
+
+        // Energy Button
+        //c.gridy = 1;
+        button = new JButton("Energy");
+        if (panelIndex == (numRacks + 2)) { //(numRacks * 2 + 2)
+            button.setEnabled(false);
+        }
+        buttonsAdded++;
+        button.setFont(font.deriveFont(Font.BOLD, 17));
+        button.setAlignmentX((Component.CENTER_ALIGNMENT));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonClick(evt);
+            }
+        });
+        panel.add(button, c);
+        c.gridx += 1;
+
+        // Glycol Button
+        //c.gridy = 1;
+        button = new JButton("Glycol");
+        if (panelIndex == (numRacks + 3)) { //(numRacks * 2 + 3)
             button.setEnabled(false);
         }
         buttonsAdded++;
@@ -558,21 +580,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         });
         panel.add(button, c);
 
-        // Energy Button
-        c.gridy = 1;
-        button = new JButton("Energy");
-        if (panelIndex == (numRacks * 2 + 2)) {
-            button.setEnabled(false);
-        }
-        buttonsAdded++;
-        button.setFont(font.deriveFont(Font.BOLD, 17));
-        button.setAlignmentX((Component.CENTER_ALIGNMENT));
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                buttonClick(evt);
-            }
-        });
-        panel.add(button, c);
+        c.gridx += 1;
 
         //===========================================================
         // Constraints        

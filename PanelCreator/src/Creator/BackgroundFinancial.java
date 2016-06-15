@@ -781,7 +781,7 @@ public class BackgroundFinancial extends javax.swing.JPanel {
         //gridYPos += gridHeight;
         // End of Constraints
         //===========================================================
-        panel = df.panelBottom(numRacks * 2 + 1);
+        panel = df.panelBottom(numRacks + 1); //(numRacks * 2 + 1)
         _Panel_MainPanel.add(panel, c);
 
         _Panel_MainPanel.revalidate();
