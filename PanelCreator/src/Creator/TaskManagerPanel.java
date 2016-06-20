@@ -16,9 +16,12 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -36,7 +39,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class TaskManagerPanel extends javax.swing.JPanel {
 
     public MainFrame mf;
-    private int stationId;
+    private int stationID;
+    private String stationName;
     private Map<String, Integer> importedIOVariables;       // io_name,io_id
     private List<String[]> importedTasks;
     private List<String[]> importedAlerts;
@@ -44,8 +48,10 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private ControlSettings cs;
     private Map<String, Integer> users;
     private Map<String, Integer> userGroups;
+    private Map<String, Integer> stores;
     private DefaultListModel listUsers;
     private DefaultListModel listUserGroups;
+    private DefaultListModel stations;
 
     /**
      * Creates new form TaskManagerPanel
@@ -56,18 +62,19 @@ public class TaskManagerPanel extends javax.swing.JPanel {
      */
     public TaskManagerPanel(MainFrame mf, ControlSettings cs) {
         this.mf = mf;
-        this.stationId = -1;
+        this.stationID = -1;
         this.cs = cs;
         this.db = null;
-        
+
         initComponents();
         loadDefaultTasks();
         loadDefaultAlerts();
-        
+
         listUsers = new DefaultListModel();
         listUserGroups = new DefaultListModel();
+        stations = new DefaultListModel();
         loadData();
-        
+
     }
 
     public MainFrame getMf() {
@@ -79,20 +86,18 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     }
 
     public int getStationId() {
-        return stationId;
+        return stationID;
     }
 
     public void setStationId(int stationId) {
-        this.stationId = stationId;
+        this.stationID = stationId;
     }
-
-    
 
     public void setImportedIoVariables(Map<String, Integer> newIo, int stationId) {
         if (importedIOVariables != null && !importedIOVariables.isEmpty()) {
             importedIOVariables.clear();
         }
-        this.stationId = stationId;
+        this.stationID = stationId;
         importedIOVariables = newIo;
         _Button_CreateImports.setEnabled(true);
         _Button_InsertCustom.setEnabled(true);
@@ -255,6 +260,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         _Label_Loaded = new javax.swing.JLabel();
         _Button_CreateImports = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        _Button_DB_IDS = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         _TextArea_Status = new javax.swing.JTextArea();
         _Panel_AlertInserts = new javax.swing.JPanel();
@@ -281,6 +287,11 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         _TF_UGHomePanel = new javax.swing.JTextField();
         _Button_AddTemplates = new javax.swing.JButton();
         _Button_InsertCustom = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        _List_Stations = new javax.swing.JList();
+        _Button_GetStations = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        _TF_Station = new javax.swing.JTextField();
 
         _FileChooser_IoFile.setApproveButtonText("Open");
         _FileChooser_IoFile.setApproveButtonToolTipText("Open a xls file");
@@ -315,17 +326,27 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Task Manager Imports");
 
+        _Button_DB_IDS.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Button_DB_IDS.setText("Get IDs From Station ID");
+        _Button_DB_IDS.setEnabled(false);
+        _Button_DB_IDS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_DB_IDSActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout _Panel_ImportsLayout = new javax.swing.GroupLayout(_Panel_Imports);
         _Panel_Imports.setLayout(_Panel_ImportsLayout);
         _Panel_ImportsLayout.setHorizontalGroup(
             _Panel_ImportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_ImportsLayout.createSequentialGroup()
+            .addGroup(_Panel_ImportsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(_Panel_ImportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(_Button_CreateImports, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(_Button_LoadXls, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(_Label_Loaded, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
+                .addGroup(_Panel_ImportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(_Button_CreateImports, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(_Button_LoadXls, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(_Label_Loaded, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                    .addComponent(_Button_DB_IDS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         _Panel_ImportsLayout.setVerticalGroup(
@@ -339,7 +360,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 .addComponent(_Label_Loaded, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(_Button_CreateImports, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(_Button_DB_IDS, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
 
         _TextArea_Status.setEditable(false);
@@ -489,8 +512,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(_Label_UGHomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(_TF_UGHomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
+                        .addComponent(_Label_UGHomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                        .addComponent(_TF_UGHomePanel))
                     .addGroup(_Panel_AlertInsertsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(_Label_Password, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                         .addComponent(_TF_Password))
@@ -547,7 +570,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                                         .addComponent(_Button_AddUserToGroups)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(_Button_AddTemplates, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 139, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(_Panel_AlertInsertsLayout.createSequentialGroup()
                         .addComponent(_Label_Users, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -563,6 +586,28 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             }
         });
 
+        _List_Stations.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _List_Stations.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        _List_Stations.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                _List_StationsValueChanged(evt);
+            }
+        });
+        jScrollPane4.setViewportView(_List_Stations);
+
+        _Button_GetStations.setText("Get Stations");
+        _Button_GetStations.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_GetStationsActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Station Selected");
+
+        _TF_Station.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -570,15 +615,22 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(_Panel_AlertInserts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(_Panel_AlertInserts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(_Button_GetStations, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(_TF_Station))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(_Panel_Imports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
                         .addGap(45, 45, 45)
                         .addComponent(_Button_InsertCustom, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)))
-                .addContainerGap())
+                        .addGap(33, 33, 33))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -593,7 +645,16 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                         .addGap(28, 28, 28)
                         .addComponent(_Button_InsertCustom, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14)
-                .addComponent(_Panel_AlertInserts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(_Panel_AlertInserts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(_Button_GetStations, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(_TF_Station, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -624,16 +685,28 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private void _Button_CreateImportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CreateImportsActionPerformed
 
         if (checkTaskExist()) {
-            _TextArea_Status.append("\nStatus: Tasks already exist for Station ID " + stationId);
-            return;
+            _TextArea_Status.append("\nStatus: Tasks already exist for Station ID " + stationID);
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogResult = JOptionPane.showConfirmDialog(this,
+                    "Would you like to delete and add the tasks again to " + stationName + " ID: " + stationID, "Confirm Delete All", dialogButton);
+
+            if (dialogResult == 0) {
+                db.deleteTasksStationID(stationID);
+                System.out.println("Deleted tasks for Station: " + stationName);
+
+            } else {
+                System.out.println("Not deleting/adding content");
+                return;
+            }
+
         }
 
-        if (stationId == -1) {
-            stationId = mf.stationId;
-            System.out.println("New ID: " + stationId);
+        if (stationID == -1) {
+            stationID = mf.stationId;
+            System.out.println("New ID: " + stationID);
         }
 
-        _TextArea_Status.append("\nStatus: Tasks being created and imported to Station ID: " + stationId);
+        _TextArea_Status.append("\nStatus: Tasks being created and imported to Station ID: " + stationID);
 
         if (!importedIOVariables.isEmpty() && !importedTasks.isEmpty()) {
             // Imported io variables and imported tasks are good
@@ -713,7 +786,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                         outputs = findIDs(outputs);
                         rowImports.add(String.format(queryTemplate,
                                 taskEntry[2], inputs, outputs,
-                                taskEntry[5], stationId, name, taskEntry[6]));
+                                taskEntry[5], stationID, name, taskEntry[6]));
 
                         //System.out.println("Row import #1: " + rowImports.get(rowImports.size() - 1) + "\n");
                         maxIn = maxOut = 0;
@@ -781,7 +854,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
                             rowImports.add(String.format(queryTemplate,
                                     taskEntry[2], inputs, outputs,
-                                    taskEntry[5], stationId, name, taskEntry[6]));
+                                    taskEntry[5], stationID, name, taskEntry[6]));
                             inputs = outputs = "'";
                             //System.out.println("Row import #0: " + rowImports.get(rowImports.size() - 1) + "\n");
                         }
@@ -855,7 +928,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
                                 rowImports.add(String.format(queryTemplate,
                                         taskEntry[2], inputs, outputs,
-                                        taskEntry[5], stationId, name, taskEntry[6]));
+                                        taskEntry[5], stationID, name, taskEntry[6]));
 
                                 //System.out.println("Row import #2: " + rowImports.get(rowImports.size() - 1));
                                 inputs = outputs = "'";
@@ -926,7 +999,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
                         rowImports.add(String.format(queryTemplate,
                                 taskEntry[2], inputs, outputs,
-                                taskEntry[5], stationId, name, taskEntry[6]));
+                                taskEntry[5], stationID, name, taskEntry[6]));
 
                         //System.out.println("Row import #2: " + rowImports.get(rowImports.size() - 1));
                         //System.out.println("Row import: " + rowImports.get(rowImports.size()-1));
@@ -940,7 +1013,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             if (retString.startsWith("Fail")) {
                 _TextArea_Status.append("\nStatus: " + retString);
             } else {
-                _TextArea_Status.append("\nStatus: Successfully imported tasks for Station ID: " + stationId);
+                _TextArea_Status.append("\nStatus: Successfully imported tasks for Station ID: " + stationID);
             }
         }// No data, do nothing
         else {
@@ -954,12 +1027,10 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         if (this.cs != cs) {
             this.cs = cs;
         }
-    }   
+    }
 
-    
 
     private void _List_UsersValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event__List_UsersValueChanged
-        
 
         // _ScrollPane_WidgetSettings
         if (!evt.getValueIsAdjusting()) {
@@ -977,7 +1048,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__List_UsersValueChanged
 
     private void _List_UserGroupsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event__List_UserGroupsValueChanged
-        
+
         if (!evt.getValueIsAdjusting()) {
             if (!_List_UserGroups.isSelectionEmpty()) {
 
@@ -993,7 +1064,6 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__List_UserGroupsValueChanged
 
     private void _Buton_CreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Buton_CreateUserActionPerformed
-        
 
         if (_List_Users.isSelectionEmpty()) {
 
@@ -1057,19 +1127,18 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Buton_CreateUserActionPerformed
 
     private void _TF_UsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event__TF_UsernameKeyPressed
-        
+
         _List_Users.clearSelection();
     }//GEN-LAST:event__TF_UsernameKeyPressed
 
     private void _TF_UserGroupKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event__TF_UserGroupKeyPressed
-        
+
         _List_UserGroups.clearSelection();
     }//GEN-LAST:event__TF_UserGroupKeyPressed
 
     private void _Button_AddUserToGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_AddUserToGroupsActionPerformed
-        
-        // For each user selected, add them to the specific group
 
+        // For each user selected, add them to the specific group
         db = newDBConn();
 
         String groupName = _TF_UserGroup.getText();
@@ -1176,16 +1245,259 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_AddTemplatesActionPerformed
 
     private void _Button_InsertCustomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_InsertCustomActionPerformed
-        
-        
-        String setpoints;
-        String setpoint;
-        
+
+        if (!importedIOVariables.isEmpty()) {
+
+            String setpointQuery[] = new String[]{
+                "insert into setpoints (stpt_name, stpt_eff, stpt_design, stpt_floatFailure) values %s;",
+                // Variable names
+                "%name%Setpoint `%rackname` `%sgname`",
+                "Suction Pressure Setpoint `%rackname` `%sgname`",
+                "Suction Pressure Design Setpoint `%rackname` `%sgname`",
+                "Suction Pressure Float Failure `%rackname` `%sgname`",
+                "%tablename%setpoints"
+            };
+            // %s = (39329, 39317, '1235(Rack A SGr1(-28)', 39323)
+
+            String setpointRangesSPQuery[] = new String[]{
+                "insert into SetpointRanges (sr_name, sr_actual_io_id, sr_setpoint_io_id,"
+                + " sr_trigger_io_id, sr_station_id, sr_type) values %s;",
+                "%name%Suction Pressure `%rackname` `%sgname`",
+                "Suction Pressure Actual `%rackname` `%sgname`",
+                "Suction Pressure Setpoint `%rackname` `%sgname`",
+                "Suction Pressure Accumulated `%rackname` `%sgname`",
+                "%stationID%",
+                "1",
+                "%tablename%SetpointRanges"
+
+            // Suction Pressure
+            // ('Suction Pressure(Rack A SGr1(-18)', 33373, 33391, 35026, 222, 1)
+            };
+
+            String setpointRangesSubQuery[] = new String[]{
+                "insert into SetpointRanges (sr_name, sr_actual_io_id, sr_setpoint_io_id,"
+                + " sr_trigger_io_id, sr_station_id, sr_type) values %s;",
+                "%name%Subcool `%rackname` `%sgname`",
+                "Cond Subcooling Actual `%rackname` `%sgname`",
+                "Cond Subcooling Setpoint `%rackname` `%sgname`",
+                "Cond Accumulated Subcool `%rackname` `%sgname`",
+                "%stationID%",
+                "3",
+                "%tablename%SetpointRanges"
+            // Subcool
+            // %s = ('Subcool(Rack D', 33244,33155,35024, 222, 3);
+
+            };
+
+            String terminationTempsQuery[] = new String[]{
+                "insert into TerminationTemps (tt_sys_name, tt_io_sys_status, "
+                + "tt_io_def_status, tt_io_def_temp, tt_station_id) values %s;",
+                "%name%System Status `%rackname` `%sgname` `%sysname`",
+                "System Status `%rackname` `%sgname` `%sysname`",
+                "System Defrost Status `%rackname` `%sgname` `%sysname`",
+                "System Defrost Temp `%rackname` `%sgname` `%sysname`",
+                "%stationID%",
+                "%tablename%TerminationTemps"
+            };
+            // %s = ('Rack A SGr1(-28) A01',33519,42598,42619, 222)
+
+            String eeprQuery[] = new String[]{
+                "insert into eepr (eepr_io_id, eepr_station_id) values %s;",
+                "System EEPR `%rackname` `%sgname` `%sysname`",
+                "%stationID%",
+                "%tablename%eepr"
+            };
+                // %s = (33123, 221)
+
+            // Add each query to the table inserts
+            List<String[]> tableInserts = new ArrayList<>();
+            tableInserts.add(setpointQuery);
+            tableInserts.add(setpointRangesSPQuery);
+            tableInserts.add(setpointRangesSubQuery);
+            tableInserts.add(terminationTempsQuery);
+            tableInserts.add(eeprQuery);
+
+            // Imported io variables and imported tasks are good
+            List<String> rowImports = new ArrayList<>();
+
+            // This function will return a Map containing all the formatted strings
+            // for each base string
+            // Amp Avg `%rackname` -> Amp Avg Rack A, Amp Avg Rack B, etc.
+            Map<String, List> mappings = mf.getMapFullStrings();
+
+            for (String[] query : tableInserts) {
+
+                String stationID = "";
+                String tableName = "";
+                List<String> params = new ArrayList<>();
+                for (String item : query) {
+                    if (item.contains("%name%")) {
+                        params.add(item.split("%name%")[1]);
+                    } else if (item.contains("%stationID%")) {
+                        stationID = item.split("%stationID%")[1];
+                        params.add(stationID);
+                    } else if (item.contains("%tablename%")) {
+                        tableName = item.split("%tablename%")[1];
+                    } else {
+                        params.add(item);
+                    }
+                }
+
+                db = newDBConn();
+
+                // Check to see if the data exists in the tables
+                if (checkCustomTables(stationID, tableName)) {
+
+                    // If so prompt to see if they want to re-add the data
+                    int dialogButton = JOptionPane.YES_NO_OPTION;
+                    int dialogResult = JOptionPane.showConfirmDialog(this,
+                            "Would you like to delete and re-add all tasks for Station " + stationID + " on table " + tableName, "Confirm Delete", dialogButton);
+
+                    if (dialogResult == 0) {
+                        String deleteQuery = "";
+                        switch (tableName) {
+
+                            case "terminationtemps":
+                                deleteQuery = "delete from " + tableName + " where tt_station_id=" + stationID + ";";
+                                break;
+                            case "setpoints":
+                                deleteQuery = "delete from " + tableName + " where stpt_station_id=" + stationID + ";";
+                                break;
+                            case "setpointranges":
+                                deleteQuery = "delete from " + tableName + " where sr_station_id=" + stationID + ";";
+                                break;
+                            case "eepr":
+                                deleteQuery = "delete from " + tableName + " where eepr_station_id=" + stationID + ";";
+                                break;
+                        }
+                        if (deleteQuery.equals("")) {
+                            db.executeQuery(deleteQuery);
+                        }
+                        System.out.println("Deleted entries from " + tableName);
+
+                    } else {
+                        System.out.println("Not deleting/re-adding content");
+                    }
+
+                } else {
+                    // No data in the tables -> add them
+
+                }
+
+            }
+
+            db.closeConn();
+
+        }
+
+
     }//GEN-LAST:event__Button_InsertCustomActionPerformed
 
-    private boolean checkTaskExist() {
+    public void loadStations() {
 
-        String query = "select task_manager_station_id from task_manager where task_manager_station_id = " + stationId + ";";
+        db = newDBConn();
+
+        stores = db.getStoreList();
+
+        db.closeConn();
+
+        if (stores != null) {
+            stations.removeAllElements();
+
+            for (String name : stores.keySet()) {
+                stations.addElement(name);
+            }
+
+            _List_Stations.setModel(stations);
+        }
+    }
+    private void _Button_GetStationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_GetStationsActionPerformed
+        // TODO add your handling code here:
+
+        loadStations();
+
+    }//GEN-LAST:event__Button_GetStationsActionPerformed
+
+    private void _List_StationsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event__List_StationsValueChanged
+        // TODO add your handling code here:
+        if (!evt.getValueIsAdjusting()) {
+            if (!_List_Stations.isSelectionEmpty()) {
+
+                // One selection
+                stationName = _List_Stations.getSelectedValue().toString();
+                stationID = stores.get(stationName);
+                _TF_Station.setText(String.valueOf(stationID));
+                _Button_DB_IDS.setEnabled(true);
+
+            } else {
+                _TF_Station.setText("");
+                stationID = 0;
+                stationName = "";
+                _Button_DB_IDS.setEnabled(false);
+                _Button_CreateImports.setEnabled(false);
+            }
+        }
+
+    }//GEN-LAST:event__List_StationsValueChanged
+
+    private void _Button_DB_IDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_DB_IDSActionPerformed
+        // TODO add your handling code here:
+        
+        if("".equals(stationName) || stationID == 0){
+             _Button_CreateImports.setEnabled(false);
+            return;
+        }
+
+        db = newDBConn();
+
+        importedIOVariables = db.getStoreIDs(stationID);
+
+        db.closeConn();
+
+        for (Entry<String, Integer> entry : importedIOVariables.entrySet()) {
+            System.out.println(entry.getKey() + " - " + entry.getValue());
+        }
+
+        _Button_CreateImports.setEnabled(true);
+        
+        mf.loadImportedIos(importedIOVariables, 2, stationID);
+
+
+    }//GEN-LAST:event__Button_DB_IDSActionPerformed
+
+    private boolean checkCustomTables(String stationID, String tableName) {
+        tableName = tableName.toLowerCase();
+
+        String query = "";
+        switch (tableName) {
+
+            case "terminationtemps":
+                query = "select * from " + tableName + " where tt_station_id=" + stationID + ";";
+                break;
+            case "setpoints":
+                query = "select * from " + tableName + " where stpt_station_id=" + stationID + ";";
+                break;
+            case "setpointranges":
+                query = "select * from " + tableName + " where sr_station_id=" + stationID + ";";
+                break;
+            case "eepr":
+                query = "select * from " + tableName + " where eepr_station_id=" + stationID + ";";
+                break;
+            default:
+                System.out.println("Unknown custom table: " + tableName + ", Station ID: " + stationID);
+                return false;
+
+        }
+
+        db = newDBConn();
+        boolean status = db.checkForData(query);
+        db.closeConn();
+        return status;
+
+    }
+
+    private boolean checkTaskExist() {
+        String query = "select task_manager_station_id from task_manager where task_manager_station_id = " + stationID + ";";
 
         db = newDBConn();
         boolean status = db.checkForData(query);
@@ -1266,6 +1578,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     private void loadData() {
 
+        loadStations();
         db = newDBConn();
 
         loadUserData();
@@ -1398,12 +1711,12 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 if (!sheet.getRow(i).getCell(2).toString().equals("io_station_id")) {
                     for (int c = 0; c < cols; c++) {
                         if (sheet.getRow(i).getCell(c).equals("io_station_id")) {
-                            stationId = (int) sheet.getRow(1).getCell(c).getNumericCellValue();
+                            stationID = (int) sheet.getRow(1).getCell(c).getNumericCellValue();
                             break;
                         }
                     }
                 } else {
-                    stationId = (int) sheet.getRow(1).getCell(2).getNumericCellValue();
+                    stationID = (int) sheet.getRow(1).getCell(2).getNumericCellValue();
                 }
 
             }
@@ -1412,7 +1725,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 System.out.println("Could not locate io_name or io_id in excel header");
                 return;
             }
-            if (stationId == -1) {
+            if (stationID == -1) {
                 System.out.println("Couldnt locate station id");
                 return;
             }
@@ -1440,7 +1753,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 }
             }
             fs.close();
-            mf.loadImportedIos(importedIOVariables, 2, stationId);
+            mf.loadImportedIos(importedIOVariables, 2, stationID);
         } catch (Exception e) {
             System.out.println("Error reading excel file " + e.getMessage());
         }
@@ -1452,6 +1765,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private javax.swing.JButton _Button_AddTemplates;
     private javax.swing.JButton _Button_AddUserToGroups;
     private javax.swing.JButton _Button_CreateImports;
+    private javax.swing.JButton _Button_DB_IDS;
+    private javax.swing.JButton _Button_GetStations;
     private javax.swing.JButton _Button_InsertCustom;
     private javax.swing.JButton _Button_LoadXls;
     private javax.swing.JComboBox _CB_NavOption;
@@ -1466,19 +1781,23 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private javax.swing.JLabel _Label_Username;
     private javax.swing.JLabel _Label_Users;
     private javax.swing.JLabel _Label_Users3;
+    private javax.swing.JList _List_Stations;
     private javax.swing.JList _List_UserGroups;
     private javax.swing.JList _List_Users;
     private javax.swing.JPanel _Panel_AlertInserts;
     private javax.swing.JPanel _Panel_Imports;
     private javax.swing.JTextField _TF_Password;
+    private javax.swing.JTextField _TF_Station;
     private javax.swing.JTextField _TF_UGHomePanel;
     private javax.swing.JTextField _TF_UserGroup;
     private javax.swing.JTextField _TF_Username;
     private javax.swing.JTextArea _TextArea_Status;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     // End of variables declaration//GEN-END:variables
 }
