@@ -14,6 +14,8 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -44,6 +46,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private Map<String, Integer> importedIOVariables;       // io_name,io_id
     private List<String[]> importedTasks;
     private List<String[]> importedAlerts;
+    private Map<String, List> mappings;
     private DBConn db;
     private ControlSettings cs;
     private Map<String, Integer> users;
@@ -1181,7 +1184,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             // This function will return a Map containing all the formatted strings
             // for each base string
             // Amp Avg `%rackname` -> Amp Avg Rack A, Amp Avg Rack B, etc.
-            Map<String, List> mappings = mf.getMapFullStrings();
+            mappings = mf.getMapFullStrings();
 
             // (task_manager_task_id, task_manager_inputs, task_manager_outputs, task_manager_crontab_line,
             //  task_manager_station_id, task_manager_name, task_manager_pass_inputs_as_io_id)
@@ -1248,110 +1251,25 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
         if (!importedIOVariables.isEmpty()) {
 
-            String setpointQuery[] = new String[]{
-                "insert into setpoints (stpt_name, stpt_eff, stpt_design, stpt_floatFailure) values %s;",
-                // Variable names
-                "%name%Setpoint `%rackname` `%sgname`",
-                "Suction Pressure Setpoint `%rackname` `%sgname`",
-                "Suction Pressure Design Setpoint `%rackname` `%sgname`",
-                "Suction Pressure Float Failure `%rackname` `%sgname`",
-                "%tablename%setpoints"
-            };
-            // %s = (39329, 39317, '1235(Rack A SGr1(-28)', 39323)
-
-            String setpointRangesSPQuery[] = new String[]{
-                "insert into SetpointRanges (sr_name, sr_actual_io_id, sr_setpoint_io_id,"
-                + " sr_trigger_io_id, sr_station_id, sr_type) values %s;",
-                "%name%Suction Pressure `%rackname` `%sgname`",
-                "Suction Pressure Actual `%rackname` `%sgname`",
-                "Suction Pressure Setpoint `%rackname` `%sgname`",
-                "Suction Pressure Accumulated `%rackname` `%sgname`",
-                "%stationID%",
-                "1",
-                "%tablename%SetpointRanges"
-
-            // Suction Pressure
-            // ('Suction Pressure(Rack A SGr1(-18)', 33373, 33391, 35026, 222, 1)
-            };
-
-            String setpointRangesSubQuery[] = new String[]{
-                "insert into SetpointRanges (sr_name, sr_actual_io_id, sr_setpoint_io_id,"
-                + " sr_trigger_io_id, sr_station_id, sr_type) values %s;",
-                "%name%Subcool `%rackname` `%sgname`",
-                "Cond Subcooling Actual `%rackname` `%sgname`",
-                "Cond Subcooling Setpoint `%rackname` `%sgname`",
-                "Cond Accumulated Subcool `%rackname` `%sgname`",
-                "%stationID%",
-                "3",
-                "%tablename%SetpointRanges"
-            // Subcool
-            // %s = ('Subcool(Rack D', 33244,33155,35024, 222, 3);
-
-            };
-
-            String terminationTempsQuery[] = new String[]{
-                "insert into TerminationTemps (tt_sys_name, tt_io_sys_status, "
-                + "tt_io_def_status, tt_io_def_temp, tt_station_id) values %s;",
-                "%name%System Status `%rackname` `%sgname` `%sysname`",
-                "System Status `%rackname` `%sgname` `%sysname`",
-                "System Defrost Status `%rackname` `%sgname` `%sysname`",
-                "System Defrost Temp `%rackname` `%sgname` `%sysname`",
-                "%stationID%",
-                "%tablename%TerminationTemps"
-            };
-            // %s = ('Rack A SGr1(-28) A01',33519,42598,42619, 222)
-
-            String eeprQuery[] = new String[]{
-                "insert into eepr (eepr_io_id, eepr_station_id) values %s;",
-                "System EEPR `%rackname` `%sgname` `%sysname`",
-                "%stationID%",
-                "%tablename%eepr"
-            };
-                // %s = (33123, 221)
-
-            // Add each query to the table inserts
-            List<String[]> tableInserts = new ArrayList<>();
-            tableInserts.add(setpointQuery);
-            tableInserts.add(setpointRangesSPQuery);
-            tableInserts.add(setpointRangesSubQuery);
-            tableInserts.add(terminationTempsQuery);
-            tableInserts.add(eeprQuery);
-
-            // Imported io variables and imported tasks are good
-            List<String> rowImports = new ArrayList<>();
-
             // This function will return a Map containing all the formatted strings
             // for each base string
             // Amp Avg `%rackname` -> Amp Avg Rack A, Amp Avg Rack B, etc.
-            Map<String, List> mappings = mf.getMapFullStrings();
+            mappings = mf.getMapFullStrings();
 
-            for (String[] query : tableInserts) {
+            List<TableQueries> list = makeQueries();
+            
+            for (TableQueries tq : list) {
 
-                String stationID = "";
-                String tableName = "";
-                List<String> params = new ArrayList<>();
-                for (String item : query) {
-                    if (item.contains("%name%")) {
-                        params.add(item.split("%name%")[1]);
-                    } else if (item.contains("%stationID%")) {
-                        stationID = item.split("%stationID%")[1];
-                        params.add(stationID);
-                    } else if (item.contains("%tablename%")) {
-                        tableName = item.split("%tablename%")[1];
-                    } else {
-                        params.add(item);
-                    }
-                }
-
-                db = newDBConn();
+                String tableName = tq.getTableName().toLowerCase();
+                
 
                 // Check to see if the data exists in the tables
-                if (checkCustomTables(stationID, tableName)) {
+                if (checkCustomTables(tableName)) {
 
                     // If so prompt to see if they want to re-add the data
                     int dialogButton = JOptionPane.YES_NO_OPTION;
                     int dialogResult = JOptionPane.showConfirmDialog(this,
-                            "Would you like to delete and re-add all tasks for Station " + stationID + " on table " + tableName, "Confirm Delete", dialogButton);
+                            "Would you like to delete and then add custom tasks for Station " + stationID + " on table " + tableName, "Confirm Delete", dialogButton);
 
                     if (dialogResult == 0) {
                         String deleteQuery = "";
@@ -1370,27 +1288,30 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                                 deleteQuery = "delete from " + tableName + " where eepr_station_id=" + stationID + ";";
                                 break;
                         }
-                        if (deleteQuery.equals("")) {
-                            db.executeQuery(deleteQuery);
+                        if (!deleteQuery.equals("")) {
+                            System.out.println("normally would execute:\n" + deleteQuery);
+                            
+                            //db = newDBConn();
+                            //db.executeQuery(deleteQuery);
+                            //db.closeConn();
+                            
+                            System.out.println("Deleted entries from " + tableName);
                         }
-                        System.out.println("Deleted entries from " + tableName);
 
                     } else {
-                        System.out.println("Not deleting/re-adding content");
+                        System.out.println("Not deleting/re-adding content for " + tableName);
                     }
-
-                } else {
-                    // No data in the tables -> add them
-
                 }
-
+                String query = formatQuery(tq);
+                if(!query.equals("")){
+                    
+                    System.out.println("Normally would execute query:\n" + query);
+                    //db = newDBConn();
+                    //db.executeQuery(query);
+                    //db.closeConn();
+                }
             }
-
-            db.closeConn();
-
         }
-
-
     }//GEN-LAST:event__Button_InsertCustomActionPerformed
 
     public void loadStations() {
@@ -1418,6 +1339,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event__Button_GetStationsActionPerformed
 
+
     private void _List_StationsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event__List_StationsValueChanged
         // TODO add your handling code here:
         if (!evt.getValueIsAdjusting()) {
@@ -1442,9 +1364,10 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     private void _Button_DB_IDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_DB_IDSActionPerformed
         // TODO add your handling code here:
-        
-        if("".equals(stationName) || stationID == 0){
-             _Button_CreateImports.setEnabled(false);
+
+        if ("".equals(stationName) || stationID == 0) {
+            _Button_CreateImports.setEnabled(false);
+            _Button_InsertCustom.setEnabled(false);
             return;
         }
 
@@ -1454,18 +1377,168 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
         db.closeConn();
 
-        for (Entry<String, Integer> entry : importedIOVariables.entrySet()) {
-            System.out.println(entry.getKey() + " - " + entry.getValue());
-        }
-
         _Button_CreateImports.setEnabled(true);
-        
+        _Button_InsertCustom.setEnabled(true);
+
         mf.loadImportedIos(importedIOVariables, 2, stationID);
 
 
     }//GEN-LAST:event__Button_DB_IDSActionPerformed
 
-    private boolean checkCustomTables(String stationID, String tableName) {
+    private List<TableQueries> makeQueries() {
+
+        List<TableQueries> list = new ArrayList<>();
+
+        // Setpoints
+        TableQueries tb1 = new TableQueries("Setpoints");
+        tb1.setQuery("insert into setpoints (%1$s) values %2$s;");
+        tb1.putParams("stpt_eff", "Suction Pressure Setpoint `%rackname` `%sgname`");
+        tb1.putParams("stpt_design", "Suction Pressure Design Setpoint `%rackname` `%sgname`");
+        tb1.putParams("stpt_floatFailure", "Suction Pressure Float Failure `%rackname` `%sgname`");
+        tb1.putParams("stpt_station_id", "`%stationID`");
+        tb1.putParams("stpt_name", "Setpoint %s");
+        // %s = (39329, 39317, '1235(Rack A SGr1(-28)', 39323)        
+        list.add(tb1);
+        // SetpointRanges - Suction Pressure        
+        TableQueries tb2 = new TableQueries("SetpointRanges");
+        tb2.setQuery("insert into SetpointRanges (%1$s) values %2$s;");
+        tb2.putParams("sr_actual_io_id", "Suction Pressure Actual `%rackname` `%sgname`");
+        tb2.putParams("sr_setpoint_io_id", "Suction Pressure Setpoint `%rackname` `%sgname`");
+        tb2.putParams("sr_trigger_io_id", "Suction Pressure Accumulated `%rackname` `%sgname`");
+        tb2.putParams("sr_station_id", "`%stationID`");
+        tb2.putParams("sr_name", "Suction Pressure %s");
+        tb2.putParams("sr_type", "1");
+        // %s = ('Suction Pressure(Rack A SGr1(-18)', 33373, 33391, 35026, 222, 1)       
+        list.add(tb2);
+        // SetpointRanges - Subcooling      
+        TableQueries tb3 = new TableQueries("SetpointRanges");
+        tb3.setQuery("insert into SetpointRanges (%1$s) values %2$s;");
+        tb3.putParams("sr_actual_io_id", "Cond Subcooling Actual `%rackname`");
+        tb3.putParams("sr_setpoint_io_id", "Cond Subcooling Setpoint `%rackname`");
+        tb3.putParams("sr_trigger_io_id", "Cond Accumulated Subcool Alarm `%rackname`");
+        tb3.putParams("sr_station_id", "`%stationID`");
+        tb3.putParams("sr_name", "Subcooling %s");
+        tb3.putParams("sr_type", "3");
+        // %s = ('Subcool(Rack D', 33244,33155,35024, 222, 3);     
+        list.add(tb3);
+        // Termination Temps 
+        TableQueries tb4 = new TableQueries("TerminationTemps");
+        tb4.setQuery("insert into TerminationTemps (%1$s) values %2$s;");
+        tb4.putParams("tt_io_sys_status", "System Status `%rackname` `%sgname` `%sysname`");
+        tb4.putParams("tt_io_def_status", "System Defrost Status `%rackname` `%sgname` `%sysname`");
+        tb4.putParams("tt_io_def_temp", "System Defrost Temp `%rackname` `%sgname` `%sysname`");
+        tb4.putParams("tt_station_id", "`%stationID`");
+        tb4.putParams("tt_sys_name", "System Status %s");
+        // %s = ('Rack A SGr1(-28) A01',33519,42598,42619, 222)    
+        list.add(tb4);
+        // EEPR
+        TableQueries tb5 = new TableQueries("eepr");
+        tb5.setQuery("insert into eepr (%1$s) values %2$s;");
+        tb5.putParams("eepr_io_id", "System EEPR `%rackname` `%sgname` `%sysname`");
+        tb5.putParams("eepr_station_id", "`%stationID`");
+        // %s = (33123, 221)
+        list.add(tb5);
+
+        return list;
+    }
+
+    public String formatQuery(TableQueries tq) {
+
+        for (String ioName : tq.valuesParams()) {
+            if (!tq.containsKeyVars(ioName)) {
+                tq.putVars(ioName, new ArrayList<>());
+            }
+            if (mappings.containsKey(ioName)) {
+                if (tq.getNumVals() < mappings.get(ioName).size()) {
+                    tq.setNumVals(mappings.get(ioName).size());
+                }
+                for (Object item : mappings.get(ioName)) {
+                    tq.getVars(ioName).add(item.toString());
+
+                }
+            }
+        }
+
+        String paramsString = "";
+        String[] valueString = new String[tq.getNumVals()];
+        String[] names = new String[tq.getNumVals()];
+        Arrays.fill(valueString, "");
+        Arrays.fill(names, "");
+
+        for (Entry<String, String> entry : tq.entrySetParams()) {
+
+            if (paramsString.equals("")) {
+                paramsString = entry.getKey();
+            } else {
+                paramsString += ", " + entry.getKey();
+            }
+
+            for (int i = 0; i < tq.getNumVals(); i++) {
+
+                if (i < tq.getVars(entry.getValue()).size()) {
+                    String p = tq.getVars(entry.getValue()).get(i);
+
+                    if (!findIDForString(p).equals("")) {
+                        if (valueString[i] != null && valueString[i].equals("")) {
+                            valueString[i] = "(" + findIDForString(p);
+                        } else if (valueString[i] != null) {
+                            valueString[i] += ", " + findIDForString(p);
+                        }
+                    } else {
+                        //System.out.println("Removing valueString[" + i + "] -> " + valueString[i]);
+                        valueString[i] = null;
+                    }
+                    if (names[i].equals("") && entry.getValue().indexOf("`%") > 0) {
+                        names[i] = p.substring(entry.getValue().indexOf("`%"));
+                    }
+
+                } else if (entry.getValue().equals("`%stationID`")) {
+                    if (valueString[i] != null && valueString[i].equals("")) {
+                        valueString[i] = "(" + stationID;
+                    } else if (valueString[i] != null) {
+                        valueString[i] += ", " + stationID;
+                    }
+                } else {
+                    // Name i think                    
+                    //System.out.println("Name: " + String.format(entry.getValue(), names[i]));
+                    if (valueString[i] != null && valueString[i].equals("")) {
+                        valueString[i] = "(" + "'" + String.format(entry.getValue(), names[i]) + "'";
+                    } else if (valueString[i] != null) {
+                        //System.out.println(entry.getValue());
+                        //System.out.println(names[i]);
+                        valueString[i] += ", " + "'" + String.format(entry.getValue(), names[i]) + "'";
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < valueString.length; i++) {
+            if (valueString[i] != null) {
+                valueString[i] += ")";
+            }
+        }
+
+        String values = "";
+        for (String v : valueString) {
+            if (v != null) {
+                if (values.equals("")) {
+                    values = v;
+                } else {
+                    values += ", " + v;
+                }
+            }
+        }
+        if(values.equals("")){
+            return "";
+        }else {
+            String query = String.format(tq.getQuery(), paramsString, values);
+            //System.out.println(query);
+
+            return query;
+        }
+
+    }
+
+    private boolean checkCustomTables(String tableName) {
         tableName = tableName.toLowerCase();
 
         String query = "";
