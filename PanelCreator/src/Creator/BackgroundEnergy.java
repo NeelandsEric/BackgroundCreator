@@ -50,6 +50,19 @@ public class BackgroundEnergy extends javax.swing.JPanel {
         "  kVA  ",
         " kVAR  "
     };
+    
+    private String[] energyFieldParams = new String[]{
+        
+        "Amp Avg `%rackname`",        
+        "kW Actual `%rackname`",
+        "kW Peak Demand `%rackname`",
+        "kW Avg Demand `%rackname`",       
+        "kWh Actual `%rackname`",
+        "Volts Line to Line Avg `%rackname`",
+        "PF `%rackname`",
+        "kVA System `%rackname`",
+        "kVAR System `%rackname`",
+    };
 
     /**
      * Creates new form BackgroundMain
@@ -360,8 +373,8 @@ public class BackgroundEnergy extends javax.swing.JPanel {
         // Rack B | 
         // Cond A | 
         // Cond B | 
-        // widgetComponents.put(tooltip[0], label);
-        for (int j = 0; j < numRows; j++) {
+        // 
+        for (int j = 0; j < numRows; j++) {            
             for (int i = 0; i < numColumns; i++) {
                 if (j == 0 && i == 0) {
                     // Top left 
@@ -395,12 +408,23 @@ public class BackgroundEnergy extends javax.swing.JPanel {
                     panel.add(label, c);
 
                 } else {
-
+                    
+                    String rackName = "";
+                    String name = energyFieldParams[i - 1];
+                    if(j > (store.getCs().getNumRacks())){
+                        name = "Cond " + name;
+                        rackName = units[j - (store.getCs().getNumRacks()+1)];
+                    }else {
+                        rackName = units[j-1];
+                    }
+                    
+                    name = name.replace("`%rackname`", rackName);
                     label = new JLabel("");
                     label.setOpaque(true);
                     label.setBackground(Colours.BlueLightest.getCol());
                     label.setBorder(border);                    
                     panel.add(label, c);
+                    widgetComponents.put(name, label);
 
                 }
 
