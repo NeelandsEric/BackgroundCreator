@@ -208,6 +208,10 @@ public class Store implements java.io.Serializable {
         }
 
     }
+    
+    public List<String[]> getUnformattedStrings(){
+        return this.ioNames.unformattedStrings();
+    }
 
     public List<String[]> formatStrings() {
         return this.ioNames.formatStrings(cs);

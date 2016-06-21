@@ -46,6 +46,7 @@ public class MainFrame extends JFrame {
 
     private final PanelCreator main;
     public DisplayFrame displayFrame;
+    public ChooseIoNamesFrame ioFrame;
     public ControlsPanel controlPanel;
     public SettingsPanel settingsPanel;
     public NameGeneratorPanel ngPanel;
@@ -374,6 +375,7 @@ public class MainFrame extends JFrame {
         _MenuItem_SaveCurrentDisplay = new javax.swing.JMenuItem();
         _MenuItem_SaveAllDisplays = new javax.swing.JMenuItem();
         _MenuItem_PrintVarNamesX = new javax.swing.JMenuItem();
+        _MenuItem_PrintSpecificNamesX = new javax.swing.JMenuItem();
         _MenuItem_PrintVarNamesCsv = new javax.swing.JMenuItem();
         _MenuItem_PrintVarNamesText = new javax.swing.JMenuItem();
         _MenuItem_NewStore = new javax.swing.JMenuItem();
@@ -434,6 +436,15 @@ public class MainFrame extends JFrame {
             }
         });
         _Menu_File.add(_MenuItem_PrintVarNamesX);
+
+        _MenuItem_PrintSpecificNamesX.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK));
+        _MenuItem_PrintSpecificNamesX.setText("Print Specific Variable Names to .xlsx");
+        _MenuItem_PrintSpecificNamesX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _MenuItem_PrintSpecificNamesXActionPerformed(evt);
+            }
+        });
+        _Menu_File.add(_MenuItem_PrintSpecificNamesX);
 
         _MenuItem_PrintVarNamesCsv.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         _MenuItem_PrintVarNamesCsv.setText("Print Variable Names to .csv");
@@ -1064,6 +1075,79 @@ public class MainFrame extends JFrame {
         }
     }//GEN-LAST:event__MenuItem_SaveAllActionPerformed
 
+    private void _MenuItem_PrintSpecificNamesXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintSpecificNamesXActionPerformed
+        // TODO add your handling code here:
+        
+        ioFrame = new ChooseIoNamesFrame(store.formatStrings(), this);
+        ioFrame.setVisible(true);
+        
+    }//GEN-LAST:event__MenuItem_PrintSpecificNamesXActionPerformed
+
+    
+    public void returnIoItems(List<String []> list){
+        
+        ioFrame.dispose();
+        
+        _FileChooser.setDialogTitle("Save Specific IO Imports As Excel File");
+        _FileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        _FileChooser.setFileFilter(new FileNameExtensionFilter("Excel workbook (.xlsx)", new String[]{"xlsx"}));
+        _FileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+        _FileChooser.setApproveButtonText("Save Excel file");
+        _FileChooser.setApproveButtonToolTipText("Save");
+
+        int returnVal = _FileChooser.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            File file = _FileChooser.getSelectedFile();
+            //System.out.println("File: " + file.getAbsolutePath());
+            String filePath = file.getAbsolutePath();
+            if (!filePath.endsWith(".xlsx")) {
+                filePath += ".xlsx";
+            }
+
+            try {
+                Workbook wb = new XSSFWorkbook();
+                FileOutputStream fileOut = new FileOutputStream(filePath);
+                
+                int rowNum = 0;
+                Sheet sheet = wb.createSheet("Var Names");
+
+                for (String[] r : list) {
+                    // Create a row and put some cells in it. Rows are 0 based.
+                    Row row = sheet.createRow(rowNum);
+                    // Create a cell and put a value in it.
+                    for (int i = 0; i < r.length; i++) {
+                        Cell cell = row.createCell(i);
+
+                        // If the string is a number, write it as a number
+                        if (r[i].equals("")) {
+                            // Empty field, do nothing
+
+                        } else if (isStringNumeric(r[i])) {
+                            cell.setCellValue(Double.parseDouble(r[i].replace("\"", "")));
+                        } else {
+                            cell.setCellValue(r[i]);
+                        }
+
+                    }
+
+                    rowNum++;
+
+                }
+
+                wb.write(fileOut);
+                fileOut.close();
+            } catch (Exception e) {
+                controlPanel.writeToLog("Error with creating excel file " + e.getMessage());
+            }
+
+        } else {
+            System.out.println("File access cancelled by user.");
+        }        
+    }
+    
+    
+    
     public static boolean isStringNumeric(String str) {
         DecimalFormatSymbols currentLocaleSymbols = DecimalFormatSymbols.getInstance();
         char localeMinusSign = currentLocaleSymbols.getMinusSign();
@@ -1095,6 +1179,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem _MenuItem_NewStore;
     private javax.swing.JMenuItem _MenuItem_OpenImage;
     private javax.swing.JMenuItem _MenuItem_OpenStore;
+    private javax.swing.JMenuItem _MenuItem_PrintSpecificNamesX;
     private javax.swing.JMenuItem _MenuItem_PrintVarNamesCsv;
     private javax.swing.JMenuItem _MenuItem_PrintVarNamesText;
     private javax.swing.JMenuItem _MenuItem_PrintVarNamesX;

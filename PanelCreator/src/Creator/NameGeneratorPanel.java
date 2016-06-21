@@ -5,14 +5,20 @@
  */
 package Creator;
 
+import java.awt.Component;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -616,11 +622,11 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     private void _ComboBox_GroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_GroupsActionPerformed
 
         _Table_Items.setModel(tableModels.get(_ComboBox_Groups.getSelectedIndex()));
+        resizeColumnWidth(_Table_Items);
     }//GEN-LAST:event__ComboBox_GroupsActionPerformed
 
     private void _Button_SaveAllIoNamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SaveAllIoNamesActionPerformed
         mf.updateVarNames(ioNames);
-
     }//GEN-LAST:event__Button_SaveAllIoNamesActionPerformed
 
     private void _Button_LoadProgramDefaultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_LoadProgramDefaultsActionPerformed
@@ -672,7 +678,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             values[4] = _FTF_Constant.getText();
             values[5] = _FTF_Offset.getText();
             values[6] = _FTF_DecimalPlaces.getText();
-            values[7] = _CheckBox_Alert.isSelected() ? "1" : "0";            
+            values[7] = _CheckBox_Alert.isSelected() ? "1" : "0";
             values[8] = _FTF_AlertTimeDelay.getText();
             values[9] = _FTF_AlertLow.getText();
             values[10] = _FTF_AlertHigh.getText();
@@ -680,9 +686,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             values[12] = _FTF_LogParam1.getText();
             values[13] = getDateString();
             values[14] = _CB_DatalogPoint.isSelected() ? "1" : "0";
-            
-            
-            
+
             String newString = String.join(",", values);
             //System.out.println("values read: " + newString);
             ioNames.replaceString(_ComboBox_Groups.getSelectedIndex(), row, newString);
@@ -778,7 +782,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     }//GEN-LAST:event__Button_LoadUserDefaultsActionPerformed
 
     private void _CB_DatalogPointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__CB_DatalogPointActionPerformed
-        
+
     }//GEN-LAST:event__CB_DatalogPointActionPerformed
 
     public void parseDateString(String date) {
@@ -805,9 +809,9 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
     public String getDateString() {
 
-        int day = !_FTF_LogTimeDay.getText().equals("") ? Integer.parseInt(_FTF_LogTimeDay.getText()): 0;
-        int month = !_FTF_LogTimeMonth.getText().equals("") ? Integer.parseInt(_FTF_LogTimeMonth.getText()): 0;
-        int year = !_FTF_LogTimeYear.getText().equals("") ? Integer.parseInt(_FTF_LogTimeYear.getText()): 0;
+        int day = !_FTF_LogTimeDay.getText().equals("") ? Integer.parseInt(_FTF_LogTimeDay.getText()) : 0;
+        int month = !_FTF_LogTimeMonth.getText().equals("") ? Integer.parseInt(_FTF_LogTimeMonth.getText()) : 0;
+        int year = !_FTF_LogTimeYear.getText().equals("") ? Integer.parseInt(_FTF_LogTimeYear.getText()) : 0;
         String time = "";
         if (year > 0) {
             if (year > 5) {
@@ -830,7 +834,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             } else {
                 time += " mons ";
             }
-        }        
+        }
         if (day > 0) {
             if (day > 350) {
                 day = 350;
@@ -863,12 +867,11 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             _CheckBox_Alert.setText("No");
             _FTF_AlertTimeDelay.setText("");
             _FTF_AlertLow.setText("");
-            _FTF_AlertHigh.setText("");            
+            _FTF_AlertHigh.setText("");
             _ComboBox_LogType.setSelectedIndex(0);
             _ButtonGroup_LogType.clearSelection();
             _FTF_LogParam1.setText("");
             _CB_DatalogPoint.setSelected(false);
-            
 
         } else {
             _Textfield_Name.setText(values[0]);
@@ -885,7 +888,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
             } else {
                 _CheckBox_Alert.setSelected(false);
                 _CheckBox_Alert.setText("No");
-            }            
+            }
             _FTF_AlertTimeDelay.setText(values[8]);
             _FTF_AlertLow.setText(values[9]);
             _FTF_AlertHigh.setText(values[10]);
@@ -913,9 +916,27 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
     }
 
+    public void resizeColumnWidth(JTable table) {
+        final TableColumnModel columnModel = table.getColumnModel();
+        for (int column = 0; column < table.getColumnCount(); column++) {
+            int width = 50; // Min width
+            for (int row = 0; row < table.getRowCount(); row++) {
+                TableCellRenderer renderer = table.getCellRenderer(row, column);
+                Component comp = table.prepareRenderer(renderer, row, column);
+                width = Math.max(comp.getPreferredSize().width + 1, width);
+            }
+            columnModel.getColumn(column).setPreferredWidth(width);
+        }
+    }
+
     public void loadGroups() {
 
         ioNames = new IoNames();
+        
+        _Table_Items.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        _Table_Items.setDefaultRenderer(Object.class, centerRenderer);
 
         tableModels = null;
         // Make new list of table models
@@ -974,19 +995,19 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
                         tableModels.get(5).addRow(line.split(","));
                         //System.out.println("Added to System: " + line);
                         ioNames.getSysStr().add(line);
-                        break;           
+                        break;
                     case "glycol":
-                         tableModels.get(7).addRow(line.split(","));
+                        tableModels.get(7).addRow(line.split(","));
                         //System.out.println("Added to System: " + line);
                         ioNames.getGlycolStr().add(line);
                         break;
-                        
-                     case "fanpanel":
-                         tableModels.get(8).addRow(line.split(","));
+
+                    case "fanpanel":
+                        tableModels.get(8).addRow(line.split(","));
                         //System.out.println("Added to System: " + line);
                         ioNames.getFanPanelStr().add(line);
                         break;
-                        
+
                     default:
                         //System.out.println("Unknown groupname, added to extra" + line);
                         tableModels.get(6).addRow(line.split(","));
@@ -997,11 +1018,14 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         }
 
         if (scan != null) {
-            scan.close();            
+            scan.close();
         }
-        
+
         _Table_Items.setModel(tableModels.get(0));
         _ComboBox_Groups.setSelectedIndex(0);
+        
+        resizeColumnWidth(_Table_Items);
+        
         mf.updateVarNames(ioNames);
 
     }
@@ -1051,24 +1075,25 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         for (String line : ioNames.getExtraStr()) {
             tableModels.get(6).addRow(line.split(","));
         }
-        
+
         // Glycol strings
         for (String line : ioNames.getGlycolStr()) {
             tableModels.get(7).addRow(line.split(","));
         }
-        
+
         // fan panel strings
         for (String line : ioNames.getFanPanelStr()) {
             tableModels.get(8).addRow(line.split(","));
         }
-        
-        
+
         _Table_Items.setModel(tableModels.get(0));
+        resizeColumnWidth(_Table_Items);
     }
 
     public void addRow(int model, String s) {
         DefaultTableModel dm = tableModels.get(model);
         dm.addRow(new String[]{s});
+        resizeColumnWidth(_Table_Items);
     }
 
     public void updateRow(int model, int row, String[] values) {
@@ -1077,6 +1102,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         for (int col = 0; col < dm.getColumnCount(); col++) {
             dm.setValueAt(values[col], row, col);
         }
+        resizeColumnWidth(_Table_Items);
     }
 
     /**
