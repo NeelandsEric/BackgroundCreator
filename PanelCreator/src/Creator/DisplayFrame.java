@@ -440,7 +440,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         c.weightx = 1;
         c.weighty = 0; // No space between bottom and below row?          
         c.gridx = 0;
-        c.gridy = 0;
+        c.gridy = 10;
         c.gridwidth = 5;
         c.gridheight = 2;
         //c.ipady = 100;
@@ -463,7 +463,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         c.weightx = 0;
         //c.weighty = 0; // No space between bottom and below row?          
         c.gridx = 5;
-        c.gridy = 0;
+        //c.gridy = 0;
         c.gridwidth = 1;
         c.gridheight = 2;
         //c.gridheight = 2;
@@ -588,7 +588,7 @@ public class DisplayFrame extends javax.swing.JFrame {
         c.weightx = 1;
         //c.weighty = 0; // No space between bottom and below row?          
         c.gridx += 1;
-        c.gridy = 0;
+        //c.gridy = 0;
         c.gridwidth = 5;
         c.gridheight = 2;
         //c.ipady = 100;

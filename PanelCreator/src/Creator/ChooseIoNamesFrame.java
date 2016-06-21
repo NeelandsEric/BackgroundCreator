@@ -23,21 +23,21 @@ public class ChooseIoNamesFrame extends javax.swing.JFrame {
 
     private MainFrame mf;
     private DefaultListModel originalModel;
-    private DefaultListModel printModel;       
+    private DefaultListModel printModel;
     private Map<String, String[]> paramMap;
     private String[] header;
-    
+
     /**
      * Creates new form ChooseIoNamesFrame
      */
-    public ChooseIoNamesFrame(List<String []> items, MainFrame mf) {
+    public ChooseIoNamesFrame(List<String[]> items, MainFrame mf) {
         this.mf = mf;
         paramMap = new HashMap<>();
         originalModel = new DefaultListModel();
         printModel = new DefaultListModel();
         loadItems(items);
         initComponents();
-        
+
     }
 
     /**
@@ -185,67 +185,79 @@ public class ChooseIoNamesFrame extends javax.swing.JFrame {
 
     private void addItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemsActionPerformed
         // TODO add your handling code here:
-        if(!originalList.isSelectionEmpty()){            
-            for(Object o: originalList.getSelectedValuesList()){
+        if (!originalList.isSelectionEmpty()) {
+            int index = originalList.getSelectedIndex();
+
+            for (Object o : originalList.getSelectedValuesList()) {
                 printModel.addElement(o);
                 originalModel.removeElement(o);
-            }            
+            }
+
+            reSort();
+            if (originalModel.size() > index) {
+                originalList.setSelectedIndex(index);
+            }
         }
-        reSort();
+
+
     }//GEN-LAST:event_addItemsActionPerformed
 
     private void removeItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeItemsActionPerformed
         // TODO add your handling code here:
-        if(!printList.isSelectionEmpty()){
-            
-            for(Object o: printList.getSelectedValuesList()){
+        if (!printList.isSelectionEmpty()) {
+            int index = printList.getSelectedIndex();
+
+            for (Object o : printList.getSelectedValuesList()) {
                 originalModel.addElement(o);
                 printModel.removeElement(o);
-            }            
+            }
+            reSort();
+            if (printModel.size() > index) {
+                printList.setSelectedIndex(index);
+            }
+            printList.setSelectedIndex(index);
         }
-        reSort();
+
     }//GEN-LAST:event_removeItemsActionPerformed
 
-    private void reSort(){
-        
+    private void reSort() {
+
         Collection oList = Collections.list(originalModel.elements());
         Collection pList = Collections.list(printModel.elements());
-        
+
         Collections.sort((List<String>) oList);
         Collections.sort((List<String>) pList);
-        
+
         originalModel.clear();
         printModel.clear();
 
-        for(Object o: oList){
+        for (Object o : oList) {
             originalModel.addElement(o);
         }
 
-        for(Object p: pList){
+        for (Object p : pList) {
             printModel.addElement(p);
         }
-        
+
     }
-    
-    
+
+
     private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
         // TODO add your handling code here:
-        
-        List<String []> returnItems = new ArrayList<>();
-        
-        for(int i = 0; i < printModel.getSize(); i++){
+
+        List<String[]> returnItems = new ArrayList<>();
+
+        for (int i = 0; i < printModel.getSize(); i++) {
             returnItems.add(paramMap.get(printModel.get(i)));
         }
-        
-        
+
         Collections.sort(returnItems, new Comparator< String[]>() {
             @Override
             public int compare(String[] x1, String[] x2) {
                 return x1[0].toLowerCase().compareTo(x2[0].toLowerCase());
             }
         });
-        
-        
+
         mf.returnIoItems(returnItems);
     }//GEN-LAST:event_printActionPerformed
 
@@ -254,25 +266,25 @@ public class ChooseIoNamesFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_cancelActionPerformed
 
-    public void load(List<String []> items){
+    public void load(List<String[]> items) {
         loadItems(items);
     }
-    
-    private void loadItems(List<String []> items){
-        
+
+    private void loadItems(List<String[]> items) {
+
         originalModel.clear();
         printModel.clear();
         paramMap.clear();
-        
+
         header = items.remove(0);
-        
-        for(String [] s: items){            
-            originalModel.addElement(s[0]);  
+
+        for (String[] s : items) {
+            originalModel.addElement(s[0]);
             paramMap.put(s[0], s);
-        }        
-        
+        }
+
         reSort();
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

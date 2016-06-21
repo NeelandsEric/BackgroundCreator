@@ -317,6 +317,7 @@ public class BackgroundEnergy extends javax.swing.JPanel {
 
         }
 
+        /*
         //===========================
         // Performance
         //===========================
@@ -343,7 +344,7 @@ public class BackgroundEnergy extends javax.swing.JPanel {
         //===========================================================            
         // Constraints         for c2
         c2.fill = GridBagConstraints.BOTH;
-        c2.weightx = 1;
+        c2.weightx = 0;
         c2.weighty = 0; // No space between bottom and below row?        
         c2.gridx = 0;
         c2.gridy = 0;
@@ -416,7 +417,7 @@ public class BackgroundEnergy extends javax.swing.JPanel {
         //c.weighty = 0; // No space between bottom and below row?          
         c.gridx = gridXPos;
         //c.gridy = gridYPos;
-        gridHeight = 4; // 5 per row for performance          
+        //gridHeight = 4; // 5 per row for performance          
         //c.ipady = 100;
         //c.ipady = 0;                  
         // We dont setup next position because we are adding suction groups still
@@ -449,6 +450,9 @@ public class BackgroundEnergy extends javax.swing.JPanel {
             _Panel_MainPanel.add(panel, c);
 
         }
+        
+        
+        */
 
         //===========================
         // Operating Costs
@@ -735,7 +739,7 @@ public class BackgroundEnergy extends javax.swing.JPanel {
             _Panel_MainPanel.add(panel, c);
 
         }
-
+        
         //===========================================================
         //=========================================================== 
         // Filler area
@@ -752,7 +756,7 @@ public class BackgroundEnergy extends javax.swing.JPanel {
         c.ipady = 120;
         // End of Constraints
         panel = new JPanel();
-        panel.setBackground(Color.black);
+        panel.setBackground(Color.red);
         //panel.setBorder(border);
         //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
         _Panel_MainPanel.add(panel, c);

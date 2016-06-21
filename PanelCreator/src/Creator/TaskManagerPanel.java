@@ -1258,13 +1258,12 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
             List<TableQueries> list = makeQueries();
             
-            for (TableQueries tq : list) {
-
+            for (TableQueries tq : list) {                
                 String tableName = tq.getTableName().toLowerCase();
                 
 
                 // Check to see if the data exists in the tables
-                if (checkCustomTables(tableName)) {
+                if (checkCustomTables(tq)) {
 
                     // If so prompt to see if they want to re-add the data
                     int dialogButton = JOptionPane.YES_NO_OPTION;
@@ -1282,33 +1281,42 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                                 deleteQuery = "delete from " + tableName + " where stpt_station_id=" + stationID + ";";
                                 break;
                             case "setpointranges":
-                                deleteQuery = "delete from " + tableName + " where sr_station_id=" + stationID + ";";
+                                if(tq.containsKeyParams("sr_type")){
+                                    if(tq.getParam("sr_type").equals("1")){
+                                        deleteQuery = "delete from " + tableName + " where sr_station_id=" + stationID + " and sr_type = 1;";
+                                    }else if(tq.getParam("sr_type").equals("2")){
+                                        deleteQuery = "delete from " + tableName + " where sr_station_id=" + stationID + " and sr_type = 2;";
+                                    }else if(tq.getParam("sr_type").equals("3")){
+                                        deleteQuery = "delete from " + tableName + " where sr_station_id=" + stationID + " and sr_type = 3;";
+                                    }
+                                }
+                                
                                 break;
                             case "eepr":
                                 deleteQuery = "delete from " + tableName + " where eepr_station_id=" + stationID + ";";
                                 break;
                         }
                         if (!deleteQuery.equals("")) {
-                            System.out.println("normally would execute:\n" + deleteQuery);
+                            //System.out.println("Executing:\n" + deleteQuery);
                             
-                            //db = newDBConn();
-                            //db.executeQuery(deleteQuery);
-                            //db.closeConn();
+                            db = newDBConn();
+                            db.executeQuery(deleteQuery);
+                            db.closeConn();                 
                             
                             System.out.println("Deleted entries from " + tableName);
                         }
-
                     } else {
                         System.out.println("Not deleting/re-adding content for " + tableName);
-                    }
+                        continue;
+                    }                    
                 }
                 String query = formatQuery(tq);
                 if(!query.equals("")){
                     
-                    System.out.println("Normally would execute query:\n" + query);
-                    //db = newDBConn();
-                    //db.executeQuery(query);
-                    //db.closeConn();
+                    //System.out.println("Executing query:\n" + query);
+                    db = newDBConn();
+                    db.executeQuery(query);
+                    db.closeConn();
                 }
             }
         }
@@ -1538,8 +1546,10 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     }
 
-    private boolean checkCustomTables(String tableName) {
-        tableName = tableName.toLowerCase();
+    private boolean checkCustomTables(TableQueries tq) {
+        
+        
+        String tableName = tq.getTableName().toLowerCase();
 
         String query = "";
         switch (tableName) {
@@ -1551,7 +1561,15 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 query = "select * from " + tableName + " where stpt_station_id=" + stationID + ";";
                 break;
             case "setpointranges":
-                query = "select * from " + tableName + " where sr_station_id=" + stationID + ";";
+                if(tq.containsKeyParams("sr_type")){
+                    if(tq.getParam("sr_type").equals("1")){
+                        query = "select * from " + tableName + " where sr_station_id=" + stationID + " and sr_type = 1;";
+                    }else if(tq.getParam("sr_type").equals("2")){
+                        query = "select * from " + tableName + " where sr_station_id=" + stationID + " and sr_type = 2;";
+                    }else if(tq.getParam("sr_type").equals("3")){
+                        query = "select * from " + tableName + " where sr_station_id=" + stationID + " and sr_type = 3;";
+                    }
+                }                
                 break;
             case "eepr":
                 query = "select * from " + tableName + " where eepr_station_id=" + stationID + ";";

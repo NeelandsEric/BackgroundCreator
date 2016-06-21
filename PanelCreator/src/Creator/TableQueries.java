@@ -135,6 +135,11 @@ public class TableQueries {
     public Set<Entry<String, String>> entrySetParams() {
         return params.entrySet();
     }
+
+    public String getParam(String key) {
+        return params.get(key);
+    }
+    
     
     
     
