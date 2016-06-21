@@ -220,4 +220,15 @@ public class Store implements java.io.Serializable {
     public String getStoreName() {
         return cs.getStoreName();
     }
+    
+    
+    public String [] getEnergyUnits(){
+        String [] items = new String[this.cs.getNumRacks() * 2];
+        
+        for(int i = 0; i < this.cs.getNumRacks(); i++){
+            items[i] = this.cs.getRackName(i);
+            items[i + this.cs.getNumRacks()] = items[i].replace("Rack", "Cond");
+        }        
+        return items;
+    }
 }

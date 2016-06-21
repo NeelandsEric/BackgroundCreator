@@ -38,6 +38,19 @@ public class BackgroundEnergy extends javax.swing.JPanel {
     public String storeName;        // store name
     private Map<String, Component> widgetComponents;
 
+    private String[] energyFields = new String[]{
+        // Each Item Must have the same amount of spaces
+        " Amps  ",
+        "  kW   ",
+        "kW Peak",
+        "kW Avg ",
+        "  kWh  ",
+        " Volts ",
+        "  PF   ",
+        "  kVA  ",
+        " kVAR  "
+    };
+
     /**
      * Creates new form BackgroundMain
      *
@@ -46,7 +59,7 @@ public class BackgroundEnergy extends javax.swing.JPanel {
     public BackgroundEnergy(DisplayFrame df) {
         initComponents();
         this.df = df;
-        this.img = "";        
+        this.img = "";
         this.storeName = "Store Name";
         this.widgetComponents = new TreeMap<>();
     }
@@ -189,18 +202,7 @@ public class BackgroundEnergy extends javax.swing.JPanel {
      */
     public void updateView() {
 
-        // Vars used        
-        int[] rackGridWidth = new int[this.numRacks + 1];
-        int sum = 5;
-        rackGridWidth[0] = 3;
-        for (int i = 0; i < this.numRacks; i++) {
-            rackGridWidth[i + 1] = 3 * racks.get(i).numSuctionGroups;
-            sum += rackGridWidth[i + 1];
-        }
-
-        int gridXPos, gridYPos, gridWidth, gridHeight;
-        Rack r;
-        JLabel label;
+        Store store = this.df.mf.getStore();
         JPanel panel;
         GridBagLayout gbl = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
@@ -211,18 +213,15 @@ public class BackgroundEnergy extends javax.swing.JPanel {
 
         // Store panel info at top
         //===========================================================
-        // Positioning
-        gridXPos = 0;
-        gridYPos = 0;
-        gridHeight = 5;
+
         // Constraints               
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 1;
         c.weighty = 0; // No space between bottom and below row?        
-        c.gridx = gridXPos;
-        c.gridy = gridYPos;
-        c.gridwidth = sum;
-        c.gridheight = gridHeight;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        c.gridheight = 1;
         //c.ipady = 100;
         //c.ipady = 0;                
         // End of Constraints
@@ -230,535 +229,23 @@ public class BackgroundEnergy extends javax.swing.JPanel {
         panel = panelTop(img, storeName);
         _Panel_MainPanel.add(panel, c);
 
-        // Site info
         //===========================================================
-        // Positioning
-        gridXPos = 0;
-        gridYPos += gridHeight;
-        gridHeight = 5;
-        // Constraints               
+        //======================  Panel Data  =======================
+
+        // Constraints
         c.fill = GridBagConstraints.BOTH;
-        c.weightx = 0;
-        c.weighty = 0; // No space between bottom and below row?        
-        c.gridx = gridXPos;
-        c.gridy = gridYPos;
-        c.gridwidth = sum;
-        c.gridheight = gridHeight;
-        //c.ipady = 100;
-        //c.ipady = 0;                
-        // End of Constraints
-        //===========================================================  
-        panel = panelSiteInfo(storeName);
-        panel.setBorder(border);
-        _Panel_MainPanel.add(panel, c);
-
-        // First initial cell
-        label = new JLabel(""); //Outside Air Temp
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setFont(font.deriveFont(Font.BOLD, 18));
-        panel = new JPanel();
-        panel.add(label);
-        panel.setBackground(Colours.BlueDark.getCol());
-        panel.setBorder(border);
-        //===========================================================
-        // Positioning
-        gridXPos = 0;
-        gridYPos += gridHeight;
-        gridWidth = 2;
-        gridHeight = 5;
-        // Constraints               
-        c.fill = GridBagConstraints.BOTH;
-        c.weightx = 0;
-        c.weighty = 0; // No space between bottom and below row?        
-        c.gridx = gridXPos;
-        c.gridy = gridYPos;
-        c.gridwidth = gridWidth;
-        c.gridheight = gridHeight;
-        //c.ipady = 100;
-        //c.ipady = 0;        
-        // Setup next position
-        gridXPos += gridWidth;
-        //gridYPos += gridHeight;
-
-        // End of Constraints
-        //===========================================================        
-        _Panel_MainPanel.add(panel, c);
-
-        // rack names + SEI, they have their own panels, incase we want borders
-        for (int i = 0; i <= this.numRacks; i++) {
-
-            if (i == 0) {
-                panel = panelRackName("Total");
-            } else {
-                r = racks.get(i - 1);
-                // Number of suction groups for the rack 
-                panel = panelRackName(r.getName());
-            }
-            // For each new rack panel, we must assign the grid width
-            // to be 3 * num Suctiongroups
-            //rackGridWidth[i] = 3 * r.numSuctionGroups; // 1 cell per compressor
-            // 2 cells per system
-            //===========================================================            
-            // Constraints        
-            //c.fill = GridBagConstraints.BOTH;        
-            c.weightx = 1;
-            //c.weighty = 0; // No space between bottom and below row?        
-            c.gridx = gridXPos;
-            c.gridy = gridYPos;
-            c.gridwidth = rackGridWidth[i];
-            //c.gridheight = gridHeight;
-            //c.ipady = 100;
-            //c.ipady = 0;                  
-            // Setup next position
-            gridXPos += rackGridWidth[i];
-            // End of Constraints
-            //===========================================================
-            _Panel_MainPanel.add(panel, c);
-
-        }
-
-        /*
-        //===========================
-        // Performance
-        //===========================
-        //===========================================================            
-        // Constraints     
-        gridYPos += (gridHeight * 2);
-        //c.fill = GridBagConstraints.BOTH;        
-        c.weightx = 0;
-        c.weighty = 0; // No space between bottom and below row?        
-        c.gridx = 0;
-        c.gridy = gridYPos; // Set new position based off previous component
-        gridHeight = 20; // 5 per row for performance
-        c.gridwidth = 2;
-        c.gridheight = gridHeight;
-        //c.ipady = 100;
-        //c.ipady = 0;                  
-        // We dont setup next position because we are adding suction groups still
-        gridXPos = 2;
-        //gridYPos += gridHeight;
-        // End of Constraints
-        //===========================================================
-        GridBagLayout gblPer = new GridBagLayout();
-        GridBagConstraints c2 = new GridBagConstraints();
-        //===========================================================            
-        // Constraints         for c2
-        c2.fill = GridBagConstraints.BOTH;
-        c2.weightx = 0;
-        c2.weighty = 0; // No space between bottom and below row?        
-        c2.gridx = 0;
-        c2.gridy = 0;
-        c2.gridwidth = 2;
-        c2.gridheight = 1; // 2 spots per row
-        //c2.ipady = 20;
-        //c2.ipadx = 0;                  
-        // We dont setup next position because we are adding suction groups still
-        // End of Constraints
-        //===========================================================
-        panel = new JPanel();
-        panel.setLayout(gblPer);
-
-        // Rack status
-        label = new JLabel("Performance");
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setOpaque(true);
-        label.setBackground(Colours.BlueDark.getCol());
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setBorder(border);
-        panel.add(label, c2);
-        //=========================================
-        // Go down 2 rows
-        c2.gridy += 1;
-        c2.weighty = 1;
-        //=========================================
-        label = new JLabel("Predicted");
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setOpaque(true);
-        label.setBackground(Color.black);
-        //label.setBackground(Colours.BlueLight.getCol());
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setBorder(border);
-        panel.add(label, c2);
-        //=========================================
-        // Go down 2 rows
-        c2.gridy += 1;
-        //=========================================
-        label = new JLabel("Actual");
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setOpaque(true);
-        label.setBackground(Color.black);
-        //label.setBackground(Colours.BlueLightest.getCol());
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setBorder(border);
-        panel.add(label, c2);
-        //=========================================
-        // Go down 2 rows
-        c2.gridy += 1;
-        //=========================================
-        label = new JLabel("Difference");
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setOpaque(true);
-        label.setBackground(Color.black);
-        //label.setBackground(Colours.BlueLight.getCol());
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setBorder(border);
-        panel.add(label, c2);
-        //=========================================
-        // Go down 2 rows
-        c2.gridy += 1;
-        //=========================================
-        //panel.setBorder(border);        
-        _Panel_MainPanel.add(panel, c);
-
-        //===========================================================
-        // Constraints        
-        //c.fill = GridBagConstraints.BOTH;        
-        //c.weightx = 1;
-        //c.weighty = 0; // No space between bottom and below row?          
-        c.gridx = gridXPos;
-        //c.gridy = gridYPos;
-        //gridHeight = 4; // 5 per row for performance          
-        //c.ipady = 100;
-        //c.ipady = 0;                  
-        // We dont setup next position because we are adding suction groups still
-
-        //gridYPos += gridHeight;
-        // End of Constraints
-        //===========================================================
-        // rack names + SEI, they have their own panels, incase we want borders
-        for (int i = 0; i <= this.numRacks; i++) {
-
-            panel = panelPerformance(i);
-            // For each new rack panel, we must assign the grid width
-            // to be 3 * num Suctiongroups            
-            // 2 cells per system
-            //===========================================================            
-            // Constraints        
-            //c.fill = GridBagConstraints.BOTH;        
-            c.weightx = 1;
-            c.weighty = 0; // No space between bottom and below row?        
-            c.gridx = gridXPos;
-            c.gridy = gridYPos;
-            c.gridwidth = rackGridWidth[i];
-            c.gridheight = gridHeight;
-            //c.ipady = 100;
-            //c.ipady = 0;                  
-            // Setup next position
-            gridXPos += rackGridWidth[i];
-            // End of Constraints
-            //===========================================================
-            _Panel_MainPanel.add(panel, c);
-
-        }
-        
-        
-        */
-
-        //===========================
-        // Operating Costs
-        //===========================
-        //===========================================================            
-        // Constraints     
-        gridYPos += gridHeight;
-        gridXPos = 0;
-        //c.fill = GridBagConstraints.BOTH;        
-        c.weightx = 0;
-        c.weighty = 0; // No space between bottom and below row?        
-        c.gridx = gridXPos;
-        c.gridy = gridYPos; // Set new position based off previous component
-        gridHeight = 20; // 5 per row for performance
-        c.gridwidth = 2;
-        c.gridheight = gridHeight;
-        //c.ipady = 100;
-        //c.ipady = 0;                  
-        // We dont setup next position because we are adding suction groups still
-
-        //gridYPos += gridHeight;
-        // End of Constraints
-        //===========================================================
-        GridBagLayout gblOp = new GridBagLayout();
-        GridBagConstraints c3 = new GridBagConstraints();
-        //===========================================================            
-        // Constraints         for c2
-        c3.fill = GridBagConstraints.BOTH;
-        c3.weightx = 1;
-        c3.weighty = 0; // No space between bottom and below row?        
-        c3.gridx = 0;
-        c3.gridy = 0;
-        c3.gridwidth = 2;
-        c3.gridheight = 5; // 5 spots per row
-        //c3.ipady = 20;
-        //c3.ipadx = 0;                  
-        // We dont setup next position because we are adding suction groups still
-        // End of Constraints
-        //===========================================================
-        panel = new JPanel();
-        panel.setLayout(gblOp);
-
-        // Rack status
-        label = new JLabel("Operating Cost ");
-        label.setOpaque(true);
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setBackground(Colours.GreenDark.getCol());
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setBorder(border);
-        panel.add(label, c3);
-        //=========================================
-        // Go down and half the width for the rest
-        c3.gridy += 5;
-        c3.gridwidth = 1;
-        c3.gridheight = 20;
-        c3.weighty = 0;
-        //=========================================
-        label = new JLabel("<html>Operating<br>Cost<br>Rate ¢</html>");
-        label.setOpaque(true);
-        label.setBackground(Colours.GreenDark.getCol());
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setBorder(border);
-        //panel.add(label, c3);
-        //=========================================
-        // Go right        
-        c3.gridx += 1;
-        c3.gridheight = 5;
-        c3.weighty = 1;
-        //=========================================
-        label = new JLabel("Day");
-        label.setOpaque(true);
-        label.setBackground(Colours.GreenLight.getCol());
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setBorder(border);
-        panel.add(label, c3);
-        //=========================================
-        // Go down
-        c3.gridy += 5;
-        //=========================================
-        label = new JLabel("Month");
-        label.setOpaque(true);
-        label.setBackground(Colours.GreenLightest.getCol());
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setBorder(border);
-        panel.add(label, c3);
-        //=========================================       
-        // Go down
-        c3.gridy += 5;
-        //=========================================
-        label = new JLabel("Year");
-        label.setOpaque(true);
-        label.setBackground(Colours.GreenLight.getCol());
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setBorder(border);
-        panel.add(label, c3);
-        //panel.setBorder(border);
-        _Panel_MainPanel.add(panel, c);
-
-        // Operating Costs constraints
-        //===========================================================
-        // Constraints        
-        //c.fill = GridBagConstraints.BOTH;        
-        //c.weightx = 1;
-        //c.weighty = 0; // No space between bottom and below row?          
-        gridXPos = 2;
-        //c.gridy = gridYPos;
-        gridHeight = 20; // 5 per row for performance          
-        //c.ipady = 100;
-        //c.ipady = 0;                  
-        // We dont setup next position because we are adding suction groups still
-
-        //gridYPos += gridHeight;
-        // End of Constraints
-        //===========================================================
-        // rack names + SEI, they have their own panels, incase we want borders
-        for (int i = 0; i <= this.numRacks; i++) {
-
-            panel = panelOperatingDollars(i);
-            // For each new rack panel, we must assign the grid width
-            // to be 3 * num Suctiongroups            
-            // 2 cells per system
-            //===========================================================            
-            // Constraints        
-            //c.fill = GridBagConstraints.BOTH;        
-            c.weightx = 1;
-            //c.weighty = 0; // No space between bottom and below row?        
-            c.gridx = gridXPos;
-            c.gridy = gridYPos;
-            c.gridwidth = rackGridWidth[i];
-            c.gridheight = gridHeight;
-            //c.ipady = 100;
-            //c.ipady = 0;                  
-            // Setup next position
-            gridXPos += rackGridWidth[i];
-            // End of Constraints
-            //===========================================================
-            _Panel_MainPanel.add(panel, c);
-
-        }
-
-        //===========================
-        // Operating Costs
-        //===========================
-        //===========================================================            
-        // Constraints     
-        gridYPos += gridHeight;
-        gridXPos = 0;
-        //c.fill = GridBagConstraints.BOTH;        
-        c.weightx = 0;
-        c.weighty = 0; // No space between bottom and below row?        
-        c.gridx = gridXPos;
-        c.gridy = gridYPos; // Set new position based off previous component
-        gridHeight = 20; // 5 per row for performance
-        c.gridwidth = 2;
-        c.gridheight = gridHeight;
-        //c.ipady = 100;
-        //c.ipady = 0;                  
-        // We dont setup next position because we are adding suction groups still
-
-        //gridYPos += gridHeight;
-        // End of Constraints
-        //===========================================================
-        gblOp = new GridBagLayout();
-        c3 = new GridBagConstraints();
-        //===========================================================            
-        // Constraints         for c2
-        c3.fill = GridBagConstraints.BOTH;
-        c3.weightx = 1;
-        c3.weighty = 0; // No space between bottom and below row?        
-        c3.gridx = 0;
-        c3.gridy = 0;
-        c3.gridwidth = 2;
-        c3.gridheight = 5; // 5 spots per row
-        //c3.ipady = 20;
-        //c3.ipadx = 0;                  
-        // We dont setup next position because we are adding suction groups still
-        // End of Constraints
-        //===========================================================
-        panel = new JPanel();
-        panel.setLayout(gblOp);
-
-        // Rack status
-        label = new JLabel("Operating kWh ");
-        label.setOpaque(true);
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setBackground(Colours.BlueDark.getCol());
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setBorder(border);
-        panel.add(label, c3);
-        //=========================================
-        // Go down and half the width for the rest
-        c3.gridy += 5;
-        c3.gridwidth = 1;
-        c3.gridheight = 20;
-        c3.weighty = 0;
-        //=========================================
-        label = new JLabel("<html>Operating<br>kWh<br></html>");
-        label.setOpaque(true);
-        label.setBackground(Colours.BlueDark.getCol());
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setBorder(border);
-        //panel.add(label, c3);
-        //=========================================
-        // Go right        
-        c3.gridx += 1;
-        c3.gridheight = 5;
-        c3.weighty = 1;
-        //=========================================
-        label = new JLabel("Day");
-        label.setOpaque(true);
-        label.setBackground(Colours.BlueLight.getCol());
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setBorder(border);
-        panel.add(label, c3);
-        //=========================================
-        // Go down
-        c3.gridy += 5;
-        //=========================================
-        label = new JLabel("Month");
-        label.setOpaque(true);
-        label.setBackground(Colours.BlueLightest.getCol());
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setBorder(border);
-        panel.add(label, c3);
-        //=========================================       
-        // Go down
-        c3.gridy += 5;
-        //=========================================
-        label = new JLabel("Year");
-        label.setOpaque(true);
-        label.setBackground(Colours.BlueLight.getCol());
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setBorder(border);
-        panel.add(label, c3);
-        //panel.setBorder(border);
-        _Panel_MainPanel.add(panel, c);
-
-        // Operating kWh constraints
-        //===========================================================
-        // Constraints        
-        //c.fill = GridBagConstraints.BOTH;        
-        //c.weightx = 1;
-        //c.weighty = 0; // No space between bottom and below row?          
-        gridXPos = 2;
-        //c.gridy = gridYPos;
-        gridHeight = 20; // 5 per row for performance          
-        //c.ipady = 100;
-        //c.ipady = 0;                  
-        // We dont setup next position because we are adding suction groups still
-
-        //gridYPos += gridHeight;
-        // End of Constraints
-        //===========================================================
-        // rack names + SEI, they have their own panels, incase we want borders
-        for (int i = 0; i <= this.numRacks; i++) {
-
-            panel = panelOperatingkWh(i);
-            // For each new rack panel, we must assign the grid width
-            // to be 3 * num Suctiongroups            
-            // 2 cells per system
-            //===========================================================            
-            // Constraints        
-            //c.fill = GridBagConstraints.BOTH;        
-            c.weightx = 1;
-            //c.weighty = 0; // No space between bottom and below row?        
-            c.gridx = gridXPos;
-            c.gridy = gridYPos;
-            c.gridwidth = rackGridWidth[i];
-            c.gridheight = gridHeight;
-            //c.ipady = 100;
-            //c.ipady = 0;                  
-            // Setup next position
-            gridXPos += rackGridWidth[i];
-            // End of Constraints
-            //===========================================================
-            _Panel_MainPanel.add(panel, c);
-
-        }
-        
-        //===========================================================
-        //=========================================================== 
-        // Filler area
-        gridXPos = 0;
-        gridYPos += gridHeight;
-        gridWidth = sum;
-        gridHeight = 10;
-        c.gridwidth = gridWidth;
-        c.gridheight = gridHeight;
-        c.gridx = gridXPos;
-        c.gridy = gridYPos;
         c.weightx = 1;
-        c.weighty = 1;
-        c.ipady = 120;
-        // End of Constraints
+        c.weighty = 1; // No space between bottom and below row?        
+        c.gridy = 1;        
+
+        panel = panelData(store);
+        _Panel_MainPanel.add(panel, c);
+
+        
         panel = new JPanel();
-        panel.setBackground(Color.red);
-        //panel.setBorder(border);
-        //addPanel(newPanel, gridx, gridy, gridwidth, gridheight, weightx, weighty, fill, padx, pady
+        c.weightx = 1;
+        c.gridy = 2;        
+        panel.setBackground(Colours.GreenLight.getCol());
         _Panel_MainPanel.add(panel, c);
 
         // make labels white
@@ -771,18 +258,8 @@ public class BackgroundEnergy extends javax.swing.JPanel {
         //c.fill = GridBagConstraints.BOTH;        
         c.weightx = 1;
         c.weighty = 0; // No space between bottom and below row?          
-        gridXPos = 0;
-        c.gridx = gridXPos;
-        c.gridy = gridYPos + gridHeight;
-        gridHeight = 5; // 5 per row for performance   
-
-        c.gridwidth = sum;
-        c.gridheight = 1;
-        //c.ipady = 100;
+        c.gridy = 3;     
         c.ipady = 0;
-        // We dont setup next position because we are adding suction groups still
-
-        //gridYPos += gridHeight;
         // End of Constraints
         //===========================================================
         panel = df.panelBottom(numRacks + 2); //(numRacks * 2 + 2)
@@ -856,481 +333,87 @@ public class BackgroundEnergy extends javax.swing.JPanel {
 
     }
 
-    /**
-     * The rack names at the top
-     *
-     * @param rackName String of name
-     * @return JPanel
-     */
-    public JPanel panelRackName(String rackName) {
+    public JPanel panelData(Store store) {
 
         JLabel label;
         GridBagLayout gbl = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
+        JPanel panel = new JPanel();
+        panel.setLayout(gbl);
 
-        // Return a panel containing two labels
-        JPanel panel = new JPanel(gbl);
-        //===========================
-        // RACK NAMES
-        //===========================
+        int numRows = store.getCs().getNumRacks() * 2 + 1;
+        int numColumns = energyFields.length + 1;
 
-        label = new JLabel(rackName);
-        label.setFont(font.deriveFont(Font.BOLD, 20));
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setVerticalAlignment(JLabel.TOP);
-        c.fill = GridBagConstraints.BOTH;
+        String[] units = store.getEnergyUnits();
+
         c.gridx = 0;
-        c.weightx = 1;
-        c.weighty = 1;
         c.gridy = 0;
-        c.gridwidth = c.gridheight = 2;
+        c.ipady = 35;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.weighty = 0; // No space between bottom and below row?        
 
-        panel.add(label, c);
+        // Unit   |  {EnergyParams[0]} | .... | {EnergyParams[n]}
+        // Rack A | 
+        // Rack B | 
+        // Cond A | 
+        // Cond B | 
+        // widgetComponents.put(tooltip[0], label);
+        for (int j = 0; j < numRows; j++) {
+            for (int i = 0; i < numColumns; i++) {
+                if (j == 0 && i == 0) {
+                    // Top left 
+                    label = new JLabel("Unit");
+                    label.setFont(font.deriveFont(Font.BOLD, 20));
+                    label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                    label.setVerticalAlignment(JLabel.CENTER);
+                    label.setBorder(border);
+                    label.setOpaque(true);
+                    label.setBackground(Colours.BlueLight.getCol());
+                    panel.add(label, c);
+                } else if (i == 0) {
+                    // Units (Rack A, Rack B, Cond A, Cond B) etc
+                    label = new JLabel(units[j - 1]);
+                    label.setFont(font.deriveFont(Font.BOLD, 20));
+                    label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                    label.setVerticalAlignment(JLabel.CENTER);
+                    label.setBorder(border);
+                    label.setOpaque(true);
+                    label.setBackground(Colours.BlueLightest.getCol());
+                    panel.add(label, c);
+                } else if (j == 0) {
+                    // Headers
+                    label = new JLabel(energyFields[i - 1]);
+                    label.setFont(font.deriveFont(Font.BOLD, 20));
+                    label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                    label.setVerticalAlignment(JLabel.CENTER);
+                    label.setBorder(border);
+                    label.setOpaque(true);
+                    label.setBackground(Colours.BlueLight.getCol());
+                    panel.add(label, c);
+
+                } else {
+
+                    label = new JLabel("");
+                    label.setOpaque(true);
+                    label.setBackground(Colours.BlueLightest.getCol());
+                    label.setBorder(border);                    
+                    panel.add(label, c);
+
+                }
+
+                c.gridx++;
+
+            }
+            c.gridy++;
+            c.gridx = 0;
+        }
 
         panel.setBorder(border);
         panel.setBackground(Colours.BlueDark.getCol());
         return panel;
-    }
-
-    /**
-     * The rack names at the top
-     *
-     * @param rackName String of name
-     * @return JPanel
-     */
-    public JPanel panelSiteInfo(String rackName) {
-
-        JLabel label;
-        GridBagLayout gbl = new GridBagLayout();
-        GridBagConstraints c = new GridBagConstraints();
-
-        // Return a panel containing two labels
-        JPanel panel = new JPanel(gbl);
-
-        label = new JLabel(rackName);
-        label.setFont(font.deriveFont(Font.BOLD, 20));
-        label.setBorder(border);
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setVerticalAlignment(JLabel.TOP);
-        c.gridwidth = 14;
-        c.gridheight = 1;
-        c.gridx = 0;
-        c.gridy = 0;
-        c.fill = GridBagConstraints.BOTH;
-        panel.add(label, c);
-
-        //===========================
-        // kWh/BTU Capacity
-        //===========================        
-        String[] tooltip = new String[]{""};
-
-        label = new JLabel("TBD");
-        label.setOpaque(true);
-        label.setBackground(Colours.BlueLight.getCol());
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setBorder(border);
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setVerticalAlignment(JLabel.TOP);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.weightx = 1;
-        c.weighty = 1;
-        c.gridy = 1;
-        c.gridwidth = c.gridheight = 2;
-        c.ipady = 60;
-        widgetComponents.put(tooltip[0], label);
-        panel.add(label, c);
-
-        //===========================
-        // kWh/BTU Cost
-        //===========================
-        tooltip = new String[]{""};
-
-        label = new JLabel("TBD");
-        label.setBorder(border);
-        label.setOpaque(true);
-        label.setBackground(Colours.GreenLight.getCol());
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setVerticalAlignment(JLabel.TOP);
-        //c.fill = GridBagConstraints.BOTH;
-        c.gridx = 2;
-        //c.weightx = 1;
-        //c.weighty = 1;
-        //c.gridy = 0;
-        //c.gridwidth = c.gridheight = 2;
-        //c.ipady = 35;        
-        widgetComponents.put(tooltip[0], label);
-        panel.add(label, c);
-
-        //===========================
-        // SEI
-        //===========================
-        tooltip = new String[]{""};
-
-        label = new JLabel("TBD");
-        label.setBorder(border);
-        label.setOpaque(true);
-        label.setBackground(Colours.BlueLight.getCol());
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setVerticalAlignment(JLabel.TOP);
-        //c.fill = GridBagConstraints.BOTH;
-        c.gridx = 4;
-        c.weightx = 1;
-        //c.weighty = 1;
-        //c.gridy = 0;
-        //c.gridwidth = c.gridheight = 2;
-        //c.ipady = 35;     
-        widgetComponents.put(tooltip[0], label);
-        panel.add(label, c);
-
-        //===========================
-        // Cost/SqFt
-        //===========================  
-        tooltip = new String[]{""};
-
-        label = new JLabel("TBD");
-        label.setBorder(border);
-        label.setOpaque(true);
-        label.setBackground(Colours.GreenLight.getCol());
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setVerticalAlignment(JLabel.TOP);
-        //c.fill = GridBagConstraints.BOTH;
-        c.gridx = 6;
-        c.weightx = 1;
-        //c.weighty = 1;
-        //c.gridy = 0;
-        //c.gridwidth = c.gridheight = 2;
-        //c.ipady = 35;        
-        widgetComponents.put(tooltip[0], label);
-        panel.add(label, c);
-
-        panel.setBorder(border);
-        panel.setBackground(Colours.BlueDark.getCol());
-        //panel.setBackground(Color.black);
-        return panel;
-    }
-
-    /**
-     * Creates a panel for the performance
-     *
-     * @param rackNum Used to determine which rack this panel is being used for
-     * @return JPanel
-     */
-    public JPanel panelPerformance(int rackNum) {
-        // Condenser Panel will list the condensers 
-        JLabel label;
-        GridBagLayout gbl = new GridBagLayout();
-        GridBagConstraints c = new GridBagConstraints();
-        // Return a panel containing condenser labels
-        JPanel panel = new JPanel(gbl);
-        // Cost
-        label = new JLabel("Cost/hr");
-        label.setOpaque(true);
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setBackground(Colours.GreenDark.getCol());
-        label.setBorder(border);
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.weightx = 1;
-        c.weighty = 0;
-        c.gridy = 0;
-        c.gridheight = 1;
-        c.ipady = 0;
-
-        panel.add(label, c);
-        // KW
-        label = new JLabel("  kW   ");
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        label.setOpaque(true);
-        label.setBackground(Colours.BlueDark.getCol());
-        label.setBorder(border);
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 1;
-
-        c.gridy = 0;
-        c.gridheight = 1;
-
-        panel.add(label, c);
-        c.ipady = 10;
-        c.weighty = 1;
-
-        String[] totalTooltip = new String[]{"Performance Total Cost Sum Predicted", "Performance Total kW Sum Predicted"};
-
-        String[] tooltip = new String[]{"Performance Cost Sum Predicted `%rackname`",
-            "Performance kW Sum Predicted `%rackname`"};
-
-        Rack rack = null;
-        if (rackNum != 0) {
-            rack = racks.get(rackNum - 1);
-        }
-
-        for (int i = 1; i <= 3; i++) {
-            for (int j = 0; j < 2; j++) {
-                label = new JLabel();
-                label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-                c.fill = GridBagConstraints.BOTH;
-                label.setBorder(border);
-                c.gridx = j;
-                c.gridy = i;
-                label.setOpaque(true);
-                if (j == 0) {
-                    // green
-                    switch (i) {
-                        case 1:
-                        case 3:
-                            label.setBackground(Colours.GreenLight.getCol());
-                            break;
-                        case 2:
-                            label.setBackground(Colours.GreenLightest.getCol());
-                            break;
-                    }
-                } else {
-                    switch (i) {
-                        case 1:
-                        case 3:
-                            label.setBackground(Colours.BlueLight.getCol());
-                            break;
-                        case 2:
-                            label.setBackground(Colours.BlueLightest.getCol());
-                            break;
-                    }
-                }
-                label.setBackground(Color.black);
-                c.ipady = 40;
-                String replace = "";
-                if (rack != null) {
-                    // Replace string names
-                    // Cost when j == 0 (0,1,2)
-                    // kW when j == 1 (3,4,5)
-                    if (i == 1) {
-                        replace = tooltip[j].replace("`%rackname`", rack.getName());
-                    }
-                } else {
-                    // Total strings
-                    if (i == 1) {
-                        replace = totalTooltip[j];
-                    }
-                }
-
-                if ((i == 1 && j == 0) || (i == 1 && j == 1)) {
-                    widgetComponents.put(replace, label);
-                }
-                panel.add(label, c);
-            }
-        }
-
-        // Cost -> KW
-        // Label | Label 
-        // Label | Label
-        // Label | Label
-        //panel.setBorder(border);
-        return panel;
-
-    }
-
-    /**
-     * Creates the operating panel
-     *
-     * @param rackNum
-     * @return JPanel
-     */
-    public JPanel panelOperatingDollars(int rackNum) {
-        // Condenser Panel will list the condensers 
-        JLabel label;
-        GridBagLayout gbl = new GridBagLayout();
-        GridBagConstraints c = new GridBagConstraints();
-        // Return a panel containing condenser labels
-        JPanel panel = new JPanel(gbl);
-        // Cost
-        label = new JLabel("Previous");
-        label.setOpaque(true);
-        label.setBackground(Colours.GreenDark.getCol());
-        label.setBorder(border);
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.weightx = 1;
-        c.weighty = 0;
-        c.gridy = 0;
-        c.gridheight = 1;
-
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        panel.add(label, c);
-        // KW
-        label = new JLabel("Current");
-        label.setOpaque(true);
-        label.setBackground(Colours.GreenDark.getCol());
-        label.setBorder(border);
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 1;
-        //c.weightx = 1;
-        c.gridy = 0;
-        c.gridheight = 1;
-
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        panel.add(label, c);
-
-        String[] totalTooltip = new String[]{"Op Cost Total Previous Day", "Op Cost Total Previous Month",
-            "Op Cost Total Previous Year", "Op Cost Total Current Day",
-            "Op Cost Total Current Month", "Op Cost Total Current Year"};
-
-        String[] tooltip = new String[]{"Op Cost Previous Day `%rackname`", "Op Cost Previous Month `%rackname`",
-            "Op Cost Previous Year `%rackname`", "Op Cost Sum Current Day `%rackname`",
-            "Op Cost Sum Current Month `%rackname`", "Op Cost Sum Current Year `%rackname`"};
-
-        Rack rack = null;
-        if (rackNum != 0) {
-            rack = racks.get(rackNum - 1);
-        }
-
-        c.weighty = 1;
-        for (int i = 1; i <= 3; i++) {
-            for (int j = 0; j < 2; j++) {
-                label = new JLabel();
-                label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-                c.fill = GridBagConstraints.BOTH;
-                label.setBorder(border);
-                c.gridx = j;
-                c.gridy = i;
-                label.setOpaque(true);
-                switch (i) {
-                    case 1:
-                    case 3:
-                        label.setBackground(Colours.GreenLight.getCol());
-                        break;
-                    case 2:
-                        label.setBackground(Colours.GreenLightest.getCol());
-                        break;
-                }
-                c.ipady = 40;
-
-                String replace = "";
-                if (rack != null) {
-                    // Replace string names
-                    // Cost when j == 0 (0,1,2)
-                    // kW when j == 1 (3,4,5)
-                    replace = tooltip[j * 3 + i - 1].replace("`%rackname`", rack.getName());
-                } else {
-                    // Total strings
-                    replace = totalTooltip[j * 3 + i - 1];
-                }
-
-                widgetComponents.put(replace, label);
-
-                panel.add(label, c);
-            }
-        }
-
-        // Cost -> KW
-        // Label | Label 
-        // Label | Label
-        // Label | Label
-        //panel.setBorder(border);
-        return panel;
-
-    }
-
-    /**
-     * Creates the operating panel
-     *
-     * @param rackNum
-     * @return JPanel
-     */
-    public JPanel panelOperatingkWh(int rackNum) {
-        // Condenser Panel will list the condensers 
-        JLabel label;
-        GridBagLayout gbl = new GridBagLayout();
-        GridBagConstraints c = new GridBagConstraints();
-        // Return a panel containing condenser labels
-        JPanel panel = new JPanel(gbl);
-        // Cost
-        label = new JLabel("Previous");
-        label.setOpaque(true);
-        label.setBackground(Colours.BlueDark.getCol());
-        label.setBorder(border);
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.weightx = 1;
-        c.weighty = 0;
-        c.gridy = 0;
-        c.gridheight = 1;
-
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        panel.add(label, c);
-        // KW
-        label = new JLabel("Current");
-        label.setOpaque(true);
-        label.setBackground(Colours.BlueDark.getCol());
-        label.setBorder(border);
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 1;
-        //c.weightx = 1;
-        c.gridy = 0;
-        c.gridheight = 1;
-
-        label.setFont(font.deriveFont(Font.BOLD, 16));
-        panel.add(label, c);
-
-        String[] totalTooltip = new String[]{"Op kWh Total Previous Day", "Op kWh Total Previous Month",
-            "Op kWh Total Previous Year", "Op kWh Total Current Day",
-            "Op kWh Total Current Month", "Op kWh Total Current Year"};
-
-        String[] tooltip = new String[]{"Op kWh Previous Day `%rackname`", "Op kWh Previous Month `%rackname`",
-            "Op kWh Previous Year `%rackname`", "Op kWh Counter Current Day `%rackname`",
-            "Op kWh Counter Current Month `%rackname`", "Op kWh Counter Current Year `%rackname`"};
-
-        Rack rack = null;
-        if (rackNum != 0) {
-            rack = racks.get(rackNum - 1);
-        }
-
-        c.weighty = 1;
-        for (int i = 1; i <= 3; i++) {
-            for (int j = 0; j < 2; j++) {
-                label = new JLabel();
-                label.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-                c.fill = GridBagConstraints.BOTH;
-                label.setBorder(border);
-                c.gridx = j;
-                c.gridy = i;
-                label.setOpaque(true);
-                switch (i) {
-                    case 1:
-                    case 3:
-                        label.setBackground(Colours.BlueLight.getCol());
-                        break;
-                    case 2:
-                        label.setBackground(Colours.BlueLightest.getCol());
-                        break;
-                }
-                c.ipady = 40;
-
-                String replace = "";
-                if (rack != null) {
-                    // Replace string names
-                    // Cost when j == 0 (0,1,2)
-                    // kW when j == 1 (3,4,5)
-                    replace = tooltip[j * 3 + i - 1].replace("`%rackname`", rack.getName());
-                } else {
-                    // Total strings
-                    replace = totalTooltip[j * 3 + i - 1];
-                }
-
-                widgetComponents.put(replace, label);
-                panel.add(label, c);
-            }
-        }
-
-        return panel;
-
     }
 
     /**
