@@ -913,7 +913,7 @@ public class ModbusPanel extends javax.swing.JPanel {
                 vals[4] = "1";
                 vals[5] = "2812";
                 vals[6] = "502";
-                vals[7] = "300";
+                vals[7] = "100";
                 vals[8] = String.valueOf(mf.getStationId());
 
                 for (int j = 0; j < headers.length; j++) {
