@@ -66,14 +66,14 @@ Cond kWh MonthCount `%rackname`,1,1,kWh,1,0,1,0,,,,0,,,0
 Cond kWh YearStart `%rackname`,1,1,kWh,1,0,1,0,,,,0,,,0
 Cond kWh YearCount `%rackname`,1,1,kWh,1,0,1,0,,,,0,,,0
 Cond Total Subcooling `%rackname`,1,1,F,1.8,-32,2,0,,,,4,,2 years,0
-Cond Ambient Subcooling `%rackname`,1,1,F,1,0,2,1,600,-25,5,4,,2 years,1
-Cond Subcooling Actual `%rackname`,1,1,F,1.8,0,2,1,300,2,115,2,2,2 years,1
+Cond Ambient Subcooling `%rackname`,1,1,F,1,0,2,1,600,-25,7,4,,2 years,1
+Cond Subcooling Actual `%rackname`,1,1,F,1.8,0,2,1,600,1,115,2,2,2 years,1
 Cond Subcooling Setpoint `%rackname`,1,1,F,1.8,0,2,0,,,,1,,2 years,1
 Cond Outlet Pressure `%rackname`,1,1,Psig,0.145,0,1,0,,,,2,5.00,2 years ,1
 Cond Outlet Air Temperature `%rackname`,1,1,F,1.8,-32,2,0,,,,2,5.00,2 years ,1
 Cond Inlet Air Temperature `%rackname`,1,1,F,1.8,-32,2,0,,,,2,5.00,2 years ,1
 Cond Downleg Temp `%rackname`,1,1,F,1.8,-32,2,0,,,,2,2.00,2 years ,1
-Cond Air TD `%rackname`,1,1,F,1,0,2,1,600,2,100,4,,2 years,0
+Cond Air TD `%rackname`,1,1,F,1,0,2,1,600,0.5,100,4,,2 years,0
 Cond PF `%rackname`,1,1,PF,0.01,0,2,0,,,,5,1,90 days,1
 Cond Setpoint `%rackname`,1,1,Psig,0.145,0,1,0,,,,1,,,1
 Cond Saturation `%rackname`,1,1,F,1.8,-32,2,0,,,,2,5.00,2 years ,1
