@@ -1083,22 +1083,23 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 userID = String.valueOf(users.get(userName));
             } else {
 
-                String[] params = new String[6];
+                String[] params = new String[7];
                 params[0] = "'" + _TF_Username.getText() + "'";     // Username
                 params[1] = "'" + _TF_Password.getText() + "'";     // Password
                 params[2] = "'" + "-" + "'";     // Email
-                params[3] = String.valueOf(_CB_UserType.getSelectedIndex()); // User type
-                params[4] = "'" + _TF_Username.getText() + "'";     // Full Name
-                params[5] = String.valueOf(_CB_NavOption.getSelectedIndex());     // Show menu
+                params[3] = "'" + "-" + "'";     // Email
+                params[4] = String.valueOf(_CB_UserType.getSelectedIndex()); // User type
+                params[5] = "'" + _TF_Username.getText() + "'";     // Full Name
+                params[6] = String.valueOf(_CB_NavOption.getSelectedIndex());     // Show menu
                 String valuesTemplate = "(%s, %s, %s, %s, %s, %s)";
                 String realVals = String.format(valuesTemplate, (Object[]) params);
                 String query = "insert into interface_users (interface_user_login, interface_user_password, "
-                        + "interface_user_email, interface_user_type, interface_user_full_name, "
+                        + "interface_user_email, interface_user_sms_number, interface_user_type, interface_user_full_name, "
                         + "interface_user_showmenu) values " + realVals + " returning interface_user_id;";
 
-                System.out.println(query);
-
+                System.out.println(query);                
                 userID = db.executeReturnQuery(query);
+                _TextArea_Status.append("\nStatus: Added new User " + _TF_Username.getText() + ", ID: " + userID);
 
             }
 
@@ -1110,8 +1111,10 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 String userGroupPanelID = _TF_UGHomePanel.getText();
                 String queryUG = "insert into user_groups (user_group_name, user_group_home_panel_id) values "
                         + "('" + groupName + "', " + userGroupPanelID + ") returning user_group_id;";
-
+                System.out.println(queryUG);                
                 userGroupID = db.executeReturnQuery(queryUG);
+                _TextArea_Status.append("\nStatus: Added new User Group" + groupName + ", ID: " + userGroupID);
+                
 
             }
 
@@ -1119,8 +1122,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             String queryGroup = "insert into user_group_members (user_group_member_interface_user_id, "
                     + "user_group_member_user_group_id) values " + vals + ";";
             System.out.println(queryGroup);
-
             db.executeQuery(queryGroup);
+            _TextArea_Status.append("\nStatus: Added User " +  _TF_Username.getText() + ", ID: " + userID
+                                    + " to User Group " + groupName + ", ID: " + userGroupID);
 
             db.closeConn();
 
@@ -1302,10 +1306,11 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                             db = newDBConn();
                             db.executeQuery(deleteQuery);
                             db.closeConn();                 
-                            
+                            _TextArea_Status.append("\nStatus: Deleted entries from " + tableName);
                             System.out.println("Deleted entries from " + tableName);
                         }
                     } else {
+                        _TextArea_Status.append("\nStatus: Not deleting/re-adding content for " + tableName);
                         System.out.println("Not deleting/re-adding content for " + tableName);
                         continue;
                     }                    
@@ -1316,6 +1321,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                     //System.out.println("Executing query:\n" + query);
                     db = newDBConn();
                     db.executeQuery(query);
+                    _TextArea_Status.append("\nStatus: Added IOs to custom table: " + tableName);
+                    System.out.println("Added IOs to custom table: " + tableName);
                     db.closeConn();
                 }
             }
