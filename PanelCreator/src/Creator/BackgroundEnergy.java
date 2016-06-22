@@ -38,20 +38,20 @@ public class BackgroundEnergy extends javax.swing.JPanel {
     public String storeName;        // store name
     private Map<String, Component> widgetComponents;
 
-    private String[] energyFields = new String[]{
+    private final String[] energyFields = new String[]{
         // Each Item Must have the same amount of spaces
-        " Amps  ",
-        "  kW   ",
-        "kW Peak",
-        "kW Avg ",
-        "  kWh  ",
-        " Volts ",
-        "  PF   ",
-        "  kVA  ",
-        " kVAR  "
+        "  Amps  ",
+        "   kW   ",
+        " kW Peak",
+        " kW Avg ",
+        "  kWh   ",
+        "  Volts ",
+        "   PF   ",
+        "   kVA  ",
+        "  kVAR  "
     };
     
-    private String[] energyFieldParams = new String[]{
+    private final String[] energyFieldParams = new String[]{
         
         "Amp Avg `%rackname`",        
         "kW Actual `%rackname`",
@@ -251,6 +251,7 @@ public class BackgroundEnergy extends javax.swing.JPanel {
         c.weighty = 1; // No space between bottom and below row?        
         c.gridy = 1;        
 
+        
         panel = panelData(store);
         _Panel_MainPanel.add(panel, c);
 
@@ -258,7 +259,7 @@ public class BackgroundEnergy extends javax.swing.JPanel {
         panel = new JPanel();
         c.weightx = 1;
         c.gridy = 2;        
-        panel.setBackground(Colours.GreenLight.getCol());
+        panel.setBackground(Color.black);
         _Panel_MainPanel.add(panel, c);
 
         // make labels white
@@ -361,12 +362,12 @@ public class BackgroundEnergy extends javax.swing.JPanel {
 
         c.gridx = 0;
         c.gridy = 0;
-        c.ipady = 35;
+        c.ipady = 20;
         c.gridwidth = 1;
         c.gridheight = 1;
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 1;
-        c.weighty = 0; // No space between bottom and below row?        
+        c.weighty = 1; // No space between bottom and below row?        
 
         // Unit   |  {EnergyParams[0]} | .... | {EnergyParams[n]}
         // Rack A | 

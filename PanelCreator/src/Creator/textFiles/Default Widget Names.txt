@@ -61,6 +61,24 @@ Performance kW Sum Predicted `%rackname`
 Rack SEI `%rackname`
 Refrigerant Level `%rackname`
 Refrigerant Type `%rackname`
+Amp Avg `%rackname`
+kW Actual `%rackname`
+kW Peak Demand `%rackname`
+kW Avg Demand `%rackname`
+kWh Actual `%rackname`
+Volts Line to Line Avg `%rackname`
+PF `%rackname`
+kVA System `%rackname`
+kVAR System `%rackname`
+Cond Amp Avg `%rackname`
+Cond kW Actual `%rackname`
+Cond kW Peak Demand `%rackname`
+Cond kW Avg Demand `%rackname`
+Cond kWh Actual `%rackname`
+Cond Volts Line to Line Avg `%rackname`
+Cond PF `%rackname`
+Cond kVA System `%rackname`
+Cond kVAR System `%rackname`
 `Condenser
 Cond Fan Amps `%rackname` `%fannum`
 Cond Fan Status `%rackname` `%fannum`

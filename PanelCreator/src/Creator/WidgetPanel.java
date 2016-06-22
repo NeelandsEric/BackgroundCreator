@@ -24,6 +24,7 @@ import java.net.URL;
 import java.security.CodeSource;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -1360,6 +1361,8 @@ public class WidgetPanel extends javax.swing.JPanel {
                     _ComboBox_DisplayPanel.setSelectedItem(panelName);
                 }
 
+                int sel = _List_WidgetCodeList.getSelectedIndex();
+                _List_WidgetCodeList.setSelectedIndex( sel >= 1 ? 0: 1); // This will allow the next line to trigger the value changed field
                 _List_WidgetCodeList.setSelectedValue(wl.getWidgetCodeName(), true);
                 _List_WidgetVars.setSelectedValue(node.getUserObject().toString(), true);
                 _FTF_WigetParam_xPosPer.setValue(wl.getPositionPercentage().getX());
@@ -1869,11 +1872,19 @@ public class WidgetPanel extends javax.swing.JPanel {
 
                 //System.out.println("index:" + index);
                 //System.out.println("master map keys: " + Arrays.toString(masterMap.keySet().toArray()));
+                
+                if(index.equals("Load")){
+                    continue;
+                }
+                
                 // Find all the variables that are usable on the specific panel (masterMap.get(index))
                 for (Entry<String, Rectangle> varsToGen : masterMap.get(index).entrySet()) {
 
                     boolean contains = true;
-
+                    if(!varsToGen.getKey().startsWith(selectedVar[0])){
+                        contains = false;
+                        //System.out.println("wrong start " + varsToGen.getKey() + " || " + selectedVar[0]);
+                    }
                     // selectVar = [Cond Outlet Pressure , %rackname]                    
                     for (String part : selectedVar) {
                         if (!contains) {
@@ -2062,6 +2073,9 @@ public class WidgetPanel extends javax.swing.JPanel {
             for (Map.Entry<String, Rectangle> entry : masterMap.get(index).entrySet()) {
                 if (selectedVar != null) {
                     boolean contains = true;
+                    if(!entry.getKey().startsWith(selectedVar[0])){
+                        contains = false;
+                    }
                     for (String part : selectedVar) {
                         if (!contains) {
                             break;
@@ -2071,7 +2085,7 @@ public class WidgetPanel extends javax.swing.JPanel {
                             if (!entry.getKey().contains(part)) {
                                 contains = false;
                             }
-                        }
+                        }                        
 
                     }
                     if (contains) {
