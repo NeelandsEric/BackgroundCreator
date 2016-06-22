@@ -74,8 +74,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
         }*/
 
         fn[fn.length - 3] = filePath + storeName + "_[" + (fn.length - 2) + "]_Financial-" + +d.width + "x" + d.height + ".png";
-        fn[fn.length - 2] = filePath + storeName + "_[" + (fn.length - 1) + "]_Glycol-" + +d.width + "x" + d.height + ".png";
-        fn[fn.length - 1] = filePath + storeName + "_[" + (fn.length) + "]_Energy-" + +d.width + "x" + d.height + ".png";
+        fn[fn.length - 2] = filePath + storeName + "_[" + (fn.length) + "]_Energy-" + +d.width + "x" + d.height + ".png";
+        fn[fn.length - 1] = filePath + storeName + "_[" + (fn.length - 1) + "]_Glycol-" + +d.width + "x" + d.height + ".png";
+        
 
         return fn;
     }

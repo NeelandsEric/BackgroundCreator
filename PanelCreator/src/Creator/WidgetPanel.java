@@ -1562,6 +1562,10 @@ public class WidgetPanel extends javax.swing.JPanel {
         if (ws.wpl.hasLink(panelName)) {
             LinkInfo li = ws.wpl.getLinkInfo(panelName);
             
+            if(li.getPanelName().contains("Load")){
+                System.out.println("Load - ignore " + panelName);
+                return;
+            }
             if(li.getPanelID() == -1 && !li.getPanelName().equals("Map")){
                 System.out.println("Not adding " + panelName);
                 return;
@@ -1584,6 +1588,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
             String query = String.format(insertQuery, values);
             System.out.println("Attempting to import widgets to " + panelName + " ID: " + li.getPanelID());
+            System.out.println(query);
             db.executeQuery(query);
 
             // Import Tasks
@@ -1610,6 +1615,12 @@ public class WidgetPanel extends javax.swing.JPanel {
 
             LinkInfo li = entry.getValue();
             
+            if(li.getPanelName().contains("Load")){
+                System.out.println("Load - ignore " + panelName);
+                //continue;
+            }           
+            
+            
             if(li.getPanelID() == -1 || li.getPanelName().equals("Map")){
                 System.out.println("Not adding " + panelName);
                 continue;
@@ -1628,6 +1639,10 @@ public class WidgetPanel extends javax.swing.JPanel {
             }
             
             List<String> l = mapping.get(panelName);
+            if(l == null){
+                System.out.println("No mappings for panel: " + panelName);
+                continue;
+            }
             String values = generateWidgetImport(panelName, li.getPanelID(), l);
 
             String query = String.format(insertQuery, values);
