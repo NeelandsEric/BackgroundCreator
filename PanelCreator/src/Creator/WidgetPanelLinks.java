@@ -56,5 +56,8 @@ public class WidgetPanelLinks implements java.io.Serializable {
     public boolean hasLink(String key){
         return this.links.containsKey(key);
     }
-
+    
+    public void clearLinks(){
+        links.clear();
+    }
 }

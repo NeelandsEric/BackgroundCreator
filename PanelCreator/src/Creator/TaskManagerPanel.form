@@ -461,6 +461,7 @@
                 <StringItem index="2" value="Mini-Menu"/>
               </StringArray>
             </Property>
+            <Property name="selectedIndex" type="int" value="1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="_Label_Nav">
@@ -490,6 +491,7 @@
                 <StringItem index="2" value="Monitor &amp; Command"/>
               </StringArray>
             </Property>
+            <Property name="selectedIndex" type="int" value="1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="_Buton_CreateUser">

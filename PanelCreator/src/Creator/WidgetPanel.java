@@ -771,7 +771,7 @@ public class WidgetPanel extends javax.swing.JPanel {
         _ScrollPane_Tree.setViewportView(_JTree_WidgetLinks);
 
         _Button_GenerateLinks.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _Button_GenerateLinks.setText("Create Links");
+        _Button_GenerateLinks.setText("Clear Links");
         _Button_GenerateLinks.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _Button_GenerateLinksActionPerformed(evt);
@@ -1419,64 +1419,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     private void _Button_GenerateLinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_GenerateLinksActionPerformed
         
-
-        if (ws.wpl.links.isEmpty()) {
-            return;
-        }
-
-        _FileChooser_IoFile.setDialogTitle("Save Text Exports");
-        _FileChooser_IoFile.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        _FileChooser_IoFile.setDialogType(JFileChooser.SAVE_DIALOG);
-        _FileChooser_IoFile.setApproveButtonText("Save Here");
-
-        int returnVal = _FileChooser_IoFile.showSaveDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-
-            File file = _FileChooser_IoFile.getSelectedFile();
-            //System.out.println("File: " + file.getAbsolutePath());
-            String filepath = file.getAbsolutePath();
-
-            String outputCode = "[";
-
-            WidgetCode wc = mf.wgPanel.getWidgetCode(widgetCodeName);
-            for (Map.Entry<String, LinkInfo> entry : ws.wpl.getLinks().entrySet()) {
-
-                // For each entry, format a code string based on the default positions
-                // and the given panel name and ID's
-                String panelID = String.valueOf(entry.getValue().getPanelID());
-                String panelName = entry.getValue().getPanelName();
-
-                String xPos = String.valueOf(entry.getValue().getXPos());
-                String yPos = String.valueOf(entry.getValue().getYPos());
-               
-                String newCode = wc.getFullWidgetText()
-                        .replace("`%XPOS%`", xPos)
-                        .replace("`%YPOS%`", yPos)
-                        .replace("`%PANELID%`", panelID)
-                        .replace("`%PANELNAME%`", panelName);
-
-                outputCode += newCode + ",";
-
-            }
-
-            outputCode = outputCode.substring(0, outputCode.length() - 1) + "]";
-
-            String fp = filepath + "\\WidgetExports-Links.txt";
-            //System.out.println("Writing " + fp);
-
-            try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(fp), "utf-8"))) {
-                writer.write(outputCode);
-                //System.out.println("Writing " + fp + " Completed");
-            } catch (Exception e) {
-                System.out.println("Failed writing to: " + fp);
-            }
-
-            System.out.println(outputCode);
-
-        } else {
-            System.out.println("Saving widgets exports cancelled.");
-        }
+        ws.wpl.clearLinks();
     }//GEN-LAST:event__Button_GenerateLinksActionPerformed
 
     private void _Button_ClearCurrentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_ClearCurrentActionPerformed
@@ -1588,7 +1531,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
             String query = String.format(insertQuery, values);
             System.out.println("Attempting to import widgets to " + panelName + " ID: " + li.getPanelID());
-            System.out.println(query);
+            //System.out.println(query);
             db.executeQuery(query);
 
             // Import Tasks

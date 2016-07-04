@@ -446,6 +446,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         jLabel8.setText("If no user group is selected, a user group is created");
 
         _CB_NavOption.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Full Menu", "Mini-Menu + Reports", "Mini-Menu" }));
+        _CB_NavOption.setSelectedIndex(1);
 
         _Label_Nav.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         _Label_Nav.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -456,6 +457,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         _Label_UserType.setText("User Type");
 
         _CB_UserType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Admin", "Monitor", "Monitor & Command" }));
+        _CB_UserType.setSelectedIndex(1);
 
         _Buton_CreateUser.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         _Buton_CreateUser.setText("Create User");
@@ -1087,11 +1089,11 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 params[0] = "'" + _TF_Username.getText() + "'";     // Username
                 params[1] = "'" + _TF_Password.getText() + "'";     // Password
                 params[2] = "'" + "-" + "'";     // Email
-                params[3] = "'" + "-" + "'";     // Email
+                params[3] = "'" + "-" + "'";     // SMS number
                 params[4] = String.valueOf(_CB_UserType.getSelectedIndex()); // User type
-                params[5] = "'" + _TF_Username.getText() + "'";     // Full Name
+                params[5] = "'" + (params[1].contains("Costco") ? "Costco" : "Longos") + " " + _TF_Username.getText() + "'";     // Full Name
                 params[6] = String.valueOf(_CB_NavOption.getSelectedIndex());     // Show menu
-                String valuesTemplate = "(%s, %s, %s, %s, %s, %s)";
+                String valuesTemplate = "(%s, %s, %s, %s, %s, %s, %s)";
                 String realVals = String.format(valuesTemplate, (Object[]) params);
                 String query = "insert into interface_users (interface_user_login, interface_user_password, "
                         + "interface_user_email, interface_user_sms_number, interface_user_type, interface_user_full_name, "
