@@ -381,8 +381,9 @@ public class ModbusSettings implements java.io.Serializable {
         for(Sensor s: items.values()){
             if(s.getMeter() > -1 && !list.containsKey(String.valueOf(s.getMeter()))){
                 String name = sn + " ";
-                name += s.isPowerScout() ? "PS " : "SS ";
-                name += String.valueOf(s.getMeter());
+                name += "- Meter ";
+                name += String.valueOf(s.getMeter() + 1);
+                name += "(" + (s.isPowerScout() ? "PS) " : "SS) ");
                 name += "," + (s.isPowerScout() ? getPowerScoutIPIndex(s.getMeter()): getSingleLoadIPIndex(s.getMeter() - numPowerScouts));
                 list.put(String.valueOf(s.getMeter()), name);
             }
