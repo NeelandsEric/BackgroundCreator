@@ -106,15 +106,17 @@ public class GlycolSettings {
      * @param index int
      */
     public void replaceGlycolSystemName(String name, int index) {
+        
         String oldName = this.glycolSystemNames.get(index);
-        Circuit oldSubNames;
+        Circuit oldSubNames = null;
         if(this.glycolSystemNames.contains(oldName)){
-            oldSubNames = this.glycolSubSystems.remove(oldName);  
-        }else {
+            oldSubNames = this.glycolSubSystems.remove(oldName); 
+        }
+        if(oldSubNames == null){
             oldSubNames = new Circuit(name);
         }
         
-        this.glycolSystemNames.set(index, name);
+        this.glycolSystemNames.set(index, name);       
         
         oldSubNames.updateNames(name);
         

@@ -93,10 +93,7 @@
                           <Component id="_ComboBox_Racks" min="-2" pref="187" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="_Label_SuctionGroupName" min="-2" pref="159" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="_Label_SuctionGroupName" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="_Label_Site" min="-2" pref="114" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>

@@ -1434,7 +1434,6 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
 
     private void _Button_GlycolSysNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_GlycolSysNextActionPerformed
-
         int glycolSysIndex = _ComboBox_GlycolSystems.getSelectedIndex();
         String name = _TextField_GlycolSystemName.getText();
         cs.glycolSettings.replaceGlycolSystemName(name, glycolSysIndex);

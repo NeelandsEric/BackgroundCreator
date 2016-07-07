@@ -6,6 +6,7 @@
 package Creator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -119,6 +120,16 @@ public class Circuit {
             System.out.println("index out of bounds replacing sub system name, index: " + index + ", name: " + subSystemName);
         }
     }
+
+    @Override
+    public String toString() {
+        String s = "Circuit{" + "names=" + Arrays.toString(names) + ", systemName=" 
+                + systemName + ", numSubSystems=" + numSubSystems 
+                + ", subSystemNames=" + subSystemNames + '}';
+        return s;
+    }
+    
+    
     
     
     
