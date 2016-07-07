@@ -251,10 +251,11 @@ public class SuctionGroup implements java.io.Serializable {
      */
     public void replaceSystemName(String name, int index) {
         String oldName = this.systemNames.get(index);
-        Circuit oldSubNames;
+        Circuit oldSubNames = null;
         if(this.systemNames.contains(oldName)){
             oldSubNames = this.subSystems.remove(oldName);  
-        }else {
+        }
+        if(oldSubNames == null){
             oldSubNames = new Circuit(name);
         }
         
