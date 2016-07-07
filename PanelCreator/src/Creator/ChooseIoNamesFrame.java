@@ -24,8 +24,8 @@ public class ChooseIoNamesFrame extends javax.swing.JFrame {
     private MainFrame mf;
     private DefaultListModel originalModel;
     private DefaultListModel printModel;
-    private Map<String, String[]> paramMap;
-    private String[] header;
+    private Map<String, String[]> paramMap;    
+    private String[] headers;
 
     /**
      * Creates new form ChooseIoNamesFrame
@@ -257,6 +257,8 @@ public class ChooseIoNamesFrame extends javax.swing.JFrame {
                 return x1[0].toLowerCase().compareTo(x2[0].toLowerCase());
             }
         });
+        
+        returnItems.add(0, headers);
 
         mf.returnIoItems(returnItems);
     }//GEN-LAST:event_printActionPerformed
@@ -276,7 +278,7 @@ public class ChooseIoNamesFrame extends javax.swing.JFrame {
         printModel.clear();
         paramMap.clear();
 
-        header = items.remove(0);
+        headers = items.remove(0);
 
         for (String[] s : items) {
             originalModel.addElement(s[0]);
