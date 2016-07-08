@@ -1560,7 +1560,7 @@ public class WidgetPanel extends javax.swing.JPanel {
             
             if(li.getPanelName().contains("Load")){
                 System.out.println("Load - ignore " + panelName);
-                //continue;
+                continue;
             }           
             
             
@@ -1667,6 +1667,10 @@ public class WidgetPanel extends javax.swing.JPanel {
             
             if(panelID == "-1" && !panelName.equals("Map")){
                 System.out.println("Continuing on " + panelName);
+                continue;
+            }
+            if(panelName.contains("Load")){
+                System.out.println("Not adding Load link");
                 continue;
             }
 

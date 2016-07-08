@@ -2,7 +2,10 @@ package Creator;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -23,6 +26,7 @@ public class ControlSettings implements java.io.Serializable {
     public boolean glycolStore;
     public GlycolSettings glycolSettings;
     public ArrayList<Rack> racks;
+    public Map<String, ArrayList> gvLinks;
 
     /**
      * Default Constructor
@@ -30,6 +34,7 @@ public class ControlSettings implements java.io.Serializable {
     public ControlSettings() {
         this.storeName = "Store Name";
         racks = new ArrayList<>();
+        gvLinks = new TreeMap<String, ArrayList>();
         racks.add(new Rack("Rack A"));
         numRacks = 1;
         numFanPanels = 0;
@@ -135,6 +140,15 @@ public class ControlSettings implements java.io.Serializable {
         this.glycolSettings = glycolSettings;
     }
 
+    public Map<String, ArrayList> getGvLinks() {
+        return gvLinks;
+    }
+
+    public void setGvLinks(Map<String, ArrayList> gvLinks) {
+        this.gvLinks = gvLinks;
+    }
+
+        
     /**
      * Get store name
      *

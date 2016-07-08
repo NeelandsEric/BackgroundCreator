@@ -55,6 +55,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private DefaultListModel listUsers;
     private DefaultListModel listUserGroups;
     private DefaultListModel stations;
+    private GenericVariablesFrame gvFrame;
+    private Map<String, Integer> gv;
 
     /**
      * Creates new form TaskManagerPanel
@@ -104,6 +106,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         importedIOVariables = newIo;
         _Button_CreateImports.setEnabled(true);
         _Button_InsertCustom.setEnabled(true);
+        _Button_GenericVariables.setEnabled(true);
         _Label_Loaded.setText("Loaded File!");
     }
 
@@ -295,6 +298,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         _Button_GetStations = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         _TF_Station = new javax.swing.JTextField();
+        _Button_GenericVariables = new javax.swing.JButton();
 
         _FileChooser_IoFile.setApproveButtonText("Open");
         _FileChooser_IoFile.setApproveButtonToolTipText("Open a xls file");
@@ -583,7 +587,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        _Button_InsertCustom.setText("Insert to Custom Table");
+        _Button_InsertCustom.setText("Add IOs to SQL Tables");
         _Button_InsertCustom.setEnabled(false);
         _Button_InsertCustom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -613,6 +617,14 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
         _TF_Station.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
+        _Button_GenericVariables.setText("Create Generic Variables");
+        _Button_GenericVariables.setEnabled(false);
+        _Button_GenericVariables.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_GenericVariablesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -634,7 +646,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
                         .addGap(45, 45, 45)
-                        .addComponent(_Button_InsertCustom, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(_Button_InsertCustom, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Button_GenericVariables, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(33, 33, 33))))
         );
         layout.setVerticalGroup(
@@ -648,7 +662,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                             .addComponent(_Panel_Imports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(_Button_InsertCustom, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(_Button_InsertCustom, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_Button_GenericVariables, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(_Panel_AlertInserts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1099,7 +1115,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                         + "interface_user_email, interface_user_sms_number, interface_user_type, interface_user_full_name, "
                         + "interface_user_showmenu) values " + realVals + " returning interface_user_id;";
 
-                System.out.println(query);                
+                System.out.println(query);
                 userID = db.executeReturnQuery(query);
                 _TextArea_Status.append("\nStatus: Added new User " + _TF_Username.getText() + ", ID: " + userID);
 
@@ -1113,10 +1129,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 String userGroupPanelID = _TF_UGHomePanel.getText();
                 String queryUG = "insert into user_groups (user_group_name, user_group_home_panel_id) values "
                         + "('" + groupName + "', " + userGroupPanelID + ") returning user_group_id;";
-                System.out.println(queryUG);                
+                System.out.println(queryUG);
                 userGroupID = db.executeReturnQuery(queryUG);
                 _TextArea_Status.append("\nStatus: Added new User Group" + groupName + ", ID: " + userGroupID);
-                
 
             }
 
@@ -1125,8 +1140,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                     + "user_group_member_user_group_id) values " + vals + ";";
             System.out.println(queryGroup);
             db.executeQuery(queryGroup);
-            _TextArea_Status.append("\nStatus: Added User " +  _TF_Username.getText() + ", ID: " + userID
-                                    + " to User Group " + groupName + ", ID: " + userGroupID);
+            _TextArea_Status.append("\nStatus: Added User " + _TF_Username.getText() + ", ID: " + userID
+                    + " to User Group " + groupName + ", ID: " + userGroupID);
 
             db.closeConn();
 
@@ -1263,10 +1278,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             mappings = mf.getMapFullStrings();
 
             List<TableQueries> list = makeQueries();
-            
-            for (TableQueries tq : list) {                
+
+            for (TableQueries tq : list) {
                 String tableName = tq.getTableName().toLowerCase();
-                
 
                 // Check to see if the data exists in the tables
                 if (checkCustomTables(tq)) {
@@ -1287,16 +1301,16 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                                 deleteQuery = "delete from " + tableName + " where stpt_station_id=" + stationID + ";";
                                 break;
                             case "setpointranges":
-                                if(tq.containsKeyParams("sr_type")){
-                                    if(tq.getParam("sr_type").equals("1")){
+                                if (tq.containsKeyParams("sr_type")) {
+                                    if (tq.getParam("sr_type").equals("1")) {
                                         deleteQuery = "delete from " + tableName + " where sr_station_id=" + stationID + " and sr_type = 1;";
-                                    }else if(tq.getParam("sr_type").equals("2")){
+                                    } else if (tq.getParam("sr_type").equals("2")) {
                                         deleteQuery = "delete from " + tableName + " where sr_station_id=" + stationID + " and sr_type = 2;";
-                                    }else if(tq.getParam("sr_type").equals("3")){
+                                    } else if (tq.getParam("sr_type").equals("3")) {
                                         deleteQuery = "delete from " + tableName + " where sr_station_id=" + stationID + " and sr_type = 3;";
                                     }
                                 }
-                                
+
                                 break;
                             case "eepr":
                                 deleteQuery = "delete from " + tableName + " where eepr_station_id=" + stationID + ";";
@@ -1304,10 +1318,10 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                         }
                         if (!deleteQuery.equals("")) {
                             //System.out.println("Executing:\n" + deleteQuery);
-                            
+
                             db = newDBConn();
                             db.executeQuery(deleteQuery);
-                            db.closeConn();                 
+                            db.closeConn();
                             _TextArea_Status.append("\nStatus: Deleted entries from " + tableName);
                             System.out.println("Deleted entries from " + tableName);
                         }
@@ -1315,11 +1329,11 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                         _TextArea_Status.append("\nStatus: Not deleting/re-adding content for " + tableName);
                         System.out.println("Not deleting/re-adding content for " + tableName);
                         continue;
-                    }                    
+                    }
                 }
                 String query = formatQuery(tq);
-                if(!query.equals("")){
-                    
+                if (!query.equals("")) {
+
                     //System.out.println("Executing query:\n" + query);
                     db = newDBConn();
                     db.executeQuery(query);
@@ -1394,13 +1408,35 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
         db.closeConn();
 
-        _Button_CreateImports.setEnabled(true);
-        _Button_InsertCustom.setEnabled(true);
+        if (!importedIOVariables.isEmpty()) {
 
-        mf.loadImportedIos(importedIOVariables, 2, stationID);
+            _TextArea_Status.append("\nStatus: Retrieved " + importedIOVariables.size() + " ios for Station " + stationName + ", ID: " + stationID);
+            _Button_CreateImports.setEnabled(true);
+            _Button_InsertCustom.setEnabled(true);
+            _Button_GenericVariables.setEnabled(true);
+
+            mf.loadImportedIos(importedIOVariables, 2, stationID);
+        } else {
+            _TextArea_Status.append("\nStatus: Did not retrieve any points for Station " + stationName + ", ID: " + stationID);
+        }
 
 
     }//GEN-LAST:event__Button_DB_IDSActionPerformed
+
+    private void _Button_GenericVariablesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_GenericVariablesActionPerformed
+        // TODO add your handling code here:
+
+        mappings = mf.getMapFullStrings();
+        if (!mappings.isEmpty()) {
+            db = newDBConn();
+            gv = db.getGenericVariables();
+            db.closeConn();
+            if (!gv.isEmpty()) {
+                gvFrame = new GenericVariablesFrame(gv, mappings, cs.getGvLinks(), this);
+                gvFrame.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event__Button_GenericVariablesActionPerformed
 
     private List<TableQueries> makeQueries() {
 
@@ -1544,9 +1580,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 }
             }
         }
-        if(values.equals("")){
+        if (values.equals("")) {
             return "";
-        }else {
+        } else {
             String query = String.format(tq.getQuery(), paramsString, values);
             //System.out.println(query);
 
@@ -1556,8 +1592,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     }
 
     private boolean checkCustomTables(TableQueries tq) {
-        
-        
+
         String tableName = tq.getTableName().toLowerCase();
 
         String query = "";
@@ -1570,15 +1605,15 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 query = "select * from " + tableName + " where stpt_station_id=" + stationID + ";";
                 break;
             case "setpointranges":
-                if(tq.containsKeyParams("sr_type")){
-                    if(tq.getParam("sr_type").equals("1")){
+                if (tq.containsKeyParams("sr_type")) {
+                    if (tq.getParam("sr_type").equals("1")) {
                         query = "select * from " + tableName + " where sr_station_id=" + stationID + " and sr_type = 1;";
-                    }else if(tq.getParam("sr_type").equals("2")){
+                    } else if (tq.getParam("sr_type").equals("2")) {
                         query = "select * from " + tableName + " where sr_station_id=" + stationID + " and sr_type = 2;";
-                    }else if(tq.getParam("sr_type").equals("3")){
+                    } else if (tq.getParam("sr_type").equals("3")) {
                         query = "select * from " + tableName + " where sr_station_id=" + stationID + " and sr_type = 3;";
                     }
-                }                
+                }
                 break;
             case "eepr":
                 query = "select * from " + tableName + " where eepr_station_id=" + stationID + ";";
@@ -1593,6 +1628,44 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         boolean status = db.checkForData(query);
         db.closeConn();
         return status;
+
+    }
+
+    public void insertGV(Map<String, ArrayList> gvLinks) {
+        cs.setGvLinks(gvLinks);
+
+        db = newDBConn();
+
+        String query = "insert into generic_variable_allocations (generic_variable_allocation_generic_variable_id, generic_variable_allocation_io_id) "
+                + "values %s;";
+        String vals = "";
+        for (Entry<String, ArrayList> entry : cs.getGvLinks().entrySet()) {
+            
+            String key = entry.getKey();
+            if(gv.containsKey(key)){
+                int gvID = gv.get(key);
+                System.out.println("Links for: " + key);
+
+                for(Object unformattedString: entry.getValue()){
+
+                    if(mappings.containsKey(unformattedString)){
+                        for(Object formattedString: mappings.get(unformattedString)){
+                            
+                            String id = String.valueOf(importedIOVariables.get(formattedString));
+                            
+                            if(vals.equals("")){
+                                vals += "(" + String.valueOf(gvID) + ", " + id + ")";
+                            }else {
+                                vals += ",(" + String.valueOf(gvID) + ", " + id + ")";
+                            }
+                        }                           
+                    }                    
+                }
+            }
+        }       
+        System.out.println(String.format(query, vals));
+
+        db.closeConn();
 
     }
 
@@ -1866,6 +1939,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private javax.swing.JButton _Button_AddUserToGroups;
     private javax.swing.JButton _Button_CreateImports;
     private javax.swing.JButton _Button_DB_IDS;
+    private javax.swing.JButton _Button_GenericVariables;
     private javax.swing.JButton _Button_GetStations;
     private javax.swing.JButton _Button_InsertCustom;
     private javax.swing.JButton _Button_LoadXls;
