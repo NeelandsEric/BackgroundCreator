@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElementWrapper;
 
 /**
  * Control settings contains all information regarding the store layout. Name,
@@ -26,7 +27,8 @@ public class ControlSettings implements java.io.Serializable {
     public boolean glycolStore;
     public GlycolSettings glycolSettings;
     public ArrayList<Rack> racks;
-    public Map<String, ArrayList> gvLinks;
+    @XmlElementWrapper(name="gvLinks")
+    public Map<String, String> gvLinks;
 
     /**
      * Default Constructor
@@ -34,7 +36,7 @@ public class ControlSettings implements java.io.Serializable {
     public ControlSettings() {
         this.storeName = "Store Name";
         racks = new ArrayList<>();
-        gvLinks = new TreeMap<String, ArrayList>();
+        gvLinks = new TreeMap<String, String>();
         racks.add(new Rack("Rack A"));
         numRacks = 1;
         numFanPanels = 0;
@@ -140,11 +142,11 @@ public class ControlSettings implements java.io.Serializable {
         this.glycolSettings = glycolSettings;
     }
 
-    public Map<String, ArrayList> getGvLinks() {
+    public Map<String, String> getGvLinks() {
         return gvLinks;
     }
 
-    public void setGvLinks(Map<String, ArrayList> gvLinks) {
+    public void setGvLinks(Map<String, String> gvLinks) {
         this.gvLinks = gvLinks;
     }
 

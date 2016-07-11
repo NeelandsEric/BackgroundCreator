@@ -1631,7 +1631,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     }
 
-    public void insertGV(Map<String, ArrayList> gvLinks) {
+    public void insertGV(Map<String, String> gvLinks) {
         cs.setGvLinks(gvLinks);
 
         db = newDBConn();
@@ -1639,32 +1639,31 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         String query = "insert into generic_variable_allocations (generic_variable_allocation_generic_variable_id, generic_variable_allocation_io_id) "
                 + "values %s;";
         String vals = "";
-        for (Entry<String, ArrayList> entry : cs.getGvLinks().entrySet()) {
-            
+        for (Entry<String, String> entry : cs.getGvLinks().entrySet()) {
+
             String key = entry.getKey();
-            if(gv.containsKey(key)){
+            if (gv.containsKey(key)) {
                 int gvID = gv.get(key);
                 System.out.println("Links for: " + key);
+                String value = entry.getValue();
+                if (mappings.containsKey(value)) {
+                    for (Object formattedString : mappings.get(value)) {
 
-                for(Object unformattedString: entry.getValue()){
+                        String id = String.valueOf(importedIOVariables.get(formattedString));
 
-                    if(mappings.containsKey(unformattedString)){
-                        for(Object formattedString: mappings.get(unformattedString)){
-                            
-                            String id = String.valueOf(importedIOVariables.get(formattedString));
-                            
-                            if(vals.equals("")){
-                                vals += "(" + String.valueOf(gvID) + ", " + id + ")";
-                            }else {
-                                vals += ",(" + String.valueOf(gvID) + ", " + id + ")";
-                            }
-                        }                           
-                    }                    
+                        if (vals.equals("")) {
+                            vals += "(" + String.valueOf(gvID) + ", " + id + ")";
+                        } else {
+                            vals += ",(" + String.valueOf(gvID) + ", " + id + ")";
+                        }
+                    }
                 }
-            }
-        }       
-        System.out.println(String.format(query, vals));
 
+            }
+        }
+        String newQuery = String.format(query, vals);
+        System.out.println(newQuery);
+        db.executeQuery(newQuery);
         db.closeConn();
 
     }

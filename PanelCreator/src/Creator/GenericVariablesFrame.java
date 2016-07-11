@@ -21,7 +21,7 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
     private TaskManagerPanel parent;
     private Map<String, Integer> gv;
     private Map<String, List> mappings;
-    private Map<String, ArrayList> gv_links;     // (String, List) - Generic variable name, list of unformatted strings to link
+    private Map<String, String> gv_links;     // (String, List) - Generic variable name, list of unformatted strings to link
     private DefaultListModel gvList;
     private DefaultListModel unformattedList;
     private DefaultListModel toAddList;
@@ -30,7 +30,7 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
     /**
      * Creates new form GenericVariablesFrame
      */
-    public GenericVariablesFrame(Map<String, Integer> gv, Map<String, List> mappings, Map<String, ArrayList> gv_links, TaskManagerPanel parent) {
+    public GenericVariablesFrame(Map<String, Integer> gv, Map<String, List> mappings, Map<String, String> gv_links, TaskManagerPanel parent) {
 
         this.gv = gv;
         this.mappings = mappings;
@@ -44,6 +44,7 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
 
         initComponents();
         loadLists();
+        loadGV_LinkList();
     }
 
     /**
@@ -65,6 +66,7 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         _List_GV_Links = new javax.swing.JList();
         _Button_Import = new javax.swing.JButton();
+        _Button_Delete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -109,6 +111,14 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
             }
         });
 
+        _Button_Delete.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Button_Delete.setText("Delete");
+        _Button_Delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_DeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -124,20 +134,29 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
                                 .addComponent(jScrollPane2))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(_Button_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(_Button_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(_Button_Import, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(_Button_Import, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(_Button_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 2, Short.MAX_VALUE)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1))
+                    .addComponent(_Button_Import, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(_Button_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -145,7 +164,7 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Button_Import, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(_Button_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
 
@@ -165,11 +184,8 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
         if (!_List_GV.isSelectionEmpty() && !_List_UnformattedStrings.isSelectionEmpty()) {
             String gvName = _List_GV.getSelectedValue().toString();
             String unformattedName = _List_UnformattedStrings.getSelectedValue().toString();
-
-            if (!gv_links.containsKey(gvName)) {
-                gv_links.put(gvName, new ArrayList<>());
-            }
-            gv_links.get(gvName).add(unformattedName);
+            
+            gv_links.put(gvName,unformattedName);
 
             _List_GV.clearSelection();
             _List_UnformattedStrings.clearSelection();
@@ -183,9 +199,23 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
 
     private void _Button_ImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_ImportActionPerformed
         // TODO add your handling code here:
-        this.parent.insertGV(gv_links);        
+        this.parent.insertGV(gv_links);
         this.dispose();
     }//GEN-LAST:event__Button_ImportActionPerformed
+
+    private void _Button_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_DeleteActionPerformed
+        // TODO add your handling code here:
+        if (!_List_GV_Links.isSelectionEmpty()) {
+
+            int[] selectedIndices = _List_GV_Links.getSelectedIndices();
+            
+            for (int i = selectedIndices.length - 1; i >= 0; i--) {
+                String [] parts = gvLinksList.get(i).toString().split(" -> ");
+                System.out.println("Removed: " + gv_links.remove(parts[0]));
+                gvLinksList.removeElementAt(selectedIndices[i]);
+            }
+        }
+    }//GEN-LAST:event__Button_DeleteActionPerformed
 
     private void loadLists() {
 
@@ -202,11 +232,8 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
 
     private void loadGV_LinkList() {
         gvLinksList.clear();
-        for (Entry<String, ArrayList> entry : gv_links.entrySet()) {
-            String gvName = entry.getKey();
-            for (Object k : entry.getValue()) {
-                gvLinksList.addElement(gvName + " -> " + k);
-            }
+        for (Entry<String, String> entry : gv_links.entrySet()) {        
+            gvLinksList.addElement(entry.getKey() + " -> " + entry.getValue());            
         }
     }
 
@@ -220,6 +247,7 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton _Button_Add;
+    private javax.swing.JButton _Button_Delete;
     private javax.swing.JButton _Button_Import;
     private javax.swing.JList _List_GV;
     private javax.swing.JList _List_GV_Links;
