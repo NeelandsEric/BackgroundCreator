@@ -791,19 +791,24 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         _FTF_LogTimeMonth.setText("");
         _FTF_LogTimeYear.setText("");
 
-        if (!date.equals("")) {
+        if (!date.equals("") || !date.equals("0")) {
             String[] vals = date.split(" ");
             System.out.println(Arrays.toString(vals));
 
-            for (int i = 0; i < vals.length; i += 2) {
-                if (vals[i + 1].equals("year") || vals[i + 1].equals("years")) {
-                    _FTF_LogTimeYear.setText(vals[i]);
-                } else if (vals[i + 1].equals("mon") || vals[i + 1].equals("mons")) {
-                    _FTF_LogTimeMonth.setText(vals[i]);
-                } else if (vals[i + 1].equals("day") || vals[i + 1].equals("days")) {
-                    _FTF_LogTimeDay.setText(vals[i]);
+            if (vals.length >= 1) {
+
+                for (int i = 0; i < vals.length; i += 2) {
+                    if (vals[i + 1].equals("year") || vals[i + 1].equals("years")) {
+                        _FTF_LogTimeYear.setText(vals[i]);
+                    } else if (vals[i + 1].equals("mon") || vals[i + 1].equals("mons")) {
+                        _FTF_LogTimeMonth.setText(vals[i]);
+                    } else if (vals[i + 1].equals("day") || vals[i + 1].equals("days")) {
+                        _FTF_LogTimeDay.setText(vals[i]);
+                    }
                 }
             }
+        }else {
+            _FTF_LogTimeYear.setText("1 year");
         }
     }
 
@@ -932,7 +937,7 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
     public void loadGroups() {
 
         ioNames = new IoNames();
-        
+
         _Table_Items.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -1023,9 +1028,9 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
 
         _Table_Items.setModel(tableModels.get(0));
         _ComboBox_Groups.setSelectedIndex(0);
-        
+
         resizeColumnWidth(_Table_Items);
-        
+
         mf.updateVarNames(ioNames);
 
     }

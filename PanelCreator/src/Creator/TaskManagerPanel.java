@@ -705,6 +705,15 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     private void _Button_CreateImportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CreateImportsActionPerformed
 
+        if (stationID == -1) {
+            stationID = mf.stationId;
+            System.out.println("New ID: " + stationID);
+            if(stationID == -1){
+                _TextArea_Status.append("Status: Cant add tasks, station ID not selected properly");
+                return;
+            }
+        }
+        
         if (checkTaskExist()) {
             _TextArea_Status.append("\nStatus: Tasks already exist for Station ID " + stationID);
             int dialogButton = JOptionPane.YES_NO_OPTION;
@@ -712,7 +721,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                     "Would you like to delete and add the tasks again to " + stationName + " ID: " + stationID, "Confirm Delete All", dialogButton);
 
             if (dialogResult == 0) {
+                db = newDBConn();
                 db.deleteTasksStationID(stationID);
+                db.closeConn();
                 System.out.println("Deleted tasks for Station: " + stationName);
 
             } else {
@@ -720,11 +731,6 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 return;
             }
 
-        }
-
-        if (stationID == -1) {
-            stationID = mf.stationId;
-            System.out.println("New ID: " + stationID);
         }
 
         _TextArea_Status.append("\nStatus: Tasks being created and imported to Station ID: " + stationID);
@@ -1694,7 +1700,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
         query = query.substring(0, query.length() - 1) + ";";
 
-        System.out.println(query);
+        //System.out.println(query);
 
         db = newDBConn();
 
@@ -1806,6 +1812,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
         String returnString = "'";
         for (String s : elements) {
+            if(s.equals("")){
+                System.out.println("Blank element found in: " + Arrays.toString(elements));
+            }
             returnString += findIDForString(s) + ",";
         }
 
