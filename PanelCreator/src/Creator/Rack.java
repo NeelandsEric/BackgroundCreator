@@ -156,6 +156,8 @@ public class Rack implements java.io.Serializable {
         if (numSuctionGroups > this.numSuctionGroups) {
             this.numSuctionGroups = numSuctionGroups;            
             this.addSuctionGroup(numSuctionGroups);
+        }else {
+            this.numSuctionGroups = numSuctionGroups;
         }
     }
 
