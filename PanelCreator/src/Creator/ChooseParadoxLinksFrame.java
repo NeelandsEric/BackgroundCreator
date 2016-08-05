@@ -43,12 +43,11 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         this.paradoxLinkMap = knownParadoxLinks;
         this.paradoxKeyMap = paradoxKeyMap;
         this.parentPanel = parentPanel;
-        
-        
 
         initalLoad();
-        
+
         addChangeListener(editTextField, e -> editingField());
+        addChangeListener(searchField, e -> search());
 
     }
 
@@ -61,8 +60,6 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         }
 
         ioNameList.setModel(dm);
-        
-        
 
     }
 
@@ -92,15 +89,17 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         knownIONames4 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         possibleParadoxList = new javax.swing.JList();
-        editParadoxLink1 = new javax.swing.JButton();
+        addLink = new javax.swing.JButton();
         deleteParadoxLink = new javax.swing.JButton();
         saveNClose = new javax.swing.JButton();
+        saveParadoxLink = new javax.swing.JButton();
+        searchField = new javax.swing.JTextField();
+        knownIONames5 = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Paradox Linker");
-        setAlwaysOnTop(true);
         setResizable(false);
 
         knownIONames.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -180,8 +179,13 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         possibleParadoxList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane5.setViewportView(possibleParadoxList);
 
-        editParadoxLink1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        editParadoxLink1.setText("Add Link");
+        addLink.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        addLink.setText("Add Link");
+        addLink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addLinkActionPerformed(evt);
+            }
+        });
 
         deleteParadoxLink.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         deleteParadoxLink.setText("Delete Link");
@@ -193,6 +197,20 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
                 saveNCloseActionPerformed(evt);
             }
         });
+
+        saveParadoxLink.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        saveParadoxLink.setText("Save");
+        saveParadoxLink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveParadoxLinkActionPerformed(evt);
+            }
+        });
+
+        searchField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        knownIONames5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        knownIONames5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        knownIONames5.setText("Search For paradox Keys");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -208,11 +226,16 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(knownIONames1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(editParadoxLink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(editTextField)
-                    .addComponent(knownIONames4, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                    .addComponent(knownIONames4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane5)
-                    .addComponent(editParadoxLink1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(addLink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(editParadoxLink, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saveParadoxLink, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
+                    .addComponent(searchField)
+                    .addComponent(knownIONames5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -252,14 +275,19 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(editTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(editParadoxLink, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(editParadoxLink, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(saveParadoxLink, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(knownIONames5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(knownIONames4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(editParadoxLink1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addComponent(addLink, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
 
@@ -287,11 +315,18 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (!evt.getValueIsAdjusting()) {
 
-            // Load Paradox Link
-            loadParadoxLink();
+            if (!ioNameList.isSelectionEmpty()) {
+                // Load Paradox Link
+                loadParadoxLink();
 
-            // Load Io Names Following
-            loadIONames();
+                // Load Io Names Following
+                loadIONames();
+            } else {
+                editTextField.setText("");
+                editTextField.setEditable(false);
+                saveParadoxLink.setEnabled(false);
+                editParadoxLink.setEnabled(false);
+            }
 
         }
     }//GEN-LAST:event_ioNameListValueChanged
@@ -317,14 +352,76 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         editTextField.setEditable(true);
     }//GEN-LAST:event_editParadoxLinkActionPerformed
 
-    
-    private void editingField(){
+    private void saveParadoxLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveParadoxLinkActionPerformed
+        // TODO add your handling code here:
+        if (!ioNameList.isSelectionEmpty()) {
+            if (paradoxLinkMap.containsKey((String) ioNameList.getSelectedValue())) {
+                paradoxLinkMap.replace((String) ioNameList.getSelectedValue(), editTextField.getText());
+            } else {
+                System.out.println("Couldnt find the key: " + (String) ioNameList.getSelectedValue());
+            }
+        } else {
+            System.out.println("Cant save when no element selected");
+        }
+    }//GEN-LAST:event_saveParadoxLinkActionPerformed
+
+    private void addLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLinkActionPerformed
+        // TODO add your handling code here:
         
+        if(!possibleParadoxList.isSelectionEmpty()){
+            
+            String paradoxName = (String) possibleParadoxList.getSelectedValue();
+            paradoxName = paradoxName.substring(0, paradoxName.indexOf("||"));
+            System.out.println(paradoxName);
+        }
         
+    }//GEN-LAST:event_addLinkActionPerformed
+
+    private void editingField() {
+        
+        if(!editTextField.getText().equals("")){
+            // Check similar paradox fields
+            
+        }
+
     }
     
-    
+    private void search(){
+        
+        System.out.println("searching..!");
+        String searchItem = searchField.getText();
+        if(!searchItem.equals("")){
+            // Check similar paradox fields
+            ArrayList<String> searchRetItems = paradoxKeyMap.search(searchItem);
+            
+            DefaultListModel dm = new DefaultListModel();
+            for (String item : searchRetItems) {
+                dm.addElement(item);
+            }
+            
+            possibleParadoxList.setModel(dm);
+            
+        }
+    }
+
     private void loadParadoxLink() {
+        
+        if (!ioNameList.isSelectionEmpty()) {
+            String io = ioNameList.getSelectedValue().toString();
+
+            if (paradoxLinkMap.containsKey(io)) {
+                
+                editTextField.setText(paradoxLinkMap.get(io));
+                editTextField.setEditable(false);
+                editParadoxLink.setEnabled(true);
+                saveParadoxLink.setEnabled(true);
+
+            } else {
+                System.out.println("No links found for " + io);
+            }
+
+        }
+        
 
     }
 
@@ -410,10 +507,10 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addLink;
     private javax.swing.JList currentLinksList;
     private javax.swing.JButton deleteParadoxLink;
     private javax.swing.JButton editParadoxLink;
-    private javax.swing.JButton editParadoxLink1;
     private javax.swing.JTextField editTextField;
     private javax.swing.JList ioNameList;
     private javax.swing.JButton jButton1;
@@ -427,8 +524,11 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
     private javax.swing.JLabel knownIONames2;
     private javax.swing.JLabel knownIONames3;
     private javax.swing.JLabel knownIONames4;
+    private javax.swing.JLabel knownIONames5;
     private javax.swing.JList possibleNamesList;
     private javax.swing.JList possibleParadoxList;
     private javax.swing.JButton saveNClose;
+    private javax.swing.JButton saveParadoxLink;
+    private javax.swing.JTextField searchField;
     // End of variables declaration//GEN-END:variables
 }

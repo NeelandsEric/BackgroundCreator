@@ -5,8 +5,11 @@
  */
 package Creator;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -80,7 +83,38 @@ public class ParadoxKeyMap {
     public Integer replace(String key, Integer value) {
         return keyMap.replace(key, value);
     }
+    
+    
+    
+    public ArrayList<String> search(String key){
+        
+        ArrayList<String> retItems = new ArrayList<>();
+        
+        for(String searchable: keyMap.keySet()){
+            if(searchable.contains(key)){
+                retItems.add(searchable + "|| " + String.valueOf(keyMap.get(searchable)));
+            }
+        }
+        
+        return retItems;
+        
+    }
 
+    @Override
+    public String toString() {
+        String s = "ParadoxKeyMap{";
+        
+        for(Entry entry: keyMap.entrySet()){
+            s += "\nEntry";
+            s += "\n\tName: " + entry.getKey();
+            s += "\n\tMkey: " + String.valueOf(entry.getValue());
+        }
+        s += "\n}";
+        return s;
+    }
+    
+    
+    
     
     
     

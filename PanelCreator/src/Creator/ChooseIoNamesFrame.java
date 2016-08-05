@@ -66,7 +66,6 @@ public class ChooseIoNamesFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Print Specific IOs");
-        setAlwaysOnTop(true);
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
 

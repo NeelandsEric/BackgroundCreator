@@ -1522,7 +1522,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 String filePath = file.getAbsolutePath();
 
                 paradoxKeyMap = xmlParser.readParadoxKeyMapFile(filePath);
-
+                
+                System.out.println(paradoxKeyMap);
                 if (paradoxKeyMap == null) {
                     //writeToLog("Error opening " + filePath);
                 } else {
