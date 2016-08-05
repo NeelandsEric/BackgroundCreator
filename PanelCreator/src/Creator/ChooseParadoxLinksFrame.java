@@ -381,6 +381,7 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         
         if(!editTextField.getText().equals("")){
             // Check similar paradox fields
+            search(editTextField.getText());
             
         }
 
@@ -390,6 +391,23 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         
         System.out.println("searching..!");
         String searchItem = searchField.getText();
+        if(!searchItem.equals("")){
+            // Check similar paradox fields
+            ArrayList<String> searchRetItems = paradoxKeyMap.search(searchItem);
+            
+            DefaultListModel dm = new DefaultListModel();
+            for (String item : searchRetItems) {
+                dm.addElement(item);
+            }
+            
+            possibleParadoxList.setModel(dm);
+            
+        }
+    }
+    
+    private void search(String searchItem){
+        
+        System.out.println("searching..!");
         if(!searchItem.equals("")){
             // Check similar paradox fields
             ArrayList<String> searchRetItems = paradoxKeyMap.search(searchItem);
