@@ -52,6 +52,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private ChooseParadoxLinksFrame plFrame;
     private Map<String, Integer> gv;
     private ParadoxKeyMap paradoxKeyMap;
+    private Map<String, String> paradoxLinkMap;
 
     /**
      * Creates new form TaskManagerPanel
@@ -70,10 +71,13 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         loadDefaultTasks();
         loadDefaultAlerts();
 
+        paradoxKeyMap = new ParadoxKeyMap();
+        loadDefaultParadoxLinks();
+
         listUsers = new DefaultListModel();
         listUserGroups = new DefaultListModel();
         stations = new DefaultListModel();
-        paradoxKeyMap = new ParadoxKeyMap();
+
         loadData();
 
     }
@@ -240,6 +244,45 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 }
             }
 
+            wb.close();
+
+        } catch (Exception e) {
+            System.out.println("Error reading excel file " + e.getMessage());
+        }
+
+    }
+
+    private void loadDefaultParadoxLinks() {
+
+        String path = "/Creator/textFiles/Paradox-KeyLinks.xlsx";
+        InputStream loc = this.getClass().getResourceAsStream(path);
+        paradoxLinkMap = new TreeMap<>();
+        try {
+
+            XSSFWorkbook wb = new XSSFWorkbook(loc);
+            XSSFSheet sheet = wb.getSheetAt(0);
+            XSSFRow row;
+            XSSFCell cell;
+            int rows; // No of rows
+            rows = sheet.getPhysicalNumberOfRows();
+
+            int paradoxCol = sheet.getRow(0).getCell(0).getStringCellValue().equals("Paradox ID") ? 0 : 1;
+            int nameCol = sheet.getRow(0).getCell(1).getStringCellValue().equals("IO Name") ? 1 : 0;
+
+            for (int i = 1; i < rows; i++) {
+
+                row = sheet.getRow(i);
+                if (row != null) {
+
+                    cell = row.getCell(paradoxCol);
+                    String para = cell.getStringCellValue();
+
+                    cell = row.getCell(nameCol);
+                    String name = cell.getStringCellValue();
+
+                    paradoxLinkMap.put(name, para);
+                }
+            }
             wb.close();
 
         } catch (Exception e) {
@@ -1474,7 +1517,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
                 File file = _FileChooser_IoFile.getSelectedFile();
 
-            // What to do with the file, e.g. display it in a TextArea
+                // What to do with the file, e.g. display it in a TextArea
                 //System.out.println("File: " + file.getAbsolutePath());
                 String filePath = file.getAbsolutePath();
 
@@ -1483,7 +1526,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 if (paradoxKeyMap == null) {
                     //writeToLog("Error opening " + filePath);
                 } else {
-                    plFrame = new ChooseParadoxLinksFrame(cs, mf.getMapFullStrings(), paradoxKeyMap, this);
+                    plFrame = new ChooseParadoxLinksFrame(mf.getMapFullStrings(), paradoxLinkMap, paradoxKeyMap, this);
                     plFrame.setVisible(true);
                 }
 
@@ -1994,7 +2037,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             System.out.println("Error reading excel file " + e.getMessage());
         }
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton _Buton_CreateUser;

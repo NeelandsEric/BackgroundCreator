@@ -5,11 +5,21 @@
  */
 package Creator;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
+import javax.swing.text.JTextComponent;
 
 /**
  *
@@ -17,21 +27,43 @@ import javax.swing.DefaultListModel;
  */
 public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
 
-    
-    private ParadoxLinker pl;
-    private TaskManagerPanel tmp;
-    
-    private ParadoxKeyMap paradoxKeyMap;
-    
+    private TaskManagerPanel parentPanel;           // Return a list to this panel
+    private Map<String, List> formattedIoNames;     // Cond `%rackname` links to a list -> Cond Rack A, Cond Rack B, etc
+    private ParadoxKeyMap paradoxKeyMap;            // Paradox key map  key: 'Rack A/Cnd/COP2COT' value=2942
+    private Map<String, String> paradoxLinkMap;  // Custom links, linking an IO string "Cond `%rackname` Outlet Temp" to the paradox name "~RackA\Cnd\OAT Measure"
+
     /**
      * Creates new form ChooseParadoxLinksFrame
      */
-    public ChooseParadoxLinksFrame(ControlSettings cs, Map<String, List> nameMappings, ParadoxKeyMap paradoxKeyMap, TaskManagerPanel tmp) {
-        
-        this.tmp = tmp;
+    public ChooseParadoxLinksFrame(Map<String, List> formattedIoNames, Map<String, String> knownParadoxLinks, ParadoxKeyMap paradoxKeyMap, TaskManagerPanel parentPanel) {
+
         initComponents();
-        pl = new ParadoxLinker(cs, nameMappings);
+
+        this.formattedIoNames = formattedIoNames;
+        this.paradoxLinkMap = knownParadoxLinks;
         this.paradoxKeyMap = paradoxKeyMap;
+        this.parentPanel = parentPanel;
+        
+        
+
+        initalLoad();
+        
+        addChangeListener(editTextField, e -> editingField());
+
+    }
+
+    private void initalLoad() {
+
+        // Load the first list
+        DefaultListModel dm = new DefaultListModel();
+        for (String item : paradoxLinkMap.keySet()) {
+            dm.addElement(item);
+        }
+
+        ioNameList.setModel(dm);
+        
+        
+
     }
 
     /**
@@ -95,6 +127,11 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
 
         editParadoxLink.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         editParadoxLink.setText("Edit");
+        editParadoxLink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editParadoxLinkActionPerformed(evt);
+            }
+        });
 
         editTextField.setEditable(false);
         editTextField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -249,24 +286,22 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
     private void ioNameListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_ioNameListValueChanged
         // TODO add your handling code here:
         if (!evt.getValueIsAdjusting()) {
-            
+
             // Load Paradox Link
             loadParadoxLink();
-            
-            
+
             // Load Io Names Following
             loadIONames();
-            
-            
+
         }
     }//GEN-LAST:event_ioNameListValueChanged
 
     private void currentLinksListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_currentLinksListValueChanged
         // TODO add your handling code here:
-        if(!evt.getValueIsAdjusting()){
-            if(currentLinksList.isSelectionEmpty()){
+        if (!evt.getValueIsAdjusting()) {
+            if (currentLinksList.isSelectionEmpty()) {
                 deleteParadoxLink.setEnabled(false);
-            }else {
+            } else {
                 deleteParadoxLink.setEnabled(true);
             }
         }
@@ -274,52 +309,105 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
 
     private void saveNCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveNCloseActionPerformed
         // TODO add your handling code here:
-        tmp.returnParadoxLinks(null);
+        parentPanel.returnParadoxLinks(null);
     }//GEN-LAST:event_saveNCloseActionPerformed
 
+    private void editParadoxLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editParadoxLinkActionPerformed
+        // TODO add your handling code here:
+        editTextField.setEditable(true);
+    }//GEN-LAST:event_editParadoxLinkActionPerformed
+
     
-    
-    private void loadParadoxLink(){
-        
-        if(!ioNameList.isSelectionEmpty()){
-            String io = ioNameList.getSelectedValue().toString();
-            
-            ArrayList<String> relatedIos = (ArrayList) pl.getNameMappingsFor(io);
-            
-            DefaultListModel dm = new DefaultListModel();
-            for(String item: relatedIos){
-                dm.addElement(item);                
-            }
-            
-            possibleNamesList.setModel(dm);
-            
-        }
-        
-        
-        
+    private void editingField(){
         
         
     }
     
-    private void loadIONames(){
-        
-        if(!ioNameList.isSelectionEmpty()){
-            String io = ioNameList.getSelectedValue().toString();
-            
-            ArrayList<String> relatedIos = (ArrayList) pl.getNameMappingsFor(io);
-            
-            DefaultListModel dm = new DefaultListModel();
-            for(String item: relatedIos){
-                dm.addElement(item);                
-            }
-            
-            possibleNamesList.setModel(dm);
-            
-        }
-        
-        
-    }
     
+    private void loadParadoxLink() {
+
+    }
+
+    private void loadIONames() {
+
+        if (!ioNameList.isSelectionEmpty()) {
+            String io = ioNameList.getSelectedValue().toString();
+
+            if (formattedIoNames.containsKey(io)) {
+                ArrayList<String> relatedIos = (ArrayList) formattedIoNames.get(io);
+
+                DefaultListModel dm = new DefaultListModel();
+                for (String item : relatedIos) {
+                    dm.addElement(item);
+                }
+
+                possibleNamesList.setModel(dm);
+            } else {
+                System.out.println("No links found for " + io);
+            }
+
+        }
+
+    }
+
+    /**
+     * Installs a listener to receive notification when the text of any
+     * {@code JTextComponent} is changed. Internally, it installs a
+     * {@link DocumentListener} on the text component's {@link Document}, and a
+     * {@link PropertyChangeListener} on the text component to detect if the
+     * {@code Document} itself is replaced.
+     *
+     * @param text any text component, such as a {@link JTextField} or
+     * {@link JTextArea}
+     * @param changeListener a listener to receieve {@link ChangeEvent}s when
+     * the text is changed; the source object for the events will be the text
+     * component
+     * @throws NullPointerException if either parameter is null
+     */
+    public static void addChangeListener(JTextComponent text, ChangeListener changeListener) {
+        Objects.requireNonNull(text);
+        Objects.requireNonNull(changeListener);
+        DocumentListener dl = new DocumentListener() {
+            private int lastChange = 0, lastNotifiedChange = 0;
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                lastChange++;
+                SwingUtilities.invokeLater(() -> {
+                    if (lastNotifiedChange != lastChange) {
+                        lastNotifiedChange = lastChange;
+                        changeListener.stateChanged(new ChangeEvent(text));
+                    }
+                });
+            }
+        };
+        text.addPropertyChangeListener("document", (PropertyChangeEvent e) -> {
+            Document d1 = (Document) e.getOldValue();
+            Document d2 = (Document) e.getNewValue();
+            if (d1 != null) {
+                d1.removeDocumentListener(dl);
+            }
+            if (d2 != null) {
+                d2.addDocumentListener(dl);
+            }
+            dl.changedUpdate(null);
+        });
+        Document d = text.getDocument();
+        if (d != null) {
+            d.addDocumentListener(dl);
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList currentLinksList;
