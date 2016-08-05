@@ -5,17 +5,11 @@
  */
 package Creator;
 
-import java.awt.Point;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -23,7 +17,6 @@ import java.util.TreeMap;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.ListModel;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -56,7 +49,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private DefaultListModel listUserGroups;
     private DefaultListModel stations;
     private GenericVariablesFrame gvFrame;
+    private ChooseParadoxLinksFrame plFrame;
     private Map<String, Integer> gv;
+    private ParadoxKeyMap paradoxKeyMap;
 
     /**
      * Creates new form TaskManagerPanel
@@ -78,6 +73,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         listUsers = new DefaultListModel();
         listUserGroups = new DefaultListModel();
         stations = new DefaultListModel();
+        paradoxKeyMap = new ParadoxKeyMap();
         loadData();
 
     }
@@ -107,6 +103,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         _Button_CreateImports.setEnabled(true);
         _Button_InsertCustom.setEnabled(true);
         _Button_GenericVariables.setEnabled(true);
+        _Button_ParadoxLinker.setEnabled(true);
         _Label_Loaded.setText("Loaded File!");
     }
 
@@ -299,6 +296,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         _TF_Station = new javax.swing.JTextField();
         _Button_GenericVariables = new javax.swing.JButton();
+        _Button_ParadoxLinker = new javax.swing.JButton();
 
         _FileChooser_IoFile.setApproveButtonText("Open");
         _FileChooser_IoFile.setApproveButtonToolTipText("Open a xls file");
@@ -625,6 +623,14 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             }
         });
 
+        _Button_ParadoxLinker.setText("Link Paradox Keys");
+        _Button_ParadoxLinker.setEnabled(false);
+        _Button_ParadoxLinker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_ParadoxLinkerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -648,7 +654,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(_Button_InsertCustom, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(_Button_GenericVariables, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(_Button_GenericVariables, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_Button_ParadoxLinker, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(33, 33, 33))))
         );
         layout.setVerticalGroup(
@@ -664,7 +671,9 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                         .addGap(28, 28, 28)
                         .addComponent(_Button_InsertCustom, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(_Button_GenericVariables, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(_Button_GenericVariables, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_Button_ParadoxLinker, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(_Panel_AlertInserts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -696,6 +705,8 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             readXFile(filePath);
             _Button_CreateImports.setEnabled(true);
             _Button_InsertCustom.setEnabled(true);
+            _Button_GenericVariables.setEnabled(true);
+            _Button_ParadoxLinker.setEnabled(true);
             _Label_Loaded.setText("Loaded File!");
 
         } else {
@@ -708,12 +719,12 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         if (stationID == -1) {
             stationID = mf.stationId;
             System.out.println("New ID: " + stationID);
-            if(stationID == -1){
+            if (stationID == -1) {
                 _TextArea_Status.append("Status: Cant add tasks, station ID not selected properly");
                 return;
             }
         }
-        
+
         if (checkTaskExist()) {
             _TextArea_Status.append("\nStatus: Tasks already exist for Station ID " + stationID);
             int dialogButton = JOptionPane.YES_NO_OPTION;
@@ -1420,6 +1431,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             _Button_CreateImports.setEnabled(true);
             _Button_InsertCustom.setEnabled(true);
             _Button_GenericVariables.setEnabled(true);
+            _Button_ParadoxLinker.setEnabled(true);
 
             mf.loadImportedIos(importedIOVariables, 2, stationID);
         } else {
@@ -1443,6 +1455,50 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event__Button_GenericVariablesActionPerformed
+
+    private void _Button_ParadoxLinkerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_ParadoxLinkerActionPerformed
+
+        if (paradoxKeyMap.isEmpty()) {
+
+            _FileChooser_IoFile.setDialogTitle("Open Store File (XML)");
+            _FileChooser_IoFile.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            _FileChooser_IoFile.setFileFilter(new FilterStore());
+            _FileChooser_IoFile.setDialogType(JFileChooser.OPEN_DIALOG);
+            _FileChooser_IoFile.setApproveButtonText("Open Store (XML) file");
+            _FileChooser_IoFile.setApproveButtonToolTipText("Open");
+
+            int returnVal = _FileChooser_IoFile.showOpenDialog(this);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+                XMLParser xmlParser = new XMLParser();
+
+                File file = _FileChooser_IoFile.getSelectedFile();
+
+            // What to do with the file, e.g. display it in a TextArea
+                //System.out.println("File: " + file.getAbsolutePath());
+                String filePath = file.getAbsolutePath();
+
+                paradoxKeyMap = xmlParser.readParadoxKeyMapFile(filePath);
+
+                if (paradoxKeyMap == null) {
+                    //writeToLog("Error opening " + filePath);
+                } else {
+                    plFrame = new ChooseParadoxLinksFrame(cs, mf.getMapFullStrings(), paradoxKeyMap, this);
+                    plFrame.setVisible(true);
+                }
+
+            } else {
+                System.out.println("File access cancelled by user.");
+            }
+
+        }
+
+
+    }//GEN-LAST:event__Button_ParadoxLinkerActionPerformed
+
+    public void returnParadoxLinks(Map<Integer, Integer> paradoxLinks) {
+        plFrame.dispose();
+    }
 
     private List<TableQueries> makeQueries() {
 
@@ -1701,7 +1757,6 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         query = query.substring(0, query.length() - 1) + ";";
 
         //System.out.println(query);
-
         db = newDBConn();
 
         String returnString = db.executeQuery(query);
@@ -1812,7 +1867,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
         String returnString = "'";
         for (String s : elements) {
-            if(s.equals("")){
+            if (s.equals("")) {
                 System.out.println("Blank element found in: " + Arrays.toString(elements));
             }
             returnString += findIDForString(s) + ",";
@@ -1939,7 +1994,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             System.out.println("Error reading excel file " + e.getMessage());
         }
     }
-
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton _Buton_CreateUser;
@@ -1951,6 +2006,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private javax.swing.JButton _Button_GetStations;
     private javax.swing.JButton _Button_InsertCustom;
     private javax.swing.JButton _Button_LoadXls;
+    private javax.swing.JButton _Button_ParadoxLinker;
     private javax.swing.JComboBox _CB_NavOption;
     private javax.swing.JComboBox _CB_UserType;
     private javax.swing.JFileChooser _FileChooser_IoFile;

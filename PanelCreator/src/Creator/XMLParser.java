@@ -16,14 +16,17 @@ public class XMLParser {
     private JAXBContext contextStore;
     private JAXBContext contextWidget;
     private JAXBContext contextIoNames;
+    private JAXBContext contextParadoxKeyMap;
     
     private Marshaller marshStore;
     private Marshaller marshWidget;
     private Marshaller marshIoNames;
+    private Marshaller marshParadoxKeyMap;
     
     private Unmarshaller unmarshStore;
     private Unmarshaller unmarshWidget;
     private Unmarshaller unmarshIoNames;
+    private Unmarshaller unmarshParadoxKeyMap;
 
     public XMLParser() {
         
@@ -60,6 +63,18 @@ public class XMLParser {
             unmarshIoNames = contextIoNames.createUnmarshaller();
         } catch (JAXBException e) {
             System.out.println("XMLParser constructor error: io names marsh or unmarsher\n" + e.getMessage());
+            //e.printStackTrace();
+        }
+        
+        // ParadoxKeyMap
+        
+        try {
+            contextParadoxKeyMap = JAXBContext.newInstance(ParadoxKeyMap.class);
+            marshParadoxKeyMap = contextParadoxKeyMap.createMarshaller();
+            marshParadoxKeyMap.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            unmarshParadoxKeyMap = contextParadoxKeyMap.createUnmarshaller();
+        } catch (JAXBException e) {
+            System.out.println("XMLParser constructor error: ParadoxKeyMap marsh or unmarsher\n" + e.getMessage());
             //e.printStackTrace();
         }
 
@@ -100,6 +115,31 @@ public class XMLParser {
 
             } catch (JAXBException ex) {
                 System.out.println("XMLParser read file error\n" + ex.getMessage());
+                System.out.println("Filepath: " + filepath);
+                ex.printStackTrace();
+                return null;
+            } catch (NullPointerException e) {
+                System.out.println("File not found\n" + e.getMessage());
+                return null;
+            }
+        } else {
+            return null;
+        }
+
+    }
+    
+    public ParadoxKeyMap readParadoxKeyMapFile(String filepath) {
+
+        if (unmarshParadoxKeyMap != null) {
+            try {
+
+                File f = new File(filepath);
+                ParadoxKeyMap paradoxMappings = (ParadoxKeyMap) unmarshParadoxKeyMap.unmarshal(f);
+
+                return paradoxMappings;
+
+            } catch (JAXBException ex) {
+                System.out.println("XMLParser for paradox keymap read file error\n" + ex.getMessage());
                 System.out.println("Filepath: " + filepath);
                 ex.printStackTrace();
                 return null;

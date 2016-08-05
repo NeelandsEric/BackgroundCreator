@@ -51,7 +51,7 @@ public class IoNames implements java.io.Serializable {
         sysStr = new ArrayList<>();
         extraStr = new ArrayList<>();
         glycolStr = new ArrayList<>();
-        fanPanelStr = new ArrayList<>();
+        fanPanelStr = new ArrayList<>();        
 
     }
 
@@ -65,7 +65,7 @@ public class IoNames implements java.io.Serializable {
         hash = 41 * hash + Objects.hashCode(this.sysStr);
         hash = 41 * hash + Objects.hashCode(this.extraStr);
         hash = 41 * hash + Objects.hashCode(this.glycolStr);
-        hash = 41 * hash + Objects.hashCode(this.fanPanelStr);
+        hash = 41 * hash + Objects.hashCode(this.fanPanelStr);        
         return hash;
     }
 
@@ -104,7 +104,7 @@ public class IoNames implements java.io.Serializable {
         }
         if (!Objects.equals(this.fanPanelStr, other.fanPanelStr)) {
             return false;
-        }
+        }        
         return true;
     }
 
@@ -179,6 +179,9 @@ public class IoNames implements java.io.Serializable {
     public void setFanPanelStr(ArrayList<String> fanPanelStr) {
         this.fanPanelStr = fanPanelStr;
     }
+
+      
+    
 
     public void addString(int listIndex, String string) {
 

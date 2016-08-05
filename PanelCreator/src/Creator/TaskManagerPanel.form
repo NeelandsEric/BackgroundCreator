@@ -58,6 +58,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="_Button_InsertCustom" min="-2" pref="249" max="-2" attributes="0"/>
                           <Component id="_Button_GenericVariables" min="-2" pref="249" max="-2" attributes="0"/>
+                          <Component id="_Button_ParadoxLinker" min="-2" pref="249" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
@@ -81,6 +82,8 @@
                       <Component id="_Button_InsertCustom" min="-2" pref="47" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="_Button_GenericVariables" min="-2" pref="47" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="_Button_ParadoxLinker" min="-2" pref="47" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
@@ -619,6 +622,15 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_GenericVariablesActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="_Button_ParadoxLinker">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Link Paradox Keys"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="_Button_ParadoxLinkerActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

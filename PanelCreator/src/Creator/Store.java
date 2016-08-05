@@ -29,6 +29,7 @@ public class Store implements java.io.Serializable {
     public ControlSettings cs;
     public IoNames ioNames;
     public WidgetSettings ws;
+    
 
     public Store() {
         ds = new DisplaySettings();
