@@ -7,8 +7,10 @@ package Creator;
 
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.TreeMap;
 import javax.swing.DefaultListModel;
@@ -31,6 +33,7 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
     private Map<String, List> formattedIoNames;     // Cond `%rackname` links to a list -> Cond Rack A, Cond Rack B, etc
     private ParadoxKeyMap paradoxKeyMap;            // Paradox key map  key: 'Rack A/Cnd/COP2COT' value=2942
     private Map<String, String> paradoxLinkMap;  // Custom links, linking an IO string "Cond `%rackname` Outlet Temp" to the paradox name "~RackA\Cnd\OAT Measure"
+    private Map<String, String> customMappings;
 
     /**
      * Creates new form ChooseParadoxLinksFrame
@@ -43,6 +46,7 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         this.paradoxLinkMap = knownParadoxLinks;
         this.paradoxKeyMap = paradoxKeyMap;
         this.parentPanel = parentPanel;
+        this.customMappings = new TreeMap<>();
 
         initalLoad();
 
@@ -58,9 +62,7 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         for (String item : paradoxLinkMap.keySet()) {
             dm.addElement(item);
         }
-
         ioNameList.setModel(dm);
-
     }
 
     /**
@@ -189,6 +191,11 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
 
         deleteParadoxLink.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         deleteParadoxLink.setText("Delete Link");
+        deleteParadoxLink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteParadoxLinkActionPerformed(evt);
+            }
+        });
 
         saveNClose.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         saveNClose.setText("Save & Close");
@@ -236,14 +243,14 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
                         .addComponent(saveParadoxLink, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
                     .addComponent(searchField)
                     .addComponent(knownIONames5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(deleteParadoxLink, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
                         .addComponent(saveNClose, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane4)
-                    .addComponent(knownIONames3, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
+                    .addComponent(knownIONames3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -344,7 +351,13 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
 
     private void saveNCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveNCloseActionPerformed
         // TODO add your handling code here:
-        parentPanel.returnParadoxLinks(null);
+        Map<String,Integer> retMappings = new TreeMap<>();
+        
+        for(Entry<String, String> entry: customMappings.entrySet()){
+            retMappings.put(entry.getKey(), paradoxKeyMap.get(entry.getValue()));
+        }
+        
+        parentPanel.returnParadoxLinks(retMappings);
     }//GEN-LAST:event_saveNCloseActionPerformed
 
     private void editParadoxLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editParadoxLinkActionPerformed
@@ -367,68 +380,120 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
 
     private void addLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLinkActionPerformed
         // TODO add your handling code here:
-        
-        if(!possibleParadoxList.isSelectionEmpty()){
-            
+
+        // Both lists have an element selected
+        if (!possibleParadoxList.isSelectionEmpty() && !possibleNamesList.isSelectionEmpty()) {
+
+            String ioName = (String) possibleNamesList.getSelectedValue();
             String paradoxName = (String) possibleParadoxList.getSelectedValue();
             paradoxName = paradoxName.substring(0, paradoxName.indexOf("||"));
             System.out.println(paradoxName);
+
+            if (customMappings.containsKey(ioName)) {
+
+                String val = customMappings.get(ioName);
+                // If so prompt to see if they want to re-add the data
+                int dialogButton = JOptionPane.YES_NO_OPTION;
+                int dialogResult = JOptionPane.showConfirmDialog(this,
+                        "IO " + ioName + " is already mapped to " + val + ". Would you like to replace it?", "Replace Mapping", dialogButton);
+
+                if (dialogResult != 0) {
+                    return;
+                }
+
+            } else if (customMappings.containsValue(paradoxName)) {
+
+                String key = "";
+                for (Entry<String, String> entry : customMappings.entrySet()) {
+                    if (entry.getValue().equals(paradoxName)) {
+                        key = entry.getKey();
+                    }
+                }
+
+                // If so prompt to see if they want to re-add the data
+                int dialogButton = JOptionPane.YES_NO_OPTION;
+                int dialogResult = JOptionPane.showConfirmDialog(this,
+                        "IO " + ioName + " is already mapped to " + key + ". Would you like to replace it?", "Replace Mapping", dialogButton);
+
+                if (dialogResult != 0) {
+                    return;
+                }
+            }
+
+            customMappings.put(ioName, paradoxName);
+            updateCurrentLinks();
+            
+            int interval = (possibleParadoxList.getSelectedIndex() + 1) >= possibleNamesList.getModel().getSize() ? 0: possibleParadoxList.getSelectedIndex() + 1;            
+            possibleParadoxList.setSelectedIndex(interval);
+            interval = (possibleNamesList.getSelectedIndex() + 1) >= possibleNamesList.getModel().getSize() ? 0: possibleNamesList.getSelectedIndex() + 1;    
+            possibleNamesList.setSelectedIndex(interval);
+            
         }
         
+        
+
     }//GEN-LAST:event_addLinkActionPerformed
 
+    private void deleteParadoxLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteParadoxLinkActionPerformed
+        // TODO add your handling code here:
+        if(!currentLinksList.isSelectionEmpty()){
+            String key = currentLinksList.getSelectedValue().toString().split(" --> ")[0];
+            System.out.println("Removed key: " + key + "\tValue: " + customMappings.remove(key));
+            updateCurrentLinks();
+        }
+    }//GEN-LAST:event_deleteParadoxLinkActionPerformed
+
     private void editingField() {
-        
-        if(!editTextField.getText().equals("")){
+
+        if (!editTextField.getText().equals("")) {
             // Check similar paradox fields
             search(editTextField.getText());
-            
+
         }
 
     }
-    
-    private void search(){
+
+    private void search() {
         
-        System.out.println("searching..!");
         String searchItem = searchField.getText();
-        if(!searchItem.equals("")){
+        if (!searchItem.equals("")) {
             // Check similar paradox fields
             ArrayList<String> searchRetItems = paradoxKeyMap.search(searchItem);
-            
+
             DefaultListModel dm = new DefaultListModel();
             for (String item : searchRetItems) {
                 dm.addElement(item);
             }
-            
+
             possibleParadoxList.setModel(dm);
-            
+
         }
     }
-    
-    private void search(String searchItem){
+
+    private void search(String searchItem) {
+
         
-        System.out.println("searching..!");
-        if(!searchItem.equals("")){
+        if (!searchItem.equals("")) {
             // Check similar paradox fields
             ArrayList<String> searchRetItems = paradoxKeyMap.search(searchItem);
-            
+
             DefaultListModel dm = new DefaultListModel();
             for (String item : searchRetItems) {
                 dm.addElement(item);
             }
-            
+
             possibleParadoxList.setModel(dm);
-            
+
         }
     }
 
     private void loadParadoxLink() {
-        
+
         if (!ioNameList.isSelectionEmpty()) {
             String io = ioNameList.getSelectedValue().toString();
 
             if (paradoxLinkMap.containsKey(io)) {
-                
+
                 editTextField.setText(paradoxLinkMap.get(io));
                 editTextField.setEditable(false);
                 editParadoxLink.setEnabled(true);
@@ -439,7 +504,6 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
             }
 
         }
-        
 
     }
 
@@ -463,6 +527,14 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
 
         }
 
+    }
+
+    private void updateCurrentLinks() {
+        DefaultListModel dm = new DefaultListModel();
+        for (Entry<String, String> entry : customMappings.entrySet()) {
+            dm.addElement(entry.getKey() + " --> " + entry.getValue());
+        }
+        currentLinksList.setModel(dm);
     }
 
     /**

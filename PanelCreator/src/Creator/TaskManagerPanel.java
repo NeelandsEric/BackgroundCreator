@@ -1522,8 +1522,11 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 String filePath = file.getAbsolutePath();
 
                 paradoxKeyMap = xmlParser.readParadoxKeyMapFile(filePath);
-                
-                System.out.println(paradoxKeyMap);
+
+                if (paradoxKeyMap == null) {
+                    return;
+                }
+
                 if (paradoxKeyMap == null) {
                     //writeToLog("Error opening " + filePath);
                 } else {
@@ -1540,8 +1543,20 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event__Button_ParadoxLinkerActionPerformed
 
-    public void returnParadoxLinks(Map<Integer, Integer> paradoxLinks) {
+    public void returnParadoxLinks(Map<String, Integer> paradoxLinks) {
+
         plFrame.dispose();
+
+        System.out.println(paradoxLinks);
+
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this,
+                "Insert paradox links to the Database for Store: " + stationName, "Add Paradox Points", dialogButton);
+
+        if (dialogResult == 0) {
+            
+            System.out.println("TODO: MAKE QUERIES TO INSERT PARADOX");
+        }
     }
 
     private List<TableQueries> makeQueries() {
