@@ -146,6 +146,10 @@ public class XMLParser {
             } catch (NullPointerException e) {
                 System.out.println("File not found\n" + e.getMessage());
                 return null;
+            }catch (Exception e){
+                System.out.println("Other exception caught trying to read paradox keymap file");
+                e.printStackTrace();
+                return null;
             }
         } else {
             return null;

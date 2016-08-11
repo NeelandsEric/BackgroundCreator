@@ -29,20 +29,24 @@ public class ControlSettings implements java.io.Serializable {
     public ArrayList<Rack> racks;
     @XmlElementWrapper(name="gvLinks")
     public Map<String, String> gvLinks;
+    @XmlElementWrapper(name="paradoxLinks")
+    public Map<String, String> paradoxLinks;
 
     /**
      * Default Constructor
      */
     public ControlSettings() {
         this.storeName = "Store Name";
-        racks = new ArrayList<>();
-        gvLinks = new TreeMap<String, String>();
+        racks = new ArrayList<>();        
         racks.add(new Rack("Rack A"));
         numRacks = 1;
         numFanPanels = 0;
         glycolStore = false;
         glycolSettings = new GlycolSettings();
         imgStr = "";
+        gvLinks = new TreeMap<>();
+        paradoxLinks = new TreeMap<>();
+        
     }
 
     /**
@@ -59,6 +63,8 @@ public class ControlSettings implements java.io.Serializable {
         glycolStore = false;
         glycolSettings = new GlycolSettings();
         imgStr = "";
+        gvLinks = new TreeMap<>();
+        paradoxLinks = new TreeMap<>();
     }
 
     /**
@@ -149,6 +155,16 @@ public class ControlSettings implements java.io.Serializable {
     public void setGvLinks(Map<String, String> gvLinks) {
         this.gvLinks = gvLinks;
     }
+
+    public Map<String, String> getParadoxLinks() {
+        return paradoxLinks;
+    }
+
+    public void setParadoxLinks(Map<String, String> paradoxLinks) {
+        this.paradoxLinks = paradoxLinks;
+    }
+    
+    
 
         
     /**

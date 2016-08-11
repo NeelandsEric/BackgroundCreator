@@ -7,7 +7,6 @@ package Creator;
 
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -38,17 +37,25 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
     /**
      * Creates new form ChooseParadoxLinksFrame
      */
-    public ChooseParadoxLinksFrame(Map<String, List> formattedIoNames, Map<String, String> knownParadoxLinks, ParadoxKeyMap paradoxKeyMap, TaskManagerPanel parentPanel) {
+    public ChooseParadoxLinksFrame(Map<String, List> formattedIoNames, 
+            Map<String, String> knownParadoxLinks, ParadoxKeyMap paradoxKeyMap,
+            Map<String, String> customMappings, TaskManagerPanel parentPanel) {
 
         initComponents();
 
         this.formattedIoNames = formattedIoNames;
         this.paradoxLinkMap = knownParadoxLinks;
         this.paradoxKeyMap = paradoxKeyMap;
-        this.parentPanel = parentPanel;
-        this.customMappings = new TreeMap<>();
+        this.parentPanel = parentPanel;        
+        if(customMappings == null){
+            this.customMappings = new TreeMap<>();
+        }else {
+            this.customMappings = customMappings;
+        }
+
 
         initalLoad();
+        updateCurrentLinks();
 
         addChangeListener(editTextField, e -> editingField());
         addChangeListener(searchField, e -> search());
@@ -62,7 +69,9 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         for (String item : paradoxLinkMap.keySet()) {
             dm.addElement(item);
         }
-        ioNameList.setModel(dm);
+        ioNameList.setModel(dm);       
+        
+        
     }
 
     /**
@@ -357,7 +366,7 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
             retMappings.put(entry.getKey(), paradoxKeyMap.get(entry.getValue()));
         }
         
-        parentPanel.returnParadoxLinks(retMappings);
+        parentPanel.returnParadoxLinks(customMappings, retMappings);
     }//GEN-LAST:event_saveNCloseActionPerformed
 
     private void editParadoxLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editParadoxLinkActionPerformed
@@ -386,8 +395,7 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
 
             String ioName = (String) possibleNamesList.getSelectedValue();
             String paradoxName = (String) possibleParadoxList.getSelectedValue();
-            paradoxName = paradoxName.substring(0, paradoxName.indexOf("||"));
-            System.out.println(paradoxName);
+            paradoxName = paradoxName.substring(0, paradoxName.indexOf("||"));           
 
             if (customMappings.containsKey(ioName)) {
 
@@ -423,10 +431,16 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
             customMappings.put(ioName, paradoxName);
             updateCurrentLinks();
             
-            int interval = (possibleParadoxList.getSelectedIndex() + 1) >= possibleNamesList.getModel().getSize() ? 0: possibleParadoxList.getSelectedIndex() + 1;            
+            // Shift the selected index down for each list
+            int interval = (possibleParadoxList.getSelectedIndex() + 1) >= possibleParadoxList.getModel().getSize() ? 0: possibleParadoxList.getSelectedIndex() + 1;            
             possibleParadoxList.setSelectedIndex(interval);
+            possibleParadoxList.ensureIndexIsVisible(interval);
+             
             interval = (possibleNamesList.getSelectedIndex() + 1) >= possibleNamesList.getModel().getSize() ? 0: possibleNamesList.getSelectedIndex() + 1;    
             possibleNamesList.setSelectedIndex(interval);
+            possibleNamesList.ensureIndexIsVisible(interval);
+            
+            
             
         }
         
