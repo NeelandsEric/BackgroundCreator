@@ -58,7 +58,8 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         updateCurrentLinks();
 
         addChangeListener(editTextField, e -> editingField());
-        addChangeListener(searchField, e -> search());
+        addChangeListener(searchFieldParadox, e -> search());
+        addChangeListener(searchFieldIO, e -> searchIO());
 
     }
 
@@ -104,8 +105,11 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         deleteParadoxLink = new javax.swing.JButton();
         saveNClose = new javax.swing.JButton();
         saveParadoxLink = new javax.swing.JButton();
-        searchField = new javax.swing.JTextField();
+        searchFieldParadox = new javax.swing.JTextField();
         knownIONames5 = new javax.swing.JLabel();
+        knownIONames6 = new javax.swing.JLabel();
+        searchFieldIO = new javax.swing.JTextField();
+        deleteParadoxLink1 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -222,11 +226,25 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
             }
         });
 
-        searchField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        searchFieldParadox.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         knownIONames5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         knownIONames5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         knownIONames5.setText("Search For paradox Keys");
+
+        knownIONames6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        knownIONames6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        knownIONames6.setText("Search For IO Names");
+
+        searchFieldIO.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        deleteParadoxLink1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        deleteParadoxLink1.setText("Delete All");
+        deleteParadoxLink1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteParadoxLink1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -238,25 +256,31 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
                     .addComponent(knownIONames, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addComponent(jScrollPane3)
-                    .addComponent(knownIONames2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(knownIONames2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(knownIONames6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(searchFieldIO))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(knownIONames1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(editTextField)
-                    .addComponent(knownIONames4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane5)
-                    .addComponent(addLink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(editParadoxLink, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saveParadoxLink, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
-                    .addComponent(searchField)
-                    .addComponent(knownIONames5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(searchFieldParadox)
+                    .addComponent(knownIONames5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(knownIONames4, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addLink, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(deleteParadoxLink, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteParadoxLink1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                         .addComponent(saveNClose, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane4)
                     .addComponent(knownIONames3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -274,8 +298,9 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(deleteParadoxLink, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(saveNClose, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(saveNClose, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deleteParadoxLink1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 13, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(knownIONames, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -283,27 +308,32 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(knownIONames2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(editTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(editParadoxLink, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(saveParadoxLink, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(knownIONames5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(searchFieldParadox, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(knownIONames6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(knownIONames4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(addLink, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(searchFieldIO, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(knownIONames2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addLink, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(knownIONames4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                            .addComponent(jScrollPane5))))
                 .addContainerGap())
         );
 
@@ -336,7 +366,8 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
                 loadParadoxLink();
 
                 // Load Io Names Following
-                loadIONames();
+                //loadIONames();
+                searchFieldIO.setText(ioNameList.getSelectedValue().toString());
             } else {
                 editTextField.setText("");
                 editTextField.setEditable(false);
@@ -449,13 +480,18 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_addLinkActionPerformed
 
     private void deleteParadoxLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteParadoxLinkActionPerformed
-        // TODO add your handling code here:
+        
         if(!currentLinksList.isSelectionEmpty()){
             String key = currentLinksList.getSelectedValue().toString().split(" --> ")[0];
-            System.out.println("Removed key: " + key + "\tValue: " + customMappings.remove(key));
+            System.out.println("Removed key: " + key + "\tValue: " + customMappings.remove(key));            
             updateCurrentLinks();
         }
     }//GEN-LAST:event_deleteParadoxLinkActionPerformed
+
+    private void deleteParadoxLink1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteParadoxLink1ActionPerformed
+        customMappings.clear();        
+        updateCurrentLinks();
+    }//GEN-LAST:event_deleteParadoxLink1ActionPerformed
 
     private void editingField() {
 
@@ -466,10 +502,31 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         }
 
     }
+    
+    private void searchIO() {
+        
+        String searchItem = searchFieldIO.getText();
+        if (!searchItem.equals("")) {
+            // Check similar paradox fields
+            DefaultListModel dm = new DefaultListModel();
+            for(Entry<String, List> entry: formattedIoNames.entrySet()){
+                if(entry.getKey().contains(searchItem)){
+                    for(Object val: entry.getValue()){
+                        dm.addElement(val.toString());
+                    }
+                }
+            }
+            
+            ArrayList<String> searchRetItems = paradoxKeyMap.search(searchItem);
+
+            possibleNamesList.setModel(dm);
+
+        }
+    }
 
     private void search() {
         
-        String searchItem = searchField.getText();
+        String searchItem = searchFieldParadox.getText();
         if (!searchItem.equals("")) {
             // Check similar paradox fields
             ArrayList<String> searchRetItems = paradoxKeyMap.search(searchItem);
@@ -520,28 +577,7 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         }
 
     }
-
-    private void loadIONames() {
-
-        if (!ioNameList.isSelectionEmpty()) {
-            String io = ioNameList.getSelectedValue().toString();
-
-            if (formattedIoNames.containsKey(io)) {
-                ArrayList<String> relatedIos = (ArrayList) formattedIoNames.get(io);
-
-                DefaultListModel dm = new DefaultListModel();
-                for (String item : relatedIos) {
-                    dm.addElement(item);
-                }
-
-                possibleNamesList.setModel(dm);
-            } else {
-                System.out.println("No links found for " + io);
-            }
-
-        }
-
-    }
+    
 
     private void updateCurrentLinks() {
         DefaultListModel dm = new DefaultListModel();
@@ -614,6 +650,7 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
     private javax.swing.JButton addLink;
     private javax.swing.JList currentLinksList;
     private javax.swing.JButton deleteParadoxLink;
+    private javax.swing.JButton deleteParadoxLink1;
     private javax.swing.JButton editParadoxLink;
     private javax.swing.JTextField editTextField;
     private javax.swing.JList ioNameList;
@@ -629,10 +666,12 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
     private javax.swing.JLabel knownIONames3;
     private javax.swing.JLabel knownIONames4;
     private javax.swing.JLabel knownIONames5;
+    private javax.swing.JLabel knownIONames6;
     private javax.swing.JList possibleNamesList;
     private javax.swing.JList possibleParadoxList;
     private javax.swing.JButton saveNClose;
     private javax.swing.JButton saveParadoxLink;
-    private javax.swing.JTextField searchField;
+    private javax.swing.JTextField searchFieldIO;
+    private javax.swing.JTextField searchFieldParadox;
     // End of variables declaration//GEN-END:variables
 }

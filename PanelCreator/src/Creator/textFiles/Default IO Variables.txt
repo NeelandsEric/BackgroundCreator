@@ -151,9 +151,7 @@ System Defrost Temp `%rackname` `%sgname` `%sysname`,1,1,F,1.8,-32,2,0,,,,2,3.00
 System Status `%rackname` `%sgname` `%sysname`,0,1,,1,0,0,1,5,1,1,1,,2 years ,1
 `Compressor`
 Comp Amps `%rackname` `%sgname` `%compname`,1,1,A,0.1,0,1,1,240,0,50,5,1,180 days,1
-Comp Amp Limit `%rackname` `%sgname` `%compname`,1,1,A,1,0,1,0,,,,0,,,1
 Comp Discharge Temp `%rackname` `%sgname` `%compname`,1,1,F,1.8,-32,2,1,180,-30,225,5,1,180 days,1
-Comp Discharge Limit `%rackname` `%sgname` `%compname`,1,1,F,1.8,-32,2,0,,,,0,,,1
 Comp Status `%rackname` `%sgname` `%compname`,1,1,,1,0,0,0,,,,5,1,180 days,1
 Comp SLA `%rackname` `%sgname` `%compname`,0,0,,1,0,0,0,,,,1,,2 years,1
 Comp RUN `%rackname` `%sgname` `%compname`,0,1,,1,0,0,0,,,,1,,2 years,1

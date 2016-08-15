@@ -1557,18 +1557,11 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 "Insert paradox links to the Database for Store: " + stationName, "Add Paradox Points", dialogButton);
 
         if (dialogResult == 0) {
-          
+            
             db = newDBConn();
+            
+            // Check to see if we need to delete and re add
                         
-            // First delete existing keymaps
-            
-            String deleteQuery =  "delete from paradox_keymaps as p"
-                                + " where p.paradox_keymap_io_id in "
-                                + "(select i.io_id from io i where i.io_station_id = " + String.valueOf(stationID) + ");";
-            _TextArea_Status.append("Status: Deleted existing keys for station id: " + String.valueOf(stationID));
-            
-            db.executeQuery(deleteQuery);
-
             String query = "insert into paradox_keymaps (paradox_keymap_masterk, paradox_keymap_io_id) values %s;";
             String vals = "";
             for (Entry<String, Integer> entry : paradoxLinks.entrySet()) {
@@ -1589,7 +1582,43 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             String newQuery = String.format(query, vals);            
             String status = db.executeQuery(newQuery);
             if(status.equals("Successfully inserted")){
-                _TextArea_Status.append("Status: " + status + " paradox links for station " + String.valueOf(stationID));
+                _TextArea_Status.append("\nStatus: " + status + " paradox links for station " + String.valueOf(stationID));
+                return;
+            }else {
+                _TextArea_Status.append("\nStatus: Error inserting links, deleting existing...");
+            }
+            
+            
+            // First delete existing keymaps
+            
+            String deleteQuery =  "delete from paradox_keymaps as p"
+                                + " where p.paradox_keymap_io_id in "
+                                + "(select i.io_id from io i where i.io_station_id = " + String.valueOf(stationID) + ");";
+            _TextArea_Status.append("\nStatus: Deleted existing keys for station id: " + String.valueOf(stationID));
+            
+            db.executeQuery(deleteQuery);
+
+            query = "insert into paradox_keymaps (paradox_keymap_masterk, paradox_keymap_io_id) values %s;";
+            vals = "";
+            for (Entry<String, Integer> entry : paradoxLinks.entrySet()) {
+                
+                String ioName = entry.getKey();
+                if(!importedIOVariables.isEmpty() && importedIOVariables.containsKey(ioName)){
+                    int paradoxMasterKey = entry.getValue();
+                    int io_id = importedIOVariables.get(ioName);
+                    
+                    if(vals.equals("")){
+                        vals = "(" + String.valueOf(paradoxMasterKey) + ", " + String.valueOf(io_id) + ")";
+                    }else {
+                        vals += ",(" + String.valueOf(paradoxMasterKey) + ", " + String.valueOf(io_id) + ")";
+                    }                
+                }               
+            }
+            
+            newQuery = String.format(query, vals);            
+            status = db.executeQuery(newQuery);
+            if(status.equals("Successfully inserted")){
+                _TextArea_Status.append("\nStatus: " + status + " paradox links for station " + String.valueOf(stationID));
             }
             db.closeConn();
             
