@@ -148,7 +148,7 @@ public class ControlSettings implements java.io.Serializable {
         this.glycolSettings = glycolSettings;
     }
 
-    public Map<String, String> getGvLinks() {
+    public Map<String, String> getGvLinks() {        
         return gvLinks;
     }
 

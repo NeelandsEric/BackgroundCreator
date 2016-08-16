@@ -5,12 +5,14 @@
  */
 package Creator;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,7 +23,7 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
     private TaskManagerPanel parent;
     private Map<String, Integer> gv;
     private Map<String, List> mappings;
-    private Map<String, String> gv_links;     // (String, List) - Generic variable name, list of unformatted strings to link
+    private Map<String, String> gv_links;     // (String, String) - Generic variable name, Single Link
     private DefaultListModel gvList;
     private DefaultListModel unformattedList;
     private DefaultListModel toAddList;
@@ -42,7 +44,9 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
         toAddList = new DefaultListModel();
         gvLinksList = new DefaultListModel();
 
-        initComponents();
+        initComponents();        
+        // Load User Defaults
+        _Button_LoadUserDefaultsActionPerformed(null);
         loadLists();
         loadGV_LinkList();
     }
@@ -67,6 +71,9 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
         _List_GV_Links = new javax.swing.JList();
         _Button_Import = new javax.swing.JButton();
         _Button_Delete = new javax.swing.JButton();
+        _Button_LoadUserDefaults = new javax.swing.JButton();
+        _Button_SaveUserDefaults = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -91,7 +98,7 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
         jScrollPane3.setViewportView(_List_StringsToAdd);
 
         _Button_Add.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _Button_Add.setText("Add");
+        _Button_Add.setText("Add GV Link");
         _Button_Add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _Button_AddActionPerformed(evt);
@@ -104,7 +111,7 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
         jScrollPane4.setViewportView(_List_GV_Links);
 
         _Button_Import.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _Button_Import.setText("Import");
+        _Button_Import.setText("Import GV Links");
         _Button_Import.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _Button_ImportActionPerformed(evt);
@@ -112,12 +119,31 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
         });
 
         _Button_Delete.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        _Button_Delete.setText("Delete");
+        _Button_Delete.setText("Delete GV link");
         _Button_Delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _Button_DeleteActionPerformed(evt);
             }
         });
+
+        _Button_LoadUserDefaults.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Button_LoadUserDefaults.setText("Load User Defaults");
+        _Button_LoadUserDefaults.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_LoadUserDefaultsActionPerformed(evt);
+            }
+        });
+
+        _Button_SaveUserDefaults.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        _Button_SaveUserDefaults.setText("Save as User Defaults");
+        _Button_SaveUserDefaults.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _Button_SaveUserDefaultsActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel1.setText("GV Links");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,18 +161,21 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(_Button_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(_Button_Import, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(_Button_LoadUserDefaults, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(_Button_SaveUserDefaults, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                            .addComponent(_Button_Add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(_Button_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 2, Short.MAX_VALUE)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(568, 568, 568))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane4)
+                                .addGap(18, 18, 18)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(_Button_Delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(_Button_Import, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,16 +185,24 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                         .addComponent(jScrollPane1))
-                    .addComponent(_Button_Import, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(_Button_LoadUserDefaults, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_Button_SaveUserDefaults, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(_Button_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_Button_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(_Button_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(_Button_Import, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -184,8 +221,20 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
         if (!_List_GV.isSelectionEmpty() && !_List_UnformattedStrings.isSelectionEmpty()) {
             String gvName = _List_GV.getSelectedValue().toString();
             String unformattedName = _List_UnformattedStrings.getSelectedValue().toString();
-            
-            gv_links.put(gvName,unformattedName);
+
+            if (gv_links.containsKey(gvName)) {
+                String val = gv_links.get(gvName);
+                // If so prompt to see if they want to re-add the data
+                int dialogButton = JOptionPane.YES_NO_OPTION;
+                int dialogResult = JOptionPane.showConfirmDialog(this,
+                        gvName + " is already mapped to " + val + ". Would you like to replace it?", "Replace Generic Variable", dialogButton);
+
+                if (dialogResult != 0) {
+                    return;
+                }
+            }
+
+            gv_links.put(gvName, unformattedName);
 
             _List_GV.clearSelection();
             _List_UnformattedStrings.clearSelection();
@@ -208,14 +257,71 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
         if (!_List_GV_Links.isSelectionEmpty()) {
 
             int[] selectedIndices = _List_GV_Links.getSelectedIndices();
-            
+
             for (int i = selectedIndices.length - 1; i >= 0; i--) {
-                String [] parts = gvLinksList.get(i).toString().split(" -> ");
+                String[] parts = gvLinksList.get(i).toString().split(" -> ");
                 System.out.println("Removed: " + gv_links.remove(parts[0]));
                 gvLinksList.removeElementAt(selectedIndices[i]);
             }
         }
     }//GEN-LAST:event__Button_DeleteActionPerformed
+
+    private void _Button_LoadUserDefaultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_LoadUserDefaultsActionPerformed
+        
+        XMLParser xmlParser = new XMLParser();
+        String homeDirectory = System.getProperty("user.home") + "/PanelCreator";
+        if (!(new File(homeDirectory).mkdirs())) {
+            // Directory exists, check if the Store exists
+            String filePath = homeDirectory + "/GenericVariableLinks.xml";
+            if (new File(filePath).exists()) {
+                try {
+                    GenericVariableLinks gvl = xmlParser.readGVLinksFile(filePath);
+
+                    if (gvl == null) {
+                        System.out.println("Default GVL null");
+                    } else {
+                        loadInitial(gvl);
+                    }
+                } catch (Exception e) {
+                    //e.printStackTrace();
+                }
+            }
+        }
+        
+               
+    }//GEN-LAST:event__Button_LoadUserDefaultsActionPerformed
+
+    private void _Button_SaveUserDefaultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SaveUserDefaultsActionPerformed
+        
+
+        XMLParser xmlParser = new XMLParser();
+        String homeDirectory = System.getProperty("user.home") + "/PanelCreator";
+        GenericVariableLinks gvl = new GenericVariableLinks(gv_links);
+        if (xmlParser.writeOutGVLinks(gvl, homeDirectory + "/GenericVariableLinks.xml")) {
+            System.out.println("Default GVL saved");
+        } else {
+            System.out.println("Default GVL had a problem saving");
+        }
+
+    }//GEN-LAST:event__Button_SaveUserDefaultsActionPerformed
+
+    private void loadInitial(GenericVariableLinks gvl) {
+
+        for (Entry<String, String> entry : gvl.entrySet()) {
+            if (!gv_links.containsKey(entry.getKey())) {
+                gv_links.put(entry.getKey(), entry.getValue());
+            }
+        }
+
+    }
+
+    private Map<String, String> readGVLinks() {
+
+        Map<String, String> gvs = new TreeMap<String, String>();
+
+        return gvs;
+
+    }
 
     private void loadLists() {
 
@@ -232,8 +338,8 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
 
     private void loadGV_LinkList() {
         gvLinksList.clear();
-        for (Entry<String, String> entry : gv_links.entrySet()) {        
-            gvLinksList.addElement(entry.getKey() + " -> " + entry.getValue());            
+        for (Entry<String, String> entry : gv_links.entrySet()) {
+            gvLinksList.addElement(entry.getKey() + " -> " + entry.getValue());
         }
     }
 
@@ -249,10 +355,13 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
     private javax.swing.JButton _Button_Add;
     private javax.swing.JButton _Button_Delete;
     private javax.swing.JButton _Button_Import;
+    private javax.swing.JButton _Button_LoadUserDefaults;
+    private javax.swing.JButton _Button_SaveUserDefaults;
     private javax.swing.JList _List_GV;
     private javax.swing.JList _List_GV_Links;
     private javax.swing.JList _List_StringsToAdd;
     private javax.swing.JList _List_UnformattedStrings;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

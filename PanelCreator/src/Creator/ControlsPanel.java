@@ -395,9 +395,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(_ComboBox_Racks, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(_Panel_ControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, _Panel_ControlsLayout.createSequentialGroup()
-                            .addComponent(_Label_SuctionGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(15, 15, 15))
+                        .addComponent(_Label_SuctionGroupName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, _Panel_ControlsLayout.createSequentialGroup()
                             .addComponent(_Label_Site, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1074,17 +1072,15 @@ public final class ControlsPanel extends javax.swing.JPanel {
      */
     private void _FormattedTF_NumFansPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__FormattedTF_NumFansPropertyChange
         try {
-            // update the current rack
-            int rackIndex = _ComboBox_Racks.getSelectedIndex();
-            this.updateFanCount();
-            cs.getRackIndex(rackIndex).setNumCondenserFans(numFans);
-
-            // Update the display frame
-            //System.out.println("slider condenser update");
+            // update the current rack            
+            this.updateFanCount();     
+            cs.getRackIndex(_ComboBox_Racks.getSelectedIndex()).setNumCondenserFans(numFans);
+            //System.out.println("num fans: " + numFans);
+            // Update the display frame            
             this.updateDisplay();
             // Done updating display frame
         } catch (NumberFormatException e) {
-
+            //System.out.println("hmm");
         }
     }//GEN-LAST:event__FormattedTF_NumFansPropertyChange
 
@@ -1716,9 +1712,10 @@ public final class ControlsPanel extends javax.swing.JPanel {
     public void loadRackOptions(int index) {
 
         // Load all the options for the index'd rack
-        Rack cr = cs.getRackIndex(index);
+        Rack cr = cs.getRackIndex(index);        
         numFans = cr.getNumCondenserFans();
-        numSG = cr.getNumSuctionGroups();
+        numSG = cr.getNumSuctionGroups();        
+        
         // Comp VFD
         _CheckBox_CompVFD.setSelected(cr.isCompVFDActive());
         _FormattedTF_CompVFD.setEnabled(cr.isCompVFDActive());
@@ -2113,8 +2110,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         } else if (numFans == 0) {
             numFans = 1;
             _FormattedTF_NumFans.setValue(new Integer("1"));
-        }
-        cs.getRackIndex(_ComboBox_Racks.getSelectedIndex()).setNumCondenserFans(numFans);
+        }       
 
     }
 
@@ -2131,8 +2127,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         } else if (numSG == 0) {
             numSG = 1;
             _FormattedTF_NumSG.setValue(new Integer("1"));
-        }
-        cs.getRackIndex(_ComboBox_Racks.getSelectedIndex()).setNumSuctionGroups(numSG);
+        }       
     }
 
     /**

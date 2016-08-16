@@ -17,16 +17,19 @@ public class XMLParser {
     private JAXBContext contextWidget;
     private JAXBContext contextIoNames;
     private JAXBContext contextParadoxKeyMap;
+    private JAXBContext contextGVLinks;
     
     private Marshaller marshStore;
     private Marshaller marshWidget;
     private Marshaller marshIoNames;
     private Marshaller marshParadoxKeyMap;
+    private Marshaller marshGVLinks;
     
     private Unmarshaller unmarshStore;
     private Unmarshaller unmarshWidget;
     private Unmarshaller unmarshIoNames;
     private Unmarshaller unmarshParadoxKeyMap;
+    private Unmarshaller unmarshGVLinks;
 
     public XMLParser() {
         
@@ -77,9 +80,22 @@ public class XMLParser {
             System.out.println("XMLParser constructor error: ParadoxKeyMap marsh or unmarsher\n" + e.getMessage());
             //e.printStackTrace();
         }
+        
+        // ParadoxKeyMap
+        
+        try {
+            contextGVLinks = JAXBContext.newInstance(GenericVariableLinks.class);
+            marshGVLinks = contextGVLinks.createMarshaller();
+            marshGVLinks.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            unmarshGVLinks = contextGVLinks.createUnmarshaller();
+        } catch (JAXBException e) {
+            System.out.println("XMLParser constructor error: GVLinks marsh or unmarsher\n" + e.getMessage());
+            //e.printStackTrace();
+        }
 
     }
     
+     
     public boolean writeOut(Store store, String fileOutPath) {
 
         if (marshStore != null) {
@@ -156,6 +172,7 @@ public class XMLParser {
         }
 
     }
+       
     
     public boolean writeOutDefaultWidgets(DefaultWidgets dw, String fileOutPath){
         
@@ -272,6 +289,59 @@ public class XMLParser {
         } else {
             return null;
         }
+    }
+    
+    public boolean writeOutGVLinks(GenericVariableLinks gvl, String fileOutPath){
+        
+        if (marshIoNames != null) {
+            
+            try {
+                marshGVLinks.marshal(gvl, new File(fileOutPath));
+
+                return true;
+
+            } catch (JAXBException e) {
+                System.out.println("XMLParser write out error\n" + e.getMessage());
+                e.printStackTrace();
+                return false;
+
+            }
+        } else {
+            System.out.println("Marshaller has not been correctly made.");
+            return false;
+        }
+        
+        
+    }
+    
+    
+    public GenericVariableLinks readGVLinksFile(String filepath) {
+
+        if (unmarshGVLinks != null) {
+            try {
+
+                File f = new File(filepath);
+                GenericVariableLinks gvLinks = (GenericVariableLinks) unmarshGVLinks.unmarshal(f);
+
+                return gvLinks;
+
+            } catch (JAXBException ex) {
+                System.out.println("XMLParser for GVLinks keymap read file error\n" + ex.getMessage());
+                System.out.println("Filepath: " + filepath);
+                ex.printStackTrace();
+                return null;
+            } catch (NullPointerException e) {
+                System.out.println("File not found\n" + e.getMessage());
+                return null;
+            }catch (Exception e){
+                System.out.println("Other exception caught trying to read paradox keymap file");
+                e.printStackTrace();
+                return null;
+            }
+        } else {
+            return null;
+        }
+
     }
 
 }

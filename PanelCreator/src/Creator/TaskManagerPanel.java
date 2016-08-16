@@ -1520,7 +1520,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 // What to do with the file, e.g. display it in a TextArea
                 //System.out.println("File: " + file.getAbsolutePath());
                 String filePath = file.getAbsolutePath();
-
+                                
                 paradoxKeyMap = xmlParser.readParadoxKeyMapFile(filePath);
 
                 if (paradoxKeyMap == null) {

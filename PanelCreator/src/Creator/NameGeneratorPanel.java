@@ -791,9 +791,14 @@ public class NameGeneratorPanel extends javax.swing.JPanel {
         _FTF_LogTimeMonth.setText("");
         _FTF_LogTimeYear.setText("");
 
-        if (!date.equals("") || !date.equals("0")) {
+        if (!date.equals("") || !date.equals("0") || !date.equals(" ")) {
             String[] vals = date.split(" ");
+            if(vals.length == 0){
+                System.out.println("No date");
+                return;
+            }
             System.out.println(Arrays.toString(vals));
+            
 
             if (vals.length >= 1) {
 

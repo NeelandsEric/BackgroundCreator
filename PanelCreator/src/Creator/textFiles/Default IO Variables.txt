@@ -124,7 +124,7 @@ Volts L1 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,2,5.00,2 years ,1
 Volts L2 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,2,5.00,2 years ,1
 Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years,1
 Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years,1
-Refrigerant Type `%rackname`,1,407,,1,0,1,0,,,,0,,,0
+Refrigerant Type `%rackname`,1,507,,1,0,1,0,,,,0,,,0
 Refrigerant Level `%rackname`,1,1,% (Level),1,0,1,0,,,,4,,2 years,1
 `Condenser`
 Cond Fan Amps `%rackname` `%fannum`,1,0.1,A,1,0,1,0,,,,2,5.00,2 years ,1
