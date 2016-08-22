@@ -1,4 +1,5 @@
-`Store`
+Name,Io Type,Display Value,UoM,Constant,Offset,Decimal Places,Generate Alerts,Alert time,low,high,log values type,log param 1,log time frame,datalogger
+`Store`,,,,,,,,,,,,,,
 Store Sqft,1,1,SqFt,1,0,0,0,,,,0,,0,0
 Store $/kWh,1,0.12,$/kWh,1,0,2,0,,,,1,,2 years,0
 Store Outside Temp,1,1,F,1.8,-32,2,0,,,,4,,2 years,1
@@ -45,7 +46,7 @@ Glycol Pump Skid kWh YearStart,1,1,kWh,1,0,1,0,,,,0,,,0
 Glycol Pump Skid kWh YearCount,1,1,kWh,1,0,1,0,,,,0,,,0
 Glycol Pump Skid PF,1,1,PF,0.01,0,2,0,,,,5,1,2 years,1
 Glycol Pump Skid Volts Line to Line Avg,1,1,V,0.1,0,1,0,,,,5,1,2 years,1
-`Rack`
+`Rack`,,,,,,,,,,,,,,
 Cond Accumulated Subcool Alarm `%rackname`,0,1,,1,0,0,1,0,1,1,1,,2 years,0
 Cond Split Active `%rackname`,0,1,,1,0,0,0,,,,1,,2 years,1
 Cond VFD Active `%rackname`,0,1,,1,0,0,0,,,,1,,2 years,1
@@ -126,11 +127,11 @@ Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years,1
 Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years,1
 Refrigerant Type `%rackname`,1,507,,1,0,1,0,,,,0,,,0
 Refrigerant Level `%rackname`,1,1,% (Level),1,0,1,0,,,,4,,2 years,1
-`Condenser`
+`Condenser`,,,,,,,,,,,,,,
 Cond Fan Amps `%rackname` `%fannum`,1,0.1,A,1,0,1,0,,,,2,5,2 years ,1
 Cond Fan Status `%rackname` `%fannum`,1,1,,1,0,0,0,,,,1,,2 years ,1
 Cond Fan RUN `%rackname` `%fannum`,0,1,,1,0,0,0,,,,1,,2 years ,1
-`Suction Group`
+`Suction Group`,,,,,,,,,,,,,,
 Suction Temp `%rackname` `%sgname`,1,1,F,1.8,-32,2,0,,,,2,5,2 years ,1
 Suction Saturation `%rackname` `%sgname`,1,1,F,1.8,-32,2,0,,,,2,5,2 years ,1
 Suction Pressure Float Failure `%rackname` `%sgname`,0,0,,1,0,0,1,300,1,1,1,,2 years ,0
@@ -139,7 +140,7 @@ Suction Pressure Actual `%rackname` `%sgname`,1,1,Psig,0.145,0,1,0,,,,2,2,2 year
 Suction Pressure Setpoint `%rackname` `%sgname`,1,1,Psig,0.145,0,1,1,300,0,150,1,,2 years,1
 Suction Pressure Design Setpoint `%rackname` `%sgname`,1,11.6,Psig,1,0,1,0,,,,,,2 years ,0
 Suction Superheat `%rackname` `%sgname`,1,1,F,1.8,-32,2,0,,,,2,5,2 years ,1
-`System`
+`System`,,,,,,,,,,,,,,
 System Capacity `%rackname` `%sgname` `%sysname`,1,1,BTU/H,1,0,1,0,,,,1,,2 years ,1
 System EEPR `%rackname` `%sgname` `%sysname`,1,1,%,1,0,1,0,,,,2,5,2 years ,1
 System EEPR Predicted `%rackname` `%sgname` `%sysname`,1,1,%,1,0,1,0,,,,2,5,2 years ,0
@@ -149,19 +150,19 @@ System Temp `%rackname` `%sgname` `%sysname`,1,1,F,1.8,-32,2,0,,,,2,3,2 years ,1
 System Defrost Status `%rackname` `%sgname` `%sysname`,0,0,,1,0,0,0,,,,1,,2 years ,1
 System Defrost Temp `%rackname` `%sgname` `%sysname`,1,1,F,1.8,-32,2,0,,,,2,3,2 years ,1
 System Status `%rackname` `%sgname` `%sysname`,0,1,,1,0,0,1,5,1,1,1,,2 years ,1
-`Compressor`
+`Compressor`,,,,,,,,,,,,,,
 Comp Amps `%rackname` `%sgname` `%compname`,1,1,A,0.1,0,1,1,240,0,50,5,1,180 days,1
 Comp Discharge Temp `%rackname` `%sgname` `%compname`,1,1,F,1.8,-32,2,1,180,-30,225,5,1,180 days,1
 Comp Status `%rackname` `%sgname` `%compname`,1,1,,1,0,0,0,,,,5,1,180 days,1
 Comp SLA `%rackname` `%sgname` `%compname`,0,0,,1,0,0,0,,,,1,,2 years,1
 Comp RUN `%rackname` `%sgname` `%compname`,0,1,,1,0,0,0,,,,1,,2 years,1
 Comp kW `%rackname` `%sgname` `%compname`,1,1,kW,0.1,0,1,0,,,,5,1,180 days,1
-`Glycol`
+`Glycol`,,,,,,,,,,,,,,
 Glycol Status `%glycolname`,1,1,,1,0,0,0,,,,5,1,180 days,
 Glycol System Capacity `%glycolname`,1,1,BTU/H,1,0,1,0,,,,1,,2 years ,1
 Glycol System Temp `%glycolname`,1,1,F,1.8,-32,2,0,,,,2,5,2 years ,1
 Glycol System Setpoint `%glycolname`,1,1,F,1.8,-32,2,0,,,,1,,,1
-`FanPanel`
+`FanPanel`,,,,,,,,,,,,,,
 Fan Panel Amp Avg `%fanpanelnum`,1,1,A,0.1,0,1,0,,,,4,,2 years,1
 Fan Panel kVA System `%fanpanelnum`,1,1,kVA,0.1,0,1,0,,,,5,1,2 years,1
 Fan Panel kVAR System `%fanpanelnum`,1,1,kVAR,0.1,0,1,0,,,,5,1,2 years,1
