@@ -196,6 +196,7 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
 
         addLink.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         addLink.setText("Add Link");
+        addLink.setToolTipText("Click to add. Hold Shift when clicking to skip every second paradox point. Hold control to skip every second IO point. Hold shift and control to skip every second paradox and io point.");
         addLink.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addLinkActionPerformed(evt);
@@ -421,9 +422,12 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
     private void addLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLinkActionPerformed
         // TODO add your handling code here:
 
+        
         // Both lists have an element selected
         if (!possibleParadoxList.isSelectionEmpty() && !possibleNamesList.isSelectionEmpty()) {
-
+            
+            
+        
             String ioName = (String) possibleNamesList.getSelectedValue();
             String paradoxName = (String) possibleParadoxList.getSelectedValue();
             paradoxName = paradoxName.substring(0, paradoxName.indexOf("||"));           
@@ -462,12 +466,33 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
             customMappings.put(ioName, paradoxName);
             updateCurrentLinks();
             
-            // Shift the selected index down for each list
-            int interval = (possibleParadoxList.getSelectedIndex() + 1) >= possibleParadoxList.getModel().getSize() ? 0: possibleParadoxList.getSelectedIndex() + 1;            
+            
+            // Modifiers on the button click
+            int modifiers = evt.getModifiers();
+                   
+            // evt.getModifiers()
+            // 16 - Normal click
+            // 17 - Shift
+            // 18 - Control
+            // 19 - Shift + Control
+            
+            // if shift is held when the button is clicked, we shift down 2 instead of 1
+            int selectionShiftParadox = modifiers == 17 ? 2: 1;
+            int selectionShiftIO      = modifiers == 18 ? 2: 1;
+            if(modifiers == 19){
+                selectionShiftParadox = 2;
+                selectionShiftIO = 2;                
+            }
+            
+            // Shift the selected index down for each list            
+            // Paradox Points
+            int interval = (possibleParadoxList.getSelectedIndex() + selectionShiftParadox) >= possibleParadoxList.getModel().getSize() ? 0: possibleParadoxList.getSelectedIndex() + selectionShiftParadox;            
             possibleParadoxList.setSelectedIndex(interval);
             possibleParadoxList.ensureIndexIsVisible(interval);
              
-            interval = (possibleNamesList.getSelectedIndex() + 1) >= possibleNamesList.getModel().getSize() ? 0: possibleNamesList.getSelectedIndex() + 1;    
+            
+            // IO Points
+            interval = (possibleNamesList.getSelectedIndex() + selectionShiftIO) >= possibleNamesList.getModel().getSize() ? 0: possibleNamesList.getSelectedIndex() + selectionShiftIO;    
             possibleNamesList.setSelectedIndex(interval);
             possibleNamesList.ensureIndexIsVisible(interval);
             
@@ -537,8 +562,12 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
             }
 
             possibleParadoxList.setModel(dm);
-
         }
+        
+        possibleNamesList.setSelectedIndex(0);
+        possibleParadoxList.setSelectedIndex(0);
+        
+        
     }
 
     private void search(String searchItem) {
@@ -585,6 +614,7 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
             dm.addElement(entry.getKey() + " --> " + entry.getValue());
         }
         currentLinksList.setModel(dm);
+        currentLinksList.ensureIndexIsVisible(dm.getSize());
     }
 
     /**

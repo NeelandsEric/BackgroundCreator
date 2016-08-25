@@ -1389,6 +1389,9 @@ public class WidgetPanel extends javax.swing.JPanel {
             } else {
                 _ComboBox_Panels.setSelectedIndex(_ComboBox_Panels.getSelectedIndex() + 1);
             }
+            
+            _FTF_PanelID.requestFocusInWindow();
+            _FTF_PanelID.selectAll();
 
         }
 
