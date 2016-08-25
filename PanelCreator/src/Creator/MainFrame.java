@@ -733,6 +733,7 @@ public class MainFrame extends JFrame {
                 ngPanel.loadStore(this.store.getIoNames());
                 mbPanel.loadStore(this.store.getMb());
                 wgPanel.loadControlSettings(this.store.getCs(), this.store.getWidgetSettings());
+                tmPanel.loadStore(this.store);
                 controlPanel.writeToLog("Store " + this.store.getStoreName() + " read properly");
 
                 displayFrame.updateDisplays(this.store.getCs(), this.store.getDs());

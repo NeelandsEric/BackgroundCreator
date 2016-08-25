@@ -114,6 +114,14 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     public Map<String, Integer> getImportedIoVariables() {
         return importedIOVariables;
     }
+    
+    public void loadStore(Store store){
+        
+        this.setCs(store.getCs());
+        paradoxKeyMap.clear();
+        loadStations();
+        _TextArea_Status.setText("Loaded Store: " + store.getStoreName());
+    }
 
     private void loadDefaultTasks() {
 
@@ -1521,8 +1529,11 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 //System.out.println("File: " + file.getAbsolutePath());
                 String filePath = file.getAbsolutePath();
                                 
+                try{
                 paradoxKeyMap = xmlParser.readParadoxKeyMapFile(filePath);
-
+                }catch(Exception e){
+                    System.out.println("Bad file");
+                }
                 if (paradoxKeyMap == null) {
                     return;
                 }

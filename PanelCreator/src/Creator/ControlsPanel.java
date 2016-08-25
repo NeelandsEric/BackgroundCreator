@@ -68,15 +68,14 @@ public final class ControlsPanel extends javax.swing.JPanel {
                     + "}-" + d.width + "x" + d.height + ".png";
         }
         /*
-        for (int i = 1; i <= numRacks; i++) {
-            fn[i + numRacks] = filePath + storeName + "_[" + (i + numRacks + 1) + "]_Load{" + cs.getRackName(i - 1).replace("Rack", "Load").replace(" ", "_")
-                    + "}-" + d.width + "x" + d.height + ".png";
-        }*/
+         for (int i = 1; i <= numRacks; i++) {
+         fn[i + numRacks] = filePath + storeName + "_[" + (i + numRacks + 1) + "]_Load{" + cs.getRackName(i - 1).replace("Rack", "Load").replace(" ", "_")
+         + "}-" + d.width + "x" + d.height + ".png";
+         }*/
 
         fn[fn.length - 3] = filePath + storeName + "_[" + (fn.length - 2) + "]_Financial-" + +d.width + "x" + d.height + ".png";
         fn[fn.length - 2] = filePath + storeName + "_[" + (fn.length) + "]_Energy-" + +d.width + "x" + d.height + ".png";
         fn[fn.length - 1] = filePath + storeName + "_[" + (fn.length - 1) + "]_Glycol-" + +d.width + "x" + d.height + ".png";
-        
 
         return fn;
     }
@@ -1073,7 +1072,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
     private void _FormattedTF_NumFansPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event__FormattedTF_NumFansPropertyChange
         try {
             // update the current rack            
-            this.updateFanCount();     
+            this.updateFanCount();
             cs.getRackIndex(_ComboBox_Racks.getSelectedIndex()).setNumCondenserFans(numFans);
             //System.out.println("num fans: " + numFans);
             // Update the display frame            
@@ -1158,6 +1157,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
      */
     private void _ComboBox_SystemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__ComboBox_SystemsActionPerformed
 
+        if(_ComboBox_Systems.getSelectedItem().toString().equals("None")){
+            return;
+        }
         // Update the text
         int sysIndex = _ComboBox_Systems.getSelectedIndex();
         int subSysIndex = _ComboBox_SubSystems.getSelectedIndex();
@@ -1535,7 +1537,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         // Save the field
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
-        int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();        
+        int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
         int subSystemIndex = _ComboBox_SubSystems.getSelectedIndex();
         String systemName = _TextField_SystemName.getText();
         String subSystemName = _TextField_SubSystemName.getText();
@@ -1562,7 +1564,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
 
         // Save the field
         int rackIndex = _ComboBox_Racks.getSelectedIndex();
-        int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();        
+        int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
         int subSystemIndex = _ComboBox_SubSystems.getSelectedIndex();
         String systemName = _TextField_SystemName.getText();
         String subSystemName = _TextField_SubSystemName.getText();
@@ -1599,10 +1601,10 @@ public final class ControlsPanel extends javax.swing.JPanel {
         int glycolSubSystemIndex = _ComboBox_GlycolSubSystems.getSelectedIndex();
         String glycolSystemName = _TextField_GlycolSystemName.getText();
         String glycolSubSystemName = _TextField_GlycolSubSystemName.getText();
-        
+
         GlycolSettings gs = cs.getGlycolSettings();
         gs.replaceGlycolSubSystemName(glycolSystemName, glycolSubSystemName, glycolSubSystemIndex);
-        
+
         // Select previous name        
         if (glycolSubSystemIndex < gs.getNumSubSystems(glycolSystemName) - 1) {
             _ComboBox_GlycolSubSystems.setSelectedIndex(glycolSubSystemIndex + 1);
@@ -1624,10 +1626,10 @@ public final class ControlsPanel extends javax.swing.JPanel {
         int glycolSubSystemIndex = _ComboBox_GlycolSubSystems.getSelectedIndex();
         String glycolSystemName = _TextField_GlycolSystemName.getText();
         String glycolSubSystemName = _TextField_GlycolSubSystemName.getText();
-        
+
         GlycolSettings gs = cs.getGlycolSettings();
         gs.replaceGlycolSubSystemName(glycolSystemName, glycolSubSystemName, glycolSubSystemIndex);
-        
+
         // Select previous name
         if (glycolSubSystemIndex > 0) {
             _ComboBox_GlycolSubSystems.setSelectedIndex(glycolSubSystemIndex - 1);
@@ -1712,10 +1714,10 @@ public final class ControlsPanel extends javax.swing.JPanel {
     public void loadRackOptions(int index) {
 
         // Load all the options for the index'd rack
-        Rack cr = cs.getRackIndex(index);        
+        Rack cr = cs.getRackIndex(index);
         numFans = cr.getNumCondenserFans();
-        numSG = cr.getNumSuctionGroups();        
-        
+        numSG = cr.getNumSuctionGroups();
+
         // Comp VFD
         _CheckBox_CompVFD.setSelected(cr.isCompVFDActive());
         _FormattedTF_CompVFD.setEnabled(cr.isCompVFDActive());
@@ -1875,27 +1877,35 @@ public final class ControlsPanel extends javax.swing.JPanel {
         int sgIndex = _ComboBox_SuctionGroups.getSelectedIndex();
         int systemIndex = _ComboBox_Systems.getSelectedIndex();
         SuctionGroup sg = cs.getRackIndex(rackIndex).getSuctionGroupIndex(sgIndex);
-        String[] sys = new String[numSystems];
-        for (int i = 0; i < numSystems; i++) {
-            sys[i] = "System " + (i + 1);
-        }
-        _ComboBox_Systems.setModel(new javax.swing.DefaultComboBoxModel(sys));
-        if (prevSelectedIndex <= numSystems - 1) {
-            _ComboBox_Systems.setSelectedIndex(prevSelectedIndex);
-            this._FTF_NumSubSystems.setText(String.valueOf(sg.getNumSubSystems(sg.getSystemNameIndex(prevSelectedIndex))));
-        } else {
-            this._FTF_NumSubSystems.setText(String.valueOf(sg.getNumSubSystems(sg.getSystemNameIndex(0))));
+
+        if (numSystems == 0) {
+            String[] sys = new String[]{"None"};
+            _ComboBox_Systems.setModel(new javax.swing.DefaultComboBoxModel(sys));
             _ComboBox_Systems.setSelectedIndex(0);
-            systemIndex = 0;
+        } else {
+
+            String[] sys = new String[numSystems];
+            for (int i = 0; i < numSystems; i++) {
+                sys[i] = "System " + (i + 1);
+            }
+            _ComboBox_Systems.setModel(new javax.swing.DefaultComboBoxModel(sys));
+            if (prevSelectedIndex <= numSystems - 1) {
+                _ComboBox_Systems.setSelectedIndex(prevSelectedIndex);
+                this._FTF_NumSubSystems.setText(String.valueOf(sg.getNumSubSystems(sg.getSystemNameIndex(prevSelectedIndex))));
+            } else {
+                this._FTF_NumSubSystems.setText(String.valueOf(sg.getNumSubSystems(sg.getSystemNameIndex(0))));
+                _ComboBox_Systems.setSelectedIndex(0);
+                systemIndex = 0;
+            }
+
+            // Combo box updated, now add any system names that need to be added
+            sg.addSystemNames(Math.abs(Integer.parseInt(_FormattedTF_NumSystems.getText())));
+            // System drop box is set now update the text field 
+
+            _TextField_SystemName.setText(sg.getSystemNameIndex(systemIndex));
+            _FTF_NumSubSystems.setText(String.valueOf(sg.getNumSubSystems(sg.getSystemNameIndex(_ComboBox_Systems.getSelectedIndex()))));
+            updateSubSystemNames(prevSelectedIndex);
         }
-
-        // Combo box updated, now add any system names that need to be added
-        sg.addSystemNames(Math.abs(Integer.parseInt(_FormattedTF_NumSystems.getText())));
-        // System drop box is set now update the text field 
-
-        _TextField_SystemName.setText(sg.getSystemNameIndex(systemIndex));
-        _FTF_NumSubSystems.setText(String.valueOf(sg.getNumSubSystems(sg.getSystemNameIndex(_ComboBox_Systems.getSelectedIndex()))));
-        updateSubSystemNames(prevSelectedIndex);
 
     }
 
@@ -1925,10 +1935,10 @@ public final class ControlsPanel extends javax.swing.JPanel {
         }
         _ComboBox_SubSystems.setModel(new javax.swing.DefaultComboBoxModel(sys));
         if (prevSelectedIndex <= numSubSystems - 1) {
-            _ComboBox_SubSystems.setSelectedIndex(prevSelectedIndex);  
+            _ComboBox_SubSystems.setSelectedIndex(prevSelectedIndex);
             subSystemIndex = prevSelectedIndex;
         } else {
-            _ComboBox_SubSystems.setSelectedIndex(0);            
+            _ComboBox_SubSystems.setSelectedIndex(0);
             subSystemIndex = 0;
         }
 
@@ -1957,7 +1967,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         if (prevSelectedIndex <= numGlycolSys - 1) {
             _ComboBox_GlycolSystems.setSelectedIndex(prevSelectedIndex);
             this._FTF_NumGlycolSubSystems.setText(String.valueOf(gs.getNumSubSystems(gs.getGlycolSystemNameIndex(prevSelectedIndex))));
-            
+
         } else {
             _ComboBox_GlycolSystems.setSelectedIndex(0);
             this._FTF_NumGlycolSubSystems.setText(String.valueOf(gs.getNumSubSystems(gs.getGlycolSystemNameIndex(0))));
@@ -2002,12 +2012,11 @@ public final class ControlsPanel extends javax.swing.JPanel {
         if (prevSelectedIndex <= numSubSystems - 1) {
             _ComboBox_GlycolSubSystems.setSelectedIndex(prevSelectedIndex);
             glycolSubSystemIndex = prevSelectedIndex;
-            
 
         } else {
             _ComboBox_GlycolSubSystems.setSelectedIndex(0);
             glycolSubSystemIndex = 0;
-            
+
         }
 
         // Combo box updated, now add any system names that need to be added
@@ -2110,7 +2119,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         } else if (numFans == 0) {
             numFans = 1;
             _FormattedTF_NumFans.setValue(new Integer("1"));
-        }       
+        }
 
     }
 
@@ -2127,7 +2136,7 @@ public final class ControlsPanel extends javax.swing.JPanel {
         } else if (numSG == 0) {
             numSG = 1;
             _FormattedTF_NumSG.setValue(new Integer("1"));
-        }       
+        }
     }
 
     /**
@@ -2157,9 +2166,9 @@ public final class ControlsPanel extends javax.swing.JPanel {
         if (numSystems > 60) {
             numSystems = 60;
             _FormattedTF_NumSystems.setValue(new Integer("60"));
-        } else if (numSystems == 0) {
-            numSystems = 1;
-            _FormattedTF_NumSystems.setValue(new Integer("1"));
+        } else if (numSystems <= 0) {
+            numSystems = 0;
+            _FormattedTF_NumSystems.setValue(new Integer("0"));
         }
         cs.getRackIndex(_ComboBox_Racks.getSelectedIndex()).getSuctionGroupIndex(_ComboBox_SuctionGroups.getSelectedIndex()).setNumSystems(numSystems);
     }

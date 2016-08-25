@@ -1073,6 +1073,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         SuctionGroup sg = racks.get(rackIndex).getSuctionGroupIndex(sgIndex);
         int numSys = sg.getNumSystems();
         int numCols;
+        
         if (numSg > 3) {
             numCols = 2;
         } else if (numSys >= 4 && numSys <= 8) {
@@ -1082,6 +1083,7 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         } else if (numSys <= 4) {
             numCols = 1;
         } else {
+            
             if (numRacks > 2) {
                 numCols = 2;
             } else if (df.cs.getTotalSG() < 4) {
@@ -1092,6 +1094,9 @@ public class BackgroundMain extends javax.swing.JPanel implements Background {
         }
 
         double numPerCol = Math.ceil((double) numSys / numCols);
+        if(numPerCol == 0){
+            numPerCol = 1;
+        }
         //System.out.println("Ceil of " + numCond + "/" + numCols + "=" + numPerCol);
         //System.out.println("Num compressors in bg: " + numComp);
 
