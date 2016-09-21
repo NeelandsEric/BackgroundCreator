@@ -941,9 +941,12 @@ public class MainFrame extends JFrame {
 
                 wb.write(fileOut);
                 fileOut.close();
+                
             } catch (Exception e) {
                 controlPanel.writeToLog("Error with creating excel file " + e.getMessage());
             }
+            
+            controlPanel.writeToLog("Wrote IO's to file " + filePath);
 
         } else {
             System.out.println("File access cancelled by user.");

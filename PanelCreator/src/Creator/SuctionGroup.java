@@ -19,6 +19,8 @@ public class SuctionGroup implements java.io.Serializable {
     public String name;
     public int numCompressors;
     public int numSystems;
+    public ArrayList<Integer> compVFD_Index;
+    public boolean compVFDActive;
     public ArrayList<String> systemNames;
     public ArrayList<String> compressorNames;
     public TreeMap<String, Circuit> subSystems;
@@ -29,6 +31,9 @@ public class SuctionGroup implements java.io.Serializable {
         this.name = "";
         this.numCompressors = 1;
         this.numSystems = 1;
+        this.compVFDActive = false;
+        this.compVFD_Index = new ArrayList<>();
+        this.compVFD_Index.add(-1);
         this.systemNames = new ArrayList<>();
         this.systemNames.add("System 1");
         this.subSystems = new TreeMap<>();
@@ -45,6 +50,9 @@ public class SuctionGroup implements java.io.Serializable {
         this.name = name;
         this.numCompressors = 1;
         this.numSystems = 1;
+        this.compVFDActive = false;
+        this.compVFD_Index = new ArrayList<>();
+        this.compVFD_Index.add(-1);
         this.systemNames = new ArrayList<>();
         this.systemNames.add("System 1");
         this.subSystems = new TreeMap<>();
@@ -375,4 +383,36 @@ public class SuctionGroup implements java.io.Serializable {
         this.compressorNames.set(index, name);
     }
 
+    
+    public ArrayList<Integer> getCompVFD() {
+        return compVFD_Index;
+    }
+    
+    public int getCompVFDIndex(int index){
+        return compVFD_Index.get(index);
+    }
+
+    public void setCompVFD(ArrayList<Integer> compVFD) {
+        this.compVFD_Index = compVFD;
+    }
+    
+    public void setCompVFDIndex(int compVFD, int index) {
+        this.compVFD_Index.set(index, compVFD);
+    }
+    
+    public void addCompVFD(int compVFD){
+        this.compVFD_Index.add(compVFD);
+    }
+    
+    public boolean isCompVFDActive() {
+        return compVFDActive;
+    }
+
+    public void setCompVFDActive(boolean compVFDActive) {
+        this.compVFDActive = compVFDActive;
+    }
+    
+    public boolean checkCompressorIsVFD(int index){
+        return this.compVFD_Index.contains(index);
+    }
 }

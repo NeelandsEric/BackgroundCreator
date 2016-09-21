@@ -39,7 +39,7 @@ public class IoNames implements java.io.Serializable {
         "io_alert", "io_alert_timeout", "io_alert_range_low",
         "io_alert_range_high", "io_log", "io_log_param1", "io_log_range",
         "io_data_logger"
-           
+
     };
 
     public IoNames() {
@@ -51,7 +51,7 @@ public class IoNames implements java.io.Serializable {
         sysStr = new ArrayList<>();
         extraStr = new ArrayList<>();
         glycolStr = new ArrayList<>();
-        fanPanelStr = new ArrayList<>();        
+        fanPanelStr = new ArrayList<>();
 
     }
 
@@ -65,7 +65,7 @@ public class IoNames implements java.io.Serializable {
         hash = 41 * hash + Objects.hashCode(this.sysStr);
         hash = 41 * hash + Objects.hashCode(this.extraStr);
         hash = 41 * hash + Objects.hashCode(this.glycolStr);
-        hash = 41 * hash + Objects.hashCode(this.fanPanelStr);        
+        hash = 41 * hash + Objects.hashCode(this.fanPanelStr);
         return hash;
     }
 
@@ -104,7 +104,7 @@ public class IoNames implements java.io.Serializable {
         }
         if (!Objects.equals(this.fanPanelStr, other.fanPanelStr)) {
             return false;
-        }        
+        }
         return true;
     }
 
@@ -179,9 +179,6 @@ public class IoNames implements java.io.Serializable {
     public void setFanPanelStr(ArrayList<String> fanPanelStr) {
         this.fanPanelStr = fanPanelStr;
     }
-
-      
-    
 
     public void addString(int listIndex, String string) {
 
@@ -281,16 +278,51 @@ public class IoNames implements java.io.Serializable {
             // RACKS
             // do all condenser     
             for (String s : rackStr) {
-                newString = s.split(",");
-                newString[0] = newString[0]
-                        .replace("`%rackname`", rName)
-                        .replace("`%fannum`", fannum)
-                        .replace("`%sgname`", sgName)
-                        .replace("`%compname`", compName)
-                        .replace("`%sysname`", sysName);
 
-                //System.out.println("RACK - New string: " + newString[0] + "\tFrom old string: " + s);
-                vars.add(newString);
+                newString = s.split(",");
+
+                // Check if the condenser split is used
+                if (newString[0].equals("Cond Split Active `%rackname`")) {
+
+                    if (r.isCondSplit()) {
+                        newString[0] = newString[0]
+                                .replace("`%rackname`", rName)
+                                .replace("`%fannum`", fannum)
+                                .replace("`%sgname`", sgName)
+                                .replace("`%compname`", compName)
+                                .replace("`%sysname`", sysName);
+
+                        //System.out.println("RACK - New string: " + newString[0] + "\tFrom old string: " + s);
+                        vars.add(newString);
+                    }
+
+                    // Check to see if the condenser VFD is used, then add it
+                } else if (newString[0].equals("Cond VFD Active `%rackname`")
+                        || newString[0].equals("Cond VFD Fault `%rackname`")
+                        || newString[0].equals("Cond VFD Value `%rackname`")) {
+                    if (r.isCondVFDActive()) {
+                        newString[0] = newString[0]
+                                .replace("`%rackname`", rName)
+                                .replace("`%fannum`", fannum)
+                                .replace("`%sgname`", sgName)
+                                .replace("`%compname`", compName)
+                                .replace("`%sysname`", sysName);
+
+                        //System.out.println("RACK - New string: " + newString[0] + "\tFrom old string: " + s);
+                        vars.add(newString);
+                    }
+
+                } else {
+                    newString[0] = newString[0]
+                            .replace("`%rackname`", rName)
+                            .replace("`%fannum`", fannum)
+                            .replace("`%sgname`", sgName)
+                            .replace("`%compname`", compName)
+                            .replace("`%sysname`", sysName);
+
+                    //System.out.println("RACK - New string: " + newString[0] + "\tFrom old string: " + s);
+                    vars.add(newString);
+                }
             }
 
             // CONDENSERS
@@ -307,6 +339,7 @@ public class IoNames implements java.io.Serializable {
                 // do all condenser     
                 for (String s : condStr) {
                     newString = s.split(",");
+
                     newString[0] = newString[0]
                             .replace("`%rackname`", rName)
                             .replace("`%fannum`", fannum)
@@ -345,15 +378,36 @@ public class IoNames implements java.io.Serializable {
                     // do all compressors
                     for (String s : compStr) {
                         newString = s.split(",");
-                        newString[0] = newString[0]
-                                .replace("`%rackname`", rName)
-                                .replace("`%fannum`", fannum)
-                                .replace("`%sgname`", sgName)
-                                .replace("`%compname`", compName)
-                                .replace("`%sysname`", sysName);
 
-                        //System.out.println("COMP - New string: " + newString[0] + "\tFrom old string: " + s);
-                        vars.add(newString);
+                        if (newString[0].equals("Comp VFD Active `%rackname` `%sgname` `%compname`")
+                                || newString[0].equals("Comp VFD Fault `%rackname` `%sgname` `%compname`")
+                                || newString[0].equals("Comp VFD Value `%rackname` `%sgname` `%compname`")) {
+
+                            // Check if the VFD exists
+                            if (sucG.isCompVFDActive() && sucG.checkCompressorIsVFD(nc)) {
+                                newString[0] = newString[0]
+                                        .replace("`%rackname`", rName)
+                                        .replace("`%fannum`", fannum)
+                                        .replace("`%sgname`", sgName)
+                                        .replace("`%compname`", compName)
+                                        .replace("`%sysname`", sysName);
+
+                                //System.out.println("COMP - New string: " + newString[0] + "\tFrom old string: " + s);
+                                vars.add(newString);
+                            }
+
+                        } else {
+
+                            newString[0] = newString[0]
+                                    .replace("`%rackname`", rName)
+                                    .replace("`%fannum`", fannum)
+                                    .replace("`%sgname`", sgName)
+                                    .replace("`%compname`", compName)
+                                    .replace("`%sysname`", sysName);
+
+                            //System.out.println("COMP - New string: " + newString[0] + "\tFrom old string: " + s);
+                            vars.add(newString);
+                        }
                     }
                 }
 
@@ -458,18 +512,49 @@ public class IoNames implements java.io.Serializable {
             // do all condenser     
             for (String s : rackStr) {
                 orgString = s.split(",")[0];
-                newString = orgString
-                        .replace("`%rackname`", rName)
-                        .replace("`%fannum`", fannum)
-                        .replace("`%sgname`", sgName)
-                        .replace("`%compname`", compName)
-                        .replace("`%sysname`", sysName);
+                if (orgString.equals("Cond Split Active `%rackname`")) {
 
+                    if (r.isCondSplit()) {
+                        newString = orgString
+                                .replace("`%rackname`", rName)
+                                .replace("`%fannum`", fannum)
+                                .replace("`%sgname`", sgName)
+                                .replace("`%compname`", compName)
+                                .replace("`%sysname`", sysName);
+
+                    } else {
+                        newString = "";
+                    }
+
+                    // Check to see if the condenser VFD is used, then add it
+                } else if (orgString.equals("Cond VFD Active `%rackname`")
+                        || orgString.equals("Cond VFD Fault `%rackname`")
+                        || orgString.equals("Cond VFD Value `%rackname`")) {
+                    if (r.isCondVFDActive()) {
+                        newString = orgString
+                                .replace("`%rackname`", rName)
+                                .replace("`%fannum`", fannum)
+                                .replace("`%sgname`", sgName)
+                                .replace("`%compname`", compName)
+                                .replace("`%sysname`", sysName);
+                    } else {
+                        newString = "";
+                    }
+                } else {
+                    newString = orgString
+                            .replace("`%rackname`", rName)
+                            .replace("`%fannum`", fannum)
+                            .replace("`%sgname`", sgName)
+                            .replace("`%compname`", compName)
+                            .replace("`%sysname`", sysName);
+                }
                 //System.out.println("RACK - New string: " + newString[0] + "\tFrom old string: " + s);
                 if (!mappings.containsKey(orgString)) {
                     mappings.put(orgString, new ArrayList<>());
                 }
-                mappings.get(orgString).add(newString);
+                if (!newString.equals("")) {
+                    mappings.get(orgString).add(newString);
+                }
             }
 
             // CONDENSERS
@@ -530,18 +615,43 @@ public class IoNames implements java.io.Serializable {
                     // do all compressors
                     for (String s : compStr) {
                         orgString = s.split(",")[0];
-                        newString = orgString
-                                .replace("`%rackname`", rName)
-                                .replace("`%fannum`", fannum)
-                                .replace("`%sgname`", sgName)
-                                .replace("`%compname`", compName)
-                                .replace("`%sysname`", sysName);
 
-                        //System.out.println("COMP - New string: " + newString[0] + "\tFrom old string: " + s);
-                        if (!mappings.containsKey(orgString)) {
-                            mappings.put(orgString, new ArrayList<>());
+                        if (orgString.equals("Comp VFD Active `%rackname` `%sgname` `%compname`")
+                                || orgString.equals("Comp VFD Fault `%rackname` `%sgname` `%compname`")
+                                || orgString.equals("Comp VFD Value `%rackname` `%sgname` `%compname`")) {
+
+                            // Check if the VFD exists
+                            if (sucG.isCompVFDActive() && sucG.checkCompressorIsVFD(nc)) {
+                                newString = orgString
+                                        .replace("`%rackname`", rName)
+                                        .replace("`%fannum`", fannum)
+                                        .replace("`%sgname`", sgName)
+                                        .replace("`%compname`", compName)
+                                        .replace("`%sysname`", sysName);
+
+                                //System.out.println("COMP - New string: " + newString[0] + "\tFrom old string: " + s);
+                                if (!mappings.containsKey(orgString)) {
+                                    mappings.put(orgString, new ArrayList<>());
+                                }
+                                mappings.get(orgString).add(newString);
+                            }
+
+                        } else {
+
+                            newString = orgString
+                                    .replace("`%rackname`", rName)
+                                    .replace("`%fannum`", fannum)
+                                    .replace("`%sgname`", sgName)
+                                    .replace("`%compname`", compName)
+                                    .replace("`%sysname`", sysName);
+
+                            //System.out.println("COMP - New string: " + newString[0] + "\tFrom old string: " + s);
+                            if (!mappings.containsKey(orgString)) {
+                                mappings.put(orgString, new ArrayList<>());
+                            }
+                            mappings.get(orgString).add(newString);
                         }
-                        mappings.get(orgString).add(newString);
+
                     }
                 }
 
@@ -898,7 +1008,7 @@ public class IoNames implements java.io.Serializable {
                 vars.add(new String[]{s.split(",")[0]});
             }
         }
-        
+
         // Glycol
         vars.add(new String[]{"`Glycol`"});
         for (String s : glycolStr) {

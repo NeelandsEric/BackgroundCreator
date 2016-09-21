@@ -1376,7 +1376,8 @@ public class WidgetPanel extends javax.swing.JPanel {
 
     private void _Button_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_SaveActionPerformed
         
-        if (!_FTF_PanelID.getText().equals("") && !_TF_PanelName.getText().equals("")) {
+        if (!_FTF_PanelID.getText().equals("") && !_TF_PanelName.getText().equals("")
+                && !_FTF_XPOS.getText().equals("") && !_FTF_YPOS.getText().equals("")) {
             ws.wpl.addLink(_ComboBox_Panels.getSelectedItem().toString(),
                     Integer.valueOf(_FTF_PanelID.getText()),
                     _TF_PanelName.getText(),

@@ -507,9 +507,10 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
     private void deleteParadoxLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteParadoxLinkActionPerformed
         
         if(!currentLinksList.isSelectionEmpty()){
+            int selectionIndex = currentLinksList.getSelectedIndex();
             String key = currentLinksList.getSelectedValue().toString().split(" --> ")[0];
             System.out.println("Removed key: " + key + "\tValue: " + customMappings.remove(key));            
-            updateCurrentLinks();
+            updateCurrentLinks(selectionIndex);
         }
     }//GEN-LAST:event_deleteParadoxLinkActionPerformed
 
@@ -615,6 +616,18 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         }
         currentLinksList.setModel(dm);
         currentLinksList.ensureIndexIsVisible(dm.getSize());
+    }
+    
+    private void updateCurrentLinks(int prevSelection) {
+        updateCurrentLinks();
+        
+        if(prevSelection <= customMappings.size()){
+            currentLinksList.setSelectedIndex(prevSelection);
+        }else {
+            if((prevSelection - 1) <= customMappings.size()){
+                currentLinksList.setSelectedIndex(prevSelection - 1);
+            }
+        }
     }
 
     /**

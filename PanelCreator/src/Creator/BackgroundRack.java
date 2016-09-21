@@ -10,6 +10,7 @@ import java.awt.IllegalComponentStateException;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -1046,14 +1047,17 @@ public class BackgroundRack extends javax.swing.JPanel {
             System.out.println("Didnt read the compressor images");
         }
         tooltip = new String[]{"Comp Status " + rack.getName() + " `%sgname` `%compname`",
-            "Comp VFD Value " + rack.getName(),
-            "Comp VFD Fault " + rack.getName()};
+            "Comp VFD Value " + rack.getName() + " `%sgname` `%compname`",
+            "Comp VFD Fault " + rack.getName() + " `%sgname` `%compname`"};
 
-        boolean compVFD = rack.isCompVFDActive();
-        int compVFDIndex = rack.getCompVFD();
-        int vfdCounter = 1;
+        
+        
 
         for (int i = 0; i < numSg; i++) {
+            
+            boolean compVFD = rack.getSuctionGroupIndex(i).isCompVFDActive();
+            ArrayList<Integer> vfds = rack.getSuctionGroupIndex(i).getCompVFD();
+            int vfdCounter = 0;
             for (int j = 0; j < comp[i]; j++) {
                 if(icon != null){
                     label = new JLabel(icon, JLabel.CENTER);
@@ -1068,10 +1072,17 @@ public class BackgroundRack extends javax.swing.JPanel {
                         .replace("`%sgname`", rack.getSuctionGroupNameIndex(i))
                         .replace("`%compname`", rack.getSuctionGroupIndex(i).getCompressorNameIndex(j)), label);
 
-                if (compVFD && (vfdCounter == compVFDIndex)) {
+                if (compVFD && (vfds.contains(vfdCounter))) {
 
-                    widgetComponents.put(tooltip[1], label);
-                    widgetComponents.put(tooltip[2], label);
+                    widgetComponents.put(tooltip[1]
+                            .replace("`%sgname`", rack.getSuctionGroupNameIndex(i))
+                            .replace("`%compname`", rack.getSuctionGroupIndex(i).getCompressorNameIndex(j)), label);
+
+
+                    widgetComponents.put(tooltip[2]
+                            .replace("`%sgname`", rack.getSuctionGroupNameIndex(i))
+                            .replace("`%compname`", rack.getSuctionGroupIndex(i).getCompressorNameIndex(j)), label);
+                    
                 }
                 vfdCounter++;
 

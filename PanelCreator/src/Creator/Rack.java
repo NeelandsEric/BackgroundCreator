@@ -17,8 +17,7 @@ public class Rack implements java.io.Serializable {
     public String name;
     public int numSuctionGroups;
     public int numCondenserFans;    
-    public int compVFD_Index;
-    public boolean compVFDActive;
+    
     public boolean condVFDActive;
     public boolean condSplit;
     public ArrayList<SuctionGroup> suctionGroup;
@@ -28,7 +27,7 @@ public class Rack implements java.io.Serializable {
      */
     public Rack() {
         this.name = "Rack _";
-        this.compVFD_Index = -1;
+        
         this.condSplit = false;
         this.condVFDActive = false;
         this.numSuctionGroups = 1;
@@ -43,12 +42,9 @@ public class Rack implements java.io.Serializable {
      * @param name String name
      */
     public Rack(String name) {
-        this.name = name;
-        this.compVFD_Index = -1;
+        this.name = name;        
         this.condSplit = false;
-        this.condVFDActive = false;
-        this.compVFDActive = false;
-        this.compVFD_Index = 0;
+        this.condVFDActive = false;        
         this.numSuctionGroups = 1;
         this.numCondenserFans = 1;
         this.suctionGroup = new ArrayList<>();
@@ -74,7 +70,6 @@ public class Rack implements java.io.Serializable {
         hash = 11 * hash + Objects.hashCode(this.name);
         hash = 11 * hash + this.numSuctionGroups;
         hash = 11 * hash + this.numCondenserFans;
-        hash = 11 * hash + this.compVFD_Index;
         hash = 11 * hash + (this.condVFDActive ? 1 : 0);
         hash = 11 * hash + (this.condSplit ? 1 : 0);
         hash = 11 * hash + Objects.hashCode(this.suctionGroup);
@@ -98,10 +93,7 @@ public class Rack implements java.io.Serializable {
         }
         if (this.numCondenserFans != other.numCondenserFans) {
             return false;
-        }
-        if (this.compVFD_Index != other.compVFD_Index) {
-            return false;
-        }
+        }        
         if (this.condVFDActive != other.condVFDActive) {
             return false;
         }
@@ -302,15 +294,7 @@ public class Rack implements java.io.Serializable {
         }
         return numSys;
     }
-
-    public int getCompVFD() {
-        return compVFD_Index;
-    }
-
-    public void setCompVFD(int compVFD) {
-        this.compVFD_Index = compVFD;
-    }
-
+    
     public boolean isCondVFDActive() {
         return condVFDActive;
     }
@@ -326,18 +310,4 @@ public class Rack implements java.io.Serializable {
     public void setCondSplit(boolean condSplit) {
         this.condSplit = condSplit;
     }
-
-    public boolean isCompVFDActive() {
-        return compVFDActive;
-    }
-
-    public void setCompVFDActive(boolean compVFDActive) {
-        this.compVFDActive = compVFDActive;
-    }
-
-    
-
-    
-    
-    
 }

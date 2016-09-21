@@ -84,9 +84,6 @@ Cond Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years,1
 Cond Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years,1
 Cond Rack Fault `%rackname`,1,1,,1,0,0,0,,,,1,,2 years,0
 Comp Rack Fault `%rackname`,1,1,,1,0,0,0,,,,1,,2 years,0
-Comp VFD Active `%rackname`,0,1,,1,0,0,0,,,,1,,2 years,1
-Comp VFD Fault `%rackname`,0,0,,1,0,0,0,,,,1,,2 years,1
-Comp VFD Value `%rackname`,1,1,%,1,0,1,0,,,,2,2,2 years,1
 Discharge Pressure Actual `%rackname`,1,1,Psig,0.145,0,1,0,,,,2,3,2 years ,1
 Discharge Tmp `%rackname`,1,1,F,1.8,-32,2,0,,,,2,3,2 years ,1
 Op Cost Sum Current Day `%rackname`,1,1,$,1,0,2,0,,,,2,5,2 years,0
@@ -124,7 +121,7 @@ Volts L1 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,2,5,2 years ,1
 Volts L2 to L3 `%rackname`,1,1,V,0.1,0,1,0,,,,2,5,2 years ,1
 Volts Line to Line Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years,1
 Volts Line to Neutral Avg `%rackname`,1,1,V,0.1,0,1,0,,,,5,1,2 years,1
-Refrigerant Type `%rackname`,1,507,,1,0,1,0,,,,0,,,0
+Refrigerant Type `%rackname`,1,507,F,1,0,1,0,,,,0,,,0
 Refrigerant Level `%rackname`,1,1,% (Level),1,0,1,0,,,,4,,2 years,1
 `Condenser`
 Cond Fan Amps `%rackname` `%fannum`,1,0.1,A,1,0,1,0,,,,2,5,2 years ,1
@@ -156,6 +153,9 @@ Comp Status `%rackname` `%sgname` `%compname`,1,1,,1,0,0,0,,,,5,1,180 days,1
 Comp SLA `%rackname` `%sgname` `%compname`,0,0,,1,0,0,0,,,,1,,2 years,1
 Comp RUN `%rackname` `%sgname` `%compname`,0,1,,1,0,0,0,,,,1,,2 years,1
 Comp kW `%rackname` `%sgname` `%compname`,1,1,kW,0.1,0,1,0,,,,5,1,180 days,1
+Comp VFD Active `%rackname` `%sgname` `%compname`,0,1,,1,0,0,0,,,,1,,2 years,1
+Comp VFD Fault `%rackname` `%sgname` `%compname`,0,0,,1,0,0,0,,,,1,,2 years,1
+Comp VFD Value `%rackname` `%sgname` `%compname`,1,1,%,1,0,1,0,,,,2,2,2 years,1
 `Glycol`
 Glycol Status `%glycolname`,1,1,,1,0,0,0,,,,5,1,180 days,
 Glycol System Capacity `%glycolname`,1,1,BTU/H,1,0,1,0,,,,1,,2 years ,1
@@ -177,5 +177,4 @@ Fan Panel kWh MonthCount `%fanpanelnum`,1,1,kWh,1,0,1,0,,,,0,,,0
 Fan Panel kWh YearStart `%fanpanelnum`,1,1,kWh,1,0,1,0,,,,0,,,0
 Fan Panel kWh YearCount `%fanpanelnum`,1,1,kWh,1,0,1,0,,,,0,,,0
 Fan Panel PF `%fanpanelnum`,1,1,PF,0.01,0,2,0,,,,5,1,2 years,1
-Fan Panel Volts Line to Line Avg `%fanpanelnum`,1,1,V,0.1,0,1,0,,,,5,1,2 years,1
 Fan Panel Volts Line to Line Avg `%fanpanelnum`,1,1,V,0.1,0,1,0,,,,5,1,2 years,1
