@@ -2,6 +2,330 @@
 <DefaultWidgets>
     <widgetLinks>
         <entry>
+            <key>Energy-Amp Avg `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>26</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>20</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-Cond Amp Avg `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>26</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>20</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-Cond PF `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>17</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>20</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-Cond Volts Line to Line Avg `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>15</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>20</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-Cond kVA System `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>17</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>20</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-Cond kVAR System `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>17</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>20</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-Cond kW Actual `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>17</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>20</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-Cond kW Avg Demand `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>17</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>20</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-Cond kW Peak Demand `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>17</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>20</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-Cond kWh Actual `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>7</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>16</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-PF `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>17</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>20</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-Volts Line to Line Avg `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>15</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>20</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-kVA System `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>17</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>20</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-kVAR System `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>17</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>20</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-kW Actual `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>17</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>20</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-kW Avg Demand `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>17</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>20</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-kW Peak Demand `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>17</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>20</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Energy-kWh Actual `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
+                <positionPercentage>
+                    <x>7</x>
+                    <y>37</y>
+                </positionPercentage>
+                <panelType>Energy</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>16</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
             <key>Financial-Energy Cost/SqFt</key>
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
@@ -341,7 +665,7 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>18</value>
+                        <value>16</value>
                     </entry>
                 </variables>
             </value>
@@ -359,7 +683,7 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>18</value>
+                        <value>16</value>
                     </entry>
                 </variables>
             </value>
@@ -377,7 +701,7 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>18</value>
+                        <value>16</value>
                     </entry>
                 </variables>
             </value>
@@ -395,7 +719,7 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>18</value>
+                        <value>16</value>
                     </entry>
                 </variables>
             </value>
@@ -413,7 +737,7 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>18</value>
+                        <value>16</value>
                     </entry>
                 </variables>
             </value>
@@ -431,7 +755,7 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>18</value>
+                        <value>16</value>
                     </entry>
                 </variables>
             </value>
@@ -449,7 +773,7 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>18</value>
+                        <value>16</value>
                     </entry>
                 </variables>
             </value>
@@ -467,7 +791,7 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>18</value>
+                        <value>16</value>
                     </entry>
                 </variables>
             </value>
@@ -485,7 +809,7 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>18</value>
+                        <value>16</value>
                     </entry>
                 </variables>
             </value>
@@ -503,7 +827,7 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>18</value>
+                        <value>16</value>
                     </entry>
                 </variables>
             </value>
@@ -521,7 +845,7 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>18</value>
+                        <value>16</value>
                     </entry>
                 </variables>
             </value>
@@ -539,7 +863,7 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>18</value>
+                        <value>16</value>
                     </entry>
                 </variables>
             </value>
@@ -723,14 +1047,39 @@
         <entry>
             <key>Load-System Status `%rackname` `%sgname` `%sysname`</key>
             <value>
-                <widgetCodeName>LED Comp Status - 20px</widgetCodeName>
+                <widgetCodeName>LED Custom</widgetCodeName>
                 <positionPercentage>
                     <x>40</x>
-                    <y>10</y>
+                    <y>0</y>
                 </positionPercentage>
                 <panelType>Load</panelType>
                 <subGroup>System</subGroup>
-                <variables/>
+                <variables>
+                    <entry>
+                        <key>`%CautionColor%`</key>
+                        <value>yellow</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDHEIGHT%`</key>
+                        <value>22</value>
+                    </entry>
+                    <entry>
+                        <key>`%OffColor%`</key>
+                        <value>grey</value>
+                    </entry>
+                    <entry>
+                        <key>`%ErrorColor%`</key>
+                        <value>red</value>
+                    </entry>
+                    <entry>
+                        <key>`%OnColor%`</key>
+                        <value>green</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDWIDTH%`</key>
+                        <value>22</value>
+                    </entry>
+                </variables>
             </value>
         </entry>
         <entry>
@@ -772,66 +1121,159 @@
         <entry>
             <key>Main-Comp Rack Fault `%rackname`</key>
             <value>
-                <widgetCodeName>LED Comp Status - 25px</widgetCodeName>
+                <widgetCodeName>LED Comp Status - Custom</widgetCodeName>
                 <positionPercentage>
                     <x>74</x>
-                    <y>20</y>
+                    <y>8</y>
                 </positionPercentage>
                 <panelType>Main</panelType>
                 <subGroup>Rack</subGroup>
-                <variables/>
+                <variables>
+                    <entry>
+                        <key>`%LEDHEIGHT%`</key>
+                        <value>25</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDWIDTH%`</key>
+                        <value>25</value>
+                    </entry>
+                </variables>
             </value>
         </entry>
         <entry>
             <key>Main-Cond Rack Fault `%rackname`</key>
             <value>
-                <widgetCodeName>LED Cond Fan Status - 25px</widgetCodeName>
+                <widgetCodeName>LED Cond Fan Status - Custom</widgetCodeName>
                 <positionPercentage>
                     <x>78</x>
-                    <y>20</y>
+                    <y>8</y>
                 </positionPercentage>
                 <panelType>Main</panelType>
                 <subGroup>Rack</subGroup>
-                <variables/>
+                <variables>
+                    <entry>
+                        <key>`%LEDHEIGHT%`</key>
+                        <value>25</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDWIDTH%`</key>
+                        <value>25</value>
+                    </entry>
+                </variables>
             </value>
         </entry>
         <entry>
             <key>Main-Glycol Chiller Status</key>
             <value>
-                <widgetCodeName>LED Comp Status - 25px</widgetCodeName>
+                <widgetCodeName>LED Custom</widgetCodeName>
                 <positionPercentage>
                     <x>39</x>
-                    <y>66</y>
+                    <y>60</y>
                 </positionPercentage>
                 <panelType>Main</panelType>
                 <subGroup>Store</subGroup>
-                <variables/>
+                <variables>
+                    <entry>
+                        <key>`%CautionColor%`</key>
+                        <value>yellow</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDHEIGHT%`</key>
+                        <value>25</value>
+                    </entry>
+                    <entry>
+                        <key>`%OffColor%`</key>
+                        <value>grey</value>
+                    </entry>
+                    <entry>
+                        <key>`%ErrorColor%`</key>
+                        <value>red</value>
+                    </entry>
+                    <entry>
+                        <key>`%OnColor%`</key>
+                        <value>green</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDWIDTH%`</key>
+                        <value>25</value>
+                    </entry>
+                </variables>
             </value>
         </entry>
         <entry>
             <key>Main-Glycol Pump Station Status</key>
             <value>
-                <widgetCodeName>LED Comp Status - 25px</widgetCodeName>
+                <widgetCodeName>LED Custom</widgetCodeName>
                 <positionPercentage>
                     <x>39</x>
-                    <y>66</y>
+                    <y>60</y>
                 </positionPercentage>
                 <panelType>Main</panelType>
                 <subGroup>Store</subGroup>
-                <variables/>
+                <variables>
+                    <entry>
+                        <key>`%CautionColor%`</key>
+                        <value>yellow</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDHEIGHT%`</key>
+                        <value>25</value>
+                    </entry>
+                    <entry>
+                        <key>`%OffColor%`</key>
+                        <value>grey</value>
+                    </entry>
+                    <entry>
+                        <key>`%ErrorColor%`</key>
+                        <value>red</value>
+                    </entry>
+                    <entry>
+                        <key>`%OnColor%`</key>
+                        <value>green</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDWIDTH%`</key>
+                        <value>25</value>
+                    </entry>
+                </variables>
             </value>
         </entry>
         <entry>
             <key>Main-Glycol Status `%glycolname`</key>
             <value>
-                <widgetCodeName>LED Comp Status - 25px</widgetCodeName>
+                <widgetCodeName>LED Custom</widgetCodeName>
                 <positionPercentage>
                     <x>38</x>
-                    <y>33</y>
+                    <y>28</y>
                 </positionPercentage>
                 <panelType>Main</panelType>
                 <subGroup>Glycol</subGroup>
-                <variables/>
+                <variables>
+                    <entry>
+                        <key>`%CautionColor%`</key>
+                        <value>yellow</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDHEIGHT%`</key>
+                        <value>25</value>
+                    </entry>
+                    <entry>
+                        <key>`%OffColor%`</key>
+                        <value>grey</value>
+                    </entry>
+                    <entry>
+                        <key>`%ErrorColor%`</key>
+                        <value>red</value>
+                    </entry>
+                    <entry>
+                        <key>`%OnColor%`</key>
+                        <value>green</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDWIDTH%`</key>
+                        <value>25</value>
+                    </entry>
+                </variables>
             </value>
         </entry>
         <entry>
@@ -904,14 +1346,39 @@
         <entry>
             <key>Main-System Status `%rackname` `%sgname` `%sysname`</key>
             <value>
-                <widgetCodeName>LED Comp Status - 25px</widgetCodeName>
+                <widgetCodeName>LED Custom</widgetCodeName>
                 <positionPercentage>
-                    <x>35</x>
-                    <y>31</y>
+                    <x>27</x>
+                    <y>27</y>
                 </positionPercentage>
                 <panelType>Main</panelType>
                 <subGroup>System</subGroup>
-                <variables/>
+                <variables>
+                    <entry>
+                        <key>`%CautionColor%`</key>
+                        <value>yellow</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDHEIGHT%`</key>
+                        <value>25</value>
+                    </entry>
+                    <entry>
+                        <key>`%OffColor%`</key>
+                        <value>grey</value>
+                    </entry>
+                    <entry>
+                        <key>`%ErrorColor%`</key>
+                        <value>red</value>
+                    </entry>
+                    <entry>
+                        <key>`%OnColor%`</key>
+                        <value>green</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDWIDTH%`</key>
+                        <value>25</value>
+                    </entry>
+                </variables>
             </value>
         </entry>
         <entry>
@@ -937,7 +1404,7 @@
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
                 <positionPercentage>
-                    <x>38</x>
+                    <x>32</x>
                     <y>30</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
@@ -953,23 +1420,54 @@
         <entry>
             <key>Rack-Comp Status `%rackname` `%sgname` `%compname`</key>
             <value>
-                <widgetCodeName>LED Comp Status - 25px</widgetCodeName>
+                <widgetCodeName>LED Comp Status - Custom</widgetCodeName>
                 <positionPercentage>
-                    <x>47</x>
-                    <y>105</y>
+                    <x>45</x>
+                    <y>98</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
                 <subGroup>Compressor</subGroup>
-                <variables/>
+                <variables>
+                    <entry>
+                        <key>`%LEDHEIGHT%`</key>
+                        <value>25</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDWIDTH%`</key>
+                        <value>25</value>
+                    </entry>
+                </variables>
             </value>
         </entry>
         <entry>
-            <key>Rack-Cond Accumulated Subcool Alarm `%rackname`</key>
+            <key>Rack-Comp VFD Fault `%rackname`</key>
             <value>
-                <widgetCodeName>LED Comp Status - 20px</widgetCodeName>
+                <widgetCodeName>LED VFD Fault</widgetCodeName>
                 <positionPercentage>
-                    <x>10</x>
-                    <y>15</y>
+                    <x>-45</x>
+                    <y>25</y>
+                </positionPercentage>
+                <panelType>Rack</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%LEDHEIGHT%`</key>
+                        <value>25</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDWIDTH%`</key>
+                        <value>25</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Rack-Comp VFD Value `%rackname`</key>
+            <value>
+                <widgetCodeName>VFD-Value</widgetCodeName>
+                <positionPercentage>
+                    <x>73</x>
+                    <y>43</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
                 <subGroup>Rack</subGroup>
@@ -977,11 +1475,79 @@
             </value>
         </entry>
         <entry>
+            <key>Rack-Cond Accumulated Subcool Alarm `%rackname`</key>
+            <value>
+                <widgetCodeName>LED Custom</widgetCodeName>
+                <positionPercentage>
+                    <x>5</x>
+                    <y>5</y>
+                </positionPercentage>
+                <panelType>Rack</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%CautionColor%`</key>
+                        <value>yellow</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDHEIGHT%`</key>
+                        <value>22</value>
+                    </entry>
+                    <entry>
+                        <key>`%OffColor%`</key>
+                        <value>red</value>
+                    </entry>
+                    <entry>
+                        <key>`%ErrorColor%`</key>
+                        <value>red</value>
+                    </entry>
+                    <entry>
+                        <key>`%OnColor%`</key>
+                        <value>green</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDWIDTH%`</key>
+                        <value>22</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Rack-Cond Air TD `%rackname`</key>
+            <value>
+                <widgetCodeName>SmartLabel-ColorRanges</widgetCodeName>
+                <positionPercentage>
+                    <x>25</x>
+                    <y>32</y>
+                </positionPercentage>
+                <panelType>Rack</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%MediumRangeValue%`</key>
+                        <value>10</value>
+                    </entry>
+                    <entry>
+                        <key>`%HighRangeValue%`</key>
+                        <value>15</value>
+                    </entry>
+                    <entry>
+                        <key>`%FONTSIZE%`</key>
+                        <value>25</value>
+                    </entry>
+                    <entry>
+                        <key>`%LowRangeValue%`</key>
+                        <value>0</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
             <key>Rack-Cond Ambient Subcooling `%rackname`</key>
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
                 <positionPercentage>
-                    <x>35</x>
+                    <x>28</x>
                     <y>32</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
@@ -999,12 +1565,21 @@
             <value>
                 <widgetCodeName>CondFanImage</widgetCodeName>
                 <positionPercentage>
-                    <x>37</x>
-                    <y>105</y>
+                    <x>35</x>
+                    <y>108</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
                 <subGroup>Condenser</subGroup>
-                <variables/>
+                <variables>
+                    <entry>
+                        <key>`%ImageWidth%`</key>
+                        <value>50</value>
+                    </entry>
+                    <entry>
+                        <key>`%ImageHeight%`</key>
+                        <value>50</value>
+                    </entry>
+                </variables>
             </value>
         </entry>
         <entry>
@@ -1012,7 +1587,7 @@
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
                 <positionPercentage>
-                    <x>40</x>
+                    <x>35</x>
                     <y>30</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
@@ -1028,22 +1603,31 @@
         <entry>
             <key>Rack-Cond Fan Status `%rackname` `%fannum`</key>
             <value>
-                <widgetCodeName>LED Cond Fan Status - 25px</widgetCodeName>
+                <widgetCodeName>LED Cond Fan Status - Custom</widgetCodeName>
                 <positionPercentage>
-                    <x>43</x>
-                    <y>0</y>
+                    <x>32</x>
+                    <y>-19</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
                 <subGroup>Condenser</subGroup>
-                <variables/>
+                <variables>
+                    <entry>
+                        <key>`%LEDHEIGHT%`</key>
+                        <value>25</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDWIDTH%`</key>
+                        <value>25</value>
+                    </entry>
+                </variables>
             </value>
         </entry>
         <entry>
-            <key>Rack-Cond Inlet Temperature `%rackname`</key>
+            <key>Rack-Cond Inlet Air Temperature `%rackname`</key>
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
                 <positionPercentage>
-                    <x>35</x>
+                    <x>25</x>
                     <y>32</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
@@ -1057,11 +1641,11 @@
             </value>
         </entry>
         <entry>
-            <key>Rack-Cond Outlet Temperature `%rackname`</key>
+            <key>Rack-Cond Outlet Air Temperature `%rackname`</key>
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
                 <positionPercentage>
-                    <x>35</x>
+                    <x>25</x>
                     <y>32</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
@@ -1069,6 +1653,28 @@
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
+                        <value>25</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Rack-Cond Split Active `%rackname`</key>
+            <value>
+                <widgetCodeName>LED Cond Fan Split</widgetCodeName>
+                <positionPercentage>
+                    <x>9</x>
+                    <y>-175</y>
+                </positionPercentage>
+                <panelType>Rack</panelType>
+                <subGroup>Rack</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%LEDHEIGHT%`</key>
+                        <value>25</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDWIDTH%`</key>
                         <value>25</value>
                     </entry>
                 </variables>
@@ -1093,33 +1699,51 @@
             </value>
         </entry>
         <entry>
-            <key>Rack-Cond Temp Difference `%rackname`</key>
+            <key>Rack-Cond VFD Active `%rackname`</key>
             <value>
-                <widgetCodeName>SmartLabel-ColorRanges</widgetCodeName>
+                <widgetCodeName>On Off Label</widgetCodeName>
                 <positionPercentage>
-                    <x>35</x>
-                    <y>32</y>
+                    <x>32</x>
+                    <y>450</y>
+                </positionPercentage>
+                <panelType>Rack</panelType>
+                <subGroup>Rack</subGroup>
+                <variables/>
+            </value>
+        </entry>
+        <entry>
+            <key>Rack-Cond VFD Fault `%rackname`</key>
+            <value>
+                <widgetCodeName>LED VFD Fault</widgetCodeName>
+                <positionPercentage>
+                    <x>5</x>
+                    <y>750</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
                 <subGroup>Rack</subGroup>
                 <variables>
                     <entry>
-                        <key>`%MediumRangeValue%`</key>
-                        <value>5</value>
-                    </entry>
-                    <entry>
-                        <key>`%HighRangeValue%`</key>
-                        <value>15</value>
-                    </entry>
-                    <entry>
-                        <key>`%FONTSIZE%`</key>
+                        <key>`%LEDHEIGHT%`</key>
                         <value>25</value>
                     </entry>
                     <entry>
-                        <key>`%LowRangeValue%`</key>
-                        <value>0</value>
+                        <key>`%LEDWIDTH%`</key>
+                        <value>25</value>
                     </entry>
                 </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Rack-Cond VFD Value `%rackname`</key>
+            <value>
+                <widgetCodeName>VariableSpeedDrive</widgetCodeName>
+                <positionPercentage>
+                    <x>30</x>
+                    <y>575</y>
+                </positionPercentage>
+                <panelType>Rack</panelType>
+                <subGroup>Rack</subGroup>
+                <variables/>
             </value>
         </entry>
         <entry>
@@ -1127,7 +1751,7 @@
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
                 <positionPercentage>
-                    <x>32</x>
+                    <x>18</x>
                     <y>30</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
@@ -1145,7 +1769,7 @@
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
                 <positionPercentage>
-                    <x>32</x>
+                    <x>20</x>
                     <y>30</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
@@ -1164,14 +1788,14 @@
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
                 <positionPercentage>
                     <x>60</x>
-                    <y>30</y>
+                    <y>42</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
                 <subGroup>Rack</subGroup>
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>20</value>
+                        <value>22</value>
                     </entry>
                 </variables>
             </value>
@@ -1181,8 +1805,8 @@
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
                 <positionPercentage>
-                    <x>28</x>
-                    <y>23</y>
+                    <x>32</x>
+                    <y>30</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
                 <subGroup>Rack</subGroup>
@@ -1199,15 +1823,53 @@
             <value>
                 <widgetCodeName>SmartLabel-CustomParams</widgetCodeName>
                 <positionPercentage>
-                    <x>65</x>
-                    <y>10</y>
+                    <x>80</x>
+                    <y>25</y>
                 </positionPercentage>
                 <panelType>Rack</panelType>
                 <subGroup>Store</subGroup>
                 <variables>
                     <entry>
                         <key>`%FONTSIZE%`</key>
-                        <value>23</value>
+                        <value>22</value>
+                    </entry>
+                </variables>
+            </value>
+        </entry>
+        <entry>
+            <key>Rack-Suction Pressure Accumulated `%rackname` `%sgname`</key>
+            <value>
+                <widgetCodeName>LED Custom</widgetCodeName>
+                <positionPercentage>
+                    <x>34</x>
+                    <y>-14</y>
+                </positionPercentage>
+                <panelType>Rack</panelType>
+                <subGroup>Suction Group</subGroup>
+                <variables>
+                    <entry>
+                        <key>`%CautionColor%`</key>
+                        <value>yellow</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDHEIGHT%`</key>
+                        <value>25</value>
+                    </entry>
+                    <entry>
+                        <key>`%OffColor%`</key>
+                        <value>red</value>
+                    </entry>
+                    <entry>
+                        <key>`%ErrorColor%`</key>
+                        <value>red</value>
+                    </entry>
+                    <entry>
+                        <key>`%OnColor%`</key>
+                        <value>green</value>
+                    </entry>
+                    <entry>
+                        <key>`%LEDWIDTH%`</key>
+                        <value>25</value>
                     </entry>
                 </variables>
             </value>

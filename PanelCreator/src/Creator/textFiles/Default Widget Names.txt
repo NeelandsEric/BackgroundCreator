@@ -39,9 +39,6 @@ Cond Inlet Air Temperature `%rackname`
 Cond Air TD `%rackname`
 Cond Rack Fault `%rackname`
 Comp Rack Fault `%rackname`
-Comp VFD Active `%rackname`
-Comp VFD Fault `%rackname`
-Comp VFD Value `%rackname`
 Discharge Pressure Actual `%rackname`
 Discharge Tmp `%rackname`
 Op Cost Sum Current Day `%rackname`
@@ -102,6 +99,9 @@ System Status `%rackname` `%sgname` `%sysname`
 Comp Amps `%rackname` `%sgname` `%compname`
 Comp Discharge Temp `%rackname` `%sgname` `%compname`
 Comp Status `%rackname` `%sgname` `%compname`
+Comp VFD Active `%rackname` `%sgname` `%compname`
+Comp VFD Fault `%rackname` `%sgname` `%compname`
+Comp VFD Value `%rackname` `%sgname` `%compname`
 `Glycol
 Glycol Status `%glycolname`
 Glycol System Capacity `%glycolname`
