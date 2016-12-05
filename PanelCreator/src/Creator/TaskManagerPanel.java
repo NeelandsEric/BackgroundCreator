@@ -1892,14 +1892,15 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         }
 
         query = query.substring(0, query.length() - 1) + ";";
-
+        
         //System.out.println(query);
+        
         db = newDBConn();
-
         String returnString = db.executeQuery(query);
         db.closeConn();
 
         return returnString;
+
 
     }
 
@@ -2006,13 +2007,21 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         for (String s : elements) {
             if (s.equals("")) {
                 System.out.println("Blank element found in: " + Arrays.toString(elements));
+            }else {
+                String nextID = findIDForString(s);
+                // Not empty string
+                if(!nextID.equals("")){
+                
+                    // Add comma for items that need it
+                    if(!returnString.equals("'")){
+                        returnString += ",";
+                    }
+                    returnString +=  nextID;
+                }
             }
-            returnString += findIDForString(s) + ",";
-        }
-
-        returnString = returnString.replace(",,", ",");
-
-        return returnString.substring(0, returnString.length() - 1) + "'";
+        }        
+        returnString += "'";
+        return returnString;
 
     }
 
