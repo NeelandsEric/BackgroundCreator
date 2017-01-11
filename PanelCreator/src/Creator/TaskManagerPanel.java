@@ -188,7 +188,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             wb.close();
 
         } catch (Exception e) {
-            System.out.println("Error reading excel file " + e.getMessage());
+            System.out.println("Load default tasks: Error reading excel file " + e.getMessage());
         }
 
     }
@@ -255,7 +255,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             wb.close();
 
         } catch (Exception e) {
-            System.out.println("Error reading excel file " + e.getMessage());
+            System.out.println("Load Default Alerts: Error reading excel file " + e.getMessage());
         }
 
     }
@@ -294,7 +294,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             wb.close();
 
         } catch (Exception e) {
-            System.out.println("Error reading excel file " + e.getMessage());
+            System.out.println("Load default paradox links: Error reading excel file " + e.getMessage());
         }
 
     }
@@ -2137,7 +2137,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             fs.close();
             mf.loadImportedIos(importedIOVariables, 2, stationID);
         } catch (Exception e) {
-            System.out.println("Error reading excel file " + e.getMessage());
+            System.out.println("ReadXFile: Error reading excel file " + e.getMessage());
         }
     }
 
