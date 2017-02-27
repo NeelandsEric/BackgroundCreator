@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -421,6 +422,8 @@ public class ModbusPanel extends javax.swing.JPanel {
         _Button_LoadXls = new javax.swing.JButton();
         _Label_Loaded = new javax.swing.JLabel();
         _Button_CreateImports = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        modbusExportStatus = new javax.swing.JTextArea();
 
         _FileChooser_IoFile.setApproveButtonText("Open");
         _FileChooser_IoFile.setApproveButtonToolTipText("Open a xls file");
@@ -602,6 +605,10 @@ public class ModbusPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        modbusExportStatus.setColumns(20);
+        modbusExportStatus.setRows(5);
+        jScrollPane1.setViewportView(modbusExportStatus);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -649,6 +656,9 @@ public class ModbusPanel extends javax.swing.JPanel {
                         .addGap(12, 12, 12))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(_Panel_ImportXLS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
                         .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
                 .addGap(417, 417, 417)
@@ -678,7 +688,9 @@ public class ModbusPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(_Panel_SingleLoads, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(_Panel_ImportXLS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(_Panel_ImportXLS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(_TF_PowerScoutIP, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -693,8 +705,9 @@ public class ModbusPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(_Button_ClearMeterPower, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(_Panel_PowerScout, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(_Panel_PowerScout, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -856,6 +869,7 @@ public class ModbusPanel extends javax.swing.JPanel {
 
     private void _Button_CreateImportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CreateImportsActionPerformed
 
+        
         _FileChooser_IoFile.setDialogTitle("Save Modbus XLS File");
         _FileChooser_IoFile.setFileSelectionMode(JFileChooser.FILES_ONLY);
         _FileChooser_IoFile.setDialogType(JFileChooser.SAVE_DIALOG);
@@ -863,7 +877,7 @@ public class ModbusPanel extends javax.swing.JPanel {
 
         int returnVal = _FileChooser_IoFile.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-
+            modbusExportStatus.setText("");
             File file = _FileChooser_IoFile.getSelectedFile();
             //System.out.println("File: " + file.getAbsolutePath());
             String filePath = file.getAbsolutePath();
@@ -1029,6 +1043,7 @@ public class ModbusPanel extends javax.swing.JPanel {
 
         Collections.sort(list, comp);
 
+       
         // Now that the list is sorted we can organize the specific slaves with
         // concurrent registers to be combined
         List<String[]> newList = new ArrayList<>();
@@ -1036,7 +1051,7 @@ public class ModbusPanel extends javax.swing.JPanel {
         String[] curr = null;
         int cycleCounter = 1;
         for (String[] next : list) {
-
+            //System.out.println(Arrays.toString(next));
             if (next[0].equals("cycle_name") || next[5].equals("L[HINT16]")) {
                 newList.add(next);
                 if (curr != null) {
@@ -1084,6 +1099,18 @@ public class ModbusPanel extends javax.swing.JPanel {
                 }
             }
         }
+        
+        if(newList.contains(curr)){
+            System.out.println("New list already contains: " + Arrays.toString(curr));
+        }else {
+            System.out.println("Adding curr because it isnt part of the list...");
+            System.out.println(Arrays.toString(curr));
+            newList.add(curr);
+        }       
+               
+        /*for(String[]s: newList){
+            System.out.println(Arrays.toString(s));
+        }*/
         return newList;
     }
 
@@ -1292,6 +1319,7 @@ public class ModbusPanel extends javax.swing.JPanel {
                     meterMapping.get(meterName).add(newString);
                 } else {
                     System.out.println("Did not add " + newString[0] + " because no sensor was linked");
+                    modbusExportStatus.append("WARNING: Did not add " + newString[0] + " because no sensor was linked\n");
                 }
 
             }
@@ -1401,7 +1429,11 @@ public class ModbusPanel extends javax.swing.JPanel {
         if (importedIOVariables.isEmpty()) {
             return "`%io_id`";
         } else {
-            return String.valueOf(importedIOVariables.get(variableName));
+            String io_id = String.valueOf(importedIOVariables.get(variableName));
+            if(io_id.equals("null")){
+                modbusExportStatus.append("WARNING: NO IO NAMED [" + variableName + "]. CONSIDER ADDING IT!!\n");
+            }
+            return io_id;
         }
     }
 
@@ -1443,5 +1475,7 @@ public class ModbusPanel extends javax.swing.JPanel {
     private javax.swing.JPanel _Panel_SingleLoads;
     private javax.swing.JTextField _TF_PowerScoutIP;
     private javax.swing.JTextField _TF_SingleLoadIP;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea modbusExportStatus;
     // End of variables declaration//GEN-END:variables
 }
