@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.swing.DefaultListModel;
 
 /**
@@ -24,20 +25,26 @@ public class ChooseIoNamesFrame extends javax.swing.JFrame {
     private MainFrame mf;
     private DefaultListModel originalModel;
     private DefaultListModel printModel;
-    private Map<String, String[]> paramMap;    
+    private Map<String, String[]> paramMap;
     private String[] headers;
+    private List<String> modbusStrings;
+    private List<String[]> items;
 
     /**
      * Creates new form ChooseIoNamesFrame
      */
-    public ChooseIoNamesFrame(List<String[]> items, MainFrame mf) {
+    public ChooseIoNamesFrame(List<String[]> items, List<String> modbusStrings, MainFrame mf) {
         this.mf = mf;
-        paramMap = new HashMap<>();
-        originalModel = new DefaultListModel();
-        printModel = new DefaultListModel();
-        loadItems(items);
-        initComponents();
+        this.paramMap = new HashMap<>();
+        if (modbusStrings != null) {
+            this.modbusStrings = modbusStrings;
+        }
+        this.items = items;
+        this.originalModel = new DefaultListModel();
+        this.printModel = new DefaultListModel();
 
+        initComponents();
+        loadItems(items);
     }
 
     /**
@@ -61,6 +68,7 @@ public class ChooseIoNamesFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         print = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
+        modbusDataPoints = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -113,17 +121,26 @@ public class ChooseIoNamesFrame extends javax.swing.JFrame {
             }
         });
 
+        modbusDataPoints.setText("Modbus Data Points");
+        modbusDataPoints.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modbusDataPointsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(modbusDataPoints, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(addItems)
@@ -158,9 +175,12 @@ public class ChooseIoNamesFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(modbusDataPoints))
                         .addContainerGap())))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cancel, modbusDataPoints});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,8 +217,6 @@ public class ChooseIoNamesFrame extends javax.swing.JFrame {
                 originalList.setSelectedIndex(index);
             }
         }
-
-
     }//GEN-LAST:event_addItemsActionPerformed
 
     private void removeItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeItemsActionPerformed
@@ -256,7 +274,7 @@ public class ChooseIoNamesFrame extends javax.swing.JFrame {
                 return x1[0].toLowerCase().compareTo(x2[0].toLowerCase());
             }
         });
-        
+
         returnItems.add(0, headers);
 
         mf.returnIoItems(returnItems);
@@ -266,6 +284,24 @@ public class ChooseIoNamesFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_cancelActionPerformed
+
+    private void modbusDataPointsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modbusDataPointsActionPerformed
+        // TODO add your handling code here:
+
+        for (int i = originalList.getModel().getSize() - 1; i >= 0; i--) {
+            String modelItem = originalList.getModel().getElementAt(i).toString();
+
+            if (modbusStrings.contains(modelItem)) {
+                printModel.addElement(modelItem);
+                originalModel.removeElement(modelItem);
+            }
+
+        }
+
+        reSort();
+
+
+    }//GEN-LAST:event_modbusDataPointsActionPerformed
 
     public void load(List<String[]> items) {
         loadItems(items);
@@ -297,6 +333,7 @@ public class ChooseIoNamesFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton modbusDataPoints;
     private javax.swing.JList originalList;
     private javax.swing.JButton print;
     private javax.swing.JList printList;

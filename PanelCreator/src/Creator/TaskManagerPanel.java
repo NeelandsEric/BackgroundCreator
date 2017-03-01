@@ -39,7 +39,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private Map<String, Integer> importedIOVariables;       // io_name,io_id
     private List<String[]> importedTasks;
     private List<String[]> importedAlerts;
-    private Map<String, List> mappings;
+    private Map<String, List<String>> mappings;
     private DBConn db;
     private ControlSettings cs;
     private Map<String, Integer> users;
@@ -53,7 +53,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private Map<String, Integer> gv;
     private ParadoxKeyMap paradoxKeyMap;
     private Map<String, String> paradoxLinkMap;
-
+    boolean alteringStations;
     /**
      * Creates new form TaskManagerPanel
      *
@@ -61,11 +61,14 @@ public class TaskManagerPanel extends javax.swing.JPanel {
      * @param cs control settings
      * @param wpl widget panel links
      */
-    public TaskManagerPanel(MainFrame mf, ControlSettings cs) {
+    public TaskManagerPanel(MainFrame mf, Store store) {
         this.mf = mf;
         this.stationID = -1;
-        this.cs = cs;
+        this.stationName = store.getStoreName();
+        this.cs = store.getCs();
         this.db = null;
+        this.alteringStations = false;
+        
 
         initComponents();
         loadDefaultTasks();
@@ -77,7 +80,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         listUsers = new DefaultListModel();
         listUserGroups = new DefaultListModel();
         stations = new DefaultListModel();
-
+        _TextArea_Status.setText("Loaded Store: " + store.getStoreName() + "\n"); 
         loadData();
 
     }
@@ -114,13 +117,19 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     public Map<String, Integer> getImportedIoVariables() {
         return importedIOVariables;
     }
-    
-    public void loadStore(Store store){
-        
+
+    public void loadStore(Store store) {
+
         this.setCs(store.getCs());
-        paradoxKeyMap.clear();
-        loadStations();
-        _TextArea_Status.setText("Loaded Store: " + store.getStoreName());
+        if (importedIOVariables != null && !importedIOVariables.isEmpty()) {
+            importedIOVariables.clear();
+        }
+        this.stationID = -1;
+        this.stationName = store.getStoreName();        
+        paradoxKeyMap.clear();     
+        _TextArea_Status.setText("Loaded Store: " + store.getStoreName()  + "\n"); 
+        loadStations();       
+               
     }
 
     private void loadDefaultTasks() {
@@ -804,7 +813,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             // This function will return a Map containing all the formatted strings
             // for each base string
             // Amp Avg `%rackname` -> Amp Avg Rack A, Amp Avg Rack B, etc.
-            Map<String, List> mappings = mf.getMapFullStrings();
+            mappings = mf.getMapFullStrings();
 
             // (task_manager_task_id, task_manager_inputs, task_manager_outputs, task_manager_crontab_line,
             //  task_manager_station_id, task_manager_name, task_manager_pass_inputs_as_io_id)
@@ -1416,20 +1425,47 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     public void loadStations() {
 
         db = newDBConn();
-
         stores = db.getStoreList();
-
-        db.closeConn();
+        db.closeConn();        
 
         if (stores != null) {
+            alteringStations = true;
             stations.removeAllElements();
-
             for (String name : stores.keySet()) {
                 stations.addElement(name);
             }
-
             _List_Stations.setModel(stations);
+            alteringStations = false;
+        }       
+        
+        if (!stationName.equals("")) {
+            _List_Stations.setSelectedValue(stationName, true);
+            if(stores.containsKey(stationName)){
+                stores.get(stationName);
+            }            
+        }        
+        
+        //System.out.println("StationName: " + stationName);
+        //System.out.println("StationID: " + stationID);
+        
+        if (stationID != -1) {
+            //System.out.println("Retrieving IOs for " + stationName + " - " + stationID);
+            db = newDBConn();
+            importedIOVariables = db.getStoreIDs(stationID);
+            db.closeConn();            
+            if (!importedIOVariables.isEmpty()) {
+                _TextArea_Status.append("\nStatus: Retrieved " + importedIOVariables.size() + " ios for Station " + stationName + ", ID: " + stationID);
+                _Button_CreateImports.setEnabled(true);
+                _Button_InsertCustom.setEnabled(true);
+                _Button_GenericVariables.setEnabled(true);
+                _Button_ParadoxLinker.setEnabled(true);
+
+                mf.loadImportedIos(importedIOVariables, 2, stationID, stationName);
+            } else {
+                _TextArea_Status.append("\nStatus: Did not retrieve any points for Station " + stationName + ", ID: " + stationID);
+            }
         }
+        
     }
     private void _Button_GetStationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_GetStationsActionPerformed
         // TODO add your handling code here:
@@ -1441,7 +1477,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
     private void _List_StationsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event__List_StationsValueChanged
         // TODO add your handling code here:
-        if (!evt.getValueIsAdjusting()) {
+        if (!evt.getValueIsAdjusting() && !alteringStations) {
             if (!_List_Stations.isSelectionEmpty()) {
 
                 // One selection
@@ -1452,7 +1488,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
 
             } else {
                 _TF_Station.setText("");
-                stationID = 0;
+                stationID = -1;
                 stationName = "";
                 _Button_DB_IDS.setEnabled(false);
                 _Button_CreateImports.setEnabled(false);
@@ -1464,16 +1500,14 @@ public class TaskManagerPanel extends javax.swing.JPanel {
     private void _Button_DB_IDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_DB_IDSActionPerformed
         // TODO add your handling code here:
 
-        if ("".equals(stationName) || stationID == 0) {
+        if ("".equals(stationName) || stationID == -1) {
             _Button_CreateImports.setEnabled(false);
             _Button_InsertCustom.setEnabled(false);
             return;
         }
 
         db = newDBConn();
-
         importedIOVariables = db.getStoreIDs(stationID);
-
         db.closeConn();
 
         if (!importedIOVariables.isEmpty()) {
@@ -1484,7 +1518,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
             _Button_GenericVariables.setEnabled(true);
             _Button_ParadoxLinker.setEnabled(true);
 
-            mf.loadImportedIos(importedIOVariables, 2, stationID);
+            mf.loadImportedIos(importedIOVariables, 2, stationID, stationName);
         } else {
             _TextArea_Status.append("\nStatus: Did not retrieve any points for Station " + stationName + ", ID: " + stationID);
         }
@@ -1528,10 +1562,10 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 // What to do with the file, e.g. display it in a TextArea
                 //System.out.println("File: " + file.getAbsolutePath());
                 String filePath = file.getAbsolutePath();
-                                
-                try{
-                paradoxKeyMap = xmlParser.readParadoxKeyMapFile(filePath);
-                }catch(Exception e){
+
+                try {
+                    paradoxKeyMap = xmlParser.readParadoxKeyMapFile(filePath);
+                } catch (Exception e) {
                     System.out.println("Bad file");
                 }
                 if (paradoxKeyMap == null) {
@@ -1549,7 +1583,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 System.out.println("File access cancelled by user.");
             }
 
-        }else {
+        } else {
             plFrame = new ChooseParadoxLinksFrame(mf.getMapFullStrings(), paradoxLinkMap, paradoxKeyMap, cs.getParadoxLinks(), this);
             plFrame.setVisible(true);
         }
@@ -1568,72 +1602,68 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 "Insert paradox links to the Database for Store: " + stationName, "Add Paradox Points", dialogButton);
 
         if (dialogResult == 0) {
-            
+
             db = newDBConn();
-            
+
             // Check to see if we need to delete and re add
-                        
             String query = "insert into paradox_keymaps (paradox_keymap_masterk, paradox_keymap_io_id) values %s;";
             String vals = "";
             for (Entry<String, Integer> entry : paradoxLinks.entrySet()) {
-                
+
                 String ioName = entry.getKey();
-                if(!importedIOVariables.isEmpty() && importedIOVariables.containsKey(ioName)){
+                if (!importedIOVariables.isEmpty() && importedIOVariables.containsKey(ioName)) {
                     int paradoxMasterKey = entry.getValue();
                     int io_id = importedIOVariables.get(ioName);
-                    
-                    if(vals.equals("")){
+
+                    if (vals.equals("")) {
                         vals = "(" + String.valueOf(paradoxMasterKey) + ", " + String.valueOf(io_id) + ")";
-                    }else {
+                    } else {
                         vals += ",(" + String.valueOf(paradoxMasterKey) + ", " + String.valueOf(io_id) + ")";
-                    }                
-                }               
+                    }
+                }
             }
-            
-            String newQuery = String.format(query, vals);            
+
+            String newQuery = String.format(query, vals);
             String status = db.executeQuery(newQuery);
-            if(status.equals("Successfully inserted")){
+            if (status.equals("Successfully inserted")) {
                 _TextArea_Status.append("\nStatus: " + status + " paradox links for station " + String.valueOf(stationID));
                 return;
-            }else {
+            } else {
                 _TextArea_Status.append("\nStatus: Error inserting links, deleting existing...");
             }
-            
-            
+
             // First delete existing keymaps
-            
-            String deleteQuery =  "delete from paradox_keymaps as p"
-                                + " where p.paradox_keymap_io_id in "
-                                + "(select i.io_id from io i where i.io_station_id = " + String.valueOf(stationID) + ");";
+            String deleteQuery = "delete from paradox_keymaps as p"
+                    + " where p.paradox_keymap_io_id in "
+                    + "(select i.io_id from io i where i.io_station_id = " + String.valueOf(stationID) + ");";
             _TextArea_Status.append("\nStatus: Deleted existing keys for station id: " + String.valueOf(stationID));
-            
+
             db.executeQuery(deleteQuery);
 
             query = "insert into paradox_keymaps (paradox_keymap_masterk, paradox_keymap_io_id) values %s;";
             vals = "";
             for (Entry<String, Integer> entry : paradoxLinks.entrySet()) {
-                
+
                 String ioName = entry.getKey();
-                if(!importedIOVariables.isEmpty() && importedIOVariables.containsKey(ioName)){
+                if (!importedIOVariables.isEmpty() && importedIOVariables.containsKey(ioName)) {
                     int paradoxMasterKey = entry.getValue();
                     int io_id = importedIOVariables.get(ioName);
-                    
-                    if(vals.equals("")){
+
+                    if (vals.equals("")) {
                         vals = "(" + String.valueOf(paradoxMasterKey) + ", " + String.valueOf(io_id) + ")";
-                    }else {
+                    } else {
                         vals += ",(" + String.valueOf(paradoxMasterKey) + ", " + String.valueOf(io_id) + ")";
-                    }                
-                }               
+                    }
+                }
             }
-            
-            newQuery = String.format(query, vals);            
+
+            newQuery = String.format(query, vals);
             status = db.executeQuery(newQuery);
-            if(status.equals("Successfully inserted")){
+            if (status.equals("Successfully inserted")) {
                 _TextArea_Status.append("\nStatus: " + status + " paradox links for station " + String.valueOf(stationID));
             }
             db.closeConn();
-            
-            
+
         }
     }
 
@@ -1892,15 +1922,13 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         }
 
         query = query.substring(0, query.length() - 1) + ";";
-        
+
         //System.out.println(query);
-        
         db = newDBConn();
         String returnString = db.executeQuery(query);
         db.closeConn();
 
         return returnString;
-
 
     }
 
@@ -2007,19 +2035,19 @@ public class TaskManagerPanel extends javax.swing.JPanel {
         for (String s : elements) {
             if (s.equals("")) {
                 System.out.println("Blank element found in: " + Arrays.toString(elements));
-            }else {
+            } else {
                 String nextID = findIDForString(s);
                 // Not empty string
-                if(!nextID.equals("")){
-                
+                if (!nextID.equals("")) {
+
                     // Add comma for items that need it
-                    if(!returnString.equals("'")){
+                    if (!returnString.equals("'")) {
                         returnString += ",";
                     }
-                    returnString +=  nextID;
+                    returnString += nextID;
                 }
             }
-        }        
+        }
         returnString += "'";
         return returnString;
 
@@ -2135,7 +2163,7 @@ public class TaskManagerPanel extends javax.swing.JPanel {
                 }
             }
             fs.close();
-            mf.loadImportedIos(importedIOVariables, 2, stationID);
+            mf.loadImportedIos(importedIOVariables, 2, stationID, stationName);
         } catch (Exception e) {
             System.out.println("ReadXFile: Error reading excel file " + e.getMessage());
         }

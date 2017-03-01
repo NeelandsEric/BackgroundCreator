@@ -11,6 +11,7 @@ import java.util.Objects;
 import javax.swing.DefaultListModel;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+
 /**
  *
  * @author EricGummerson
@@ -24,8 +25,8 @@ public class ModbusSettings implements java.io.Serializable {
     public ArrayList<String> removedItems;
     public DefaultListModel cm;
     public int numPowerScouts;
-    public String [] powerScoutIPs;
-    public String [] singleLoadIPs;
+    public String[] powerScoutIPs;
+    public String[] singleLoadIPs;
     public int numSingleLoads;
     public int[][] powerScoutsPanelType;
     public int[] singlePanelType;
@@ -36,14 +37,14 @@ public class ModbusSettings implements java.io.Serializable {
         for (int i = 0; i < powerScoutsPanelType.length; i++) {
             Arrays.fill(powerScoutsPanelType[i], 1);
         }
-        singlePanelType = new int [15];
+        singlePanelType = new int[15];
         Arrays.fill(singlePanelType, 1);
-        
+
         items = new HashMap<>();
-        removedItems = new ArrayList<>();   
+        removedItems = new ArrayList<>();
         powerScoutIPs = new String[10];
         singleLoadIPs = new String[15];
-        
+
         Arrays.fill(powerScoutIPs, "192.168.0.00");
         Arrays.fill(singleLoadIPs, "192.168.0.00");
 
@@ -86,8 +87,6 @@ public class ModbusSettings implements java.io.Serializable {
         }
         return true;
     }
-    
-    
 
     public void updateModbusSettings(ControlSettings cs) {
 
@@ -96,32 +95,28 @@ public class ModbusSettings implements java.io.Serializable {
 
         removedItems = new ArrayList<>();
         // Go through the old hashmap and remove any items not in the new list
-        
+
         for (String key : items.keySet()) {
-            if(!modelList.contains(key)){
+            if (!modelList.contains(key)) {
                 //System.out.println("New list doesnt contain " + key);
                 removedItems.add(key);
             }
         }
-        
-        for(String s: removedItems){
+
+        for (String s : removedItems) {
             items.remove(s);
         }
-              
+
         // With the current list we now update the Map
         // To default, all items will be false
-        
-        
         if (!modelList.isEmpty()) {
             for (String st : modelList) {
-                if (!items.containsKey(st)) {                    
+                if (!items.containsKey(st)) {
                     items.put(st, new Sensor());
                 }
             }
         }
     }
-    
-    
 
     public void updateKey(String key, boolean used, int meter, int slave, int register, boolean powerScout) {
 
@@ -140,43 +135,42 @@ public class ModbusSettings implements java.io.Serializable {
         }
 
     }
-    
+
     /**
-     * Remove all keys that are part of that meter
-     * for the power scouts
-     * @param meter 
+     * Remove all keys that are part of that meter for the power scouts
+     *
+     * @param meter
      */
-    public void clearKeys(int meter){
-                
-        for(Entry<String, Sensor> entry: items.entrySet()){
+    public void clearKeys(int meter) {
+
+        for (Entry<String, Sensor> entry : items.entrySet()) {
             Sensor s = entry.getValue();
-            if(s.isPowerScout() && s.getMeter() == meter){               
+            if (s.isPowerScout() && s.getMeter() == meter) {
                 s.removeKey();
-                items.replace(entry.getKey(), s);                
+                items.replace(entry.getKey(), s);
             }
-            
+
         }
     }
-    
-    
+
     /**
-     * remove all keys that are part of that meter
-     * for the single loads
-     * @param meter 
+     * remove all keys that are part of that meter for the single loads
+     *
+     * @param meter
      */
-    public void clearSingleKeys(int meter){
-                
+    public void clearSingleKeys(int meter) {
+
         // Meter is actually powerScouts + meter
-        if(meter <= getNumPowerScouts()){
+        if (meter <= getNumPowerScouts()) {
             meter += getNumPowerScouts();
         }
-        for(Entry<String, Sensor> entry: items.entrySet()){
+        for (Entry<String, Sensor> entry : items.entrySet()) {
             Sensor s = entry.getValue();
-            if(!s.isPowerScout() && s.getMeter() == meter){               
+            if (!s.isPowerScout() && s.getMeter() == meter) {
                 s.removeKey();
-                items.replace(entry.getKey(), s);                
+                items.replace(entry.getKey(), s);
             }
-            
+
         }
     }
 
@@ -204,8 +198,8 @@ public class ModbusSettings implements java.io.Serializable {
     public boolean checkKey(String key) {
         return items.get(key).isUsed();
     }
-    
-    public Sensor getSensorForKey(String key){
+
+    public Sensor getSensorForKey(String key) {
         return items.get(key);
     }
 
@@ -264,32 +258,32 @@ public class ModbusSettings implements java.io.Serializable {
     public String[] getPowerScoutIPs() {
         return powerScoutIPs;
     }
-    
-    public String getPowerScoutIPIndex(int index){
+
+    public String getPowerScoutIPIndex(int index) {
         return powerScoutIPs[index];
     }
 
     public void setPowerScoutIPs(String[] powerScoutIPs) {
         this.powerScoutIPs = powerScoutIPs;
     }
-    
-    public void setPowerScoutIP(String ip, int index){
+
+    public void setPowerScoutIP(String ip, int index) {
         this.powerScoutIPs[index] = ip;
     }
 
     public String[] getSingleLoadIPs() {
         return singleLoadIPs;
     }
-    
-    public String getSingleLoadIPIndex(int index){
+
+    public String getSingleLoadIPIndex(int index) {
         return singleLoadIPs[index];
     }
 
     public void setSingleLoadIPs(String[] singleLoadIPs) {
         this.singleLoadIPs = singleLoadIPs;
     }
-    
-     public void setSingleLoadIP(String ip, int index){
+
+    public void setSingleLoadIP(String ip, int index) {
         this.singleLoadIPs[index] = ip;
     }
 
@@ -308,9 +302,6 @@ public class ModbusSettings implements java.io.Serializable {
     public void setSinglePanelType(int[] singlePanelType) {
         this.singlePanelType = singlePanelType;
     }
-    
-    
-    
 
     public ArrayList<String> getList() {
         return modelList;
@@ -327,8 +318,7 @@ public class ModbusSettings implements java.io.Serializable {
     public void setPanelType(int[] panelType) {
         this.singlePanelType = panelType;
     }
-    
-    
+
     public int[][] getPanelType() {
         return powerScoutsPanelType;
     }
@@ -358,7 +348,7 @@ public class ModbusSettings implements java.io.Serializable {
     }
 
     public int getNumPowerScouts() {
-        
+
         return numPowerScouts;
     }
 
@@ -373,27 +363,42 @@ public class ModbusSettings implements java.io.Serializable {
     public void setNumSingleLoads(int numSingleLoads) {
         this.numSingleLoads = numSingleLoads;
     }
-    
-    public List<String> activeMeters(String sn){
-        
-        Map<String, String> list = new HashMap<>();
-        
-        for(Sensor s: items.values()){
-            if(s.getMeter() > -1 && !list.containsKey(String.valueOf(s.getMeter()))){
+
+    public List<String> meterNames(String sn) {
+
+        List<String> list = new ArrayList<>();
+        for (Sensor s : items.values()) {
+            if (s.getMeter() > -1) {
                 String name = sn + " ";
                 name += "- Meter ";
                 name += String.valueOf(s.getMeter() + 1);
                 name += "(" + (s.isPowerScout() ? "PS) " : "SS) ");
-                name += "," + (s.isPowerScout() ? getPowerScoutIPIndex(s.getMeter()): getSingleLoadIPIndex(s.getMeter() - numPowerScouts));
+                if (!list.contains(name)) {
+                    list.add(name);                    
+                }                
+            }
+        }
+        Collections.sort(list);        
+        return list;
+    }
+
+    public List<String> activeMeters(String sn) {
+
+        Map<String, String> list = new HashMap<>();
+
+        for (Sensor s : items.values()) {
+            if (s.getMeter() > -1 && !list.containsKey(String.valueOf(s.getMeter()))) {
+                String name = sn + " ";
+                name += "- Meter ";
+                name += String.valueOf(s.getMeter() + 1);
+                name += "(" + (s.isPowerScout() ? "PS) " : "SS) ");
+                name += "," + (s.isPowerScout() ? getPowerScoutIPIndex(s.getMeter()) : getSingleLoadIPIndex(s.getMeter() - numPowerScouts));
                 list.put(String.valueOf(s.getMeter()), name);
             }
         }
-        
+
         // Returns a list of the strings
-        return list.values() instanceof List ? (List) list.values(): new ArrayList(list.values());
+        return list.values() instanceof List ? (List) list.values() : new ArrayList(list.values());
     }
-    
-            
-    
 
 }

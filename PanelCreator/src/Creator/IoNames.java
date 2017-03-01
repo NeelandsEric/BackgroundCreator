@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -486,10 +487,31 @@ public class IoNames implements java.io.Serializable {
         return vars;
 
     }
+    
+    
+    public List<String> fullModbusStrings(ControlSettings cs, TreeMap<String, List<String>> modbusOriginal){
+        
+        List<String> newList = new ArrayList<>();
+        Map<String, List<String>> mapFull = mapFullStrings(cs);
+        
+        for(Entry<String, List<String>> entry: modbusOriginal.entrySet()){            
+            //System.out.println("Looking at device type: " + entry.getKey());            
+            for(String unmappedString: entry.getValue()){
+                if(mapFull.containsKey(unmappedString)){
+                    // Add each string for this unmapped type to the list
+                    for(String ss: mapFull.get(unmappedString)){
+                        newList.add(ss);
+                    }
+                }
+            }   
+        }
+        return newList;
+        
+    }
 
-    public Map<String, List> mapFullStrings(ControlSettings cs) {
+    public Map<String, List<String>> mapFullStrings(ControlSettings cs) {
 
-        Map<String, List> mappings = new TreeMap<>();
+        Map<String, List<String>> mappings = new TreeMap<>();
 
         int numfans, numsg, numcomp, numsys;
         String newString, orgString;
@@ -724,7 +746,6 @@ public class IoNames implements java.io.Serializable {
                 }
                 mappings.get(orgString).add(newString);
             }
-
         }
 
         return mappings;

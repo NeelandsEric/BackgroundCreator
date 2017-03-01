@@ -22,7 +22,7 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
 
     private TaskManagerPanel parent;
     private Map<String, Integer> gv;
-    private Map<String, List> mappings;
+    private Map<String, List<String>> mappings;
     private Map<String, String> gv_links;     // (String, String) - Generic variable name, Single Link
     private DefaultListModel gvList;
     private DefaultListModel unformattedList;
@@ -32,7 +32,7 @@ public class GenericVariablesFrame extends javax.swing.JFrame {
     /**
      * Creates new form GenericVariablesFrame
      */
-    public GenericVariablesFrame(Map<String, Integer> gv, Map<String, List> mappings, Map<String, String> gv_links, TaskManagerPanel parent) {
+    public GenericVariablesFrame(Map<String, Integer> gv, Map<String, List<String>> mappings, Map<String, String> gv_links, TaskManagerPanel parent) {
 
         this.gv = gv;
         this.mappings = mappings;

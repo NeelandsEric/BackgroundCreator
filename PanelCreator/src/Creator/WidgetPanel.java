@@ -74,6 +74,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     private int stationID;
     private TreeModel treeModel;
     private DBConn db;
+    private String stationName;
 
     long holderNum;                                         // Used to change the holder variables
 
@@ -94,6 +95,7 @@ public class WidgetPanel extends javax.swing.JPanel {
     public WidgetPanel(MainFrame mf, ControlSettings cs, WidgetSettings ws) {
         this.mf = mf;
         this.cs = cs;
+        this.stationName = "";
         this.widgetList = new TreeMap<>();
         this.ws = ws;
         holderNum = Instant.now().toEpochMilli();
@@ -154,11 +156,12 @@ public class WidgetPanel extends javax.swing.JPanel {
         this.ws.wpl = wpl;
     }
 
-    public void setImportedIoVariables(Map<String, Integer> newIo, int stationId) {
+    public void setImportedIoVariables(Map<String, Integer> newIo, int stationId, String stationName) {
         if (importedIOVariables != null && !importedIOVariables.isEmpty()) {
             importedIOVariables.clear();
         }
         this.stationID = stationId;
+        this.stationName = stationName;
         importedIOVariables = newIo;
         _Button_CreateImports.setEnabled(true);
         _Label_Loaded.setText("Loaded File!");
@@ -2332,7 +2335,7 @@ public class WidgetPanel extends javax.swing.JPanel {
 
             fs.close();
 
-            mf.loadImportedIos(importedIOVariables, 1, stationID);
+            mf.loadImportedIos(importedIOVariables, 1, stationID, stationName);
 
         } catch (Exception e) {
             System.out.println("Error reading excel file " + e.getMessage());

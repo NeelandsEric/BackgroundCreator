@@ -29,7 +29,7 @@ import javax.swing.text.JTextComponent;
 public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
 
     private TaskManagerPanel parentPanel;           // Return a list to this panel
-    private Map<String, List> formattedIoNames;     // Cond `%rackname` links to a list -> Cond Rack A, Cond Rack B, etc
+    private Map<String, List<String>> formattedIoNames;     // Cond `%rackname` links to a list -> Cond Rack A, Cond Rack B, etc
     private ParadoxKeyMap paradoxKeyMap;            // Paradox key map  key: 'Rack A/Cnd/COP2COT' value=2942
     private Map<String, String> paradoxLinkMap;  // Custom links, linking an IO string "Cond `%rackname` Outlet Temp" to the paradox name "~RackA\Cnd\OAT Measure"
     private Map<String, String> customMappings;
@@ -37,7 +37,7 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
     /**
      * Creates new form ChooseParadoxLinksFrame
      */
-    public ChooseParadoxLinksFrame(Map<String, List> formattedIoNames, 
+    public ChooseParadoxLinksFrame(Map<String, List<String>> formattedIoNames, 
             Map<String, String> knownParadoxLinks, ParadoxKeyMap paradoxKeyMap,
             Map<String, String> customMappings, TaskManagerPanel parentPanel) {
 
@@ -535,10 +535,10 @@ public class ChooseParadoxLinksFrame extends javax.swing.JFrame {
         if (!searchItem.equals("")) {
             // Check similar paradox fields
             DefaultListModel dm = new DefaultListModel();
-            for(Entry<String, List> entry: formattedIoNames.entrySet()){
+            for(Entry<String, List<String>> entry: formattedIoNames.entrySet()){
                 if(entry.getKey().contains(searchItem)){
-                    for(Object val: entry.getValue()){
-                        dm.addElement(val.toString());
+                    for(String val: entry.getValue()){
+                        dm.addElement(val);
                     }
                 }
             }

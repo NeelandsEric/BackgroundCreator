@@ -19,6 +19,7 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.TreeMap;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import static org.apache.commons.io.FilenameUtils.removeExtension;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -48,6 +49,9 @@ public class ModbusPanel extends javax.swing.JPanel {
     private ArrayList<String> fanPanelStr;
     private Map<String, Integer> importedIOVariables;       // io_name,io_id
     private int stationID;
+    private String stationName;
+    private DBConn db;
+    private List<Object[]> daemons;
 
     /**
      * Creates new form ModbusPanel
@@ -59,6 +63,7 @@ public class ModbusPanel extends javax.swing.JPanel {
         initComponents();
         this.mf = mf;
         this.mb = mb;
+        this.db = null;
         this.stationID = -1;
         this.readModbusFile();
         ipValidator = new IPAddressValidator();
@@ -101,7 +106,6 @@ public class ModbusPanel extends javax.swing.JPanel {
 
         this.mb = mb;
         int panelType;
-
         _FTF_NumPowerScouts.setText(String.valueOf(mb.getNumPowerScouts()));
         powerScoutPanels = (ArrayList<MeterPanel>[]) new ArrayList[10];
         for (int i = 0; i < 10; i++) {
@@ -185,15 +189,38 @@ public class ModbusPanel extends javax.swing.JPanel {
             }
         }
 
+        TreeMap<String, List<String>> modbusStrings = new TreeMap<>();
+        modbusStrings.put("Rack", new ArrayList<>());
+        modbusStrings.put("Compressor", new ArrayList<>());
+        modbusStrings.put("PumpSkid", new ArrayList<>());
+        modbusStrings.put("FanPanel", new ArrayList<>());
+
+        for (String s : rackStr) {
+            modbusStrings.get("Rack").add(s.split(",")[0]);
+        }
+        for (String s : compStr) {
+            modbusStrings.get("Compressor").add(s.split(",")[0]);
+        }
+        for (String s : pumpSkidStr) {
+            modbusStrings.get("PumpSkid").add(s.split(",")[0]);
+        }
+        for (String s : fanPanelStr) {
+            modbusStrings.get("FanPanel").add(s.split(",")[0]);
+        }
+
+        mf.setModbusStrings(modbusStrings);
+
     }
 
-    public void setImportedIoVariables(Map<String, Integer> newIo, int stationId) {
+    public void setImportedIoVariables(Map<String, Integer> newIo, int stationId, String stationName) {
         if (importedIOVariables != null && !importedIOVariables.isEmpty()) {
             importedIOVariables.clear();
         }
         this.stationID = stationId;
+        this.stationName = stationName;
         importedIOVariables = newIo;
         _Button_CreateImports.setEnabled(true);
+        addModbusToDB.setEnabled(true);
         _Label_Loaded.setText("Loaded File!");
     }
 
@@ -422,6 +449,7 @@ public class ModbusPanel extends javax.swing.JPanel {
         _Button_LoadXls = new javax.swing.JButton();
         _Label_Loaded = new javax.swing.JLabel();
         _Button_CreateImports = new javax.swing.JButton();
+        addModbusToDB = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         modbusExportStatus = new javax.swing.JTextArea();
 
@@ -560,7 +588,9 @@ public class ModbusPanel extends javax.swing.JPanel {
             }
         });
 
-        _Button_LoadXls.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        _Panel_ImportXLS.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        _Button_LoadXls.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         _Button_LoadXls.setText("LOAD EXPORT FILE");
         _Button_LoadXls.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -581,28 +611,40 @@ public class ModbusPanel extends javax.swing.JPanel {
             }
         });
 
+        addModbusToDB.setText("Add to DB");
+        addModbusToDB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addModbusToDBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout _Panel_ImportXLSLayout = new javax.swing.GroupLayout(_Panel_ImportXLS);
         _Panel_ImportXLS.setLayout(_Panel_ImportXLSLayout);
         _Panel_ImportXLSLayout.setHorizontalGroup(
             _Panel_ImportXLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, _Panel_ImportXLSLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(_Panel_ImportXLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(_Button_CreateImports, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(_Button_LoadXls, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-                    .addComponent(_Label_Loaded, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(46, 46, 46))
+            .addGroup(_Panel_ImportXLSLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(_Panel_ImportXLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(_Button_CreateImports, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                    .addGroup(_Panel_ImportXLSLayout.createSequentialGroup()
+                        .addComponent(_Button_LoadXls, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addModbusToDB, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(_Label_Loaded, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         _Panel_ImportXLSLayout.setVerticalGroup(
             _Panel_ImportXLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(_Panel_ImportXLSLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(_Button_LoadXls, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(_Panel_ImportXLSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(_Button_LoadXls, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addModbusToDB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(_Label_Loaded, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(_Button_CreateImports, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         modbusExportStatus.setColumns(20);
@@ -690,7 +732,7 @@ public class ModbusPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(_Panel_ImportXLS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(_TF_PowerScoutIP, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -858,18 +900,27 @@ public class ModbusPanel extends javax.swing.JPanel {
             String filePath = file.getAbsolutePath();
             readXFile(filePath);
             _Button_CreateImports.setEnabled(true);
+            addModbusToDB.setEnabled(true);
             _Label_Loaded.setText("Loaded File!");
 
         } else {
             System.out.println("File access cancelled by user.");
         }
-
-
     }//GEN-LAST:event__Button_LoadXlsActionPerformed
 
     private void _Button_CreateImportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__Button_CreateImportsActionPerformed
 
-        
+        if (stationID == -1) {
+            stationID = mf.stationId;
+            System.out.println("New ID: " + stationID);
+            if (stationID == -1) {
+                modbusExportStatus.append("Status: Cant add daemons, station ID not selected properly");
+                _Button_CreateImports.setEnabled(false);
+                addModbusToDB.setEnabled(false);
+                return;
+            }
+        }
+
         _FileChooser_IoFile.setDialogTitle("Save Modbus XLS File");
         _FileChooser_IoFile.setFileSelectionMode(JFileChooser.FILES_ONLY);
         _FileChooser_IoFile.setDialogType(JFileChooser.SAVE_DIALOG);
@@ -1014,6 +1065,203 @@ public class ModbusPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event__Button_CreateImportsActionPerformed
 
+    private void addModbusToDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addModbusToDBActionPerformed
+        // TODO add your handling code here:
+        if (stationID == -1) {
+            stationID = mf.stationId;
+            System.out.println("New ID: " + stationID);
+            if (stationID == -1) {
+                modbusExportStatus.append("Status: Cant add daemons, station ID not selected properly");
+                _Button_CreateImports.setEnabled(false);
+                addModbusToDB.setEnabled(false);
+                return;
+            }
+        }
+        if (checkDaemonsExist()) {
+            modbusExportStatus.append("\nStatus: Daemons already exist for Station ID " + stationID);
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogResult = JOptionPane.showConfirmDialog(this,
+                    "Would you like to delete and add the daemons again to " + stationName + " ID: " + stationID, "Confirm Delete All", dialogButton);
+
+            if (dialogResult == 0) {
+                String daemonIDS = "";
+                for (Object[] row : daemons) {
+                    if ((int) row[2] == stationID) {
+                        if(daemonIDS.equals("")){
+                            daemonIDS += String.valueOf(row[0]);
+                        }else {
+                            daemonIDS += "," + String.valueOf(row[0]);
+                        }
+                    }
+                }
+
+                db = newDBConn();
+                db.deleteDaemonsStationID(stationID, daemonIDS);
+                db.closeConn();
+                modbusExportStatus.append("\nStatus: Daemons deleted for Station ID " + stationID);
+                System.out.println("Deleted daemons for Station: " + stationName);
+            } else {
+                System.out.println("Not deleting/adding content");
+                return;
+            }
+        }
+
+        // Add the daemons, get the IDS then add to the cycles
+        String daemonQuery = "insert into modbus_daemons "
+                + "(daemon_name, daemon_ip_address, daemon_period,"
+                + " daemon_active, daemon_device_communication_status,"
+                + " daemon_communication_status_data_tag_id, daemon_port,"
+                + " daemon_idletime, daemon_station_id) values ";
+        String daemonValues = "";
+        List<String> ips = mb.activeMeters(mf.store.getStoreName());        
+        for (int i = 0; i < ips.size(); i++) {           
+            String valEntry = "(";
+            valEntry += "\'" + ips.get(i).split(",")[0] + "\'";
+            valEntry += ",\'" + ips.get(i).split(",")[1] + "\'";
+            valEntry += "," + "15000";
+            valEntry += "," + "1";
+            valEntry += "," + "1";
+            valEntry += ", \'" + "2812" + "\'";
+            valEntry += "," + "502";
+            valEntry += "," + "500";
+            valEntry += "," + mf.getStationId();
+            valEntry += ")";
+            if (!daemonValues.equals("")) {
+                daemonValues += ", " + valEntry;
+            } else {
+                daemonValues += valEntry;
+            }
+        }
+
+        String addDaemonsQuery = daemonQuery + daemonValues + ";";
+        //System.out.println(addDaemonsQuery);
+        // Add these daemons
+        db = newDBConn();
+        String returnString = db.executeQuery(addDaemonsQuery);
+        db.closeConn();
+        
+        if(!returnString.equals("Successfully inserted")){
+            System.out.println("Issue adding daemons: " + returnString);
+        }
+
+        String checkDaemons = "select daemon_id, daemon_name, daemon_station_id from modbus_daemons where daemon_station_id = " + stationID + ";";
+        db = newDBConn();
+        daemons = db.getModbusDaemons(checkDaemons);
+        db.closeConn();
+
+        // ------------------- Mappings ---------------------------
+        Map<String, List<String[]>> meterMappings = writeOutModbusSettings(mf.store.getCs());
+
+        String modbusCycles = "insert into modbus_cycles "
+                + "(cycle_name, cycle_slave, cycle_function, cycle_address,"
+                + " cycle_daemon_id, cycle_inputs, cycle_response_wait_time, "
+                + "cycle_type, cycle_data_type) values ";
+
+        String cyclesValues = "";
+        for (Entry<String, List<String[]>> entry : meterMappings.entrySet()) {
+            List<String[]> list = entry.getValue();
+            String meterName = entry.getKey();
+            int daemonID = -1;
+            // [0] daemon_id, [1] daemon_name, [2] daemon_station_id           
+            for (Object[] row : daemons) {                
+                if (row[1].toString().equals(meterName) && (int) row[2] == stationID) {
+                    daemonID = (int) row[0];
+                    break;
+                }
+            }
+            if (daemonID == -1) {
+                System.out.println("Would break here normally!");                
+            }
+            System.out.println("Meter ID [" + meterName + "] - " + daemonID);
+            
+            if (list.size() > 1) {
+                List<String[]> newList = formatList(list);
+                //  [0], [1],     [2],    [3],     [4],     [5],        [6],    [7], 
+                // name, inputs, slave, function, address, data type, response, cycle type
+                for (String[] r : newList) {
+                    // Skip headers
+                    if (r[0].equals("cycle_name")) {
+                        continue;
+                    }
+                    //System.out.println(Arrays.toString(r));
+                    String cycleVal = "";
+
+                    cycleVal += "(\'" + r[0] + "\'";
+                    cycleVal += ", " + r[2];
+                    cycleVal += ", " + r[3];
+                    cycleVal += ", " + r[4];
+                    cycleVal += ", " + String.valueOf(daemonID);
+                    cycleVal += ", \'" + r[1] + "\'";
+                    cycleVal += ", " + r[6];
+                    cycleVal += ", \'" + r[7] + "\'";
+                    cycleVal += ", \'" + r[5] + "\'";
+                    cycleVal += ")";
+
+                    if (!cyclesValues.equals("")) {
+                        cyclesValues += "," + cycleVal;
+                    } else {
+                        cyclesValues += cycleVal;
+                    }
+                }
+            }
+        }
+        String cycle_Query = modbusCycles + cyclesValues + ";";
+        //System.out.println(cycle_Query);
+        // Add these daemons
+        db = newDBConn();
+        returnString = db.executeQuery(cycle_Query);
+        db.closeConn();
+
+        if(returnString.equals("Successfully inserted")){
+            modbusExportStatus.append("\nStatus: Successfully added Modbus Data for " + stationID);
+        }
+
+    }//GEN-LAST:event_addModbusToDBActionPerformed
+
+    // -----------------------------------------------------------
+    //                  DB Stuff
+    // -----------------------------------------------------------
+    private boolean checkDaemonsExist() {
+        String query = "select daemon_id, daemon_name, daemon_station_id from modbus_daemons where daemon_station_id = " + stationID + " order by daemon_id;";
+
+        db = newDBConn();
+        daemons = db.getModbusDaemons(query);
+        db.closeConn();
+
+        boolean status = false;
+        // [0] daemon_id, [1] daemon_name, [2] daemon_station_id
+        for (Object[] daemon : daemons) {
+            if ((int) daemon[2] == stationID) {
+                status = true;
+                break;
+            }
+        }
+
+        return status;
+    }
+
+    private boolean checkDaemonCycleExist(int daemonCycle) {
+        String query = "select cycle_id, cycle_name, cycle_daemon_id from modbus_cycles where cycle_daemon_id = " + String.valueOf(daemonCycle) + ";";
+
+        db = newDBConn();
+        daemons = db.getModbusDaemons(query);
+        db.closeConn();
+
+        boolean status = false;
+        // [0] daemon_id, [1] daemon_name, [2] daemon_station_id
+        for (Object[] daemon : daemons) {
+            if ((int) daemon[2] == stationID) {
+                status = true;
+                break;
+            }
+        }
+
+        return status;
+    }
+
+    // -----------------------------------------------------------
+    //               END of DB Stuff
+    // -----------------------------------------------------------
     private List<String[]> formatList(List<String[]> list) {
 
         // Check positions for slave then register
@@ -1043,23 +1291,19 @@ public class ModbusPanel extends javax.swing.JPanel {
 
         Collections.sort(list, comp);
 
-       
         // Now that the list is sorted we can organize the specific slaves with
         // concurrent registers to be combined
         List<String[]> newList = new ArrayList<>();
         String currReg = null;
         String[] curr = null;
-        int cycleCounter = 1;
+
         for (String[] next : list) {
             //System.out.println(Arrays.toString(next));
             if (next[0].equals("cycle_name") || next[5].equals("L[HINT16]")) {
                 newList.add(next);
                 if (curr != null) {
-                    //curr[0] = "Cycle " + cycleCounter;
-                    cycleCounter++;
                     newList.add(curr);
                 }
-
                 curr = null;
 
             } else {
@@ -1077,9 +1321,7 @@ public class ModbusPanel extends javax.swing.JPanel {
                             currReg = next[4];
 
                         } else {
-                            // Add current
-                            //curr[0] = "Cycle " + cycleCounter;
-                            cycleCounter++;
+                            // Add current                            
                             newList.add(curr);
 
                             curr = next;
@@ -1087,9 +1329,7 @@ public class ModbusPanel extends javax.swing.JPanel {
                         }
 
                     } else {
-                        // New slave, add current and reset it
-                        //curr[0] = "Cycle " + cycleCounter;
-                        cycleCounter++;
+                        // New slave, add current and reset it                        
                         newList.add(curr);
 
                         curr = next;
@@ -1099,18 +1339,18 @@ public class ModbusPanel extends javax.swing.JPanel {
                 }
             }
         }
-        
-        if(newList.contains(curr)){
+
+        if (newList.contains(curr)) {
             System.out.println("New list already contains: " + Arrays.toString(curr));
-        }else {
-            System.out.println("Adding curr because it isnt part of the list...");
-            System.out.println(Arrays.toString(curr));
+        } else {
+            //System.out.println("Adding curr because it isnt part of the list...");
+            //System.out.println(Arrays.toString(curr));
             newList.add(curr);
-        }       
-               
+        }
+
         /*for(String[]s: newList){
-            System.out.println(Arrays.toString(s));
-        }*/
+         System.out.println(Arrays.toString(s));
+         }*/
         return newList;
     }
 
@@ -1216,7 +1456,7 @@ public class ModbusPanel extends javax.swing.JPanel {
             wb.close();
             fs.close();
 
-            mf.loadImportedIos(importedIOVariables, 3, stationID);
+            mf.loadImportedIos(importedIOVariables, 3, stationID, stationName);
 
         } catch (Exception e) {
             System.out.println("Error reading excel file " + e.getMessage());
@@ -1260,21 +1500,29 @@ public class ModbusPanel extends javax.swing.JPanel {
         String[] headers = new String[]{"cycle_name", "cycle_inputs", "cycle_slave", "cycle_function",
             "cycle_address", "cycle_data_type", "cycle_response_wait_time", "cycle_type"
         };
-
+        
+        List<String> meterNames = mb.meterNames(mf.store.getStoreName());
+        HashMap<String, String> actualMeterNames = new HashMap<>();
+        
         for (int i = 0; i < mb.getNumPowerScouts(); i++) {
-            meterMapping.put("PowerScout " + i, new ArrayList<>());
-            meterMapping.get("PowerScout " + i).add(headers);
+            
+            List<String[]> newList = new ArrayList<>();
+            newList.add(headers);
+            actualMeterNames.put("PowerScout " + i, meterNames.get(i));     
+            //System.out.println("added: " + "PowerScout " + i + " -> " + meterNames.get(i));
+            meterMapping.put(actualMeterNames.get("PowerScout " + i), newList);
         }
         for (int i = 0; i < mb.getNumSingleLoads(); i++) {
             int index = meterMapping.size();
-            meterMapping.put("SingleScout " + index, new ArrayList<>());
-            meterMapping.get("SingleScout " + index).add(headers);
+            List<String[]> newList = new ArrayList<>();
+            newList.add(headers);
+            actualMeterNames.put("SingleScout " + index, meterNames.get(index));         
+            //System.out.println("added: " + "SingleScout " + index + " -> " + meterNames.get(index));
+            meterMapping.put(actualMeterNames.get("SingleScout " + index), newList);           
         }
 
         String[] newString;
-
         int numsg, numcomp;
-
         Rack r;
         Sensor sensor;
         String rName, sgName;
@@ -1315,21 +1563,18 @@ public class ModbusPanel extends javax.swing.JPanel {
                         meterName = "PowerScout " + sensor.getMeter();
                     } else {
                         meterName = "SingleScout " + sensor.getMeter();
-                    }
-                    meterMapping.get(meterName).add(newString);
+                    } 
+                    meterMapping.get(actualMeterNames.get(meterName)).add(newString);
                 } else {
                     System.out.println("Did not add " + newString[0] + " because no sensor was linked");
                     modbusExportStatus.append("WARNING: Did not add " + newString[0] + " because no sensor was linked\n");
                 }
-
             }
-
             // SUCTION GROUPS
             numsg = r.getNumSuctionGroups();
             for (int sg = 0; sg < numsg; sg++) {
                 sucG = r.getSuctionGroupIndex(sg);
                 sgName = sucG.getName();
-
                 // do all suction groups
                 // COMPRESSORS
                 numcomp = sucG.getNumCompressors();
@@ -1346,7 +1591,6 @@ public class ModbusPanel extends javax.swing.JPanel {
                         //System.out.println("COMP - New string: " + Arrays.toString(newString) + "\tFrom old string: " + s);
                         //System.out.println(": " + Arrays.toString(newString) + "\tFrom old string: " + s);
                         key = rName + " " + sgName + " " + compName;
-
                         sensor = mb.getSensorForKey(key);
                         if (sensor != null && sensor.getSlave() != -1) {
                             newString[1] = newString[1].replace("`%io_id`", getIOForString(newString[0]));
@@ -1356,25 +1600,20 @@ public class ModbusPanel extends javax.swing.JPanel {
                                 meterName = "PowerScout " + sensor.getMeter();
                             } else {
                                 meterName = "SingleScout " + sensor.getMeter();
-                            }
-                            meterMapping.get(meterName).add(newString);
+                            }                            
+                            meterMapping.get(actualMeterNames.get(meterName)).add(newString);
                         } else {
                             System.out.println("Did not add " + newString[0] + " because no sensor was linked");
                         }
-
                     }
                 }
-
             }
         }
-
         // Glycol pump skid
         if (cs.isGlycolStore()) {
             for (String s : pumpSkidStr) {
-                newString = s.split(",");     
-                
+                newString = s.split(",");
                 key = "Glycol Pump Skid";
-                
                 sensor = mb.getSensorForKey(key);
                 if (sensor != null && sensor.getSlave() != -1) {
                     newString[1] = newString[1].replace("`%io_id`", getIOForString(newString[0]));
@@ -1384,15 +1623,13 @@ public class ModbusPanel extends javax.swing.JPanel {
                         meterName = "PowerScout " + sensor.getMeter();
                     } else {
                         meterName = "SingleScout " + sensor.getMeter();
-                    }
-                    meterMapping.get(meterName).add(newString);
+                    }                    
+                    meterMapping.get(actualMeterNames.get(meterName)).add(newString);
                 } else {
                     System.out.println("Did not add " + newString[0] + " because no sensor was linked");
                 }
-
             }
         }
-
         // Fan panels
         for (int i = 1; i <= cs.getNumFanPanels(); i++) {
 
@@ -1410,13 +1647,12 @@ public class ModbusPanel extends javax.swing.JPanel {
                         meterName = "PowerScout " + sensor.getMeter();
                     } else {
                         meterName = "SingleScout " + sensor.getMeter();
-                    }
-                    meterMapping.get(meterName).add(newString);
+                    }                    
+                    meterMapping.get(actualMeterNames.get(meterName)).add(newString);
                 } else {
                     System.out.println("Did not add " + newString[0] + " because no sensor was linked");
                 }
             }
-
         }
 
         // Now that we have the list, we have to replace the 
@@ -1430,7 +1666,7 @@ public class ModbusPanel extends javax.swing.JPanel {
             return "`%io_id`";
         } else {
             String io_id = String.valueOf(importedIOVariables.get(variableName));
-            if(io_id.equals("null")){
+            if (io_id.equals("null")) {
                 modbusExportStatus.append("WARNING: NO IO NAMED [" + variableName + "]. CONSIDER ADDING IT!!\n");
             }
             return io_id;
@@ -1451,6 +1687,28 @@ public class ModbusPanel extends javax.swing.JPanel {
 
         return String.valueOf(newVal);
     }
+
+    // -----------------------------------------------------------
+    //                  DB Stuff
+    //
+    // -----------------------------------------------------------
+    public DBConn newDBConn() {
+        if (db == null) {
+            return new DBConn();
+        } else if (!db.isConnOpened()) {
+            return new DBConn();
+        } else {
+            return db;
+        }
+    }
+
+    public void closeConn() {
+        if (db != null) {
+            db.closeConn();
+            db = null;
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton _Button_ClearMeterPower;
@@ -1475,6 +1733,7 @@ public class ModbusPanel extends javax.swing.JPanel {
     private javax.swing.JPanel _Panel_SingleLoads;
     private javax.swing.JTextField _TF_PowerScoutIP;
     private javax.swing.JTextField _TF_SingleLoadIP;
+    private javax.swing.JButton addModbusToDB;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea modbusExportStatus;
     // End of variables declaration//GEN-END:variables

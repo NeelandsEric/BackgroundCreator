@@ -9,10 +9,7 @@ import java.awt.AWTException;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,22 +17,16 @@ import java.io.InputStream;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.TreeMap;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.jfree.graphics2d.svg.SVGGraphics2D;
-import org.jfree.graphics2d.svg.SVGUtils;
 
 /**
  * Main frame is the main frame containing links to all other frames w
@@ -57,6 +48,7 @@ public class MainFrame extends JFrame {
     public XMLParser xmlParser;
     private final String homeDirectory;
     public int stationId;
+    public List<String> modbusStrings;
 
     /**
      * Creates new form MainFrame
@@ -88,7 +80,7 @@ public class MainFrame extends JFrame {
         ngPanel = new NameGeneratorPanel(this, store.getIoNames());
         mbPanel = new ModbusPanel(this, store.getMb());
         wgPanel = new WidgetPanel(this, store.getCs(), store.getWidgetSettings());
-        tmPanel = new TaskManagerPanel(this, store.getCs());
+        tmPanel = new TaskManagerPanel(this, store);
         displayFrame = new DisplayFrame(this, store.getCs(), store.getDs());
         displayFrame.setStopUpdate(true);
 
@@ -208,18 +200,18 @@ public class MainFrame extends JFrame {
 
     }
 
-    public void loadImportedIos(Map<String, Integer> importedIos, int caller, int stationId) {
+    public void loadImportedIos(Map<String, Integer> importedIos, int caller, int stationId, String stationName) {
         this.stationId = stationId;
         if (caller == 1) { // Widget panel call
             tmPanel.setImportedIoVariables(importedIos, stationId);
-            mbPanel.setImportedIoVariables(importedIos, stationId);
+            mbPanel.setImportedIoVariables(importedIos, stationId, stationName);
 
         } else if (caller == 2) { // task manager call
-            wgPanel.setImportedIoVariables(importedIos, stationId);
-            mbPanel.setImportedIoVariables(importedIos, stationId);
+            wgPanel.setImportedIoVariables(importedIos, stationId, stationName);
+            mbPanel.setImportedIoVariables(importedIos, stationId, stationName);
 
         } else if (caller == 3) { // modbus call
-            wgPanel.setImportedIoVariables(importedIos, stationId);
+            wgPanel.setImportedIoVariables(importedIos, stationId, stationName);
             tmPanel.setImportedIoVariables(importedIos, stationId);
 
         }
@@ -243,7 +235,7 @@ public class MainFrame extends JFrame {
 
     }
 
-    public Map<String, List> getMapFullStrings() {
+    public Map<String, List<String>> getMapFullStrings() {
 
         return this.store.ioNames.mapFullStrings(this.store.getCs());
 
@@ -1079,12 +1071,16 @@ public class MainFrame extends JFrame {
         }
     }//GEN-LAST:event__MenuItem_SaveAllActionPerformed
 
+    
+    public void setModbusStrings(TreeMap<String, List<String>> modbusStr){        
+        modbusStrings = store.ioNames.fullModbusStrings(store.getCs(), modbusStr);
+        
+    }
+    
     private void _MenuItem_PrintSpecificNamesXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__MenuItem_PrintSpecificNamesXActionPerformed
-        // TODO add your handling code here:
-        
-        ioFrame = new ChooseIoNamesFrame(store.formatStrings(), this);
-        ioFrame.setVisible(true);
-        
+        // TODO add your handling code here:        
+        ioFrame = new ChooseIoNamesFrame(store.formatStrings(), modbusStrings, this);
+        ioFrame.setVisible(true);        
     }//GEN-LAST:event__MenuItem_PrintSpecificNamesXActionPerformed
 
     
